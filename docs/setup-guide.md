@@ -18,3 +18,19 @@ Create a new workspace in the root folder of the repository
 `npx create-nx-workspace@latest webstore`
 
 Add docs explaning the setup of the workspace
+
+### Java Project setup
+*[guide](https://www.linkedin.com/pulse/integrating-spring-boot-application-inside-nx-workspace-tine-kondo/)* \
+Install a dependancy for Java and Spring 
+`npm install --save-dev @nxrocks/nx-spring-boot`
+It seems like the dependancy uninstalls the nx-cloud one, so we install it again
+`npm install --save-dev @nrwl/nx-cloud`
+
+Generate a Java app
+`nx g @nxrocks/nx-spring-boot:app api` \
+When prompted to, choose **Maven**, **Jar**, **Java 11** and **Java**. \
+GroupId is your domain, in our case it's **dk.treecreate** \
+ArtifactId is the name of the app, **api** \
+For the package name, we combine the domain and the app name **dk.treecreate.api** \
+Description is quite self explanatory \
+For the dependancies we don't pass anything, and we will simply add them by hand. Why? Because I'm lazy and this is less error-prone
