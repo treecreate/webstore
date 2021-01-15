@@ -34,3 +34,11 @@ ArtifactId is the name of the app, **api** \
 For the package name, we combine the domain and the app name **dk.treecreate.api** \
 Description is quite self explanatory \
 For the dependancies we don't pass anything, and we will simply add them by hand. Why? Because I'm lazy and this is less error-prone
+
+### Angular Project Setup
+Install a schematic for Angular `npm install --save-dev @nrwl/angular`
+
+Generate a Angular app `nx generate @nrwl/angular:app webstore` \
+When prompted to, choose the following: \
+Stylesheet format: **CSS** \
+Router: **Yes** *(We will need it in the future anyway, might as well add it)*
