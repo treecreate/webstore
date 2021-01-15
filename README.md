@@ -1,90 +1,108 @@
-# Webstore
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/treecreate/webstore">
+    <img src="assets/treecreate_logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-This project was generated using [Nx](https://nx.dev).
+  <h3 align="center">Treecreate Webstore</h3>
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+  <p align="center">
+    A web store where you can design and buy your own family tree, engraved in wood with a laser
+    <br />
+    <a href="https://github.com/treecreate/webstore/docs"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    ·
+    <a href="https://github.com/treecreate/webstore/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/treecreate/webstore/issues">Request Feature</a>
+    ·
+  </p>
+</p>
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
-## Adding capabilities to your workspace
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [License](#license)
+* [Contact](#contact)
 
-Below are our core plugins:
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+<!-- ABOUT THE PROJECT -->
+## About The Project
+Treecreate webstore is a monorepo consiting of multiple apps working together
 
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
+Key points
+* An api built with Java Springboot, with MySQL for persistance
+* A frontend app built with Angular
+* All apps are contained within a NX monorepo for easy management
 
-## Generate an application
+This project is an improved version of our [previous repository](https://github.com/Kwandes/treecreate), with the frontend and backend split into seperate apps.
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+### Built With
+* [NX](https://nx.dev/) - a modern mono-repo generation and management tool
+* [Java Springboot](https://spring.io/projects/spring-boot) and a [NX schematic for it](https://github.com/tinesoft/nxrocks/tree/develop/packages/nx-spring-boot)
+* [Angular](https://angular.io/)
 
-> You can use any of the plugins above to generate applications as well.
+<!-- GETTING STARTED -->
+## Getting Started
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+The repository is made as a monorepo using NX. The applications are located in the /apps directory
 
-## Generate a library
+### Prerequisites
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+* npm
+```sh
+npm install npm@latest -g
+```
+* nx
+```sh
+npm install nx
+```
 
-> You can also use any of the plugins above to generate libraries as well.
+Commits are made with `git-cz`, a wrapper for `git commit`
+```shell
+npm install -g commitizen git-cz
+commitizen init git-cz --save-dev --save-exact
+```
+_If you install it locally, you will have to use `npx git cz` instead_
 
-Libraries are sharable across libraries and applications. They can be imported from `@webstore/mylib`.
+### Installation
 
-## Development server
+1. Clone the repo
+```sh
+git clone https://github.com/treecreate/webstore.git
+```
+2. Install NPM packages
+```sh
+npm install
+```
+3. Serve the apps via NX
+*some of the apps require extra environment setup*
+```
+nx serve api
+nx serve webstore
+```
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+<!-- CONTACT -->
+## Contact
 
-## Code scaffolding
+Email: info@treecreate.dk\
+[Facebook](https://www.facebook.com/TreeCreate.dk)\
+[Instagram](https://www.instagram.com/treecreate.dk)
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+<!-- LICENSE -->
+## License
 
-## Build
+Distributed under the MIT License. See `LICENSE` for more information.
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-## ☁ Nx Cloud
-
-### Computation Memoization in the Cloud
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[product-screenshot]: assets/screenshot.gif
