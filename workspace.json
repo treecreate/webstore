@@ -1,0 +1,192 @@
+{
+  "version": 2,
+  "projects": {
+    "api": {
+      "projectType": "application",
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "targets": {
+        "run": {
+          "executor": "@nxrocks/nx-spring-boot:run",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "serve": {
+          "executor": "@nxrocks/nx-spring-boot:serve",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "buildJar": {
+          "executor": "@nxrocks/nx-spring-boot:buildJar",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "buildWar": {
+          "executor": "@nxrocks/nx-spring-boot:buildWar",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "buildImage": {
+          "executor": "@nxrocks/nx-spring-boot:buildImage",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "buildInfo": {
+          "executor": "@nxrocks/nx-spring-boot:buildInfo",
+          "options": {
+            "root": "apps/api"
+          }
+        }
+      }
+    },
+    "webstore": {
+      "projectType": "application",
+      "root": "apps/webstore",
+      "sourceRoot": "apps/webstore/src",
+      "prefix": "webstore",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/webstore",
+            "index": "apps/webstore/src/index.html",
+            "main": "apps/webstore/src/main.ts",
+            "polyfills": "apps/webstore/src/polyfills.ts",
+            "tsConfig": "apps/webstore/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/webstore/src/favicon.ico",
+              "apps/webstore/src/assets"
+            ],
+            "styles": [
+              "apps/webstore/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/webstore/src/environments/environment.ts",
+                  "with": "apps/webstore/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "webstore:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "webstore:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "webstore:build"
+          }
+        },
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/webstore/tsconfig.app.json",
+              "apps/webstore/tsconfig.spec.json",
+              "apps/webstore/tsconfig.editor.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/webstore/**/*"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/webstore"
+          ],
+          "options": {
+            "jestConfig": "apps/webstore/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "webstore-e2e": {
+      "root": "apps/webstore-e2e",
+      "sourceRoot": "apps/webstore-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/webstore-e2e/cypress.json",
+            "tsConfig": "apps/webstore-e2e/tsconfig.e2e.json",
+            "devServerTarget": "webstore:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "webstore:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/webstore-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/webstore-e2e/**/*"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  }
+}
