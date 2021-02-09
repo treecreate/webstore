@@ -7,7 +7,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx run-many --all --target=test",
-    "lint": "nx workspace-lint && nx lint",
+    "lint": "nx workspace-lint && nx run-many --target=lint --all=true",
     "e2e": "nx e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
@@ -46,14 +46,16 @@
     "@angular/language-service": "^11.0.0",
     "@nrwl/angular": "^11.1.5",
     "@nrwl/cli": "11.1.5",
+    "@nrwl/cypress": "11.1.5",
     "@nrwl/jest": "11.1.5",
     "@nrwl/nx-cloud": "^11.0.1",
     "@nrwl/tao": "11.1.5",
     "@nrwl/workspace": "11.1.5",
-    "@nxrocks/nx-spring-boot": "^1.2.1",
+    "@nxrocks/nx-spring-boot": "^1.3.1",
     "@types/jest": "26.0.8",
     "@types/node": "12.12.38",
     "codelyzer": "^6.0.0",
+    "cypress": "^6.0.1",
     "dotenv": "6.2.0",
     "eslint": "7.10.0",
     "jest": "26.2.2",
@@ -62,8 +64,6 @@
     "ts-jest": "26.4.0",
     "ts-node": "~9.1.1",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.3",
-    "cypress": "^6.0.1",
-    "@nrwl/cypress": "11.1.5"
+    "typescript": "~4.0.3"
   }
 }
