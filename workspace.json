@@ -18,6 +18,18 @@
             "root": "apps/api"
           }
         },
+        "test": {
+          "executor": "@nxrocks/nx-spring-boot:test",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "clean": {
+          "executor": "@nxrocks/nx-spring-boot:clean",
+          "options": {
+            "root": "apps/api"
+          }
+        },
         "buildJar": {
           "executor": "@nxrocks/nx-spring-boot:buildJar",
           "options": {
@@ -63,9 +75,7 @@
               "apps/webstore/src/favicon.ico",
               "apps/webstore/src/assets"
             ],
-            "styles": [
-              "apps/webstore/src/styles.css"
-            ],
+            "styles": ["apps/webstore/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -123,17 +133,12 @@
               "apps/webstore/tsconfig.spec.json",
               "apps/webstore/tsconfig.editor.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/webstore/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/webstore/**/*"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/webstore"
-          ],
+          "outputs": ["coverage/apps/webstore"],
           "options": {
             "jestConfig": "apps/webstore/jest.config.js",
             "passWithNoTests": true
@@ -162,13 +167,8 @@
         "lint": {
           "executor": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/webstore-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/webstore-e2e/**/*"
-            ]
+            "tsConfig": ["apps/webstore-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/webstore-e2e/**/*"]
           }
         }
       }
