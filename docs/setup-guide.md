@@ -1,31 +1,37 @@
 # Project Setup
+
 This file describes the setup process of the repository, with the commands and steps needed to succesffuly recreate it
 
 ## General information
+
 The repository is part of a Treecreate organization.\
 It utilizes Github Project, Issues and pull requests for task management.\
 Commits are made using [git-cz](https://github.com/streamich/git-cz), which replaces `git commit` and provides extra structure for making commits.\
 This is used in combination with [semantic-release](https://github.com/semantic-release/semantic-release), which handles automatic creation of releasses
 To use **git cz**, you have to install it globally with
+
 ```shell
 npm install -g commitizen
 npm install -g git-cz
 commitizen init git-cz --save-dev --save-exact
 ```
+
 If you install it locally, you will have to use `npx git cz` instead
 
 For managing the monorepo, we use [NX](https://github.com/nrwl/nx).\
 Install it with `npm install -g nx` _(or install it locally and use it with `npx nx ...`)_
 
 ## Workspace setup
+
 Create a new workspace within the root folder of the repository
 Run `npx create-nx-workspace@latest webstore` from outside of the repository root directory _(it will create the workspace within the webstore directory)_
 
 Add docs explaning the setup of the workspace
 
 ### Java Project setup
-*[guide](https://www.linkedin.com/pulse/integrating-spring-boot-application-inside-nx-workspace-tine-kondo/)* \
-Install a dependancy for Java and Spring 
+
+_[guide](https://www.linkedin.com/pulse/integrating-spring-boot-application-inside-nx-workspace-tine-kondo/)_ \
+Install a dependancy for Java and Spring
 `npm install --save-dev @nxrocks/nx-spring-boot`
 It seems like the dependancy uninstalls the nx-cloud one, so we install it again
 `npm install --save-dev @nrwl/nx-cloud`
@@ -40,9 +46,10 @@ Description is quite self explanatory \
 For the dependancies we don't pass anything, and we will simply add them by hand. Why? Because I'm lazy and this is less error-prone
 
 ### Angular Project Setup
+
 Install a schematic for Angular `npm install --save-dev @nrwl/angular`
 
 Generate a Angular app `nx generate @nrwl/angular:app webstore` \
 When prompted to, choose the following: \
 Stylesheet format: **CSS** \
-Router: **Yes** *(We will need it in the future anyway, might as well add it)*
+Router: **Yes** _(We will need it in the future anyway, might as well add it)_

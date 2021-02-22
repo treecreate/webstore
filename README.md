@@ -21,78 +21,92 @@
   </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [License](#license)
-* [Contact](#contact)
-
+- [About the Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [License](#license)
+- [Contact](#contact)
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
+
 Treecreate webstore is a monorepo consiting of multiple apps working together
 
 Key points
-* An api built with Java Springboot, with MySQL for persistance
-* A frontend app built with Angular
-* All apps are contained within a NX monorepo for easy management
+
+- An api built with Java Springboot, with MySQL for persistance
+- A frontend app built with Angular
+- All apps are contained within a NX monorepo for easy management
 
 This project is an improved version of our [previous repository](https://github.com/Kwandes/treecreate), with the frontend and backend split into seperate apps.
 
 ### Built With
-* [NX](https://nx.dev/) - a modern mono-repo generation and management tool
-* [Java Springboot](https://spring.io/projects/spring-boot) and a [NX schematic for it](https://github.com/tinesoft/nxrocks/tree/develop/packages/nx-spring-boot)
-* [Angular](https://angular.io/)
+
+- [NX](https://nx.dev/) - a modern mono-repo generation and management tool
+- [Java Springboot](https://spring.io/projects/spring-boot) and a [NX schematic for it](https://github.com/tinesoft/nxrocks/tree/develop/packages/nx-spring-boot)
+- [Angular](https://angular.io/)
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 The repository is made as a monorepo using NX. The applications are located in the /apps directory
 
 ### Prerequisites
 
-* npm
+- npm
+
 ```sh
 npm install npm@latest -g
 ```
-* nx
+
+- nx
+
 ```sh
 npm install nx
 ```
 
 Commits are made with `git-cz`, a wrapper for `git commit`
+
 ```shell
 npm install -g commitizen
 npm install -g git-cz
 commitizen init git-cz --save-dev --save-exact
 ```
+
 _If you install it locally, you will have to use `npx git cz` instead_
 
 ### Installation
 
 1. Clone the repo
+
 ```sh
 git clone https://github.com/treecreate/webstore.git
 ```
+
 2. Install NPM packages
+
 ```sh
 npm install
 ```
+
 3. Serve the apps via NX
-*some of the apps require extra environment setup*
+   _some of the apps require extra environment setup_
+
 ```
 nx serve api
 nx serve webstore
 ```
 
 <!-- CONTACT -->
+
 ## Contact
 
 Email: info@treecreate.dk\
@@ -100,10 +114,12 @@ Email: info@treecreate.dk\
 [Instagram](https://www.instagram.com/treecreate.dk)
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [product-screenshot]: assets/screenshot.gif
