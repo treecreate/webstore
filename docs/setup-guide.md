@@ -8,14 +8,18 @@ Commits are made using [git-cz](https://github.com/streamich/git-cz), which repl
 This is used in combination with [semantic-release](https://github.com/semantic-release/semantic-release), which handles automatic creation of releasses
 To use **git cz**, you have to install it globally with
 ```shell
-npm install -g commitizen git-cz
+npm install -g commitizen
+npm install -g git-cz
 commitizen init git-cz --save-dev --save-exact
 ```
 If you install it locally, you will have to use `npx git cz` instead
 
+For managing the monorepo, we use [NX](https://github.com/nrwl/nx).\
+Install it with `npm install -g nx` _(or install it locally and use it with `npx nx ...`)_
+
 ## Workspace setup
-Create a new workspace in the root folder of the repository
-`npx create-nx-workspace@latest webstore`
+Create a new workspace within the root folder of the repository
+Run `npx create-nx-workspace@latest webstore` from outside of the repository root directory _(it will create the workspace within the webstore directory)_
 
 Add docs explaning the setup of the workspace
 

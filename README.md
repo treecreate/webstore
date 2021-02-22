@@ -69,7 +69,8 @@ npm install nx
 
 Commits are made with `git-cz`, a wrapper for `git commit`
 ```shell
-npm install -g commitizen git-cz
+npm install -g commitizen
+npm install -g git-cz
 commitizen init git-cz --save-dev --save-exact
 ```
 _If you install it locally, you will have to use `npx git cz` instead_
