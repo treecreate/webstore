@@ -70,7 +70,7 @@ npm install npm@latest -g
 - nx
 
 ```sh
-npm install nx
+npm install -g nx
 ```
 
 Commits are made with `git-cz`, a wrapper for `git commit`
