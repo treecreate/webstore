@@ -37,7 +37,7 @@
 
 ## About The Project
 
-Treecreate webstore is a monorepo consiting of multiple apps working together
+Treecreate webstore is a monorepo consisting of multiple apps working together
 
 Key points
 
@@ -45,7 +45,7 @@ Key points
 - A frontend app built with Angular
 - All apps are contained within a NX monorepo for easy management
 
-This project is an improved version of our [previous repository](https://github.com/Kwandes/treecreate), with the frontend and backend split into seperate apps.
+This project is an improved version of our [previous repository](https://github.com/Kwandes/treecreate), with the frontend and backend split into separate apps.
 
 ### Built With
 
