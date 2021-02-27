@@ -1,6 +1,8 @@
 name: Format CI
+
 on:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   format:
@@ -11,10 +13,12 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
       - run: git fetch --no-tags --prune --depth=5 origin ${{ github.event.pull_request.base.ref }}
       - run: npm ci
       - run: npm run format:check -- --base=origin/${{ github.event.pull_request.base.ref }}
