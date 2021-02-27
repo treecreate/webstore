@@ -61,6 +61,22 @@ The repository is made as a monorepo using NX. The applications are located in t
 
 ### Prerequisites
 
+In order to run this project locally and develop it, you need to have Node and JDK installed.\
+
+#### Node
+
+We strongly suggest installing Node via NVM.\
+It allows easy updates of Node, which is critical for NX to work properly. We develop using the latest stable releases.
+
+- [Get NVM for Linux/Mac](https://github.com/nvm-sh/nvm)
+- [Get NVM for Windows](https://github.com/coreybutler/nvm-windows)
+
+#### Java
+
+We develop with Java 11. Make sure your JDK is >= 11.
+
+#### Other
+
 - npm
 
 ```sh
@@ -76,9 +92,7 @@ npm install -g nx
 Commits are made with `git-cz`, a wrapper for `git commit`
 
 ```shell
-npm install -g commitizen
 npm install -g git-cz
-commitizen init git-cz --save-dev --save-exact
 ```
 
 _If you install it locally, you will have to use `npx git cz` instead_
@@ -98,7 +112,6 @@ npm install
 ```
 
 3. Serve the apps via NX
-   _some of the apps require extra environment setup_
 
 ```
 nx serve api
@@ -106,6 +119,10 @@ nx serve webstore
 ```
 
 <!-- CONTACT -->
+
+## How to set this up yourself
+
+Are you interested how we set up the project and what commands we used? Checkout [our setup guide](docs/setup-guide.md)
 
 ## Contact
 
