@@ -1,6 +1,7 @@
 # Project Setup
 
-This file describes the setup process of the repository, with the commands and steps needed to successfully recreate it
+This file describes the setup process of the repository, with the commands and steps needed to successfully recreate it.\
+It also serves as sort of a log for other developers to see in detail how things were created
 
 ## General information
 
@@ -20,6 +21,8 @@ If you install it locally, you will have to use `npx git cz` instead
 
 For managing the monorepo, we use [NX](https://github.com/nrwl/nx).\
 Install it with `npm install -g nx` _(or install it locally and use it with `npx nx ...`)_
+
+If you encounter issues with creating apps, generating workspaces etc, make sure that you are using the latest version of Node, NX and the [NX-Java plugin](https://github.com/tinesoft/nxrocks/releases)
 
 ## Workspace setup
 
