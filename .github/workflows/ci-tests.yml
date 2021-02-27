@@ -1,7 +1,10 @@
-# Continous Integration workflow for testing pushed commits and pull requests
+# Continuos Integration workflow for testing pushed commits and pull requests
 name: CI Tests
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -14,9 +17,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12'
+      
+      # Setup JDK for java tests
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
       - name: Install and test the applications
-        # Install the apps using npm ci (ensures a clean install)
+        # Install the apps using npm ci (ensures a clean install) and run the test target for ci (skips the NX cache ensuring a clean run)
         run: |
           npm ci
-          npm test
+          npm run test:ci
