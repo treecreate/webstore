@@ -61,6 +61,12 @@
       "root": "apps/webstore",
       "sourceRoot": "apps/webstore/src",
       "prefix": "webstore",
+      "i18n": {
+        "locales": {
+          "en": "src/locale/messages.en.xlf",
+          "dk": "src/locale/messages.dk.xlf"
+        }
+      },
       "targets": {
         "build": {
           "executor": "@angular-devkit/build-angular:browser",
@@ -105,6 +111,12 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "en": {
+              "localize": ["en"]
+            },
+            "dk": {
+              "localize": ["dk"]
             }
           }
         },
@@ -116,6 +128,12 @@
           "configurations": {
             "production": {
               "browserTarget": "webstore:build:production"
+            },
+            "en": {
+              "browserTarget": "webstore:build:en"
+            },
+            "dk": {
+              "browserTarget": "webstore:build:dk"
             }
           }
         },
