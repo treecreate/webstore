@@ -57,7 +57,7 @@ this is how the constructor is built:
 
     eventLabel: string = null,          basic label that you choose: 'happy_customer', 'chose_large' 
 
-    eventValue: number = null           is the value that it saves in the event emitter: 1, 100, 589.02 
+    eventValue: number = null           is the value that it saves in the event emitter: 1, 100 (only integer)
                                         (could be used for saved money, amount purchased or time spent in a place. ex. when page is opened timer is set. when user leaves, the time is recorded. )
 
 you can create your own event or use one of googles pre set events. For a full list of events created by google:
