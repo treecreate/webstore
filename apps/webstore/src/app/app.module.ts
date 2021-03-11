@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { GoogleAnalyticsService } from './google-analytics/google-analytics.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
       initialNavigation: 'enabled',
     }),
   ],
-  providers: [],
+  providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}
