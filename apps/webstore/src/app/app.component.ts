@@ -1,8 +1,8 @@
 import { getHtmlTagDefinition } from '@angular/compiler';
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router'; 
+import { Router, NavigationEnd } from '@angular/router';
 
-//Google analytics 
+//Google analytics
 declare let gtag: Function;
 
 @Component({
@@ -10,22 +10,17 @@ declare let gtag: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-
 export class AppComponent {
-
-  constructor(public router: Router){
-    
+  constructor(public router: Router) {
     //Google analytics
-    this.router.events.subscribe(event => {
-      if(event instanceof NavigationEnd){
-        gtag('config', 'G-4VY53TX2KS', 
-          {
-            'page_path': event.urlAfterRedirects
-          }
-        );
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'G-4VY53TX2KS', {
+          page_path: event.urlAfterRedirects,
+        });
       }
-    })
+    });
   }
-  
+
   title = 'webstore';
 }
