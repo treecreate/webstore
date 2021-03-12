@@ -1,6 +1,6 @@
 ## how google analytics works
 
-Since angular is a single page application, I implented router checking. So when a user activates the Router function, it is recorded as visiting a new part of the page.
+Since angular is a single page application, I implemented router checking. So when a user activates the Router function, it is recorded as visiting a new part of the page.
 
 For optimal user tracking and continued work on Treecreate.dk after we have launched, it is important that we work eventEmitters into the more important actions of our users. ex:
 
