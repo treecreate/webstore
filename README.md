@@ -120,6 +120,7 @@ nx serve webstore
 ```
 
 ## Api Documentation
+
 The api features auto-generated documentation using Swagger UI.\
 It can be accessed at [`localhost:5000/docs`](localhost:5000/docs) when the api is running
 
