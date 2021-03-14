@@ -62,9 +62,9 @@
       "sourceRoot": "apps/webstore/src",
       "prefix": "webstore",
       "i18n": {
+        "sourceLocale": "en-US",
         "locales": {
-          "en": "src/locale/messages.en.xlf",
-          "dk": "src/locale/messages.dk.xlf"
+          "dk": "apps/webstore/src/i18n/messages.dk.xlf"
         }
       },
       "targets": {
@@ -112,9 +112,6 @@
                 }
               ]
             },
-            "en": {
-              "localize": ["en"]
-            },
             "dk": {
               "localize": ["dk"]
             }
@@ -128,9 +125,6 @@
           "configurations": {
             "production": {
               "browserTarget": "webstore:build:production"
-            },
-            "en": {
-              "browserTarget": "webstore:build:en"
             },
             "dk": {
               "browserTarget": "webstore:build:dk"
