@@ -51,7 +51,7 @@ As you can see, you need to do the following:
 
 ## How to write the correct event for .eventEmitter()
 
-googleAnalyticsService.eventEmitter( "eventName", "eventCategory", "eventAction", "eventLabel", "eventValue" );
+`googleAnalyticsService.eventEmitter( "eventName", "eventCategory", "eventAction", "eventLabel", "eventValue" );`
 
 This is how the constructor is built:
 
