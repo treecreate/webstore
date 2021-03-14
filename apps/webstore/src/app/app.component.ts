@@ -1,4 +1,3 @@
-import { getHtmlTagDefinition } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
