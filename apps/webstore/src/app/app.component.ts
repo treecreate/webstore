@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'webstore';
+  localesList = [
+    { code: 'en-US', label: 'English' },
+    { code: 'dk', label: 'Danish' }
+  ]
+
+  title = $localize`webstore`;
 }
