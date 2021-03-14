@@ -6,7 +6,7 @@ For optimal user tracking and continued work on Treecreate.dk after we have laun
 
 1. how long they spend creating a design
 2. how many designs they create
-3. how go from one page to the other
+3. how to go from one page to the other
    etc etc.
 
 When you are working on an important action for the page like: sign in, create account etc, please add a google event emitter, so we can track usage.
