@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="3775dcfb07584504d02ee50646c2ddcfe5c8c43c" datatype="html">
+        <source>Hello</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/app.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description"> Welcome message</note>
+        <note priority="1" from="meaning">main header </note>
+      </trans-unit>
+      <trans-unit id="6920522737165192368" datatype="html"> 
+        <source> Webstore </source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
