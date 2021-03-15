@@ -72,9 +72,6 @@ This is how the constructor is built:
 
 You can create your own event or use one of googles pre set events. For a full list of events created by [google:](https://developers.google.com/analytics/devguides/collection/gtagjs/events)
 
-
 [Github source:](https://github.com/dottedsquirrel/AngularGoogleAnalytics)
 
-
 [Webpage description of google eventhandling for anngular:](https://medium.com/madhash/how-to-properly-add-google-analytics-tracking-to-your-angular-web-app-bc7750713c9e)
-
