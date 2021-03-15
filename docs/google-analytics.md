@@ -1,4 +1,4 @@
-## how google analytics works
+## How google analytics works
 
 Since angular is a single page application, I implemented router checking. So when a user activates the Router function, it is recorded as visiting a new part of the page.
 
