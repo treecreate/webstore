@@ -4,10 +4,9 @@ Since angular is a single page application, I implemented router checking. So wh
 
 For optimal user tracking and continued work on Treecreate.dk after we have launched, it is important that we work eventEmitters into the more important actions of our users. ex:
 
-1. how long they spend creating a design
-2. how many designs they create
-3. how go from one page to the other
-   etc etc.
+1. How long they spend creating a design
+2. How many designs they create
+3. How go from one page to the other
 
 When you are working on an important action for the page like: sign in, create account etc, please add a google event emitter, so we can track usage.
 
@@ -51,6 +50,8 @@ As you can see, you need to do the following:
 
 ## How to write the correct event for .eventEmitter()
 
+To add an eventEmitter you must add a line of code in the beginning of the method that you want to trigger an event. Here is an example:
+
 googleAnalyticsService.eventEmitter( "eventName", "eventCategory", "eventAction", "eventLabel", "eventValue" );
 
 This is how the constructor is built:
@@ -64,15 +65,16 @@ This is how the constructor is built:
 
     eventLabel: string = null,          //Basic label that you choose: 'happy_customer', 'chose_large'
 
-    eventValue: number = null           //Is the value that it saves in the event emitter: 1, 100 (only integer)
+    eventValue: number = null           //Is the value that it saves in the event emitter: 1, 100 (integer)
+
     //(could be used for saved money, amount purchased or time spent in a place. ex. when page is opened timer is set. when user leaves, the time is recorded. )
 ```
 
-You can create your own event or use one of googles pre set events. For a full list of events created by google:
-https://developers.google.com/analytics/devguides/collection/gtagjs/events
+You can create your own event or use one of googles pre set events. For a full list of events created by [google:](https://developers.google.com/analytics/devguides/collection/gtagjs/events)
 
-Github source:
-https://github.com/dottedsquirrel/AngularGoogleAnalytics
 
-Webpage description of google eventhandling for anngular:
-https://medium.com/madhash/how-to-properly-add-google-analytics-tracking-to-your-angular-web-app-bc7750713c9e
+[Github source:](https://github.com/dottedsquirrel/AngularGoogleAnalytics)
+
+
+[Webpage description of google eventhandling for anngular:](https://medium.com/madhash/how-to-properly-add-google-analytics-tracking-to-your-angular-web-app-bc7750713c9e)
+
