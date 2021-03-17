@@ -1,0 +1,36 @@
+.nav-link {
+    transition-duration: 0.5s;
+    padding-bottom: 5px;
+}
+.nav-item {
+    padding: 0 10px; 
+    transition-duration: 0.5s;
+    border-bottom: 1px solid transparent;
+}
+.nav-link:hover {
+    background: none; 
+    transform: scale(1.2); 
+    text-decoration: none; 
+}
+.navbar-brand {
+    width: 125px; 
+    transition-duration: 0.5s;
+}
+.navbar-brand:hover {
+    transform: scale(1.1); 
+}
+.nav-item:hover {
+    border-bottom: 1px solid black;
+}
+.waves-light {
+    text-align: center;
+}
+
+@media all and (max-width: 992px) {
+    .nav-item {
+        padding: 0 1rem 0 0; 
+    }
+    .nav-item:hover {
+        border-bottom: none;
+    }
+}

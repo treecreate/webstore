@@ -16,7 +16,7 @@ body {
 /* END INPUT SECTION */
 
 /* BUTTON SECTION */
-button {
+.TC-button-33, .TC-button-50, .TC-button-100, .TC-button-static {
   /* button */
   box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
   background: #ebc6ab;
@@ -38,7 +38,7 @@ button {
   transition: 0.5s;
 }
 
-button:hover {
+.TC-button-33:hover, .TC-button-50:hover, .TC-button-100:hover, .TC-button-static:hover {
   transform: scale(0.9);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
 }
@@ -48,6 +48,7 @@ a {
 }
 
 .TC-button-100 {
+  width: 100%;
 }
 .TC-button-50 {
   width: 45%;
@@ -56,8 +57,8 @@ a {
   width: 33%;
 }
 .TC-button-static {
+  width: 250px;
 }
-
 .align-right {
   text-align: right;
 }
@@ -66,3 +67,7 @@ a {
 strong {
   font-weight: 900;
 }
+
+/* NAVBAR FIX */
+.navbar { box-shadow: none !important; } 
+.btn { box-shadow: none !important; }

@@ -11,7 +11,6 @@ h5 {
   margin: 20px 0;
 }
 .page-footer {
-  position: absolute;
   width: 100%;
   color: black;
 }
@@ -37,6 +36,9 @@ h5 {
 .col,
 .final-col {
   text-align: left;
+}
+.final-col {
+  margin-bottom: 1rem;
 }
 .col-main {
   padding-left: 30px;
@@ -84,20 +86,36 @@ select:-webkit-autofill:focus {
   padding: 0 !important;
   visibility: hidden;
 }
+.mobile-br {
+  display: none;
+}
 
 /* MOBILE */
 @media all and (min-width: 200px) and (max-width: 769px) {
+  .footer-copyright {
+    border-top: none;
+  }
+  .col-md {
+    padding: 0 !important; 
+  }
   .border-right {
     border-right: none !important;
   }
   .container-footer {
-    margin: 0 0 !important;
+    margin: 0 1rem !important;
+    padding: 0;
   }
   .submit-button {
     margin-bottom: 2rem;
   }
   .col-main {
-    padding-left: 0;
+    padding: 0 15px 0 15px; 
+  }
+  .mobile-br {
+    display: block;
+  }
+  .font-small {
+    font-size: 0.8rem;
   }
 }
 
