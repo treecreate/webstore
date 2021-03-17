@@ -14,6 +14,8 @@ import { HomeComponent } from './public/home/home.component';
 import { ProductComponent } from './public/product/product.component';
 import { BasketComponent } from './public/basket/basket.component';
 import { PageNotFoundComponent } from './public/page-not-found/page-not-found.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { PageNotFoundComponent } from './public/page-not-found/page-not-found.co
     HomeComponent, 
     ProductComponent, 
     BasketComponent, 
-    PageNotFoundComponent],
+    PageNotFoundComponent, ProfileComponent, AboutUsComponent],
   imports: [
     BrowserModule,
     MDBBootstrapModule.forRoot(),
@@ -31,6 +33,8 @@ import { PageNotFoundComponent } from './public/page-not-found/page-not-found.co
       { path:'home', component:HomeComponent},
       { path:'product', component:ProductComponent },
       { path:'basket', component:BasketComponent },
+      { path:'aboutUs', component:AboutUsComponent },
+      { path:'profile', component:ProfileComponent },
       { path:'', pathMatch:'full', redirectTo:'home' }, // Redirect to home page 
       { path:'**', component:PageNotFoundComponent }    // PageNotFound for all other page requests
     ], {
@@ -45,6 +49,6 @@ import { PageNotFoundComponent } from './public/page-not-found/page-not-found.co
     HomeComponent, 
     ProductComponent, 
     BasketComponent, 
-    PageNotFoundComponent],
+    PageNotFoundComponent, ProfileComponent, AboutUsComponent],
 })
 export class AppModule {}
