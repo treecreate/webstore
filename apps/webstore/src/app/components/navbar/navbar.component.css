@@ -5,26 +5,29 @@
 .nav-item {
     padding: 0 10px; 
     transition-duration: 0.5s;
-    border-bottom: 1px solid transparent;
 }
-.nav-link:hover {
+.nav-item:hover > .nav-link {
     background: none; 
-    transform: scale(1.2); 
+    transform: scale(0.95); 
     text-decoration: none; 
+    opacity: 0.5; 
 }
+.nav-icon {
+    width: 1.2rem;
+    padding-bottom: 1px;
+}
+
 .navbar-brand {
     width: 125px; 
     transition-duration: 0.5s;
 }
 .navbar-brand:hover {
-    transform: scale(1.1); 
-}
-.nav-item:hover {
-    border-bottom: 1px solid black;
+    transform: scale(0.95); 
 }
 .waves-light {
     text-align: center;
 }
+
 
 @media all and (max-width: 992px) {
     .nav-item {
