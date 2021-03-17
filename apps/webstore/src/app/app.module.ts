@@ -19,36 +19,45 @@ import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    FooterComponent, 
-    NavbarComponent, 
-    HomeComponent, 
-    ProductComponent, 
-    BasketComponent, 
-    PageNotFoundComponent, ProfileComponent, AboutUsComponent],
+    AppComponent,
+    FooterComponent,
+    NavbarComponent,
+    HomeComponent,
+    ProductComponent,
+    BasketComponent,
+    PageNotFoundComponent,
+    ProfileComponent,
+    AboutUsComponent,
+  ],
   imports: [
     BrowserModule,
     MDBBootstrapModule.forRoot(),
-    RouterModule.forRoot([
-      { path:'home', component:HomeComponent},
-      { path:'product', component:ProductComponent },
-      { path:'basket', component:BasketComponent },
-      { path:'aboutUs', component:AboutUsComponent },
-      { path:'profile', component:ProfileComponent },
-      { path:'', pathMatch:'full', redirectTo:'home' }, // Redirect to home page 
-      { path:'**', component:PageNotFoundComponent }    // PageNotFound for all other page requests
-    ], {
-      initialNavigation: 'enabled',
-    }),
+    RouterModule.forRoot(
+      [
+        { path: 'home', component: HomeComponent },
+        { path: 'product', component: ProductComponent },
+        { path: 'basket', component: BasketComponent },
+        { path: 'aboutUs', component: AboutUsComponent },
+        { path: 'profile', component: ProfileComponent },
+        { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
+        { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
+      ],
+      {
+        initialNavigation: 'enabled',
+      }
+    ),
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
   exports: [
-    FooterComponent, 
-    NavbarComponent, 
-    HomeComponent, 
-    ProductComponent, 
-    BasketComponent, 
-    PageNotFoundComponent, ProfileComponent, AboutUsComponent],
+    FooterComponent,
+    NavbarComponent,
+    HomeComponent,
+    ProductComponent,
+    BasketComponent,
+    PageNotFoundComponent,
+    ProfileComponent,
+    AboutUsComponent,
+  ],
 })
 export class AppModule {}
