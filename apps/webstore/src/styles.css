@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-body {
+body,
+html {
   font-family: Seravek, 'Roboto', sans-serif;
+  height: 100%;
 }
 
 /* INPUT SECTION */

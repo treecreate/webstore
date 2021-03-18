@@ -4,7 +4,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 // COMPONENTS
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
 import { GoogleAnalyticsService } from './services/google-analytics/google-analytics.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -18,6 +17,8 @@ import { ProfileComponent } from './public/profile/profile.component';
 import { AboutUsComponent } from './public/about-us/about-us.component';
 import { PrivacyNoticeComponent } from './public/privacy-notice/privacy-notice.component';
 import { TermsOfPaymentComponent } from './public/terms-of-payment/terms-of-payment.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ErrorComponent } from './public/error/error.component';
 
 @NgModule({
   declarations: [
@@ -32,27 +33,9 @@ import { TermsOfPaymentComponent } from './public/terms-of-payment/terms-of-paym
     AboutUsComponent,
     PrivacyNoticeComponent,
     TermsOfPaymentComponent,
+    ErrorComponent,
   ],
-  imports: [
-    BrowserModule,
-    MDBBootstrapModule.forRoot(),
-    RouterModule.forRoot(
-      [
-        { path: 'home', component: HomeComponent },
-        { path: 'product', component: ProductComponent },
-        { path: 'basket', component: BasketComponent },
-        { path: 'aboutUs', component: AboutUsComponent },
-        { path: 'profile', component: ProfileComponent },
-        { path: 'termsOfPayment', component:TermsOfPaymentComponent },
-        { path: 'privacyNotice', component:PrivacyNoticeComponent }, 
-        { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
-        { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
-      ],
-      {
-        initialNavigation: 'enabled',
-      }
-    ),
-  ],
+  imports: [BrowserModule, AppRoutingModule, MDBBootstrapModule.forRoot()],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
   exports: [
@@ -66,6 +49,7 @@ import { TermsOfPaymentComponent } from './public/terms-of-payment/terms-of-paym
     AboutUsComponent,
     PrivacyNoticeComponent,
     TermsOfPaymentComponent,
+    ErrorComponent,
   ],
 })
 export class AppModule {}

@@ -1,0 +1,43 @@
+.hero {
+  /* The image used */
+  background-image: url('/assets/img/coverPhoto02.png');
+
+  /* Full height */
+  height: 600px;
+  width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  text-align: center;
+  margin-top: 6rem;
+}
+
+.container {
+  text-align: center;
+  color: white;
+}
+
+.title {
+  padding-top: 9rem;
+  font-family: Argesta Display;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 80px;
+  line-height: 115px;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.125em;
+}
+
+.subTitle {
+  font-family: Seravek;
+  font-style: normal;
+  font-weight: 100;
+  font-size: 36px;
+  line-height: 30px;
+  letter-spacing: 0.1em;
+}

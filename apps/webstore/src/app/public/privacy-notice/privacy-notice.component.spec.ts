@@ -8,9 +8,8 @@ describe('PrivacyNoticeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrivacyNoticeComponent ]
-    })
-    .compileComponents();
+      declarations: [PrivacyNoticeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
