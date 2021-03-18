@@ -38,18 +38,5 @@ import { ErrorComponent } from './public/error/error.component';
   imports: [BrowserModule, AppRoutingModule, MDBBootstrapModule.forRoot()],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [
-    FooterComponent,
-    NavbarComponent,
-    HomeComponent,
-    ProductComponent,
-    BasketComponent,
-    PageNotFoundComponent,
-    ProfileComponent,
-    AboutUsComponent,
-    PrivacyNoticeComponent,
-    TermsOfPaymentComponent,
-    ErrorComponent,
-  ],
 })
 export class AppModule {}
