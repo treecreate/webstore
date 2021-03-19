@@ -1,4 +1,3 @@
 export enum LocalStorageVars {
-    locale = 'locale',
-  }
-  
+  locale = 'locale',
+}
