@@ -1,4 +1,4 @@
-export enum Locale {
+export enum LocaleType {
   dk = 'dk',
   en = 'en-US',
 }
