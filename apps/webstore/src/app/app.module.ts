@@ -12,13 +12,15 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './public/home/home.component';
 import { ProductComponent } from './public/product/product.component';
 import { BasketComponent } from './public/basket/basket.component';
-import { PageNotFoundComponent } from './public/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './public/issue-pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './public/profile/profile.component';
 import { AboutUsComponent } from './public/about-us/about-us.component';
-import { PrivacyNoticeComponent } from './public/privacy-notice/privacy-notice.component';
-import { TermsOfPaymentComponent } from './public/terms-of-payment/terms-of-payment.component';
+import { PrivacyNoticeComponent } from './public/terms-and-conditions/privacy-notice/privacy-notice.component';
+import { TermsOfPaymentComponent } from './public/terms-and-conditions/terms-of-payment/terms-of-payment.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ErrorComponent } from './public/error/error.component';
+import { ErrorComponent } from './public/issue-pages/error/error.component';
+import { ResetPasswordComponent } from './public/issue-pages/reset-password/reset-password.component';
+import { IntroductionComponent } from './public/product/introduction/introduction.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,12 @@ import { ErrorComponent } from './public/error/error.component';
     PrivacyNoticeComponent,
     TermsOfPaymentComponent,
     ErrorComponent,
+    ResetPasswordComponent,
+    IntroductionComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, MDBBootstrapModule.forRoot()],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
+  exports: [IntroductionComponent],
 })
 export class AppModule {}
