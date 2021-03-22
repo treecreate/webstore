@@ -11,8 +11,10 @@ html {
 }
 
 .md-form input[type='email']:focus:not([readonly]),
-.md-form input[type='password']:focus:not([readonly])
-.md-form input[type='text']:focus:not([readonly]) {
+.md-form
+  input[type='password']:focus:not([readonly])
+  .md-form
+  input[type='text']:focus:not([readonly]) {
   border-bottom: 1px solid #ebc6ab;
   box-shadow: 0 1px 0 0 #ebc6ab;
 }
@@ -45,7 +47,7 @@ html {
   transition: 0.5s;
 }
 
-.TC-button-25:hover, 
+.TC-button-25:hover,
 .TC-button-33:hover,
 .TC-button-50:hover,
 .TC-button-100:hover,
