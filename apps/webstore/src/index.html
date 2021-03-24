@@ -6,6 +6,24 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Google analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-4VY53TX2KS"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      //<!-- angular is a single page app, therefore, we don't need this. Ask teo for more info. -->
+      //gtag('config', 'G-4VY53TX2KS');
+    </script>
+    <!-- End google analytics -->
   </head>
   <body>
     <webstore-root></webstore-root>
