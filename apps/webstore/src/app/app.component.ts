@@ -4,6 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { LocaleType } from './i18n';
 import { LocalStorageService, LocalStorageVars } from './services/local-storage';
+import { environment } from '../environments/environment';
 
 //Google analytics
 declare let gtag: Function;
@@ -44,7 +45,7 @@ export class AppComponent {
     //Google analytics
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        gtag('config', 'G-4VY53TX2KS', {
+        gtag('config', environment.gtag, {
           page_path: event.urlAfterRedirects,
         });
       }
