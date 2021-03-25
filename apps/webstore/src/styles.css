@@ -5,21 +5,6 @@ html {
   height: 100%;
 }
 
-/* INPUT SECTION */
-.active {
-  color: #ebc6ab !important;
-}
-
-.md-form input[type='email']:focus:not([readonly]),
-.md-form
-  input[type='password']:focus:not([readonly])
-  .md-form
-  input[type='text']:focus:not([readonly]) {
-  border-bottom: 1px solid #ebc6ab;
-  box-shadow: 0 1px 0 0 #ebc6ab;
-}
-/* END INPUT SECTION */
-
 /* BUTTON SECTION */
 .TC-button-25,
 .TC-button-33,
