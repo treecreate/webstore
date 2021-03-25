@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { environment } from '../environments/environment';
 
 //Google analytics
 declare let gtag: Function;
@@ -14,7 +15,7 @@ export class AppComponent {
     //Google analytics
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        gtag('config', 'G-4VY53TX2KS', {
+        gtag('config', environment.gtag, {
           page_path: event.urlAfterRedirects,
         });
       }
