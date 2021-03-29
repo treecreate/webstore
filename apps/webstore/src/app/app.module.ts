@@ -7,13 +7,8 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 
-
 @NgModule({
-  declarations: [
-    AppComponent, 
-    NavbarComponent, 
-    FooterComponent, 
-  ],
+  declarations: [AppComponent, NavbarComponent, FooterComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot([], {
