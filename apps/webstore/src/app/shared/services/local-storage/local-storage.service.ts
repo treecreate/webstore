@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LocaleType } from '../../i18n';
+import { LocaleType } from '../../../i18n';
 import { LocalStorageVars } from './local-storage.constants';
 
 interface ICache {
