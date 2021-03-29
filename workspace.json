@@ -75,7 +75,10 @@
               "apps/webstore/src/favicon.ico",
               "apps/webstore/src/assets"
             ],
-            "styles": ["apps/webstore/src/styles.css"],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "apps/webstore/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {

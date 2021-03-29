@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
+//Services
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
+//Components
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 
@@ -14,6 +17,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     RouterModule.forRoot([], {
       initialNavigation: 'enabled',
     }),
+    NgbModule,
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
