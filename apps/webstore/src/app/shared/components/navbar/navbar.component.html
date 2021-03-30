@@ -10,7 +10,11 @@
       type="button"
       (click)="isMenuCollapsed = !isMenuCollapsed"
     >
-      &#9776;
+      <div class="icon" [ngClass]="isMenuCollapsed ? 'active' : 'inactive'">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
     </button>
 
     <!-- Step 2: Add the ngbCollapse directive to the element below. -->
