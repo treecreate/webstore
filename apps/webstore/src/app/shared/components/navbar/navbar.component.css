@@ -57,16 +57,16 @@
   transition: 0.4s;
 }
 
-.inactive .bar1 {
+.active .bar1 {
   -webkit-transform: rotate(-45deg) translate(-6px, 6px);
   transform: rotate(-45deg) translate(-6px, 6px);
 }
 
-.inactive .bar2 {
+.active .bar2 {
   opacity: 0;
 }
 
-.inactive .bar3 {
+.active .bar3 {
   -webkit-transform: rotate(45deg) translate(-5px, -6px);
   transform: rotate(45deg) translate(-5px, -6px);
 }
