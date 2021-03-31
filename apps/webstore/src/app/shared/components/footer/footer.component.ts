@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrls: [
     './footer.component.css',
-    '../../../../assets/styles/TCInputfield.scss',
+    '../../../../assets/styles/TCInputField.scss',
   ],
 })
 export class FooterComponent implements OnInit {
