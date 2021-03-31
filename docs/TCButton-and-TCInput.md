@@ -53,4 +53,3 @@ all 5 classes have the same styling on them, so using one of these classes will 
 ````
 
 So far it looks good for mobile use as well, but i expect there might be a couple of extra buttons or changes to the current ones at a later time. No need to worry, they will all be with the same name, so no need to refactor or add class names to the buttons u create.
-
