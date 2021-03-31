@@ -1,0 +1,50 @@
+$primary: #ebc6ab;
+$gray: #9b9b9b;
+
+.page-container {
+  height: 100vh;
+}
+
+.buttons {
+  display: inline-block;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+h1 {
+  font-size: 160px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+h2 {
+  margin-top: 0;
+  max-width: 700px;
+  font-size: 30px;
+  width: 100%;
+}
+
+p {
+  text-align: left;
+}
+
+.wrapper {
+  float: left;
+  width: 100%;
+  text-align: center;
+  margin-top: 2rem;
+}
+button {
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  min-width: 200px;
+}
