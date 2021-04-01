@@ -1,13 +1,22 @@
-<div class="modal-content">
-    <div class="modal-header">
-        <h4 class="modal-title">Cookie Prompt</h4>
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FFF0E4;">
+                <img class="icon" src="/assets/icons/cookies.png">
+            </div>
+            <div class="modal-body">
+                <h1>Accept Cookies</h1>
+                <div class="text">
+                    <p>
+                        Hey there, Treecreate uses cookies to save anonymous information
+                        through google analytics to continuously improve the page. Without
+                        accepting these cookies, you will sadly not be able to use the page.
+                        If you wish to see the cookies that we store, you can go to this link <br>
+                        <a href="">--> Terms of Use <-- </a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="tc-button-50" (click)="acceptCookies()">Accept</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
-        <ng-content>
-
-        </ng-content>
-    </div>
-    <div class="modal-footer align-center">
-        <button type="button" class="tc-button-50" (click)="acceptCookies()">Accept</button>
-    </div>
-</div>

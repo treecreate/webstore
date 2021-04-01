@@ -37,8 +37,8 @@ export class AppComponent {
     //Open cookie prompt if cookies are not accepted yet
     this.cookies$ = this.localStorageService.getItem<Boolean>(LocalStorageVars.cookies); 
     console.log(`Are cookies accepted? ${this.cookies$.getValue()}`)
-    if( !this.cookies$.getValue() ){
-      this.modalService.open(CookiePromptModalComponent);
+    if(!this.cookies$.getValue() ){
+      this.modalService.open(CookiePromptModalComponent, {backdrop: 'static', centered: true});
     }
   }
   title='webstore'; 
