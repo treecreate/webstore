@@ -71,9 +71,9 @@ There was an issue linking the tcInputField.scss file, therefore, you will have 
 
 There are 3 elements that need to be created to make an input field with the proper styling with 3 matching classes:
 
-**1.** div to wrap the other elements -  _tc-input-group_  
+**1.** div to wrap the other elements - _tc-input-group_  
 **2.** input field - _tc-input-field_  
-**3.** label - _tc-input-label_  
+**3.** label - _tc-input-label_
 
 Here's an example of what it could look like when writing it in your HTML file:
 

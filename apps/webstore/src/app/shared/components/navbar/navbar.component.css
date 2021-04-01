@@ -62,8 +62,6 @@
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
-
-
 @media all and (max-width: 992px) {
   .nav-item {
     padding: 0 1rem 0 0;
@@ -72,4 +70,3 @@
     border-bottom: none;
   }
 }
-
