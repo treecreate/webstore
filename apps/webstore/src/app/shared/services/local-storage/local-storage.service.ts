@@ -19,8 +19,12 @@ export class LocalStorageService implements OnDestroy {
       JSON.parse(localStorage.getItem(LocalStorageVars.locale)) ||
       LocaleType.dk;
 
+    const initialCookieState =
+      JSON.parse(localStorage.getItem(LocalStorageVars.cookies)) || false ;
+
     this.cache = {
       [LocalStorageVars.locale]: new BehaviorSubject<LocaleType>(initialLocale),
+      [LocalStorageVars.cookies]: new BehaviorSubject<Boolean>(initialCookieState)
     };
 
     window.addEventListener('storage', (e) => this.handleStorageUpdate(e));

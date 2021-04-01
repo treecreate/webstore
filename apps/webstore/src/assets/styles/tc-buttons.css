@@ -54,7 +54,12 @@ a {
   width: 250px;
 }
 .align-right {
+  width: 100%;
   text-align: right;
+}
+.align-center {
+  width: 100%;
+  text-align: center;
 }
 /* END BUTTON SECTION */
 

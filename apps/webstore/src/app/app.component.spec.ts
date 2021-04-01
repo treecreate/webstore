@@ -1,11 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { HomeComponent } from './pages/home/home.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
-import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
+
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { CookiePromptModalComponent } from './shared/components/cookie-prompt-modal/cookie-prompt-modal.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -17,6 +20,7 @@ describe('AppComponent', () => {
         HomeComponent,
         FooterComponent,
         PageNotFoundComponent,
+        CookiePromptModalComponent
       ],
     }).compileComponents();
   });

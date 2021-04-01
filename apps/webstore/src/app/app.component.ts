@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { environment } from '../environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CookiePromptModalComponent } from './shared/components/cookie-prompt-modal/cookie-prompt-modal.component';
+import { LocalStorageService, LocalStorageVars } from './shared/services/local-storage';
+import { BehaviorSubject } from 'rxjs';
 
 //Google analytics
 declare let gtag: Function;
@@ -11,8 +15,16 @@ declare let gtag: Function;
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(public router: Router) {
+  
+  cookies$: BehaviorSubject<Boolean>; 
+
+  constructor(
+    public router: Router,
+    private modalService: NgbModal,
+    private localStorageService: LocalStorageService
+  ) {
     //Google analytics
+    //Connect the router service to google analytics
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         gtag('config', environment.gtag, {
@@ -20,7 +32,14 @@ export class AppComponent {
         });
       }
     });
-  }
 
-  title = 'webstore';
+    //Cookie prompt 
+    //Open cookie prompt if cookies are not accepted yet
+    this.cookies$ = this.localStorageService.getItem<Boolean>(LocalStorageVars.cookies); 
+    console.log(`Are cookies accepted? ${this.cookies$.getValue()}`)
+    if( !this.cookies$.getValue() ){
+      this.modalService.open(CookiePromptModalComponent);
+    }
+  }
+  title='webstore'; 
 }
