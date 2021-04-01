@@ -23,7 +23,7 @@ I have added 5 classes of buttons and one extra class called align-right.
 }
 ´´´
 
-all 5 classes have the same styling on them, so using one of these classes will add the following styling: 
+All 5 classes have the same styling on them, so using one of these classes will add the following styling: 
 ```css
 .tc-button-25, 
 .tc-button-33,
@@ -52,9 +52,9 @@ all 5 classes have the same styling on them, so using one of these classes will 
 }
 ````
 
-So far it looks good for mobile use as well, but i expect there might be a couple of extra buttons or changes to the current ones at a later time. No need to worry, they will all be with the same name, so no need to refactor or add class names to the buttons u create.
+So far it looks good for mobile use as well, but I expect there might be a couple of extra buttons or changes to the current ones at a later time. No need to worry, they will all be with the same name, so no need to refactor or add class names to the buttons you create.
 
-## input fields explained
+## Input fields explained
 
 There was an issue linking the tcInputField.scss file, therefore, you will have to link the stylesheet in your component like this:
 
@@ -71,9 +71,9 @@ There was an issue linking the tcInputField.scss file, therefore, you will have 
 
 There are 3 elements that need to be created to make an input field with the proper styling with 3 matching classes:
 
-**1.** div to wrap the other elements - _tc-input-group_
-**2.** input field - _tc-input-field_
-**3.** label - _tc-input-label_
+**1.** div to wrap the other elements -  _tc-input-group_  
+**2.** input field - _tc-input-field_  
+**3.** label - _tc-input-label_  
 
 Here's an example of what it could look like when writing it in your HTML file:
 

@@ -1,5 +1,4 @@
 $primary: #ebc6ab;
-$gray: #9b9b9b;
 
 .page-container {
   height: 100vh;
@@ -54,6 +53,6 @@ a {
   transition: 0.4s;
 }
 a:hover {
-  color: #ebc6ab !important;
+  color: $primary !important;
   text-decoration: none;
 }

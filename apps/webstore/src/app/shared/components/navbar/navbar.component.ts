@@ -6,14 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  public isMenuCollapsed = true;
+  
+  public isMenuCollapsed: boolean = true;
 
   basketItemOptions(amount: Number): string {
     if (amount === 0) {
       return 'Basket empty';
-    } else {
-      return '(' + amount + ') products ';
-    }
+    } 
+    return `(${amount}) products `;
   }
 
   constructor() {}

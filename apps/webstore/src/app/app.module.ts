@@ -1,17 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule } from '@angular/router';
-
-import { AppComponent } from './app.component';
 //Services
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 //Components
+import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { HomeComponent } from './pages/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
+//Pages
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService],
-  bootstrap: [AppComponent],
-  exports: [HomeComponent, PageNotFoundComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
