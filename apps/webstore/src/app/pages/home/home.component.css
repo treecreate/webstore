@@ -12,7 +12,7 @@
   height: 52vh;
   max-width: 70vw;
   margin: auto;
-  margin-top: 18rem;
+  margin-top: 13rem;
 }
 .text {
   padding-top: 4vh;
@@ -22,11 +22,11 @@
   text-align: center;
 }
 .title {
-  padding-top: 10rem;
+  padding-top: 8rem;
   font-family: Argesta Display;
   font-style: normal;
   font-weight: normal;
-  font-size: 5rem;
+  font-size: 4rem;
   align-items: center;
   letter-spacing: 0.2em;
 }
