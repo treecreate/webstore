@@ -1,12 +1,12 @@
 $primary: #ebc6ab;
 $gray: #9b9b9b;
-.TC-input-group {
+.tc-input-group {
   position: relative;
   padding: 15px 0 0;
   margin: 10px 0;
 }
 
-.TC-input-field {
+.tc-input-field {
   font-family: inherit;
   width: 100%;
   border: 0;
@@ -22,14 +22,14 @@ $gray: #9b9b9b;
     color: transparent;
   }
 
-  &:placeholder-shown ~ .TC-input-label {
+  &:placeholder-shown ~ .tc-input-label {
     font-size: 1rem;
     cursor: text;
     top: 22px;
   }
 }
 
-.TC-input-label {
+.tc-input-label {
   position: absolute;
   top: 0;
   display: block;
@@ -38,8 +38,8 @@ $gray: #9b9b9b;
   color: $gray;
 }
 
-.TC-input-field:focus {
-  ~ .TC-input-label {
+.tc-input-field:focus {
+  ~ .tc-input-label {
     position: absolute;
     top: 0;
     display: block;
@@ -55,7 +55,7 @@ $gray: #9b9b9b;
   border-image-slice: 1;
 }
 /* reset input */
-.TC-input-field {
+.tc-input-field {
   &:required,
   &:invalid {
     box-shadow: none;

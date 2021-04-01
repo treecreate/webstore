@@ -8,9 +8,7 @@ $gray: #9b9b9b;
 .buttons {
   display: inline-block;
 }
-
 .content {
-  height: 100%;
   display: flex;
   -webkit-box-pack: center;
   justify-content: center;
@@ -18,25 +16,26 @@ $gray: #9b9b9b;
   align-items: center;
   flex-direction: column;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: 90vw;
 }
-
 h1 {
-  font-size: 160px;
+  font-size: 7rem;
   margin-bottom: 0;
   margin-top: 0;
 }
-
 h2 {
   margin-top: 0;
   max-width: 700px;
   font-size: 30px;
   width: 100%;
 }
-
 p {
-  text-align: left;
+  text-align: center;
+  margin: 0 !important;
 }
-
 .wrapper {
   float: left;
   width: 100%;
@@ -47,4 +46,14 @@ button {
   display: inline-block;
   margin: 0.5rem 1rem;
   min-width: 200px;
+}
+a {
+  margin: 0 5px;
+  font-weight: 500;
+  color: black;
+  transition: 0.4s;
+}
+a:hover {
+  color: #ebc6ab !important;
+  text-decoration: none;
 }

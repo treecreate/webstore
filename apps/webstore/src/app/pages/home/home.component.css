@@ -1,6 +1,5 @@
 /* Main section */
 .main-section {
-  margin-top: 60px;
   width: 100vw;
   color: white;
 }
@@ -13,24 +12,23 @@
   height: 52vh;
   max-width: 70vw;
   margin: auto;
-  margin-top: 10rem;
+  margin-top: 18rem;
 }
 .text {
   padding-top: 4vh;
 }
-.container {
+.arrow-container {
+  margin: 10vh 0;
   text-align: center;
-  color: white;
 }
 .title {
-  padding-top: 7rem;
+  padding-top: 10rem;
   font-family: Argesta Display;
-
   font-style: normal;
   font-weight: normal;
-  font-size: 4rem;
+  font-size: 5rem;
   align-items: center;
-  letter-spacing: 0.125em;
+  letter-spacing: 0.2em;
 }
 .subTitle {
   font-family: Seravek;
@@ -43,7 +41,7 @@
 /* END Main section */
 
 /* Buttons */
-.TC-start-main {
+.tc-start-main {
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
   font-family: Seravek;
@@ -57,13 +55,17 @@
   transition: 0.5s;
   box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.25);
 }
-.TC-start-main:hover {
+.tc-start-main:hover {
   transform: scale(0.97);
   border-radius: 0px;
   background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.4);
 }
 /* Arrow down button */
+#down-arrow {
+  margin-top: 100%;
+  padding-bottom: 25%;
+}
 .down-arrow {
   margin: 4vh 2vh 2vh 2vh;
   padding-right: 2px;

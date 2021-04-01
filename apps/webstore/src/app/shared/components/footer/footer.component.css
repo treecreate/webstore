@@ -48,23 +48,6 @@ h5 {
   padding-left: 30px;
 }
 
-/* Change autocomplete styles in WebKit */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: none;
-  border-bottom: 1px solid #ced4da;
-  color: black;
-  -webkit-text-fill-color: rgba(0, 0, 0, 1);
-  transition: background-color 5000s ease-in-out 0s;
-}
-
 /* COPYRIGHT */
 .footer-copyright {
   border-top: solid 1px rgba(0, 0, 0, 0.2);
