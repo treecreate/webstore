@@ -91,10 +91,11 @@ This is generally used for desktop testing and as a more general styling. It is 
 
 ## If the styling a lot for different screen sizes
 
-In case you start having more than 60-80 lines of code specifically for mobile screen size and such, please create a separate css file in your component. Here's an example of what it could look like: 
+In case you start having more than 60-80 lines of code specifically for mobile screen size and such, please create a separate css file in your component. Here's an example of what it could look like:
+
 ```cs
     home.component.css
-    home.component.html 
+    home.component.html
     home.component.mobile.css   // NEW
     home.component.spec.ts
     home.component.tx
