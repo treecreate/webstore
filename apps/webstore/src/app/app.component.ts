@@ -3,7 +3,10 @@ import { Router, NavigationEnd } from '@angular/router';
 import { environment } from '../environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CookiePromptModalComponent } from './shared/components/cookie-prompt-modal/cookie-prompt-modal.component';
-import { LocalStorageService, LocalStorageVars } from './shared/services/local-storage';
+import {
+  LocalStorageService,
+  LocalStorageVars,
+} from './shared/services/local-storage';
 import { BehaviorSubject } from 'rxjs';
 
 //Google analytics
@@ -15,8 +18,7 @@ declare let gtag: Function;
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  
-  cookies$: BehaviorSubject<Boolean>; 
+  cookies$: BehaviorSubject<Boolean>;
 
   constructor(
     public router: Router,
@@ -33,13 +35,18 @@ export class AppComponent {
       }
     });
 
-    //Cookie prompt 
+    //Cookie prompt
     //Open cookie prompt if cookies are not accepted yet
-    this.cookies$ = this.localStorageService.getItem<Boolean>(LocalStorageVars.cookies); 
-    console.log(`Are cookies accepted? ${this.cookies$.getValue()}`)
-    if(!this.cookies$.getValue() ){
-      this.modalService.open(CookiePromptModalComponent, {backdrop: 'static', centered: true});
+    this.cookies$ = this.localStorageService.getItem<Boolean>(
+      LocalStorageVars.cookies
+    );
+    console.log(`Are cookies accepted? ${this.cookies$.getValue()}`);
+    if (!this.cookies$.getValue()) {
+      this.modalService.open(CookiePromptModalComponent, {
+        backdrop: 'static',
+        centered: true,
+      });
     }
   }
-  title='webstore'; 
+  title = 'webstore';
 }

@@ -13,7 +13,6 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +20,7 @@ import { HomeComponent } from './pages/home/home.component';
     FooterComponent,
     HomeComponent,
     PageNotFoundComponent,
-    CookiePromptModalComponent
+    CookiePromptModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService, NgbActiveModal],
