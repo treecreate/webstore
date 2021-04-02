@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { environment } from '../environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CookiePromptModalComponent } from './shared/components/cookie-prompt-modal/cookie-prompt-modal.component';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import {
   LocalStorageService,
   LocalStorageVars,
@@ -44,7 +44,6 @@ export class AppComponent {
     if (!this.cookies$.getValue()) {
       this.modalService.open(CookiePromptModalComponent, {
         backdrop: 'static',
-        centered: true,
       });
     }
   }

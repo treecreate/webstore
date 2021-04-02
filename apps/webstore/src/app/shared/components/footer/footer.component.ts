@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
+import { TermsOfUseComponent } from '../modals/terms-of-use/terms-of-use.component';
 
 @Component({
   selector: 'webstore-footer',
@@ -9,7 +12,15 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class FooterComponent implements OnInit {
-  constructor() {}
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {}
+
+  termsOfUseModal() {
+    this.modalService.open(TermsOfUseComponent, { size: 'lg' });
+  }
+
+  privacyNoticeModal() {
+    this.modalService.open(PrivacyNoticeModalComponent, { size: 'lg' });
+  }
 }

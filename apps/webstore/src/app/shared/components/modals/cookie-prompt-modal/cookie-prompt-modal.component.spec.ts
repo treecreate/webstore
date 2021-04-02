@@ -9,52 +9,54 @@ describe('CookiePromptModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        CookiePromptModalComponent
-      ],
-      imports: [NgbActiveModal]
+      declarations: [CookiePromptModalComponent],
+      imports: [NgbActiveModal],
     }).compileComponents();
 
     //Mock localStorage
-    let store = { };
+    let store = {};
     const mockLocalStorageService = {
-      getItem: (key : string): string => {
-        return key in store ? store[key] : null; 
+      getItem: (key: string): string => {
+        return key in store ? store[key] : null;
       },
-      setItem: (key : string, value : string) => {
+      setItem: (key: string, value: string) => {
         store[key] = `${value}`;
       },
-      removeItem: (key : string) => {
+      removeItem: (key: string) => {
         delete store[key];
       },
       clear: () => {
-        store = { };
-      }
+        store = {};
+      },
     };
 
     // This means: Whenever localStorage.getItem is called, instead, mockLocalStorageService.getItem is called.
-    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorageService.getItem);
-    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorageService.setItem);
-    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorageService.removeItem);
+    spyOn(localStorage, 'getItem').and.callFake(
+      mockLocalStorageService.getItem
+    );
+    spyOn(localStorage, 'setItem').and.callFake(
+      mockLocalStorageService.setItem
+    );
+    spyOn(localStorage, 'removeItem').and.callFake(
+      mockLocalStorageService.removeItem
+    );
     spyOn(localStorage, 'clear').and.callFake(mockLocalStorageService.clear);
-
   });
 
-  beforeEach( () => {
+  beforeEach(() => {
     localStorage.clear();
-  })
+  });
 
   describe('setCookies', () => {
     it('should change the local storage cookies to true', () => {
-      localStorage.setItem('cookies', 'true'); 
-      expect(localStorage.getItem('cookies')).toEqual('true'); 
+      localStorage.setItem('cookies', 'true');
+      expect(localStorage.getItem('cookies')).toEqual('true');
     });
   });
 
   describe('getCookiesStatus', () => {
     it('should return false when not initiated', () => {
-      expect(localStorage.getItem('cookies')).toEqual(null); 
+      expect(localStorage.getItem('cookies')).toEqual(null);
     });
   });
-
 });

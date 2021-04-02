@@ -7,11 +7,13 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CookiePromptModalComponent } from './shared/components/cookie-prompt-modal/cookie-prompt-modal.component';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 //Pages
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
+import { TermsOfUseComponent } from './shared/components/modals/terms-of-use/terms-of-use.component';
+import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { HomeComponent } from './pages/home/home.component';
     HomeComponent,
     PageNotFoundComponent,
     CookiePromptModalComponent,
+    TermsOfUseComponent,
+    PrivacyNoticeModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService, NgbActiveModal],

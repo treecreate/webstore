@@ -1,10 +1,12 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   LocalStorageService,
   LocalStorageVars,
-} from '../../services/local-storage';
+} from '../../../services/local-storage';
+import { TermsOfUseComponent } from '../terms-of-use/terms-of-use.component';
 
 @Component({
   selector: 'webstore-cookie-prompt-modal',
@@ -15,6 +17,7 @@ export class CookiePromptModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private localStorageService: LocalStorageService,
+    private modalService: NgbModal
   ) {}
 
   acceptCookies() {
@@ -25,6 +28,10 @@ export class CookiePromptModalComponent implements OnInit {
         .getItem<Boolean>(LocalStorageVars.cookies)
         .getValue()}`
     );
+  }
+
+  termsOfUseModal() {
+    this.modalService.open(TermsOfUseComponent, { size: 'lg' });
   }
 
   ngOnInit(): void {}
