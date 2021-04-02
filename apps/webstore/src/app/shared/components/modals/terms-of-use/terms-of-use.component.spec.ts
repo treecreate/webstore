@@ -18,7 +18,5 @@ describe('TermsOfUseComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should contain', () => {});
 });
