@@ -6,12 +6,12 @@ import {
   LocalStorageService,
   LocalStorageVars,
 } from '../../../services/local-storage';
-import { TermsOfUseComponent } from '../terms-of-use/terms-of-use.component';
+import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 
 @Component({
   selector: 'webstore-cookie-prompt-modal',
   templateUrl: './cookie-prompt-modal.component.html',
-  styleUrls: ['./cookie-prompt-modal.component.css'],
+  styleUrls: ['./cookie-prompt-modal.component.css', '../../../../../assets/styles/modals.css',],
 })
 export class CookiePromptModalComponent implements OnInit {
   constructor(
@@ -31,7 +31,7 @@ export class CookiePromptModalComponent implements OnInit {
   }
 
   termsOfUseModal() {
-    this.modalService.open(TermsOfUseComponent, { size: 'lg' });
+    this.modalService.open(TermsOfUseModalComponent, { size: 'lg' });
   }
 
   ngOnInit(): void {}

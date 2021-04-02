@@ -9,7 +9,7 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
-import { TermsOfUseComponent } from './shared/components/modals/terms-of-use/terms-of-use.component';
+import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -22,7 +22,7 @@ describe('AppComponent', () => {
         FooterComponent,
         PageNotFoundComponent,
         CookiePromptModalComponent,
-        TermsOfUseComponent,
+        TermsOfUseModalComponent,
       ],
     }).compileComponents();
   });
