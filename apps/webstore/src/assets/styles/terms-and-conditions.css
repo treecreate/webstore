@@ -39,3 +39,13 @@
 .tc-button-square:hover > .icon {
   transform: rotate(180deg);
 }
+
+@media (max-width: 992px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-block: auto;
+  }
+}

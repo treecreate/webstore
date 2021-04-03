@@ -8,12 +8,13 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
+import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
+import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
+import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 //Pages
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
-import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
-import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +24,9 @@ import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-
     HomeComponent,
     PageNotFoundComponent,
     CookiePromptModalComponent,
-    TermsOfUseModalComponent,
     PrivacyNoticeModalComponent,
+    TermsOfUseModalComponent,
+    TermsOfSaleModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService, NgbActiveModal],
