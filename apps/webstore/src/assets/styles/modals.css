@@ -40,3 +40,12 @@ a:hover {
   color: #ebc6ab !important;
   text-decoration: none;
 }
+
+@media (max-width: 450px) {
+  .text {
+    width: 90%;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    text-align: justify;
+  }
+}

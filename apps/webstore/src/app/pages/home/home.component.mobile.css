@@ -1,5 +1,5 @@
 @media (max-width: 1125px) {
-  .title {
+  .main-title {
     font-size: 3.5rem;
   }
 }
@@ -13,18 +13,18 @@
     margin: auto;
     margin-top: 120px;
   }
-  .text {
+  .main-text {
     padding-top: 6vh;
   }
 }
 @media (max-width: 650px) {
-  .title {
+  .main-title {
     font-size: 2.5rem;
   }
-  .subTitle {
+  .main-subtitle {
     font-size: 1.25rem;
   }
-  .text {
+  .main-text {
     padding-top: 10vh;
   }
   .clearfix hr {
@@ -42,15 +42,15 @@
     margin-top: 27vh !important;
     margin-bottom: 10vh;
   }
-  .title {
+  .main-title {
     padding-top: 4.15rem;
   }
-  .text {
+  .main-text {
     padding-top: 0vh;
   }
 }
 @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) {
-  .title {
+  .main-title {
     padding-top: 4.5rem;
   }
 }

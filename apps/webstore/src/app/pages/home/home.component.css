@@ -14,14 +14,14 @@
   margin: auto;
   margin-top: 13rem;
 }
-.text {
+.main-text {
   padding-top: 4vh;
 }
 .arrow-container {
   margin: 10vh 0;
   text-align: center;
 }
-.title {
+.main-title {
   padding-top: 8rem;
   font-family: Argesta Display;
   font-style: normal;
@@ -30,7 +30,7 @@
   align-items: center;
   letter-spacing: 0.2em;
 }
-.subTitle {
+.main-subtitle {
   font-family: Seravek;
   font-style: normal;
   font-weight: 100;
@@ -39,6 +39,19 @@
   letter-spacing: 0.1em;
 }
 /* END Main section */
+
+/* Product section */
+.product-content {
+  text-align: center;
+}
+.home-text {
+  margin: 2.5rem auto; 
+  width:40vw;
+}
+.home-title {
+  margin: 1rem; 
+}
+/* END Product section */ 
 
 /* Buttons */
 .tc-start-main {
