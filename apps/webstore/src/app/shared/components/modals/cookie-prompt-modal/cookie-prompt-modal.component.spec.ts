@@ -8,7 +8,7 @@ describe('CookiePromptModalComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [CookiePromptModalComponent],
       imports: [],
-      providers: [NgbActiveModal]
+      providers: [NgbActiveModal],
     }).compileComponents();
 
     //Mock localStorage
