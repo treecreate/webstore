@@ -12,7 +12,6 @@ import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-
   ],
 })
 export class FooterComponent implements OnInit {
-  
   constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {}
