@@ -16,6 +16,7 @@ import { ParallaxDirective } from './shared/directives/parallax/parallax.directi
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
+import { TestDirective } from './test.directive';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,11 @@ import { HomeComponent } from './pages/home/home.component';
     TermsOfUseModalComponent,
     TermsOfSaleModalComponent,
     ParallaxDirective,
+    TestDirective,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService, NgbActiveModal, ParallaxDirective],
   bootstrap: [AppComponent],
+  exports: [TestDirective],
 })
 export class AppModule {}
