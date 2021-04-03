@@ -21,7 +21,7 @@ describe('TermsOfSaleModalComponent', () => {
   });
 
   it("should have title 'termsOfSaleModal'", () => {
-    const fixture = TestBed.createComponent(TermsOfSaleModalComponent);
+    fixture = TestBed.createComponent(TermsOfSaleModalComponent);
     const termsOdSaleModal = fixture.componentInstance;
     expect(termsOdSaleModal.title).toEqual('termsOfSaleModal');
   });

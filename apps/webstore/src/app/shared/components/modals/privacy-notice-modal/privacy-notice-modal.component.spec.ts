@@ -22,7 +22,7 @@ describe('PrivacyNoticeModalComponent', () => {
   });
 
   it(`should have as title 'privacyNoticeModal'`, () => {
-    const fixture = TestBed.createComponent(PrivacyNoticeModalComponent);
+    fixture = TestBed.createComponent(PrivacyNoticeModalComponent);
     const privacyModal = fixture.componentInstance;
     expect(privacyModal.title).toEqual('privacyNoticeModal');
   });

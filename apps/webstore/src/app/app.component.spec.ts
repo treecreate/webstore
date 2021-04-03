@@ -10,6 +10,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
+import { ParallaxDirective } from './shared/directives/parallax/parallax.directive';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -24,6 +25,7 @@ describe('AppComponent', () => {
         CookiePromptModalComponent,
         TermsOfUseModalComponent,
       ],
+      providers: [ ParallaxDirective ]
     }).compileComponents();
   });
 

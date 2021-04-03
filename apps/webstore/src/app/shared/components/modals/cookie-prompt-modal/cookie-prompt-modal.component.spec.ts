@@ -4,8 +4,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CookiePromptModalComponent } from './cookie-prompt-modal.component';
 
 describe('CookiePromptModalComponent', () => {
-  let component: CookiePromptModalComponent;
-  let fixture: ComponentFixture<CookiePromptModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

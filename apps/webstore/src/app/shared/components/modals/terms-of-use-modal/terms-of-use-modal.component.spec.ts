@@ -22,7 +22,7 @@ describe('TermsOfUseModalComponent', () => {
   });
 
   it(`should have as title 'termsOfServiceModal'`, () => {
-    const fixture = TestBed.createComponent(TermsOfUseModalComponent);
+    fixture = TestBed.createComponent(TermsOfUseModalComponent);
     const termsModal = fixture.componentInstance;
     expect(termsModal.title).toEqual('termsOfServiceModal');
   });
