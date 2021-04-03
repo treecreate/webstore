@@ -11,7 +11,10 @@ import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-mod
 @Component({
   selector: 'webstore-cookie-prompt-modal',
   templateUrl: './cookie-prompt-modal.component.html',
-  styleUrls: ['./cookie-prompt-modal.component.css', '../../../../../assets/styles/modals.css',],
+  styleUrls: [
+    './cookie-prompt-modal.component.css',
+    '../../../../../assets/styles/modals.css',
+  ],
 })
 export class CookiePromptModalComponent implements OnInit {
   constructor(

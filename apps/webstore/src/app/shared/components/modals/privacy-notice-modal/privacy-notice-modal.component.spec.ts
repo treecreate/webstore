@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PrivacyNoticeModalComponent } from './privacy-notice-modal.component';
 
@@ -9,6 +10,8 @@ describe('PrivacyNoticeModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PrivacyNoticeModalComponent],
+      providers: [NgbModal, NgbActiveModal],
+      imports: [],
     }).compileComponents();
   });
 
@@ -18,7 +21,9 @@ describe('PrivacyNoticeModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it(`should have as title 'privacyNoticeModal'`, () => {
+    const fixture = TestBed.createComponent(PrivacyNoticeModalComponent);
+    const privacyModal = fixture.componentInstance;
+    expect(privacyModal.title).toEqual('privacyNoticeModal');
   });
 });

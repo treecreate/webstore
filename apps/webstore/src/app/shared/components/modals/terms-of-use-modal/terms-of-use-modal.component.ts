@@ -10,6 +10,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   ],
 })
 export class TermsOfUseModalComponent implements OnInit {
+  title = 'termsOfServiceModal';
+
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {}

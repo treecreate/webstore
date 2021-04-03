@@ -10,6 +10,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   ],
 })
 export class PrivacyNoticeModalComponent implements OnInit {
+  title = 'privacyNoticeModal';
+
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {}
