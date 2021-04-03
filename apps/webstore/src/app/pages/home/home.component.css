@@ -2,6 +2,8 @@
 .main-section {
   width: 100vw;
   color: white;
+  background-color: white;
+  padding-bottom: 5vh;
 }
 .main-section-container {
   background-image: url('/assets/img/coverPhoto02.png');
@@ -18,8 +20,9 @@
   padding-top: 4vh;
 }
 .arrow-container {
-  margin: 10vh 0;
+  padding: 5vh 0;
   text-align: center;
+  background-color: white;
 }
 .main-title {
   padding-top: 8rem;
@@ -43,14 +46,18 @@
 /* Product section */
 .product-content {
   text-align: center;
+  background-color: white;
 }
 .home-text {
-  margin: 2.5rem auto; 
-  width:40vw;
+  margin: 0 auto; 
+  padding: 4rem;
+  min-width: 320px;
+  max-width: 750px;
 }
 .home-title {
   margin: 1rem; 
 }
+
 /* END Product section */ 
 
 /* Buttons */
@@ -100,3 +107,23 @@
 }
 /* END Arrow down button */
 /* END Buttons */
+
+/* Parallax */
+.parallax-img {
+  background-image: url("/assets/img/coverPhoto01-9.png");
+  background-position-x: 38%;
+  position: fixed;
+  margin-top: 360px;
+  z-index: -1;
+  right: 0px;
+  width: 100%;
+  min-height: 800px;
+  min-width: 1300px;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax-space {
+  height:450px;
+  background-color: rgba(255, 255, 255, 0.25);
+}

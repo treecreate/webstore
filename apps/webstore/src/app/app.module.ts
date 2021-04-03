@@ -11,6 +11,7 @@ import { CookiePromptModalComponent } from './shared/components/modals/cookie-pr
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
+import { ParallaxDirective } from './shared/components/parallax/parallax.directive';
 //Pages
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
@@ -27,6 +28,7 @@ import { HomeComponent } from './pages/home/home.component';
     PrivacyNoticeModalComponent,
     TermsOfUseModalComponent,
     TermsOfSaleModalComponent,
+    ParallaxDirective
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService, NgbActiveModal],

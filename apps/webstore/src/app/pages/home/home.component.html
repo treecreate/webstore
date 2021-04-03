@@ -1,6 +1,6 @@
 <section class="main-section">
   <div class="main-section-container">
-    <div class="home-text">
+    <div class="main-text">
       <h2 class="main-title">MY FAMILYTREE</h2>
       <h5 class="main-subtitle">Prices from: 396kr</h5>
       <button class="tc-start-main">Start</button>
@@ -11,7 +11,7 @@
 <div class="arrow-container">
   <button
     class="down-arrow"
-    onClick="document.getElementById('footer').scrollIntoView();"
+    onClick="document.getElementById('product').scrollIntoView();"
   >
     <div class="icon">
       <div class="bar1"></div>
@@ -20,8 +20,8 @@
   </button>
 </div>
 
-<section class="product-section">
-  <div class="product-content container">
+<section class="product-section" id="product">
+  <div class="product-content">
     <div class="home-text">
       <h1 class="home-title">Product</h1>
       <p>
@@ -31,6 +31,11 @@
       </p>
     </div>
   </div>
+
+  <div class="parallax-space">
+    <div webstoreParallax [ratio]="0.43" class="parallax-img"></div>
+  </div>
+
   <div class="arrow-container">
     <button
       class="down-arrow"
@@ -43,3 +48,4 @@
     </button>
   </div>
 </section>
+
