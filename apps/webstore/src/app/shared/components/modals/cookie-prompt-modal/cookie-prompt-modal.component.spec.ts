@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CookiePromptModalComponent } from './cookie-prompt-modal.component';
@@ -7,7 +7,8 @@ describe('CookiePromptModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CookiePromptModalComponent],
-      imports: [NgbActiveModal],
+      imports: [],
+      providers: [NgbActiveModal]
     }).compileComponents();
 
     //Mock localStorage
