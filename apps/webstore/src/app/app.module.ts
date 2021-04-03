@@ -28,10 +28,10 @@ import { HomeComponent } from './pages/home/home.component';
     PrivacyNoticeModalComponent,
     TermsOfUseModalComponent,
     TermsOfSaleModalComponent,
-    ParallaxDirective
+    ParallaxDirective,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
-  providers: [GoogleAnalyticsService, NgbActiveModal],
+  providers: [GoogleAnalyticsService, NgbActiveModal, ParallaxDirective],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

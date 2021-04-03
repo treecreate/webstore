@@ -25,7 +25,7 @@ describe('AppComponent', () => {
         CookiePromptModalComponent,
         TermsOfUseModalComponent,
       ],
-      providers: [ ParallaxDirective ]
+      providers: [ParallaxDirective],
     }).compileComponents();
   });
 

@@ -10,7 +10,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      providers: [ParallaxDirective]
+      providers: [ParallaxDirective],
     }).compileComponents();
   });
 

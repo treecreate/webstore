@@ -5,7 +5,7 @@ import { Directive, Input, ElementRef, HostListener } from '@angular/core';
 })
 export class ParallaxDirective {
   //This parameter is used to configure the the amount of distance an element with this directive moves on a unit scroll.
-  @Input() 
+  @Input()
   parallaxRatio: 1;
 
   //This property indicates the initial vertical position of the element on which the directive is applied.
