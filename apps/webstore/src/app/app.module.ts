@@ -27,10 +27,9 @@ import { HomeComponent } from './pages/home/home.component';
     CookiePromptModalComponent,
     PrivacyNoticeModalComponent,
     TermsOfUseModalComponent,
-    TermsOfSaleModalComponent,
-    ParallaxDirective,
+    TermsOfSaleModalComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, ParallaxDirective, NgbModule],
   providers: [GoogleAnalyticsService, NgbActiveModal, ParallaxDirective],
   bootstrap: [AppComponent],
 })
