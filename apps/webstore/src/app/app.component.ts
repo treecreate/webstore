@@ -18,6 +18,8 @@ declare let gtag: Function;
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  
+  title = 'webstore';
   cookies$: BehaviorSubject<Boolean>;
 
   constructor(
@@ -40,12 +42,10 @@ export class AppComponent {
     this.cookies$ = this.localStorageService.getItem<Boolean>(
       LocalStorageVars.cookies
     );
-    // console.log(`Are cookies accepted? ${this.cookies$.getValue()}`);
     if (!this.cookies$.getValue()) {
       this.modalService.open(CookiePromptModalComponent, {
         backdrop: 'static',
       });
     }
   }
-  title = 'webstore';
 }
