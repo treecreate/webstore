@@ -22,12 +22,12 @@ public class MailService {
     this.javaMailSender = javaMailSender;
   }
 
-  public String sendMail(User user, String template) throws MessagingException, UnsupportedEncodingException
+  public String sendMail(User user, MailTemplate template) throws MessagingException, UnsupportedEncodingException
   {
     Context context = new Context();
     context.setVariable("user", user);
 
-    String process = templateEngine.process("emails/" + template, context);
+    String process = templateEngine.process("emails/" + template.label, context);
     javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
     helper.setFrom(new InternetAddress("info@treecreate.dk", "Treecreate"));

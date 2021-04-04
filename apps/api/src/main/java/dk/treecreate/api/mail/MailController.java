@@ -16,7 +16,7 @@ public class MailController
   @ResponseBody
   public String sendMail(@RequestBody User user) throws MessagingException, UnsupportedEncodingException
   {
-    mailService.sendMail(user, "welcome");
+    mailService.sendMail(user, MailTemplate.RESET_PASSWORD);
     return "Email Sent Successfully.!";
   }
 }
