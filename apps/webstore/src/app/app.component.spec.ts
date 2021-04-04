@@ -1,6 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbActiveModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbModalModule,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -14,7 +18,7 @@ import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-us
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, NgbModule,  NgbModalModule],
+      imports: [RouterTestingModule, NgbModule, NgbModalModule],
       declarations: [
         AppComponent,
         NavbarComponent,
