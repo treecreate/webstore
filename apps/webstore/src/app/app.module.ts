@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModule,
+  NgbActiveModal,
+  NgbModalModule,
+} from '@ng-bootstrap/ng-bootstrap';
 //Services
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 //Components
@@ -28,7 +32,7 @@ import { HomeComponent } from './pages/home/home.component';
     TermsOfUseModalComponent,
     TermsOfSaleModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, NgbModalModule],
   providers: [GoogleAnalyticsService, NgbActiveModal],
   bootstrap: [AppComponent],
   entryComponents: [CookiePromptModalComponent],

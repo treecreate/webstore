@@ -18,7 +18,6 @@ declare let gtag: Function;
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  
   title = 'webstore';
   cookies$: BehaviorSubject<Boolean>;
 
