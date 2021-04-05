@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../environments/environment';
-import { LocalStorageService } from './shared/services/local-storage';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 
 //Google analytics
 declare let gtag: Function;
@@ -14,7 +15,7 @@ declare let gtag: Function;
 export class AppComponent {
   title = 'webstore';
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private modalService: NgbModal) {
     //Google analytics
     //Connect the router service to google analytics
     this.router.events.subscribe((event) => {
@@ -24,5 +25,7 @@ export class AppComponent {
         });
       }
     });
+
+    this.modalService.open(CookiePromptModalComponent);
   }
 }

@@ -3,7 +3,11 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css', './home.component.mobile.css'],
+  styleUrls: [
+    './home.component.css',
+    './home.component.mobile.css',
+    './home.component.sidescroll.scss',
+  ],
 })
 export class HomeComponent implements OnInit {
   initialTop: 0;
