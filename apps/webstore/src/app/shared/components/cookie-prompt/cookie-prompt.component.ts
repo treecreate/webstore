@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'webstore-cookie-prompt',
@@ -12,12 +12,15 @@ export class CookiePromptComponent implements OnInit {
   closeResult = '';
   @ViewChild('content', { static: true }) private content;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, config: NgbModalConfig) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
   ngOnInit(): void {
     this.modalService
       .open(this.content, {
-      ariaLabelledBy: 'modal-basic-title',
+        ariaLabelledBy: 'modal-basic-title',
       })
       .result.then(
         (result) => {
@@ -30,7 +33,7 @@ export class CookiePromptComponent implements OnInit {
               break;
             default:
               console.log("I don't know what happened to the cookies...");
-      }
+          }
         },
         () => {
           console.log(
