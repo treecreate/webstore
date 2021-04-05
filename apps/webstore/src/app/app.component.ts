@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../environments/environment';
-import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import {
   LocalStorageService,
   LocalStorageVars,
@@ -23,7 +21,6 @@ export class AppComponent {
 
   constructor(
     public router: Router,
-    public modalService: NgbModal,
     private localStorageService: LocalStorageService
   ) {
     //Google analytics
