@@ -31,7 +31,7 @@ import { HomeComponent } from './pages/home/home.component';
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService, NgbActiveModal],
   bootstrap: [AppComponent],
-  entryComponents: [CookiePromptModalComponent],
+  entryComponents: [CookiePromptModalComponent, TermsOfUseModalComponent],
   exports: [CookiePromptModalComponent],
 })
 export class AppModule {}
