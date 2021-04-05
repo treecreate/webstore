@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   NgbActiveModal,
-  NgbModal,
   NgbModalModule,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -29,7 +28,7 @@ describe('AppComponent', () => {
         CookiePromptModalComponent,
         TermsOfUseModalComponent,
       ],
-      providers: [NgbModal, NgbActiveModal],
+      providers: [],
     }).compileComponents();
   });
 
