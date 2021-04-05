@@ -6,7 +6,7 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
   styleUrls: [
     './home.component.css',
     './home.component.mobile.css',
-    './home.component.sidescroll.scss',
+    './home.component.side-scroll.css',
   ],
 })
 export class HomeComponent implements OnInit {

@@ -5,6 +5,9 @@ import {
   NgbActiveModal,
   NgbModalModule,
   NgbModal,
+  NgbNavbar,
+  NgbNav,
+  NgbCollapse,
 } from '@ng-bootstrap/ng-bootstrap';
 //Services
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
@@ -22,12 +25,7 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
-  entryComponents: [
-    CookiePromptModalComponent,
-    NgbModule,
-    NgbModal,
-    NgbActiveModal,
-  ],
+  entryComponents: [CookiePromptModalComponent],
   declarations: [
     AppComponent,
     NavbarComponent,
