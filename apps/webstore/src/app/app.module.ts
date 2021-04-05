@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 //Pages
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
+import { CookiePromptComponent } from './shared/components/cookie-prompt/cookie-prompt.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HomeComponent } from './pages/home/home.component';
     FooterComponent,
     HomeComponent,
     PageNotFoundComponent,
+    CookiePromptComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService],
