@@ -46,7 +46,7 @@ import { HomeComponent } from './pages/home/home.component';
     CookiePromptModalComponent,
     NgbModalModule,
   ],
-  bootstrap: [AppComponent, CookiePromptModalComponent],
+  bootstrap: [AppComponent],
   exports: [CookiePromptModalComponent],
 })
 export class AppModule {}

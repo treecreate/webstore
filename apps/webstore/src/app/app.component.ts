@@ -39,11 +39,5 @@ export class AppComponent {
     this.cookies$ = this.localStorageService.getItem<Boolean>(
       LocalStorageVars.cookies
     );
-
-    if (!this.cookies$.getValue()) {
-      this.modalService.open(CookiePromptModalComponent, {
-        backdrop: 'static',
-      });
-    }
   }
 }
