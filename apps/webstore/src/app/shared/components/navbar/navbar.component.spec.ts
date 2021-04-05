@@ -7,6 +7,7 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CookiePromptModalComponent } from '../modals/cookie-prompt-modal/cookie-prompt-modal.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -15,7 +16,7 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      providers: [NgbModal, NgbActiveModal],
+      providers: [NgbModal, NgbModal, NgbActiveModal],
       imports: [NgbModule, RouterTestingModule],
     }).compileComponents();
   });
