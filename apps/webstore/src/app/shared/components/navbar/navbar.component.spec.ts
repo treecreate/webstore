@@ -21,7 +21,9 @@ describe('NavbarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it("should have a variable 'isMenuCollapsed' that is true", () => {
+    fixture = TestBed.createComponent(NavbarComponent);
+    const navbar = fixture.componentInstance;
+    expect(navbar.isMenuCollapsed).toBe(true);
   });
 });
