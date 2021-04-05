@@ -25,5 +25,7 @@ export class AppComponent {
         });
       }
     });
+
+    this.modalService.open(CookiePromptModalComponent, { backdrop: 'static' });
   }
 }
