@@ -6,7 +6,10 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'webstore-cookie-prompt',
   templateUrl: './cookie-prompt.component.html',
-  styleUrls: ['./cookie-prompt.component.css'],
+  styleUrls: [
+    './cookie-prompt.component.css',
+    '../../../../assets/styles/modals.css',
+  ],
 })
 export class CookiePromptComponent implements OnInit {
   closeResult = '';

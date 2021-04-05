@@ -1,0 +1,51 @@
+.modal-content,
+.modal-header,
+.modal-footer {
+  border: none;
+}
+.modal-content {
+  width: 100%;
+  text-align: center;
+}
+.tc-button-50 {
+  margin: 0 auto 1.5rem auto;
+}
+.text {
+  width: 80%;
+  margin: 1.5rem auto 0 auto;
+  text-align: left;
+}
+p {
+  margin-bottom: 0;
+}
+h1 {
+  margin-top: 1rem;
+  font-family: Seravek;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+}
+.icon {
+  width: 200px;
+  margin: 2vh auto;
+}
+a {
+  color: black;
+  transition: 0.4s;
+}
+a:focus {
+  outline: none;
+}
+a:hover {
+  color: #ebc6ab !important;
+  text-decoration: none;
+}
+
+@media (max-width: 450px) {
+  .text {
+    width: 90%;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    text-align: justify;
+  }
+}
