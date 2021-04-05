@@ -33,7 +33,12 @@ import { HomeComponent } from './pages/home/home.component';
     TermsOfSaleModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, NgbModalModule],
-  providers: [GoogleAnalyticsService, NgbActiveModal],
+  providers: [
+    GoogleAnalyticsService,
+    NgbActiveModal,
+    CookiePromptModalComponent,
+    NgbModalModule,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [CookiePromptModalComponent],
   exports: [CookiePromptModalComponent],
