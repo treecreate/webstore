@@ -1,0 +1,72 @@
+.nav-link {
+  transition-duration: 0.5s;
+  padding-bottom: 5px;
+}
+.nav-item {
+  padding: 0 10px;
+  transition-duration: 0.5s;
+}
+.nav-item:hover > .nav-link {
+  background: none;
+  transform: scale(0.95);
+  text-decoration: none;
+  opacity: 0.5;
+}
+.nav-icon {
+  width: 1.2rem;
+  padding-bottom: 1px;
+}
+.navbar a {
+  color: black !important;
+}
+.navbar {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 1rem 1.5rem;
+  transition: 0.4s;
+}
+.navbar-brand {
+  width: 125px;
+  transition-duration: 0.5s;
+}
+.navbar-brand:hover {
+  transform: scale(0.95);
+}
+.waves-light {
+  text-align: center;
+}
+.navbar-toggler {
+  outline: none;
+  margin-top: 0.3rem;
+}
+/* menu toggle button */
+.bar1,
+.bar2,
+.bar3 {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+
+.active .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+.active .bar2 {
+  opacity: 0;
+}
+.active .bar3 {
+  -webkit-transform: rotate(45deg) translate(-5px, -6px);
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+@media all and (max-width: 992px) {
+  .nav-item {
+    padding: 0 1rem 0 0;
+  }
+  .nav-item:hover {
+    border-bottom: none;
+  }
+}

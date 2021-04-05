@@ -30,6 +30,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [API documentation](#api-documentation)
 - [License](#license)
 - [Contact](#contact)
 
@@ -117,6 +118,11 @@ npm install
 nx serve api
 nx serve webstore
 ```
+
+## Api Documentation
+
+The api features auto-generated documentation using Swagger UI.\
+It can be accessed at [`localhost:5000/docs`](localhost:5000/docs) when the api is running
 
 <!-- CONTACT -->
 
