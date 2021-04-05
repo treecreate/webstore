@@ -1,4 +1,3 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -26,11 +25,7 @@ export class CookiePromptModalComponent implements OnInit {
   acceptCookies() {
     this.localStorageService.setItem(LocalStorageVars.cookies, true);
     this.activeModal.close();
-    // console.log(
-    //   `Cookies are now accepted: ${this.localStorageService
-    //     .getItem<Boolean>(LocalStorageVars.cookies)
-    //     .getValue()}`
-    // );
+    window.location.reload();
   }
 
   termsOfUseModal() {
