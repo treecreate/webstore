@@ -1,0 +1,39 @@
+<nav class="navbar fixed-top navbar-expand-lg mb-3">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="''">
+      <img src="/assets/logos/TCTextLogo.svg" class="logo" width="100" />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="isMenuCollapsed = !isMenuCollapsed"
+    >
+      <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    </button>
+
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link waves-light" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" routerLink="/product">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" routerLink="/login">Log In</a>
+        </li>
+        <li class="nav-item purchase-btn">
+          <a class="nav-link waves-light" routerLink="/basket">
+            <img src="/assets/icons/basketBlackIcon.svg" class="nav-icon" />
+            {{ basketItemOptions(0) }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
