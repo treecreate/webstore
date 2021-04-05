@@ -29,7 +29,7 @@ describe('AppComponent', () => {
         CookiePromptModalComponent,
         TermsOfUseModalComponent,
       ],
-      providers: [NgbModal, NgbActiveModal, NgbModule],
+      providers: [NgbModal, NgbModalModule, NgbActiveModal, NgbModule],
     }).compileComponents();
   });
 

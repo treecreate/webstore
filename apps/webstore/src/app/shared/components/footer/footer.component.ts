@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CookiePromptModalComponent } from '../modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
 
@@ -15,9 +14,7 @@ import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-
 export class FooterComponent implements OnInit {
   constructor(private modalService: NgbModal) {}
 
-  ngOnInit(): void {
-    this.modalService.open(CookiePromptModalComponent);
-  }
+  ngOnInit(): void {}
 
   termsOfUseModal() {
     this.modalService.open(TermsOfUseModalComponent, { size: 'lg' });

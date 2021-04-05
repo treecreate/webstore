@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../environments/environment';
-import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { LocalStorageService } from './shared/services/local-storage';
 
 //Google analytics
