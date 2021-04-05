@@ -24,7 +24,7 @@ import { HomeComponent } from './pages/home/home.component';
 @NgModule({
   entryComponents: [
     CookiePromptModalComponent,
-    NgModule,
+    NgbModule,
     NgbModal,
     NgbActiveModal,
   ],

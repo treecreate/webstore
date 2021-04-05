@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../environments/environment';
-import {
-  LocalStorageService,
-  LocalStorageVars,
-} from './shared/services/local-storage';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
+import { LocalStorageService } from './shared/services/local-storage';
 
 //Google analytics
 declare let gtag: Function;
@@ -17,10 +15,10 @@ declare let gtag: Function;
 })
 export class AppComponent {
   title = 'webstore';
-  cookies$: BehaviorSubject<Boolean>;
 
   constructor(
     public router: Router,
+    private modalService: NgbModal,
     private localStorageService: LocalStorageService
   ) {
     //Google analytics
@@ -33,8 +31,6 @@ export class AppComponent {
       }
     });
 
-    this.cookies$ = this.localStorageService.getItem<Boolean>(
-      LocalStorageVars.cookies
-    );
+    this.modalService.open(CookiePromptModalComponent);
   }
 }
