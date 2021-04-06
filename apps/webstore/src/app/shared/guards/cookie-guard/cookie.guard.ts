@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -20,7 +21,10 @@ import { CookieStatus } from '../../components/cookie-prompt/cookie-prompt.const
   providedIn: 'root',
 })
 export class CookieGuard implements CanActivate {
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -37,6 +41,7 @@ export class CookieGuard implements CanActivate {
       cookieStatus != CookieStatus.undefined
     ) {
       console.warn('You need to accept cookies before you can use our website');
+      this.router.navigate(['/rejectedCookies']); // redirect when authorization fails
       return false;
     }
     return true;
