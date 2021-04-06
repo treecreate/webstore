@@ -18,7 +18,7 @@ public class HealthcheckController
   {
     // HashMap can be changed to Json Object if needed.
     Map<String, String> map = new HashMap<>();
-    map.put("status", "200");
+    map.put("status", "OK");
     map.put("message", "Server is live");
     return map;
   }
