@@ -8,6 +8,7 @@ import {
   LocalStorageVars,
 } from '../../services/local-storage';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
+import { CookieStatus } from './cookie-prompt.constants';
 
 @Component({
   selector: 'webstore-cookie-prompt',
@@ -20,19 +21,19 @@ import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-
 export class CookiePromptComponent implements OnInit {
   closeResult = '';
   @ViewChild('content', { static: true }) private content;
-  cookiesAccepted$: BehaviorSubject<Boolean>;
+  cookiesAccepted$: BehaviorSubject<CookieStatus>;
 
   constructor(
     private modalService: NgbModal,
     private localStorageService: LocalStorageService
   ) {
-    this.cookiesAccepted$ = this.localStorageService.getItem<Boolean>(
+    this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(
       LocalStorageVars.cookiesAccepted
     );
   }
 
   ngOnInit(): void {
-    if (!this.cookiesAccepted$.getValue())
+    if (this.cookiesAccepted$.getValue() != CookieStatus.accepted)
       this.modalService
         .open(this.content, {
           ariaLabelledBy: 'modal-basic-title',
@@ -62,7 +63,17 @@ export class CookiePromptComponent implements OnInit {
   }
 
   acceptCookies() {
-    this.localStorageService.setItem(LocalStorageVars.cookiesAccepted, true);
+    this.localStorageService.setItem(
+      LocalStorageVars.cookiesAccepted,
+      CookieStatus.accepted
+    );
+  }
+
+  rejectCookies() {
+    this.localStorageService.setItem(
+      LocalStorageVars.cookiesAccepted,
+      CookieStatus.rejected
+    );
   }
 
   showTermsOfUse() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CookieStatus } from '../../../shared/components/cookie-prompt/cookie-prompt.constants';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import {
   LocalStorageService,
@@ -20,7 +21,10 @@ export class RejectedCookiesComponent implements OnInit {
   ngOnInit(): void {}
 
   acceptCookies() {
-    this.localStorageService.setItem(LocalStorageVars.cookiesAccepted, true);
+    this.localStorageService.setItem(
+      LocalStorageVars.cookiesAccepted,
+      CookieStatus.accepted
+    );
   }
 
   showTermsOfUse() {

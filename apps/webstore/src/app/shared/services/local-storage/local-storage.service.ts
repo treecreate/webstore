@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LocaleType } from '../../../i18n';
+import { CookieStatus } from '../../components/cookie-prompt/cookie-prompt.constants';
 import { LocalStorageVars } from './local-storage.constants';
 
 interface ICache {
@@ -21,11 +22,11 @@ export class LocalStorageService implements OnDestroy {
 
     const acceptedCookies =
       JSON.parse(localStorage.getItem(LocalStorageVars.cookiesAccepted)) ||
-      false;
+      CookieStatus.undefined;
 
     this.cache = {
       [LocalStorageVars.locale]: new BehaviorSubject<LocaleType>(initialLocale),
-      [LocalStorageVars.cookiesAccepted]: new BehaviorSubject<Boolean>(
+      [LocalStorageVars.cookiesAccepted]: new BehaviorSubject<CookieStatus>(
         acceptedCookies
       ),
     };
