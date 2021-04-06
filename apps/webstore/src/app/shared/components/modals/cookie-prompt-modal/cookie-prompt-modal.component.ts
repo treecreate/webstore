@@ -6,19 +6,19 @@ import { BehaviorSubject } from 'rxjs';
 import {
   LocalStorageService,
   LocalStorageVars,
-} from '../../services/local-storage';
-import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
+} from '../../../services/local-storage';
+import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 import { CookieStatus } from './cookie-prompt.constants';
 
 @Component({
-  selector: 'webstore-cookie-prompt',
-  templateUrl: './cookie-prompt.component.html',
+  selector: 'webstore-cookie-prompt-modal',
+  templateUrl: './cookie-prompt-modal.component.html',
   styleUrls: [
-    './cookie-prompt.component.css',
-    '../../../../assets/styles/modals.css',
+    './cookie-prompt-modal.component.css',
+    '../../../../../assets/styles/modals.css',
   ],
 })
-export class CookiePromptComponent implements OnInit {
+export class CookiePromptModalComponent implements OnInit {
   closeResult = '';
   @ViewChild('content', { static: true }) private content;
   cookiesAccepted$: BehaviorSubject<CookieStatus>;

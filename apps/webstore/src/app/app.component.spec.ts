@@ -6,7 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CookiePromptComponent } from './shared/components/cookie-prompt/cookie-prompt.component';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -18,7 +18,7 @@ describe('AppComponent', () => {
         HomeComponent,
         FooterComponent,
         PageNotFoundComponent,
-        CookiePromptComponent,
+        CookiePromptModalComponent,
       ],
     }).compileComponents();
   });

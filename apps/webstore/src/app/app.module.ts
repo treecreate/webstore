@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 //Pages
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
-import { CookiePromptComponent } from './shared/components/cookie-prompt/cookie-prompt.component';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
@@ -24,7 +24,7 @@ import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/reject
     FooterComponent,
     HomeComponent,
     PageNotFoundComponent,
-    CookiePromptComponent,
+    CookiePromptModalComponent,
     TermsOfSaleModalComponent,
     TermsOfUseModalComponent,
     PrivacyNoticeModalComponent,

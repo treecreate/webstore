@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { CookiePromptComponent } from './cookie-prompt.component';
+import { CookiePromptModalComponent } from './cookie-prompt-modal.component';
 
 describe('CookiePromptComponent', () => {
-  let component: CookiePromptComponent;
-  let fixture: ComponentFixture<CookiePromptComponent>;
+  let component: CookiePromptModalComponent;
+  let fixture: ComponentFixture<CookiePromptModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CookiePromptComponent],
+      declarations: [CookiePromptModalComponent],
       imports: [NgbModule],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CookiePromptComponent);
+    fixture = TestBed.createComponent(CookiePromptModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

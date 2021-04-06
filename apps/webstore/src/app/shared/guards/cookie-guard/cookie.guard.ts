@@ -15,7 +15,7 @@ import {
   LocalStorageVars,
 } from '../../services/local-storage';
 
-import { CookieStatus } from '../../components/cookie-prompt/cookie-prompt.constants';
+import { CookieStatus } from '../../components/modals/cookie-prompt-modal/cookie-prompt.constants';
 
 @Injectable({
   providedIn: 'root',
