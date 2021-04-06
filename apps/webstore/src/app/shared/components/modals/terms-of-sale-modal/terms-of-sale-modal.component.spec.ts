@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TermsOfSaleModalComponent } from './terms-of-sale-modal.component';
 
@@ -9,6 +10,8 @@ describe('TermsOfSaleModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TermsOfSaleModalComponent],
+      imports: [NgbModule],
+      providers: [NgbActiveModal],
     }).compileComponents();
   });
 
