@@ -35,7 +35,7 @@ class HealthcheckTests {
       // Ensure it is a Json
       .contentType(MediaType.APPLICATION_JSON))
       // Check the contents of the body.
-      .andExpect(jsonPath("status", is("200")))
+      .andExpect(jsonPath("status", is("OK")))
       .andExpect(jsonPath("message", is("Server is live")));
   }
 }
