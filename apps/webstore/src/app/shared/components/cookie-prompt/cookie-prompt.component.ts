@@ -7,6 +7,7 @@ import {
   LocalStorageService,
   LocalStorageVars,
 } from '../../services/local-storage';
+import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
 
 @Component({
   selector: 'webstore-cookie-prompt',
@@ -63,5 +64,9 @@ export class CookiePromptComponent implements OnInit {
 
   acceptCookies() {
     this.localStorageService.setItem(LocalStorageVars.cookiesAccepted, true);
+  }
+
+  showTermsOfUse() {
+    this.modalService.open(TermsOfUseModalComponent, { size: 'lg' });
   }
 }
