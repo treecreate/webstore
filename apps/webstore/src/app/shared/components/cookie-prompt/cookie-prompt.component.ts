@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import {
   LocalStorageService,
@@ -24,11 +24,8 @@ export class CookiePromptComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    config: NgbModalConfig,
     private localStorageService: LocalStorageService
   ) {
-    config.backdrop = 'static';
-    config.keyboard = false;
     this.cookiesAccepted$ = this.localStorageService.getItem<Boolean>(
       LocalStorageVars.cookiesAccepted
     );
@@ -39,6 +36,8 @@ export class CookiePromptComponent implements OnInit {
       this.modalService
         .open(this.content, {
           ariaLabelledBy: 'modal-basic-title',
+          backdrop: 'static',
+          keyboard: false,
         })
         .result.then(
           (result) => {
