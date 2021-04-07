@@ -1,5 +1,9 @@
 <ng-template #content let-modal>
-  <div class="modal-header" style="background-color: #fff0e4">
+  <div
+    data-cy="cookie-prompt-modal"
+    class="modal-header"
+    style="background-color: #fff0e4"
+  >
     <img class="icon" src="/assets/icons/cookies.png" />
   </div>
   <div class="modal-body">
@@ -10,12 +14,19 @@
         google analytics to continuously improve the page. Without accepting
         these cookies, you will sadly not be able to use the page. If you wish
         to see the cookies that we store, you can go to this link:
-        <strong><a (click)="showTermsOfUse()">Terms of Use</a></strong>
+        <strong
+          ><a
+            data-cy="cookie-prompt-modal-terms-of-use-link"
+            (click)="showTermsOfUse()"
+            >Terms of Use</a
+          ></strong
+        >
       </p>
     </div>
   </div>
   <div class="modal-footer">
     <button
+      data-cy="cookie-prompt-modal-reject-cookies-btn"
       routerLink="/rejectedCookies"
       type="button"
       class="tc-button-50"
@@ -24,7 +35,12 @@
     >
       Reject
     </button>
-    <button type="button" class="tc-button-50" (click)="modal.close('accept')">
+    <button
+      data-cy="cookie-prompt-modal-accept-cookies-btn"
+      type="button"
+      class="tc-button-50"
+      (click)="modal.close('accept')"
+    >
       Accept
     </button>
   </div>
