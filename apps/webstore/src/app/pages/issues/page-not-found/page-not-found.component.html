@@ -9,6 +9,7 @@
       </p>
 
       <a
+        data-cy="page-not-found-mail-treecreate-link"
         id="mailto"
         class="link"
         href="mailto:info@treecreate.dk"
@@ -17,8 +18,20 @@
         info@treecreate.dk
       </a>
       <div class="wrapper">
-        <button onclick="history.back()" class="tc-button-25">Back</button>
-        <button routerLink="/" class="tc-button-25">Home</button>
+        <button
+          data-cy="page-not-found-back-btn"
+          onclick="history.back()"
+          class="tc-button-25"
+        >
+          Back
+        </button>
+        <button
+          data-cy="page-not-found-home-btn"
+          routerLink="/"
+          class="tc-button-25"
+        >
+          Home
+        </button>
       </div>
     </div>
   </div>

@@ -11,13 +11,19 @@
         If you wish to see the cookies that we store, you can go to this link:
         <strong><a (click)="showTermsOfUse()">Terms of Use</a></strong>
       </p>
-      <button routerLink="/home" class="tc-button-25" (click)="acceptCookies()">
+      <button
+        data-cy="rejected-cookies-accept-all-btn"
+        routerLink="/home"
+        class="tc-button-25"
+        (click)="acceptCookies()"
+      >
         Accept all Cookies
       </button>
       <br /><br />
       <p>If you have any questions, feel free to send us an e-mail at:</p>
 
       <a
+        data-cy="rejected-cookies-mail-treecreate-link"
         id="mailto"
         class="link"
         href="mailto:info@treecreate.dk"

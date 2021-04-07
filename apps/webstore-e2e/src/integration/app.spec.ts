@@ -1,13 +1,8 @@
-import { getGreeting } from '../support/app.po';
-
 describe('webstore', () => {
   beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
+  it('have Treecreate as a title', () => {
     // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
-
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to webstore!');
+    cy.title().should('eq', 'Treecreate');
   });
 });

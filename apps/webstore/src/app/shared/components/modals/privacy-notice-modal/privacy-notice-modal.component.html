@@ -1,8 +1,12 @@
 <div class="modal-container">
   <div class="modal-content">
-    <div class="modal-header">
+    <div data-cy="privacy-notice-modal" class="modal-header">
       <h1>Privacy Notice</h1>
-      <div class="tc-button-square" (click)="activeModal.close()">
+      <div
+        data-cy="privacy-notice-modal-x-btn"
+        class="tc-button-square"
+        (click)="activeModal.close()"
+      >
         <div class="icon">
           <div class="bar1"></div>
           <div class="bar2"></div>
@@ -996,7 +1000,12 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="tc-button-50" (click)="activeModal.close()">
+      <button
+        data-cy="privacy-notice-modal-close-btn"
+        type="button"
+        class="tc-button-50"
+        (click)="activeModal.close()"
+      >
         Close
       </button>
     </div>

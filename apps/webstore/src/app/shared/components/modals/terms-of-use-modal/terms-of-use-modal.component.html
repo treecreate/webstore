@@ -2,7 +2,11 @@
   <div class="modal-content">
     <div data-cy="terms-of-use-modal" class="modal-header">
       <h1>Cookie- og privatlivspolitik</h1>
-      <div class="tc-button-square" (click)="activeModal.close()">
+      <div
+        data-cy="terms-of-use-modal-x-btn"
+        class="tc-button-square"
+        (click)="activeModal.close()"
+      >
         <div class="icon">
           <div class="bar1"></div>
           <div class="bar2"></div>
@@ -150,7 +154,12 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="tc-button-50" (click)="activeModal.close()">
+      <button
+        data-cy="terms-of-use-modal-close-btn"
+        type="button"
+        class="tc-button-50"
+        (click)="activeModal.close()"
+      >
         Close
       </button>
     </div>
