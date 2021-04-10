@@ -16,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;
@@ -76,8 +77,9 @@ class MailControllerTest
     params.setEmail(email);
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
+    Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
     doThrow(UnsupportedEncodingException.class).when(mailService)
-      .sendSignupEmail(email);
+      .sendSignupEmail(email, new Locale("dk"));
 
     mvc.perform(post("/signup")
       .content(asJsonString(params))
@@ -127,8 +129,9 @@ class MailControllerTest
     params.setEmail(email);
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
+    Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
     doThrow(UnsupportedEncodingException.class).when(mailService)
-      .sendSignupEmail(email);
+      .sendSignupEmail(email, new Locale("dk"));
 
     mvc.perform(post("/signup")
       .content(asJsonString(params))
@@ -164,8 +167,9 @@ class MailControllerTest
     params.setEmail(email);
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
+    Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
     doThrow(UnsupportedEncodingException.class).when(mailService)
-      .sendResetPasswordEmail(email);
+      .sendResetPasswordEmail(email, new Locale("dk"));
 
     mvc.perform(post("/resetPassword")
       .content(asJsonString(params))
@@ -215,8 +219,9 @@ class MailControllerTest
     params.setEmail(email);
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
+    Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
     doThrow(UnsupportedEncodingException.class).when(mailService)
-      .sendResetPasswordEmail(email);
+      .sendResetPasswordEmail(email, new Locale("dk"));
 
     mvc.perform(post("/resetPassword")
       .content(asJsonString(params))

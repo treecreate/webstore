@@ -10,6 +10,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 @Service
 public class MailService
@@ -23,17 +25,17 @@ public class MailService
     this.javaMailSender = javaMailSender;
   }
 
-  public void sendSignupEmail(String to) throws UnsupportedEncodingException, MessagingException
+  public void sendSignupEmail(String to, Locale locale) throws UnsupportedEncodingException, MessagingException
   {
-    Context context = new Context();
+    Context context = new Context(locale);
     context.setVariable("email", to);
     String subject = "Welcome to Treecreate";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
   }
 
-  public void sendResetPasswordEmail(String to) throws UnsupportedEncodingException, MessagingException
+  public void sendResetPasswordEmail(String to, Locale locale) throws UnsupportedEncodingException, MessagingException
   {
-    Context context = new Context();
+    Context context = new Context(locale);
     context.setVariable("email", to);
     String subject = "Hey idiot, you forgot your password";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
@@ -44,7 +46,9 @@ public class MailService
   {
     String process = templateEngine.process("emails/" + template.label, context);
     javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-    MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+    MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
+      MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+      StandardCharsets.UTF_8.name());
     helper.setFrom(new InternetAddress(from.label, "Treecreate"));
     helper.setSubject(subject);
     helper.setText(process, true);
@@ -65,5 +69,11 @@ public class MailService
       System.out.println("Invalid email");
     }
     return false;
+  }
+
+  public Locale getLocale(String lang)
+  {
+    if (lang == null) return new Locale("dk"); // default locale is danish
+    else return new Locale(lang);
   }
 }
