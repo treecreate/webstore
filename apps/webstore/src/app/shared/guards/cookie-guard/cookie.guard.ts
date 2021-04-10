@@ -34,8 +34,8 @@ export class CookieGuard implements CanActivate {
       .getItem<CookieStatus>(LocalStorageVars.cookiesAccepted)
       .getValue();
     if (
-      cookieStatus != CookieStatus.accepted &&
-      cookieStatus != CookieStatus.undefined
+      cookieStatus !== CookieStatus.accepted &&
+      cookieStatus !== CookieStatus.undefined
     ) {
       console.warn('You need to accept cookies before you can use our website');
       this.router.navigate(['/rejectedCookies']); // redirect when authorization fails

@@ -30,7 +30,7 @@ export class CookiePromptModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.cookiesAccepted$.getValue() != CookieStatus.accepted)
+    if (this.cookiesAccepted$.getValue() !== CookieStatus.accepted)
       this.modalService
         .open(this.content, {
           ariaLabelledBy: 'modal-basic-title',
