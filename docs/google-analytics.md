@@ -19,25 +19,25 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleAnalyticsService } from '../google-analytics/google-analytics.service';
 
 @Component({
-  selector: 'google-button-test',
-  templateUrl: './google-button-test.component.html',
-  styleUrls: ['./google-button-test.component.css'],
+    selector: 'google-button-test',
+    templateUrl: './google-button-test.component.html',
+    styleUrls: ['./google-button-test.component.css'],
 })
 export class GoogleButtonTestComponent implements OnInit {
-  constructor(public googleAnalyticsService: GoogleAnalyticsService) {}
+    constructor(public googleAnalyticsService: GoogleAnalyticsService) {}
 
-  ngOnInit(): void {}
+    ngOnInit(): void {}
 
-  testGoogleEventEmitter() {
-    console.log('testing google event emitter');
-    this.googleAnalyticsService.eventEmitter(
-      'add_to_cart',
-      'shop',
-      'cart',
-      'click',
-      1
-    );
-  }
+    testGoogleEventEmitter() {
+        console.log('testing google event emitter');
+        this.googleAnalyticsService.eventEmitter(
+            'add_to_cart',
+            'shop',
+            'cart',
+            'click',
+            1
+        );
+    }
 }
 ```
 

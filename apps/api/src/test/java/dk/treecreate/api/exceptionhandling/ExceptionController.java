@@ -14,22 +14,22 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class ExceptionController
 {
-  @PostMapping("/exception")
-  public void getSpecificException(@RequestParam(name = "exceptionName") String exceptionName,
-                                   @RequestParam(required = false, name = "customMessage") String customMessage)
-  {
-    switch (exceptionName)
+    @PostMapping("/exception")
+    public void getSpecificException(@RequestParam(name = "exceptionName") String exceptionName,
+                                     @RequestParam(required = false, name = "customMessage") String customMessage)
     {
-      case "ResponseStatusException":
-        if (customMessage != null)
-          throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT, customMessage);
-        else
-          throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT);
-      case "ResourceNotFoundException":
-        if (customMessage != null)
-          throw new ResourceNotFoundException(customMessage);
-        else
-          throw new ResourceNotFoundException();
+        switch (exceptionName)
+        {
+            case "ResponseStatusException":
+                if (customMessage != null)
+                    throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT, customMessage);
+                else
+                    throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT);
+            case "ResourceNotFoundException":
+                if (customMessage != null)
+                    throw new ResourceNotFoundException(customMessage);
+                else
+                    throw new ResourceNotFoundException();
+        }
     }
-  }
 }

@@ -4,17 +4,17 @@ Swagger UI is a tool for generation of API documentation based off of the define
 
 ## Table of Contents
 
-- [Viewing the docs](#viewing-the-docs)
-- [Swagger Config](#swagger-config)
-  - [Config structure](#swagger-config)
-  - [Pom.xml dependencies](#pom.xml-dependencies)
-- [Controller documentation](#controller-documentation)
-  - [Documenting the controller](#controller-documentation)
-  - [Method-specific annotations](#method-specific-annotations)
-  - [Prevent a controller/method from being documented](#prevent-a-controller/method-from-being-documented)
-- [Models](#models)
-- [Resources](#resources)
-- [Extra notes](#extra-notes)
+-   [Viewing the docs](#viewing-the-docs)
+-   [Swagger Config](#swagger-config)
+    -   [Config structure](#swagger-config)
+    -   [Pom.xml dependencies](#pom.xml-dependencies)
+-   [Controller documentation](#controller-documentation)
+    -   [Documenting the controller](#controller-documentation)
+    -   [Method-specific annotations](#method-specific-annotations)
+    -   [Prevent a controller/method from being documented](#prevent-a-controller/method-from-being-documented)
+-   [Models](#models)
+-   [Resources](#resources)
+-   [Extra notes](#extra-notes)
 
 ---
 
@@ -78,8 +78,8 @@ will result in the following docs entry
 
 ## Resources
 
-- [Full list of annotations](https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X) - not all of them have to be used\
-- [Baeldung guide](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api) - does not show all features
+-   [Full list of annotations](https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X) - not all of them have to be used\
+-   [Baeldung guide](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api) - does not show all features
 
 ## Extra notes
 

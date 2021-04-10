@@ -10,10 +10,10 @@ If you want to target all screens below a specific screen size, you can write so
 
 ```css
 @media (max-width: 992px) {
-  .myClass {
-    margin: 10vh;
-    color: white;
-  }
+    .myClass {
+        margin: 10vh;
+        color: white;
+    }
 }
 ```
 
@@ -23,7 +23,7 @@ This is generally used for desktop testing and as a more general styling. It is 
 /* ------------------ IPHONES ------------------ */
 /* iphone 5 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
-  /* STYLES GO HERE */
+    /* STYLES GO HERE */
 }
 
 /* iphone 6, 6s, 7, 8 */

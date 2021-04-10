@@ -13,15 +13,15 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-  ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
-  providers: [GoogleAnalyticsService],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        FooterComponent,
+        HomeComponent,
+        PageNotFoundComponent,
+    ],
+    imports: [BrowserModule, AppRoutingModule, NgbModule],
+    providers: [GoogleAnalyticsService],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

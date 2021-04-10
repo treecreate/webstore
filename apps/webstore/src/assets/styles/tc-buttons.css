@@ -4,25 +4,25 @@
 .tc-button-50,
 .tc-button-100,
 .tc-button-static {
-  /* button */
-  box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-  background: #ebc6ab;
-  height: 35px;
-  border: none;
+    /* button */
+    box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    background: #ebc6ab;
+    height: 35px;
+    border: none;
 
-  /* text */
-  color: white;
-  font-family: Seravek;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 22px;
-  align-items: center;
-  text-align: center;
+    /* text */
+    color: white;
+    font-family: Seravek;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 22px;
+    align-items: center;
+    text-align: center;
 
-  /* effect */
-  outline: none !important;
-  transition: 0.5s;
+    /* effect */
+    outline: none !important;
+    transition: 0.5s;
 }
 
 .tc-button-25:hover,
@@ -30,34 +30,34 @@
 .tc-button-50:hover,
 .tc-button-100:hover,
 .tc-button-static:hover {
-  transform: scale(0.9);
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
 a {
-  color: black !important;
+    color: black !important;
 }
 
 .tc-button-100 {
-  width: 100%;
+    width: 100%;
 }
 .tc-button-50 {
-  width: 47%;
+    width: 47%;
 }
 .tc-button-33 {
-  width: 33%;
+    width: 33%;
 }
 .tc-button-25 {
-  width: 25%;
+    width: 25%;
 }
 .tc-button-static {
-  width: 250px;
+    width: 250px;
 }
 .align-right {
-  text-align: right;
+    text-align: right;
 }
 /* END BUTTON SECTION */
 
 strong {
-  font-weight: 900;
+    font-weight: 900;
 }
