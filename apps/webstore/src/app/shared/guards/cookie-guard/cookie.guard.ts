@@ -10,12 +10,9 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  LocalStorageService,
-  LocalStorageVars,
-} from '../../services/local-storage';
 
-import { CookieStatus } from '../../components/modals/cookie-prompt-modal/cookie-prompt.constants';
+import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageVars, CookieStatus } from '@models';
 
 @Injectable({
   providedIn: 'root',

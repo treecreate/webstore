@@ -1,7 +1,4 @@
-import {
-  CookieStatus,
-  LocalStorageVars,
-} from 'apps/webstore-e2e/src/support/test.constants';
+import { CookieStatus, LocalStorageVars } from '@models';
 
 // since terms of sale modal does not seem to be opened anywhere, those tests are skipped for now
 describe.skip('TermsOfSaleModal', () => {

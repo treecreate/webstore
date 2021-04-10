@@ -1,8 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LocaleType } from '../../../i18n';
-import { CookieStatus } from '../../components/modals/cookie-prompt-modal/cookie-prompt.constants';
-import { LocalStorageVars } from './local-storage.constants';
+import { LocaleType, CookieStatus, LocalStorageVars } from '@models';
 
 interface ICache {
   [key: string]: BehaviorSubject<unknown>;

@@ -3,12 +3,9 @@ import { ViewChild } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import {
-  LocalStorageService,
-  LocalStorageVars,
-} from '../../../services/local-storage';
+import { LocalStorageService } from '../../../services/local-storage';
 import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
-import { CookieStatus } from './cookie-prompt.constants';
+import { CookieStatus, LocalStorageVars } from '@models';
 
 @Component({
   selector: 'webstore-cookie-prompt-modal',

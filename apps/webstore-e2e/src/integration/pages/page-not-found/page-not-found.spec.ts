@@ -1,7 +1,4 @@
-import {
-  CookieStatus,
-  LocalStorageVars,
-} from 'apps/webstore-e2e/src/support/test.constants';
+import { CookieStatus, LocalStorageVars } from '@models';
 import { link } from 'fs';
 describe('PageNotFoundPage', () => {
   beforeEach(() => {
