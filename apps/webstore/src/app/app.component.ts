@@ -1,9 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { LocaleType } from './i18n';
-import { LocalStorageService, LocalStorageVars } from './services/local-storage';
 import { environment } from '../environments/environment';
 
 //Google analytics
@@ -16,31 +12,8 @@ declare let gtag: Function;
 })
 
 export class AppComponent {
-  currentLocale$: BehaviorSubject<LocaleType>; 
-  localeCode;
-
-  localesList = [
-    { code: 'en-US', label: 'English' },
-    { code: 'dk', label: 'Danish' }
-  ];
-  title = $localize`webstore`;
-
-  constructor(public router: Router, private localStorageService: LocalStorageService,
-     @Inject(DOCUMENT) private document: Document) {
-
-    // get the default/pre-existing locale from the localStorage
-    this.currentLocale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-
-    this.localeCode = this.document.location.href.search( "/dk" ) ? LocaleType.en : LocaleType.dk;
-    console.log( this.localeCode );
-
-    this.currentLocale$ = this.localStorageService
-      .setItem<LocaleType>( LocalStorageVars.locale, this.localeCode );
-
-    // set the class variable to automatically update when the locale changes
-    this.currentLocale$.subscribe(() => {
-      console.log('Locale got changed: ' + this.currentLocale$.getValue());
-    });
+  
+  constructor(public router: Router) {
 
     //Google analytics
     this.router.events.subscribe((event) => {
