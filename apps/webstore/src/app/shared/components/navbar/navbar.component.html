@@ -4,6 +4,11 @@
       <img src="/assets/logos/TCTextLogo.svg" class="logo" width="100" />
     </a>
 
+    <a class="navbar-language" href="/{{localeCode}}/">
+        <img class="language-icon" i18n-src src="/assets/icons/languageEnglish.svg" i18n-alt alt="English"
+        (click)="changeLocale()">
+    </a>
+
     <button
       class="navbar-toggler"
       type="button"
