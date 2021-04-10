@@ -2,17 +2,19 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="3775dcfb07584504d02ee50646c2ddcfe5c8c43c" datatype="html">
-        <source>Hello</source>
+      <trans-unit id="b8156662eb9694d00f90aa1dad0c108e38f76ffc" datatype="html">
+        <source>/assets/icons/languageEnglish.svg</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/app.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">8</context>
         </context-group>
-        <note priority="1" from="description"> Welcome message</note>
-        <note priority="1" from="meaning">main header </note>
       </trans-unit>
-      <trans-unit id="6920522737165192368" datatype="html"> 
-        <source> Webstore </source>
+      <trans-unit id="a0843de0a64adcc7ee6a946408b6876cd8abdcae" datatype="html">
+        <source>English</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
       </trans-unit>
     </body>
   </file>
