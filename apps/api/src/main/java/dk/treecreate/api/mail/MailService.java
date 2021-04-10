@@ -7,6 +7,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 
@@ -53,6 +54,16 @@ public class MailService
 
   public boolean isValidEmail(String email)
   {
-    return email.matches("^.+@.+\\..+$");
+    // Java mail does not check for length
+    if (email.length() > 255) return false;
+    try
+    {
+      new InternetAddress(email).validate();
+      return true;
+    } catch (AddressException e)
+    {
+      System.out.println("Invalid email");
+    }
+    return false;
   }
 }

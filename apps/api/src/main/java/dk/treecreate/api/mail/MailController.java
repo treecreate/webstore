@@ -41,7 +41,7 @@ public class MailController
       mailService.sendSignupEmail(signupDto.getEmail());
     } catch (Exception e)
     {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You done fucked up");
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to send an email");
     }
   }
 
