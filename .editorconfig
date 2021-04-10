@@ -4,10 +4,17 @@ root = true
 [*]
 charset = utf-8
 indent_style = space
-indent_size = 2
+indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
+
+[*.java] # java-specific styling
+# IntelliJ guide: https://www.jetbrains.com/help/idea/configuring-code-style.html#editorconfig
+# braces on new line instead of end of line
+ij_java_block_brace_style = next_line
+ij_java_class_brace_style = next_line
+ij_java_method_brace_style = next_line
