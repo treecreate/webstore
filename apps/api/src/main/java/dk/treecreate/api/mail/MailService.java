@@ -11,30 +11,48 @@ import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 
 @Service
-public class MailService {
-
+public class MailService
+{
   private final TemplateEngine templateEngine;
-
   private final JavaMailSender javaMailSender;
 
-  public MailService(TemplateEngine templateEngine, JavaMailSender javaMailSender) {
+  public MailService(TemplateEngine templateEngine, JavaMailSender javaMailSender)
+  {
     this.templateEngine = templateEngine;
     this.javaMailSender = javaMailSender;
   }
 
-  public String sendMail(User user, MailTemplate template) throws MessagingException, UnsupportedEncodingException
+  public void sendSignupEmail(String to) throws UnsupportedEncodingException, MessagingException
   {
     Context context = new Context();
-    context.setVariable("user", user);
+    context.setVariable("email", to);
+    String subject = "Welcome to Treecreate";
+    sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
+  }
 
+  public void sendResetPasswordEmail(String to) throws UnsupportedEncodingException, MessagingException
+  {
+    Context context = new Context();
+    context.setVariable("email", to);
+    String subject = "Hey idiot, you forgot your password";
+    sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
+  }
+
+  private void sendMail(String to, MailDomain from, String subject, Context context, MailTemplate template)
+    throws MessagingException, UnsupportedEncodingException
+  {
     String process = templateEngine.process("emails/" + template.label, context);
     javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-    helper.setFrom(new InternetAddress("info@treecreate.dk", "Treecreate"));
-    helper.setSubject("Welcome " + user.getName());
+    helper.setFrom(new InternetAddress(from.label, "Treecreate"));
+    helper.setSubject(subject);
     helper.setText(process, true);
-    helper.setTo(user.getEmail());
+    helper.setTo(to);
     javaMailSender.send(mimeMessage);
-    return "Sent";
+  }
+
+  public boolean isValidEmail(String email)
+  {
+    return email.matches("^.+@.+\\..+$");
   }
 }

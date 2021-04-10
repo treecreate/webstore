@@ -8,7 +8,8 @@ public enum MailTemplate
 
   public final String label;
 
-  private MailTemplate(String label) {
+  MailTemplate(String label)
+  {
     this.label = label;
   }
 }

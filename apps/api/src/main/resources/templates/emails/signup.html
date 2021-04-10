@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title th:remove="all">Signup Template</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="Hello + ${user.name}">
+<p th:text="'Hello ' + ${email}">
   Hello, Peter Static!
 </p>
 
@@ -13,7 +13,7 @@
   You have been successfully signed up. Congratz
 </p>
 <p>
-  Regards, <br />
+  Regards, <br/>
   &emsp; <em>The Treecreate Team</em>
 </p>
 </body>
