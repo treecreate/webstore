@@ -37,7 +37,7 @@ public class MailService
   {
     Context context = new Context(locale);
     context.setVariable("email", to);
-    String subject = "Hey idiot, you forgot your password";
+    String subject = "Hello Customer, you forgot your password";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
   }
 
@@ -66,9 +66,8 @@ public class MailService
       return true;
     } catch (AddressException e)
     {
-      System.out.println("Invalid email");
+      return false;
     }
-    return false;
   }
 
   public Locale getLocale(String lang)
