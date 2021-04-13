@@ -1,14 +1,9 @@
 {
   "npmScope": "webstore",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -26,15 +21,9 @@
     }
   },
   "projects": {
-    "api": {
-      "tags": []
-    },
-    "webstore": {
-      "tags": []
-    },
-    "webstore-e2e": {
-      "tags": [],
-      "implicitDependencies": ["webstore"]
-    }
+    "api": { "tags": [] },
+    "webstore": { "tags": [] },
+    "webstore-e2e": { "tags": [], "implicitDependencies": ["webstore"] },
+    "models": { "tags": [] }
   }
 }

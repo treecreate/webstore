@@ -1,7 +1,9 @@
 /* Main section */
 .main-section {
-  width: 100vw;
+  width: 100%;
   color: white;
+  background-color: white;
+  padding-bottom: 5vh;
 }
 .main-section-container {
   background-image: url('/assets/img/coverPhoto02.png');
@@ -12,25 +14,26 @@
   height: 52vh;
   max-width: 70vw;
   margin: auto;
-  margin-top: 18rem;
+  margin-top: 13rem;
 }
-.text {
+.main-text {
   padding-top: 4vh;
 }
 .arrow-container {
-  margin: 10vh 0;
+  padding: 5vh 0;
   text-align: center;
+  background-color: white;
 }
-.title {
-  padding-top: 10rem;
+.main-title {
+  padding-top: 8rem;
   font-family: Argesta Display;
   font-style: normal;
   font-weight: normal;
-  font-size: 5rem;
+  font-size: 4rem;
   align-items: center;
   letter-spacing: 0.2em;
 }
-.subTitle {
+.main-subtitle {
   font-family: Seravek;
   font-style: normal;
   font-weight: 100;
@@ -39,6 +42,22 @@
   letter-spacing: 0.1em;
 }
 /* END Main section */
+
+/* Product section */
+.product-content {
+  text-align: center;
+  background-color: white;
+}
+.home-text {
+  margin: 0 auto;
+  padding: 4rem;
+  min-width: 320px;
+  max-width: 750px;
+}
+.home-title {
+  margin: 1rem;
+}
+/* END Product section */
 
 /* Buttons */
 .tc-start-main {
@@ -87,3 +106,23 @@
 }
 /* END Arrow down button */
 /* END Buttons */
+
+/* Parallax */
+.parallax-img {
+  background-image: url('/assets/img/coverPhoto01-9.png');
+  background-position-x: 38%;
+  position: fixed;
+  margin-top: 360px;
+  z-index: -1;
+  right: 0px;
+  width: 100%;
+  min-height: 800px;
+  min-width: 1300px;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.parallax-space {
+  height: 450px;
+  background-color: rgba(255, 255, 255, 0.25);
+}

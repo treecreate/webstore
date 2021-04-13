@@ -9,6 +9,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomeComponent],
+      providers: [],
     }).compileComponents();
   });
 
@@ -19,6 +20,15 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    expect(component.title).toBe('homeComponent');
+  });
+
+  it('should have parallax <div>', () => {
+    const div: HTMLElement = fixture.nativeElement.querySelector(
+      '.parallax-img'
+    );
+    expect(div.style.backgroundImage).toBe(``);
   });
 });
