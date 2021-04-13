@@ -11,10 +11,11 @@ h5 {
   text-align: left !important;
 }
 .container-footer {
-  margin: 20px 0;
+  padding: 20px 0;
 }
 .page-footer {
   width: 100%;
+  background-color: white;
   color: black;
 }
 .list-unstyled li {
@@ -81,6 +82,9 @@ h5 {
 
 /* MOBILE */
 @media all and (min-width: 200px) and (max-width: 769px) {
+  .page-footer {
+    padding-top: 30px;
+  }
   .footer-copyright {
     border-top: none;
   }

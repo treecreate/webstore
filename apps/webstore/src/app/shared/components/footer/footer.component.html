@@ -1,4 +1,4 @@
-<footer class="page-footer font-small bottom" id="footer">
+<footer data-cy="footer" class="page-footer font-small bottom" id="footer">
   <div class="container">
     <div class="row container-footer">
       <div class="col-main col-md-3 border-right">
@@ -84,11 +84,17 @@
         <div class="col">© 2021 Copyright Treecreate</div>
         <hr class="remove-mobile clearfix w-100 d-md-none" />
         <div class="col">
-          <a routerLink="/termsOfPayment" class="terms"
+          <a
+            data-cy="footer-terms-of-use-modal-link"
+            (click)="showTermsOfUse()"
+            class="terms"
             ><strong>Condition of use</strong></a
           >
           <strong> - </strong>
-          <a routerLink="/privacyNotice" class="terms"
+          <a
+            data-cy="footer-privacy-notice-modal-link"
+            (click)="showPrivacyNotice()"
+            class="terms"
             ><strong>Privacy Notice</strong></a
           >
         </div>
