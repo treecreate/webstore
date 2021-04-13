@@ -1,7 +1,12 @@
-<nav class="navbar fixed-top navbar-expand-lg mb-3">
+<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg mb-3">
   <div class="container">
-    <a class="navbar-brand" [routerLink]="''">
-      <img src="/assets/logos/TCTextLogo.svg" class="logo" width="100" />
+    <a class="navbar-brand" routerLink="/">
+      <img
+        data-cy="navbar-logo-img"
+        src="/assets/logos/TCTextLogo.svg"
+        class="logo"
+        width="100"
+      />
     </a>
 
     <a class="navbar-language" href="/{{localeCode}}/">
@@ -30,11 +35,15 @@
           <a class="nav-link waves-light" routerLink="/product">Product</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-light" routerLink="/login">Log In</a>
+          <a
+            class="nav-link waves-light"
+            routerLink="{{ isLoggedIn ? '/login' : '/profile' }}"
+            >{{ isLoggedIn ? 'Log In' : 'Profile' }}</a
+          >
         </li>
         <li class="nav-item purchase-btn">
           <a class="nav-link waves-light" routerLink="/basket">
-            <img src="/assets/icons/basketBlackIcon.svg" class="nav-icon" />
+            <img src="/assets/icons/basket-black-icon.svg" class="nav-icon" />
             {{ basketItemOptions(0) }}
           </a>
         </li>

@@ -11,6 +11,7 @@ import { LocalStorageService, LocalStorageVars } from '../../services/local-stor
 })
 export class NavbarComponent implements OnInit {
   public isMenuCollapsed = true;
+  public isLoggedIn = true;
   locale$: BehaviorSubject<LocaleType>;
   localeCode: LocaleType;
 
