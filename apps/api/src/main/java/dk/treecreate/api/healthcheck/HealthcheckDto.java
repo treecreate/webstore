@@ -8,7 +8,8 @@ import io.swagger.annotations.ApiModelProperty;
  * for Swagger UI generation
  */
 @ApiModel("Healthcheck")
-class HealthcheckDto {
+class HealthcheckDto
+{
 
   @ApiModelProperty(name = "status", example = "OK")
   private String status;
@@ -16,19 +17,23 @@ class HealthcheckDto {
   @ApiModelProperty(name = "message", example = "Server is Live")
   private String message;
 
-  public String getStatus() {
+  public String getStatus()
+  {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(String status)
+  {
     this.status = status;
   }
 
-  public String getMessage() {
+  public String getMessage()
+  {
     return message;
   }
 
-  public void setMessage(String message) {
+  public void setMessage(String message)
+  {
     this.message = message;
   }
 }

@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 @RequestMapping("/healthcheck")
-public class HealthcheckController {
+public class HealthcheckController
+{
   @GetMapping("")
   @ResponseStatus(HttpStatus.OK)
-  public HealthcheckDto healthCheck() {
+  public HealthcheckDto healthCheck()
+  {
 
     HealthcheckDto response = new HealthcheckDto();
     response.setMessage("Server is live");

@@ -15,14 +15,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = HealthcheckController.class)
-class HealthcheckTests {
+class HealthcheckTests
+{
 
   @Autowired
   private MockMvc mvc;
 
   @Test
     // MockMvc throws Exception, so i must catch it
-  void healthcheckReturnedStatusTest() throws Exception {
+  void healthcheckReturnedStatusTest() throws Exception
+  {
     mvc.perform(
       get("/healthcheck"))
       .andExpect(status().isOk());
@@ -30,7 +32,8 @@ class HealthcheckTests {
 
   @Test
     // MockMvc throws Exception, so i must catch it
-  void healthcheckBodyTest() throws Exception {
+  void healthcheckBodyTest() throws Exception
+  {
     mvc.perform(get("/healthcheck")
       // Ensure it is a Json
       .contentType(MediaType.APPLICATION_JSON))
