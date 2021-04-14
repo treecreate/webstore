@@ -4,7 +4,7 @@ import { IEnvironment } from './ienvironment';
 export const environment: IEnvironment = {
   production: false,
   envName: 'development',
-  locale: 'en-US',
+  locale: 'dk',
 
   apiUrl: window['env'] ? window['env']['apiUrl'] : 'http://localhost:5000',
   gtag: window['env'] ? window['env']['gtag'] : 'gtag-for-dev',

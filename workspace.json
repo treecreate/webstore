@@ -100,6 +100,12 @@
               ]
             },
             "dk": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/webstore/src/environments/environment.ts",
+                  "with": "apps/webstore/src/environments/environment.dk.ts"
+                }
+              ],
               "localize": ["dk"]
             }
           }
@@ -154,7 +160,8 @@
             "devServerTarget": "webstore:serve"
           },
           "configurations": {
-            "production": { "devServerTarget": "webstore:serve:production" }
+            "production": { "devServerTarget": "webstore:serve:production" },
+            "dk": { "devServerTarget": "webstore:serve:dk"}
           }
         },
         "lint": {
