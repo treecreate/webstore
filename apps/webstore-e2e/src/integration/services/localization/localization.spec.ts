@@ -6,7 +6,7 @@ describe('Localization', () => {
   it('do be localized', () => {
     cy.get('[data-cy=localization]').then(($localization) => {
       cy.get('.language-icon').then(($icon) => {
-        if ($icon.attr('data-cy') == 'dk') {
+        if ($icon.attr('data-cy') === 'dk') {
           cy.get('[data-cy=dk]')
             .invoke('attr', 'alt')
             .should('contain', 'Danish');
