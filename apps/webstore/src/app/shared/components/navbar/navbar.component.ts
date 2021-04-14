@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'apps/webstore/src/environments/environment';
-import { IEnvironment } from 'apps/webstore/src/environments/ienvironment';
+import { environment } from '../../../../environments/environment';
+import { IEnvironment } from '../../../../environments/ienvironment';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage';
 import { LocalStorageVars, LocaleType } from '@models';
