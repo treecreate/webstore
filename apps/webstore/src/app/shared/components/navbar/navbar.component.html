@@ -9,14 +9,16 @@
       />
     </a>
 
-    <a data-cy="localization" class="navbar-language" href="/{{localeCode}}/">
-        <img 
-          attr.data-cy="{{ environment.locale }}"
-          class="language-icon" 
-          i18n-src src="/assets/icons/languageEnglish.svg" 
-          i18n-alt alt="English"
-          (click)="changeLocale()"
-        >
+    <a data-cy="localization" class="navbar-language" href="/{{ localeCode }}/">
+      <img
+        attr.data-cy="{{ environment.locale }}"
+        class="language-icon"
+        i18n-src
+        src="/assets/icons/languageEnglish.svg"
+        i18n-alt
+        alt="English"
+        (click)="changeLocale()"
+      />
     </a>
 
     <button

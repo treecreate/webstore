@@ -161,7 +161,7 @@
           },
           "configurations": {
             "production": { "devServerTarget": "webstore:serve:production" },
-            "dk": { "devServerTarget": "webstore:serve:dk"}
+            "dk": { "devServerTarget": "webstore:serve:dk" }
           }
         },
         "lint": {

@@ -10,11 +10,8 @@ declare let gtag: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-
 export class AppComponent {
-  
   constructor(public router: Router) {
-
     //Google analytics
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -23,7 +20,6 @@ export class AppComponent {
         });
       }
     });
-
   }
 
   title = 'Treecreate';

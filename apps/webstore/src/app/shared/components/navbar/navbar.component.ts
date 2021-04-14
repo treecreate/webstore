@@ -17,7 +17,6 @@ export class NavbarComponent implements OnInit {
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
-
   basketItemOptions(amount: Number): string {
     if (amount === 0) {
       return 'Basket empty';
@@ -26,9 +25,11 @@ export class NavbarComponent implements OnInit {
   }
 
   constructor(private localStorageService: LocalStorageService) {
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
+    this.locale$ = this.localStorageService.getItem<LocaleType>(
+      LocalStorageVars.locale
+    );
     this.localeCode = this.locale$.getValue();
-    this.environment = environment; 
+    this.environment = environment;
 
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
@@ -36,14 +37,16 @@ export class NavbarComponent implements OnInit {
   }
 
   changeLocale() {
-    if ( this.localeCode === LocaleType.en ){
+    if (this.localeCode === LocaleType.en) {
       this.localeCode = LocaleType.dk;
-    }
-    else {
+    } else {
       this.localeCode = LocaleType.en;
     }
-    
-    this.locale$ = this.localStorageService.setItem<LocaleType>( LocalStorageVars.locale, this.localeCode );
+
+    this.locale$ = this.localStorageService.setItem<LocaleType>(
+      LocalStorageVars.locale,
+      this.localeCode
+    );
   }
 
   ngOnInit(): void {}
