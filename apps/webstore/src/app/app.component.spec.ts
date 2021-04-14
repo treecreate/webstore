@@ -6,20 +6,22 @@ import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 
 describe('AppComponent', () => {
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [RouterTestingModule, NgbModule],
-            declarations: [
-                AppComponent,
-                NavbarComponent,
-                HomeComponent,
-                FooterComponent,
-                PageNotFoundComponent,
-            ],
-        }).compileComponents();
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [RouterTestingModule, NgbModule],
+      declarations: [
+        AppComponent,
+        NavbarComponent,
+        HomeComponent,
+        FooterComponent,
+        PageNotFoundComponent,
+        CookiePromptModalComponent,
+      ],
+    }).compileComponents();
+  });
 
     it('should create the app', () => {
         const fixture = TestBed.createComponent(AppComponent);
@@ -27,9 +29,9 @@ describe('AppComponent', () => {
         expect(app).toBeTruthy();
     });
 
-    it(`should have as title 'webstore'`, () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
-        expect(app.title).toEqual('webstore');
-    });
+  it(`should have as title 'Treecreate'`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('Treecreate');
+  });
 });

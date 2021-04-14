@@ -1,26 +1,26 @@
-<footer class="page-footer font-small bottom" id="footer">
-    <div class="container">
-        <div class="row container-footer">
-            <div class="col-main col-md-3 border-right">
-                <div class="row">
-                    <div class="col">
-                        <h5 class="font-weight-bold mt-3">Navigation</h5>
-                    </div>
-                    <div class="col">
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="/aboutUs">About Us</a>
-                            </li>
-                            <li>
-                                <a href="/profile">Profile</a>
-                            </li>
-                            <li>
-                                <a href="/product">Producs</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+<footer data-cy="footer" class="page-footer font-small bottom" id="footer">
+  <div class="container">
+    <div class="row container-footer">
+      <div class="col-main col-md-3 border-right">
+        <div class="row">
+          <div class="col">
+            <h5 class="font-weight-bold mt-3">Navigation</h5>
+          </div>
+          <div class="col">
+            <ul class="list-unstyled">
+              <li>
+                <a href="/aboutUs">About Us</a>
+              </li>
+              <li>
+                <a href="/profile">Profile</a>
+              </li>
+              <li>
+                <a href="/product">Producs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
             <hr class="clearfix w-100 d-md-none" />
 
@@ -82,41 +82,26 @@
         </div>
     </div>
 
-    <!-- Copyright footer bottom -->
-    <div class="footer-copyright text-center py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col">© 2021 Copyright Treecreate</div>
-                <hr class="remove-mobile clearfix w-100 d-md-none" />
-                <div class="col">
-                    <a routerLink="/termsOfPayment" class="terms"
-                        ><strong>Condition of use</strong></a
-                    >
-                    <strong> - </strong>
-                    <a routerLink="/privacyNotice" class="terms"
-                        ><strong>Privacy Notice</strong></a
-                    >
-                </div>
-                <hr class="remove-mobile clearfix w-100 d-md-none" />
-                <div class="col">
-                    <img
-                        src="/assets/logos/payment/dankortLogo.svg"
-                        class="payment-icon"
-                    />
-                    <img
-                        src="/assets/logos/payment/mastercardLogo.svg"
-                        class="payment-icon"
-                    />
-                    <img
-                        src="/assets/logos/payment/mobilePay.svg"
-                        class="payment-icon"
-                    />
-                    <img
-                        src="/assets/logos/payment/visaLogo.svg"
-                        class="payment-icon"
-                    />
-                </div>
-            </div>
+  <!-- Copyright footer bottom -->
+  <div class="footer-copyright text-center py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col">© 2021 Copyright Treecreate</div>
+        <hr class="remove-mobile clearfix w-100 d-md-none" />
+        <div class="col">
+          <a
+            data-cy="footer-terms-of-use-modal-link"
+            (click)="showTermsOfUse()"
+            class="terms"
+            ><strong>Condition of use</strong></a
+          >
+          <strong> - </strong>
+          <a
+            data-cy="footer-privacy-notice-modal-link"
+            (click)="showPrivacyNotice()"
+            class="terms"
+            ><strong>Privacy Notice</strong></a
+          >
         </div>
     </div>
 </footer>

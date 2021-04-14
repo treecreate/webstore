@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LocaleType } from '../../../i18n';
-import { LocalStorageVars } from './local-storage.constants';
+import { LocaleType, CookieStatus, LocalStorageVars } from '@models';
 
 interface ICache {
     [key: string]: BehaviorSubject<unknown>;
@@ -19,11 +18,16 @@ export class LocalStorageService implements OnDestroy {
             JSON.parse(localStorage.getItem(LocalStorageVars.locale)) ||
             LocaleType.dk;
 
-        this.cache = {
-            [LocalStorageVars.locale]: new BehaviorSubject<LocaleType>(
-                initialLocale
-            ),
-        };
+    const acceptedCookies =
+      JSON.parse(localStorage.getItem(LocalStorageVars.cookiesAccepted)) ||
+      CookieStatus.undefined;
+
+    this.cache = {
+      [LocalStorageVars.locale]: new BehaviorSubject<LocaleType>(initialLocale),
+      [LocalStorageVars.cookiesAccepted]: new BehaviorSubject<CookieStatus>(
+        acceptedCookies
+      ),
+    };
 
         window.addEventListener('storage', (e) => this.handleStorageUpdate(e));
     }

@@ -1,0 +1,51 @@
+/* Important part */
+.modal-dialog {
+  overflow-y: initial !important;
+}
+.modal-body {
+  height: 70vh;
+  overflow-y: auto;
+}
+.text {
+  width: 90%;
+  margin: 1rem auto;
+}
+/* x button */
+.icon {
+  height: 25px;
+  width: 25px;
+  position: relative;
+  top: 8px;
+  left: 12px;
+  transition: 0.5s;
+}
+.bar1,
+.bar2 {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+.bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 5px);
+  transform: rotate(-45deg) translate(-9px, 5px);
+}
+.bar2 {
+  -webkit-transform: rotate(45deg) translate(-1px, 3px);
+  transform: rotate(45deg) translate(-1px, 3px);
+}
+/* animation */
+.tc-button-square:hover > .icon {
+  transform: rotate(180deg);
+}
+/* mobile */
+@media (max-width: 992px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-block: auto;
+  }
+}

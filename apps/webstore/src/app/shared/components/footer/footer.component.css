@@ -11,11 +11,12 @@ h5 {
     text-align: left !important;
 }
 .container-footer {
-    margin: 20px 0;
+  padding: 20px 0;
 }
 .page-footer {
-    width: 100%;
-    color: black;
+  width: 100%;
+  background-color: white;
+  color: black;
 }
 .list-unstyled li {
     padding-bottom: 7px;
@@ -81,31 +82,34 @@ h5 {
 
 /* MOBILE */
 @media all and (min-width: 200px) and (max-width: 769px) {
-    .footer-copyright {
-        border-top: none;
-    }
-    .col-md {
-        padding: 0 !important;
-    }
-    .border-right {
-        border-right: none !important;
-    }
-    .container-footer {
-        margin: 0 1rem !important;
-        padding: 0;
-    }
-    .submit-button {
-        margin-bottom: 2rem;
-    }
-    .col-main {
-        padding: 0 15px 0 15px;
-    }
-    .mobile-br {
-        display: block;
-    }
-    .font-small {
-        font-size: 0.8rem;
-    }
+  .page-footer {
+    padding-top: 30px;
+  }
+  .footer-copyright {
+    border-top: none;
+  }
+  .col-md {
+    padding: 0 !important;
+  }
+  .border-right {
+    border-right: none !important;
+  }
+  .container-footer {
+    margin: 0 1rem !important;
+    padding: 0;
+  }
+  .submit-button {
+    margin-bottom: 2rem;
+  }
+  .col-main {
+    padding: 0 15px 0 15px;
+  }
+  .mobile-br {
+    display: block;
+  }
+  .font-small {
+    font-size: 0.8rem;
+  }
 }
 
 @media (min-width: 769px) {

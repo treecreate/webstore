@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-    public isMenuCollapsed = true;
+  public isMenuCollapsed = true;
+  public isLoggedIn = true;
 
     basketItemOptions(amount: Number): string {
         if (amount === 0) {
