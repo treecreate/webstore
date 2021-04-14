@@ -21,6 +21,8 @@
     "e2e": "nx e2e webstore-e2e",
     "e2e:ci": "nx e2e webstore-e2e --headless",
     "e2e:open": "nx e2e webstore-e2e --watch",
+    "e2e:open:prod": "nx e2e webstore-e2e --watch --configuration=production",
+    "e2e:open:dk": "nx e2e webstore-e2e --watch --configuration=dk",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
