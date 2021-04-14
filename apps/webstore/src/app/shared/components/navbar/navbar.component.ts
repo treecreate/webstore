@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { environment } from 'apps/webstore/src/environments/environment';
+import { IEnvironment } from 'apps/webstore/src/environments/ienvironment';
 import { BehaviorSubject } from 'rxjs';
-import { LocaleType } from '../../../i18n';
-import { LocalStorageService, LocalStorageVars } from '../../services/local-storage';
+import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageVars, LocaleType } from '@models';
 
 @Component({
   selector: 'webstore-navbar',
@@ -12,8 +13,10 @@ import { LocalStorageService, LocalStorageVars } from '../../services/local-stor
 export class NavbarComponent implements OnInit {
   public isMenuCollapsed = true;
   public isLoggedIn = true;
-  locale$: BehaviorSubject<LocaleType>;
-  localeCode: LocaleType;
+  public locale$: BehaviorSubject<LocaleType>;
+  public localeCode: LocaleType;
+  public environment: IEnvironment;
+
 
   basketItemOptions(amount: Number): string {
     if (amount === 0) {
@@ -22,11 +25,11 @@ export class NavbarComponent implements OnInit {
     return `(${amount}) products `;
   }
 
-  constructor(private localStorageService: LocalStorageService, 
-    @Inject(DOCUMENT) private document: Document) {
+  constructor(private localStorageService: LocalStorageService) {
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
-  
+    this.environment = environment; 
+
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
