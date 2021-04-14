@@ -69,8 +69,7 @@
 
 - Marking the text for **translation**.
   > The **html** tags have to be marked with '_i18n_' like so: `<h1 i18n>Hello i18n!</h1>`. \
-  > You can add **meaning** and a **description** to your text: `<meaning>|<description>`
-  > _Example:_ `<h1 i18n="site header|An introduction header for this sample">Hello i18n!</h1>`
+  > You can add **meaning** and a **description** to your text: `<meaning>|<description>` > _Example:_ `<h1 i18n="site header|An introduction header for this sample">Hello i18n!</h1>`
   > Any text marked with '_site header_' as the meaning is translated exactly the same way. You can read more about this **[here](https://angular.io/guide/i18n#ng-xi18n)**.\
   > Marking **element attributes** for translations: `<img [src]="logo" i18n-title title="Angular logo" />`.\
   > **Meaning** & **description**: `i18n-attribute="<meaning>|<description>@@<id>"`.
