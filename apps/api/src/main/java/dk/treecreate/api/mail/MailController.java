@@ -68,6 +68,7 @@ public class MailController
       mailService.sendResetPasswordEmail(resetPasswordDto.getEmail(), mailService.getLocale(lang));
     } catch (Exception e)
     {
+      e.printStackTrace();
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to send an email");
     }
   }

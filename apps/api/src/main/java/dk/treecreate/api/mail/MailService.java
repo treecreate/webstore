@@ -1,5 +1,6 @@
 package dk.treecreate.api.mail;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,17 @@ import java.util.Locale;
 public class MailService
 {
   private final TemplateEngine templateEngine;
-  private final JavaMailSender javaMailSender;
 
-  public MailService(TemplateEngine templateEngine, JavaMailSender javaMailSender)
+  private final JavaMailSender infoMailSender;
+  private final JavaMailSender orderMailSender;
+
+  public MailService(TemplateEngine templateEngine,
+                     @Qualifier("getJavaInfoMailSender") JavaMailSender infoMailSender,
+                     @Qualifier("getJavaOrderMailSender") JavaMailSender orderMailSender)
   {
     this.templateEngine = templateEngine;
-    this.javaMailSender = javaMailSender;
+    this.infoMailSender = infoMailSender;
+    this.orderMailSender = orderMailSender;
   }
 
   public void sendSignupEmail(String to, Locale locale) throws UnsupportedEncodingException, MessagingException
@@ -38,14 +44,15 @@ public class MailService
     Context context = new Context(locale);
     context.setVariable("email", to);
     String subject = "Hello Customer, you forgot your password";
-    sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
+    sendMail(to, MailDomain.ORDER, subject, context, MailTemplate.RESET_PASSWORD);
   }
 
   private void sendMail(String to, MailDomain from, String subject, Context context, MailTemplate template)
     throws MessagingException, UnsupportedEncodingException
   {
     String process = templateEngine.process("emails/" + template.label, context);
-    javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+    JavaMailSender mailSender = getMailSender(from);
+    javax.mail.internet.MimeMessage mimeMessage = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
       MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
       StandardCharsets.UTF_8.name());
@@ -53,7 +60,7 @@ public class MailService
     helper.setSubject(subject);
     helper.setText(process, true);
     helper.setTo(to);
-    javaMailSender.send(mimeMessage);
+    mailSender.send(mimeMessage);
   }
 
   public boolean isValidEmail(String email)
@@ -72,7 +79,15 @@ public class MailService
 
   public Locale getLocale(String lang)
   {
-    if (lang == null) return new Locale("dk"); // default locale is danish
-    else return new Locale(lang);
+    return lang == null ? new Locale("dk") : new Locale(lang); // default locale is danish
+  }
+
+  private JavaMailSender getMailSender(MailDomain mailDomain)
+  {
+    if (mailDomain == MailDomain.ORDER)
+    {
+      return orderMailSender;
+    }
+    return infoMailSender;
   }
 }
