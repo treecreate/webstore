@@ -2,6 +2,7 @@
 export interface IEnvironment {
   production: boolean;
   envName: string;
+  locale: string;
 
   apiUrl: string;
   gtag: string;
