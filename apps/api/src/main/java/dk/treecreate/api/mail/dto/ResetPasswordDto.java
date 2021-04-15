@@ -5,11 +5,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Size;
+
 @Getter
 @Setter
 @ApiModel(description = "Information needed to send out a reset password email")
 public class ResetPasswordDto
 {
+  @Size(min = 5, max = 255)
   @ApiModelProperty(notes = "Email address to send a message to", example = "user@yahoo.mail")
   String email;
 }
