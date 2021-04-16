@@ -44,7 +44,7 @@ public class MailService
     Context context = new Context(locale);
     context.setVariable("email", to);
     String subject = "Hello Customer, you forgot your password";
-    sendMail(to, MailDomain.ORDER, subject, context, MailTemplate.RESET_PASSWORD);
+    sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
   }
 
   private void sendMail(String to, MailDomain from, String subject, Context context, MailTemplate template)
