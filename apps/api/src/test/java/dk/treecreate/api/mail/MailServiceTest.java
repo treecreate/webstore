@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -83,5 +84,24 @@ class MailServiceTest
   void isValidEmail(String email, boolean expected)
   {
     assertEquals(expected, mailService.isValidEmail(email));
+  }
+
+
+  private static Stream<Arguments> getLocaleArguments()
+  {
+    return Stream.of(
+      Arguments.of("dk", new Locale("dk")),
+      Arguments.of("en", Locale.ENGLISH),
+      Arguments.of(null, new Locale("dk"))
+    );
+  }
+
+
+  @ParameterizedTest
+  @MethodSource("getLocaleArguments")
+  @DisplayName("getLocale() returns correct value")
+  void getLocale(String lang, Locale expected)
+  {
+    assertEquals(expected, mailService.getLocale(lang));
   }
 }
