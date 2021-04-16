@@ -44,7 +44,7 @@ class MailControllerTest
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
 
-    mvc.perform(post("/signup")
+    mvc.perform(post("/mail/signup")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isAccepted());
@@ -62,7 +62,7 @@ class MailControllerTest
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-    mvc.perform(post("/signup")
+    mvc.perform(post("/mail/signup")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isBadRequest());
@@ -81,7 +81,7 @@ class MailControllerTest
     doThrow(UnsupportedEncodingException.class).when(mailService)
       .sendSignupEmail(email, new Locale("dk"));
 
-    mvc.perform(post("/signup")
+    mvc.perform(post("/mail/signup")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isInternalServerError());
@@ -97,7 +97,7 @@ class MailControllerTest
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
 
-    mvc.perform(post("/signup")
+    mvc.perform(post("/mail/signup")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(content().string(""));
@@ -113,7 +113,7 @@ class MailControllerTest
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-    mvc.perform(post("/signup")
+    mvc.perform(post("/mail/signup")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       // the message comes from a ResponseStatusException so has to be handled differently from normal content
@@ -133,7 +133,7 @@ class MailControllerTest
     doThrow(UnsupportedEncodingException.class).when(mailService)
       .sendSignupEmail(email, new Locale("dk"));
 
-    mvc.perform(post("/signup")
+    mvc.perform(post("/mail/signup")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       // the message comes from a ResponseStatusException so has to be handled differently from normal content
@@ -152,7 +152,7 @@ class MailControllerTest
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-    mvc.perform(post("/resetPassword")
+    mvc.perform(post("/mail/resetPassword")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isBadRequest());
@@ -171,7 +171,7 @@ class MailControllerTest
     doThrow(UnsupportedEncodingException.class).when(mailService)
       .sendResetPasswordEmail(email, new Locale("dk"));
 
-    mvc.perform(post("/resetPassword")
+    mvc.perform(post("/mail/resetPassword")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isInternalServerError());
@@ -187,7 +187,7 @@ class MailControllerTest
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
 
-    mvc.perform(post("/resetPassword")
+    mvc.perform(post("/mail/resetPassword")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       .andExpect(content().string(""));
@@ -203,7 +203,7 @@ class MailControllerTest
 
     Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-    mvc.perform(post("/resetPassword")
+    mvc.perform(post("/mail/resetPassword")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       // the message comes from a ResponseStatusException so has to be handled differently from normal content
@@ -223,7 +223,7 @@ class MailControllerTest
     doThrow(UnsupportedEncodingException.class).when(mailService)
       .sendResetPasswordEmail(email, new Locale("dk"));
 
-    mvc.perform(post("/resetPassword")
+    mvc.perform(post("/mail/resetPassword")
       .content(asJsonString(params))
       .contentType(MediaType.APPLICATION_JSON))
       // the message comes from a ResponseStatusException so has to be handled differently from normal content
