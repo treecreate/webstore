@@ -45,6 +45,12 @@
       "root": "apps/webstore",
       "sourceRoot": "apps/webstore/src",
       "prefix": "webstore",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "dk": "apps/webstore/src/i18n/messages.dk.xlf"
+        }
+      },
       "targets": {
         "build": {
           "executor": "@angular-devkit/build-angular:browser",
@@ -92,6 +98,15 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "dk": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/webstore/src/environments/environment.ts",
+                  "with": "apps/webstore/src/environments/environment.dk.ts"
+                }
+              ],
+              "localize": ["dk"]
             }
           }
         },
@@ -99,7 +114,12 @@
           "executor": "@angular-devkit/build-angular:dev-server",
           "options": { "browserTarget": "webstore:build" },
           "configurations": {
-            "production": { "browserTarget": "webstore:build:production" }
+            "production": {
+              "browserTarget": "webstore:build:production"
+            },
+            "dk": {
+              "browserTarget": "webstore:build:dk"
+            }
           }
         },
         "extract-i18n": {
@@ -140,7 +160,8 @@
             "devServerTarget": "webstore:serve"
           },
           "configurations": {
-            "production": { "devServerTarget": "webstore:serve:production" }
+            "production": { "devServerTarget": "webstore:serve:production" },
+            "dk": { "devServerTarget": "webstore:serve:dk" }
           }
         },
         "lint": {

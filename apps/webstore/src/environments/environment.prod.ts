@@ -4,6 +4,7 @@ import { IEnvironment } from './ienvironment';
 export const environment: IEnvironment = {
   production: true,
   envName: 'production',
+  locale: 'en-US',
 
   apiUrl: window['env'] ? window['env']['apiUrl'] : 'http://localhost:5000',
   gtag: window['env'] ? window['env']['gtag'] : 'gtag-for-prod',
