@@ -30,7 +30,8 @@
   .main-text {
     padding-top: 6vh;
   }
-  .parallax-img {
+  .start-design-button {
+    width: 40% !important;
   }
 }
 @media (max-width: 650px) {
@@ -52,6 +53,12 @@
   .parallax-img {
     background-position-x: -83%;
   }
+  .desktop-remove {
+    display: block;
+  }
+  .mobile-remove {
+    display: none;
+  }
 }
 @media (max-width: 450px) {
   .main-section-container {
@@ -71,7 +78,7 @@
     padding-top: 0vh;
   }
   .home-text {
-    padding: 4rem 2rem;
+    padding: 2rem;
   }
   .parallax-img {
     margin-top: 660px;
@@ -80,6 +87,12 @@
   }
   .parallax-space {
     height: 290px;
+  }
+  .start-design-button {
+    width: 60% !important;
+  }
+  .create-section {
+    padding-bottom: 0;
   }
 }
 
