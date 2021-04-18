@@ -3,20 +3,20 @@ import { BehaviorSubject } from 'rxjs';
 import { LocaleType, CookieStatus, LocalStorageVars } from '@models';
 
 interface ICache {
-    [key: string]: BehaviorSubject<unknown>;
+  [key: string]: BehaviorSubject<unknown>;
 }
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class LocalStorageService implements OnDestroy {
-    private cache: ICache;
+  private cache: ICache;
 
-    constructor() {
-        // Initial state
-        const initialLocale =
-            JSON.parse(localStorage.getItem(LocalStorageVars.locale)) ||
-            LocaleType.dk;
+  constructor() {
+    // Initial state
+    const initialLocale =
+      JSON.parse(localStorage.getItem(LocalStorageVars.locale)) ||
+      LocaleType.dk;
 
     const acceptedCookies =
       JSON.parse(localStorage.getItem(LocalStorageVars.cookiesAccepted)) ||
@@ -29,61 +29,58 @@ export class LocalStorageService implements OnDestroy {
       ),
     };
 
-        window.addEventListener('storage', (e) => this.handleStorageUpdate(e));
+    window.addEventListener('storage', (e) => this.handleStorageUpdate(e));
+  }
+
+  // Lifecycle methods
+  ngOnDestroy(): void {
+    window.removeEventListener('storage', this.handleStorageUpdate.bind(this));
+  }
+
+  // Handlers
+  handleStorageUpdate({ key, newValue }: StorageEvent): void {
+    if (key && newValue) {
+      if (this.cache[key]) {
+        this.cache[key].next(JSON.parse(newValue));
+      }
+    }
+  }
+
+  // Methods
+  setItem<T>(key: string, value: T): BehaviorSubject<T> {
+    if (this.isLocalStorageSupported) {
+      localStorage.setItem(key, JSON.stringify(value));
     }
 
-    // Lifecycle methods
-    ngOnDestroy(): void {
-        window.removeEventListener(
-            'storage',
-            this.handleStorageUpdate.bind(this)
-        );
+    if (this.cache[key]) {
+      this.cache[key].next(value);
+      return this.cache[key] as BehaviorSubject<T>;
     }
 
-    // Handlers
-    handleStorageUpdate({ key, newValue }: StorageEvent): void {
-        if (key && newValue) {
-            if (this.cache[key]) {
-                this.cache[key].next(JSON.parse(newValue));
-            }
-        }
+    return (this.cache[key] = new BehaviorSubject(value));
+  }
+
+  getItem<T>(key: string): BehaviorSubject<T> {
+    if (this.cache[key]) {
+      return this.cache[key] as BehaviorSubject<T>;
     }
 
-    // Methods
-    setItem<T>(key: string, value: T): BehaviorSubject<T> {
-        if (this.isLocalStorageSupported) {
-            localStorage.setItem(key, JSON.stringify(value));
-        }
-
-        if (this.cache[key]) {
-            this.cache[key].next(value);
-            return this.cache[key] as BehaviorSubject<T>;
-        }
-
-        return (this.cache[key] = new BehaviorSubject(value));
+    if (this.isLocalStorageSupported) {
+      return (this.cache[key] = new BehaviorSubject(
+        JSON.parse(localStorage.getItem(key))
+      ));
     }
+    return null;
+  }
 
-    getItem<T>(key: string): BehaviorSubject<T> {
-        if (this.cache[key]) {
-            return this.cache[key] as BehaviorSubject<T>;
-        }
-
-        if (this.isLocalStorageSupported) {
-            return (this.cache[key] = new BehaviorSubject(
-                JSON.parse(localStorage.getItem(key))
-            ));
-        }
-        return null;
+  removeItem(key: string) {
+    if (this.isLocalStorageSupported) {
+      localStorage.removeItem(key);
     }
+    if (this.cache[key]) this.cache[key].next(undefined);
+  }
 
-    removeItem(key: string) {
-        if (this.isLocalStorageSupported) {
-            localStorage.removeItem(key);
-        }
-        if (this.cache[key]) this.cache[key].next(undefined);
-    }
-
-    get isLocalStorageSupported(): boolean {
-        return !!localStorage;
-    }
+  get isLocalStorageSupported(): boolean {
+    return !!localStorage;
+  }
 }

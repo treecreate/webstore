@@ -25,14 +25,14 @@
 
 ## Table of Contents
 
--   [About the Project](#about-the-project)
-    -   [Built With](#built-with)
--   [Getting Started](#getting-started)
-    -   [Prerequisites](#prerequisites)
-    -   [Installation](#installation)
-    -   [API documentation](#api-documentation)
--   [License](#license)
--   [Contact](#contact)
+- [About the Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [API documentation](#api-documentation)
+- [License](#license)
+- [Contact](#contact)
 
 <!-- ABOUT THE PROJECT -->
 
@@ -42,17 +42,17 @@ Treecreate webstore is a monorepo consisting of multiple apps working together
 
 Key points
 
--   An api built with Java Springboot, with MySQL for persistance
--   A frontend app built with Angular
--   All apps are contained within a NX monorepo for easy management
+- An api built with Java Springboot, with MySQL for persistance
+- A frontend app built with Angular
+- All apps are contained within a NX monorepo for easy management
 
 This project is an improved version of our [previous repository](https://github.com/Kwandes/treecreate), with the frontend and backend split into separate apps.
 
 ### Built With
 
--   [NX](https://nx.dev/) - a modern mono-repo generation and management tool
--   [Java Springboot](https://spring.io/projects/spring-boot) and a [NX schematic for it](https://github.com/tinesoft/nxrocks/tree/develop/packages/nx-spring-boot)
--   [Angular](https://angular.io/)
+- [NX](https://nx.dev/) - a modern mono-repo generation and management tool
+- [Java Springboot](https://spring.io/projects/spring-boot) and a [NX schematic for it](https://github.com/tinesoft/nxrocks/tree/develop/packages/nx-spring-boot)
+- [Angular](https://angular.io/)
 
 <!-- GETTING STARTED -->
 
@@ -69,8 +69,8 @@ In order to run this project locally and develop it, you need to have Node and J
 We strongly suggest installing Node via NVM.\
 It allows easy updates of Node, which is critical for NX to work properly. We develop using the latest stable releases.
 
--   [Get NVM for Linux/Mac](https://github.com/nvm-sh/nvm)
--   [Get NVM for Windows](https://github.com/coreybutler/nvm-windows)
+- [Get NVM for Linux/Mac](https://github.com/nvm-sh/nvm)
+- [Get NVM for Windows](https://github.com/coreybutler/nvm-windows)
 
 #### Java
 
@@ -78,13 +78,13 @@ We develop with Java 11. Make sure your JDK is >= 11.
 
 #### Other
 
--   npm
+- npm
 
 ```sh
 npm install npm@latest -g
 ```
 
--   nx
+- nx
 
 ```sh
 npm install -g nx

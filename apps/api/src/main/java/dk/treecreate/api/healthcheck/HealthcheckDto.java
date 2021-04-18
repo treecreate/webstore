@@ -10,30 +10,29 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("Healthcheck")
 class HealthcheckDto
 {
+    @ApiModelProperty(name = "status", example = "OK")
+    private String status;
 
-  @ApiModelProperty(name = "status", example = "OK")
-  private String status;
+    @ApiModelProperty(name = "message", example = "Server is Live")
+    private String message;
 
-  @ApiModelProperty(name = "message", example = "Server is Live")
-  private String message;
+    public String getStatus()
+    {
+        return status;
+    }
 
-  public String getStatus()
-  {
-    return status;
-  }
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
 
-  public void setStatus(String status)
-  {
-    this.status = status;
-  }
+    public String getMessage()
+    {
+        return message;
+    }
 
-  public String getMessage()
-  {
-    return message;
-  }
-
-  public void setMessage(String message)
-  {
-    this.message = message;
-  }
+    public void setMessage(String message)
+    {
+        this.message = message;
+    }
 }

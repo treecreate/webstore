@@ -92,41 +92,10 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 },
-                "serve": {
-                    "executor": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "webstore:build"
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "webstore:build:production"
-                        }
-                    }
-                },
-                "extract-i18n": {
-                    "executor": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "webstore:build"
-                    }
-                },
-                "lint": {
-                    "executor": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "apps/webstore/tsconfig.app.json",
-                            "apps/webstore/tsconfig.spec.json",
-                            "apps/webstore/tsconfig.editor.json"
-                        ],
-                        "exclude": ["**/node_modules/**", "!apps/webstore/**/*"]
-                    }
-                },
-                "test": {
-                    "executor": "@nrwl/jest:jest",
-                    "outputs": ["coverage/apps/webstore"],
-                    "options": {
-                        "jestConfig": "apps/webstore/jest.config.js",
-                        "passWithNoTests": true
-                    }
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             },
@@ -139,6 +108,7 @@
               ],
               "localize": ["dk"]
             }
+          }
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
@@ -175,6 +145,7 @@
             "passWithNoTests": true
           }
         }
+      }
     },
     "webstore-e2e": {
       "root": "apps/webstore-e2e",
@@ -193,11 +164,12 @@
             "dk": { "devServerTarget": "webstore:serve:dk" }
           }
         },
-        "@nrwl/angular:library": {
-            "unitTestRunner": "jest"
-        },
-        "@nrwl/angular:component": {
-            "style": "css"
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/webstore-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/webstore-e2e/**/*"]
+          }
         }
       }
     },

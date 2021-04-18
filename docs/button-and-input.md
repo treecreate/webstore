@@ -4,22 +4,22 @@ I have added 5 classes of buttons and one extra class called align-right.
 
 ````css
 .tc-button-100 {
-    width: 100%;
+  width: 100%;
 }
 .tc-button-50 {
-    width: 47%;
+  width: 47%;
 }
 .tc-button-33 {
-    width: 33%;
+  width: 33%;
 }
 .tc-button-25 {
-    width: 25%;
+  width: 25%;
 }
 .tc-button-static {
-    width: 250px;
+  width: 250px;
 }
 .align-right {
-    text-align: right;
+  text-align: right;
 }
 ´´´
 
@@ -30,25 +30,25 @@ All 5 classes have the same styling on them, so using one of these classes will 
 .tc-button-50,
 .tc-button-100,
 .tc-button-static {
-    /* button */
-    box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-    background: #ebc6ab;
-    height: 35px;
-    border: none;
+  /* button */
+  box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+  background: #ebc6ab;
+  height: 35px;
+  border: none;
 
-    /* text */
-    color: white;
-    font-family: Seravek;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 22px;
-    align-items: center;
-    text-align: center;
+  /* text */
+  color: white;
+  font-family: Seravek;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 22px;
+  align-items: center;
+  text-align: center;
 
-    /* effect */
-    outline: none !important;
-    transition: 0.5s;
+  /* effect */
+  outline: none !important;
+  transition: 0.5s;
 }
 ````
 
@@ -80,18 +80,18 @@ Here's an example of what it could look like when writing it in your HTML file:
 ```html
 <!-- E-mail -->
 <div class="tc-input-group field">
-    <!-- FIRST a wrapper div to contain the input field and the label  Classes: 'tc-input-group' + 'field' -->
-    <input
-        type="email"
-        class="tc-input-field"
-        placeholder="E-mail"
-        name="email"
-        id="email"
-        required
-    />
-    <!-- SECOND the input field itself  Classes: 'tc-input-field' -->
-    <label for="email" class="tc-input-label">E-mail</label>
-    <!-- THIRD a label that explains the input fields function like 'email'   Classes: 'tc-input-label' -->
+  <!-- FIRST a wrapper div to contain the input field and the label  Classes: 'tc-input-group' + 'field' -->
+  <input
+    type="email"
+    class="tc-input-field"
+    placeholder="E-mail"
+    name="email"
+    id="email"
+    required
+  />
+  <!-- SECOND the input field itself  Classes: 'tc-input-field' -->
+  <label for="email" class="tc-input-label">E-mail</label>
+  <!-- THIRD a label that explains the input fields function like 'email'   Classes: 'tc-input-label' -->
 </div>
 ```
 
@@ -100,19 +100,19 @@ Here's an example:
 
 ```html
 <div class="tc-input-group field">
-    <textarea
-        type="text"
-        class="tc-input-field text-area-height"
-        placeholder="Your message ... "
-        name="message"
-        id="message"
-    ></textarea>
-    <label for="message" class="tc-input-label">Subject</label>
+  <textarea
+    type="text"
+    class="tc-input-field text-area-height"
+    placeholder="Your message ... "
+    name="message"
+    id="message"
+  ></textarea>
+  <label for="message" class="tc-input-label">Subject</label>
 </div>
 ```
 
 ```css
 .text-area-height {
-    height: 150px;
+  height: 150px;
 }
 ```

@@ -1,65 +1,65 @@
 $primary: #ebc6ab;
 $gray: #9b9b9b;
 .tc-input-group {
-    position: relative;
-    padding: 15px 0 0;
-    margin: 10px 0;
+  position: relative;
+  padding: 15px 0 0;
+  margin: 10px 0;
 }
 
 .tc-input-field {
-    font-family: inherit;
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid $gray;
-    outline: 0;
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid $gray;
+  outline: 0;
+  font-size: 1rem;
+  color: black;
+  padding: 5px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .tc-input-label {
     font-size: 1rem;
-    color: black;
-    padding: 5px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-
-    &::placeholder {
-        color: transparent;
-    }
-
-    &:placeholder-shown ~ .tc-input-label {
-        font-size: 1rem;
-        cursor: text;
-        top: 22px;
-    }
+    cursor: text;
+    top: 22px;
+  }
 }
 
 .tc-input-label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.7rem;
+  color: $gray;
+}
+
+.tc-input-field:focus {
+  ~ .tc-input-label {
     position: absolute;
     top: 0;
     display: block;
     transition: 0.2s;
     font-size: 0.7rem;
-    color: $gray;
-}
-
-.tc-input-field:focus {
-    ~ .tc-input-label {
-        position: absolute;
-        top: 0;
-        display: block;
-        transition: 0.2s;
-        font-size: 0.7rem;
-        color: $primary;
-        font-weight: 500;
-    }
-    padding-bottom: 4px;
+    color: $primary;
     font-weight: 500;
-    border-width: 2px;
-    border-color: $primary;
-    border-image-slice: 1;
+  }
+  padding-bottom: 4px;
+  font-weight: 500;
+  border-width: 2px;
+  border-color: $primary;
+  border-image-slice: 1;
 }
 /* reset input */
 .tc-input-field {
-    &:required,
-    &:invalid {
-        box-shadow: none;
-    }
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
 }
 
 /* Change autocomplete styles in WebKit */
@@ -72,9 +72,9 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-    border: none;
-    border-bottom: 1px solid #ced4da;
-    color: black;
-    -webkit-text-fill-color: rgba(0, 0, 0, 1);
-    transition: background-color 5000s ease-in-out 0s;
+  border: none;
+  border-bottom: 1px solid #ced4da;
+  color: black;
+  -webkit-text-fill-color: rgba(0, 0, 0, 1);
+  transition: background-color 5000s ease-in-out 0s;
 }

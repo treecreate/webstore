@@ -18,27 +18,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class HealthcheckTests
 {
 
-  @Autowired
-  private MockMvc mvc;
+    @Autowired
+    private MockMvc mvc;
 
-  @Test
-    // MockMvc throws Exception, so i must catch it
-  void healthcheckReturnedStatusTest() throws Exception
-  {
-    mvc.perform(
-      get("/healthcheck"))
-      .andExpect(status().isOk());
-  }
+    @Test // MockMvc throws Exception, so i must catch it
+    void healthcheckReturnedStatusTest() throws Exception
+    {
+        mvc.perform(get("/healthcheck")).andExpect(status().isOk());
+    }
 
-  @Test
-    // MockMvc throws Exception, so i must catch it
-  void healthcheckBodyTest() throws Exception
-  {
-    mvc.perform(get("/healthcheck")
-      // Ensure it is a Json
-      .contentType(MediaType.APPLICATION_JSON))
-      // Check the contents of the body.
-      .andExpect(jsonPath("status", is("OK")))
-      .andExpect(jsonPath("message", is("Server is live")));
-  }
+    @Test // MockMvc throws Exception, so i must catch it
+    void healthcheckBodyTest() throws Exception
+    {
+        mvc.perform(get("/healthcheck")
+            // Ensure it is a Json
+            .contentType(MediaType.APPLICATION_JSON))
+            // Check the contents of the body.
+            .andExpect(jsonPath("status", is("OK")))
+            .andExpect(jsonPath("message", is("Server is live")));
+    }
 }

@@ -1,89 +1,92 @@
 <section class="main-section">
-  <div class="main-section-container">
-    <div class="main-text">
-      <h2 class="main-title">MY FAMILYTREE</h2>
-      <h5 class="main-subtitle">Prices from: 396kr</h5>
-      <button class="tc-start-main">Start</button>
+    <div class="main-section-container">
+        <div class="main-text">
+            <h2 class="main-title">MY FAMILYTREE</h2>
+            <h5 class="main-subtitle">Prices from: 396kr</h5>
+            <button class="tc-start-main">Start</button>
+        </div>
     </div>
 </section>
 
 <div class="arrow-container">
-  <button
-    class="down-arrow"
-    onClick="document.getElementById('product').scrollIntoView();"
-  >
-    <div class="icon">
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-    </div>
-  </button>
+    <button
+        class="down-arrow"
+        onClick="document.getElementById('product').scrollIntoView();"
+    >
+        <div class="icon">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+        </div>
+    </button>
 </div>
 
 <section class="product-section" id="product">
-  <div class="product-content">
-    <div class="home-text">
-      <h1 class="home-title">Product</h1>
-      <p>
-        Unique wood design with several styling options which make every product
-        become completely unique. In just a few minutes, you can create your own
-        family tree and get it laser-cut into a beautiful piece of oak wood.
-      </p>
-    </div>
-  </div>
-
-  <div class="parallax-space">
-    <div class="parallax-img" [style.top]="onWindowScroll()"></div>
-  </div>
-
-  <div class="arrow-container">
-    <button
-      class="down-arrow"
-      onClick="document.getElementById('create').scrollIntoView();"
-    >
-      <div class="icon">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-      </div>
-    </button>
-  </div>
-
-  <section class="product-section" id="create">
     <div class="product-content">
-      <div class="home-text">
-        <h1 class="home-title">Create</h1>
-        <p>
-          There are many ways to create your family tree design. In this
-          example, of a family tree, the couples in the family are connected by
-          having their names placed next to each other. If there are too many
-          names you can also put the couples on top of each other so the tree
-          doesn't get too wide. Be inspired or experiment with your own design,
-          until you find the design that suits you best.
-        </p>
-      </div>
+        <div class="home-text">
+            <h1 class="home-title">Product</h1>
+            <p>
+                Unique wood design with several styling options which make every
+                product become completely unique. In just a few minutes, you can
+                create your own family tree and get it laser-cut into a
+                beautiful piece of oak wood.
+            </p>
+        </div>
     </div>
 
-    <div class="scroll-view">
-      <div class="slider">
-        <div class="slides">
-          <div id="slide-1">1</div>
-          <div id="slide-2">2</div>
-          <div id="slide-3">3</div>
-          <div id="slide-4">4</div>
-          <div id="slide-5">5</div>
-        </div>
-      </div>
+    <div class="parallax-space">
+        <div class="parallax-img" [style.top]="onWindowScroll()"></div>
     </div>
 
     <div class="arrow-container">
-      <button
-        class="down-arrow"
-        onClick="document.getElementById('footer').scrollIntoView();"
-      >
-        <div class="icon">
-          <div class="bar1"></div>
-          <div class="bar2"></div>
-        </div>
-      </button>
+        <button
+            class="down-arrow"
+            onClick="document.getElementById('create').scrollIntoView();"
+        >
+            <div class="icon">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+            </div>
+        </button>
     </div>
-  </section>
+
+    <section class="product-section" id="create">
+        <div class="product-content">
+            <div class="home-text">
+                <h1 class="home-title">Create</h1>
+                <p>
+                    There are many ways to create your family tree design. In
+                    this example, of a family tree, the couples in the family
+                    are connected by having their names placed next to each
+                    other. If there are too many names you can also put the
+                    couples on top of each other so the tree doesn't get too
+                    wide. Be inspired or experiment with your own design, until
+                    you find the design that suits you best.
+                </p>
+            </div>
+        </div>
+
+        <div class="scroll-view">
+            <div class="slider">
+                <div class="slides">
+                    <div id="slide-1">1</div>
+                    <div id="slide-2">2</div>
+                    <div id="slide-3">3</div>
+                    <div id="slide-4">4</div>
+                    <div id="slide-5">5</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arrow-container">
+            <button
+                class="down-arrow"
+                onClick="document.getElementById('footer').scrollIntoView();"
+            >
+                <div class="icon">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                </div>
+            </button>
+        </div>
+    </section>
 </section>

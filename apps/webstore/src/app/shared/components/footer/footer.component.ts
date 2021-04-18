@@ -4,12 +4,12 @@ import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/priv
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
 
 @Component({
-    selector: 'webstore-footer',
-    templateUrl: './footer.component.html',
-    styleUrls: [
-        './footer.component.css',
-        '../../../../assets/styles/tc-input-field.scss',
-    ],
+  selector: 'webstore-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: [
+    './footer.component.css',
+    '../../../../assets/styles/tc-input-field.scss',
+  ],
 })
 export class FooterComponent implements OnInit {
   constructor(private modalService: NgbModal) {}

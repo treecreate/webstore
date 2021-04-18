@@ -15,31 +15,28 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Collections;
 
 @Configuration
-@Import(BeanValidatorPluginsConfiguration.class)
 @EnableSwagger2
+@Import(BeanValidatorPluginsConfiguration.class)
 public class SpringFoxConfig
 {
     @Bean
     public Docket api()
     {
-        return new Docket(DocumentationType.SWAGGER_2)
-            .select()
+        return new Docket(DocumentationType.SWAGGER_2).select()
             .apis(RequestHandlerSelectors.basePackage("dk.treecreate.api"))
-            .paths(PathSelectors.any())
-            .build()
+            .paths(PathSelectors.any()).build()
             .apiInfo(apiInfo()) // information about the API shown at the top of the page
-            .useDefaultResponseMessages(false); // removes redundant codes like 404: Not found from every mapping
+            .useDefaultResponseMessages(
+                false); // removes redundant codes like 404: Not found from every mapping
     }
 
     private ApiInfo apiInfo()
     {
-        return new ApiInfo(
-            "Treecreate REST API",
-            "A Springboot rest API",
-            "0.0.0-development",
+        return new ApiInfo("Treecreate REST API", "A Springboot rest API", "0.0.0-development",
             "https://github.com/treecreate/webstore/blob/development/LICENSE",
-            new Contact("Treecreate", "treecreate.dk", "info@treecreate.dk"),
-            "License of API", "https://github.com/treecreate/webstore/blob/development/LICENSE", Collections.emptyList());
+            new Contact("Treecreate", "treecreate.dk", "info@treecreate.dk"), "License of API",
+            "https://github.com/treecreate/webstore/blob/development/LICENSE",
+            Collections.emptyList());
     }
 }
 

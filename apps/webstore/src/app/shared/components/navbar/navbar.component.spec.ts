@@ -9,8 +9,8 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('NavbarComponent', () => {
-    let component: NavbarComponent;
-    let fixture: ComponentFixture<NavbarComponent>;
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,11 +20,11 @@ describe('NavbarComponent', () => {
     }).compileComponents();
   });
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(NavbarComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NavbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it("should have a variable 'isMenuCollapsed' that is true", () => {
     fixture = TestBed.createComponent(NavbarComponent);

@@ -6,21 +6,21 @@ import { environment } from '../environments/environment';
 declare let gtag: Function;
 
 @Component({
-    selector: 'webstore-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+  selector: 'webstore-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    constructor(public router: Router) {
-        //Google analytics
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                gtag('config', environment.gtag, {
-                    page_path: event.urlAfterRedirects,
-                });
-            }
+  constructor(public router: Router) {
+    //Google analytics
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', environment.gtag, {
+          page_path: event.urlAfterRedirects,
         });
-    }
+      }
+    });
+  }
 
   title = 'Treecreate';
 }

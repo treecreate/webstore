@@ -16,7 +16,8 @@ public class ExceptionController
 {
     @PostMapping("/exception")
     public void getSpecificException(@RequestParam(name = "exceptionName") String exceptionName,
-                                     @RequestParam(required = false, name = "customMessage") String customMessage)
+                                     @RequestParam(required = false, name = "customMessage")
+                                         String customMessage)
     {
         switch (exceptionName)
         {

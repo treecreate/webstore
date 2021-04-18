@@ -4,6 +4,6 @@ export interface IEnvironment {
   envName: string;
   locale: string;
 
-    apiUrl: string;
-    gtag: string;
+  apiUrl: string;
+  gtag: string;
 }
