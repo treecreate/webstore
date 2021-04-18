@@ -6,20 +6,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController()
 @RequestMapping("/healthcheck")
 public class HealthcheckController
 {
-  @GetMapping("")
-  @ResponseStatus(HttpStatus.OK)
-  public HealthcheckDto healthCheck()
-  {
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public HealthcheckDto healthCheck()
+    {
+        HealthcheckDto response = new HealthcheckDto();
+        response.setMessage("Server is live");
+        response.setStatus("OK");
 
-    HealthcheckDto response = new HealthcheckDto();
-    response.setMessage("Server is live");
-    response.setStatus("OK");
-
-    return response;
-  }
+        return response;
+    }
 }

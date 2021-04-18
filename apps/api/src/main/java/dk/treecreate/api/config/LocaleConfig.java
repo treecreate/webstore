@@ -13,27 +13,27 @@ import java.util.Locale;
 @Configuration
 public class LocaleConfig implements WebMvcConfigurer
 {
-  @Bean
-  public LocaleResolver localeResolver()
-  {
-    SessionLocaleResolver slr = new SessionLocaleResolver();
-    // Although the default is Danish, if someone specifies an invalid locale the email will be sent in english
-    // messages.properties is read by default and it is in english
-    slr.setDefaultLocale(new Locale("dk"));
-    return slr;
-  }
+    @Bean
+    public LocaleResolver localeResolver()
+    {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        // Although the default is Danish, if someone specifies an invalid locale the email will be sent in english
+        // messages.properties is read by default and it is in english
+        slr.setDefaultLocale(new Locale("dk"));
+        return slr;
+    }
 
-  @Bean
-  public LocaleChangeInterceptor localeChangeInterceptor()
-  {
-    LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-    lci.setParamName("lang");
-    return lci;
-  }
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor()
+    {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry)
-  {
-    registry.addInterceptor(localeChangeInterceptor());
-  }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry)
+    {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 }

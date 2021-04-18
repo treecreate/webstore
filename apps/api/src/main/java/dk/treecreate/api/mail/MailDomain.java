@@ -3,13 +3,13 @@ package dk.treecreate.api.mail;
 
 public enum MailDomain
 {
-  INFO("info@treecreate.dk"),
-  ORDER("orders@treecreate.dk");
+    INFO("info@treecreate.dk"),
+    ORDER("orders@treecreate.dk");
 
-  public final String label;
+    public final String label;
 
-  MailDomain(String label)
-  {
-    this.label = label;
-  }
+    MailDomain(String label)
+    {
+        this.label = label;
+    }
 }

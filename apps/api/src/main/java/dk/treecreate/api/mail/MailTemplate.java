@@ -3,13 +3,13 @@ package dk.treecreate.api.mail;
 
 public enum MailTemplate
 {
-  SIGNUP("signup"),
-  RESET_PASSWORD("reset-password");
+    SIGNUP("signup"),
+    RESET_PASSWORD("reset-password");
 
-  public final String label;
+    public final String label;
 
-  MailTemplate(String label)
-  {
-    this.label = label;
-  }
+    MailTemplate(String label)
+    {
+        this.label = label;
+    }
 }

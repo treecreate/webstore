@@ -14,10 +14,10 @@ import springfox.documentation.annotations.ApiIgnore;
 public class DocsController
 {
 
-  // a simple redirect to the docs page. A simple quality of life improvement
-  @GetMapping("")
-  public String swaggerDocs()
-  {
-    return "redirect:/swagger-ui/";
-  }
+    // a simple redirect to the docs page. A simple quality of life improvement
+    @GetMapping("")
+    public String swaggerDocs()
+    {
+        return "redirect:/swagger-ui/";
+    }
 }
