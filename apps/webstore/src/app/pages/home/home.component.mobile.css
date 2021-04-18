@@ -30,8 +30,8 @@
   .main-text {
     padding-top: 6vh;
   }
-  .parallax-img {
-    background-position-x: -30%;
+  .start-design-button {
+    width: 40% !important;
   }
 }
 @media (max-width: 650px) {
@@ -53,6 +53,12 @@
   .parallax-img {
     background-position-x: -83%;
   }
+  .desktop-remove {
+    display: block;
+  }
+  .mobile-remove {
+    display: none;
+  }
 }
 @media (max-width: 450px) {
   .main-section-container {
@@ -72,25 +78,32 @@
     padding-top: 0vh;
   }
   .home-text {
-    padding: 4rem 2rem;
+    padding: 2rem;
   }
   .parallax-img {
-    background-position-x: 11%;
-    margin-top: 449px;
-    right: -128px;
+    margin-top: 660px;
     min-height: 441px;
     min-width: 741px;
   }
   .parallax-space {
-    height: 220px;
+    height: 290px;
+  }
+  .start-design-button {
+    width: 60% !important;
+  }
+  .create-section {
+    padding-bottom: 0;
+  }
+  .package-images {
+    margin-bottom: 2em;
   }
 }
 
 /* iphone 5 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
   .parallax-img {
-    right: -160px;
-    margin-top: 400px;
+    right: -60px;
+    margin-top: 530px;
   }
 }
 /* iphone 6, 6s, 7, 8 */

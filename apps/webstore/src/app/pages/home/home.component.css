@@ -11,8 +11,8 @@
   background-repeat: no-repeat;
   background-position: center;
   text-align: center;
-  height: 52vh;
-  max-width: 70vw;
+  height: 30em;
+  min-width: 100%;
   margin: auto;
   margin-top: 13rem;
 }
@@ -110,9 +110,8 @@
 /* Parallax */
 .parallax-img {
   background-image: url('/assets/img/coverPhoto01-9.png');
-  background-position-x: 38%;
   position: fixed;
-  margin-top: 360px;
+  margin-top: 610px;
   z-index: -1;
   right: 0px;
   width: 100%;
@@ -125,4 +124,38 @@
 .parallax-space {
   height: 450px;
   background-color: rgba(255, 255, 255, 0.25);
+}
+
+.start-btn-container {
+  text-align: center;
+  padding: 30px;
+}
+.start-design-button {
+  border-radius: 6px;
+  height: 50px;
+  font-size: 24px;
+}
+
+.example-img {
+  height: 100%;
+  padding: 20px 7px;
+}
+.desktop-remove {
+  display: none;
+}
+
+.package-images {
+  text-align: center;
+  margin-bottom: 5em;
+}
+.package-stand-img {
+  padding-top: 20px;
+  height: 200px !important;
+}
+.package-tree-img {
+  height: 200px !important;
+}
+.package-image {
+  height: 250px;
+  margin: 20px;
 }

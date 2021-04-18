@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private eleRef: ElementRef) {
     this.initialTop = 0;
-    this.parallaxRatio = 0.43;
+    this.parallaxRatio = 0.7;
   }
 
   @HostListener('window:scroll')
