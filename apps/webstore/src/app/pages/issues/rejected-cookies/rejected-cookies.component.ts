@@ -15,6 +15,7 @@ export class RejectedCookiesComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {}
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 
   acceptCookies() {

@@ -49,12 +49,14 @@ describe('CookiePromptModal', () => {
       multiple: true,
       force: true,
     });
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(100); // the modal takes around 50 milliseconds to fade away
     cy.get('[data-cy=cookie-prompt-modal]').should('exist');
   });
 
   it("shouldn't allow to close the popup by pressing escape", () => {
     cy.get('[data-cy=cookie-prompt-modal]').type('Cypress.io{esc}');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(250); // the modal takes around 200 milliseconds to fade away
     cy.get('[data-cy=cookie-prompt-modal]').should('exist');
   });
@@ -76,6 +78,7 @@ describe('CookiePromptModal', () => {
       multiple: true,
       force: true,
     });
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(100); // the modal takes around 50 milliseconds to fade away
     cy.get('[data-cy=terms-of-use-modal]').should('not.exist');
   });

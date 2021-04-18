@@ -1,14 +1,19 @@
 {
-  "npmScope": "webstore",
-  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "webstore",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -21,9 +26,18 @@
     }
   },
   "projects": {
-    "api": { "tags": [] },
-    "webstore": { "tags": [] },
-    "webstore-e2e": { "tags": [], "implicitDependencies": ["webstore"] },
-    "models": { "tags": [] }
+    "api": {
+      "tags": []
+    },
+    "webstore": {
+      "tags": []
+    },
+    "webstore-e2e": {
+      "tags": [],
+      "implicitDependencies": ["webstore"]
+    },
+    "models": {
+      "tags": []
+    }
   }
 }

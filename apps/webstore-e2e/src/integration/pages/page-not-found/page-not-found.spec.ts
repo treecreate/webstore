@@ -1,5 +1,4 @@
 import { CookieStatus, LocalStorageVars } from '@models';
-import { link } from 'fs';
 describe('PageNotFoundPage', () => {
   beforeEach(() => {
     localStorage.setItem(
