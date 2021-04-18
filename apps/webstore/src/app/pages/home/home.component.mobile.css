@@ -31,7 +31,6 @@
     padding-top: 6vh;
   }
   .parallax-img {
-    background-position-x: -30%;
   }
 }
 @media (max-width: 650px) {
@@ -75,14 +74,12 @@
     padding: 4rem 2rem;
   }
   .parallax-img {
-    background-position-x: 11%;
-    margin-top: 449px;
-    right: -128px;
+    margin-top: 660px;
     min-height: 441px;
     min-width: 741px;
   }
   .parallax-space {
-    height: 220px;
+    height: 290px;
   }
 }
 

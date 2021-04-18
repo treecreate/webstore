@@ -11,8 +11,8 @@
   background-repeat: no-repeat;
   background-position: center;
   text-align: center;
-  height: 52vh;
-  max-width: 70vw;
+  height: 30em;
+  min-width: 100%;
   margin: auto;
   margin-top: 13rem;
 }
@@ -110,9 +110,8 @@
 /* Parallax */
 .parallax-img {
   background-image: url('/assets/img/coverPhoto01-9.png');
-  background-position-x: 38%;
   position: fixed;
-  margin-top: 360px;
+  margin-top: 610px;
   z-index: -1;
   right: 0px;
   width: 100%;
