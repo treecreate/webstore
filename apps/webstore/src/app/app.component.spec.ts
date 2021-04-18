@@ -7,6 +7,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
+import { LoginComponent } from './pages/login/login.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -19,6 +20,7 @@ describe('AppComponent', () => {
         FooterComponent,
         PageNotFoundComponent,
         CookiePromptModalComponent,
+        LoginComponent,
       ],
     }).compileComponents();
   });
