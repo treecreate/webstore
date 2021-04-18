@@ -27,6 +27,7 @@ describe('FooterComponent', () => {
         multiple: true,
         force: true,
       });
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(100); // the modal takes around 50 milliseconds to fade away
       cy.get('[data-cy=terms-of-use-modal]').should('not.be.visible');
     });
@@ -35,6 +36,7 @@ describe('FooterComponent', () => {
       cy.get('[data-cy=footer-terms-of-use-modal-link]').click({ force: true });
       cy.get('[data-cy=terms-of-use-modal]').should('exist');
       cy.get('[data-cy=terms-of-use-modal]').type('Cypress.io{esc}');
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(250); // the modal takes around 200 milliseconds to fade away
       cy.get('[data-cy=terms-of-use-modal]').should('not.exist');
     });
@@ -49,6 +51,7 @@ describe('FooterComponent', () => {
         multiple: true,
         force: true,
       });
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(100); // the modal takes around 50 milliseconds to fade away
       cy.get('[data-cy=privacy-notice-modal]').should('not.be.visible');
     });
@@ -60,6 +63,7 @@ describe('FooterComponent', () => {
       });
       cy.get('[data-cy=privacy-notice-modal]').should('exist');
       cy.get('[data-cy=privacy-notice-modal]').type('Cypress.io{esc}');
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(250); // the modal takes around 200 milliseconds to fade away
       cy.get('[data-cy=privacy-notice-modal]').should('not.exist');
     });

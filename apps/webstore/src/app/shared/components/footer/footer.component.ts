@@ -14,6 +14,7 @@ import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-
 export class FooterComponent implements OnInit {
   constructor(private modalService: NgbModal) {}
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 
   showTermsOfUse() {

@@ -21,6 +21,7 @@ describe('TermsOfUseModal', () => {
     cy.get('[data-cy=terms-of-use-modal-close-btn]').click({
       force: true,
     });
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(150); // the modal takes around 50 milliseconds to fade away
     cy.get('[data-cy=terms-of-use-modal]').should('not.be.visible');
   });
@@ -32,6 +33,7 @@ describe('TermsOfUseModal', () => {
     cy.get('[data-cy=terms-of-use-modal-x-btn]').click({
       force: true,
     });
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(150); // the modal takes around 50 milliseconds to fade away
     cy.get('[data-cy=terms-of-use-modal]').should('not.be.visible');
   });

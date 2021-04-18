@@ -25,5 +25,6 @@ export class HomeComponent implements OnInit {
     return this.initialTop - window.scrollY * this.parallaxRatio + 'px';
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 }

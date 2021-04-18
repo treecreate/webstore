@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
-  basketItemOptions(amount: Number): string {
+  basketItemOptions(amount: number): string {
     if (amount === 0) {
       return 'Basket empty';
     }
@@ -49,5 +49,6 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 }

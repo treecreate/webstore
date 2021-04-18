@@ -12,5 +12,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class PrivacyNoticeModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) {}
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 }

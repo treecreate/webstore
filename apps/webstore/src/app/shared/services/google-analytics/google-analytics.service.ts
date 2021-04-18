@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+// Google analytics-specific syntax
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare let gtag: Function;
 
 @Injectable({

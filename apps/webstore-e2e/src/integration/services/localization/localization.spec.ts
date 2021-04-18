@@ -4,7 +4,7 @@ describe('Localization', () => {
   });
 
   it('do be localized', () => {
-    cy.get('[data-cy=localization]').then(($localization) => {
+    cy.get('[data-cy=localization]').then(() => {
       cy.get('.language-icon').then(($icon) => {
         if ($icon.attr('data-cy') === 'dk') {
           cy.get('[data-cy=dk]')
