@@ -13,7 +13,7 @@ describe('HomePage', () => {
     cy.get('[data-cy=footer]').should('exist');
   });
   it('should do nothing when "start" button is clicked', () => {
-    cy.get('.tc-start-main').click({force: true});
+    cy.get('.tc-start-main').click({ force: true });
     cy.url().should('contain', '/home');
   });
 });
