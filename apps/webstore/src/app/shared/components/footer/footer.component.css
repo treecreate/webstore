@@ -110,6 +110,9 @@ h5 {
   .font-small {
     font-size: 0.8rem;
   }
+  .contact-mobile-margin {
+    margin-right: 30px;
+  }
 }
 
 @media (min-width: 769px) {

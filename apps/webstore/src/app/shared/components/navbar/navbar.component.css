@@ -39,6 +39,9 @@
   outline: none;
   margin-top: 0.3rem;
 }
+.language-icon {
+  height: 25px;
+}
 /* menu toggle button */
 .bar1,
 .bar2,

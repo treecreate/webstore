@@ -94,13 +94,16 @@
   .create-section {
     padding-bottom: 0;
   }
+  .package-images {
+    margin-bottom: 2em;
+  }
 }
 
 /* iphone 5 */
 @media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
   .parallax-img {
-    right: -160px;
-    margin-top: 400px;
+    right: -60px;
+    margin-top: 530px;
   }
 }
 /* iphone 6, 6s, 7, 8 */
