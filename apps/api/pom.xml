@@ -98,6 +98,11 @@
       <version>3.0.0</version>
     </dependency>
 
+    <!--dependency>
+        <groupId>com.okta.spring</groupId>
+        <artifactId>okta-spring-boot-starter</artifactId>
+        <version>1.2.1</version>
+    </dependency-->
   </dependencies>
 
   <build>
