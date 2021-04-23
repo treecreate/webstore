@@ -1,0 +1,77 @@
+<div>
+  <h1>This shit worked</h1>
+  <div nz-col>
+    <ng-template [ngIf]="!success" [ngIfElse]="successTmpl">
+      <ng-container *ngTemplateOutlet="forgot"></ng-container>
+    </ng-template>
+
+    <ng-template #forgot>
+
+      <h5 nz-typography class="max-width heading" data-cy="heading">
+        Enter your email address and we'll send you a link to reset your
+        password.
+      </h5>
+
+      <form
+        nz-form
+        [formGroup]="form"
+        class="max-width"
+        (ngSubmit)="submitHandler()"
+      >
+
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="emailErrorTpl">
+            <input
+              type="email"
+              nz-input
+              nzSize="large"
+              formControlName="email"
+              placeholder="Email"
+            />
+
+            <ng-template #emailErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('email')">
+                Please input valid email!
+              </ng-container>
+              <ng-container *ngIf="control.hasError('required')">
+                Please input your email!
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+
+        <button
+          nz-button
+          nzSize="large"
+          nzBlock
+          nzType="primary"
+          class="submit-form-button"
+          [nzLoading]="submitting"
+          [disabled]="!isFormValid"
+          data-cy="submit-button"
+        >
+          Send Password Reset Link
+        </button>
+      </form>
+      <div nz-row nzJustify="center">
+        <span nz-typography>
+          <a routerLink="/">Go Back</a>
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template #successTmpl>
+      <div *ngIf="success" class="content-container">
+        <h4 nz-typography class="success-heading">
+          We sent you an email which contains a link to reset your password.
+        </h4>
+      </div>
+
+      <div nz-row nzJustify="center">
+        <span nz-typography>
+          <a routerLink="/">Go Back</a>
+        </span>
+      </div>
+    </ng-template>
+  </div>
+</div>

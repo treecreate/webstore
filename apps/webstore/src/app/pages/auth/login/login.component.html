@@ -1,0 +1,117 @@
+<div>
+  <!-- Row -- start -->
+  <div nz-row nzJustify="space-between" class="wrapper">
+    <!-- Sign in form column -->
+    <div>
+      <form
+        nz-form
+        (ngSubmit)="submitHandler()"
+        class="p-relative"
+      >
+        <nz-alert
+          *ngIf="errorMsg"
+          nzType="error"
+          [nzMessage]="errorMsg"
+          class="alert"
+          data-cy="alert"
+        ></nz-alert>
+
+        <!-- Email -->
+        <div>
+          <div>
+            <input
+              type="email"
+              nz-input
+              nzSize="large"
+              formControlName="email"
+              placeholder="Email"
+              data-cy="email-input"
+            />
+            <!-- Error Template -->
+            <ng-template #emailErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('email')">
+                Please input valid email!
+              </ng-container>
+              <ng-container *ngIf="control.hasError('required')">
+                Please input your email!
+              </ng-container>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <div nzErrorTip="Please input your password!">
+            <input
+              type="password"
+              nz-input
+              nzSize="large"
+              formControlName="password"
+              placeholder="Password"
+              data-cy="password-input"
+            />
+          </div>
+        </div>
+
+        <button
+          nz-button
+          nzBlock
+          nzSize="large"
+          nzType="primary"
+          class="margin-bot"
+          [disabled]="!isFormValid"
+          data-cy="submit-button"
+        >
+          Sign In
+        </button>
+
+        <div>
+          <a routerLink="/forgot"
+            >Forgot password?</a
+          >
+          <span >Don't have an account?</span>
+          <a
+            routerLink="/signup"
+            data-cy="signup-link"
+            >Sign up?</a
+          >
+        </div>
+      </form>
+    </div>
+
+    <!-- Social sign in buttons column -->
+    <!--div
+      nz-col
+      [nzXs]="{ span: 24, order: 1 }"
+      [nzMd]="{ span: 12, order: 2 }"
+      [nzXl]="10"
+      [nzXXl]="9"
+      class="column-container"
+    >
+      <nz-space nzDirection="vertical" nzSize="small" nz-col>
+        <wall-of-denial-linkedin-button
+          *nzSpaceItem
+        ></wall-of-denial-linkedin-button>
+        <wall-of-denial-google-button
+          *nzSpaceItem
+        ></wall-of-denial-google-button>
+        <wall-of-denial-facebook-button
+          *nzSpaceItem
+        ></wall-of-denial-facebook-button>
+        <wall-of-denial-apple-button *nzSpaceItem></wall-of-denial-apple-button>
+      </nz-space-->
+      <div>
+      <webstore-linkedin-button
+          *nzSpaceItem
+        ></webstore-linkedin-button>
+        <webstore-google-button
+          *nzSpaceItem
+        ></webstore-google-button>
+        <webstore-facebook-button
+          *nzSpaceItem
+        ></webstore-facebook-button>
+        <webstore-apple-button *nzSpaceItem></webstore-apple-button>
+      </div>
+  </div>
+  <!-- Wrapper - end -->
+</div>

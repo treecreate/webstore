@@ -3,6 +3,13 @@
   window['env'] = window['env'] || {};
 
   // Environment variables
-  window['env']['apiUrl'] = '${API_URL}';
-  window['env']['gtag'] = '${GTAG}';
+  window['env']['apiUrl'] = 'http://localhost:5000';
+  window['env']['gtag'] = 'G-4VY53TX2KS';
+
+  window['env']['oktaDomain'] = '${OKTA_DOMAIN}';
+  window['env']['oktaClientId'] = '${OKTA_CLIENT_ID}';
+  window['env']['idpGoogle'] = '${IDP_GOOGLE}';
+  window['env']['idpFacebook'] = '${IDP_FACEBOOK}';
+  window['env']['idpLinkedIn'] = '${IDP_LINKEDIN}';
+  window['env']['idpApple'] = '${IDP_APPLE}';
 })(this);

@@ -1,0 +1,18 @@
+<div>
+  <div nz-col nzSpan="12">
+    <div class="mb-4 text-center">
+      <h4 nz-typography data-cy="heading">{{ feedback.heading }}</h4>
+      <h4 nz-typography data-cy="summary">{{ feedback.summary }}</h4>
+    </div>
+
+    <div class="text-center">
+      <ng-container *ngIf="feedback.success">
+        Can't wait?
+        <a routerLink="/" data-cy="dashboard-link">Go to dashboard</a>
+      </ng-container>
+      <ng-container *ngIf="feedback.success === false">
+        <a routerLink="/login" data-cy="login-link">Go to login</a>
+      </ng-container>
+    </div>
+  </div>
+</div>

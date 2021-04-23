@@ -1,0 +1,130 @@
+<div>
+  <!-- LOGIC -->
+  <ng-template [ngIf]="!success" [ngIfElse]="successTmpl">
+    <ng-container *ngTemplateOutlet="signup"></ng-container>
+  </ng-template>
+
+  <!-- TEMPLATES -->
+  <ng-template #signup>
+    <div nz-row nzJustify="space-between" class="wrapper">
+      <!-- Signup form column -->
+      <div
+        nz-col
+        [nzXs]="{ span: 24, order: 2 }"
+        [nzMd]="{ span: 12, order: 1 }"
+        [nzXl]="10"
+        [nzXXl]="9"
+        class="column-container form-container"
+      >
+        <form
+          nz-form
+          [formGroup]="form"
+          (ngSubmit)="submitHandler()"
+          class="p-relative"
+        >
+          <nz-alert
+            *ngIf="errorMsg"
+            nzType="error"
+            [nzMessage]="errorMsg"
+            class="alert"
+            data-cy="alert"
+          ></nz-alert>
+
+          <!-- Email -->
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="emailErrorTpl">
+              <input
+                type="email"
+                nz-input
+                nzSize="large"
+                formControlName="email"
+                placeholder="Email"
+                data-cy="email-input"
+              />
+              <!-- Error Template -->
+              <ng-template #emailErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('email')">
+                  Please input valid email!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('required')">
+                  Please input your email!
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <button
+            nz-button
+            nzBlock
+            nzSize="large"
+            nzType="primary"
+            class="submit-form-button"
+            [nzLoading]="submitting"
+            [disabled]="!isFormValid"
+            data-cy="submit-button"
+          >
+            Sign Up
+          </button>
+
+          <div>
+            <p nz-typography>Already have an account?</p>
+            <span nz-typography>
+              <a routerLink="/">Sign In</a>
+            </span>
+          </div>
+        </form>
+      </div>
+
+      <!-- Social signup buttons column -->
+      <div
+        nz-col
+        [nzXs]="{ span: 24, order: 1 }"
+        [nzMd]="{ span: 12, order: 2 }"
+        [nzXl]="10"
+        [nzXXl]="9"
+        class="column-container"
+      >
+        <nz-space nzDirection="vertical" nzSize="small" nz-col>
+          <wall-of-denial-linkedin-button
+            *nzSpaceItem
+          ></wall-of-denial-linkedin-button>
+          <wall-of-denial-google-button
+            *nzSpaceItem
+          ></wall-of-denial-google-button>
+          <wall-of-denial-facebook-button
+            *nzSpaceItem
+          ></wall-of-denial-facebook-button>
+          <wall-of-denial-apple-button
+            *nzSpaceItem
+          ></wall-of-denial-apple-button>
+        </nz-space>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #successTmpl>
+    <div nz-col nzSpan="12" class="max-width">
+      <h4 nz-typography class="heading">
+        We sent you an email which contains a link to create your account.
+      </h4>
+
+      <div nz-row nzJustify="center">
+        <nz-space nzSize="middle">
+          <span nz-typography *nzSpaceItem>Didn't get the email?</span>
+          <a
+            nz-typography
+            *nzSpaceItem
+            (click)="resendHandler()"
+            nz-tooltip
+            nzTooltipTitle="Email sent"
+            nzTooltipColor="#796eff"
+            nzTooltipTrigger="click"
+            data-cy="resend-link"
+          >
+            Click here to resend
+          </a>
+        </nz-space>
+      </div>
+    </div>
+  </ng-template>
+</div>

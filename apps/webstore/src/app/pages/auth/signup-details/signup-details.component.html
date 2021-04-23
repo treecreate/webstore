@@ -1,0 +1,125 @@
+<div>
+  <div nz-col nzSpan="12">
+    <!-- LOGIC -->
+    <ng-template [ngIf]="!validating" [ngIfElse]="loading">
+      <ng-template [ngIf]="isTokenValid" [ngIfElse]="error">
+        <ng-container *ngTemplateOutlet="signup"></ng-container>
+      </ng-template>
+    </ng-template>
+
+    <!-- TEMPLATES -->
+    <ng-template #signup>
+      <div class="form-container" *ngIf="isTokenValid">
+        <nz-alert
+          *ngIf="errorMsg"
+          nzType="error"
+          [nzMessage]="errorMsg"
+          class="alert"
+          data-cy="alert"
+        ></nz-alert>
+
+        <h4 nz-typography class="heading">Please fill in your information</h4>
+
+        <form
+          nz-form
+          [formGroup]="form"
+          (ngSubmit)="submitHandler()"
+          class="form"
+        >
+          <!-- Email field -->
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your email!">
+              <nz-input-group nzSize="large">
+                <input
+                  type="email"
+                  nz-input
+                  formControlName="email"
+                  placeholder="Email"
+                  data-cy="email-input"
+                  readonly
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- First name field -->
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your first name!">
+              <nz-input-group nzSize="large">
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="firstName"
+                  placeholder="First name"
+                  data-cy="first-name-input"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- First name field -->
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your last name!">
+              <nz-input-group nzSize="large">
+                <input
+                  type="text"
+                  nz-input
+                  formControlName="lastName"
+                  placeholder="Last name"
+                  data-cy="last-name-input"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Password field -->
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="password.errors?.password.message">
+              <input
+                type="password"
+                nz-input
+                nzSize="large"
+                formControlName="password"
+                placeholder="Password"
+                data-cy="password-input"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <button
+            nz-button
+            nzBlock
+            nzSize="large"
+            nzType="primary"
+            class="submit-form-button"
+            [nzLoading]="submitting"
+            [disabled]="!isFormValid"
+            data-cy="submit-button"
+          >
+            Sign Up
+          </button>
+        </form>
+
+        <div nz-row nzJustify="center">
+          <nz-space nzSize="middle">
+            <span nz-typography *nzSpaceItem>Already have an account?</span>
+            <a nz-typography *nzSpaceItem routerLink="/">Sign In</a>
+          </nz-space>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #loading>
+      <div>
+        <h4 nz-typography class="heading">Processing...</h4>
+      </div>
+    </ng-template>
+
+    <ng-template #error>
+      <div class="error-container">
+        <h4 nz-typography class="heading">Invalid or expired link.</h4>
+        <span nz-typography> <a routerLink="/signup">Go to sign up</a> </span>
+      </div>
+    </ng-template>
+  </div>
+</div>
