@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
 //Services
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 //Components
@@ -16,8 +18,10 @@ import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-s
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CarListComponent } from './shared/components/car-list/car-list.component';
+import { LoginComponent } from './pages/login/login.component';
+import config from './app.config';
+import { LoginCallbackComponent } from './pages/login-callback/login-callback.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +36,20 @@ import { CarListComponent } from './shared/components/car-list/car-list.componen
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
     CarListComponent,
+    LoginComponent,
+    LoginCallbackComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
-  providers: [GoogleAnalyticsService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    OktaAuthModule,
+  ],
+  providers: [
+    GoogleAnalyticsService,
+    { provide: OKTA_CONFIG, useValue: config.oidc },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

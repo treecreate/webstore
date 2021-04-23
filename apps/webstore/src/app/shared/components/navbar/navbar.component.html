@@ -49,11 +49,19 @@
                         >Product</a
                     >
                 </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link waves-light"
-                        routerLink="{{ isLoggedIn ? '/login' : '/profile' }}"
-                        >{{ isLoggedIn ? 'Log In' : 'Profile' }}</a
+                <li class="nav-item" *ngIf="!isAuthenticated">
+                    <a class="nav-link waves-light" routerLink="/login"
+                        >Log In</a
+                    >
+                </li>
+                <li class="nav-item" *ngIf="isAuthenticated">
+                    <a class="nav-link waves-light" routerLink="/profile"
+                        >Profile</a
+                    >
+                </li>
+                <li class="nav-item" *ngIf="isAuthenticated">
+                    <a class="nav-link waves-light" (click)="logout()"
+                        >Logout</a
                     >
                 </li>
                 <li class="nav-item purchase-btn">

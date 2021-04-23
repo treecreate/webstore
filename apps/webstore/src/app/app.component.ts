@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { environment } from '../environments/environment';
 
@@ -11,7 +11,9 @@ declare let gtag: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  title = 'Treecreate';
+
   constructor(public router: Router) {
     //Google analytics
     this.router.events.subscribe((event) => {
@@ -24,5 +26,6 @@ export class AppComponent {
     });
   }
 
-  title = 'Treecreate';
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 }

@@ -53,6 +53,7 @@
     "@angular/router": "11.2.0",
     "@ng-bootstrap/ng-bootstrap": "^9.0.0",
     "@ngrx/component-store": "11.0.0",
+    "@okta/okta-angular": "^3.0.1",
     "bootstrap": "^4.5.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

@@ -4,6 +4,7 @@ import { IEnvironment } from '../../../../environments/ienvironment';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage';
 import { LocalStorageVars, LocaleType } from '@models';
+import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
   selector: 'webstore-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
+  isAuthenticated: boolean;
 
   basketItemOptions(amount: number): string {
     if (amount === 0) {
@@ -24,7 +26,10 @@ export class NavbarComponent implements OnInit {
     return `(${amount}) products `;
   }
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(
+    private localStorageService: LocalStorageService,
+    public oktaAuth: OktaAuthService
+  ) {
     this.locale$ = this.localStorageService.getItem<LocaleType>(
       LocalStorageVars.locale
     );
@@ -34,6 +39,9 @@ export class NavbarComponent implements OnInit {
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
+    this.oktaAuth.$authenticationState.subscribe(
+      (isAuthenticated) => (this.isAuthenticated = isAuthenticated)
+    );
   }
 
   changeLocale() {
