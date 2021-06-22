@@ -1,0 +1,90 @@
+<section class="product-section">
+    <div class="design-screen">
+        Name: {{ designTitle }} <br>
+        Font: {{ font }} <br>
+        Design: {{ design }} <br>
+        Box size: {{ boxSize }} <br>
+        Banner: {{banner}} <br>
+        Big Font: {{bigFont}} <br>
+    </div>
+    <div class="design-options-desktop">
+        <div class="option option-design-name"></div>
+
+        <div class="option option-font-select"></div>
+
+        <div class="option option-tree-design">
+            <div class="option-title">
+                Design
+                <img src="/assets/icons/questionmark-icon.svg" alt="" class="questionmark-icon" />
+            </div>
+            <div class="option-tree-design-btn">
+                <button class="design-arrow-left tc-button-sm-square" (click)="nextDesign()">
+                    <span class="arrow-left"></span>
+                </button>
+                <div class="display display-design ">{{design}}</div>
+                <button class="design-arrow-right tc-button-sm-square" (click)="nextDesign()">
+                    <span class="arrow-right"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="option option-box-size">
+            <div class="option-title">
+                Box Size 
+                <img src="/assets/icons/questionmark-icon.svg" alt="" class="questionmark-icon" />
+            </div>
+            <div>
+                <button class="box-size-plus tc-button-sm-square" (click)="this.boxSize = this.boxSize+1">
+                    <div class="button-plus">
+                        
+                    </div>
+                </button>
+                <button class="box-size-plus tc-button-sm-square" (click)="this.boxSize = this.boxSize-1">
+                    <div class="icon">
+                        <div class="button-minus">
+
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="option option-checkboxes">
+            <div class="option-banner">
+                <label class="checkbox-container option-title">
+                    Banner
+                    <input type="checkbox" (change)="this.banner = !this.banner"/>
+                    <span class="checkmark"></span>
+                    <img src="/assets/icons/questionmark-icon.svg" alt=""  class="questionmark-icon" />
+                </label>
+            </div>
+            <div class="option-big-font">
+                <label class="checkbox-container option-title">
+                    Big font
+                    <input type="checkbox" (change)="this.bigFont = !this.bigFont"/>
+                    <span class="checkmark"></span>
+                    <img src="/assets/icons/questionmark-icon.svg" alt=""  class="questionmark-icon" />
+                </label>
+            </div>
+        </div>
+
+        <div class="option option-actions">
+            <button class="btn-save-design tc-button-50">
+                Save
+                <img
+                    src="/assets/icons/save-icon.svg"
+                    alt=""
+                    class="option-icon"
+                />
+            </button>
+            <button class="btn-add-to-cart tc-button-50">
+                Add
+                <img
+                    src="/assets/icons/basket-white-icon.svg"
+                    alt=""
+                    class="option-icon"
+                />
+            </button>
+        </div>
+    </div>
+</section>
