@@ -62,7 +62,9 @@
   align-items: center;
 }
 
-.option-tree-design, .option-font-select, .option-design-name {
+.option-tree-design,
+.option-font-select,
+.option-design-name {
   display: flex;
   flex-direction: column;
 }
@@ -74,12 +76,12 @@
 
 .option-design-title {
   width: 100%;
-  border: 2px solid #ebc6ab; 
+  border: 2px solid #ebc6ab;
 }
 
 .title-input {
-  border:none; 
-  width: 100%; 
+  border: none;
+  width: 100%;
   text-align: center;
 }
 
@@ -87,52 +89,53 @@
   outline: none;
 }
 
-.button-plus, .button-minus {
+.button-plus,
+.button-minus {
   position: relative;
   margin: 0px 2px 0px 2px;
   width: 20px;
   height: 20px;
 
   &:before,
-  &:after{
-      content: "";
-      position: absolute;
-      background-color: white;
+  &:after {
+    content: '';
+    position: absolute;
+    background-color: white;
   }
 }
 
 .button-plus {
-    /* Vertical line */
-    &:before{
-        top: 0;
-        left: 50%;
-        width: 3px;
-        height: 100%;
-        margin-left: -2px;
-    }
+  /* Vertical line */
+  &:before {
+    top: 0;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    margin-left: -2px;
+  }
 
-    /* horizontal line */
-    &:after{
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        margin-top: -2px;
-    }
+  /* horizontal line */
+  &:after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    margin-top: -2px;
+  }
 }
 .button-minus {
   /* horizontal line */
-  &:after{
-      top: 50%;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      margin-top: -2px;
+  &:after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    margin-top: -2px;
   }
 }
 
 .display {
-  border: 2px solid #ebc6ab; 
+  border: 2px solid #ebc6ab;
   width: 100%;
   margin: 0 5px;
   padding-top: 3px;
@@ -167,7 +170,7 @@
   margin: 0 0 0 10px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1130px) {
   .design-options-desktop {
     display: none;
   }

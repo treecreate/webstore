@@ -1,34 +1,54 @@
 <section class="product-section">
     <div class="design-screen">
-        Name: {{ designTitle }} <br>
-        Font: {{ font }} <br>
-        Design: {{ design }} <br>
-        Box size: {{ boxSize }} <br>
-        Banner: {{banner}} <br>
-        Big Font: {{bigFont}} <br>
+        Name: {{ designTitle }} <br />
+        Font: {{ font }} <br />
+        Design: {{ design }} <br />
+        Box size: {{ boxSize }} <br />
+        Banner: {{ banner }} <br />
+        Big Font: {{ bigFont }} <br />
     </div>
+
     <div class="design-options-desktop">
         <div class="option option-design-name">
             <div class="option-title">
                 Title
-                <img src="/assets/icons/questionmark-icon.svg" alt="" class="questionmark-icon" />
+                <img
+                    src="/assets/icons/questionmark-icon.svg"
+                    alt=""
+                    class="questionmark-icon"
+                />
             </div>
             <div class="option-design-title">
-                <input type="text" class="title-input" (keyup)="onKey($event)">
+                <input
+                    type="text"
+                    class="title-input"
+                    (keyup)="onKey($event)"
+                    placeholder="Untitled-1"
+                />
             </div>
         </div>
 
         <div class="option option-font-select">
             <div class="option-title">
                 Font
-                <img src="/assets/icons/questionmark-icon.svg" alt="" class="questionmark-icon" />
+                <img
+                    src="/assets/icons/questionmark-icon.svg"
+                    alt=""
+                    class="questionmark-icon"
+                />
             </div>
             <div class="option-tree-design-btn">
-                <button class="design-arrow-left tc-button-sm-square" (click)="nextFont()">
+                <button
+                    class="design-arrow-left tc-button-sm-square"
+                    (click)="nextFont()"
+                >
                     <span class="arrow-left"></span>
                 </button>
-                <div class="display display-design ">{{font}}</div>
-                <button class="design-arrow-right tc-button-sm-square" (click)="prevFont()">
+                <div class="display display-design">{{ font }}</div>
+                <button
+                    class="design-arrow-right tc-button-sm-square"
+                    (click)="prevFont()"
+                >
                     <span class="arrow-right"></span>
                 </button>
             </div>
@@ -37,14 +57,24 @@
         <div class="option option-tree-design">
             <div class="option-title">
                 Design
-                <img src="/assets/icons/questionmark-icon.svg" alt="" class="questionmark-icon" />
+                <img
+                    src="/assets/icons/questionmark-icon.svg"
+                    alt=""
+                    class="questionmark-icon"
+                />
             </div>
             <div class="option-tree-design-btn">
-                <button class="design-arrow-left tc-button-sm-square" (click)="nextDesign()">
+                <button
+                    class="design-arrow-left tc-button-sm-square"
+                    (click)="nextDesign()"
+                >
                     <span class="arrow-left"></span>
                 </button>
-                <div class="display display-design ">{{design}}</div>
-                <button class="design-arrow-right tc-button-sm-square" (click)="nextDesign()">
+                <div class="display display-design">{{ design }}</div>
+                <button
+                    class="design-arrow-right tc-button-sm-square"
+                    (click)="nextDesign()"
+                >
                     <span class="arrow-right"></span>
                 </button>
             </div>
@@ -52,16 +82,26 @@
 
         <div class="option option-box-size">
             <div class="option-title">
-                Box Size 
-                <img src="/assets/icons/questionmark-icon.svg" alt="" class="questionmark-icon" />
+                Box Size
+                <img
+                    src="/assets/icons/questionmark-icon.svg"
+                    alt=""
+                    class="questionmark-icon"
+                />
             </div>
             <div>
-                <button class="box-size-plus tc-button-sm-square" (click)="this.boxSize = this.boxSize+1">
-                    <div class="button-plus"> </div>
+                <button
+                    class="box-size-plus tc-button-sm-square"
+                    (click)="this.boxSize = this.boxSize + 1"
+                >
+                    <div class="button-plus"></div>
                 </button>
-                <button class="box-size-plus tc-button-sm-square" (click)="this.boxSize = this.boxSize-1">
+                <button
+                    class="box-size-plus tc-button-sm-square"
+                    (click)="this.boxSize = this.boxSize - 1"
+                >
                     <div class="icon">
-                        <div class="button-minus"> </div>
+                        <div class="button-minus"></div>
                     </div>
                 </button>
             </div>
@@ -71,17 +111,31 @@
             <div class="option-banner">
                 <label class="checkbox-container option-title">
                     Banner
-                    <input type="checkbox" (change)="this.banner = !this.banner"/>
+                    <input
+                        type="checkbox"
+                        (change)="this.banner = !this.banner"
+                    />
                     <span class="checkmark"></span>
-                    <img src="/assets/icons/questionmark-icon.svg" alt=""  class="questionmark-icon" />
+                    <img
+                        src="/assets/icons/questionmark-icon.svg"
+                        alt=""
+                        class="questionmark-icon"
+                    />
                 </label>
             </div>
             <div class="option-big-font">
                 <label class="checkbox-container option-title">
                     Big font
-                    <input type="checkbox" (change)="this.bigFont = !this.bigFont"/>
+                    <input
+                        type="checkbox"
+                        (change)="this.bigFont = !this.bigFont"
+                    />
                     <span class="checkmark"></span>
-                    <img src="/assets/icons/questionmark-icon.svg" alt=""  class="questionmark-icon" />
+                    <img
+                        src="/assets/icons/questionmark-icon.svg"
+                        alt=""
+                        class="questionmark-icon"
+                    />
                 </label>
             </div>
         </div>
