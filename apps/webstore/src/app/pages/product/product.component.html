@@ -1,13 +1,29 @@
 <section class="product-section">
+    
     <div class="design-screen">
+        <button
+            class="option-toggler"
+            type="button"
+            (click)="showOptions()"
+        >
+            <div class="option-icon" [ngClass]="isMobileOptionOpen ? '' : 'active'">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </button>
+
         Name: {{ designTitle }} <br />
         Font: {{ font }} <br />
         Design: {{ design }} <br />
         Box size: {{ boxSize }} <br />
         Banner: {{ banner }} <br />
         Big Font: {{ bigFont }} <br />
+        
     </div>
-
+    <div class="option-toggler-placement">
+        
+    </div>
     <div class="design-options-desktop">
         <div class="option option-design-name">
             <div class="option-title">

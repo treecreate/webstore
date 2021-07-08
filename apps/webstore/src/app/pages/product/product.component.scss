@@ -1,6 +1,7 @@
 .product-section {
   min-height: 100vh;
   min-width: 100vw;
+  padding-top: 10px;
   text-align: center;
   margin: auto;
   align-items: center;
@@ -8,7 +9,9 @@
   justify-content: center;
 }
 
-.design-screen,
+.design-screen {
+}
+
 .design-options-desktop,
 .design-container {
   display: inline-block;
@@ -170,9 +173,50 @@
   margin: 0 0 0 10px;
 }
 
+/* option toggle button */
+.option-toggler {
+  background-color: #ebc6ab;
+  display: none;
+  position: absolute;
+  right: 3vw;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px; 
+  border: none;
+}
+
+.option-icon {
+  margin-left: 4px;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 20px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+
+.active .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+.active .bar2 {
+  opacity: 0;
+}
+.active .bar3 {
+  -webkit-transform: rotate(45deg) translate(-5px, -6px);
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
 @media screen and (max-width: 1130px) {
   .design-options-desktop {
     display: none;
+  }
+  .option-toggler {
+    display: block;
   }
   .design-container {
     width: 100vw;
