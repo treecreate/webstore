@@ -13,5 +13,7 @@ describe('HomePage', () => {
     cy.get('[data-cy=footer]').should('exist');
   });
 
-  //
+  it('should increase box size when + is pressed in options', () => {
+    cy.get('[data-cy=box-size-increase]')
+  })
 });
