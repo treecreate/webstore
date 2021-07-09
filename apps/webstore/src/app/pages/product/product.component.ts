@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './product.component.html',
   styleUrls: [
     './product.component.scss',
+    './product.component.mobile.scss',
     '../../../assets/styles/tc-input-field.scss',
   ],
 })
