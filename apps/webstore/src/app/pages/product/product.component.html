@@ -129,6 +129,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-minus"
                         (click)="this.boxSize = this.boxSize - 1"
+                        [disabled]="this.boxSize <= 0"
                     >
                         <div class="icon">
                             <div class="button-minus"></div>

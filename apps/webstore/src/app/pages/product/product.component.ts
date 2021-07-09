@@ -35,14 +35,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  boxSizeIncrease() {
-
-  }
-
-  boxSizeDecrease() {
-    
-  }
-
   nextFont() {
     let selectedFont = this.fontCollection.indexOf(this.font);
     if (selectedFont > 1) {

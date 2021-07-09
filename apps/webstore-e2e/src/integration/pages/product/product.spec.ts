@@ -8,6 +8,7 @@ describe('ProductPage', () => {
     cy.visit('/product');
   });
 
+  // BoxSize buttons 
   it('should contain a navbar and footer', () => {
     cy.get('[data-cy=navbar]').should('exist');
     cy.get('[data-cy=footer]').should('exist');
@@ -34,7 +35,16 @@ describe('ProductPage', () => {
     for (let i = 0; i < 20; i++){
       cy.get('[data-cy=box-size-plus]').click();
     }
-    cy.get('[data-cy=boxSize]').invoke('text').then(parseFloat).should('be.lt', 31);
+    cy.get('[data-cy=boxSize]').invoke('text').then(parseFloat).should('not.be.above', 30);
     cy.get('[data-cy=box-size-plus]').should('be.disabled');
+  })
+
+  it('should not decrease below 0', () => {
+    cy.get('[data-cy=box-size-minus]').should('not.be.disabled');
+    for (let i = 0; i < 10; i++){
+      cy.get('[data-cy=box-size-minus]').click();
+    }
+    cy.get('[data-cy=boxSize]').invoke('text').then(parseFloat).should('not.be.lt', 0);
+    cy.get('[data-cy=box-size-minus]').should('be.disabled');
   })
 });
