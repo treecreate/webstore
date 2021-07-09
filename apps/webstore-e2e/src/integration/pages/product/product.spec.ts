@@ -12,6 +12,6 @@ describe('HomePage', () => {
     cy.get('[data-cy=navbar]').should('exist');
     cy.get('[data-cy=footer]').should('exist');
   });
-    
-  // 
+
+  //
 });

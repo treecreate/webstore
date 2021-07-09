@@ -6,6 +6,7 @@
   margin: auto;
   align-items: center;
   display: flex;
+  position: relative;
   justify-content: center;
 }
 
@@ -176,12 +177,13 @@
 /* option toggle button */
 .option-toggler {
   background-color: #ebc6ab;
+  transition: 0.5s;
   display: none;
   position: absolute;
   right: 3vw;
   border-radius: 50%;
   width: 40px;
-  height: 40px; 
+  height: 40px;
   border: none;
 }
 
@@ -211,6 +213,27 @@
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
+.blocker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: ' ';
+  background: rgba(0, 0, 0, 0);
+}
+
+.mobile-options-items {
+  border: 3px solid #ebc6ab;
+  transition: 0.5s;
+  transform: scale(0.9);
+  position: absolute;
+  top: 114px;
+  right: 20px;
+  background: white;
+  padding: 10px 15px;
+}
+
 @media screen and (max-width: 1130px) {
   .design-options-desktop {
     display: none;
@@ -229,5 +252,22 @@
   .design-screen {
     width: 100vw;
     height: 100vw;
+  }
+  .mobile-options-items {
+    transform: scale(0.7);
+    top: 114px;
+    right: -10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .design-screen {
+    width: 100vw;
+    height: 100vw;
+  }
+  .mobile-options-items {
+    transform: scale(0.7);
+    top: 114px;
+    right: -31px;
   }
 }

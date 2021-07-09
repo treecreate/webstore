@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
   fontCollection = ['times new roman', 'roboto', 'Helvetica'];
-  isMobileOptionOpen: boolean = false; 
+  isMobileOptionOpen: boolean = false;
   designTitle: string = 'Untitled-1';
   font: string = 'times new roman';
   design: string = 'first';
@@ -19,8 +19,8 @@ export class ProductComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void { }
-  
+  ngOnInit(): void {}
+
   showOptions() {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }

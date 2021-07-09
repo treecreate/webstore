@@ -35,8 +35,6 @@ import { ProductComponent } from './pages/product/product.component';
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [
-    ProductComponent,
-  ],
+  exports: [ProductComponent],
 })
 export class AppModule {}

@@ -20,7 +20,7 @@ describe('AppComponent', () => {
         FooterComponent,
         PageNotFoundComponent,
         CookiePromptModalComponent,
-        ProductComponent
+        ProductComponent,
       ],
     }).compileComponents();
   });
