@@ -183,4 +183,21 @@
             class="package-stand-img package-image"
         />
     </div>
+
+    <div class="start-btn-section">
+        <button class="tc-button-static" routerLink="/product">
+            Start Creating
+        </button>
+    </div>
+
+    <div class="arrow-up-container" [ngClass]="showUpArrow ? 'show' : 'hide'">
+        <div class="arrow-up-item">
+            <button class="up-arrow" onClick="window.scrollTo(0,0);">
+                <div class="icon">
+                    <div class="up-bar1"></div>
+                    <div class="up-bar2"></div>
+                </div>
+            </button>
+        </div>
+    </div>
 </section>
