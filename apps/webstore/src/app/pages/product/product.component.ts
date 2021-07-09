@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class ProductComponent implements OnInit {
+  
   fontCollection = ['times new roman', 'roboto', 'Helvetica'];
   isMobileOptionOpen: boolean = false;
   designTitle: string = 'Untitled-1';
@@ -32,6 +33,14 @@ export class ProductComponent implements OnInit {
     } else {
       this.design = 'first';
     }
+  }
+
+  boxSizeIncrease() {
+
+  }
+
+  boxSizeDecrease() {
+    
   }
 
   nextFont() {

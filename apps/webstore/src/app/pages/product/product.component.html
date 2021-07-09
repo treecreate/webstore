@@ -3,6 +3,7 @@
     <div class="design-screen">
         <button
             class="option-toggler"
+            data-cy="mobile-options-toggler"
             type="button"
             (click)="showOptions()"
         >
@@ -21,6 +22,10 @@
         Big Font: {{ bigFont }} <br />
         
     </div>
+
+    <!-- FOR CY TESTS -->
+    <div class="hide" data-cy="boxSize">{{boxSize}}</div>
+    <!-- END CY TESTS -->
 
     <div [ngClass]="isMobileOptionOpen ? 'mobile-options-container':'design-options-desktop'">
         <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
@@ -116,6 +121,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-plus"
                         (click)="this.boxSize = this.boxSize + 1"
+                        [disabled]="this.boxSize >= 30"
                     >
                         <div class="button-plus"></div>
                     </button>
