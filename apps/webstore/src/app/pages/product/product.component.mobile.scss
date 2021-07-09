@@ -36,7 +36,7 @@
   }
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (max-width: 600px) and (orientation: landscape) {
   .design-screen {
     width: 100vh;
     height: 100vh;
