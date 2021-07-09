@@ -28,7 +28,7 @@ export class ProductComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // the lint test fail if the ngOnInit is empty
+    // the lint test fail if the ngOnInit is empty 
     console.log('open product page');
   }
 
