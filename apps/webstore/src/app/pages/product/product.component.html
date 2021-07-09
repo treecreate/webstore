@@ -1,6 +1,6 @@
 <section class="product-section">
     
-    <div class="design-screen">
+    <div class="design-screen" [ngStyle]="{'font-family':this.font}">
         <button
             class="option-toggler"
             data-cy="mobile-options-toggler"
@@ -68,7 +68,7 @@
                     >
                         <span class="arrow-left"></span>
                     </button>
-                    <div class="display display-design">{{ font }}</div>
+                    <div class="display display-design" [ngStyle]="{'font-family':this.font}">{{ font }}</div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="font-arrow-right"

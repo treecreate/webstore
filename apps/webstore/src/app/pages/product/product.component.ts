@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
   
-  fontCollection = ['times new roman', 'roboto', 'Helvetica'];
+  fontCollection = ['Times new roman', 'Roboto', 'Georgia', 'Share Tech', 'Spectral', 'Sansita'];
   isMobileOptionOpen: boolean = false;
   designTitle: string = 'Untitled-1';
   font: string = 'times new roman';
@@ -37,7 +37,7 @@ export class ProductComponent implements OnInit {
 
   nextFont() {
     let selectedFont = this.fontCollection.indexOf(this.font);
-    if (selectedFont > 1) {
+    if (selectedFont > 4) {
       this.font = this.fontCollection[0];
     } else {
       this.font = this.fontCollection[selectedFont + 1];
@@ -47,7 +47,7 @@ export class ProductComponent implements OnInit {
   prevFont() {
     let selectedFont = this.fontCollection.indexOf(this.font);
     if (selectedFont < 1) {
-      this.font = this.fontCollection[2];
+      this.font = this.fontCollection[5];
     } else {
       this.font = this.fontCollection[selectedFont - 1];
     }
