@@ -22,9 +22,8 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:scroll')
   onWindowScroll() {
-    let top = window.scrollY;
-    console.log(top);
-    if (top > 800) {
+    // For the up arrow that scrolls to top
+    if (window.scrollY > 800) {
       this.showUpArrow = true;
     } else {
       this.showUpArrow = false;
