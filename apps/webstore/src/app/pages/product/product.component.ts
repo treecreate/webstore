@@ -13,7 +13,7 @@ export class ProductComponent implements OnInit {
   fontCollection = ['Times new roman', 'Roboto', 'Georgia', 'Share Tech', 'Spectral', 'Sansita'];
   isMobileOptionOpen: boolean = false;
   designTitle: string = 'Untitled-1';
-  font: string = 'times new roman';
+  font: string = this.fontCollection[0];
   design: string = 'first';
   boxSize: number = 10;
   banner: boolean = false;
@@ -36,20 +36,20 @@ export class ProductComponent implements OnInit {
   }
 
   nextFont() {
-    let selectedFont = this.fontCollection.indexOf(this.font);
-    if (selectedFont > 4) {
-      this.font = this.fontCollection[0];
+    let fontIndex = this.fontCollection.indexOf(this.font)
+    if (fontIndex < this.fontCollection.length -1) {
+      this.font = this.fontCollection[fontIndex + 1];
     } else {
-      this.font = this.fontCollection[selectedFont + 1];
+      this.font = this.fontCollection[0];
     }
   }
 
   prevFont() {
     let selectedFont = this.fontCollection.indexOf(this.font);
-    if (selectedFont < 1) {
-      this.font = this.fontCollection[5];
+    if (selectedFont == 0) {
+      this.font = this.fontCollection[ this.fontCollection.length - 1 ];
     } else {
-      this.font = this.fontCollection[selectedFont - 1];
+      this.font = this.fontCollection[ selectedFont - 1];
     }
   }
 
