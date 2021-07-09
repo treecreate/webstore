@@ -14,6 +14,8 @@ describe('HomePage', () => {
   });
 
   it('should increase box size when + is pressed in options', () => {
-    cy.get('[data-cy=box-size-increase]')
+    cy.get('[]')
+    cy.get('[data-cy=box-size-plus]')
+      .click()
   })
 });

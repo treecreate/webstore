@@ -23,6 +23,7 @@
     </div>
 
     <div [ngClass]="isMobileOptionOpen ? 'mobile-options-container':'design-options-desktop'">
+        <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items':''">
             <div class="option option-design-name">
                 <div class="option-title">
@@ -37,9 +38,10 @@
                     <input
                         type="text"
                         class="title-input"
-                        [value]="designTitle"
+                        [value]="designTitle ? '': designTitle"
                         (keyup)="onKey($event)"
                         placeholder="Untitled-1"
+                        data-cy="design-title-input"
                     />
                 </div>
             </div>
@@ -56,6 +58,7 @@
                 <div class="option-tree-design-btn">
                     <button
                         class="design-arrow-left tc-button-sm-square"
+                        data-cy="font-arrow-left"
                         (click)="nextFont()"
                     >
                         <span class="arrow-left"></span>
@@ -63,6 +66,7 @@
                     <div class="display display-design">{{ font }}</div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
+                        data-cy="font-arrow-right"
                         (click)="prevFont()"
                     >
                         <span class="arrow-right"></span>
@@ -82,6 +86,7 @@
                 <div class="option-tree-design-btn">
                     <button
                         class="design-arrow-left tc-button-sm-square"
+                        data-cy="design-arrow-left"
                         (click)="nextDesign()"
                     >
                         <span class="arrow-left"></span>
@@ -89,6 +94,7 @@
                     <div class="display display-design">{{ design }}</div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
+                        data-cy="design-arrow-right"
                         (click)="nextDesign()"
                     >
                         <span class="arrow-right"></span>
@@ -108,12 +114,14 @@
                 <div>
                     <button
                         class="box-size-plus tc-button-sm-square"
+                        data-cy="box-size-plus"
                         (click)="this.boxSize = this.boxSize + 1"
                     >
                         <div class="button-plus"></div>
                     </button>
                     <button
                         class="box-size-plus tc-button-sm-square"
+                        data-cy="box-size-minus"
                         (click)="this.boxSize = this.boxSize - 1"
                     >
                         <div class="icon">
@@ -129,6 +137,7 @@
                         Banner
                         <input
                             type="checkbox"
+                            data-cy="checkbox-banner"
                             (change)="this.banner = !this.banner"
                         />
                         <span class="checkmark"></span>
@@ -144,6 +153,7 @@
                         Big font
                         <input
                             type="checkbox"
+                            data-cy="checkbox-big-font"
                             (change)="this.bigFont = !this.bigFont"
                         />
                         <span class="checkmark"></span>
