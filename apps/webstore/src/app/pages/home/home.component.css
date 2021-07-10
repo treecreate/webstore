@@ -194,12 +194,12 @@
   transition: 0.4s;
 }
 .up-bar2 {
-  -webkit-transform: rotate(-45deg) translate(-11px, -25px);
-  transform: rotate(-45deg) translate(-11px, -25px);
+  -webkit-transform: rotate(-45deg) translate(-1px, -11px);
+  transform: rotate(-45deg) translate(-1px, -11px);
 }
 .up-bar1 {
-  -webkit-transform: rotate(45deg) translate(-8px, 5px);
-  transform: rotate(45deg) translate(-8px, 5px);
+  -webkit-transform: rotate(45deg)  translate(7px, -5px);
+  transform: rotate(45deg)  translate(7px, -5px);
 }
 
 .hide {
