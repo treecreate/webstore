@@ -1,5 +1,4 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
@@ -12,6 +11,7 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   initialTop: 0;
   parallaxRatio: number;
+  showUpArrow = false;
 
   title = 'homeComponent';
 
@@ -22,6 +22,12 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:scroll')
   onWindowScroll() {
+    // For the up arrow that scrolls to top
+    if (window.scrollY > 800) {
+      this.showUpArrow = true;
+    } else {
+      this.showUpArrow = false;
+    }
     return this.initialTop - window.scrollY * this.parallaxRatio + 'px';
   }
 

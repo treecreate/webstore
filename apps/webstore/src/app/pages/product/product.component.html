@@ -1,0 +1,221 @@
+<section class="product-section">
+    <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
+        <button
+            class="option-toggler"
+            data-cy="mobile-options-toggler"
+            type="button"
+            (click)="showOptions()"
+        >
+            <div
+                class="option-icon"
+                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+            >
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </button>
+
+        Name: {{ designTitle }} <br />
+        Font: {{ font }} <br />
+        Design: {{ design }} <br />
+        Box size: {{ boxSize }} <br />
+        Banner: {{ banner }} <br />
+        Big Font: {{ bigFont }} <br />
+    </div>
+
+    <!-- FOR CY TESTS -->
+    <div class="hide" data-cy="design-title">{{ designTitle }}</div>
+    <div class="hide" data-cy="font">{{ font }}</div>
+    <div class="hide" data-cy="design">{{ design }}</div>
+    <div class="hide" data-cy="box-size">{{ boxSize }}</div>
+    <div class="hide" data-cy="banner">{{ banner }}</div>
+    <div class="hide" data-cy="big-font">{{ bigFont }}</div>
+    <!-- END CY TESTS -->
+
+    <div
+        [ngClass]="
+            isMobileOptionOpen
+                ? 'mobile-options-container'
+                : 'design-options-desktop'
+        "
+    >
+        <div
+            class="blocker"
+            *ngIf="isMobileOptionOpen"
+            (click)="showOptions()"
+        ></div>
+        <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
+            <div class="option option-design-name">
+                <div class="option-title">
+                    Title
+                    <img
+                        src="/assets/icons/questionmark-icon.svg"
+                        alt=""
+                        class="questionmark-icon"
+                    />
+                </div>
+                <div class="option-design-title">
+                    <input
+                        type="text"
+                        class="title-input"
+                        [value]="designTitle ? '' : designTitle"
+                        (keyup)="onKey($event)"
+                        placeholder="Untitled-1"
+                        data-cy="design-title-input"
+                    />
+                </div>
+            </div>
+
+            <div class="option option-font-select">
+                <div class="option-title">
+                    Font
+                    <img
+                        src="/assets/icons/questionmark-icon.svg"
+                        alt=""
+                        class="questionmark-icon"
+                    />
+                </div>
+                <div class="option-tree-design-btn">
+                    <button
+                        class="design-arrow-left tc-button-sm-square"
+                        data-cy="font-prev-btn"
+                        (click)="prevFont()"
+                    >
+                        <span class="arrow-left"></span>
+                    </button>
+                    <div
+                        class="display display-design"
+                        [ngStyle]="{ 'font-family': this.font }"
+                    >
+                        {{ font }}
+                    </div>
+                    <button
+                        class="design-arrow-right tc-button-sm-square"
+                        data-cy="font-next-btn"
+                        (click)="nextFont()"
+                    >
+                        <span class="arrow-right"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="option option-tree-design">
+                <div class="option-title">
+                    Design
+                    <img
+                        src="/assets/icons/questionmark-icon.svg"
+                        alt=""
+                        class="questionmark-icon"
+                    />
+                </div>
+                <div class="option-tree-design-btn">
+                    <button
+                        class="design-arrow-left tc-button-sm-square"
+                        data-cy="design-arrow-left"
+                        (click)="nextDesign()"
+                    >
+                        <span class="arrow-left"></span>
+                    </button>
+                    <div class="display display-design">{{ design }}</div>
+                    <button
+                        class="design-arrow-right tc-button-sm-square"
+                        data-cy="design-arrow-right"
+                        (click)="nextDesign()"
+                    >
+                        <span class="arrow-right"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="option option-box-size">
+                <div class="option-title">
+                    Box Size
+                    <img
+                        src="/assets/icons/questionmark-icon.svg"
+                        alt=""
+                        class="questionmark-icon"
+                    />
+                </div>
+                <div>
+                    <button
+                        class="box-size-plus tc-button-sm-square"
+                        data-cy="box-size-plus"
+                        (click)="this.boxSize = this.boxSize + 1"
+                        [disabled]="this.boxSize >= 30"
+                    >
+                        <div class="button-plus"></div>
+                    </button>
+                    <button
+                        class="box-size-plus tc-button-sm-square"
+                        data-cy="box-size-minus"
+                        (click)="this.boxSize = this.boxSize - 1"
+                        [disabled]="this.boxSize <= 0"
+                    >
+                        <div class="icon">
+                            <div class="button-minus"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="option option-checkboxes">
+                <div class="option-banner">
+                    <label class="checkbox-container option-title">
+                        Banner
+                        <input
+                            type="checkbox"
+                            (change)="this.banner = !this.banner"
+                        />
+                        <span
+                            class="checkmark"
+                            data-cy="checkbox-banner"
+                        ></span>
+                        <img
+                            src="/assets/icons/questionmark-icon.svg"
+                            alt=""
+                            class="questionmark-icon"
+                        />
+                    </label>
+                </div>
+                <div class="option-big-font">
+                    <label class="checkbox-container option-title">
+                        Big font
+                        <input
+                            type="checkbox"
+                            (change)="this.bigFont = !this.bigFont"
+                        />
+                        <span
+                            class="checkmark"
+                            data-cy="checkbox-big-font"
+                        ></span>
+                        <img
+                            src="/assets/icons/questionmark-icon.svg"
+                            alt=""
+                            class="questionmark-icon"
+                        />
+                    </label>
+                </div>
+            </div>
+
+            <div class="option option-actions">
+                <button class="btn-save-design tc-button-50">
+                    Save
+                    <img
+                        src="/assets/icons/save-icon.svg"
+                        alt=""
+                        class="option-icon"
+                    />
+                </button>
+                <button class="btn-add-to-cart tc-button-50">
+                    Add
+                    <img
+                        src="/assets/icons/basket-white-icon.svg"
+                        alt=""
+                        class="option-icon"
+                    />
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
