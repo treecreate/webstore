@@ -30,7 +30,7 @@ describe('ProductPage', () => {
     cy.get('[data-cy=box-size]').should('have.text', '9');
   });
 
-  it('should not increase above 30', () => {
+  it('should not increase box size above 30', () => {
     cy.get('[data-cy=box-size-plus]').should('not.be.disabled');
     for (let i = 0; i < 20; i++) {
       cy.get('[data-cy=box-size-plus]').click();
@@ -42,7 +42,7 @@ describe('ProductPage', () => {
     cy.get('[data-cy=box-size-plus]').should('be.disabled');
   });
 
-  it('should not decrease below 0', () => {
+  it('should not decrease box size below 0', () => {
     cy.get('[data-cy=box-size-minus]').should('not.be.disabled');
     for (let i = 0; i < 10; i++) {
       cy.get('[data-cy=box-size-minus]').click();
