@@ -198,8 +198,8 @@
   transform: rotate(-45deg) translate(-1px, -11px);
 }
 .up-bar1 {
-  -webkit-transform: rotate(45deg)  translate(7px, -5px);
-  transform: rotate(45deg)  translate(7px, -5px);
+  -webkit-transform: rotate(45deg) translate(7px, -5px);
+  transform: rotate(45deg) translate(7px, -5px);
 }
 
 .hide {
