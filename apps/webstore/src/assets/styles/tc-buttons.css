@@ -4,6 +4,7 @@
 .tc-button-50,
 .tc-button-100,
 .tc-button-square,
+.tc-button-sm-square,
 .tc-button-static {
   /* button */
   box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
@@ -31,6 +32,7 @@
 .tc-button-50:hover,
 .tc-button-100:hover,
 .tc-button-square:hover,
+.tc-button-sm-square:hover,
 .tc-button-static:hover {
   transform: scale(0.95);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
@@ -58,6 +60,10 @@ a {
 .tc-button-square {
   height: 50px;
   min-width: 50px;
+}
+.tc-button-sm-square {
+  height: 35px;
+  min-width: 35px;
 }
 /* END BUTTON SECTION */
 

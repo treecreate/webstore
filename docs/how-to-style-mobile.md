@@ -109,3 +109,10 @@ Example:
 @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) {
 }
 ```
+
+If you want to add styling to all landscape orientations, then you can use this:
+
+```css
+@media screen and (orientation: landscape) {
+}
+```

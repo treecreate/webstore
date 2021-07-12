@@ -1,9 +1,11 @@
 <section class="main-section">
     <div class="main-section-container">
         <div class="main-text">
-            <h2 class="main-title">MY FAMILYTREE</h2>
+            <h2 class="main-title">MY FAMILY TREE</h2>
             <h5 class="main-subtitle">Prices from: 396kr</h5>
-            <button class="tc-start-main">Start</button>
+            <button class="tc-start-main" routerLink="/product">
+                Start Creating
+            </button>
         </div>
     </div>
 </section>
@@ -89,6 +91,16 @@
                         class="example-img"
                     />
                 </div>
+                <div id="slide-3">
+                    <img
+                        src="/assets/img/design-ex1-img.png"
+                        class="example-img"
+                    />
+                    <img
+                        src="/assets/img/design-ex1-result.png"
+                        class="example-img"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -115,6 +127,18 @@
                     />
                 </div>
                 <div id="slide-4">
+                    <img
+                        src="/assets/img/design-ex1-result.png"
+                        class="example-img"
+                    />
+                </div>
+                <div id="slide-5">
+                    <img
+                        src="/assets/img/design-ex1-img.png"
+                        class="example-img"
+                    />
+                </div>
+                <div id="slide-6">
                     <img
                         src="/assets/img/design-ex1-result.png"
                         class="example-img"
@@ -160,5 +184,22 @@
             src="/assets/img/design-stand.png"
             class="package-stand-img package-image"
         />
+    </div>
+
+    <div class="start-btn-section">
+        <button class="tc-button-static" routerLink="/product">
+            Start Creating
+        </button>
+    </div>
+
+    <div class="arrow-up-container" [ngClass]="showUpArrow ? 'show' : 'hide'">
+        <div class="arrow-up-item">
+            <button class="up-arrow" onClick="window.scrollTo(0,0);">
+                <div class="icon">
+                    <div class="up-bar1"></div>
+                    <div class="up-bar2"></div>
+                </div>
+            </button>
+        </div>
     </div>
 </section>

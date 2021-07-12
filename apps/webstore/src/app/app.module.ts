@@ -22,6 +22,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ProductComponent } from './pages/product/product.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FormsModule } from '@angular/forms';
     TermsOfUseModalComponent,
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,5 +50,6 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
+  exports: [ProductComponent],
 })
 export class AppModule {}

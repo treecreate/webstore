@@ -8,6 +8,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
+import { ProductComponent } from './pages/product/product.component';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },
+  { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
