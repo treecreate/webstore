@@ -6,13 +6,19 @@ import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/reject
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['ROLE_USER'] },
+  },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests

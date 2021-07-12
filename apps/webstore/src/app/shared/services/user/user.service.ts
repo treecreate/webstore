@@ -31,7 +31,7 @@ export class UserService {
       return JSON.parse(user);
     }
 
-    return {};
+    return null;
   }
 
   getPublicContent(): Observable<any> {
