@@ -7,18 +7,26 @@ import { LocalStorageVars } from '@models';
 const API_URL = 'http://localhost:5000/api/test/';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {}
 
   public saveUser(user: any): void {
-    this.localStorageService.removeItem(LocalStorageVars.authUser)
-    this.localStorageService.setItem(LocalStorageVars.authUser, JSON.stringify(user));
+    this.localStorageService.removeItem(LocalStorageVars.authUser);
+    this.localStorageService.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(user)
+    );
   }
 
   public getUser(): any {
-    const user = this.localStorageService.getItem<string>(LocalStorageVars.authUser).getValue();
+    const user = this.localStorageService
+      .getItem<string>(LocalStorageVars.authUser)
+      .getValue();
     if (user) {
       return JSON.parse(user);
     }

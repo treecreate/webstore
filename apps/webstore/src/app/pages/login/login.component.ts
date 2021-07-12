@@ -7,19 +7,22 @@ import { UserService } from '../../shared/services/user/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   form: any = {
     username: null,
-    password: null
+    password: null,
   };
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private userService: UserService) { }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     if (this.authService.getAuthToken()) {
@@ -32,7 +35,7 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.form;
 
     this.authService.login(username, password).subscribe(
-      data => {
+      (data) => {
         this.authService.saveAuthToken(data.accessToken);
         this.userService.saveUser(data);
 
@@ -41,7 +44,7 @@ export class LoginComponent implements OnInit {
         this.roles = this.userService.getUser().roles;
         this.reloadPage();
       },
-      err => {
+      (err) => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }

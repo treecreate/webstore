@@ -39,7 +39,13 @@ import { FormsModule } from '@angular/forms';
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule,FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
 })
