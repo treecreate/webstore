@@ -42,6 +42,11 @@ export class AuthService {
     );
   }
 
+  public logout() {
+    this.localStorageService.removeItem(LocalStorageVars.authToken);
+    this.localStorageService.removeItem(LocalStorageVars.authUser);
+  }
+
   public saveAuthToken(token: string): void {
     this.localStorageService.removeItem(LocalStorageVars.authToken);
     this.localStorageService.setItem(LocalStorageVars.authToken, token);
