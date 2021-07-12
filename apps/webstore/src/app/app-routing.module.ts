@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserRoles } from '@models';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
@@ -17,7 +18,7 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_USER'] },
+    data: { roles: [UserRoles.user] },
   },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page

@@ -41,7 +41,6 @@ export class AuthGuard implements CanActivate {
     }
 
     const authUser = this.userService.getUser();
-    console.log('Auth user: ' + authUser);
     // Check if the user data even exists
     if (authUser == null) {
       this.router.navigate(['/PageNotFound'], { skipLocationChange: true });
