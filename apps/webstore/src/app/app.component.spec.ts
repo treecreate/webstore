@@ -8,11 +8,12 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { ProductComponent } from './pages/product/product.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, NgbModule],
+      imports: [RouterTestingModule, NgbModule, HttpClientModule],
       declarations: [
         AppComponent,
         NavbarComponent,
