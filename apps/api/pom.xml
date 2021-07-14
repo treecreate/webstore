@@ -50,6 +50,21 @@
       <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
 
+    <!-- User authentication and authorization -->
+
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+
+
     <!-- Database Connection using the MySQL driver-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
