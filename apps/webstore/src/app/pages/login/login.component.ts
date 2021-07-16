@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { UserService } from '../../shared/services/user/user.service';
+import { ILoginRequestParams, ILoginResponse } from '@interfaces';
 //import { AuthService } from '../_services/auth.service';
 //import { TokenStorageService } from '../_services/token-storage.service';
 
@@ -10,7 +11,7 @@ import { UserService } from '../../shared/services/user/user.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  form: any = {
+  form: ILoginRequestParams = {
     username: null,
     password: null,
   };
@@ -32,10 +33,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { username, password } = this.form;
-
-    this.authService.login(username, password).subscribe(
-      (data) => {
+    this.authService.login(this.form).subscribe(
+      (data: ILoginResponse) => {
         this.authService.saveAuthToken(data.accessToken);
         this.userService.saveUser(data);
 

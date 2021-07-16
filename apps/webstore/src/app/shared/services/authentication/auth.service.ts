@@ -3,10 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage';
 import { LocalStorageVars } from '@models';
+import { ILoginRequestParams, ILoginResponse } from '@interfaces';
 
 const AUTH_API = 'http://localhost:5000/api/auth/';
 
 const httpOptions = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
@@ -19,8 +21,9 @@ export class AuthService {
     private localStorageService: LocalStorageService
   ) {}
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(
+  login(params: ILoginRequestParams): Observable<ILoginResponse> {
+    const { username, password } = params;
+    return this.http.post<ILoginResponse>(
       AUTH_API + 'signin',
       {
         username,
