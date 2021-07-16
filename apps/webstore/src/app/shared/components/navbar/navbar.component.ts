@@ -4,7 +4,6 @@ import { IEnvironment } from '../../../../environments/ienvironment';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage';
 import { LocalStorageVars, LocaleType } from '@models';
-import { UserService } from '../../services/user/user.service';
 import { AuthService } from '../../services/authentication/auth.service';
 
 @Component({

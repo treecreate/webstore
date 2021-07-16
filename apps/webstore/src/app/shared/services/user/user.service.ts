@@ -35,19 +35,19 @@ export class UserService {
     return null;
   }
 
-  getPublicContent(): Observable<any> {
+  getPublicContent(): Observable<string> {
     return this.http.get(API_URL + 'all', { responseType: 'text' });
   }
 
-  getUserBoard(): Observable<any> {
+  getUserBoard(): Observable<string> {
     return this.http.get(API_URL + 'user', { responseType: 'text' });
   }
 
-  getDeveloperBoard(): Observable<any> {
+  getDeveloperBoard(): Observable<string> {
     return this.http.get(API_URL + 'developer', { responseType: 'text' });
   }
 
-  getAdminBoard(): Observable<any> {
+  getAdminBoard(): Observable<string> {
     return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
 }
