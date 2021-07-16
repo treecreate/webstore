@@ -1,19 +1,13 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
+  "cli": { "defaultCollection": "@nrwl/angular" },
   "generators": {
     "@nrwl/angular:application": {
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "css"
-    }
+    "@nrwl/angular:library": { "unitTestRunner": "jest" },
+    "@nrwl/angular:component": { "style": "css" }
   },
   "projects": {
     "api": {
@@ -23,51 +17,35 @@
       "targets": {
         "run": {
           "executor": "@nxrocks/nx-spring-boot:run",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "serve": {
           "executor": "@nxrocks/nx-spring-boot:serve",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "test": {
           "executor": "@nxrocks/nx-spring-boot:test",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "clean": {
           "executor": "@nxrocks/nx-spring-boot:clean",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildJar": {
           "executor": "@nxrocks/nx-spring-boot:buildJar",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildWar": {
           "executor": "@nxrocks/nx-spring-boot:buildWar",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildImage": {
           "executor": "@nxrocks/nx-spring-boot:buildImage",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildInfo": {
           "executor": "@nxrocks/nx-spring-boot:buildInfo",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         }
       }
     },
@@ -78,9 +56,7 @@
       "prefix": "webstore",
       "i18n": {
         "sourceLocale": "en-US",
-        "locales": {
-          "dk": "apps/webstore/src/i18n/messages.dk.xlf"
-        }
+        "locales": { "dk": "apps/webstore/src/i18n/messages.dk.xlf" }
       },
       "targets": {
         "build": {
@@ -143,23 +119,15 @@
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "webstore:build"
-          },
+          "options": { "browserTarget": "webstore:build" },
           "configurations": {
-            "production": {
-              "browserTarget": "webstore:build:production"
-            },
-            "dk": {
-              "browserTarget": "webstore:build:dk"
-            }
+            "production": { "browserTarget": "webstore:build:production" },
+            "dk": { "browserTarget": "webstore:build:dk" }
           }
         },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "webstore:build"
-          }
+          "options": { "browserTarget": "webstore:build" }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
@@ -193,19 +161,13 @@
             "devServerTarget": "webstore:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "webstore:serve:production"
-            },
-            "dk": {
-              "devServerTarget": "webstore:serve:dk"
-            }
+            "production": { "devServerTarget": "webstore:serve:production" },
+            "dk": { "devServerTarget": "webstore:serve:dk" }
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/webstore-e2e/**/*.{js,ts}"]
-          }
+          "options": { "lintFilePatterns": ["apps/webstore-e2e/**/*.{js,ts}"] }
         }
       }
     },
@@ -216,15 +178,32 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/models/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["libs/models/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/models"],
           "options": {
             "jestConfig": "libs/models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/interfaces/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/interfaces"],
+          "options": {
+            "jestConfig": "libs/interfaces/jest.config.js",
             "passWithNoTests": true
           }
         }
