@@ -5,7 +5,7 @@ import { UserService } from '../../shared/services/user/user.service';
 //import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'webstore-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
