@@ -3,7 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage';
 import { LocalStorageVars } from '@models';
-import { ILoginRequestParams, ILoginResponse } from '@interfaces';
+import {
+  ILoginRequestParams,
+  ILoginResponse,
+  IRegisterRequestParams,
+  IRegisterResponse,
+} from '@interfaces';
 
 const AUTH_API = 'http://localhost:5000/api/auth/';
 
@@ -33,8 +38,9 @@ export class AuthService {
     );
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(
+  register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
+    const { username, email, password } = params;
+    return this.http.post<IRegisterResponse>(
       AUTH_API + 'signup',
       {
         username,

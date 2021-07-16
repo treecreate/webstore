@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IRegisterRequestParams, IRegisterResponse } from '@interfaces';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { AuthService } from '../../shared/services/authentication/auth.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  form: any = {
+  form: IRegisterRequestParams = {
     username: null,
     email: null,
     password: null,
@@ -22,11 +23,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    const { username, email, password } = this.form;
-
-    this.authService.register(username, email, password).subscribe(
-      (data) => {
-        console.log(data);
+    this.authService.register(this.form).subscribe(
+      (data: IRegisterResponse) => {
+        console.log('Registration status: ' + data.message);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },
