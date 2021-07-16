@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
   UrlTree,
   Router,
 } from '@angular/router';
@@ -48,7 +47,7 @@ export class AuthGuard implements CanActivate {
     }
 
     // check if the user is authorized to view the given page
-    const userRoles: [string] = authUser.roles;
+    const userRoles: string[] = authUser.roles;
     const isAuthorized = userRoles.includes(...requiredRoles);
     if (!isAuthorized) {
       this.router.navigate(['/PageNotFound'], { skipLocationChange: true });

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage';
 import { LocalStorageVars } from '@models';
+import { IUser } from '@interfaces';
 
 const API_URL = 'http://localhost:5000/api/test/';
 
@@ -15,7 +16,7 @@ export class UserService {
     private localStorageService: LocalStorageService
   ) {}
 
-  public saveUser(user: any): void {
+  public saveUser(user: IUser): void {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
     this.localStorageService.setItem(
       LocalStorageVars.authUser,
@@ -23,7 +24,7 @@ export class UserService {
     );
   }
 
-  public getUser(): any {
+  public getUser(): IUser {
     const user = this.localStorageService
       .getItem<string>(LocalStorageVars.authUser)
       .getValue();
