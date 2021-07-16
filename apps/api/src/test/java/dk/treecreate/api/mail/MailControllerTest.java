@@ -3,6 +3,9 @@ package dk.treecreate.api.mail;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.treecreate.api.mail.dto.ResetPasswordDto;
 import dk.treecreate.api.mail.dto.SignupDto;
+import dk.treecreate.api.security.jwt.AuthEntryPointJwt;
+import dk.treecreate.api.security.jwt.JwtUtils;
+import dk.treecreate.api.security.services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +15,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,6 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = MailController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@WithMockUser(username = "testUser", password = "testPassword",
+    roles = {"USER", "DEVELOPER", "ADMIN"})
 class MailControllerTest
 {
     @Autowired
@@ -34,6 +40,16 @@ class MailControllerTest
 
     @MockBean
     private MailService mailService;
+
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+
+    @MockBean
+    private JwtUtils jwtUtils;
+
 
     //endregion
     public static String asJsonString(final Object obj)

@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
+            .antMatchers("/healthcheck").permitAll()
 			.antMatchers("/api/test/**").permitAll()
             .antMatchers("/h2/console/**").permitAll() // H2 database calls during testing
 			.anyRequest().authenticated();

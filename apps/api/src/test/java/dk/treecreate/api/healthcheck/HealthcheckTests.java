@@ -1,9 +1,13 @@
 package dk.treecreate.api.healthcheck;
 
+import dk.treecreate.api.security.jwt.AuthEntryPointJwt;
+import dk.treecreate.api.security.jwt.JwtUtils;
+import dk.treecreate.api.security.services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +24,15 @@ class HealthcheckTests
 
     @Autowired
     private MockMvc mvc;
+
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+
+    @MockBean
+    private JwtUtils jwtUtils;
 
     @Test // MockMvc throws Exception, so i must catch it
     void healthcheckReturnedStatusTest() throws Exception
