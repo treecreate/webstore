@@ -19,6 +19,15 @@ import java.util.Collections;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SpringFoxConfig
 {
+    private static ApiInfo apiInfo()
+    {
+        return new ApiInfo("Treecreate REST API", "A Springboot rest API", "0.0.0-development",
+            "https://github.com/treecreate/webstore/blob/development/LICENSE",
+            new Contact("Treecreate", "treecreate.dk", "info@treecreate.dk"), "License of API",
+            "https://github.com/treecreate/webstore/blob/development/LICENSE",
+            Collections.emptyList());
+    }
+
     @Bean
     public Docket api()
     {
@@ -28,15 +37,6 @@ public class SpringFoxConfig
             .apiInfo(apiInfo()) // information about the API shown at the top of the page
             .useDefaultResponseMessages(
                 false); // removes redundant codes like 404: Not found from every mapping
-    }
-
-    private ApiInfo apiInfo()
-    {
-        return new ApiInfo("Treecreate REST API", "A Springboot rest API", "0.0.0-development",
-            "https://github.com/treecreate/webstore/blob/development/LICENSE",
-            new Contact("Treecreate", "treecreate.dk", "info@treecreate.dk"), "License of API",
-            "https://github.com/treecreate/webstore/blob/development/LICENSE",
-            Collections.emptyList());
     }
 }
 

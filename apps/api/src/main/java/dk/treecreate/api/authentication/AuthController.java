@@ -33,25 +33,21 @@ import java.util.stream.Collectors;
 @RequestMapping("auth")
 public class AuthController
 {
+    private static final String ROLE_NOT_FOUND_ERROR_MESSAGE = "Error: Role is not found.";
     @Autowired
     AuthenticationManager authenticationManager;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     RoleRepository roleRepository;
-
     @Autowired
     PasswordEncoder encoder;
-
     @Autowired
     JwtUtils jwtUtils;
 
-    private static final String ROLE_NOT_FOUND_ERROR_MESSAGE = "Error: Role is not found.";
-
     @PostMapping("/signin")
-    public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest)
+    public ResponseEntity<JwtResponse> authenticateUser(
+        @Valid @RequestBody LoginRequest loginRequest)
     {
 
         Authentication authentication = authenticationManager.authenticate(
