@@ -1,15 +1,15 @@
 package dk.treecreate.api.authentication;
 
-import dk.treecreate.api.authentication.models.ERole;
-import dk.treecreate.api.authentication.models.Role;
-import dk.treecreate.api.authentication.models.User;
 import dk.treecreate.api.authentication.dto.request.LoginRequest;
 import dk.treecreate.api.authentication.dto.request.SignupRequest;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
 import dk.treecreate.api.authentication.dto.response.MessageResponse;
+import dk.treecreate.api.authentication.jwt.JwtUtils;
+import dk.treecreate.api.authentication.models.ERole;
+import dk.treecreate.api.authentication.models.Role;
+import dk.treecreate.api.authentication.models.User;
 import dk.treecreate.api.authentication.repository.RoleRepository;
 import dk.treecreate.api.authentication.repository.UserRepository;
-import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +51,7 @@ public class AuthController
     {
 
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+            new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
                 loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -64,7 +64,6 @@ public class AuthController
 
         return ResponseEntity.ok(new JwtResponse(jwt,
             userDetails.getId(),
-            userDetails.getUsername(),
             userDetails.getEmail(),
             roles));
     }
@@ -72,13 +71,6 @@ public class AuthController
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest)
     {
-        if (userRepository.existsByUsername(signUpRequest.getUsername()))
-        {
-            return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse("Error: Username is already taken!"));
-        }
-
         if (userRepository.existsByEmail(signUpRequest.getEmail()))
         {
             return ResponseEntity
@@ -87,7 +79,7 @@ public class AuthController
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
+        User user = new User(signUpRequest.getEmail(), // for simplicity, the username is the email
             signUpRequest.getEmail(),
             encoder.encode(signUpRequest.getPassword()));
 

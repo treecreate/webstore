@@ -1,23 +1,25 @@
 package dk.treecreate.api.authentication.dto.request;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest
 {
     @NotBlank
-    private String username;
+    @Email
+    private String email;
 
     @NotBlank
     private String password;
 
-    public String getUsername()
+    public String getEmail()
     {
-        return username;
+        return email;
     }
 
-    public void setUsername(String username)
+    public void setUsername(String email)
     {
-        this.username = username;
+        this.email = email;
     }
 
     public String getPassword()

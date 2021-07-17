@@ -10,7 +10,7 @@ import {
   IRegisterResponse,
 } from '@interfaces';
 
-const AUTH_API = 'http://localhost:5000/api/auth/';
+const AUTH_API = 'http://localhost:5000/auth/';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -27,11 +27,11 @@ export class AuthService {
   ) {}
 
   login(params: ILoginRequestParams): Observable<ILoginResponse> {
-    const { username, password } = params;
+    const { email, password } = params;
     return this.http.post<ILoginResponse>(
       AUTH_API + 'signin',
       {
-        username,
+        email,
         password,
       },
       httpOptions
@@ -39,11 +39,10 @@ export class AuthService {
   }
 
   register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
-    const { username, email, password } = params;
+    const { email, password } = params;
     return this.http.post<IRegisterResponse>(
       AUTH_API + 'signup',
       {
-        username,
         email,
         password,
       },

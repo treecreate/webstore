@@ -5,7 +5,7 @@ import { LocalStorageService } from '../local-storage';
 import { LocalStorageVars } from '@models';
 import { IUser } from '@interfaces';
 
-const API_URL = 'http://localhost:5000/api/test/';
+const API_URL = 'http://localhost:5000/auth/test/';
 
 @Injectable({
   providedIn: 'root',

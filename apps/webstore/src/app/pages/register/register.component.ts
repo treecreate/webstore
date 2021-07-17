@@ -9,7 +9,6 @@ import { AuthService } from '../../shared/services/authentication/auth.service';
 })
 export class RegisterComponent implements OnInit {
   form: IRegisterRequestParams = {
-    username: null,
     email: null,
     password: null,
   };

@@ -3,7 +3,6 @@ export interface IRegisterResponse {
 }
 
 export interface IRegisterRequestParams {
-  username: string;
   email: string;
   password: string;
 }

@@ -12,7 +12,7 @@ import { ILoginRequestParams, ILoginResponse } from '@interfaces';
 })
 export class LoginComponent implements OnInit {
   form: ILoginRequestParams = {
-    username: null,
+    email: null,
     password: null,
   };
   isLoggedIn = false;

@@ -19,6 +19,7 @@ public class User
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // for simplicity, the username is the email, and just exists as an extra field/column to satisfy spring security requirements
     @NotBlank
     @Size(max = 20)
     private String username;
