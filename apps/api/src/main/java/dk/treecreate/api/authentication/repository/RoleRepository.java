@@ -1,7 +1,7 @@
 package dk.treecreate.api.repository;
 
-import dk.treecreate.api.models.ERole;
-import dk.treecreate.api.models.Role;
+import dk.treecreate.api.authentication.models.ERole;
+import dk.treecreate.api.authentication.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

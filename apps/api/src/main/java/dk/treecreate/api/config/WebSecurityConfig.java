@@ -1,8 +1,8 @@
-package dk.treecreate.api.security;
+package dk.treecreate.api.config;
 
-import dk.treecreate.api.security.jwt.AuthEntryPointJwt;
-import dk.treecreate.api.security.jwt.AuthTokenFilter;
-import dk.treecreate.api.security.services.UserDetailsServiceImpl;
+import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
+import dk.treecreate.api.authentication.jwt.AuthTokenFilter;
+import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

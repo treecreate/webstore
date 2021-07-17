@@ -1,6 +1,6 @@
 package dk.treecreate.api.security.services;
 
-import dk.treecreate.api.models.User;
+import dk.treecreate.api.authentication.models.User;
 import dk.treecreate.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

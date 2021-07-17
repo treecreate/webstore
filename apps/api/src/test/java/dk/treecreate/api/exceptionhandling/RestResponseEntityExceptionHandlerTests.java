@@ -4,9 +4,9 @@
 
 package dk.treecreate.api.exceptionhandling;
 
-import dk.treecreate.api.security.jwt.AuthEntryPointJwt;
-import dk.treecreate.api.security.jwt.JwtUtils;
-import dk.treecreate.api.security.services.UserDetailsServiceImpl;
+import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
+import dk.treecreate.api.authentication.jwt.JwtUtils;
+import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
