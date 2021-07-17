@@ -1,6 +1,8 @@
 package dk.treecreate.api.authentication.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users",
@@ -18,8 +21,20 @@ import java.util.Set;
 public class User
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator",
+        parameters = {
+            @org.hibernate.annotations.Parameter(
+                name = "uuid_gen_strategy_class",
+                value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+            )
+        }
+    )
+    @Type(type = "uuid-char")
+    @Column(name = "user_id", updatable = false, nullable = false)
+    private UUID userId;
 
     // for simplicity, the username is the email, and just exists as an extra field/column to satisfy spring security requirements
     @NotBlank
@@ -53,14 +68,14 @@ public class User
         this.password = password;
     }
 
-    public Long getId()
+    public UUID getUserId()
     {
-        return id;
+        return userId;
     }
 
-    public void setId(Long id)
+    public void setUserId(UUID id)
     {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getUsername()
@@ -106,7 +121,7 @@ public class User
     @Override public String toString()
     {
         return "User{" +
-            "id=" + id +
+            "id=" + userId +
             ", username='" + username + '\'' +
             ", email='" + email + '\'' +
             ", roles=" + roles +

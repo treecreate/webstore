@@ -1,20 +1,21 @@
 package dk.treecreate.api.authentication.dto.response;
 
 import java.util.List;
+import java.util.UUID;
 
 public class JwtResponse
 {
     private final List<String> roles;
     private String token;
     private String type = "Bearer";
-    private Long id;
+    private UUID userId;
     private String email;
 
-    public JwtResponse(String accessToken, Long id, String email,
+    public JwtResponse(String accessToken, UUID userId, String email,
                        List<String> roles)
     {
         this.token = accessToken;
-        this.id = id;
+        this.userId = userId;
         this.email = email;
         this.roles = roles;
     }
@@ -39,14 +40,14 @@ public class JwtResponse
         this.type = tokenType;
     }
 
-    public Long getId()
+    public UUID getUserId()
     {
-        return id;
+        return userId;
     }
 
-    public void setId(Long id)
+    public void setId(UUID id)
     {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getEmail()
