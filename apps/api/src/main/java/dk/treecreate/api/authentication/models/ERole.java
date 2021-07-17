@@ -1,4 +1,4 @@
-package dk.treecreate.api.models;
+package dk.treecreate.api.authentication.models;
 
 public enum ERole
 {

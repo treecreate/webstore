@@ -1,4 +1,4 @@
-package dk.treecreate.api.security.jwt;
+package dk.treecreate.api.authentication.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

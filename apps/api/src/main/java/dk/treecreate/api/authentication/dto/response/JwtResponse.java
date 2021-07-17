@@ -1,4 +1,4 @@
-package dk.treecreate.api.payload.response;
+package dk.treecreate.api.authentication.dto.response;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package dk.treecreate.api.security.jwt;
+package dk.treecreate.api.authentication.jwt;
 
-import dk.treecreate.api.security.services.UserDetailsServiceImpl;
+import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

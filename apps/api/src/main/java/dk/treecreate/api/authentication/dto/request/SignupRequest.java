@@ -1,4 +1,4 @@
-package dk.treecreate.api.payload.request;
+package dk.treecreate.api.authentication.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

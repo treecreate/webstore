@@ -1,4 +1,4 @@
-package dk.treecreate.api.security.services;
+package dk.treecreate.api.authentication.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dk.treecreate.api.authentication.models.User;

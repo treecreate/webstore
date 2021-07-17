@@ -1,6 +1,6 @@
-package dk.treecreate.api.security.jwt;
+package dk.treecreate.api.authentication.jwt;
 
-import dk.treecreate.api.security.services.UserDetailsImpl;
+import dk.treecreate.api.authentication.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
