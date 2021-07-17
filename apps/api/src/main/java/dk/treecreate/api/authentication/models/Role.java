@@ -1,14 +1,30 @@
 package dk.treecreate.api.authentication.models;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
 public class Role
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator",
+        parameters = {
+            @org.hibernate.annotations.Parameter(
+                name = "uuid_gen_strategy_class",
+                value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+            )
+        }
+    )
+    @Type(type = "uuid-char")
+    @Column(name = "role_id", updatable = false, nullable = false)
+    private UUID roleId;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
@@ -24,14 +40,14 @@ public class Role
         this.name = name;
     }
 
-    public Integer getId()
+    public UUID getRoleId()
     {
-        return id;
+        return roleId;
     }
 
-    public void setId(Integer id)
+    public void setRoleId(UUID roleId)
     {
-        this.id = id;
+        this.roleId = roleId;
     }
 
     public ERole getName()
@@ -47,7 +63,7 @@ public class Role
     @Override public String toString()
     {
         return "Role{" +
-            "id=" + id +
+            "id=" + roleId +
             ", name=" + name +
             '}';
     }
