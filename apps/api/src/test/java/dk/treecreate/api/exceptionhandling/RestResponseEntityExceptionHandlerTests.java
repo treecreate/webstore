@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = ExceptionController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
-@WithMockUser(username = "testUser", password = "testPassword",
+@WithMockUser(username = "test@treecreate.dk", password = "testPassword",
     roles = {"USER", "DEVELOPER", "ADMIN"})
 class RestResponseEntityExceptionHandlerTests
 {
