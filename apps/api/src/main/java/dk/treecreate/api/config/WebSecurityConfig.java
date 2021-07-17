@@ -64,9 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         http.cors().and().csrf().disable()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+            .authorizeRequests().antMatchers("/auth/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
-            .antMatchers("/api/test/**").permitAll()
+            .antMatchers("/auth/test/**").permitAll()
             .antMatchers("/h2/console/**").permitAll() // H2 database calls during testing
             .anyRequest().authenticated();
 
