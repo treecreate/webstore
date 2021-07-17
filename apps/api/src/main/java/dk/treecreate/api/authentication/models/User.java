@@ -1,5 +1,7 @@
 package dk.treecreate.api.authentication.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +33,7 @@ public class User
 
     @NotBlank
     @Size(max = 120)
+    @JsonIgnore // don't show the password when returning a user
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -98,5 +101,15 @@ public class User
     public void setRoles(Set<Role> roles)
     {
         this.roles = roles;
+    }
+
+    @Override public String toString()
+    {
+        return "User{" +
+            "id=" + id +
+            ", username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            ", roles=" + roles +
+            '}';
     }
 }
