@@ -17,6 +17,7 @@ import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-us
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { ProductComponent } from './pages/product/product.component';
+import { SignupComponent } from './pages/user/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +32,11 @@ import { ProductComponent } from './pages/product/product.component';
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
     ProductComponent,
+    SignupComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [ProductComponent],
+  exports: [ProductComponent, SignupComponent],
 })
 export class AppModule {}
