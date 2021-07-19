@@ -11,12 +11,12 @@ public class LoginRequest
     @NotBlank
     @Size(max = 254)
     @Email
-    @ApiModelProperty(example = "example@hotdeals.dev")
+    @ApiModelProperty(example = "example@hotdeals.dev", required = true)
     private String email;
 
     @NotBlank
     @Size(min = 6, max = 40)
-    @ApiModelProperty(example = "abcDEF123")
+    @ApiModelProperty(example = "abcDEF123", required = true)
     private String password;
 
     public String getEmail()

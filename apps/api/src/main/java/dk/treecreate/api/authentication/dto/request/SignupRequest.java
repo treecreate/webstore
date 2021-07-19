@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 public class SignupRequest
@@ -14,16 +12,17 @@ public class SignupRequest
     @NotBlank
     @Size(max = 254)
     @Email
-    @ApiModelProperty(example = "example@hotdeals.dev")
+    @ApiModelProperty(example = "example@hotdeals.dev", required = true)
     private String email;
-
-    @ApiModelProperty(notes = "A list of roles the user can have", example = "[\"ROLE_USED\", \"ROLE_DEVELOPER\", \"ROLE_ADMIN\"]")
-    private Set<String> roles;
 
     @NotBlank
     @Size(min = 6, max = 40)
-    @ApiModelProperty(example = "abcDEF123")
+    @ApiModelProperty(example = "abcDEF123", required = true)
     private String password;
+
+    @ApiModelProperty(notes = "A list of roles the user can have",
+        example = "[\"ROLE_USED\", \"ROLE_DEVELOPER\", \"ROLE_ADMIN\"]", required = false)
+    private Set<String> roles;
 
     public String getEmail()
     {

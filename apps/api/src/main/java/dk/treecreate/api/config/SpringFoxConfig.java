@@ -21,6 +21,8 @@ import java.util.Collections;
 public class SpringFoxConfig
 {
 
+    public static final String AUTHENTICATION_TAG = "Authentication";
+
     private static ApiInfo apiInfo()
     {
         return new ApiInfo("Treecreate REST API", "A Springboot rest API", "0.0.0-development",
@@ -42,7 +44,5 @@ public class SpringFoxConfig
             .useDefaultResponseMessages(
                 false); // removes redundant codes like 404: Not found from every mapping
     }
-
-    public static final String AUTHENTICATION_TAG = "Authentication";
 }
 

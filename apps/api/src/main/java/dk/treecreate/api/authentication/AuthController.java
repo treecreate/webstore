@@ -3,6 +3,7 @@ package dk.treecreate.api.authentication;
 import dk.treecreate.api.authentication.dto.request.LoginRequest;
 import dk.treecreate.api.authentication.dto.request.SignupRequest;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
+import dk.treecreate.api.authentication.dto.response.RegisterUserSuccessfulResponse;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
@@ -83,10 +84,11 @@ public class AuthController
     @Operation(summary = "Register a new user")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Information about the newly created user",
-            response = User.class),
+            response = RegisterUserSuccessfulResponse.class),
         @ApiResponse(code = 401,
             message = "Provided body is not valid, it is missing, or the email is already in use")})
-    public ResponseEntity<User> registerUser(@Valid @RequestBody SignupRequest signUpRequest)
+    public ResponseEntity<RegisterUserSuccessfulResponse> registerUser(
+        @Valid @RequestBody SignupRequest signUpRequest)
     {
         if (userRepository.existsByEmail(signUpRequest.getEmail()))
         {
@@ -133,6 +135,8 @@ public class AuthController
         }
         user.setRoles(roles);
         userRepository.save(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity
+            .ok(new RegisterUserSuccessfulResponse(user.getUserId(), user.getEmail(),
+                user.getRoles()));
     }
 }
