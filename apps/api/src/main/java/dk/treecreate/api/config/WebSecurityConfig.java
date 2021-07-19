@@ -67,6 +67,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .authorizeRequests()
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
+            .antMatchers("/docs", // Swagger docs endpoints
+                "/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui/**",
+                "/swagger-ui.html",
+                "/webjars/**").permitAll()
             .antMatchers("/h2/console/**").permitAll() // H2 database calls during testing
             .anyRequest().authenticated();
 
