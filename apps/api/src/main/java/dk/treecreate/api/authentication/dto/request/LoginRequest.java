@@ -11,7 +11,7 @@ public class LoginRequest
     @NotBlank
     @Size(max = 254)
     @Email
-    @ApiModelProperty(example = "example@test.com")
+    @ApiModelProperty(example = "example@hotdeals.dev")
     private String email;
 
     @NotBlank

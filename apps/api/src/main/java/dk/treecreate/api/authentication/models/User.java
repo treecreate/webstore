@@ -1,6 +1,7 @@
 package dk.treecreate.api.authentication.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -39,11 +40,14 @@ public class User
     // for simplicity, the username is the email, and just exists as an extra field/column to satisfy spring security requirements
     @NotBlank
     @Size(max = 254)
+    @ApiModelProperty(name = "Same as the email, used for authentication",
+        example = "example@hotdeals.dev")
     private String username;
 
     @NotBlank
     @Size(max = 254)
     @Email
+    @ApiModelProperty(name = "User's email address", example = "example@hotdeals.dev")
     private String email;
 
     @NotBlank
@@ -55,6 +59,8 @@ public class User
     @JoinTable(name = "user_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ApiModelProperty(notes = "A list of roles the user can have",
+        example = "[\"ROLE_USED\", \"ROLE_DEVELOPER\", \"ROLE_ADMIN\"]")
     private Set<Role> roles = new HashSet<>();
 
     public User()

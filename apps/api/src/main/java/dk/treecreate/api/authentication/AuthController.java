@@ -3,6 +3,8 @@ package dk.treecreate.api.authentication;
 import dk.treecreate.api.authentication.dto.request.LoginRequest;
 import dk.treecreate.api.authentication.dto.request.SignupRequest;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
+import dk.treecreate.api.authentication.dto.response.SigninSuccessfulResponse;
+import dk.treecreate.api.authentication.dto.response.SignupSuccessfulResponse;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
@@ -10,6 +12,10 @@ import dk.treecreate.api.authentication.models.User;
 import dk.treecreate.api.authentication.repository.RoleRepository;
 import dk.treecreate.api.authentication.repository.UserRepository;
 import dk.treecreate.api.authentication.services.UserDetailsImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +52,11 @@ public class AuthController
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
+    @Operation(summary = "Sign in as an existing user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "User information including the access token" , response = JwtResponse.class),
+        @ApiResponse(code = 400, message = "Provided body is invalid or it is missing"),
+        @ApiResponse(code = 401, message = "The login credentials are invalid")})
     public ResponseEntity<JwtResponse> authenticateUser(
         @Valid @RequestBody LoginRequest loginRequest)
     {
@@ -69,6 +80,10 @@ public class AuthController
     }
 
     @PostMapping("/signup")
+    @Operation(summary = "Register a new user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Information about the newly created user" , response = User.class),
+        @ApiResponse(code = 401, message = "Provided body is not valid, it is missing, or the email is already in use")})
     public ResponseEntity<User> registerUser(@Valid @RequestBody SignupRequest signUpRequest)
     {
         if (userRepository.existsByEmail(signUpRequest.getEmail()))
