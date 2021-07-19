@@ -38,11 +38,11 @@ public class User
 
     // for simplicity, the username is the email, and just exists as an extra field/column to satisfy spring security requirements
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 254)
     private String username;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 254)
     @Email
     private String email;
 

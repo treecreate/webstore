@@ -1,15 +1,22 @@
 package dk.treecreate.api.authentication.dto.request;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class LoginRequest
 {
     @NotBlank
+    @Size(max = 254)
     @Email
+    @ApiModelProperty(example = "example@test.com")
     private String email;
 
     @NotBlank
+    @Size(min = 6, max = 40)
+    @ApiModelProperty(example = "abcDEF123")
     private String password;
 
     public String getEmail()
