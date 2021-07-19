@@ -188,9 +188,9 @@ class AuthControllerTests
         roles.add(new Role(ERole.ROLE_ADMIN));
 
         Set<String> strRoles = new HashSet<>();
-        strRoles.add("user");
-        strRoles.add("developer");
-        strRoles.add("admin");
+        strRoles.add("ROLE_USER");
+        strRoles.add("ROLE_DEVELOPER");
+        strRoles.add("ROLE_ADMIN");
 
         SignupRequest signupRequest = new SignupRequest();
         signupRequest.setEmail("test@treecreate.dk");
