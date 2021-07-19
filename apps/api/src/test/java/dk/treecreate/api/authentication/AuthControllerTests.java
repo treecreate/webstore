@@ -39,7 +39,44 @@ class AuthControllerTests
     private UserRepository userRepository;
 
     @Test
-    @DisplayName("/auth/signin endpoint correctly authenticates the bitch")
+    @DisplayName("/auth/signin endpoint return 400 when the request body is incorrect")
+    void signinReturnsBadRequestOnInvalidBody() throws Exception
+    {
+        mvc.perform(post("/auth/signin")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("/auth/signin endpoint return 401 when user credentials are invalid")
+    void signinReturnsUnauthorizedOnInvalidCredentials() throws Exception
+    {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("test@treecreate.dk");
+        loginRequest.setPassword("abcDEF1234");
+
+        User user = new User();
+        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+        user.setEmail(loginRequest.getEmail());
+        user.setUsername(loginRequest.getEmail());
+        // hashed version of "abcDEF123", which is different from the user password in this test
+        user.setPassword(
+            "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(ERole.ROLE_USER));
+        user.setRoles(roles);
+
+        Mockito.when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(
+            java.util.Optional.of(user));
+
+        mvc.perform(post("/auth/signin")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(asJsonString(loginRequest)))
+            .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("/auth/signin endpoint correctly authenticates the user")
     void signinCorrectlySignsInUser() throws Exception
     {
         LoginRequest loginRequest = new LoginRequest();
