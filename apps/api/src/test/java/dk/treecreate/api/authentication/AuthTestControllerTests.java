@@ -4,7 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -15,7 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(value = AuthTestController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class AuthTestControllerTests
 {
     @Autowired
@@ -31,15 +33,13 @@ class AuthTestControllerTests
             .andExpect(content().string("Public Content."));
     }
 
-    // Because of how MockMvc and security work, failed requests return 200 with an empty body. ¯\_(ツ)_/¯
     @Test
-    @DisplayName("/auth/test/user without being authenticated gets denied")
-    void userReturnsForbiddenToUnauthorizedUsers() throws Exception
+    @DisplayName("/auth/test/user without being authenticated gets denied (Unauthorized)")
+    void userReturnsUnauthorizedToUnauthorizedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/user")
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string(""));
+            .andExpect(status().isUnauthorized());
     }
 
     @Test
@@ -54,16 +54,26 @@ class AuthTestControllerTests
             .andExpect(content().string("User Content."));
     }
 
-    // Because of how MockMvc and security work, failed requests return 200 with an empty body. ¯\_(ツ)_/¯
     @Test
-    @DisplayName("/auth/test/developer without being authenticated gets denied")
+    @DisplayName("/auth/test/developer without being authenticated gets denied (Unauthorized)")
+    void developerReturnsUnauthorizedToUnauthenticatedUsers() throws Exception
+    {
+        mvc.perform(get("/auth/test/developer")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("/auth/test/developer without the developer role gets denied (Forbidden)")
+    @WithMockUser(username = "test@treecreate.dk", password = "testPassword",
+        roles = {"USER", "ADMIN"})
     void developerReturnsForbiddenToUnauthorizedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/developer")
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string(""));
+            .andExpect(status().isForbidden());
     }
+
 
     @Test
     @DisplayName("/auth/test/developer when authenticated returns correct data")
@@ -79,13 +89,25 @@ class AuthTestControllerTests
 
     // Because of how MockMvc and security work, failed requests return 200 with an empty body. ¯\_(ツ)_/¯
     @Test
-    @DisplayName("/auth/test/admin without being authenticated gets denied")
+    @DisplayName("/auth/test/admin without being authenticated gets denied (Unauthorized)")
+    void adminReturnsUnauthorizedToUnauthenticatedUsers() throws Exception
+    {
+        mvc.perform(get("/auth/test/admin")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isUnauthorized());
+    }
+
+
+    // Because of how MockMvc and security work, failed requests return 200 with an empty body. ¯\_(ツ)_/¯
+    @Test
+    @DisplayName("/auth/test/admin without the admin role gets denied (Forbidden)")
+    @WithMockUser(username = "test@treecreate.dk", password = "testPassword",
+        roles = {"USER", "DEVELOPER"})
     void adminReturnsForbiddenToUnauthorizedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/admin")
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string(""));
+            .andExpect(status().isForbidden());
     }
 
     @Test
