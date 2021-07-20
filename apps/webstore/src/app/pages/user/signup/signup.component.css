@@ -27,6 +27,10 @@
   transform: scale(1);
 }
 
+.hide {
+    display: none;
+}
+
 .terms-and-conditions {
   font-size: 14px;
   text-align: left;

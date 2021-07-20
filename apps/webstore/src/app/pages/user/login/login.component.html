@@ -51,3 +51,8 @@
         </button>
     </form>
 </div>
+
+<!-- For cy tests -->
+<div class="hide" data-cy="login-email">{{ this.loginForm.get('email').value }}</div>
+<div class="hide" data-cy="login-password">{{ this.loginForm.get('password').value }}</div>
+<!-- cy test end -->

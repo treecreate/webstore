@@ -21,6 +21,10 @@
   margin-bottom: 20px;
 }
 
+.hide {
+    display: none;
+}
+
 .forgot-password-link:hover {
   text-decoration: none;
   transition: 0.5s;
