@@ -74,3 +74,12 @@
         </button>
     </form>
 </div>
+
+<!-- For cy tests -->
+<div class="test-class">
+    E-mail: {{ this.signupForm.get('email').value }} <br>
+    Password: {{ this.signupForm.get('password').value }} <br>
+    Confirm password: {{ this.signupForm.get('confirmPassword').value }} <br>
+    Terms and Conditions: {{ this.termsAndConditions }}
+</div>
+<!-- cy test end -->
