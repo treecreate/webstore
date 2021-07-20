@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'webstore-login',
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -41,10 +40,5 @@ export class LoginComponent implements OnInit {
     } else {
       return false;
     }
-  }
-
-  signupLink() {
-    //workaround routerLink not working
-    this.router.navigate(['/signup']);
   }
 }

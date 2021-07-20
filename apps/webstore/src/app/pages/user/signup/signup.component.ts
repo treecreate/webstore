@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 @Component({
@@ -15,7 +14,7 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   termsAndConditions = false;
 
-  constructor(private router: Router, private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
@@ -53,16 +52,13 @@ export class SignupComponent implements OnInit {
     if (
       this.signupForm.get('email').invalid ||
       this.signupForm.get('password').invalid ||
-      this.signupForm.get('confirmPassword').invalid
+      this.signupForm.get('confirmPassword').invalid ||
+      !this.termsAndConditions
     ) {
       return true;
     } else {
       return false;
     }
-  }
-
-  loginLink() {
-    this.router.navigate(['/login']);
   }
 
   showTermsOfUse() {
