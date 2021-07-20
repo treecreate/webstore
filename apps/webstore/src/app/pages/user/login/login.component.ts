@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   ],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup | any;
+  loginForm: FormGroup;
 
   constructor(private router: Router) {}
 

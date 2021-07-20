@@ -57,7 +57,9 @@
                 />
                 <span class="checkmark" data-cy="checkbox-big-font"></span>
             </label>
-            <a class="terms-and-conditions" (click)="showTermsOfUse()">I accept terms and conditions</a>
+            <a class="terms-and-conditions" (click)="showTermsOfUse()"
+                >I accept terms and conditions</a
+            >
         </div>
 
         <button
@@ -77,9 +79,9 @@
 
 <!-- For cy tests -->
 <div class="test-class">
-    E-mail: {{ this.signupForm.get('email').value }} <br>
-    Password: {{ this.signupForm.get('password').value }} <br>
-    Confirm password: {{ this.signupForm.get('confirmPassword').value }} <br>
+    E-mail: {{ this.signupForm.get('email').value }} <br />
+    Password: {{ this.signupForm.get('password').value }} <br />
+    Confirm password: {{ this.signupForm.get('confirmPassword').value }} <br />
     Terms and Conditions: {{ this.termsAndConditions }}
 </div>
 <!-- cy test end -->

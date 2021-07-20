@@ -12,8 +12,8 @@ import { TermsOfUseModalComponent } from '../../../shared/components/modals/term
   ],
 })
 export class SignupComponent implements OnInit {
-  signupForm: FormGroup | any;
-  termsAndConditions: boolean = false;
+  signupForm: FormGroup;
+  termsAndConditions = false;
 
   constructor(private router: Router, private modalService: NgbModal) {}
 
