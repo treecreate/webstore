@@ -5,10 +5,14 @@
   height: 100vh;
 }
 .login-form {
-  border: 1px solid black;
   padding: 20px 30px 30px 30px;
-  min-width: 400px;
+  width: 400px;
+  max-width: 100vw;
   text-align: center;
+}
+
+.page-title {
+    font-weight: 700;
 }
 
 .forgot-password-container {
