@@ -43,12 +43,10 @@ import { LoginComponent } from './pages/user/login/login.component';
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [
-    LoginComponent
-  ],
+  exports: [LoginComponent],
 })
 export class AppModule {}

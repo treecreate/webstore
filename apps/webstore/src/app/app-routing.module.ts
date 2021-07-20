@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
   { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [CookieGuard] }, 
+  { path: 'login', component: LoginComponent, canActivate: [CookieGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
 ];

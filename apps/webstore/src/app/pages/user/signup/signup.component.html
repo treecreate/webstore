@@ -42,7 +42,22 @@
                 id="confirmPassword"
                 required
             />
-            <label for="confirmPassword" class="tc-input-label">Confirm password</label>
+            <label for="confirmPassword" class="tc-input-label"
+                >Confirm password</label
+            >
+        </div>
+
+        <div class="terms-and-conditions-container">
+            <label class="checkbox-container">
+                <input
+                    type="checkbox"
+                    (change)="
+                        this.termsAndConditions = !this.termsAndConditions
+                    "
+                />
+                <span class="checkmark" data-cy="checkbox-big-font"></span>
+            </label>
+            <a class="terms-and-conditions" (click)="showTermsOfUse()">I accept terms and conditions</a>
         </div>
 
         <button

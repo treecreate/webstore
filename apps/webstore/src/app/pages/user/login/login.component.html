@@ -1,5 +1,10 @@
 <div class="flex-container-login">
-    <form (ngSubmit)="onLogin()" name="loginForm" class="login-form" [formGroup]="loginForm">
+    <form
+        (ngSubmit)="onLogin()"
+        name="loginForm"
+        class="login-form"
+        [formGroup]="loginForm"
+    >
         <h1 class="option-title">Login</h1>
         <div class="tc-input-group field">
             <input
@@ -28,7 +33,7 @@
         </div>
 
         <div class="forgot-password-container">
-            <a routerLink="/forgot-password" class="forgot-password-link" >
+            <a routerLink="/forgot-password" class="forgot-password-link">
                 Forgot password?
             </a>
         </div>
@@ -36,12 +41,13 @@
         <button
             class="tc-button-100"
             type="submit"
-            [ngClass]="isDisabled() ? 'disabled' : '' "
+            [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
         >
             Login
         </button>
-        <button class="tc-button-100" type="button" (click)="signupLink()">Sign up</button>
-        
+        <button class="tc-button-100" type="button" (click)="signupLink()">
+            Sign up
+        </button>
     </form>
 </div>

@@ -1,36 +1,36 @@
 .flex-container-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 .login-form {
-    border: 1px solid black; 
-    padding: 20px 30px 30px 30px; 
-    min-width: 400px;
-    text-align: center;
+  border: 1px solid black;
+  padding: 20px 30px 30px 30px;
+  min-width: 400px;
+  text-align: center;
 }
 
 .forgot-password-container {
-    width: 100%;
-    text-align: right;
-    margin-bottom: 20px;
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
 }
 
 .forgot-password-link:hover {
-    text-decoration: none;
-    transition: .5s;
-    color: #ebc6ab !important; 
+  text-decoration: none;
+  transition: 0.5s;
+  color: #ebc6ab !important;
 }
 
 .tc-button-100 {
-    margin:10px 0; 
+  margin: 10px 0;
 }
 
 .disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .disabled:hover {
-    transform: scale(1);
+  transform: scale(1);
 }

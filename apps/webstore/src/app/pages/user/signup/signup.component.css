@@ -1,24 +1,47 @@
 .flex-container-signup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 .signup-form {
-    border: 1px solid black; 
-    padding: 20px 30px 30px 30px; 
-    min-width: 400px;
-    text-align: center;
+  border: 1px solid black;
+  padding: 20px 30px 30px 30px;
+  min-width: 400px;
+  text-align: center;
 }
 
 .tc-button-100 {
-    margin:10px 0; 
+  margin: 10px 0;
 }
 
 .disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .disabled:hover {
-    transform: scale(1);
+  transform: scale(1);
+}
+
+.terms-and-conditions {
+  font-size: 14px;
+  text-align: left;
+  margin: 0;
+  margin-left: 40px;
+}
+
+.terms-and-conditions:hover {
+  text-decoration: none;
+  transition: 0.5s;
+  color: #ebc6ab !important;
+}
+
+.checkmark {
+    top:0 !important;
+    left:0 !important; 
+}
+
+.terms-and-conditions-container {
+  margin: 10px 0;
+  text-align: left;
 }
