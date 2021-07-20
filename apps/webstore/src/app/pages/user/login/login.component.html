@@ -1,5 +1,47 @@
-<p>login works!</p>
-<p>login works!</p>
-<p>login works!</p>
-<p>login works!</p>
+<div class="flex-container-login">
+    <form (ngSubmit)="onLogin()" name="loginForm" class="login-form" [formGroup]="loginForm">
+        <h1 class="option-title">Login</h1>
+        <div class="tc-input-group field">
+            <input
+                type="email"
+                class="tc-input-field"
+                placeholder="E-mail"
+                formControlName="email"
+                name="email"
+                id="email"
+                required
+            />
+            <label for="email" class="tc-input-label">E-mail</label>
+        </div>
 
+        <div class="tc-input-group field">
+            <input
+                type="password"
+                class="tc-input-field"
+                formControlName="password"
+                placeholder="password"
+                name="password"
+                id="password"
+                required
+            />
+            <label for="password" class="tc-input-label">Password</label>
+        </div>
+
+        <div class="forgot-password-container">
+            <a routerLink="/forgot-password" class="forgot-password-link" >
+                Forgot password?
+            </a>
+        </div>
+
+        <button
+            class="tc-button-100"
+            type="submit"
+            [ngClass]="isDisabled() ? 'disabled' : '' "
+            [disabled]="isDisabled()"
+        >
+            Login
+        </button>
+        <button class="tc-button-100" type="button" (click)="signupLink()">Sign up</button>
+        
+    </form>
+</div>

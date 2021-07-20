@@ -19,6 +19,9 @@ import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/reject
 import { ProductComponent } from './pages/product/product.component';
 import { SignupComponent } from './pages/user/signup/signup.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/user/login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,10 +36,19 @@ import { SignupComponent } from './pages/user/signup/signup.component';
     RejectedCookiesComponent,
     ProductComponent,
     SignupComponent,
+    LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [ProductComponent, SignupComponent],
+  exports: [
+    LoginComponent
+  ],
 })
 export class AppModule {}

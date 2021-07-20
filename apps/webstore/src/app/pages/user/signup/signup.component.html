@@ -1,5 +1,61 @@
-<p>signup works!</p>
-<p>signup works!</p>
-<p>signup works!</p>
-<p>signup works!</p>
-<p>signup works!</p>
+<div class="flex-container-signup">
+    <form
+        (ngSubmit)="onSignup()"
+        name="signupForm"
+        class="signup-form"
+        [formGroup]="signupForm"
+    >
+        <h1 class="option-title">Sign Up</h1>
+        <div class="tc-input-group field">
+            <input
+                type="email"
+                class="tc-input-field"
+                placeholder="E-mail"
+                formControlName="email"
+                name="email"
+                id="email"
+                required
+            />
+            <label for="email" class="tc-input-label">E-mail</label>
+        </div>
+
+        <div class="tc-input-group field">
+            <input
+                type="password"
+                class="tc-input-field"
+                formControlName="password"
+                placeholder="password"
+                name="password"
+                id="password"
+                required
+            />
+            <label for="password" class="tc-input-label">Password</label>
+        </div>
+
+        <div class="tc-input-group field">
+            <input
+                type="confirmPassword"
+                class="tc-input-field"
+                formControlName="confirmPassword"
+                placeholder="Confirm password"
+                name="confirmPassword"
+                id="confirmPassword"
+                required
+            />
+            <label for="confirmPassword" class="tc-input-label">Confirm password</label>
+        </div>
+
+        <button
+            class="tc-button-100"
+            type="submit"
+            [ngClass]="isDisabled() ? 'disabled' : ''"
+            [disabled]="isDisabled()"
+        >
+            Sign Up
+        </button>
+
+        <button class="tc-button-100" type="button" (click)="loginLink()">
+            Login
+        </button>
+    </form>
+</div>
