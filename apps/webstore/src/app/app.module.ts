@@ -17,9 +17,9 @@ import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-us
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { ProductComponent } from './pages/product/product.component';
-import { SignupComponent } from './pages/user/signup/signup.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignupComponent } from './pages/user/signup/signup.component';
 import { LoginComponent } from './pages/user/login/login.component';
 
 @NgModule({
@@ -36,7 +36,7 @@ import { LoginComponent } from './pages/user/login/login.component';
     RejectedCookiesComponent,
     ProductComponent,
     SignupComponent,
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +47,5 @@ import { LoginComponent } from './pages/user/login/login.component';
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [LoginComponent],
 })
 export class AppModule {}
