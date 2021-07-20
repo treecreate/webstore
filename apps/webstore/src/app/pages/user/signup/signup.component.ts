@@ -22,10 +22,12 @@ export class SignupComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-zd].{8,}'),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-zd].{8,}'),
       ]),
     });
 
@@ -53,7 +55,8 @@ export class SignupComponent implements OnInit {
       this.signupForm.get('email').invalid ||
       this.signupForm.get('password').invalid ||
       this.signupForm.get('confirmPassword').invalid ||
-      !this.termsAndConditions
+      !this.termsAndConditions ||
+      !this.matchingPasswords()
     ) {
       return true;
     } else {
