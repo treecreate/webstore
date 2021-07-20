@@ -18,6 +18,10 @@ import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { ProductComponent } from './pages/product/product.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignupComponent } from './pages/user/signup/signup.component';
+import { LoginComponent } from './pages/user/login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +35,17 @@ import { ProductComponent } from './pages/product/product.component';
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
     ProductComponent,
+    SignupComponent,
+    LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [ProductComponent],
 })
 export class AppModule {}
