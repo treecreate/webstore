@@ -36,7 +36,7 @@ import { LoginComponent } from './pages/user/login/login.component';
     RejectedCookiesComponent,
     ProductComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

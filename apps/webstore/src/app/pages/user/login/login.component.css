@@ -12,7 +12,7 @@
 }
 
 .page-title {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .forgot-password-container {
@@ -22,7 +22,7 @@
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .forgot-password-link:hover {
