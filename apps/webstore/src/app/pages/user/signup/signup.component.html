@@ -32,6 +32,16 @@
             <label for="password" class="tc-input-label">Password</label>
         </div>
 
+        <div
+            class="password-error"
+            *ngIf="
+                this.signupForm.get('password').dirty &&
+                this.signupForm.get('password').invalid
+            "
+        >
+            Must contain at least one uppercase, lowecase, number and match
+        </div>
+
         <div class="tc-input-group field">
             <input
                 type="password"
@@ -45,6 +55,16 @@
             <label for="confirmPassword" class="tc-input-label"
                 >Confirm password</label
             >
+        </div>
+
+        <div
+            class="password-error"
+            *ngIf="
+                this.signupForm.get('confirmPassword').dirty &&
+                !this.matchingPasswords()
+            "
+        >
+            Passwords must match
         </div>
 
         <div class="terms-and-conditions-container">

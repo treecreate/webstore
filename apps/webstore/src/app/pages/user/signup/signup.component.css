@@ -53,3 +53,10 @@
   margin: 10px 0;
   text-align: left;
 }
+
+.password-error {
+  font-size: 10px;
+  text-align: left;
+  color: red;
+  line-height: 0;
+}
