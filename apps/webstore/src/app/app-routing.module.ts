@@ -11,6 +11,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+import { CollectionComponent } from './pages/auth/collection/collection.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
@@ -24,6 +25,12 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.user] },
+  },
+  {
+    path: 'collection',
+    component: CollectionComponent,
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },

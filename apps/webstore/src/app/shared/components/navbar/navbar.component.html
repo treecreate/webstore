@@ -69,13 +69,18 @@
                         >Profile</a
                     >
                     <div
+                        class="dropdown-menu-container dropdown-item-list"
                         ngbDropdownMenu
                         aria-labelledby="dropdownBasic"
                         #profileMenu
                     >
-                        <button ngbDropdownItem>Action - 1</button>
-                        <button ngbDropdownItem>Another Action</button>
-                        <button ngbDropdownItem>Something else is here</button>
+                        <a ngbDropdownItem routerLink="/profile"
+                            >Account Info</a
+                        >
+                        <a ngbDropdownItem routerLink="/collection"
+                            >Collection</a
+                        >
+                        <a ngbDropdownItem (click)="logout()">Log Out</a>
                     </div>
                 </div>
 
