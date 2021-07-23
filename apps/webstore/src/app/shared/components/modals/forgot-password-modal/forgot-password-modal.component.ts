@@ -28,11 +28,6 @@ export class ForgotPasswordModalComponent implements OnInit {
   resetPassword() {
     this.router.navigate(['/resetPassword']);
     this.activeModal.close();
-    // console.log(this.forgotPasswordForm.get('email').value);
-    // this.showMessageSent();
-    // setTimeout(() => {
-    //   this.activeModal.close();
-    // }, 3000);
   }
 
   showMessageSent() {
