@@ -15,6 +15,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ForgotPasswordModalComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   @ViewChild('messageSent') messageSent: ElementRef;
+  title = 'ForgotPasswordModal'
 
   constructor(public activeModal: NgbActiveModal, private router: Router) {}
 
