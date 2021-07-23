@@ -29,29 +29,22 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    if (
+    return (
       this.changePasswordForm.get('password').invalid ||
       this.changePasswordForm.get('confirmPassword').invalid ||
       !this.matchingPasswords()
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   matchingPasswords(): boolean {
-    if (
+    return (
       this.changePasswordForm.get('password').value ===
       this.changePasswordForm.get('confirmPassword').value
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   onChangePassword() {
+    // TODO: implement change password
     console.log(
       this.changePasswordForm.get('password').value,
       this.changePasswordForm.get('confirmPassword').value

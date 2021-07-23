@@ -1,6 +1,6 @@
 <div class="flex-container-signup">
     <form
-        (ngSubmit)="onSignup()"
+        (ngSubmit)="onSubmit()"
         name="signupForm"
         class="signup-form"
         [formGroup]="signupForm"
@@ -14,6 +14,7 @@
                 formControlName="email"
                 name="email"
                 id="email"
+                autocomplete="email"
                 required
             />
             <label for="email" class="tc-input-label">E-mail</label>
@@ -37,6 +38,7 @@
                 placeholder="password"
                 name="password"
                 id="password"
+                autocomplete="new-password"
                 required
             />
             <label for="password" class="tc-input-label">Password</label>
@@ -60,6 +62,7 @@
                 placeholder="Confirm password"
                 name="confirmPassword"
                 id="confirmPassword"
+                autocomplete="new-password"
                 required
             />
             <label for="confirmPassword" class="tc-input-label"
@@ -87,11 +90,13 @@
                 />
                 <span class="checkmark" data-cy="checkbox-big-font"></span>
             </label>
+            <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
             <a class="terms-and-conditions" (click)="showTermsOfUse()"
                 >I accept terms and conditions</a
             >
         </div>
 
+        <!-- TODO: add an alert for failed signup attempts -->
         <button
             class="tc-button-100"
             type="submit"

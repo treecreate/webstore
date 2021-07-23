@@ -1,7 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { UserService } from '../../../shared/services/user/user.service';
+import { ILoginResponse } from '@interfaces';
 
 @Component({
   selector: 'webstore-login',
@@ -15,9 +19,24 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   @ViewChild('successfulLogin') successfulLogin: ElementRef;
 
-  constructor(private modalService: NgbModal) {}
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+
+  constructor(
+    private modalService: NgbModal,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    // if user is already logged in redirect to profile
+    if (this.authService.getAuthToken()) {
+      this.router.navigate(['/profile']);
+    }
+
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -27,12 +46,28 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLogin() {
-    console.log(
-      this.loginForm.get('email').value,
-      this.loginForm.get('password').value
-    );
-    this.showSuccessfulLogin();
+  onSubmit(): void {
+    this.authService
+      .login({
+        email: this.loginForm.get('email').value,
+        password: this.loginForm.get('password').value,
+      })
+      .subscribe(
+        (data: ILoginResponse) => {
+          this.authService.saveAuthToken(data.accessToken);
+          this.userService.saveUser(data);
+
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.userService.getUser().roles;
+          // this.showSuccessfulLogin();
+          this.router.navigate(['/']);
+        },
+        (err) => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        }
+      );
   }
 
   showSuccessfulLogin() {
@@ -47,13 +82,13 @@ export class LoginComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    if (
+    return (
       this.loginForm.get('email').invalid ||
       this.loginForm.get('password').invalid
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

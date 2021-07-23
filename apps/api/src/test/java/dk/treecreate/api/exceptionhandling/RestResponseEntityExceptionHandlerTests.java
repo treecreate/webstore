@@ -4,12 +4,17 @@
 
 package dk.treecreate.api.exceptionhandling;
 
+import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
+import dk.treecreate.api.authentication.jwt.JwtUtils;
+import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,10 +27,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = ExceptionController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@WithMockUser(username = "test@treecreate.dk", password = "testPassword",
+    roles = {"USER", "DEVELOPER", "ADMIN"})
 class RestResponseEntityExceptionHandlerTests
 {
     @Autowired
     private MockMvc mvc;
+
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+
+    @MockBean
+    private JwtUtils jwtUtils;
 
     @Test
     void handleResponseStatusException() throws Exception

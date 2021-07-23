@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IRegisterResponse } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { UserService } from '../../../shared/services/user/user.service';
 @Component({
   selector: 'webstore-signup',
   templateUrl: './signup.component.html',
@@ -13,10 +17,23 @@ import { TermsOfUseModalComponent } from '../../../shared/components/modals/term
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   termsAndConditions = false;
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
 
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    // if user is already logged in redirect to profile
+    if (this.authService.getAuthToken()) {
+      this.router.navigate(['/profile']);
+    }
+
     this.signupForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -30,39 +47,46 @@ export class SignupComponent implements OnInit {
         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-zd].{8,}'),
       ]),
     });
-
-    // Only for testing
-    // this.signupForm.valueChanges.subscribe(console.log);
   }
 
-  onSignup() {
-    console.log(this.matchingPasswords());
-    console.log(this.signupForm.get('email').value);
+  onSubmit(): void {
+    this.authService
+      .register({
+        email: this.signupForm.get('email').value,
+        password: this.signupForm.get('password').value,
+      })
+      .subscribe(
+        (data: IRegisterResponse) => {
+          console.log('Registration successful');
+          console.log(data);
+          this.isSuccessful = true;
+          this.isSignUpFailed = false;
+          this.authService.saveAuthToken(data.accessToken);
+          this.userService.saveUser(data);
+          this.router.navigate(['/profile']);
+        },
+        (err) => {
+          this.errorMessage = err.error.message;
+          this.isSignUpFailed = true;
+        }
+      );
   }
 
   matchingPasswords(): boolean {
-    if (
+    return (
       this.signupForm.get('password').value ===
       this.signupForm.get('confirmPassword').value
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   isDisabled(): boolean {
-    if (
+    return (
       this.signupForm.get('email').invalid ||
       this.signupForm.get('password').invalid ||
       this.signupForm.get('confirmPassword').invalid ||
       !this.termsAndConditions ||
       !this.matchingPasswords()
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   showTermsOfUse() {

@@ -7,6 +7,7 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NavbarComponent', () => {
   let fixture: ComponentFixture<NavbarComponent>;
@@ -15,7 +16,7 @@ describe('NavbarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
       providers: [NgbModal, NgbModal, NgbActiveModal],
-      imports: [NgbModule, RouterTestingModule],
+      imports: [NgbModule, RouterTestingModule, HttpClientModule],
     }).compileComponents();
   });
 

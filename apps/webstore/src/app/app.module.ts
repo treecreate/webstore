@@ -17,17 +17,23 @@ import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-s
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
-import { ProductComponent } from './pages/product/product.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
-import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductComponent } from './pages/product/product.component';
+import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
     HomeComponent,
+    SignupComponent,
+    LoginComponent,
+    ProfileComponent,
     PageNotFoundComponent,
     CookiePromptModalComponent,
     TermsOfSaleModalComponent,
@@ -35,8 +41,6 @@ import { ResetPasswordComponent } from './pages/auth/reset-password/reset-passwo
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
     ProductComponent,
-    SignupComponent,
-    LoginComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
   ],
@@ -46,8 +50,9 @@ import { ResetPasswordComponent } from './pages/auth/reset-password/reset-passwo
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [GoogleAnalyticsService],
+  providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
   exports: [ResetPasswordComponent],
 })

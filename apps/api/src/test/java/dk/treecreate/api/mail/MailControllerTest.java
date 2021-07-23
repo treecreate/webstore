@@ -1,6 +1,9 @@
 package dk.treecreate.api.mail;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import dk.treecreate.api.TestUtilsService;
+import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
+import dk.treecreate.api.authentication.jwt.JwtUtils;
+import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
 import dk.treecreate.api.mail.dto.ResetPasswordDto;
 import dk.treecreate.api.mail.dto.SignupDto;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +15,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,6 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = MailController.class,
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@WithMockUser(username = "test@treecreate.dk", password = "testPassword",
+    roles = {"USER", "DEVELOPER", "ADMIN"})
 class MailControllerTest
 {
     @Autowired
@@ -35,17 +41,15 @@ class MailControllerTest
     @MockBean
     private MailService mailService;
 
-    //endregion
-    public static String asJsonString(final Object obj)
-    {
-        try
-        {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+
+    @MockBean
+    private JwtUtils jwtUtils;
+
 
     //region /signup endpoint tests
 
@@ -59,7 +63,7 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
 
-        mvc.perform(post("/mail/signup").content(asJsonString(params))
+        mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isAccepted());
     }
 
@@ -73,7 +77,7 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-        mvc.perform(post("/mail/signup").content(asJsonString(params))
+        mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
@@ -90,7 +94,7 @@ class MailControllerTest
         doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendSignupEmail(email, new Locale("dk"));
 
-        mvc.perform(post("/mail/signup").content(asJsonString(params))
+        mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
     }
 
@@ -104,7 +108,7 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
 
-        mvc.perform(post("/mail/signup").content(asJsonString(params))
+        mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(content().string(""));
     }
 
@@ -118,7 +122,7 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-        mvc.perform(post("/mail/signup").content(asJsonString(params))
+        mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Provided email is not a valid email",
@@ -138,7 +142,7 @@ class MailControllerTest
         doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendSignupEmail(email, new Locale("dk"));
 
-        mvc.perform(post("/mail/signup").content(asJsonString(params))
+        mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Failed to send an email",
@@ -158,7 +162,7 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-        mvc.perform(post("/mail/resetPassword").content(asJsonString(params))
+        mvc.perform(post("/mail/resetPassword").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
     }
 
@@ -175,7 +179,7 @@ class MailControllerTest
         doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendResetPasswordEmail(email, new Locale("dk"));
 
-        mvc.perform(post("/mail/resetPassword").content(asJsonString(params))
+        mvc.perform(post("/mail/resetPassword").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
     }
 
@@ -189,7 +193,7 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
 
-        mvc.perform(post("/mail/resetPassword").content(asJsonString(params))
+        mvc.perform(post("/mail/resetPassword").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(content().string(""));
     }
 
@@ -203,7 +207,7 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
-        mvc.perform(post("/mail/resetPassword").content(asJsonString(params))
+        mvc.perform(post("/mail/resetPassword").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Provided email is not a valid email",
@@ -223,7 +227,7 @@ class MailControllerTest
         doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendResetPasswordEmail(email, new Locale("dk"));
 
-        mvc.perform(post("/mail/resetPassword").content(asJsonString(params))
+        mvc.perform(post("/mail/resetPassword").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Failed to send an email",

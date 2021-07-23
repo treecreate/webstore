@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserRoles } from '@models';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { ProductComponent } from './pages/product/product.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
@@ -11,15 +14,21 @@ import { ResetPasswordComponent } from './pages/auth/reset-password/reset-passwo
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
-  { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
-  { path: 'rejectedCookies', component: RejectedCookiesComponent },
-  { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
   { path: 'login', component: LoginComponent, canActivate: [CookieGuard] },
   {
     path: 'resetPassword',
     component: ResetPasswordComponent,
     canActivate: [CookieGuard],
   },
+  { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.user] },
+  },
+  { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
+  { path: 'rejectedCookies', component: RejectedCookiesComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
 ];

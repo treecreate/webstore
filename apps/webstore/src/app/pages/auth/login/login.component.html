@@ -1,6 +1,7 @@
 <div class="flex-container-login">
     <form
-        (ngSubmit)="onLogin()"
+        *ngIf="!isLoggedIn"
+        (ngSubmit)="onSubmit()"
         name="loginForm"
         class="login-form"
         [formGroup]="loginForm"
@@ -14,6 +15,7 @@
                 formControlName="email"
                 name="email"
                 id="email"
+                autocomplete="email"
                 required
             />
             <label for="email" class="tc-input-label">E-mail</label>
@@ -27,6 +29,7 @@
                 placeholder="password"
                 name="password"
                 id="password"
+                autocomplete="current-password"
                 required
             />
             <label for="password" class="tc-input-label">Password</label>
@@ -38,6 +41,7 @@
             </a>
         </div>
 
+        <!-- TODO: Add an alert for failed singin -->
         <button
             class="tc-button-100"
             type="submit"

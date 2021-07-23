@@ -38,10 +38,6 @@ export class ForgotPasswordModalComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    if (this.forgotPasswordForm.get('email').invalid) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.forgotPasswordForm.get('email').invalid;
   }
 }
