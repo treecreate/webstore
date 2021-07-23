@@ -19,6 +19,16 @@
             <label for="email" class="tc-input-label">E-mail</label>
         </div>
 
+        <div
+            class="password-error"
+            *ngIf="
+                this.signupForm.get('email').dirty &&
+                this.signupForm.get('email').invalid
+            "
+        >
+            Invalid e-mail
+        </div>
+
         <div class="tc-input-group field">
             <input
                 type="password"
@@ -39,7 +49,7 @@
                 this.signupForm.get('password').invalid
             "
         >
-            Must contain at least one uppercase, lowecase, number and match
+            Must contain at least one upper- and lowecase letter and a number.
         </div>
 
         <div class="tc-input-group field">
@@ -64,7 +74,7 @@
                 !this.matchingPasswords()
             "
         >
-            Passwords must match
+            The passwords must match each other
         </div>
 
         <div class="terms-and-conditions-container">
