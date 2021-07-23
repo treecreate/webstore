@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IRegisterRequestParams, IRegisterResponse } from '@interfaces';
+import { Router } from '@angular/router';
+import { IRegisterRequestParams, IRegisterResponse, IUser } from '@interfaces';
 import { AuthService } from '../../shared/services/authentication/auth.service';
+import { UserService } from '../../shared/services/user/user.service';
 
 @Component({
   selector: 'webstore-register',
@@ -16,7 +18,11 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
@@ -24,9 +30,13 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     this.authService.register(this.form).subscribe(
       (data: IRegisterResponse) => {
-        console.log('Registration status: ' + data.message);
+        console.log('Registration successful');
+        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this.authService.saveAuthToken(data.accessToken);
+        this.userService.saveUser(data);
+        this.router.navigate(['/profile']);
       },
       (err) => {
         this.errorMessage = err.error.message;

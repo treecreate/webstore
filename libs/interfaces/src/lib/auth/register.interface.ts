@@ -1,5 +1,9 @@
 export interface IRegisterResponse {
-  message: string;
+  roles: [string];
+  accessToken: string;
+  tokenType: string;
+  userId: string;
+  email: string;
 }
 
 export interface IRegisterRequestParams {

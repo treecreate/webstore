@@ -162,8 +162,9 @@ class AuthControllerTests
             "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
         user.setRoles(roles);
 
-
         Mockito.when(userRepository.save(user)).thenReturn(user);
+        Mockito.when(userRepository.findByEmail(signupRequest.getEmail())).thenReturn(
+            java.util.Optional.of(user));
         Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_USER)));
 
@@ -171,11 +172,11 @@ class AuthControllerTests
             .contentType(MediaType.APPLICATION_JSON)
             .content(asJsonString(signupRequest)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("userId",
-                is(nullValue()))) // normally a proper ID is returned but not when mocked like this
-            .andExpect(jsonPath("username", is(user.getEmail())))
+            .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
-            .andExpect(jsonPath("$.roles", hasSize(1)));
+            .andExpect(jsonPath("$.roles", hasSize(1)))
+            .andExpect(jsonPath("tokenType", is("Bearer")))
+            .andExpect(jsonPath("accessToken", is(notNullValue())));
     }
 
     @Test
@@ -206,6 +207,8 @@ class AuthControllerTests
         user.setRoles(roles);
 
         Mockito.when(userRepository.save(user)).thenReturn(user);
+        Mockito.when(userRepository.findByEmail(signupRequest.getEmail())).thenReturn(
+            java.util.Optional.of(user));
         Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_USER)));
         Mockito.when(roleRepository.findByName(ERole.ROLE_DEVELOPER)).thenReturn(
@@ -217,11 +220,11 @@ class AuthControllerTests
             .contentType(MediaType.APPLICATION_JSON)
             .content(asJsonString(signupRequest)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("userId",
-                is(nullValue()))) // normally a proper ID is returned but not when mocked like this
-            .andExpect(jsonPath("username", is(user.getEmail())))
+            .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
-            .andExpect(jsonPath("$.roles", hasSize(3)));
+            .andExpect(jsonPath("$.roles", hasSize(3)))
+            .andExpect(jsonPath("tokenType", is("Bearer")))
+            .andExpect(jsonPath("accessToken", is(notNullValue())));
     }
     //endregion
 

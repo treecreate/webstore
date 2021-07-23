@@ -10,6 +10,7 @@ import dk.treecreate.api.authentication.models.Role;
 import dk.treecreate.api.authentication.models.User;
 import dk.treecreate.api.authentication.repository.RoleRepository;
 import dk.treecreate.api.authentication.repository.UserRepository;
+import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.authentication.services.UserDetailsImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
@@ -50,6 +51,7 @@ public class AuthController
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired AuthUserService authUserService;
 
     @PostMapping("/signin")
     @Operation(summary = "Sign in as an existing user")
@@ -61,33 +63,18 @@ public class AuthController
     public ResponseEntity<JwtResponse> authenticateUser(
         @Valid @RequestBody LoginRequest loginRequest)
     {
-
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
-                loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-            userDetails.getUsedId(),
-            userDetails.getEmail(),
-            roles));
+        return ResponseEntity.ok(authUserService
+            .authenticateUser(loginRequest.getEmail(), loginRequest.getPassword()));
     }
 
     @PostMapping("/signup")
     @Operation(summary = "Register a new user")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Information about the newly created user",
-            response = RegisterUserSuccessfulResponse.class),
+            response = JwtResponse.class),
         @ApiResponse(code = 401,
             message = "Provided body is not valid, it is missing, or the email is already in use")})
-    public ResponseEntity<RegisterUserSuccessfulResponse> registerUser(
+    public ResponseEntity<JwtResponse> registerUser(
         @Valid @RequestBody SignupRequest signUpRequest)
     {
         if (userRepository.existsByEmail(signUpRequest.getEmail()))
@@ -135,8 +122,9 @@ public class AuthController
         }
         user.setRoles(roles);
         userRepository.save(user);
-        return ResponseEntity
-            .ok(new RegisterUserSuccessfulResponse(user.getUserId(), user.getEmail(),
-                user.getRoles()));
+
+        return ResponseEntity.ok(authUserService
+            .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
     }
+
 }
