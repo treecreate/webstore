@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'webstore-login',
@@ -12,7 +14,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor() {}
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -30,6 +32,10 @@ export class LoginComponent implements OnInit {
       this.loginForm.get('email').value,
       this.loginForm.get('password').value
     );
+  }
+
+  openForgotPasswordModal() {
+    this.modalService.open(ForgotPasswordModalComponent);
   }
 
   isDisabled(): boolean {

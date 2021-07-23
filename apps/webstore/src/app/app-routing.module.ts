@@ -4,8 +4,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { ProductComponent } from './pages/product/product.component';
-import { LoginComponent } from './pages/user/login/login.component';
-import { SignupComponent } from './pages/user/signup/signup.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
 const routes: Routes = [

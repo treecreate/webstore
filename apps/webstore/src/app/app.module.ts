@@ -19,8 +19,9 @@ import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/reject
 import { ProductComponent } from './pages/product/product.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SignupComponent } from './pages/user/signup/signup.component';
-import { LoginComponent } from './pages/user/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LoginComponent } from './pages/user/login/login.component';
     ProductComponent,
     SignupComponent,
     LoginComponent,
+    ForgotPasswordModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,5 +49,6 @@ import { LoginComponent } from './pages/user/login/login.component';
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
+  exports: [ForgotPasswordModalComponent],
 })
 export class AppModule {}
