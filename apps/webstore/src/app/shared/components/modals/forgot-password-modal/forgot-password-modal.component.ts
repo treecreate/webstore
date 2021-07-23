@@ -15,7 +15,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ForgotPasswordModalComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   @ViewChild('messageSent') messageSent: ElementRef;
-  title = 'ForgotPasswordModal'
+  title = 'ForgotPasswordModal';
 
   constructor(public activeModal: NgbActiveModal, private router: Router) {}
 
@@ -27,7 +27,7 @@ export class ForgotPasswordModalComponent implements OnInit {
 
   resetPassword() {
     this.router.navigate(['/resetPassword']);
-    this.activeModal.close(); 
+    this.activeModal.close();
     // console.log(this.forgotPasswordForm.get('email').value);
     // this.showMessageSent();
     // setTimeout(() => {
