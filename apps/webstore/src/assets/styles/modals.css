@@ -59,16 +59,26 @@ a:hover {
     width: 90%;
     margin-top: 1rem;
   }
+  .modal-body-secondary {
+    margin: 2rem 2rem !important;
+  }
+  .tc-button-50 {
+    width: 100%;
+  }
+  .modal-footer-secondary{
+    margin: 0 2rem 2rem 2rem;
+  }
 }
 
+/* Secondary modal styling */
 .modal-header-secondary {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 150px;
-  background-color: #FFF0E4;
-  border-top-left-radius: .3rem;
-  border-top-right-radius: .3rem;
+  background-color: #fff0e4;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
 }
 .modal-header-icon {
   margin-right: 10px;
@@ -79,14 +89,15 @@ a:hover {
   margin-bottom: 2rem;
 }
 .modal-body-secondary {
-  margin: 2rem 3.5rem; 
+  margin: 2rem 3.5rem;
 }
 .title {
   text-align: left;
 }
 .tc-input-group {
-  margin: 0 0 10px 0!important;
+  margin: 0 0 10px 0 !important;
 }
 .tc-button-50 {
   margin: 0 auto 1rem auto !important;
 }
+/* END Secondary modal styling */

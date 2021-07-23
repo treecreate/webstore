@@ -7,15 +7,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: [
     './forgot-password-modal.component.css',
     '../../../../../assets/styles/modals.css',
-    '../../../../../assets/styles/tc-input-field.scss'
+    '../../../../../assets/styles/tc-input-field.scss',
   ],
 })
 export class ForgotPasswordModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) {}
 
-  ngOnInit(): void { }
-  
-  resetPassword() {
+  ngOnInit(): void {}
 
-  }
+  resetPassword() {}
 }
