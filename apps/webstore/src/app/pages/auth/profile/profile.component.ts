@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '@interfaces';
-import { UserService } from '../../shared/services/user/user.service';
+import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
   selector: 'webstore-profile',

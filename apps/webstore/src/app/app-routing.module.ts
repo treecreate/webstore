@@ -4,7 +4,7 @@ import { UserRoles } from '@models';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
-import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { ProductComponent } from './pages/product/product.component';
 import { LoginComponent } from './pages/auth/login/login.component';
