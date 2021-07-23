@@ -49,8 +49,6 @@ import { ResetPasswordComponent } from './pages/auth/reset-password/reset-passwo
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [
-    ResetPasswordComponent
-  ],
+  exports: [ResetPasswordComponent],
 })
 export class AppModule {}

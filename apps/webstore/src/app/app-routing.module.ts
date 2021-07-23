@@ -15,7 +15,11 @@ const routes: Routes = [
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
   { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
   { path: 'login', component: LoginComponent, canActivate: [CookieGuard] },
-  { path: 'resetPassword', component: ResetPasswordComponent, canActivate: [CookieGuard] },
+  {
+    path: 'resetPassword',
+    component: ResetPasswordComponent,
+    canActivate: [CookieGuard],
+  },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
 ];
