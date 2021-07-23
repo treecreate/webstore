@@ -1,0 +1,113 @@
+<div class="flex-container-signup">
+    <form
+        (ngSubmit)="onSubmit()"
+        name="signupForm"
+        class="signup-form"
+        [formGroup]="signupForm"
+    >
+        <h1 class="page-title">Sign Up</h1>
+        <div class="tc-input-group field">
+            <input
+                type="email"
+                class="tc-input-field"
+                placeholder="E-mail"
+                formControlName="email"
+                name="email"
+                id="email"
+                required
+            />
+            <label for="email" class="tc-input-label">E-mail</label>
+        </div>
+
+        <div class="tc-input-group field">
+            <input
+                type="password"
+                class="tc-input-field"
+                formControlName="password"
+                placeholder="password"
+                name="password"
+                id="password"
+                required
+            />
+            <label for="password" class="tc-input-label">Password</label>
+        </div>
+
+        <div
+            class="password-error"
+            *ngIf="
+                this.signupForm.get('password').dirty &&
+                this.signupForm.get('password').invalid
+            "
+        >
+            Must contain at least one uppercase, lowecase, number and match
+        </div>
+
+        <div class="tc-input-group field">
+            <input
+                type="password"
+                class="tc-input-field"
+                formControlName="confirmPassword"
+                placeholder="Confirm password"
+                name="confirmPassword"
+                id="confirmPassword"
+                required
+            />
+            <label for="confirmPassword" class="tc-input-label"
+                >Confirm password</label
+            >
+        </div>
+
+        <div
+            class="password-error"
+            *ngIf="
+                this.signupForm.get('confirmPassword').dirty &&
+                !this.matchingPasswords()
+            "
+        >
+            Passwords must match
+        </div>
+
+        <div class="terms-and-conditions-container">
+            <label class="checkbox-container">
+                <input
+                    type="checkbox"
+                    (change)="
+                        this.termsAndConditions = !this.termsAndConditions
+                    "
+                />
+                <span class="checkmark" data-cy="checkbox-big-font"></span>
+            </label>
+            <a class="terms-and-conditions" (click)="showTermsOfUse()"
+                >I accept terms and conditions</a
+            >
+        </div>
+
+        <button
+            class="tc-button-100"
+            type="submit"
+            [ngClass]="isDisabled() ? 'disabled' : ''"
+            [disabled]="isDisabled()"
+        >
+            Create Account
+        </button>
+
+        <button class="tc-button-100" type="button" routerLink="/login">
+            Back to Login
+        </button>
+    </form>
+</div>
+
+<!-- For cy tests -->
+<div class="hide" data-cy="signup-email">
+    {{ this.signupForm.get('email').value }}
+</div>
+<div class="hide" data-cy="signup-password">
+    {{ this.signupForm.get('password').value }}
+</div>
+<div class="hide" data-cy="signup-confirm-password">
+    {{ this.signupForm.get('confirmPassword').value }}
+</div>
+<div class="hide" data-cy="signup-terms-and-conditions">
+    {{ this.termsAndConditions }}
+</div>
+<!-- cy test end -->

@@ -1,0 +1,44 @@
+.flex-container-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.login-form {
+  padding: 20px 30px 30px 30px;
+  width: 400px;
+  max-width: 100vw;
+  text-align: center;
+}
+
+.page-title {
+  font-weight: 700;
+}
+
+.forgot-password-container {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: none;
+  transition: 0.5s;
+  color: #ebc6ab !important;
+}
+
+.tc-button-100 {
+  margin: 10px 0;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.disabled:hover {
+  transform: scale(1);
+}

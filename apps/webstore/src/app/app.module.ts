@@ -16,13 +16,14 @@ import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-s
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { ProductComponent } from './pages/product/product.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/user/login/login.component';
+import { SignupComponent } from './pages/user/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,6 @@ import { ProductComponent } from './pages/product/product.component';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent,
     ProfileComponent,
     PageNotFoundComponent,
     CookiePromptModalComponent,
@@ -40,16 +40,18 @@ import { ProductComponent } from './pages/product/product.component';
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
     ProductComponent,
+    SignupComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [ProductComponent],
 })
 export class AppModule {}
