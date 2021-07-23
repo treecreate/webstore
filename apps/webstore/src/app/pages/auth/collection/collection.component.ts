@@ -9,6 +9,6 @@ export class CollectionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log("collection");
+    console.log('collection');
   }
 }

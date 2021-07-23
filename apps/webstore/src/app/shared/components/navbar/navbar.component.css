@@ -65,6 +65,11 @@
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
+.dropdown-menu {
+  top: 35px;
+  left: -75px;
+}
+
 @media all and (max-width: 992px) {
   .nav-item {
     padding: 0 1rem 0 0;
