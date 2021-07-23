@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -15,7 +16,7 @@ export class ForgotPasswordModalComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   @ViewChild('messageSent') messageSent: ElementRef;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private router: Router) {}
 
   ngOnInit(): void {
     this.forgotPasswordForm = new FormGroup({
@@ -24,11 +25,12 @@ export class ForgotPasswordModalComponent implements OnInit {
   }
 
   resetPassword() {
-    console.log(this.forgotPasswordForm.get('email').value);
-    this.showMessageSent();
-    setTimeout(() => {
-      this.activeModal.close();
-    }, 3000);
+    this.router.navigate(['/resetPassword'])
+    // console.log(this.forgotPasswordForm.get('email').value);
+    // this.showMessageSent();
+    // setTimeout(() => {
+    //   this.activeModal.close();
+    // }, 3000);
   }
 
   showMessageSent() {

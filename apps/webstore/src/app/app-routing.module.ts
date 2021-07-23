@@ -7,6 +7,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
   { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
   { path: 'login', component: LoginComponent, canActivate: [CookieGuard] },
+  { path: 'resetPassword', component: ResetPasswordComponent, canActivate: [CookieGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
 ];

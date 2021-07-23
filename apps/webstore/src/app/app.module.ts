@@ -21,6 +21,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
     SignupComponent,
     LoginComponent,
     ForgotPasswordModalComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,5 +49,8 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
+  exports: [
+    ResetPasswordComponent
+  ],
 })
 export class AppModule {}
