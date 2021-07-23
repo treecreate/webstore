@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -11,9 +12,26 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   ],
 })
 export class ForgotPasswordModalComponent implements OnInit {
+  forgotPasswordForm: FormGroup;
+
   constructor(public activeModal: NgbActiveModal) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.forgotPasswordForm = new FormGroup({
+      email: new FormControl('', [Validators.email, Validators.required]),
+    });
+  }
 
-  resetPassword() {}
+  resetPassword() {
+    console.log(this.forgotPasswordForm.get('email').value);
+    this.activeModal.close();
+  }
+
+  isDisabled(): boolean {
+    if (this.forgotPasswordForm.get('email').invalid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
