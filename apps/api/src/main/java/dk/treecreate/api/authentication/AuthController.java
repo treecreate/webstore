@@ -3,7 +3,6 @@ package dk.treecreate.api.authentication;
 import dk.treecreate.api.authentication.dto.request.LoginRequest;
 import dk.treecreate.api.authentication.dto.request.SignupRequest;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
-import dk.treecreate.api.authentication.dto.response.RegisterUserSuccessfulResponse;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
@@ -11,7 +10,6 @@ import dk.treecreate.api.authentication.models.User;
 import dk.treecreate.api.authentication.repository.RoleRepository;
 import dk.treecreate.api.authentication.repository.UserRepository;
 import dk.treecreate.api.authentication.services.AuthUserService;
-import dk.treecreate.api.authentication.services.UserDetailsImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -20,19 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -67,6 +59,7 @@ public class AuthController
             .authenticateUser(loginRequest.getEmail(), loginRequest.getPassword()));
     }
 
+    // TODO: remove ability for any user to register as any role.
     @PostMapping("/signup")
     @Operation(summary = "Register a new user")
     @ApiResponses(value = {

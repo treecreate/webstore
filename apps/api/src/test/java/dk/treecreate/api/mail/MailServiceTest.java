@@ -70,21 +70,21 @@ class MailServiceTest
                 "Åæøæøæøæøæøæøæøæøæøæøæøæøæøæ" + "@domain.yahoo", false));
     }
 
-    @ParameterizedTest
-    @MethodSource("isValidEmailArguments")
-    @DisplayName("isValidEmail() returns correct value")
-    void isValidEmail(String email,
-                                                                           boolean expected)
-    {
-        assertEquals(expected, mailService.isValidEmail(email));
-    }
-
     private static Stream<Arguments> getLocaleArguments()
     {
         return Stream.of(
             Arguments.of("dk", new Locale("dk")),
             Arguments.of("en", Locale.ENGLISH),
             Arguments.of(null, new Locale("dk")));
+    }
+
+    @ParameterizedTest
+    @MethodSource("isValidEmailArguments")
+    @DisplayName("isValidEmail() returns correct value")
+    void isValidEmail(String email,
+                      boolean expected)
+    {
+        assertEquals(expected, mailService.isValidEmail(email));
     }
 
     @ParameterizedTest

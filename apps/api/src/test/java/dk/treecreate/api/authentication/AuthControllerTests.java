@@ -1,6 +1,7 @@
 package dk.treecreate.api.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dk.treecreate.api.TestUtilsService;
 import dk.treecreate.api.authentication.dto.request.LoginRequest;
 import dk.treecreate.api.authentication.dto.request.SignupRequest;
 import dk.treecreate.api.authentication.models.ERole;
@@ -79,9 +80,13 @@ class AuthControllerTests
 
         mvc.perform(post("/auth/signin")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(asJsonString(loginRequest)))
+            .content(TestUtilsService.asJsonString(loginRequest)))
             .andExpect(status().isUnauthorized());
     }
+
+    //endregion
+
+    //region Sign Up
 
     @Test
     @DisplayName("/auth/signin endpoint correctly authenticates the user")
@@ -106,7 +111,7 @@ class AuthControllerTests
 
         mvc.perform(post("/auth/signin")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(asJsonString(loginRequest)))
+            .content(TestUtilsService.asJsonString(loginRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
@@ -114,10 +119,6 @@ class AuthControllerTests
             .andExpect(jsonPath("tokenType", is("Bearer")))
             .andExpect(jsonPath("accessToken", is(notNullValue())));
     }
-
-    //endregion
-
-    //region Sign Up
 
     @Test
     @DisplayName("/auth/signup endpoint return 400 when the request body is incorrect")
@@ -140,7 +141,7 @@ class AuthControllerTests
 
         mvc.perform(post("/auth/signup")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(asJsonString(signupRequest)))
+            .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isBadRequest());
     }
 
@@ -170,7 +171,7 @@ class AuthControllerTests
 
         mvc.perform(post("/auth/signup")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(asJsonString(signupRequest)))
+            .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
@@ -178,6 +179,7 @@ class AuthControllerTests
             .andExpect(jsonPath("tokenType", is("Bearer")))
             .andExpect(jsonPath("accessToken", is(notNullValue())));
     }
+    //endregion
 
     @Test
     @DisplayName("/auth/signup endpoint correctly creates a new user with specified roles")
@@ -218,24 +220,12 @@ class AuthControllerTests
 
         mvc.perform(post("/auth/signup")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(asJsonString(signupRequest)))
+            .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
             .andExpect(jsonPath("$.roles", hasSize(3)))
             .andExpect(jsonPath("tokenType", is("Bearer")))
             .andExpect(jsonPath("accessToken", is(notNullValue())));
-    }
-    //endregion
-
-    public static String asJsonString(final Object obj)
-    {
-        try
-        {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
     }
 }
