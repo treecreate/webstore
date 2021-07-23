@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { AlertPopUpComponent } from './shared/components/alert-pop-up/alert-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
     SignupComponent,
     LoginComponent,
     ForgotPasswordModalComponent,
+    AlertPopUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,6 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [ForgotPasswordModalComponent],
+  exports: [ForgotPasswordModalComponent, AlertPopUpComponent],
 })
 export class AppModule {}
