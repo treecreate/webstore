@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'webstore-login',
@@ -11,8 +13,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  @ViewChild('successfulLogin') successfulLogin: ElementRef;
 
-  constructor() {}
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -20,7 +23,6 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-zd].{8,}'),
       ]),
     });
   }
@@ -30,6 +32,18 @@ export class LoginComponent implements OnInit {
       this.loginForm.get('email').value,
       this.loginForm.get('password').value
     );
+    this.showSuccessfulLogin();
+  }
+
+  showSuccessfulLogin() {
+    this.successfulLogin.nativeElement.classList.remove('alert-hide');
+    setTimeout(() => {
+      this.successfulLogin.nativeElement.classList.add('alert-hide');
+    }, 3000);
+  }
+
+  openForgotPasswordModal() {
+    this.modalService.open(ForgotPasswordModalComponent);
   }
 
   isDisabled(): boolean {

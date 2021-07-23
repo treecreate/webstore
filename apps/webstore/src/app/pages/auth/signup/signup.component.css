@@ -19,18 +19,6 @@
   margin: 10px 0;
 }
 
-.disabled {
-  opacity: 0.5;
-}
-
-.disabled:hover {
-  transform: scale(1);
-}
-
-.hide {
-  display: none;
-}
-
 .terms-and-conditions {
   font-size: 14px;
   text-align: left;
@@ -52,11 +40,4 @@
 .terms-and-conditions-container {
   margin: 10px 0;
   text-align: left;
-}
-
-.password-error {
-  font-size: 10px;
-  text-align: left;
-  color: red;
-  line-height: 0;
 }

@@ -6,3 +6,37 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+.error-message {
+  font-size: 10px;
+  text-align: left;
+  color: red;
+  line-height: 0;
+  margin-bottom: 5px;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.disabled:hover {
+  transform: scale(1);
+  box-shadow: 0px 3px 10px 0 rgb(0 0 0 / 15%);
+}
+
+.hide {
+  display: none;
+}
+
+.alert-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  padding: 0 1rem;
+}
+.alert-hide {
+  transition: opacity 0.25s linear;
+  opacity: 0;
+}

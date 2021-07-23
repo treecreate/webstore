@@ -33,7 +33,7 @@
         </div>
 
         <div class="forgot-password-container">
-            <a routerLink="/forgot-password" class="forgot-password-link">
+            <a (click)="openForgotPasswordModal()" class="forgot-password-link">
                 Forgot password?
             </a>
         </div>
@@ -51,6 +51,13 @@
         </button>
     </form>
 </div>
+
+<!-- TODO: alert - Make a reusable alert pop up service that is not related to the component -->
+<!-- <div class="alert-container alert-hide" #successfulLogin>
+    <ngb-alert [type]="'success'">
+        Welcome! You have successfully logged in!
+    </ngb-alert>
+</div> -->
 
 <!-- For cy tests -->
 <div class="hide" data-cy="login-email">

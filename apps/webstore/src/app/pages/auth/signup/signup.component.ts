@@ -31,7 +31,8 @@ export class SignupComponent implements OnInit {
       ]),
     });
 
-    this.signupForm.valueChanges.subscribe(console.log);
+    // Only for testing
+    // this.signupForm.valueChanges.subscribe(console.log);
   }
 
   onSignup() {

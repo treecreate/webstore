@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Services
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 //Components
@@ -17,11 +18,10 @@ import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-us
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { ProductComponent } from './pages/product/product.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SignupComponent } from './pages/user/signup/signup.component';
-import { LoginComponent } from './pages/user/login/login.component';
-
+import { SignupComponent } from './pages/auth/signup/signup.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +37,8 @@ import { LoginComponent } from './pages/user/login/login.component';
     ProductComponent,
     SignupComponent,
     LoginComponent,
+    ForgotPasswordModalComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,5 +49,6 @@ import { LoginComponent } from './pages/user/login/login.component';
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
+  exports: [ResetPasswordComponent],
 })
 export class AppModule {}
