@@ -31,7 +31,6 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = this.localStorageService
       .getItem<string>(LocalStorageVars.authToken)
       .getValue();
-    console.log(token);
     if (token != null) {
       // for Spring Boot back-end
       authReq = req.clone({

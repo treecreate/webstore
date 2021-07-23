@@ -66,14 +66,10 @@ export class LoginComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    if (
+    return (
       this.loginForm.get('email').invalid ||
       this.loginForm.get('password').invalid
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   reloadPage(): void {

@@ -51,7 +51,6 @@ export class NavbarComponent implements OnInit {
     this.authUser$.subscribe(() => {
       // If the user data is undefined, assume that the user is logged out
       this.isLoggedIn = this.authUser$.getValue() != null ? true : false;
-      console.log('Logged in: ' + this.isLoggedIn);
     });
 
     this.environment = environment;
