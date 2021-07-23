@@ -60,3 +60,33 @@ a:hover {
     margin-top: 1rem;
   }
 }
+
+.modal-header-secondary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  background-color: #FFF0E4;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+.modal-header-icon {
+  margin-right: 10px;
+}
+.modal-footer-secondary {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.modal-body-secondary {
+  margin: 2rem 3.5rem; 
+}
+.title {
+  text-align: left;
+}
+.tc-input-group {
+  margin: 0 0 10px 0!important;
+}
+.tc-button-50 {
+  margin: 0 auto 1rem auto !important;
+}
