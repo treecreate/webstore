@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Services
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 //Components
@@ -17,13 +18,9 @@ import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-us
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { ProductComponent } from './pages/product/product.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
-import { AlertPopUpComponent } from './shared/components/alert-pop-up/alert-pop-up.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +37,6 @@ import { AlertPopUpComponent } from './shared/components/alert-pop-up/alert-pop-
     SignupComponent,
     LoginComponent,
     ForgotPasswordModalComponent,
-    AlertPopUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +47,5 @@ import { AlertPopUpComponent } from './shared/components/alert-pop-up/alert-pop-
   ],
   providers: [GoogleAnalyticsService],
   bootstrap: [AppComponent],
-  exports: [ForgotPasswordModalComponent, AlertPopUpComponent],
 })
 export class AppModule {}

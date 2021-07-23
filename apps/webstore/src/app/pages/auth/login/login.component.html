@@ -52,6 +52,12 @@
     </form>
 </div>
 
+<div class="alert-container alert-hide" #successfulLogin>
+    <ngb-alert [type]="'success'">
+        Welcome! You have successfully logged in!
+    </ngb-alert>
+</div>
+
 <!-- For cy tests -->
 <div class="hide" data-cy="login-email">
     {{ this.loginForm.get('email').value }}

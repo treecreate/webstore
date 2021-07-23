@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,6 +13,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ForgotPasswordModalComponent implements OnInit {
   forgotPasswordForm: FormGroup;
+  @ViewChild('messageSent') messageSent: ElementRef;
 
   constructor(public activeModal: NgbActiveModal) {}
 
@@ -24,7 +25,18 @@ export class ForgotPasswordModalComponent implements OnInit {
 
   resetPassword() {
     console.log(this.forgotPasswordForm.get('email').value);
-    this.activeModal.close();
+    this.showMessageSent();
+    setTimeout(() => {
+      this.activeModal.close();
+    }, 3000);
+  }
+
+  showMessageSent() {
+    console.log('gets here');
+    this.messageSent.nativeElement.classList.remove('alert-hide');
+    setTimeout(() => {
+      this.messageSent.nativeElement.classList.add('alert-hide');
+    }, 3000);
   }
 
   isDisabled(): boolean {
