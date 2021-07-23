@@ -31,7 +31,6 @@ export class ForgotPasswordModalComponent implements OnInit {
   }
 
   showMessageSent() {
-    console.log('gets here');
     this.messageSent.nativeElement.classList.remove('alert-hide');
     setTimeout(() => {
       this.messageSent.nativeElement.classList.add('alert-hide');
