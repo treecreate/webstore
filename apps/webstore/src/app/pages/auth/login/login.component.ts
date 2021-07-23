@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILoginResponse } from '@interfaces';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { UserService } from '../../../shared/services/user/user.service';
+import { ILoginResponse } from '@interfaces';
 
 @Component({
   selector: 'webstore-login',
@@ -15,12 +17,15 @@ import { UserService } from '../../../shared/services/user/user.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  @ViewChild('successfulLogin') successfulLogin: ElementRef;
+
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
   constructor(
+    private modalService: NgbModal,
     private authService: AuthService,
     private userService: UserService,
     private router: Router
@@ -37,7 +42,6 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-zd].{8,}'),
       ]),
     });
   }
@@ -56,13 +60,25 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.roles = this.userService.getUser().roles;
-          this.router.navigate(['/profile']);
+          // this.showSuccessfulLogin();
+          this.router.navigate(['/']);
         },
         (err) => {
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
         }
       );
+  }
+
+  showSuccessfulLogin() {
+    this.successfulLogin.nativeElement.classList.remove('alert-hide');
+    setTimeout(() => {
+      this.successfulLogin.nativeElement.classList.add('alert-hide');
+    }, 3000);
+  }
+
+  openForgotPasswordModal() {
+    this.modalService.open(ForgotPasswordModalComponent);
   }
 
   isDisabled(): boolean {

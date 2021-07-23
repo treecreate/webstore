@@ -21,10 +21,6 @@
   margin-bottom: 20px;
 }
 
-.hide {
-  display: none;
-}
-
 .forgot-password-link:hover {
   text-decoration: none;
   transition: 0.5s;
@@ -33,12 +29,4 @@
 
 .tc-button-100 {
   margin: 10px 0;
-}
-
-.disabled {
-  opacity: 0.5;
-}
-
-.disabled:hover {
-  transform: scale(1);
 }

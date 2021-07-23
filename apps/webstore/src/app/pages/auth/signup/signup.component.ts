@@ -16,10 +16,10 @@ import { UserService } from '../../../shared/services/user/user.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
+  termsAndConditions = false;
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-  termsAndConditions = false;
 
   constructor(
     private modalService: NgbModal,
@@ -80,17 +80,13 @@ export class SignupComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    if (
+    return (
       this.signupForm.get('email').invalid ||
       this.signupForm.get('password').invalid ||
       this.signupForm.get('confirmPassword').invalid ||
       !this.termsAndConditions ||
       !this.matchingPasswords()
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   }
 
   showTermsOfUse() {
