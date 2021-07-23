@@ -20,7 +20,7 @@
         </div>
 
         <div
-            class="password-error"
+            class="error-message"
             *ngIf="
                 this.signupForm.get('email').dirty &&
                 this.signupForm.get('email').invalid
@@ -43,7 +43,7 @@
         </div>
 
         <div
-            class="password-error"
+            class="error-message"
             *ngIf="
                 this.signupForm.get('password').dirty &&
                 this.signupForm.get('password').invalid
@@ -68,7 +68,7 @@
         </div>
 
         <div
-            class="password-error"
+            class="error-message"
             *ngIf="
                 this.signupForm.get('confirmPassword').dirty &&
                 !this.matchingPasswords()
