@@ -1,6 +1,7 @@
-package dk.treecreate.api.authentication.models;
+package dk.treecreate.api.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dk.treecreate.api.authentication.models.Role;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;

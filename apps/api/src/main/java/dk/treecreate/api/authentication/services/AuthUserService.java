@@ -3,13 +3,14 @@ package dk.treecreate.api.authentication.services;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.repository.RoleRepository;
-import dk.treecreate.api.authentication.repository.UserRepository;
+import dk.treecreate.api.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +50,10 @@ public class AuthUserService
             userDetails.getUsedId(),
             userDetails.getEmail(),
             roles);
+    }
+
+    public UserDetails getCurrentlyAuthenticatedUser()
+    {
+        return (UserDetailsImpl)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
