@@ -5,6 +5,7 @@ import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.user.UserService;
+import dk.treecreate.api.user.dto.UpdateUserRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -168,6 +170,125 @@ class UserControllerTests
             mvc.perform(get("/users/me"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(TestUtilsService.asJsonString(user)));
+        }
+    }
+
+    @Nested
+    class UpdateUserTests
+    {
+        @Test
+        @DisplayName(
+            "PUT /users endpoint returns updated version of the currently authenticated user")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void updateCurrentUserReturnsUpdatedUser() throws Exception
+        {
+            User user = new User();
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+            UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+            updateUserRequest.setName("test user");
+            user.setName(updateUserRequest.getName());
+
+            Mockito.when(userRepository.existsByEmail(user.getEmail())).thenReturn(false);
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+            Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
+                .thenReturn(user);
+            Mockito.when(userRepository.save(user)).thenReturn(user);
+
+            mvc.perform(put("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .andExpect(status().isOk())
+                .andExpect(content().json(TestUtilsService.asJsonString(user)));
+        }
+
+        @Test
+        @DisplayName("PUT /users/:userId endpoint returns an updated user")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword",
+            roles = {"DEVELOPER"})
+        void updateUserReturnsUpdatedUser() throws Exception
+        {
+            UUID userId = new UUID(0, 0);
+            User user = new User();
+            user.setUserId(userId);
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+            UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+            updateUserRequest.setName("test user");
+            user.setName(updateUserRequest.getName());
+
+            Mockito.when(userRepository.findByUserId(user.getUserId()))
+                .thenReturn(Optional.of(user));
+            Mockito.when(userRepository.existsByEmail(user.getEmail())).thenReturn(false);
+            Mockito.when(userRepository.save(user)).thenReturn(user);
+
+            mvc.perform(put("/users/" + userId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .andExpect(status().isOk())
+                .andExpect(content().json(TestUtilsService.asJsonString(user)));
+        }
+
+        @Test
+        @DisplayName("PUT /users/:userId endpoint returns 400: Bad Request on invalid email")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword",
+            roles = {"DEVELOPER"})
+        void updateUserWithInvalidEmailReturnsBadRequest() throws Exception
+        {
+            User user = new User();
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+            UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+            updateUserRequest.setEmail("invalid format");
+
+            mvc.perform(put("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("PUT /users/:userId endpoint returns 400: Bad Request on duplicate email")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword",
+            roles = {"DEVELOPER"})
+        void updateUserWithDuplicateEmailReturnsBadRequest() throws Exception
+        {
+            UUID userId = new UUID(0, 0);
+            User user = new User();
+            user.setUserId(userId);
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+            user.setPassword("testPassword");
+            UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+            updateUserRequest.setEmail(user.getEmail());
+
+            Mockito.when(userRepository.findByUserId(user.getUserId()))
+                .thenReturn(Optional.of(user));
+            Mockito.when(userRepository.existsByEmail(user.getEmail())).thenReturn(true);
+
+            mvc.perform(put("/users/" + userId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .andExpect(status().isBadRequest());
+        }
+
+
+        // I don't test all fields because I'm lazy
+        @Test
+        @DisplayName("PUT /users/:userId endpoint returns 400: Bad Request on invalid entry")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword",
+            roles = {"DEVELOPER"})
+        void updateUserWithTooLongEntryReturnsBadRequest()
+            throws Exception
+        {
+            UUID userId = new UUID(0, 0);
+            UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+            updateUserRequest.setPhoneNumber("12345678901234567890"); // the limit is 15
+
+            mvc.perform(put("/users/" + userId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .andExpect(status().isBadRequest());
         }
     }
 }
