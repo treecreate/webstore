@@ -13,26 +13,38 @@ public class UpdateUserRequest
         example = "example@hotdeals.dev")
     @Length(max = 254)
     private String email;
+
+    @ApiModelProperty(notes = "New password in plain text (will get encoded)",
+        example = "NewExamplePassword123")
+    @Length(min = 6, max = 40)
+    private String password;
+
     @Length(max = 80)
     @ApiModelProperty(notes = "User's name, used for shipping purposes", example = "John Doe")
     private String name;
+
     @Length(max = 15)
     @ApiModelProperty(notes = "User's phoneNumber, used for shipping purposes",
         example = "+4512345678")
     private String phoneNumber;
+
     @Length(max = 99)
     @ApiModelProperty(notes = "User's address, used for shipping purposes",
         example = "StreetGade 123")
     private String streetAddress;
+
     @Length(max = 99)
     @ApiModelProperty(notes = "Extra information about the address", example = "3rd floor")
     private String streetAddress2;
+
     @Length(max = 50)
     @ApiModelProperty(example = "Copenhagen")
     private String city;
+
     @Length(max = 15)
     @ApiModelProperty(example = "9999")
     private String postcode;
+
     @Length(max = 50)
     @ApiModelProperty(example = "Denmark")
     private String country;
@@ -45,6 +57,16 @@ public class UpdateUserRequest
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 
     public String getName()

@@ -60,4 +60,9 @@ public class AuthUserService
         return userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
+
+    public String encodePassword(String password)
+    {
+        return encoder.encode(password);
+    }
 }

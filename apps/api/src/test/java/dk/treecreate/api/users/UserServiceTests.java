@@ -1,5 +1,6 @@
 package dk.treecreate.api.users;
 
+import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.user.UserService;
@@ -23,6 +24,9 @@ class UserServiceTests
     UserService userService;
 
     @MockBean
+    AuthUserService authUserService;
+
+    @MockBean
     UserRepository userRepository;
 
     @Test
@@ -32,7 +36,7 @@ class UserServiceTests
         User baseUser = new User();
         var updateUserRequest = new UpdateUserRequest();
         baseUser.setUserId(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234"));
-        baseUser.setPassword("");
+        baseUser.setPassword(authUserService.encodePassword("basePassword"));
         baseUser.setEmail("base@hotdeals.dev");
         baseUser.setUsername(baseUser.getEmail());
         baseUser.setName("base baseUser");
@@ -42,8 +46,18 @@ class UserServiceTests
         baseUser.setPostcode("0000");
         baseUser.setCity("baseende");
         baseUser.setCountry("baseland");
+        updateUserRequest.setEmail("test@hotdeals.dev");
+        updateUserRequest.setPassword("testPassword321");
+        updateUserRequest.setName("test user");
+        updateUserRequest.setPhoneNumber("12345678");
+        updateUserRequest.setStreetAddress("testgade");
+        updateUserRequest.setStreetAddress2("1B2C3D");
+        updateUserRequest.setPostcode("1234");
+        updateUserRequest.setCity("testende");
+        updateUserRequest.setCountry("testland");
+
         user.setUserId(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234"));
-        user.setPassword("");
+        user.setPassword("encodedUpdatedPassword"); // the authService is mocked
         user.setEmail("test@hotdeals.dev");
         user.setUsername(user.getEmail());
         user.setName("test user");
@@ -53,14 +67,10 @@ class UserServiceTests
         user.setPostcode("1234");
         user.setCity("testende");
         user.setCountry("testland");
-        updateUserRequest.setEmail("test@hotdeals.dev");
-        updateUserRequest.setName("test user");
-        updateUserRequest.setPhoneNumber("12345678");
-        updateUserRequest.setStreetAddress("testgade");
-        updateUserRequest.setStreetAddress2("1B2C3D");
-        updateUserRequest.setPostcode("1234");
-        updateUserRequest.setCity("testende");
-        updateUserRequest.setCountry("testland");
+
+        // make sure that the encoded password matches what we set
+        Mockito.when(authUserService.encodePassword(updateUserRequest.getPassword()))
+            .thenReturn("encodedUpdatedPassword");
 
         assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
     }
@@ -126,5 +136,26 @@ class UserServiceTests
 
         assertThrows(ResponseStatusException.class, () ->
             userService.updateUser(updateUserRequest, baseUser));
+    }
+
+    @Test
+    void updatesUserCorrectlyIfEmailMatchesUserEmail()
+    {
+        User baseUser = new User();
+        User user = new User();
+        var updateUserRequest = new UpdateUserRequest();
+        baseUser.setUserId(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234"));
+        baseUser.setPassword("");
+        baseUser.setEmail("base@hotdeals.dev");
+        baseUser.setUsername(baseUser.getEmail());
+        updateUserRequest.setEmail("base@hotdeals.dev");
+        user.setUserId(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234"));
+        user.setPassword("");
+        user.setEmail("base@hotdeals.dev");
+        user.setUsername(user.getEmail());
+
+        Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(true);
+
+        assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
     }
 }

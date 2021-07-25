@@ -36,13 +36,13 @@ class UserControllerTests
 {
 
     @Autowired
-    private MockMvc mvc;
-    @Autowired
     UserService userService;
     @MockBean
-    private UserRepository userRepository;
-    @MockBean
     AuthUserService authUserService;
+    @Autowired
+    private MockMvc mvc;
+    @MockBean
+    private UserRepository userRepository;
 
     @Nested
     class AuthenticationTests
@@ -269,11 +269,12 @@ class UserControllerTests
             user.setUsername(user.getEmail());
             user.setPassword("testPassword");
             UpdateUserRequest updateUserRequest = new UpdateUserRequest();
-            updateUserRequest.setEmail(user.getEmail());
+            updateUserRequest.setEmail("notUnique@hotdeals.dev");
 
             Mockito.when(userRepository.findByUserId(user.getUserId()))
                 .thenReturn(Optional.of(user));
-            Mockito.when(userRepository.existsByEmail(user.getEmail())).thenReturn(true);
+            Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail()))
+                .thenReturn(true);
 
             mvc.perform(put("/users/" + userId)
                 .contentType(MediaType.APPLICATION_JSON)

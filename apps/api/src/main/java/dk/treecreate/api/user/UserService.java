@@ -1,5 +1,6 @@
 package dk.treecreate.api.user;
 
+import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,18 +13,24 @@ public class UserService
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    AuthUserService authUserService;
+
     public User updateUser(UpdateUserRequest updateUserRequest, User user)
     {
 
         if (updateUserRequest.getEmail() != null)
         {
-            if (userRepository.existsByEmail(updateUserRequest.getEmail()))
+            if (!updateUserRequest.getEmail().equals(user.getEmail()) &&
+                userRepository.existsByEmail(updateUserRequest.getEmail()))
             {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is already taken");
             }
             user.setEmail(updateUserRequest.getEmail());
             user.setUsername(updateUserRequest.getEmail());
         }
+        if (updateUserRequest.getEmail() != null)
+            user.setPassword(authUserService.encodePassword(updateUserRequest.getPassword()));
         if (updateUserRequest.getName() != null)
             user.setName(updateUserRequest.getName());
         if (updateUserRequest.getPhoneNumber() != null)
