@@ -111,4 +111,19 @@ public class UserController
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         userRepository.delete(user);
     }
+    
+    @GetMapping("me")
+    @Operation(summary = "Get currently authenticated user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "User information",
+            response = User.class),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public User getCurrentUser()
+    {
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        return userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
 }
