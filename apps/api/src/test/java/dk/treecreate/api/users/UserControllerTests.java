@@ -299,4 +299,35 @@ class UserControllerTests
                 .andExpect(status().isBadRequest());
         }
     }
+
+    @Nested
+    class DeleteUserTests
+    {
+        @Test
+        @DisplayName(
+            "DELETE /users/:userId endpoint returns 403: Forbidden when called by ROLE_USER")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void deleteUserReturnsForbiddenToRoleUser() throws Exception
+        {
+            mvc.perform(delete("/users/" + new UUID(0, 0)))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName("DELETE /users/:userId endpoint returns 204: No Content when deleting a user")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword",
+            roles = {"DEVELOPER"})
+        void updateUserWithTooLongEntryReturnsBadRequest()
+            throws Exception
+        {
+            UUID userId = new UUID(0, 0);
+            User user = new User();
+            user.setUserId(userId);
+            Mockito.when(userRepository.findByUserId(userId)).thenReturn(Optional.of(user));
+            Mockito.doNothing().when(userRepository).delete(user);
+
+            mvc.perform(delete("/users/" + userId))
+                .andExpect(status().isNoContent());
+        }
+    }
 }
