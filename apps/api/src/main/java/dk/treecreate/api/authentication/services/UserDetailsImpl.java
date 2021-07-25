@@ -1,7 +1,7 @@
 package dk.treecreate.api.authentication.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dk.treecreate.api.authentication.models.User;
+import dk.treecreate.api.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

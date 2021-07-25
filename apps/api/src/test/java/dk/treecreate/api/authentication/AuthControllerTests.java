@@ -1,14 +1,13 @@
 package dk.treecreate.api.authentication;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.treecreate.api.TestUtilsService;
 import dk.treecreate.api.authentication.dto.request.LoginRequest;
 import dk.treecreate.api.authentication.dto.request.SignupRequest;
 import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
-import dk.treecreate.api.authentication.models.User;
 import dk.treecreate.api.authentication.repository.RoleRepository;
-import dk.treecreate.api.authentication.repository.UserRepository;
+import dk.treecreate.api.user.User;
+import dk.treecreate.api.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
