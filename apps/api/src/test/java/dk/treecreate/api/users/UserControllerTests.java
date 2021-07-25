@@ -177,6 +177,15 @@ class UserControllerTests
     class UpdateUserTests
     {
         @Test
+        @DisplayName("PUT /users/:userId endpoint returns 403: Forbidden when called by ROLE_USER")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void putUserReturnsForbiddenToRoleUser() throws Exception
+        {
+            mvc.perform(put("/users/" + new UUID(0, 0)))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
         @DisplayName(
             "PUT /users endpoint returns updated version of the currently authenticated user")
         @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
@@ -271,7 +280,6 @@ class UserControllerTests
                 .content(TestUtilsService.asJsonString(updateUserRequest)))
                 .andExpect(status().isBadRequest());
         }
-
 
         // I don't test all fields because I'm lazy
         @Test
