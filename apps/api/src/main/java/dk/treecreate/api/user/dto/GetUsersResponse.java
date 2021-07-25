@@ -7,6 +7,6 @@ import java.util.List;
 
 public class GetUsersResponse
 {
-    @ApiModelProperty( notes = "A list of users")
+    @ApiModelProperty(notes = "A list of users")
     List<User> users;
 }

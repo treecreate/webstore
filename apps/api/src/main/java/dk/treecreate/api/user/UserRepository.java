@@ -1,6 +1,5 @@
 package dk.treecreate.api.user;
 
-import dk.treecreate.api.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
