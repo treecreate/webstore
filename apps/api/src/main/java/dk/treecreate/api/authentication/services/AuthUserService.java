@@ -3,6 +3,8 @@ package dk.treecreate.api.authentication.services;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.repository.RoleRepository;
+import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +53,11 @@ public class AuthUserService
             roles);
     }
 
-    public UserDetails getCurrentlyAuthenticatedUser()
+    public User getCurrentlyAuthenticatedUser()
     {
-        return (UserDetailsImpl)  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var userDetails =
+            (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

@@ -1,0 +1,173 @@
+package dk.treecreate.api.users;
+
+import dk.treecreate.api.TestUtilsService;
+import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.user.User;
+import dk.treecreate.api.user.UserRepository;
+import dk.treecreate.api.user.UserService;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+class UserControllerTests
+{
+
+    @Autowired
+    private MockMvc mvc;
+    @Autowired
+    UserService userService;
+    @MockBean
+    private UserRepository userRepository;
+    @MockBean
+    AuthUserService authUserService;
+
+    @Nested
+    class AuthenticationTests
+    {
+
+        @Test
+        @DisplayName("GET /users endpoint returns 401 when user credentials are invalid")
+        void getUsersReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            mvc.perform(get("/users"))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName("GET /users/:userId endpoint returns 401 when user credentials are invalid")
+        void getUserReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            UUID uuid = new UUID(0, 0);
+            mvc.perform(get("/users/" + uuid))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName("PUT /users/:userId endpoint returns 401 when user credentials are invalid")
+        void updateUserReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            UUID uuid = new UUID(0, 0);
+            mvc.perform(put("/users/" + uuid))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName("PUT /users endpoint returns 401 when user credentials are invalid")
+        void updateCurrentUserReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            mvc.perform(put("/users"))
+                .andExpect(status().isUnauthorized());
+        }
+
+
+        @Test
+        @DisplayName("DELETE /users/:userId endpoint returns 401 when user credentials are invalid")
+        void deleteUserReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            UUID uuid = new UUID(0, 0);
+            mvc.perform(delete("/users/" + uuid))
+                .andExpect(status().isUnauthorized());
+        }
+    }
+
+    @Nested
+    class GetUsersTests
+    {
+        @Test
+        @DisplayName("GET /users endpoint returns 403: Forbidden when called by ROLE_USER")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void getUsersReturnsForbiddenToRoleUser() throws Exception
+        {
+            mvc.perform(get("/users"))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName("GET /users endpoint returns a list of users")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword",
+            roles = {"DEVELOPER"})
+        void getUsersReturnsListOfUsers() throws Exception
+        {
+            List<User> userList = new ArrayList<>();
+            userList.add(new User());
+            userList.get(0).setEmail("example0@hotdeals.dev");
+            userList.add(new User());
+            userList.get(1).setEmail("example1@hotdeals.dev");
+
+            Mockito.when(userRepository.findAll()).thenReturn(userList);
+
+            mvc.perform(get("/users"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(TestUtilsService.asJsonString(userList)));
+        }
+    }
+
+    @Nested
+    class GetUserTests
+    {
+
+        @Test
+        @DisplayName("GET /users/:userId endpoint returns 403: Forbidden when called by ROLE_USER")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void getUserReturnsForbiddenToRoleUser() throws Exception
+        {
+            mvc.perform(get("/users/" + new UUID(0, 0)))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName("GET /user endpoint returns a user")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword",
+            roles = {"DEVELOPER"})
+        void getUserReturnsUser() throws Exception
+        {
+            UUID userId = new UUID(0, 0);
+            User user = new User();
+            user.setUserId(userId);
+
+            Mockito.when(userRepository.findByUserId(userId)).thenReturn(Optional.of(user));
+
+            mvc.perform(get("/users/" + userId))
+                .andExpect(status().isOk())
+                .andExpect(content().json(TestUtilsService.asJsonString(user)));
+        }
+
+        @Test
+        @DisplayName("GET /users/me endpoint returns currently authenticated user")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void getCurrentUserReturnsUser() throws Exception
+        {
+            User user = new User();
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+            Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
+                .thenReturn(user);
+            mvc.perform(get("/users/me"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(TestUtilsService.asJsonString(user)));
+        }
+    }
+}
