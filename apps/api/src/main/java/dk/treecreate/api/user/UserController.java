@@ -111,7 +111,7 @@ public class UserController
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         userRepository.delete(user);
     }
-    
+
     @GetMapping("me")
     @Operation(summary = "Get currently authenticated user")
     @ApiResponses(value = {
