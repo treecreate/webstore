@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage';
 import { LocalStorageVars } from '@models';
-import { IUser } from '@interfaces';
+import { IAuthUser, IUser } from '@interfaces';
 
 const API_URL = 'http://localhost:5000/auth/test/';
 
@@ -16,7 +16,8 @@ export class UserService {
     private localStorageService: LocalStorageService
   ) {}
 
-  public saveUser(user: IUser): void {
+  // Save auth suer information to local storage
+  public saveAuthUser(user: IAuthUser): void {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
     this.localStorageService.setItem(
       LocalStorageVars.authUser,
@@ -24,7 +25,8 @@ export class UserService {
     );
   }
 
-  public getUser(): IUser {
+  // Get user information for authentication. The data comes from local storage. Use getUser() to get full user entity
+  public getAuthUser(): IAuthUser {
     const user = this.localStorageService
       .getItem<string>(LocalStorageVars.authUser)
       .getValue();

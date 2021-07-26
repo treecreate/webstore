@@ -55,11 +55,11 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (data: ILoginResponse) => {
           this.authService.saveAuthToken(data.accessToken);
-          this.userService.saveUser(data);
+          this.userService.saveAuthUser(data);
 
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.userService.getUser().roles;
+          this.roles = this.userService.getAuthUser().roles;
           // this.showSuccessfulLogin();
           this.router.navigate(['/']);
         },

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '@interfaces';
+import { IAuthUser } from '@interfaces';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -8,11 +8,11 @@ import { UserService } from '../../../shared/services/user/user.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  currentUser: IUser;
+  currentUser: IAuthUser;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getUser();
+    this.currentUser = this.userService.getAuthUser();
   }
 }
