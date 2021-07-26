@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage';
 import { LocalStorageVars } from '@models';
 import { IAuthUser, IUser, UpdateUserRequest } from '@interfaces';
-
-const API_URL = 'http://localhost:5000';
+import { environment as env } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -38,29 +37,33 @@ export class UserService {
   }
 
   public getUser(): Observable<IUser> {
-    return this.http.get<IUser>(`${API_URL}/users/me`);
+    return this.http.get<IUser>(`${env.apiUrl}/users/me`);
   }
 
   public updateUser(params: UpdateUserRequest): Observable<IUser> {
-    return this.http.put<IUser>(`${API_URL}/users`, params);
+    return this.http.put<IUser>(`${env.apiUrl}/users`, params);
   }
 
   getPublicContent(): Observable<string> {
-    return this.http.get(API_URL + '/auth/test/all', { responseType: 'text' });
+    return this.http.get(env.apiUrl + '/auth/test/all', {
+      responseType: 'text',
+    });
   }
 
   getUserBoard(): Observable<string> {
-    return this.http.get(API_URL + '/auth/test/user', { responseType: 'text' });
+    return this.http.get(env.apiUrl + '/auth/test/user', {
+      responseType: 'text',
+    });
   }
 
   getDeveloperBoard(): Observable<string> {
-    return this.http.get(API_URL + '/auth/test/developer', {
+    return this.http.get(env.apiUrl + '/auth/test/developer', {
       responseType: 'text',
     });
   }
 
   getAdminBoard(): Observable<string> {
-    return this.http.get(API_URL + '/auth/test/admin', {
+    return this.http.get(env.apiUrl + '/auth/test/admin', {
       responseType: 'text',
     });
   }
