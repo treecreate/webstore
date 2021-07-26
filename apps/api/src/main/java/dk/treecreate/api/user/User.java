@@ -46,6 +46,8 @@ public class User
     @Size(max = 254)
     @ApiModelProperty(name = "Same as the email, used for authentication",
         example = "example@hotdeals.dev", required = true)
+
+    @JsonIgnore // the username is not relevant for anything but internals of spring security
     private String username;
 
     @NotBlank
