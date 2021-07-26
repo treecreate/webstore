@@ -1,6 +1,7 @@
-package dk.treecreate.api.authentication.models;
+package dk.treecreate.api.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dk.treecreate.api.authentication.models.Role;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -261,7 +262,7 @@ public class User
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return userId.equals(user.userId) && Objects.equals(username, user.username) &&
-            email.equals(user.email) && password.equals(user.password) &&
+            email.equals(user.email) &&
             Objects.equals(roles, user.roles) && Objects.equals(name, user.name) &&
             Objects.equals(phoneNumber, user.phoneNumber) &&
             Objects.equals(streetAddress, user.streetAddress) &&
