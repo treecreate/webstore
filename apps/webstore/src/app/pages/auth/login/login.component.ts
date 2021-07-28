@@ -6,6 +6,7 @@ import { ForgotPasswordModalComponent } from '../../../shared/components/modals/
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { UserService } from '../../../shared/services/user/user.service';
 import { ILoginResponse } from '@interfaces';
+import { ToastService } from '../../../shared/components/toast/toast-service';
 
 @Component({
   selector: 'webstore-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private modalService: NgbModal,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {

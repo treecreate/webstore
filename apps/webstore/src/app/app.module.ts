@@ -26,7 +26,6 @@ import { ProductComponent } from './pages/product/product.component';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
-import { ToastGlobalComponent } from './shared/components/toast/toast-global.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 @NgModule({
   declarations: [
@@ -47,7 +46,6 @@ import { ToastsContainerComponent } from './shared/components/toast/toast-contai
     ResetPasswordComponent,
     CollectionComponent,
     ProfileComponent,
-    ToastGlobalComponent,
     ToastsContainerComponent,
   ],
   imports: [
