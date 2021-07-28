@@ -50,11 +50,15 @@
         >
             Login
         </button>
-        <button class="tc-button-100" (click)="this.toastService.showAlert('hello', 'success', 2000)" type="button" routerLink="/signup">
+        <button
+            class="tc-button-100"
+            (click)="this.toastService.showAlert('hello', 'success', 2000)"
+            type="button"
+            routerLink="/signup"
+        >
             Sign up
         </button>
     </form>
-    <webstore-toasts></webstore-toasts>
 </div>
 
 <!-- TODO: alert - Make a reusable alert pop up service that is not related to the component -->

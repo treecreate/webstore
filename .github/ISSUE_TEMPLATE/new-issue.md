@@ -4,7 +4,6 @@ about: Create a new issue
 title: New issue
 labels: ''
 assignees: ''
-
 ---
 
 ## Goal

@@ -5,7 +5,7 @@ import { ToastService } from './toast-service';
 @Component({
   selector: 'webstore-toasts',
   template: `
-    <div class="ngb-toasts">
+    <div class="ngb-toasts" aria-live="polite" aria-atomic="true" style="pointer-events: none; opacity: 0.8; bottom: 0; top: auto !important;">
       <ngb-toast
         *ngFor="let toast of toastService.toasts"
         [class]="toast.classname"

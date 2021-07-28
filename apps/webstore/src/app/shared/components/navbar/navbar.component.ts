@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage';
 import { LocalStorageVars, LocaleType } from '@models';
 import { AuthService } from '../../services/authentication/auth.service';
+import { ToastService } from '../toast/toast-service';
 
 @Component({
   selector: 'webstore-navbar',
@@ -31,7 +32,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -72,6 +74,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    console.log('logged out');
+    this.toastService.showAlert('You have logged out', 'success', 300000);
     this.authService.logout();
   }
 
