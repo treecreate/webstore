@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { IRegisterResponse } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
+import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { UserService } from '../../../shared/services/user/user.service';
 @Component({
@@ -25,7 +26,8 @@ export class SignupComponent implements OnInit {
     private modalService: NgbModal,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +61,12 @@ export class SignupComponent implements OnInit {
         (data: IRegisterResponse) => {
           console.log('Registration successful');
           console.log(data);
+          this.toastService.showAlert(
+            'Welcome to Treecreate, you have successfully been registered!',
+            'Velkommen til Treecreate, du er nu bleven registreret!',
+            'success',
+            3500
+          );
           this.isSuccessful = true;
           this.isSignUpFailed = false;
           this.authService.saveAuthToken(data.accessToken);

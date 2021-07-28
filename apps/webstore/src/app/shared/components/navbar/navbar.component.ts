@@ -63,8 +63,20 @@ export class NavbarComponent implements OnInit {
   changeLocale() {
     if (this.localeCode === LocaleType.en) {
       this.localeCode = LocaleType.dk;
+      this.toastService.showAlert(
+        '',
+        'Sprog skiftet til: Dansk',
+        'success',
+        2500
+      );
     } else {
       this.localeCode = LocaleType.en;
+      this.toastService.showAlert(
+        'Change language to: English',
+        '',
+        'success',
+        2500
+      );
     }
 
     this.locale$ = this.localStorageService.setItem<LocaleType>(
@@ -75,7 +87,12 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     console.log('logged out');
-    this.toastService.showAlert('You have logged out', 'success', 300000);
+    this.toastService.showAlert(
+      'You have now logged out!',
+      'Du er nu logget ud!',
+      'success',
+      2500
+    );
     this.authService.logout();
   }
 
