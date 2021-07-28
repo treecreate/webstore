@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRegisterResponse } from '@interfaces';
@@ -78,6 +78,12 @@ export class SignupComponent implements OnInit {
           this.isSignUpFailed = true;
         }
       );
+  }
+
+  @HostListener('document:keydown.enter') enterKeyPressed() {
+    if (this.isDisabled()) {
+      this.onSubmit();
+    }
   }
 
   matchingPasswords(): boolean {

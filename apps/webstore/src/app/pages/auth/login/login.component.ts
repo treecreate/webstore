@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -87,6 +93,12 @@ export class LoginComponent implements OnInit {
 
   openForgotPasswordModal() {
     this.modalService.open(ForgotPasswordModalComponent);
+  }
+
+  @HostListener('document:keydown.enter') enterKeyPressed() {
+    if (this.isDisabled()) {
+      this.onSubmit();
+    }
   }
 
   isDisabled(): boolean {
