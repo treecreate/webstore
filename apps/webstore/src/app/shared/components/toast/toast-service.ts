@@ -21,7 +21,6 @@ export class ToastService {
     this.toasts.push({ textOrTpl, ...options });
   }
 
-  // TODO: test that the toast message properly changes between en and dk
   showAlert(textEn: string, textDk: string, type: string, time?: number) {
     // Default english text
     let displayText = textEn;

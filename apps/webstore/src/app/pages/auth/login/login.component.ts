@@ -59,6 +59,13 @@ export class LoginComponent implements OnInit {
           this.authService.saveAuthToken(data.accessToken);
           this.userService.saveAuthUser(data);
 
+          this.toastService.showAlert(
+            'Welcome back! You are now logged in.',
+            'Velkommen tilbage! Du er nu logget ind.',
+            'success',
+            2500
+          );
+
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.roles = this.userService.getAuthUser().roles;
@@ -66,17 +73,16 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         (err) => {
+          this.toastService.showAlert(
+            'Failed to login, please try again.',
+            'Fejl ved login, prøv igen.',
+            'danger',
+            2500
+          );
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
         }
       );
-  }
-
-  showSuccessfulLogin() {
-    this.successfulLogin.nativeElement.classList.remove('alert-hide');
-    setTimeout(() => {
-      this.successfulLogin.nativeElement.classList.add('alert-hide');
-    }, 3000);
   }
 
   openForgotPasswordModal() {

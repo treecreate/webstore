@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'webstore-forgot-password-modal',
@@ -17,7 +18,11 @@ export class ForgotPasswordModalComponent implements OnInit {
   @ViewChild('messageSent') messageSent: ElementRef;
   title = 'ForgotPasswordModal';
 
-  constructor(public activeModal: NgbActiveModal, private router: Router) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.forgotPasswordForm = new FormGroup({
@@ -28,13 +33,12 @@ export class ForgotPasswordModalComponent implements OnInit {
   resetPassword() {
     this.router.navigate(['/resetPassword']);
     this.activeModal.close();
-  }
-
-  showMessageSent() {
-    this.messageSent.nativeElement.classList.remove('alert-hide');
-    setTimeout(() => {
-      this.messageSent.nativeElement.classList.add('alert-hide');
-    }, 3000);
+    this.toastService.showAlert(
+      'We have sent you an e-mail with a link to change your password.',
+      'Vi har sendt dig en e-mail med et link til at ændre din kode.',
+      'success',
+      3500
+    );
   }
 
   isDisabled(): boolean {

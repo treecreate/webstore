@@ -41,7 +41,6 @@
             </a>
         </div>
 
-        <!-- TODO: Add an alert for failed singin -->
         <button
             class="tc-button-100"
             type="submit"
@@ -50,23 +49,11 @@
         >
             Login
         </button>
-        <button
-            class="tc-button-100"
-            (click)="this.toastService.showAlert('hello', 'success', 2000)"
-            type="button"
-            routerLink="/signup"
-        >
+        <button class="tc-button-100" type="button" routerLink="/signup">
             Sign up
         </button>
     </form>
 </div>
-
-<!-- TODO: alert - Make a reusable alert pop up service that is not related to the component -->
-<!-- <div class="alert-container alert-hide" #successfulLogin>
-    <ngb-alert [type]="'success'">
-        Welcome! You have successfully logged in!
-    </ngb-alert>
-</div> -->
 
 <!-- For cy tests -->
 <div class="hide" data-cy="login-email">
