@@ -1,5 +1,9 @@
 <div class="account-info-container">
-    <div class="account-info-page">
+    <form
+        class="account-info-form"
+        [formGroup]="accountInfoForm"
+        name="accountInfoForm"
+    >
         <div class="title">
             <h2>Account Info</h2>
         </div>
@@ -9,17 +13,56 @@
             </div>
             <hr />
 
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    placeholder="Your name ..."
+                    formControlName="name"
+                    id="name"
+                    autocomplete="name"
+                />
+            </div>
+
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    formControlName="phone"
+                    name="phone"
+                    id="phone"
+                    autocomplete="phone"
+                />
+                <label for="phone" class="tc-input-label">Phonenumber</label>
+            </div>
+
+            <div class="tc-input-group field">
+                <input
+                    type="email"
+                    class="tc-input-field"
+                    placeholder="E-mail"
+                    formControlName="email"
+                    name="email"
+                    id="email"
+                    autocomplete="email"
+                    required
+                />
+                <label for="email" class="tc-input-label">E-mail</label>
+            </div>
+
             <div class="sub-title">
                 <p>Adress</p>
             </div>
             <hr />
 
             <div class="actions">
-                <button class="tc-button-50">Update info</button>
-                <button class="tc-button-50">Resend verification e-mail</button>
+                <button type="submit" class="tc-button-50">Update info</button>
+                <button type="button" class="tc-button-50">
+                    Resend verification e-mail
+                </button>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <!-- <div class="container profile" *ngIf="currentUser; else loggedOut">
