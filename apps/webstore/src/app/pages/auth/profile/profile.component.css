@@ -1,3 +1,37 @@
-.profile {
-  margin-top: 10vh;
+.account-info-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  text-align: center;
+}
+
+.account-info-page {
+  box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 15%);
+  background-color: white;
+  max-width: 90vw;
+  min-width: 50vw;
+  margin-top: 85px;
+  margin-bottom: 50px;
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+}
+
+hr {
+  margin-top: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.sub-title p {
+  padding-left: 6px;
+  margin-bottom: 2px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
 }
