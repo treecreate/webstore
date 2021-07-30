@@ -74,6 +74,12 @@ export class SignupComponent implements OnInit {
           this.router.navigate(['/profile']);
         },
         (err) => {
+          this.toastService.showAlert(
+            'Signup failed, please try again.',
+            'Der skete en fejl, prøv venligst igen',
+            'danger',
+            3500
+          );
           this.errorMessage = err.error.message;
           this.isSignUpFailed = true;
         }

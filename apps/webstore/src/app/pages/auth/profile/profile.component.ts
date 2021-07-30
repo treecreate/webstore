@@ -102,13 +102,13 @@ export class ProfileComponent implements OnInit {
   updateUserQuery(): void {
     this.userService
       .updateUser({
-        name: this.currentUser.name,
-        phoneNumber: this.currentUser.phoneNumber,
+        name: this.accountInfoForm.get('name').value,
+        phoneNumber: this.accountInfoForm.get('phoneNumber').value,
         email: this.oldEmail,
-        streetAddress: this.currentUser.streetAddress,
-        streetAddress2: this.currentUser.streetAddress2,
-        city: this.currentUser.city,
-        postcode: this.currentUser.postcode,
+        streetAddress: this.accountInfoForm.get('streetAddress').value,
+        streetAddress2: this.accountInfoForm.get('streetAddress2').value,
+        city: this.accountInfoForm.get('city').value,
+        postcode: this.accountInfoForm.get('postcode').value,
       })
       .subscribe(
         (data: UpdateUserRequest) => {
@@ -119,6 +119,9 @@ export class ProfileComponent implements OnInit {
             'success',
             2500
           );
+          console.log('data logged: ');
+          console.log(data);
+          this.userService.updateUser(data);
         },
         (err) => {
           console.log('Failed to update user');
