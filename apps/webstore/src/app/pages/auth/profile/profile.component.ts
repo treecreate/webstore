@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
     private toastService: ToastService
   ) {}
 
-  // TODO: implement proper profile stuff
+  // TODO: implement proper profile stuff (tf does that mean? XD - teodor)
 
   ngOnInit(): void {
     try {
@@ -49,13 +49,13 @@ export class ProfileComponent implements OnInit {
     // TODO: should not be a timer. should run the updateFormValues() after the currentUser has been fetched
     setTimeout(() => {
       this.updateFormValues();
-      console.log('Form values updated');
     }, 1000);
   }
 
   updateFormValues() {
     // to check if the user is changing their email address.
     this.oldEmail = this.currentUser.email;
+    // TODO: add a isVerified value to the IUser and set the this.isVerified = this.currentUser.isVerified
     // set all form values after the user has been fetched.
     this.accountInfoForm.setValue({
       name: this.currentUser.name,
@@ -70,6 +70,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser() {
+    // Failsafe to check that there is a valid email
     if (this.isDisabled()) {
       console.log('You cant update without an email');
       this.toastService.showAlert(
@@ -79,31 +80,58 @@ export class ProfileComponent implements OnInit {
         2500
       );
     } else {
+      // Check if the user has changed their email
       if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-        console.log('yo, the emails dont match');
+        if (this.updateUserWithEmailChange()) {
+          console.log('User updated');
+          this.toastService.showAlert(
+            'Your profile has been updated! A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
+            'Din konto er bleven opdateret! Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
+            'success',
+            3500
+          );
+        } else {
+          console.log('Failed to update user');
+          this.toastService.showAlert(
+            'Something went wrong, please try again.',
+            'Noget gik galt, prøv igen',
+            'danger',
+            2500
+          );
+        }
       } else {
-        console.log('updating profile');
-        this.toastService.showAlert(
-          'Your profile has been updated!',
-          'Din konto er bleven opdateret!',
-          'success',
-          2500
-        );
+        console.log('Updating profile: ' + this.oldEmail);
+        if (this.updateUserQuery()) {
+          console.log('User updated');
+          this.toastService.showAlert(
+            'Your profile has been updated!',
+            'Din konto er bleven opdateret!',
+            'success',
+            2500
+          );
+        } else {
+          console.log('Failed to update user');
+          this.toastService.showAlert(
+            'Something went wrong, please try again.',
+            'Noget gik galt, prøv igen',
+            'danger',
+            2500
+          );
+        }
       }
     }
+  }
+
+  updateUserQuery(): boolean {
+    return true;
+  }
+
+  updateUserWithEmailChange(): boolean {
+    // TODO: add email change logic like verifying your email and such.
+    return true;
   }
 
   isDisabled(): boolean {
     return this.accountInfoForm.get('email').invalid;
   }
 }
-
-// this.accountInfoForm = new FormGroup({
-//   name: new FormControl(this.currentUser.name === undefined ? 'this.currentUser.name' : ''),
-//   phoneNumber: new FormControl(this.currentUser.phoneNumber === undefined ? this.currentUser.phoneNumber : ''),
-//   email: new FormControl(this.currentUser.email === undefined ? this.currentUser.email : ''),
-//   streetAddress: new FormControl(this.currentUser.streetAddress === undefined ? this.currentUser.streetAddress : ''),
-//   streetAddress2: new FormControl(this.currentUser.streetAddress2 === undefined ? this.currentUser.streetAddress2 : ''),
-//   city: new FormControl(this.currentUser.city === undefined ? this.currentUser.city : ''),
-//   postcode: new FormControl(this.currentUser.postcode === undefined ? this.currentUser.postcode : ''),
-// });
