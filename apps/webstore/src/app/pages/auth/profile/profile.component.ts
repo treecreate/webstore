@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser } from '@interfaces';
+import { IUser, UpdateUserRequest } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { UserService } from '../../../shared/services/user/user.service';
 
@@ -89,26 +89,29 @@ export class ProfileComponent implements OnInit {
     } else {
       // Check if the user has changed their email
       if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-        if (this.updateUserWithEmailChange()) {
-          console.log('User updated');
-          this.toastService.showAlert(
-            'Your profile has been updated! A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
-            'Din konto er bleven opdateret! Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
-            'success',
-            3500
-          );
-        } else {
-          console.log('Failed to update user');
-          this.toastService.showAlert(
-            'Something went wrong, please try again.',
-            'Noget gik galt, prøv igen',
-            'danger',
-            2500
-          );
-        }
+        // update user info and email
+        this.updateUserWithEmailChange();
       } else {
+        // update user info
         console.log('Updating profile: ' + this.oldEmail);
-        if (this.updateUserQuery()) {
+        this.updateUserQuery();
+      }
+    }
+  }
+
+  updateUserQuery(): void {
+    this.userService
+      .updateUser({
+        name: this.currentUser.name,
+        phoneNumber: this.currentUser.phoneNumber,
+        email: this.oldEmail,
+        streetAddress: this.currentUser.streetAddress,
+        streetAddress2: this.currentUser.streetAddress2,
+        city: this.currentUser.city,
+        postcode: this.currentUser.postcode,
+      })
+      .subscribe(
+        (data: UpdateUserRequest) => {
           console.log('User updated');
           this.toastService.showAlert(
             'Your profile has been updated!',
@@ -116,7 +119,8 @@ export class ProfileComponent implements OnInit {
             'success',
             2500
           );
-        } else {
+        },
+        (err) => {
           console.log('Failed to update user');
           this.toastService.showAlert(
             'Something went wrong, please try again.',
@@ -124,18 +128,25 @@ export class ProfileComponent implements OnInit {
             'danger',
             2500
           );
+          console.log(err.error.message);
         }
-      }
-    }
+      );
   }
 
-  updateUserQuery(): boolean {
-    return true;
+  updateUserWithEmailChange(): void {
+    this.updateUserQuery();
+    this.resendVerificationEmail();
   }
 
-  updateUserWithEmailChange(): boolean {
-    // TODO: add email change logic like verifying your email and such.
-    return true;
+  resendVerificationEmail() {
+    // TODO: add email change logic like verifying your email and sent userVerified = false;
+    console.log('New verification email sent');
+    this.toastService.showAlert(
+      'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
+      'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
+      'success',
+      3500
+    );
   }
 
   isDisabled(): boolean {

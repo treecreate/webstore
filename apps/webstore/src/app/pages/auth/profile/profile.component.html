@@ -125,7 +125,12 @@
                 >
                     Update info
                 </button>
-                <button type="button" class="tc-button-100" *ngIf="!isVerified">
+                <button
+                    type="button"
+                    class="tc-button-100"
+                    *ngIf="!isVerified"
+                    (click)="resendVerificationEmail()"
+                >
                     Resend verification e-mail
                 </button>
             </div>
