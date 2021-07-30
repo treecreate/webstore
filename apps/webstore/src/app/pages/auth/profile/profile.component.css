@@ -35,6 +35,7 @@ hr {
   padding-left: 6px;
   margin-bottom: 2px;
   font-weight: 700;
+  font-size: 18px;
 }
 
 .top-margin {
@@ -60,4 +61,14 @@ button[type='button'] {
 
 .city-code-section .tc-input-group {
   width: 45%;
+}
+
+@media (max-width: 500px) {
+  .account-info-form {
+    padding: 0;
+    margin-bottom: 10px;
+  }
+  .title {
+    margin-top: 25px;
+  }
 }
