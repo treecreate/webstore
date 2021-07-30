@@ -64,12 +64,12 @@
                     type="text"
                     class="tc-input-field"
                     name="streedOne"
-                    formControlName="streetOne"
+                    formControlName="streetAddress"
                     placeholder="Your street name"
-                    id="streetOne"
+                    id="streetAddress"
                 />
-                <label for="streetOne" class="tc-input-label"
-                    >Street name 1</label
+                <label for="streetAddress" class="tc-input-label"
+                    >Street address</label
                 >
             </div>
 
@@ -78,12 +78,12 @@
                     type="text"
                     class="tc-input-field"
                     name="streedTwo"
-                    formControlName="streetTwo"
+                    formControlName="streetAddress2"
                     placeholder="Your street name"
-                    id="streetTwo"
+                    id="streetAddress2"
                 />
-                <label for="streetTwo" class="tc-input-label"
-                    >Street name 2</label
+                <label for="streetAddress2" class="tc-input-label"
+                    >Street address 2</label
                 >
             </div>
 
@@ -117,7 +117,7 @@
 
             <div class="actions">
                 <button type="submit" class="tc-button-100">Update info</button>
-                <button type="button" class="tc-button-100">
+                <button type="button" class="tc-button-100" *ngIf="!isVerified">
                     Resend verification e-mail
                 </button>
             </div>
