@@ -36,12 +36,12 @@ export class ProfileComponent implements OnInit {
 
     this.accountInfoForm = new FormGroup({
       name: new FormControl(''),
-      phone: new FormControl(''),
+      phoneNumber: new FormControl(''),
       email: new FormControl(''),
       streetOne: new FormControl(''),
       streetTwo: new FormControl(''),
       city: new FormControl(''),
-      postalCode: new FormControl(''),
+      postcode: new FormControl(''),
     });
   }
 }

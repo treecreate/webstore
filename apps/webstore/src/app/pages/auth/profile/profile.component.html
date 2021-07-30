@@ -10,30 +10,34 @@
         <div class="account-info-input">
             <div class="sub-title">
                 <p>Contact</p>
+                <hr />
             </div>
-            <hr />
 
             <div class="tc-input-group field">
                 <input
                     type="text"
                     class="tc-input-field"
-                    placeholder="Your name ..."
                     formControlName="name"
+                    placeholder="Your name"
                     id="name"
                     autocomplete="name"
                 />
+                <label for="name" class="tc-input-label">Name</label>
             </div>
 
             <div class="tc-input-group field">
                 <input
                     type="text"
                     class="tc-input-field"
-                    formControlName="phone"
-                    name="phone"
-                    id="phone"
-                    autocomplete="phone"
+                    formControlName="phoneNumber"
+                    placeholder="12345678"
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    autocomplete="phoneNumber"
                 />
-                <label for="phone" class="tc-input-label">Phonenumber</label>
+                <label for="phoneNumber" class="tc-input-label"
+                    >Phone number</label
+                >
             </div>
 
             <div class="tc-input-group field">
@@ -50,14 +54,70 @@
                 <label for="email" class="tc-input-label">E-mail</label>
             </div>
 
-            <div class="sub-title">
+            <div class="sub-title top-margin">
                 <p>Adress</p>
+                <hr />
             </div>
-            <hr />
+
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    name="streedOne"
+                    formControlName="streetOne"
+                    placeholder="Your street name"
+                    id="streetOne"
+                />
+                <label for="streetOne" class="tc-input-label"
+                    >Street name 1</label
+                >
+            </div>
+
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    name="streedTwo"
+                    formControlName="streetTwo"
+                    placeholder="Your street name"
+                    id="streetTwo"
+                />
+                <label for="streetTwo" class="tc-input-label"
+                    >Street name 2</label
+                >
+            </div>
+
+            <div class="city-code-section">
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        name="city"
+                        formControlName="city"
+                        id="city"
+                        placeholder="City"
+                    />
+                    <label for="city" class="tc-input-label">City</label>
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        formControlName="postcode"
+                        id="postcode"
+                        name="postcode"
+                        placeholder="1234"
+                    />
+                    <label for="postcode" class="tc-input-label"
+                        >Postcode</label
+                    >
+                </div>
+            </div>
 
             <div class="actions">
-                <button type="submit" class="tc-button-50">Update info</button>
-                <button type="button" class="tc-button-50">
+                <button type="submit" class="tc-button-100">Update info</button>
+                <button type="button" class="tc-button-100">
                     Resend verification e-mail
                 </button>
             </div>
