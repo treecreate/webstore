@@ -37,13 +37,20 @@ export class ProfileComponent implements OnInit {
     }
 
     this.accountInfoForm = new FormGroup({
-      name: new FormControl(''),
-      phoneNumber: new FormControl(''),
+      name: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z ]*$'),
+      ]),
+      phoneNumber: new FormControl('', [Validators.maxLength(11)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       streetAddress: new FormControl(''),
       streetAddress2: new FormControl(''),
       city: new FormControl(''),
-      postcode: new FormControl('', [Validators.pattern('(?=.*[0-9]).{4}')]),
+      postcode: new FormControl('', [
+        Validators.max(9999),
+        Validators.min(555),
+        Validators.pattern('^[0-9]*$'),
+      ]),
     });
 
     // TODO: should not be a timer. should run the updateFormValues() after the currentUser has been fetched
