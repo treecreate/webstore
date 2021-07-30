@@ -3,6 +3,7 @@
         class="account-info-form"
         [formGroup]="accountInfoForm"
         name="accountInfoForm"
+        (ngSubmit)="updateUser()"
     >
         <div class="title">
             <h2>Account Info</h2>
@@ -116,7 +117,14 @@
             </div>
 
             <div class="actions">
-                <button type="submit" class="tc-button-100">Update info</button>
+                <button
+                    type="submit"
+                    class="tc-button-100"
+                    [disabled]="isDisabled()"
+                    [ngClass]="isDisabled() ? 'disabled' : ''"
+                >
+                    Update info
+                </button>
                 <button type="button" class="tc-button-100" *ngIf="!isVerified">
                     Resend verification e-mail
                 </button>
