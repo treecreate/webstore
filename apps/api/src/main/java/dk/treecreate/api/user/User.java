@@ -38,16 +38,17 @@ public class User
     @Type(type = "uuid-char")
     @Column(name = "user_id", updatable = false, nullable = false)
     @ApiModelProperty(notes = "UUID of the user entity",
-        example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = true)
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
     private UUID userId;
 
     @Type(type = "uuid-char")
     @Column(name = "token", updatable = false, nullable = false, unique = true)
     @ApiModelProperty(notes = "UUID token used for things like verification",
-        example = "c0a80121-7ac0-190b-817a-c08ab0a12346", required = true)
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12346")
     private final UUID token = UUID.randomUUID();
 
     @Column(name = "is_verified", columnDefinition = "boolean default false", nullable = false)
+    @ApiModelProperty(notes = "Verification status of the user account", example = "false")
     private boolean isVerified;
 
     // for simplicity, the username is the email, and just exists as an extra field/column to satisfy spring security requirements
@@ -144,14 +145,14 @@ public class User
     }
 
 
-    public Boolean getVerified()
+    public Boolean getIsVerified()
     {
         return isVerified;
     }
 
-    public void setVerified(Boolean verified)
+    public void setIsVerified(boolean isVerified)
     {
-        isVerified = verified;
+        this.isVerified = isVerified;
     }
 
     public String getUsername()
