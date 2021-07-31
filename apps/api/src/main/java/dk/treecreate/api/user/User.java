@@ -40,7 +40,7 @@ public class User
     @ApiModelProperty(notes = "UUID of the user entity",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = true)
     private UUID userId;
-    
+
     @Type(type = "uuid-char")
     @Column(name = "token", updatable = false, nullable = false, unique = true)
     @ApiModelProperty(notes = "UUID token used for things like verification",
@@ -55,6 +55,7 @@ public class User
     @Size(max = 254)
     @ApiModelProperty(name = "Same as the email, used for authentication",
         example = "example@hotdeals.dev", required = true)
+    @JsonIgnore // the username is not relevant for anything but internals of spring security
     private String username;
 
     @NotBlank

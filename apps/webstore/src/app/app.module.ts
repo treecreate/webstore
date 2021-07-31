@@ -19,12 +19,13 @@ import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductComponent } from './pages/product/product.component';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { CollectionComponent } from './pages/auth/collection/collection.component';
+import { ProfileComponent } from './pages/auth/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,6 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
     HomeComponent,
     SignupComponent,
     LoginComponent,
-    ProfileComponent,
     PageNotFoundComponent,
     CookiePromptModalComponent,
     TermsOfSaleModalComponent,
@@ -43,6 +43,8 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
     ProductComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
+    CollectionComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,5 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [ResetPasswordComponent],
 })
 export class AppModule {}

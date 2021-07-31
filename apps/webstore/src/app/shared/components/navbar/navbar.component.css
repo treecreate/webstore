@@ -65,6 +65,31 @@
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
+.dropdown-menu {
+  top: 35px;
+  left: -45px;
+  border: none;
+  box-shadow: 0px 3px 10px 0 rgb(0 0 0 / 15%);
+  padding: 0;
+}
+
+.dropdown-menu-container {
+  text-align: center;
+}
+
+.dropdown-item-list a:hover {
+  background-color: #ebc6ab;
+  color: white !important;
+}
+
+.dropdown-item-list a {
+  padding: 10px;
+}
+
+.dropdown-item:focus {
+  background-color: #fff0e4;
+}
+
 @media all and (max-width: 992px) {
   .nav-item {
     padding: 0 1rem 0 0;

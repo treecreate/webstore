@@ -5,6 +5,7 @@ import {
   UrlTree,
   Router,
 } from '@angular/router';
+import { IAuthUser } from '@interfaces';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user/user.service';
 
@@ -39,7 +40,7 @@ export class AuthGuard implements CanActivate {
         `;
     }
 
-    const authUser = this.userService.getUser();
+    const authUser: IAuthUser = this.userService.getAuthUser();
     // Check if the user data even exists
     if (authUser == null) {
       this.router.navigate(['/PageNotFound'], { skipLocationChange: true });

@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
           this.isSuccessful = true;
           this.isSignUpFailed = false;
           this.authService.saveAuthToken(data.accessToken);
-          this.userService.saveUser(data);
+          this.userService.saveAuthUser(data);
           this.router.navigate(['/profile']);
         },
         (err) => {

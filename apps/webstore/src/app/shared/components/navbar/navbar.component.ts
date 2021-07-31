@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { BehaviorSubject } from 'rxjs';
@@ -19,6 +19,8 @@ export class NavbarComponent implements OnInit {
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
+
+  @ViewChild('profileMenu') profileMenu: ElementRef;
 
   basketItemOptions(amount: number): string {
     if (amount === 0) {
@@ -71,6 +73,14 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  showProfileMenu() {
+    this.profileMenu.nativeElement.classList.add('show');
+  }
+
+  hideProfileMenu() {
+    this.profileMenu.nativeElement.classList.remove('show');
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method

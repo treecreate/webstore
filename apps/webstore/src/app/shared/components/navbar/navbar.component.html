@@ -49,13 +49,41 @@
                         >Product</a
                     >
                 </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link waves-light"
-                        routerLink="{{ !isLoggedIn ? '/login' : '/profile' }}"
-                        >{{ !isLoggedIn ? 'Log In' : 'Profile' }}</a
+                <li class="nav-item" *ngIf="!isLoggedIn">
+                    <a class="nav-link waves-light" routerLink="/login"
+                        >Log In</a
                     >
                 </li>
+
+                <div
+                    ngbDropdown
+                    class="d-inline-block"
+                    *ngIf="!isLoggedIn"
+                    (mouseleave)="hideProfileMenu()"
+                >
+                    <a
+                        class="nav-item"
+                        ngbDropdownToggle
+                        class="nav-link waves-light"
+                        (mouseenter)="showProfileMenu()"
+                        >Profile</a
+                    >
+                    <div
+                        class="dropdown-menu-container dropdown-item-list"
+                        ngbDropdownMenu
+                        aria-labelledby="dropdownBasic"
+                        #profileMenu
+                    >
+                        <a ngbDropdownItem routerLink="/profile"
+                            >Account Info</a
+                        >
+                        <a ngbDropdownItem routerLink="/collection"
+                            >Collection</a
+                        >
+                        <a ngbDropdownItem (click)="logout()">Log Out</a>
+                    </div>
+                </div>
+
                 <li class="nav-item">
                     <a
                         class="nav-link waves-light"
