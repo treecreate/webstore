@@ -40,6 +40,15 @@ public class User
     @ApiModelProperty(notes = "UUID of the user entity",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = true)
     private UUID userId;
+    
+    @Type(type = "uuid-char")
+    @Column(name = "token", updatable = false, nullable = false, unique = true)
+    @ApiModelProperty(notes = "UUID token used for things like verification",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12346", required = true)
+    private final UUID token = UUID.randomUUID();
+
+    @Column(name = "is_verified", columnDefinition = "boolean default false", nullable = false)
+    private boolean isVerified;
 
     // for simplicity, the username is the email, and just exists as an extra field/column to satisfy spring security requirements
     @NotBlank
@@ -67,7 +76,6 @@ public class User
     @ApiModelProperty(notes = "A list of roles the user can have",
         example = "[\"ROLE_USED\", \"ROLE_DEVELOPER\", \"ROLE_ADMIN\"]", required = true)
     private Set<Role> roles = new HashSet<>();
-
 
     @Basic
     @ApiModelProperty(notes = "User's name, used for shipping purposes", example = "John Doe")
@@ -128,6 +136,23 @@ public class User
         this.userId = id;
     }
 
+
+    public UUID getToken()
+    {
+        return token;
+    }
+
+
+    public Boolean getVerified()
+    {
+        return isVerified;
+    }
+
+    public void setVerified(Boolean verified)
+    {
+        isVerified = verified;
+    }
+
     public String getUsername()
     {
         return username;
@@ -167,7 +192,6 @@ public class User
     {
         this.roles = roles;
     }
-
 
     public String getName()
     {
@@ -239,22 +263,6 @@ public class User
         this.country = country;
     }
 
-    @Override public String toString()
-    {
-        return "User{" +
-            "userId=" + userId +
-            ", username='" + username + '\'' +
-            ", email='" + email + '\'' +
-            ", roles=" + roles +
-            ", name='" + name + '\'' +
-            ", phoneNumber='" + phoneNumber + '\'' +
-            ", streetAddress='" + streetAddress + '\'' +
-            ", streetAddress2='" + streetAddress2 + '\'' +
-            ", city='" + city + '\'' +
-            ", postcode='" + postcode + '\'' +
-            ", country='" + country + '\'' +
-            '}';
-    }
 
     @Override public boolean equals(Object o)
     {
@@ -277,5 +285,24 @@ public class User
         return Objects
             .hash(userId, username, email, password, roles, name, phoneNumber, streetAddress,
                 streetAddress2, city, postcode, country);
+    }
+
+    @Override public String toString()
+    {
+        return "User{" +
+            "userId=" + userId +
+            ", isVerified=" + isVerified +
+            ", token=" + token +
+            ", username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            ", roles=" + roles +
+            ", name='" + name + '\'' +
+            ", phoneNumber='" + phoneNumber + '\'' +
+            ", streetAddress='" + streetAddress + '\'' +
+            ", streetAddress2='" + streetAddress2 + '\'' +
+            ", city='" + city + '\'' +
+            ", postcode='" + postcode + '\'' +
+            ", country='" + country + '\'' +
+            '}';
     }
 }
