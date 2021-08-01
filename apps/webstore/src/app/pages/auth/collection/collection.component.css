@@ -18,6 +18,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .title {
@@ -42,4 +43,29 @@
 .button-section {
   width: 100%;
   margin: 20px 0;
+}
+
+.match-section {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.match-button {
+  width: 250px;
+  margin-top: 10px;
+}
+
+@media (max-width: 500px) {
+  .collection-container {
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 80vw;
+  }
+  .title {
+    margin-top: 25px;
+  }
+  .match-section {
+    margin-bottom: 25px;
+  }
 }
