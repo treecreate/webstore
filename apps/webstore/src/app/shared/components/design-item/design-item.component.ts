@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Design } from '@interfaces';
 
 @Component({
@@ -11,11 +11,19 @@ export class DesignItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('design-item');
+  }
 
-  deleteDesign(design: Design) {}
+  deleteDesign(design: Design) {
+    console.log('Delete design: ', design);
+  }
 
-  editDesign(design: Design) {}
+  editDesign(design: Design) {
+    console.log('Edit design: ', design);
+  }
 
-  addDesignToBasket(design: Design) {}
+  addDesignToBasket(design: Design) {
+    console.log('Add design to basket: ', design);
+  }
 }

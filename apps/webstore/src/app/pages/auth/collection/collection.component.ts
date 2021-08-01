@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Design } from '@interfaces';
 
 @Component({
   selector: 'webstore-collection',
