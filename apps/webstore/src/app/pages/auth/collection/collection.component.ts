@@ -12,7 +12,7 @@ export class CollectionComponent implements OnInit {
     new Design('2', '2', 'test title'),
     new Design('3', '3', 'test title'),
     new Design('4', '2'),
-    new Design('5', '1', 'test title')
+    new Design('5', '1', 'test title'),
   ];
 
   constructor() {}

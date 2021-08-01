@@ -60,8 +60,6 @@ import { DesignItemComponent } from './shared/components/design-item/design-item
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [
-    DesignItemComponent
-  ],
+  exports: [DesignItemComponent],
 })
 export class AppModule {}

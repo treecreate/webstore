@@ -1,5 +1,5 @@
 export interface IDesign {
-    designId: string;
-    userId: string;
-    title?: string; 
+  designId: string;
+  userId: string;
+  title?: string;
 }

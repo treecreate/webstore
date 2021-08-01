@@ -4,27 +4,18 @@ import { Design } from '@interfaces';
 @Component({
   selector: 'webstore-design-item',
   templateUrl: './design-item.component.html',
-  styleUrls: ['./design-item.component.css']
+  styleUrls: ['./design-item.component.css'],
 })
 export class DesignItemComponent implements OnInit {
-
   @Input() design: any;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  deleteDesign(design: Design) {
+  deleteDesign(design: Design) {}
 
-  }
+  editDesign(design: Design) {}
 
-  editDesign(design: Design) {
-
-  }
-
-  addDesignToBasket(design: Design) {
-    
-  }
-
+  addDesignToBasket(design: Design) {}
 }
