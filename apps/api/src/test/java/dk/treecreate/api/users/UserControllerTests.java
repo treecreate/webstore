@@ -2,6 +2,7 @@ package dk.treecreate.api.users;
 
 import dk.treecreate.api.TestUtilsService;
 import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.user.UserService;
@@ -20,11 +21,10 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +43,8 @@ class UserControllerTests
     private MockMvc mvc;
     @MockBean
     private UserRepository userRepository;
+    @MockBean
+    private MailService mailService;
 
     @Nested
     class AuthenticationTests
@@ -89,6 +91,15 @@ class UserControllerTests
         {
             UUID uuid = new UUID(0, 0);
             mvc.perform(delete("/users/" + uuid))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName(
+            "GET /users/verification endpoint returns 401 when user credentials are invalid")
+        void verifyVerificationEmailReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            mvc.perform(delete("/users/verification"))
                 .andExpect(status().isUnauthorized());
         }
     }
@@ -330,5 +341,31 @@ class UserControllerTests
             mvc.perform(delete("/users/" + userId))
                 .andExpect(status().isNoContent());
         }
+    }
+
+    @Nested
+    class UserVerificationTests
+    {
+        @Test
+        @DisplayName(
+            "GET /users/verification endpoint returns 204: No Content when successfully sending a verification email")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void sendVerificationTokenReturnsNoContent() throws Exception
+        {
+            User user = new User();
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+            Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
+                .thenReturn(user);
+            Mockito.when(mailService.getLocale(any())).thenReturn(new Locale("dk"));
+            Mockito.doNothing().when(mailService)
+                .sendVerificationEmail(anyString(), anyString(),
+                    any(Locale.class));
+            mvc.perform(get("/users/verification"))
+                .andExpect(status().isNoContent());
+        }
+
     }
 }
