@@ -6,6 +6,7 @@ import dk.treecreate.api.authentication.dto.request.SignupRequest;
 import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
 import dk.treecreate.api.authentication.repository.RoleRepository;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -43,6 +45,8 @@ class AuthControllerTests
 
     @MockBean
     private RoleRepository roleRepository;
+
+    @MockBean MailService mailService;
 
     // region Signin
 
@@ -156,6 +160,7 @@ class AuthControllerTests
         signupRequest.setPassword("abcDEF123");
         User user = new User();
         user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
         user.setEmail(signupRequest.getEmail());
         user.setUsername(signupRequest.getEmail());
         user.setPassword(
@@ -167,6 +172,9 @@ class AuthControllerTests
             java.util.Optional.of(user));
         Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_USER)));
+        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.doNothing().when(mailService)
+            .sendSignupEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 
         mvc.perform(post("/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -216,6 +224,10 @@ class AuthControllerTests
             java.util.Optional.of(new Role(ERole.ROLE_DEVELOPER)));
         Mockito.when(roleRepository.findByName(ERole.ROLE_ADMIN)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_ADMIN)));
+
+        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.doNothing().when(mailService)
+            .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 
         mvc.perform(post("/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)

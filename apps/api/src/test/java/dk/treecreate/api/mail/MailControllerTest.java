@@ -21,9 +21,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -92,8 +93,8 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
-        doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(email, UUID.randomUUID().toString(), new Locale("dk"));
+        Mockito.doThrow(UnsupportedEncodingException.class).when(mailService)
+            .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
@@ -141,7 +142,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
         doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(email, UUID.randomUUID().toString(), new Locale("dk"));
+            .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
                 .contentType(MediaType.APPLICATION_JSON))
