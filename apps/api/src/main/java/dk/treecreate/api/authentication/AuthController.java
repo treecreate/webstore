@@ -8,12 +8,15 @@ import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
 import dk.treecreate.api.authentication.repository.RoleRepository;
 import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,8 @@ import java.util.Set;
 @Api(tags = {"Authentication"})
 public class AuthController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+
     private static final String ROLE_NOT_FOUND_ERROR_MESSAGE = "Error: Role is not found.";
     @Autowired
     AuthenticationManager authenticationManager;
@@ -43,7 +48,10 @@ public class AuthController
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
-    @Autowired AuthUserService authUserService;
+    @Autowired
+    AuthUserService authUserService;
+    @Autowired
+    MailService mailService;
 
     @PostMapping("/signin")
     @Operation(summary = "Sign in as an existing user")
@@ -115,6 +123,17 @@ public class AuthController
         }
         user.setRoles(roles);
         userRepository.save(user);
+
+        try
+        {
+            mailService.sendSignupEmail(user.getEmail(), user.getToken().toString(),
+                mailService.getLocale(null));
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to process a verification email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to send the email. Try again later");
+        }
 
         return ResponseEntity.ok(authUserService
             .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
