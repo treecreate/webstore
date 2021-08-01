@@ -24,10 +24,11 @@ import java.util.UUID;
 public class User
 {
     @Type(type = "uuid-char")
-    @Column(name = "token", updatable = false, nullable = false, unique = true)
+    @Column(name = "token", nullable = false, unique = true)
     @ApiModelProperty(notes = "UUID token used for things like verification",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12346")
-    private final UUID token = UUID.randomUUID();
+    private UUID token = UUID.randomUUID();
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -45,6 +46,7 @@ public class User
     @ApiModelProperty(notes = "UUID of the user entity",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
     private UUID userId;
+
     @Column(name = "is_verified", columnDefinition = "boolean default false", nullable = false)
     @ApiModelProperty(notes = "Verification status of the user account", example = "false")
     private boolean isVerified;
@@ -136,12 +138,15 @@ public class User
         this.userId = id;
     }
 
-
     public UUID getToken()
     {
         return token;
     }
 
+    public void setToken(UUID token)
+    {
+        this.token = token;
+    }
 
     public Boolean getIsVerified()
     {
@@ -263,30 +268,6 @@ public class User
         this.country = country;
     }
 
-
-    @Override public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return userId.equals(user.userId) && Objects.equals(username, user.username) &&
-            email.equals(user.email) &&
-            Objects.equals(roles, user.roles) && Objects.equals(name, user.name) &&
-            Objects.equals(phoneNumber, user.phoneNumber) &&
-            Objects.equals(streetAddress, user.streetAddress) &&
-            Objects.equals(streetAddress2, user.streetAddress2) &&
-            Objects.equals(city, user.city) && Objects.equals(postcode, user.postcode) &&
-            Objects.equals(country, user.country);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects
-            .hash(userId, username, email, password, roles, name, phoneNumber, streetAddress,
-                streetAddress2, city, postcode, country);
-    }
-
     @Override public String toString()
     {
         return "User{" +
@@ -304,5 +285,27 @@ public class User
             ", postcode='" + postcode + '\'' +
             ", country='" + country + '\'' +
             '}';
+    }
+
+    @Override public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return isVerified == user.isVerified && token.equals(user.token) &&
+            userId.equals(user.userId) && Objects.equals(username, user.username) &&
+            email.equals(user.email) && Objects.equals(roles, user.roles) &&
+            Objects.equals(name, user.name) && Objects.equals(phoneNumber, user.phoneNumber) &&
+            Objects.equals(streetAddress, user.streetAddress) &&
+            Objects.equals(streetAddress2, user.streetAddress2) &&
+            Objects.equals(city, user.city) && Objects.equals(postcode, user.postcode) &&
+            Objects.equals(country, user.country);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(token, userId, isVerified, username, email, roles, name, phoneNumber,
+            streetAddress, streetAddress2, city, postcode, country);
     }
 }
