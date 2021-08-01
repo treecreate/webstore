@@ -22,4 +22,24 @@
 
 .title {
   text-align: center;
+  margin-top: 15px;
+}
+
+.no-content {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+  text-align: center;
+  flex-direction: column;
+}
+
+.sub-title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.button-section {
+  width: 100%;
+  margin: 20px 0; 
 }

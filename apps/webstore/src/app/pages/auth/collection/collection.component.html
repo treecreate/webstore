@@ -1,13 +1,27 @@
 <div class="collection-page-container">
     <div class="collection-container">
         <div class="title">
-            <h2>Account Info</h2>
+            <h2>Your Collection</h2>
         </div>
-        <div class="collection-content">
-            <webstore-design-item
-                *ngFor="let design of designCollection"
-                [design]="design"
-            ></webstore-design-item>
+        <div>
+            <div
+                class="collection-content"
+                *ngIf="1 <= designCollection.length"
+            >
+                <webstore-design-item
+                    *ngFor="let design of designCollection"
+                    [design]="design"
+                ></webstore-design-item>
+            </div>
+            <div class="no-content" *ngIf="0 === designCollection.length">
+                <div class="sub-title">You have no designs</div>
+                <span>
+                    Go to the product page to start creating your first design!
+                </span>
+                <div class="button-section">
+                    <button class="tc-button-50">Start designing</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
