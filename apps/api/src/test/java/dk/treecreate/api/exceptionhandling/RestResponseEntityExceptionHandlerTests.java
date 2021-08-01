@@ -58,9 +58,9 @@ class RestResponseEntityExceptionHandlerTests
         String exceptionName = "ResponseStatusException";
         String customMessage = "Custom Response Status Exception";
         mvc.perform(post("/exception").contentType(MediaType.APPLICATION_JSON)
-            .param("exceptionName", exceptionName).param("customMessage", customMessage))
+                .param("exceptionName", exceptionName).param("customMessage", customMessage))
             .andExpect(status().isIAmATeapot()).andExpect(
-            result -> assertTrue(result.getResolvedException() instanceof ResponseStatusException))
+                result -> assertTrue(result.getResolvedException() instanceof ResponseStatusException))
             // The exception message in ResponseStatusException includes the status code and error type so it has to be added to expected message
             .andExpect(result -> assertEquals("418 I_AM_A_TEAPOT \"" + customMessage + "\"",
                 result.getResolvedException().getMessage()));
@@ -82,10 +82,10 @@ class RestResponseEntityExceptionHandlerTests
         String exceptionName = "ResourceNotFoundException";
         String customMessage = "Failed to find a resource";
         mvc.perform(post("/exception").contentType(MediaType.APPLICATION_JSON)
-            .param("exceptionName", exceptionName).param("customMessage", customMessage))
+                .param("exceptionName", exceptionName).param("customMessage", customMessage))
             .andExpect(status().isNotFound()).andExpect(result -> assertTrue(
-            result.getResolvedException() instanceof ResourceNotFoundException)).andExpect(
-            result -> assertEquals(customMessage, result.getResolvedException().getMessage()));
+                result.getResolvedException() instanceof ResourceNotFoundException)).andExpect(
+                result -> assertEquals(customMessage, result.getResolvedException().getMessage()));
     }
 
 }

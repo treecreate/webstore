@@ -23,6 +23,11 @@ import java.util.UUID;
     })
 public class User
 {
+    @Type(type = "uuid-char")
+    @Column(name = "token", updatable = false, nullable = false, unique = true)
+    @ApiModelProperty(notes = "UUID token used for things like verification",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12346")
+    private final UUID token = UUID.randomUUID();
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -40,13 +45,6 @@ public class User
     @ApiModelProperty(notes = "UUID of the user entity",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
     private UUID userId;
-
-    @Type(type = "uuid-char")
-    @Column(name = "token", updatable = false, nullable = false, unique = true)
-    @ApiModelProperty(notes = "UUID token used for things like verification",
-        example = "c0a80121-7ac0-190b-817a-c08ab0a12346")
-    private final UUID token = UUID.randomUUID();
-
     @Column(name = "is_verified", columnDefinition = "boolean default false", nullable = false)
     @ApiModelProperty(notes = "Verification status of the user account", example = "false")
     private boolean isVerified;

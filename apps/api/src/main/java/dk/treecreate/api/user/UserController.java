@@ -1,6 +1,5 @@
 package dk.treecreate.api.user;
 
-import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.mail.MailService;
@@ -38,6 +37,8 @@ public class UserController
     UserService userService;
     @Autowired
     AuthUserService authUserService;
+    @Autowired
+    MailService mailService;
 
     @GetMapping()
     @Operation(summary = "Get all users")
@@ -133,10 +134,6 @@ public class UserController
         return userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
-
-
-    @Autowired
-    MailService mailService;
 
     @Operation(summary = "Send a verification email for the currently authenticated user")
     @ApiResponses(value = {

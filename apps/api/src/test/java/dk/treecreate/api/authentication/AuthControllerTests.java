@@ -51,7 +51,7 @@ class AuthControllerTests
     void signinReturnsBadRequestOnInvalidBody() throws Exception
     {
         mvc.perform(post("/auth/signin")
-            .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
     }
 
@@ -78,8 +78,8 @@ class AuthControllerTests
             java.util.Optional.of(user));
 
         mvc.perform(post("/auth/signin")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(loginRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(loginRequest)))
             .andExpect(status().isUnauthorized());
     }
 
@@ -109,8 +109,8 @@ class AuthControllerTests
             java.util.Optional.of(user));
 
         mvc.perform(post("/auth/signin")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(loginRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(loginRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
@@ -124,7 +124,7 @@ class AuthControllerTests
     void signupReturnsBadRequestOnInvalidBody() throws Exception
     {
         mvc.perform(post("/auth/signup")
-            .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
     }
 
@@ -139,8 +139,8 @@ class AuthControllerTests
         Mockito.when(userRepository.existsByEmail(signupRequest.getEmail())).thenReturn(true);
 
         mvc.perform(post("/auth/signup")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(signupRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isBadRequest());
     }
 
@@ -169,8 +169,8 @@ class AuthControllerTests
             java.util.Optional.of(new Role(ERole.ROLE_USER)));
 
         mvc.perform(post("/auth/signup")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(signupRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
@@ -218,8 +218,8 @@ class AuthControllerTests
             java.util.Optional.of(new Role(ERole.ROLE_ADMIN)));
 
         mvc.perform(post("/auth/signup")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(signupRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
