@@ -117,14 +117,23 @@
             </div>
 
             <div class="actions">
-                <button
-                    type="submit"
-                    class="tc-button-100"
-                    [disabled]="isDisabled()"
-                    [ngClass]="isDisabled() ? 'disabled' : ''"
-                >
-                    Update info
-                </button>
+                <div class="button-section">
+                    <button
+                        type="submit"
+                        class="tc-button-50"
+                        [disabled]="isDisabled()"
+                        [ngClass]="isDisabled() ? 'disabled' : ''"
+                    >
+                        Update info
+                    </button>
+                    <button
+                        class="tc-button-50"
+                        routerLink="/collection"
+                        (click)="scrollTop()"
+                    >
+                        Collection
+                    </button>
+                </div>
                 <button
                     type="button"
                     class="tc-button-100"

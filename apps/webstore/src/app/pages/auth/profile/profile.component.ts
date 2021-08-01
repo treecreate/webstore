@@ -152,6 +152,10 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  scrollTop() {
+    window.scroll(0, 0);
+  }
+
   isDisabled(): boolean {
     return this.accountInfoForm.get('email').invalid;
   }

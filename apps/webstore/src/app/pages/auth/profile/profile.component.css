@@ -63,6 +63,11 @@ button[type='button'] {
   width: 45%;
 }
 
+.button-section {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 500px) {
   .account-info-form {
     padding: 0;
