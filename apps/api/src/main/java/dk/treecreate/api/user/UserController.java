@@ -19,7 +19,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,6 +80,7 @@ public class UserController
         @ApiParam(name = "userId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
         @PathVariable UUID userId,
         @RequestBody(required = false) @Valid UpdateUserRequest updateUserRequest)
+        throws MessagingException, UnsupportedEncodingException
     {
         User user = userRepository.findByUserId(userId)
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -95,6 +98,7 @@ public class UserController
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public User updateCurrentUser(
         @RequestBody(required = false) @Valid UpdateUserRequest updateUserRequest)
+        throws MessagingException, UnsupportedEncodingException
     {
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User user = userRepository.findByEmail(userDetails.getUsername())

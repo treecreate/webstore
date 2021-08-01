@@ -1,11 +1,15 @@
 package dk.treecreate.api.user;
 
 import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class UserService
@@ -16,7 +20,11 @@ public class UserService
     @Autowired
     AuthUserService authUserService;
 
+    @Autowired
+    MailService mailService;
+
     public User updateUser(UpdateUserRequest updateUserRequest, User user)
+        throws MessagingException, UnsupportedEncodingException
     {
 
         if (updateUserRequest.getEmail() != null)
@@ -28,6 +36,7 @@ public class UserService
             }
             user.setEmail(updateUserRequest.getEmail());
             user.setUsername(updateUserRequest.getEmail());
+            triggerNewAccountVerification(user);
         }
         if (updateUserRequest.getPassword() != null)
             user.setPassword(authUserService.encodePassword(updateUserRequest.getPassword()));
@@ -46,6 +55,15 @@ public class UserService
         if (updateUserRequest.getPostcode() != null)
             user.setPostcode(updateUserRequest.getPostcode());
         return user;
+    }
 
+    private User triggerNewAccountVerification(User user)
+        throws MessagingException, UnsupportedEncodingException
+    {
+        System.out.println("Setting to false");
+        user.setIsVerified(false);
+        mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
+            mailService.getLocale(null));
+        return user;
     }
 }
