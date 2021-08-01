@@ -1,3 +1,13 @@
 <div class="collection-page-container">
-    <div class="collection-content"></div>
+    <div class="collection-container">
+        <div class="title">
+            <h2>Account Info</h2>
+        </div>
+        <div class="collection-content">
+            <webstore-design-item
+                *ngFor="let design of designCollection"
+                [design]="design"
+            ></webstore-design-item>
+        </div>
+    </div>
 </div>

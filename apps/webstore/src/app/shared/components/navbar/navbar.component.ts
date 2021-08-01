@@ -6,6 +6,7 @@ import { LocalStorageService } from '../../services/local-storage';
 import { LocalStorageVars, LocaleType } from '@models';
 import { AuthService } from '../../services/authentication/auth.service';
 import { ToastService } from '../toast/toast-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'webstore-navbar',
@@ -33,7 +34,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -94,6 +96,8 @@ export class NavbarComponent implements OnInit {
       2500
     );
     this.authService.logout();
+    window.scroll(0, 0);
+    this.router.navigate(['/home']);
   }
 
   showProfileMenu() {

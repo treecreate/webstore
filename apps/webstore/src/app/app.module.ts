@@ -27,7 +27,7 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
-import { DesignDisplayComponent } from './shared/components/design-display/design-display.component';
+import { DesignItemComponent } from './shared/components/design-item/design-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +48,7 @@ import { DesignDisplayComponent } from './shared/components/design-display/desig
     CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
-    DesignDisplayComponent,
+    DesignItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +60,8 @@ import { DesignDisplayComponent } from './shared/components/design-display/desig
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [DesignDisplayComponent],
+  exports: [
+    DesignItemComponent
+  ],
 })
 export class AppModule {}
