@@ -97,7 +97,7 @@ class UserControllerTests
         @Test
         @DisplayName(
             "GET /users/verification endpoint returns 401 when user credentials are invalid")
-        void verifyVerificationEmailReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        void sendVerificationEmailReturnsUnauthorizedOnInvalidCredentials() throws Exception
         {
             mvc.perform(delete("/users/verification"))
                 .andExpect(status().isUnauthorized());

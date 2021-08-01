@@ -66,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             .antMatchers("/auth/**").permitAll()
+            .antMatchers("/users/verification/{token}").permitAll()
             .antMatchers("/healthcheck").permitAll()
             .antMatchers("/docs", // Swagger docs endpoints
                 "/v2/api-docs",
