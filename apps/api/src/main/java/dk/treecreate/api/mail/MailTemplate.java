@@ -4,7 +4,8 @@ package dk.treecreate.api.mail;
 public enum MailTemplate
 {
     SIGNUP("signup"),
-    RESET_PASSWORD("reset-password");
+    RESET_PASSWORD("reset-password"),
+    VERIFY_EMAIL("verify-email");
 
     public final String label;
 

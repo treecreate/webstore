@@ -49,6 +49,16 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
     }
 
+    public void sendVerificationEmail(String to, String token, Locale locale)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(locale);
+        context.setVariable("email", to);
+        context.setVariable("verificationToken", token);
+        String subject = "Treecreate - verify email";
+        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
+    }
+
     private void sendMail(String to, MailDomain from, String subject, Context context,
                           MailTemplate template)
         throws MessagingException, UnsupportedEncodingException

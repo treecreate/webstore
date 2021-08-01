@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Verify Email Template</title>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    </head>
+    <body>
+        <p th:text="'Hello ' + ${email}">Hello, Customer!</p>
+
+        <p>Follow the link below to verify your email</p>
+        <a th:href="'treecreate.dk/verification/' + ${verificationToken}" th:text="'Verify Email'">Invalid link, something went wrong here</a>
+        <p>This is locale showcase, just ignore it:</p>
+        <span th:text="#{locale}">nothing got set</span>
+        <p>
+            Regards, <br />
+            &emsp; <em>The Treecreate Team</em>
+        </p>
+    </body>
+</html>
