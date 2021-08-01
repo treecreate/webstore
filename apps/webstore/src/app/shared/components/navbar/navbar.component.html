@@ -65,15 +65,26 @@
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link waves-light" routerLink="/">Home</a>
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/"
+                        (click)="isMenuCollapsed = !isMenuCollapsed"
+                        >Home</a
+                    >
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-light" routerLink="/product"
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/product"
+                        (click)="isMenuCollapsed = !isMenuCollapsed"
                         >Product</a
                     >
                 </li>
                 <li class="nav-item" *ngIf="!isLoggedIn">
-                    <a class="nav-link waves-light" routerLink="/login"
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/login"
+                        (click)="isMenuCollapsed = !isMenuCollapsed"
                         >Log In</a
                     >
                 </li>
@@ -83,6 +94,7 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         routerLink="/collection"
+                        (click)="isMenuCollapsed = !isMenuCollapsed"
                         >Collection</a
                     >
                 </li>
@@ -91,14 +103,16 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         routerLink="/profile"
+                        (click)="isMenuCollapsed = !isMenuCollapsed"
                         >Profile</a
                     >
                 </li>
+
                 <li class="nav-item show-on-mobile">
                     <a
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
-                        (clikc)="logout()"
+                        (click)="logout(); isMenuCollapsed = !isMenuCollapsed"
                         >Log out</a
                     >
                 </li>

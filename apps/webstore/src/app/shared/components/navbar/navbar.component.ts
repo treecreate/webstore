@@ -63,6 +63,7 @@ export class NavbarComponent implements OnInit {
   }
 
   changeLocale() {
+    // TODO: make the change language alert show on screen after reload
     if (this.localeCode === LocaleType.en) {
       this.localeCode = LocaleType.dk;
       this.toastService.showAlert(
