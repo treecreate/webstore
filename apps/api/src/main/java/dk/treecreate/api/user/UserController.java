@@ -1,7 +1,9 @@
 package dk.treecreate.api.user;
 
+import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.dto.GetUsersResponse;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
 import io.swagger.annotations.Api;
@@ -9,10 +11,14 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,6 +30,7 @@ import java.util.UUID;
 @Api(tags = {"Users"})
 public class UserController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserRepository userRepository;
@@ -125,5 +132,35 @@ public class UserController
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         return userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+
+    @Autowired
+    MailService mailService;
+
+    @Operation(summary = "Send a verification email for the currently authenticated user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Email sent successfully"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @GetMapping("verification")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public void sendVerificationEmailForCurrentUser(@Parameter(name = "lang",
+        description = "Language of the email. Defaults to danish (dk)." +
+            "\nValid values: 'en', 'dk'", example = "en") @RequestParam(required = false)
+                                                        String lang)
+    {
+        User user = authUserService.getCurrentlyAuthenticatedUser();
+        try
+        {
+            mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
+                mailService.getLocale(lang));
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to process a verification email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to send the email. Try again later");
+        }
     }
 }
