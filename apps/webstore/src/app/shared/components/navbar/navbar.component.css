@@ -98,7 +98,47 @@
   z-index: 1000;
 }
 
+.show-on-mobile {
+  display: none;
+}
+
+.nav-section {
+  display: flex;
+}
+
+.navbar-basket-icon {
+  background-color: transparent;
+  border: none;
+  position: relative;
+  top: 3px;
+}
+
+.navbar-basket-icon {
+  background-color: #52d73d;
+  border-radius: 5px;
+  color: white;
+  padding: 0 8px 3px 8px;
+  margin: 5px;
+}
+
+.nav-icon-mobile {
+  width: 15px;
+}
+
+.item-number {
+  margin-left: 4px;
+  position: relative;
+  top: 1px;
+  font-size: 12px;
+}
+
 @media all and (max-width: 992px) {
+  .remove-on-mobile {
+    display: none;
+  }
+  .show-on-mobile {
+    display: block;
+  }
   .nav-item {
     padding: 0 1rem 0 0;
   }
