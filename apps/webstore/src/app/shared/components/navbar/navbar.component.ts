@@ -100,6 +100,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  clickBackdrop() {
+    console.log('woo');
+  }
+
   showProfileMenu() {
     this.profileMenu.nativeElement.classList.add('show');
   }

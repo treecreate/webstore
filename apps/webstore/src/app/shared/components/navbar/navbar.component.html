@@ -96,3 +96,8 @@
         </div>
     </div>
 </nav>
+<div
+    class="backdrop"
+    *ngIf="!isMenuCollapsed"
+    (click)="isMenuCollapsed = !isMenuCollapsed"
+></div>

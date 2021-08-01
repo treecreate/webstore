@@ -90,6 +90,14 @@
   background-color: #fff0e4;
 }
 
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
 @media all and (max-width: 992px) {
   .nav-item {
     padding: 0 1rem 0 0;
