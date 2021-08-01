@@ -100,8 +100,12 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  clickBackdrop() {
-    console.log('woo');
+  isEnglish() {
+    return this.localeCode === LocaleType.en;
+  }
+
+  isDanish() {
+    return this.localeCode === LocaleType.dk;
   }
 
   showProfileMenu() {
