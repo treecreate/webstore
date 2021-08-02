@@ -23,13 +23,10 @@ export class ProfileComponent implements OnInit {
     private toastService: ToastService
   ) {}
 
-  // TODO: implement proper profile stuff (tf does that mean? XD - teodor)
-
   ngOnInit(): void {
     try {
       this.userService.getUser().subscribe((data) => {
         this.currentUser = data;
-        console.log(this.currentUser); // NOTE: Temporary printout for development purposes
       });
     } catch (error) {
       console.error(error);
@@ -57,13 +54,14 @@ export class ProfileComponent implements OnInit {
     });
 
     // TODO: should not be a timer. should run the updateFormValues() after the currentUser has been fetched
+    // NOTE: Could be achieved by subscribing to the query result ~Kwandes
     setTimeout(() => {
       this.updateFormValues();
     }, 1000);
   }
 
   updateFormValues() {
-    // to check if the user is changing their email address.
+    // check if the user is changing their email address.
     this.oldEmail = this.currentUser.email;
     // TODO: add a isVerified value to the IUser and set the this.isVerified = this.currentUser.isVerified
     // set all form values after the user has been fetched.
@@ -76,13 +74,12 @@ export class ProfileComponent implements OnInit {
       city: this.currentUser.city,
       postcode: this.currentUser.postcode,
     });
-    console.log(this.accountInfoForm.get('email').value);
   }
 
   updateUser() {
     // Failsafe to check that there is a valid email
     if (this.isDisabled()) {
-      console.log('You cant update without an email');
+      console.warn('You cant update without an email');
       this.toastService.showAlert(
         "You can't update your account without a valid e-mail.",
         'Du kan desværre ikke opdaterer din profil uden en valid e-mail',
@@ -96,7 +93,6 @@ export class ProfileComponent implements OnInit {
         this.updateUserWithEmailChange();
       } else {
         // update user info
-        console.log('Updating profile: ' + this.oldEmail);
         this.updateUserQuery();
       }
     }

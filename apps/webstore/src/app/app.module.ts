@@ -2,13 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//Services
+import { HttpClientModule } from '@angular/common/http';
+
+//Services etc
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
+import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 //Components
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { CollectionComponent } from './pages/auth/collection/collection.component';
+import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
+import { DesignItemComponent } from './shared/components/design-item/design-item.component';
+
 //Pages
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -20,14 +29,9 @@ import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/reject
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
-import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
-import { HttpClientModule } from '@angular/common/http';
-import { ProductComponent } from './pages/product/product.component';
-import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
-import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
-import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
-import { DesignItemComponent } from './shared/components/design-item/design-item.component';
+import { ProductComponent } from './pages/product/product.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +64,6 @@ import { DesignItemComponent } from './shared/components/design-item/design-item
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [DesignItemComponent],
+  exports: [],
 })
 export class AppModule {}

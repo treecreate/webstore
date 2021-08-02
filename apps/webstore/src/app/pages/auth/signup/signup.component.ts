@@ -59,8 +59,6 @@ export class SignupComponent implements OnInit {
       })
       .subscribe(
         (data: IRegisterResponse) => {
-          console.log('Registration successful');
-          console.log(data);
           this.toastService.showAlert(
             'Welcome to Treecreate, you have successfully been registered!',
             'Velkommen til Treecreate, du er nu bleven registreret!',
@@ -87,7 +85,7 @@ export class SignupComponent implements OnInit {
   }
 
   @HostListener('document:keydown.enter') enterKeyPressed() {
-    if (this.isDisabled()) {
+    if (!this.isDisabled()) {
       this.onSubmit();
     }
   }

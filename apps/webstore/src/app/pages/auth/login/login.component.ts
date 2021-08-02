@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
   }
 
   @HostListener('document:keydown.enter') enterKeyPressed() {
-    if (this.isDisabled()) {
+    if (!this.isDisabled()) {
       this.onSubmit();
     }
   }
