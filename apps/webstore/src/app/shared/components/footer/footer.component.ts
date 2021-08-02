@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
+import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
 
 @Component({
@@ -19,6 +20,10 @@ export class FooterComponent implements OnInit {
 
   showTermsOfUse() {
     this.modalService.open(TermsOfUseModalComponent, { size: 'lg' });
+  }
+
+  showTermsOfSale() {
+    this.modalService.open(TermsOfSaleModalComponent, { size: 'lg' });
   }
 
   showPrivacyNotice() {

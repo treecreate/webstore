@@ -35,10 +35,7 @@
   -webkit-transform: rotate(45deg) translate(-1px, 3px);
   transform: rotate(45deg) translate(-1px, 3px);
 }
-/* animation */
-.tc-button-square:hover > .icon {
-  transform: rotate(180deg);
-}
+
 /* mobile */
 @media (max-width: 992px) {
   h2 {
