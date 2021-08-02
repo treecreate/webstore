@@ -12,11 +12,16 @@
                     *ngFor="let design of designCollection"
                     [design]="design"
                 ></webstore-design-item>
-                <div class="match-section">
+                <div class="full-width">
                     <hr class="match-button" />
-                    <button class="tc-button-static" routerLink="/product">
-                        Create New
-                    </button>
+                    <div class="match-section">
+                        <button class="tc-button-50" routerLink="/product">
+                            Create New
+                        </button>
+                        <button class="tc-button-50" routerLink="/profile">
+                            Profile
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="no-content" *ngIf="0 === designCollection.length">
