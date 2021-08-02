@@ -109,7 +109,7 @@ export class NavbarComponent implements OnInit {
 
   autoCollapse() {
     if (window.innerWidth < 992) {
-      this.isMenuCollapsed = !this.isMenuCollapsed;
+      this.isMenuCollapsed = true;
     }
   }
 

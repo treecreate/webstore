@@ -10,6 +10,7 @@
         <div class="tc-input-group field">
             <input
                 type="email"
+                data-cy="login-email-input"
                 class="tc-input-field"
                 placeholder="E-mail"
                 formControlName="email"
@@ -24,6 +25,7 @@
         <div class="tc-input-group field">
             <input
                 type="password"
+                data-cy="login-password-input"
                 class="tc-input-field"
                 formControlName="password"
                 placeholder="password"
@@ -36,30 +38,40 @@
         </div>
 
         <div class="forgot-password-container">
-            <a (click)="openForgotPasswordModal()" class="forgot-password-link">
+            <a
+                data-cy="forgot-password-btn"
+                (click)="openForgotPasswordModal()"
+                class="forgot-password-link"
+            >
                 Forgot password?
             </a>
         </div>
 
         <button
             class="tc-button-100"
+            data-cy="login-btn"
             type="submit"
             [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
         >
             Login
         </button>
-        <button class="tc-button-100" type="button" routerLink="/signup">
+        <button
+            class="tc-button-100"
+            data-cy="login-signup-btn"
+            type="button"
+            routerLink="/signup"
+        >
             Sign up
         </button>
     </form>
 </div>
 
 <!-- For cy tests -->
-<div class="hide" data-cy="login-email">
+<div class="hide" data-cy="login-email-value">
     {{ this.loginForm.get('email').value }}
 </div>
-<div class="hide" data-cy="login-password">
+<div class="hide" data-cy="login-password-value">
     {{ this.loginForm.get('password').value }}
 </div>
 <!-- cy test end -->
