@@ -39,9 +39,21 @@
   outline: none;
   margin-top: 0.3rem;
 }
+
 .language-icon {
-  height: 18px;
+  transform: scale(0.7);
 }
+
+.dk {
+  height: 18px;
+  content: url('/assets/icons/languageDanish.svg');
+}
+
+.en {
+  height: 18px;
+  content: url('/assets/icons/languageEnglish.svg');
+}
+
 /* menu toggle button */
 .bar1,
 .bar2,

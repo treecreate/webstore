@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { BehaviorSubject } from 'rxjs';

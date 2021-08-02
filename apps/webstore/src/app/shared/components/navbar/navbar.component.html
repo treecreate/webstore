@@ -10,29 +10,14 @@
                 />
             </a>
 
-            <a
-                data-cy="localization"
-                class="navbar-language"
-                href="/{{ localeCode }}/"
-            >
+            <a class="navbar-language" href="/{{ localeCode }}/">
                 <img
-                    attr.data-cy="{{ environment.locale }}"
+                    data-cy="icon"
                     class="language-icon"
-                    *ngIf="isEnglish()"
+                    [ngClass]="isDanish() ? 'dk' : 'en'"
                     i18n-src
-                    src="/assets/icons/languageEnglish.svg"
                     i18n-alt
-                    alt="English"
-                    (click)="changeLocale()"
-                />
-                <img
-                    attr.data-cy="{{ environment.locale }}"
-                    class="language-icon"
-                    *ngIf="isDanish()"
-                    i18n-src
-                    src="/assets/icons/languageDanish.svg"
-                    i18n-alt
-                    alt="Danish"
+                    alt="Language"
                     (click)="changeLocale()"
                 />
             </a>

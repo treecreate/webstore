@@ -7,7 +7,7 @@ import { Design } from '@interfaces';
   styleUrls: ['./design-item.component.css'],
 })
 export class DesignItemComponent implements OnInit {
-  @Input() design: any;
+  @Input() design;
 
   constructor() {}
 

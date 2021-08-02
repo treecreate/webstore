@@ -4,18 +4,8 @@ describe('Localization', () => {
   });
 
   it('do be localized', () => {
-    cy.get('[data-cy=localization]').then(() => {
-      cy.get('.language-icon').then(($icon) => {
-        if ($icon.attr('data-cy') === 'dk') {
-          cy.get('[data-cy=dk]')
-            .invoke('attr', 'alt')
-            .should('contain', 'Danish');
-        } else {
-          cy.get('[data-cy=en-US]')
-            .invoke('attr', 'alt')
-            .should('contain', 'English');
-        }
-      });
-    });
+    cy.get('[data-cy=icon]')
+      .invoke('attr', 'alt')
+      .should('contain', 'Language');
   });
 });

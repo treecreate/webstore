@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage';
@@ -17,7 +17,7 @@ export class ToastService {
 
   toasts = [];
 
-  show(textOrTpl: string | TemplateRef<any>, options = {}) {
+  show(textOrTpl: string, options = {}) {
     this.toasts.push({ textOrTpl, ...options });
   }
 
