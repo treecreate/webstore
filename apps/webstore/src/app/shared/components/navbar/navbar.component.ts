@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { BehaviorSubject } from 'rxjs';
@@ -99,6 +105,12 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     window.scroll(0, 0);
     this.router.navigate(['/home']);
+  }
+
+  autoCollapse() {
+    if (window.innerWidth < 992) {
+      this.isMenuCollapsed = !this.isMenuCollapsed;
+    }
   }
 
   isEnglish() {
