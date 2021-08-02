@@ -10,11 +10,15 @@
                 />
             </a>
 
-            <a class="navbar-language" href="/{{ localeCode }}/">
+            <a
+                class="navbar-language"
+                href="/{{ localeCode }}/"
+                data-cy="navbar-localization"
+            >
                 <img
-                    data-cy="icon"
                     class="language-icon"
                     [ngClass]="isDanish() ? 'dk' : 'en'"
+                    attr.data-cy="{{ environment.locale }}"
                     i18n-src
                     i18n-alt
                     alt="Language"
