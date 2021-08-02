@@ -26,6 +26,16 @@
                 <label for="name" class="tc-input-label">Name</label>
             </div>
 
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('name').dirty &&
+                    this.accountInfoForm.get('name').invalid
+                "
+            >
+                Invalid name.
+            </div>
+
             <div class="tc-input-group field">
                 <input
                     type="text"
@@ -41,6 +51,16 @@
                 >
             </div>
 
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('phoneNumber').dirty &&
+                    this.accountInfoForm.get('phoneNumber').invalid
+                "
+            >
+                Invalid phone number.
+            </div>
+
             <div class="tc-input-group field">
                 <input
                     type="email"
@@ -53,6 +73,16 @@
                     required
                 />
                 <label for="email" class="tc-input-label">E-mail</label>
+            </div>
+
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('email').dirty &&
+                    this.accountInfoForm.get('email').invalid
+                "
+            >
+                Invalid email.
             </div>
 
             <div class="sub-title top-margin">
@@ -74,6 +104,16 @@
                 >
             </div>
 
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('streetAddress').dirty &&
+                    this.accountInfoForm.get('streetAddress').invalid
+                "
+            >
+                The address is too long.
+            </div>
+
             <div class="tc-input-group field">
                 <input
                     type="text"
@@ -88,6 +128,16 @@
                 >
             </div>
 
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('streetAddress2').dirty &&
+                    this.accountInfoForm.get('streetAddress2').invalid
+                "
+            >
+                The address is too long.
+            </div>
+
             <div class="city-code-section">
                 <div class="tc-input-group field">
                     <input
@@ -99,6 +149,15 @@
                         placeholder="City"
                     />
                     <label for="city" class="tc-input-label">City</label>
+                    <div
+                        class="error-message offset"
+                        *ngIf="
+                            this.accountInfoForm.get('city').dirty &&
+                            this.accountInfoForm.get('city').invalid
+                        "
+                    >
+                        The city name is too long.
+                    </div>
                 </div>
 
                 <div class="tc-input-group field">
@@ -113,6 +172,15 @@
                     <label for="postcode" class="tc-input-label"
                         >Postcode</label
                     >
+                    <div
+                        class="error-message offset"
+                        *ngIf="
+                            this.accountInfoForm.get('postcode').dirty &&
+                            this.accountInfoForm.get('postcode').invalid
+                        "
+                    >
+                        Invalid danish postcode.
+                    </div>
                 </div>
             </div>
 

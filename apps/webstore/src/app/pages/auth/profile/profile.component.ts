@@ -39,13 +39,16 @@ export class ProfileComponent implements OnInit {
     this.accountInfoForm = new FormGroup({
       name: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z ]*$'),
+        Validators.pattern("^[a-zA-Z-' ]*$"),
       ]),
-      phoneNumber: new FormControl('', [Validators.maxLength(11)]),
+      phoneNumber: new FormControl('', [
+        Validators.maxLength(11),
+        Validators.pattern('^[0-9+]*$'),
+      ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl(''),
-      streetAddress2: new FormControl(''),
-      city: new FormControl(''),
+      streetAddress: new FormControl('', [Validators.maxLength(50)]),
+      streetAddress2: new FormControl('', [Validators.maxLength(50)]),
+      city: new FormControl('', [Validators.maxLength(50)]),
       postcode: new FormControl('', [
         Validators.max(9999),
         Validators.min(555),

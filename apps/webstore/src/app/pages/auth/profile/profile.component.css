@@ -68,6 +68,11 @@ button[type='button'] {
   justify-content: space-between;
 }
 
+.offset {
+  position: relative;
+  top: 9px;
+}
+
 @media (max-width: 500px) {
   .account-info-form {
     padding: 0;
