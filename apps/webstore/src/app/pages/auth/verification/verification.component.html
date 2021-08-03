@@ -1,3 +1,8 @@
 <div class="verification-container">
-    <p>yeet</p>
+    <div *ngIf="isVerificationSuccessful">
+        <span>You got verified</span>
+    </div>
+    <div *ngIf="!isVerificationSuccessful">
+        <span>Verification failed</span>
+    </div>
 </div>

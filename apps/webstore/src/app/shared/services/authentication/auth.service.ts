@@ -8,6 +8,8 @@ import {
   ILoginResponse,
   IRegisterRequestParams,
   IRegisterResponse,
+  IVerifyUserRequestParams,
+  IVerifyUserResponse,
 } from '@interfaces';
 import { environment as env } from '../../../../environments/environment';
 
@@ -45,6 +47,16 @@ export class AuthService {
         email,
         password,
       },
+      httpOptions
+    );
+  }
+
+  verifyUser(
+    params: IVerifyUserRequestParams
+  ): Observable<IVerifyUserResponse> {
+    const { token } = params;
+    return this.http.get<IVerifyUserResponse>(
+      `${env.apiUrl}/users/verification/${token}`,
       httpOptions
     );
   }
