@@ -12,6 +12,7 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
+import { VerificationComponent } from './pages/auth/verification/verification.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'resetPassword',
     component: ResetPasswordComponent,
+    canActivate: [CookieGuard],
+  },
+  {
+    path: 'verification/:token',
+    component: VerificationComponent,
     canActivate: [CookieGuard],
   },
   { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },

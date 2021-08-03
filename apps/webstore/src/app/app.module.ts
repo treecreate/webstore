@@ -31,6 +31,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
+import { VerificationComponent } from './pages/auth/verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ProductComponent } from './pages/product/product.component';
     ProductComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
+    VerificationComponent,
     CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
