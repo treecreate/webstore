@@ -1,8 +1,38 @@
 <div class="verification-container">
-    <div *ngIf="isVerificationSuccessful">
-        <span>You got verified</span>
+    <div class="reset-password-header">
+        <img src="../../../assets/icons/shield-icon.svg" class="header-icon" />
     </div>
-    <div *ngIf="!isVerificationSuccessful">
-        <span>Verification failed</span>
+    <br />
+    <div>
+        <h2>Email Verification</h2>
+    </div>
+    <br />
+    <div *ngIf="isLoading" class="verification-status-container">
+        <p>Please wait while we verify your email</p>
+        <div class="spinner-border text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div *ngIf="!isLoading" class="verification-status-container">
+        <div *ngIf="isVerificationSuccessful">
+            <!-- TODO: add an icon to the success message (checkmark) -->
+            <h4>Your email address has been verified</h4>
+        </div>
+        <div *ngIf="!isVerificationSuccessful">
+            <h4>Verification failed</h4>
+            <!-- TODO: add an icon to the error message (exclamation mark) -->
+            <span
+                class="glyphicon glyphicon-exclamation-sign"
+                aria-hidden="true"
+            ></span>
+            <p class="verification-failed-message">{{ errorMessage }}</p>
+        </div>
+        <button
+            data-cy="page-not-found-home-btn"
+            routerLink="/"
+            class="tc-button-25 home-button"
+        >
+            Home
+        </button>
     </div>
 </div>

@@ -1,7 +1,7 @@
 export interface IVerifyUserRequestParams {
-    token: string;
+  token: string;
 }
 
 export interface IVerifyUserResponse {
-    message: string;
-} 
+  message: string;
+}

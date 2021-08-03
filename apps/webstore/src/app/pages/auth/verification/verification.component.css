@@ -2,5 +2,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
+}
+
+.verification-status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.verification-failed-message {
+  color: darkred;
+  background-color: lightpink;
+  border-radius: 5px;
+  border: 2px solid lightcoral;
+  padding: 10px;
+}
+
+.home-button {
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  min-width: 200px;
 }
