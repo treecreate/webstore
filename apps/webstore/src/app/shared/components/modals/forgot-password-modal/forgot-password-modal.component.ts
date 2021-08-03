@@ -30,8 +30,12 @@ export class ForgotPasswordModalComponent implements OnInit {
     });
   }
 
+  sendResetPasswordEmail(email: string) {
+    // TODO: send the reset password email (possibly check if the email exists)
+  }
+
   resetPassword() {
-    this.router.navigate(['/resetPassword']);
+    this.sendResetPasswordEmail(this.forgotPasswordForm.get('email').value);
     this.activeModal.close();
     this.toastService.showAlert(
       'We have sent you an e-mail with a link to change your password.',
