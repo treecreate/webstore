@@ -120,7 +120,24 @@ export class ProfileComponent implements OnInit {
         // update user info
         this.updateUserQuery();
       }
+      this.updateCurrentUser();
     }
+  }
+
+  updateCurrentUser() {
+    this.currentUser.name = this.accountInfoForm.get('name').value;
+    this.currentUser.phoneNumber = this.accountInfoForm.get(
+      'phoneNumber'
+    ).value;
+    this.currentUser.email = this.accountInfoForm.get('email').value;
+    this.currentUser.streetAddress = this.accountInfoForm.get(
+      'streetAddress'
+    ).value;
+    this.currentUser.streetAddress2 = this.accountInfoForm.get(
+      'streetAddress2'
+    ).value;
+    this.currentUser.city = this.accountInfoForm.get('city').value;
+    this.currentUser.postcode = this.accountInfoForm.get('postcode').value;
   }
 
   updateUserQuery(): void {
