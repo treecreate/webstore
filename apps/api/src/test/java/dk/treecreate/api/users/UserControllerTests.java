@@ -381,7 +381,7 @@ class UserControllerTests
 
         @Test
         @DisplayName(
-            "GET /users/verification/:token endpoint returns 400: Bad Request if the user is already verified")
+            "GET /users/verification/:token endpoint returns 403: Forbidden if the user is already verified")
         void verifyUserThatIsAlreadyVerifiedReturnsBadRequest() throws Exception
         {
             UUID token = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1235");
@@ -393,7 +393,7 @@ class UserControllerTests
 
             Mockito.when(userRepository.findByToken(token)).thenReturn(Optional.of(user));
             mvc.perform(get("/users/verification/" + token))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
         }
 
         @Test
