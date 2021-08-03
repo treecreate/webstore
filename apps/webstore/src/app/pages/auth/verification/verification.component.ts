@@ -27,7 +27,7 @@ export class VerificationComponent implements OnInit {
 
   async verifyUser(token: string) {
     this.authService.verifyUser({ token: token }).subscribe(
-      (response) => {
+      () => {
         this.isVerificationSuccessful = true;
         this.isLoading = false;
       },

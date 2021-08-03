@@ -169,7 +169,7 @@ public class UserController
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses(value = {
         @ApiResponse(code = 204, message = "User has been verified"),
-        @ApiResponse(code = 400, message = "User is already verified"),
+        @ApiResponse(code = 403, message = "User is already verified"),
         @ApiResponse(code = 404, message = "User with associated token not found")
     })
     @GetMapping("verification/{token}")
@@ -182,7 +182,7 @@ public class UserController
                 () -> new ResourceNotFoundException("User with specified token not found"));
         if (user.getIsVerified() != null && user.getIsVerified())
         {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is already verified");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is already verified");
         }
         user.setIsVerified(true);
         userRepository.save(user);
