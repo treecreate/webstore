@@ -76,7 +76,32 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  hasValuesChanged() {
+    return (
+      this.accountInfoForm.get('name').value === this.currentUser.name &&
+      this.accountInfoForm.get('phoneNumber').value ===
+        this.currentUser.phoneNumber &&
+      this.accountInfoForm.get('email').value === this.currentUser.email &&
+      this.accountInfoForm.get('streetAddress').value ===
+        this.currentUser.streetAddress &&
+      this.accountInfoForm.get('streetAddress2').value ===
+        this.currentUser.streetAddress2 &&
+      this.accountInfoForm.get('city').value === this.currentUser.city &&
+      this.accountInfoForm.get('postcode').value === this.currentUser.postcode
+    );
+  }
+
   updateUser() {
+    // Check if the user has changed any form values
+    if (this.hasValuesChanged()) {
+      this.toastService.showAlert(
+        'You havent changed any values in the form',
+        'Du har ikke ændret nogen informationer',
+        'danger',
+        2500
+      );
+      return;
+    }
     // Failsafe to check that there is a valid email
     if (this.isDisabled()) {
       console.warn('You cant update without an email');
