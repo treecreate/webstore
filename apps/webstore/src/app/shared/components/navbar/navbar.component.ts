@@ -5,6 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage';
 import { LocalStorageVars, LocaleType } from '@models';
 import { AuthService } from '../../services/authentication/auth.service';
+import { ToastService } from '../toast/toast-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'webstore-navbar',
@@ -31,7 +33,9 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastService: ToastService,
+    private router: Router
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -59,10 +63,23 @@ export class NavbarComponent implements OnInit {
   }
 
   changeLocale() {
+    // TODO: make the change language alert show on screen after reload
     if (this.localeCode === LocaleType.en) {
       this.localeCode = LocaleType.dk;
+      this.toastService.showAlert(
+        '',
+        'Sprog skiftet til: Dansk',
+        'success',
+        2500
+      );
     } else {
       this.localeCode = LocaleType.en;
+      this.toastService.showAlert(
+        'Change language to: English',
+        '',
+        'success',
+        2500
+      );
     }
 
     this.locale$ = this.localStorageService.setItem<LocaleType>(
@@ -72,7 +89,30 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    console.log('logged out');
+    this.toastService.showAlert(
+      'You have now logged out!',
+      'Du er nu logget ud!',
+      'success',
+      2500
+    );
     this.authService.logout();
+    window.scroll(0, 0);
+    this.router.navigate(['/home']);
+  }
+
+  autoCollapse() {
+    if (window.innerWidth < 992) {
+      this.isMenuCollapsed = true;
+    }
+  }
+
+  isEnglish() {
+    return this.localeCode === LocaleType.en;
+  }
+
+  isDanish() {
+    return this.localeCode === LocaleType.dk;
   }
 
   showProfileMenu() {

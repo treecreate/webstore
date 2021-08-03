@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '../../../services/local-storage';
 import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 import { CookieStatus, LocalStorageVars } from '@models';
+import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'webstore-cookie-prompt-modal',
@@ -22,7 +23,8 @@ export class CookiePromptModalComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private toastService: ToastService
   ) {
     this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(
       LocalStorageVars.cookiesAccepted
@@ -55,12 +57,24 @@ export class CookiePromptModalComponent implements OnInit {
       LocalStorageVars.cookiesAccepted,
       CookieStatus.accepted
     );
+    this.toastService.showAlert(
+      'Thank you for accepting our cookies!',
+      'Tak fordi du siger ja til vores cookies!',
+      'success',
+      2500
+    );
   }
 
   rejectCookies() {
     this.localStorageService.setItem(
       LocalStorageVars.cookiesAccepted,
       CookieStatus.rejected
+    );
+    this.toastService.showAlert(
+      'You wont be able to access the page without accepting our cookies. :( ',
+      'Du kan desværre ikke bruge siden uden at accepterer vores cookies. :( ',
+      'danger',
+      2500
     );
   }
 

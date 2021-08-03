@@ -1,0 +1,3 @@
+.full-page {
+  min-height: calc(100vh - 288px);
+}

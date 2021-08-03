@@ -1,19 +1,216 @@
-<div class="container profile" *ngIf="currentUser; else loggedOut">
-    <header class="jumbotron">
-        <h3>
-            <strong>{{ currentUser.username }}</strong> Profile
-        </h3>
-    </header>
-    <p>
-        <strong>Email:</strong>
-        {{ currentUser.email }}
-    </p>
-    <strong>Roles:</strong>
-    <ul>
-        <li *ngFor="let role of currentUser.roles">
-            {{ role.name }}
-        </li>
-    </ul>
-</div>
+<div class="account-info-container">
+    <form
+        class="account-info-form"
+        [formGroup]="accountInfoForm"
+        name="accountInfoForm"
+        (ngSubmit)="updateUser()"
+    >
+        <div class="title">
+            <h2>Account Info</h2>
+        </div>
+        <div class="account-info-input">
+            <div class="sub-title">
+                <p>Contact</p>
+                <hr />
+            </div>
 
-<ng-template #loggedOut> Please login. </ng-template>
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    formControlName="name"
+                    placeholder="Your name"
+                    id="name"
+                    autocomplete="name"
+                />
+                <label for="name" class="tc-input-label">Name</label>
+            </div>
+
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('name').dirty &&
+                    this.accountInfoForm.get('name').invalid
+                "
+            >
+                Invalid name.
+            </div>
+
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    formControlName="phoneNumber"
+                    placeholder="12345678"
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    autocomplete="phoneNumber"
+                />
+                <label for="phoneNumber" class="tc-input-label"
+                    >Phone number</label
+                >
+            </div>
+
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('phoneNumber').dirty &&
+                    this.accountInfoForm.get('phoneNumber').invalid
+                "
+            >
+                Invalid phone number.
+            </div>
+
+            <div class="tc-input-group field">
+                <input
+                    type="email"
+                    class="tc-input-field"
+                    placeholder="E-mail"
+                    formControlName="email"
+                    name="email"
+                    id="profileEmail"
+                    autocomplete="email"
+                    required
+                />
+                <label for="email" class="tc-input-label">E-mail</label>
+            </div>
+
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('email').dirty &&
+                    this.accountInfoForm.get('email').invalid
+                "
+            >
+                Invalid email.
+            </div>
+
+            <div class="sub-title top-margin">
+                <p>Adress</p>
+                <hr />
+            </div>
+
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    name="streedOne"
+                    formControlName="streetAddress"
+                    placeholder="Your street name"
+                    id="streetAddress"
+                />
+                <label for="streetAddress" class="tc-input-label"
+                    >Street address</label
+                >
+            </div>
+
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('streetAddress').dirty &&
+                    this.accountInfoForm.get('streetAddress').invalid
+                "
+            >
+                The address is too long.
+            </div>
+
+            <div class="tc-input-group field">
+                <input
+                    type="text"
+                    class="tc-input-field"
+                    name="streedTwo"
+                    formControlName="streetAddress2"
+                    placeholder="Your street name"
+                    id="streetAddress2"
+                />
+                <label for="streetAddress2" class="tc-input-label"
+                    >Street address 2</label
+                >
+            </div>
+
+            <div
+                class="error-message"
+                *ngIf="
+                    this.accountInfoForm.get('streetAddress2').dirty &&
+                    this.accountInfoForm.get('streetAddress2').invalid
+                "
+            >
+                The address is too long.
+            </div>
+
+            <div class="city-code-section">
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        name="city"
+                        formControlName="city"
+                        id="city"
+                        placeholder="City"
+                    />
+                    <label for="city" class="tc-input-label">City</label>
+                    <div
+                        class="error-message offset"
+                        *ngIf="
+                            this.accountInfoForm.get('city').dirty &&
+                            this.accountInfoForm.get('city').invalid
+                        "
+                    >
+                        The city name is too long.
+                    </div>
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        formControlName="postcode"
+                        id="postcode"
+                        name="postcode"
+                        placeholder="1234"
+                    />
+                    <label for="postcode" class="tc-input-label"
+                        >Postcode</label
+                    >
+                    <div
+                        class="error-message offset"
+                        *ngIf="
+                            this.accountInfoForm.get('postcode').dirty &&
+                            this.accountInfoForm.get('postcode').invalid
+                        "
+                    >
+                        Invalid danish postcode.
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <div class="button-section">
+                    <button
+                        type="submit"
+                        class="tc-button-50"
+                        [disabled]="isDisabled()"
+                        [ngClass]="isDisabled() ? 'disabled' : ''"
+                    >
+                        Update info
+                    </button>
+                    <button
+                        class="tc-button-50"
+                        routerLink="/collection"
+                        (click)="scrollTop()"
+                    >
+                        Collection
+                    </button>
+                </div>
+                <button
+                    type="button"
+                    class="tc-button-100"
+                    *ngIf="!isVerified"
+                    (click)="resendVerificationEmail()"
+                >
+                    Resend verification e-mail
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

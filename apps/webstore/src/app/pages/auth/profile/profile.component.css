@@ -1,3 +1,84 @@
-.profile {
-  margin-top: 10vh;
+.account-info-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.title {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.account-info-form {
+  box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 15%);
+  background-color: white;
+  max-width: 90vw;
+  min-width: 50vw;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+}
+
+.account-info-input {
+  padding: 30px;
+  padding-top: 15px !important;
+}
+
+hr {
+  margin: 0;
+  border-top: 1px solid rgba(0, 0, 0, 1);
+}
+
+.sub-title p {
+  padding-left: 6px;
+  margin-bottom: 2px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.top-margin {
+  margin-top: 30px;
+}
+
+.actions {
+  padding-top: 10px;
+}
+
+.actions button {
+  margin: 10px 0;
+}
+
+.city-code-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+button[type='button'] {
+  margin-bottom: 0 !important;
+}
+
+.city-code-section .tc-input-group {
+  width: 45%;
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.offset {
+  position: relative;
+  top: 9px;
+}
+
+@media (max-width: 500px) {
+  .account-info-form {
+    padding: 0;
+    margin-bottom: 10px;
+  }
+  .title {
+    margin-top: 25px;
+  }
 }

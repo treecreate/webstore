@@ -11,88 +11,132 @@
             </a>
 
             <a
-                data-cy="localization"
                 class="navbar-language"
                 href="/{{ localeCode }}/"
+                data-cy="navbar-localization"
             >
                 <img
-                    attr.data-cy="{{ environment.locale }}"
                     class="language-icon"
+                    [ngClass]="isDanish() ? 'dk' : 'en'"
+                    attr.data-cy="{{ environment.locale }}"
                     i18n-src
-                    src="/assets/icons/languageEnglish.svg"
                     i18n-alt
-                    alt="English"
+                    alt="Language"
                     (click)="changeLocale()"
                 />
             </a>
         </div>
 
-        <button
-            class="navbar-toggler"
-            type="button"
-            (click)="isMenuCollapsed = !isMenuCollapsed"
-        >
-            <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-                <div class="bar3"></div>
-            </div>
-        </button>
+        <div class="nav-section">
+            <button
+                class="navbar-basket-icon show-on-mobile"
+                routerLink="/basket"
+                (click)="autoCollapse()"
+            >
+                <img
+                    src="/assets/icons/basket-white-icon.svg"
+                    class="nav-icon-mobile"
+                />
+                <span class="item-number">{{ 0 }}</span>
+            </button>
+            <button
+                class="navbar-toggler"
+                type="button"
+                (click)="isMenuCollapsed = !isMenuCollapsed"
+            >
+                <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </button>
+        </div>
 
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link waves-light" routerLink="/">Home</a>
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/"
+                        (click)="autoCollapse()"
+                        >Home</a
+                    >
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-light" routerLink="/product"
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/product"
+                        (click)="autoCollapse()"
                         >Product</a
                     >
                 </li>
                 <li class="nav-item" *ngIf="!isLoggedIn">
-                    <a class="nav-link waves-light" routerLink="/login"
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/login"
+                        (click)="autoCollapse()"
                         >Log In</a
                     >
                 </li>
 
-                <div
-                    ngbDropdown
-                    class="d-inline-block"
-                    *ngIf="!isLoggedIn"
-                    (mouseleave)="hideProfileMenu()"
-                >
-                    <a
-                        class="nav-item"
-                        ngbDropdownToggle
-                        class="nav-link waves-light"
-                        (mouseenter)="showProfileMenu()"
-                        >Profile</a
-                    >
-                    <div
-                        class="dropdown-menu-container dropdown-item-list"
-                        ngbDropdownMenu
-                        aria-labelledby="dropdownBasic"
-                        #profileMenu
-                    >
-                        <a ngbDropdownItem routerLink="/profile"
-                            >Account Info</a
-                        >
-                        <a ngbDropdownItem routerLink="/collection"
-                            >Collection</a
-                        >
-                        <a ngbDropdownItem (click)="logout()">Log Out</a>
-                    </div>
-                </div>
-
-                <li class="nav-item">
+                <li class="nav-item show-on-mobile">
                     <a
                         class="nav-link waves-light"
-                        routerLink="/"
                         *ngIf="isLoggedIn"
-                        (click)="logout()"
-                        >Log Out</a
+                        routerLink="/collection"
+                        (click)="autoCollapse()"
+                        >Collection</a
                     >
                 </li>
+                <li class="nav-item show-on-mobile">
+                    <a
+                        class="nav-link waves-light"
+                        *ngIf="isLoggedIn"
+                        routerLink="/profile"
+                        (click)="autoCollapse()"
+                        >Profile</a
+                    >
+                </li>
+
+                <li class="nav-item show-on-mobile">
+                    <a
+                        class="nav-link waves-light"
+                        *ngIf="isLoggedIn"
+                        (click)="logout(); autoCollapse()"
+                        >Log out</a
+                    >
+                </li>
+
+                <div class="remove-on-mobile">
+                    <div
+                        ngbDropdown
+                        class="d-inline-block"
+                        *ngIf="isLoggedIn"
+                        (mouseleave)="hideProfileMenu()"
+                    >
+                        <a
+                            class="nav-item"
+                            ngbDropdownToggle
+                            class="nav-link waves-light"
+                            (mouseenter)="showProfileMenu()"
+                            >Profile</a
+                        >
+                        <div
+                            class="dropdown-menu-container dropdown-item-list"
+                            ngbDropdownMenu
+                            aria-labelledby="dropdownBasic"
+                            #profileMenu
+                        >
+                            <a ngbDropdownItem routerLink="/profile"
+                                >Account Info</a
+                            >
+                            <a ngbDropdownItem routerLink="/collection"
+                                >Collection</a
+                            >
+                            <a ngbDropdownItem (click)="logout()">Log Out</a>
+                        </div>
+                    </div>
+                </div>
                 <li class="nav-item purchase-btn">
                     <a class="nav-link waves-light" routerLink="/basket">
                         <img
@@ -106,3 +150,8 @@
         </div>
     </div>
 </nav>
+<div
+    class="backdrop"
+    *ngIf="!isMenuCollapsed"
+    (click)="isMenuCollapsed = !isMenuCollapsed"
+></div>
