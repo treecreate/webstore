@@ -216,8 +216,8 @@ class UserControllerTests
             Mockito.when(userRepository.save(user)).thenReturn(user);
 
             mvc.perform(put("/users")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(TestUtilsService.asJsonString(user)));
         }
@@ -243,8 +243,8 @@ class UserControllerTests
             Mockito.when(userRepository.save(user)).thenReturn(user);
 
             mvc.perform(put("/users/" + userId)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(TestUtilsService.asJsonString(user)));
         }
@@ -262,8 +262,8 @@ class UserControllerTests
             updateUserRequest.setEmail("invalid format");
 
             mvc.perform(put("/users")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
                 .andExpect(status().isBadRequest());
         }
 
@@ -288,8 +288,8 @@ class UserControllerTests
                 .thenReturn(true);
 
             mvc.perform(put("/users/" + userId)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
                 .andExpect(status().isBadRequest());
         }
 
@@ -306,8 +306,8 @@ class UserControllerTests
             updateUserRequest.setPhoneNumber("12345678901234567890"); // the limit is 15
 
             mvc.perform(put("/users/" + userId)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(updateUserRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateUserRequest)))
                 .andExpect(status().isBadRequest());
         }
     }
@@ -411,7 +411,7 @@ class UserControllerTests
             Mockito.when(userRepository.findByToken(token)).thenReturn(Optional.of(user));
             Mockito.when(userRepository.save(user)).thenReturn(user);
             mvc.perform(get("/users/verification/" + token))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
         }
     }
 }

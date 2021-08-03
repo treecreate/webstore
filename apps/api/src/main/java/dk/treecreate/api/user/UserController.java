@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -167,13 +166,14 @@ public class UserController
     }
 
     @Operation(summary = "Verify a user with specified token")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "User has been verified"),
+        @ApiResponse(code = 204, message = "User has been verified"),
         @ApiResponse(code = 400, message = "User is already verified"),
         @ApiResponse(code = 404, message = "User with associated token not found")
     })
     @GetMapping("verification/{token}")
-    public ResponseEntity<String> sendVerificationEmailForCurrentUser(
+    public void sendVerificationEmailForCurrentUser(
         @ApiParam(name = "token", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
         @Valid @PathVariable UUID token)
     {
@@ -186,7 +186,5 @@ public class UserController
         }
         user.setIsVerified(true);
         userRepository.save(user);
-        return new ResponseEntity<>("User has been verified", HttpStatus.OK);
-
     }
 }
