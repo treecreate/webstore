@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  hasValuesChanged() {
+  hasChangedValues() {
     return (
       this.accountInfoForm.get('name').value === this.currentUser.name &&
       this.accountInfoForm.get('phoneNumber').value ===
@@ -93,7 +93,7 @@ export class ProfileComponent implements OnInit {
 
   updateUser() {
     // Check if the user has changed any form values
-    if (this.hasValuesChanged()) {
+    if (this.hasChangedValues()) {
       this.toastService.showAlert(
         'You havent changed any values in the form',
         'Du har ikke ændret nogen informationer',
