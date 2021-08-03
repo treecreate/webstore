@@ -29,7 +29,7 @@ public class UserService
             user.setEmail(updateUserRequest.getEmail());
             user.setUsername(updateUserRequest.getEmail());
         }
-        if (updateUserRequest.getEmail() != null)
+        if (updateUserRequest.getPassword() != null)
             user.setPassword(authUserService.encodePassword(updateUserRequest.getPassword()));
         if (updateUserRequest.getName() != null)
             user.setName(updateUserRequest.getName());

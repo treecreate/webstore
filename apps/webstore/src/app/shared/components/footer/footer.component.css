@@ -81,7 +81,7 @@ h5 {
 }
 
 /* MOBILE */
-@media all and (min-width: 200px) and (max-width: 769px) {
+@media all and (min-width: 200px) and (max-width: 766px) {
   .page-footer {
     padding-top: 30px;
   }
@@ -115,7 +115,7 @@ h5 {
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 766px) {
   .col-md-3 {
     flex: 0 0 33%;
     max-width: 33%;

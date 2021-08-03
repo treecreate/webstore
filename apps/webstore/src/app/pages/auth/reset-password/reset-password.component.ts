@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from '../../../shared/components/toast/toast-service';
 
 @Component({
   selector: 'webstore-reset-password',
@@ -12,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class ResetPasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
 
-  constructor() {}
+  constructor(private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.changePasswordForm = new FormGroup({
@@ -45,6 +46,12 @@ export class ResetPasswordComponent implements OnInit {
 
   onChangePassword() {
     // TODO: implement change password
+    this.toastService.showAlert(
+      'Your password has been reset!',
+      'Din kode er bleven ændret!',
+      'success',
+      2500
+    );
     console.log(
       this.changePasswordForm.get('password').value,
       this.changePasswordForm.get('confirmPassword').value

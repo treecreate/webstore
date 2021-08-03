@@ -9,8 +9,7 @@ import {
   IRegisterRequestParams,
   IRegisterResponse,
 } from '@interfaces';
-
-const AUTH_API = 'http://localhost:5000/auth/';
+import { environment as env } from '../../../../environments/environment';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -29,7 +28,7 @@ export class AuthService {
   login(params: ILoginRequestParams): Observable<ILoginResponse> {
     const { email, password } = params;
     return this.http.post<ILoginResponse>(
-      AUTH_API + 'signin',
+      `${env.apiUrl}/auth/signin`,
       {
         email,
         password,
@@ -41,7 +40,7 @@ export class AuthService {
   register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
     return this.http.post<IRegisterResponse>(
-      AUTH_API + 'signup',
+      `${env.apiUrl}/auth/signup`,
       {
         email,
         password,

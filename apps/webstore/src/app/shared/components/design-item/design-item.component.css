@@ -1,0 +1,26 @@
+.design-container {
+  width: 250px;
+  margin: 10px;
+}
+
+.design-image {
+  width: 100%;
+}
+
+.action-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+hr {
+  margin: 10px 0;
+}

@@ -1,0 +1,40 @@
+<div class="collection-page-container">
+    <div class="collection-container">
+        <div class="title">
+            <h2>Your Collection</h2>
+        </div>
+        <div>
+            <div
+                class="collection-content"
+                *ngIf="1 <= designCollection.length"
+            >
+                <webstore-design-item
+                    *ngFor="let design of designCollection"
+                    [design]="design"
+                ></webstore-design-item>
+                <div class="full-width">
+                    <hr class="match-button" />
+                    <div class="match-section">
+                        <button class="tc-button-50" routerLink="/product">
+                            Create New
+                        </button>
+                        <button class="tc-button-50" routerLink="/profile">
+                            Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="no-content" *ngIf="designCollection.length === 0">
+                <div class="sub-title">You have no designs</div>
+                <span>
+                    Go to the product page to start creating your first design!
+                </span>
+                <div class="button-section">
+                    <button class="tc-button-50" routerLink="/product">
+                        Start designing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
