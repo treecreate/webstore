@@ -348,9 +348,9 @@ class UserControllerTests
     {
         @Test
         @DisplayName(
-            "GET /users/verification endpoint returns 204: No Content when successfully sending a verification email")
+            "GET /users/verification/email/me endpoint returns 204: No Content when successfully sending a verification email")
         @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
-        void sendVerificationTokenReturnsNoContent() throws Exception
+        void sendVerificationEmailReturnsNoContent() throws Exception
         {
             User user = new User();
             user.setEmail("user@hotdeals.dev");
@@ -363,7 +363,7 @@ class UserControllerTests
             Mockito.doNothing().when(mailService)
                 .sendVerificationEmail(anyString(), anyString(),
                     any(Locale.class));
-            mvc.perform(get("/users/verification"))
+            mvc.perform(get("/users/verification/email/me"))
                 .andExpect(status().isNoContent());
         }
 

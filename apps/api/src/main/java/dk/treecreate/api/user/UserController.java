@@ -144,7 +144,7 @@ public class UserController
         @ApiResponse(code = 204, message = "Email sent successfully"),
         @ApiResponse(code = 404, message = "User not found")
     })
-    @GetMapping("verification")
+    @GetMapping("verification/email/me")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public void sendVerificationEmailForCurrentUser(@Parameter(name = "lang",
@@ -173,7 +173,7 @@ public class UserController
         @ApiResponse(code = 404, message = "User with associated token not found")
     })
     @GetMapping("verification/{token}")
-    public void sendVerificationEmailForCurrentUser(
+    public void verifyUserByToken(
         @ApiParam(name = "token", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
         @Valid @PathVariable UUID token)
     {
