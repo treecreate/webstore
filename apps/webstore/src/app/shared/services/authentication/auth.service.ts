@@ -1,8 +1,5 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LocalStorageService } from '../local-storage';
-import { LocalStorageVars } from '@models';
 import {
   ILoginRequestParams,
   ILoginResponse,
@@ -11,7 +8,10 @@ import {
   IVerifyUserRequestParams,
   IVerifyUserResponse,
 } from '@interfaces';
+import { LocaleType, LocalStorageVars } from '@models';
+import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
+import { LocalStorageService } from '../local-storage';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -59,6 +59,17 @@ export class AuthService {
       `${env.apiUrl}/users/verification/${token}`,
       httpOptions
     );
+  }
+
+  sendVerificationEmail() {
+    const localeCode = this.localStorageService
+      .getItem<LocaleType>(LocalStorageVars.locale)
+      .getValue();
+    const params = new HttpParams().set('lang', localeCode);
+    console.log(params);
+    return this.http.get(`${env.apiUrl}/users/verification/email2/me`, {
+      params: params,
+    });
   }
 
   public logout() {

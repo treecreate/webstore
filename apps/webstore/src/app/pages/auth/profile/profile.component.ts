@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser, UpdateUserRequest } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -18,8 +20,11 @@ export class ProfileComponent implements OnInit {
   isVerified = false;
   oldEmail: string;
 
+  isResendVerificationEmailLoading = true;
+
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private toastService: ToastService
   ) {}
 
@@ -27,11 +32,14 @@ export class ProfileComponent implements OnInit {
     try {
       this.userService.getUser().subscribe((data) => {
         this.currentUser = data;
+        this.isVerified = this.currentUser.isVerified;
       });
     } catch (error) {
       console.error(error);
       // TODO: handle failed fetching of the data
     }
+
+    //this.isVerified = this.currentUser.isVerified;
 
     this.accountInfoForm = new FormGroup({
       name: new FormControl('', [
@@ -183,13 +191,28 @@ export class ProfileComponent implements OnInit {
   }
 
   resendVerificationEmail() {
-    // TODO: add email change logic like verifying your email and sent userVerified = false;
-    console.log('New verification email sent');
-    this.toastService.showAlert(
-      'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
-      'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
-      'success',
-      3500
+    this.isResendVerificationEmailLoading = true;
+    this.authService.sendVerificationEmail().subscribe(
+      () => {
+        this.toastService.showAlert(
+          'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
+          'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
+          'success',
+          10000
+        );
+
+        this.isResendVerificationEmailLoading = false;
+      },
+      (err: HttpErrorResponse) => {
+        // TODO: Translate to danish
+        this.toastService.showAlert(
+          `Failed to send an email. try again later`,
+          'Danish error has occurred. Please translate me',
+          'danger',
+          20000
+        );
+        this.isResendVerificationEmailLoading = false;
+      }
     );
   }
 
