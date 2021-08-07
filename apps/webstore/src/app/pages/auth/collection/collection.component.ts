@@ -7,7 +7,7 @@ import { Design } from '@interfaces';
   styleUrls: ['./collection.component.css'],
 })
 export class CollectionComponent implements OnInit {
-  pageTitle = "collection"
+  pageTitle = 'collection';
   // TODO: get collection of designs from user
   designCollection = [
     new Design('1', '1', 'test title'),
