@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   public isMenuCollapsed = true;
   private authUser$: BehaviorSubject<string>;
   public isLoggedIn: boolean;
+  public isVerified: boolean;
 
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
@@ -57,6 +58,7 @@ export class NavbarComponent implements OnInit {
     this.authUser$.subscribe(() => {
       // If the user data is undefined, assume that the user is logged out
       this.isLoggedIn = this.authUser$.getValue() != null ? true : false;
+      // TODO: update isVerified
     });
 
     this.environment = environment;

@@ -150,6 +150,12 @@
         </div>
     </div>
 </nav>
+<div class="unverified-email" *ngIf="isLoggedIn && !isVerified">
+    Your e-mail is still unverified:
+    <button class="verify-email-link" (click)="resendVerificationEmail()">
+        Resend e-mail
+    </button>
+</div>
 <div
     class="backdrop"
     *ngIf="!isMenuCollapsed"

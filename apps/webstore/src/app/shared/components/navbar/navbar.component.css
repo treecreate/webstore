@@ -137,6 +137,25 @@
   top: 1px;
   font-size: 12px;
 }
+.unverified-email {
+  position: fixed;
+  top: 56px;
+  background-color: #ebc6abc0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 3px;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+.verify-email-link {
+  color: white;
+  background-color: transparent;
+  border: none;
+}
+.verify-email-link:hover {
+  text-decoration: underline;
+}
 
 @media all and (max-width: 992px) {
   .remove-on-mobile {
