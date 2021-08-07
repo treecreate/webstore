@@ -94,6 +94,12 @@
   background-color: #ebc6ab;
   color: white !important;
 }
+.dropdown-item-list a:first-child:hover {
+  border-radius: 4px 4px 0 0;
+}
+.dropdown-item-list a:last-child:hover {
+  border-radius: 0 0 4px 4px;
+}
 .dropdown-item-list a {
   padding: 10px;
 }

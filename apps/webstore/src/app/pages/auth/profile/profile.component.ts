@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
       this.userService.getUser().subscribe((data) => {
         this.currentUser = data;
         this.isVerified = this.currentUser.isVerified;
+        this.updateFormValues();
       });
     } catch (error) {
       console.error(error);
@@ -60,12 +61,6 @@ export class ProfileComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]),
     });
-
-    // TODO: should not be a timer. should run the updateFormValues() after the currentUser has been fetched
-    // NOTE: Could be achieved by subscribing to the query result ~Kwandes
-    setTimeout(() => {
-      this.updateFormValues();
-    }, 1000);
   }
 
   updateFormValues() {
@@ -186,12 +181,15 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUserWithEmailChange(): void {
-    this.updateUserQuery();
-    this.resendVerificationEmail();
+    // only update the user if the email veification is sent.
+    if (this.resendVerificationEmail()) {
+      this.updateUserQuery();
+    }
   }
 
   resendVerificationEmail() {
     this.isResendVerificationEmailLoading = true;
+    let isVerificationEmailSent = false;
     this.authService.sendVerificationEmail().subscribe(
       () => {
         this.toastService.showAlert(
@@ -200,20 +198,21 @@ export class ProfileComponent implements OnInit {
           'success',
           10000
         );
-
+        isVerificationEmailSent = true;
         this.isResendVerificationEmailLoading = false;
       },
       (err: HttpErrorResponse) => {
-        // TODO: Translate to danish
         this.toastService.showAlert(
           `Failed to send an email. try again later`,
-          'Danish error has occurred. Please translate me',
+          'Der skete en fejl med din email, prøv venligst igen',
           'danger',
           20000
         );
+        isVerificationEmailSent = false;
         this.isResendVerificationEmailLoading = false;
       }
     );
+    return isVerificationEmailSent;
   }
 
   scrollTop() {
