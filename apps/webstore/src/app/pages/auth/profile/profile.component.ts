@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   accountInfoForm: FormGroup;
   isVerified = false;
   oldEmail: string;
+  isLoading = false;
 
   isResendVerificationEmailLoading = true;
 
@@ -30,10 +31,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     try {
+      this.isLoading = true;
       this.userService.getUser().subscribe((data) => {
         this.currentUser = data;
         this.isVerified = this.currentUser.isVerified;
         this.updateFormValues();
+        this.isLoading = false;
       });
     } catch (error) {
       console.error(error);
@@ -181,6 +184,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUserWithEmailChange(): void {
+    // TODO: have this approved by Kwandes
     // only update the user if the email veification is sent.
     if (this.resendVerificationEmail()) {
       this.updateUserQuery();

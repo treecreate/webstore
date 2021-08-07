@@ -6,6 +6,26 @@
   height: 100vh;
 }
 
+.verification-section {
+  box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 15%);
+  background-color: white;
+  min-width: 50vw;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-icon {
+  margin-left: 1.5rem;
+}
+
+.header {
+  margin-top: 2rem;
+}
+
 .verification-status-container {
   display: flex;
   justify-content: center;
@@ -17,8 +37,16 @@
 .verification-failed-message {
   color: darkred;
   background-color: lightpink;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 2px solid lightcoral;
+  padding: 10px;
+}
+
+.verification-success-message {
+  color: white;
+  background-color: #52d73d;
+  border-radius: 3px;
+  border: 2px solid rgb(13, 177, 13);
   padding: 10px;
 }
 
@@ -26,4 +54,36 @@
   display: inline-block;
   margin: 0.5rem 1rem;
   min-width: 200px;
+}
+@media (max-width: 900px) and (orientation: landscape) {
+  .verification-container {
+    height: auto;
+  }
+  .verification-section {
+    margin-top: 90px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .verification-container {
+    margin-bottom: 40px;
+  }
+  .verification-section {
+    width: 90vw;
+  }
+  .header {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 530px) {
+  .tc-button-25 {
+    width: 100% !important;
+    margin: 0.5rem 0;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 0;
+  }
 }

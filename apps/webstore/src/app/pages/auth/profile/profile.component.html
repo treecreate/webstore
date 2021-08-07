@@ -8,7 +8,10 @@
         <div class="title">
             <h2>Account Info</h2>
         </div>
-        <div class="account-info-input">
+        <div
+            [ngClass]="isLoading ? 'hide-opacity' : 'show-opacity'"
+            class="account-info-input"
+        >
             <div class="sub-title">
                 <p>Contact</p>
                 <hr />

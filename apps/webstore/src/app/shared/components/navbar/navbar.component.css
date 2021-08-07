@@ -26,6 +26,7 @@
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   transition: 0.4s;
+  padding: 0.5rem;
 }
 .navbar-brand {
   width: 125px;
@@ -39,9 +40,6 @@
 }
 .navbar-toggler {
   outline: none;
-}
-.min-width {
-  min-width: 310px;
 }
 .navbar-language {
   position: relative;
@@ -152,5 +150,11 @@
   }
   .nav-item:hover {
     border-bottom: none;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .language-icon {
+    transform: scale(0.6);
   }
 }

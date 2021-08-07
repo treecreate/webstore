@@ -28,6 +28,16 @@ html {
   display: none;
 }
 
+.hide-opacity {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.show-opacity {
+  opacity: 1;
+  transition: 0.5s;
+}
+
 .alert-container {
   display: flex;
   width: 100%;
