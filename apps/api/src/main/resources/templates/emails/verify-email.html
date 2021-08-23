@@ -145,8 +145,8 @@
             .mailto {
                 text-decoration: none;
                 width: 200px;
-                font-size: .8rem;
-                color: #555555; 
+                font-size: 0.8rem;
+                color: #555555;
             }
             .mail {
                 width: 100%;
@@ -305,8 +305,7 @@
                                                                     font-size: 24px;
                                                                 "
                                                                 th:text="#{verify.email.title}"
-                                                                ></span
-                                                            >
+                                                            ></span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -443,8 +442,10 @@
                                                             "
                                                         >
                                                             <strong
-                                                                ><span th:text="#{verify.email.sub.title}"></span></strong
-                                                            >
+                                                                ><span
+                                                                    th:text="#{verify.email.sub.title}"
+                                                                ></span
+                                                            ></strong>
                                                         </p>
                                                         <p
                                                             style="
@@ -458,7 +459,9 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <span th:text="#{verify.email.text}"></span>
+                                                            <span
+                                                                th:text="#{verify.email.text}"
+                                                            ></span>
                                                         </p>
                                                         <p
                                                             style="
@@ -472,7 +475,9 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <span th:text="#{signup.text2}"></span>
+                                                            <span
+                                                                th:text="#{signup.text2}"
+                                                            ></span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -488,7 +493,7 @@
                                                     "
                                                 >
                                                     <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:31.5pt;width:96pt;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#ebc6ab"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]-->
-                                                    <div  
+                                                    <div
                                                         style="
                                                             text-decoration: none;
                                                             display: inline-block;
@@ -498,7 +503,8 @@
                                                             -webkit-border-radius: 4px;
                                                             -moz-border-radius: 4px;
                                                             width: auto;
-                                                            border: 1px solid #ebc6ab;
+                                                            border: 1px solid
+                                                                #ebc6ab;
                                                             padding-top: 5px;
                                                             padding-bottom: 5px;
                                                             font-family: Arial,
@@ -526,13 +532,17 @@
                                                                     word-break: break-word;
                                                                     mso-line-height-alt: 32px;
                                                                 "
-                                                                >
+                                                            >
                                                                 <!-- TODO: Make the reset button not show the url in the button -->
-                                                                <a th:href="'treecreate.dk/verification/' + ${verificationToken}"
-                                                                th:text="#{signup.verify.email}" style="color:white; text-decoration: none;"></a>
-                                                                </span
-                                                            ></span
-                                                        >
+                                                                <a
+                                                                    th:href="'treecreate.dk/verification/' + ${verificationToken}"
+                                                                    th:text="#{signup.verify.email}"
+                                                                    style="
+                                                                        color: white;
+                                                                        text-decoration: none;
+                                                                    "
+                                                                ></a> </span
+                                                        ></span>
                                                     </div>
                                                     <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
                                                 </div>
@@ -566,7 +576,7 @@
                                                             mso-line-height-alt: 25px;
                                                         "
                                                     >
-                                                        <p
+                                                        <div
                                                             style="
                                                                 margin: 0;
                                                                 font-size: 14px;
@@ -579,21 +589,26 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <span th:text="#{signup.issue}"></span> <br>
+                                                            <span
+                                                                th:text="#{signup.issue}"
+                                                            ></span>
+                                                            <br />
                                                             <div class="mail">
                                                                 <a
                                                                     href="mailto:info@treecreate.dk"
                                                                     target="_blank"
                                                                     class="mailto"
                                                                 >
-                                                                    <strong>info@treecreate.dk</strong>
+                                                                    <strong
+                                                                        >info@treecreate.dk</strong
+                                                                    >
                                                                 </a>
                                                             </div>
-                                                        </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--[if mso]></td></tr></table><![endif]-->
-                                                
+
                                                 <table
                                                     border="0"
                                                     cellpadding="0"
@@ -723,7 +738,10 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <span th:text="#{signup.greetings1}"></span> 
+                                                            <span
+                                                                th:text="#{signup.greetings1}"
+                                                            ></span
+                                                            > 
                                                         </p>
                                                         <p
                                                             style="
@@ -744,10 +762,8 @@
                                                                             font-size: 18px;
                                                                         "
                                                                         th:text="#{signup.greetings2}"
-                                                                        ></span
-                                                                    ></em
-                                                                ></strong
-                                                            >
+                                                                    ></span></em
+                                                            ></strong>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -864,4 +880,3 @@
         <!--[if (IE)]></div><![endif]-->
     </body>
 </html>
-
