@@ -4,7 +4,6 @@ import { DesignItemComponent } from '../../../shared/components/design-item/desi
 import { CollectionComponent } from './collection.component';
 
 describe('CollectionComponent', () => {
-  let component: CollectionComponent;
   let fixture: ComponentFixture<CollectionComponent>;
 
   beforeEach(async () => {
@@ -16,12 +15,11 @@ describe('CollectionComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CollectionComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(CollectionComponent);
+    fixture = TestBed.createComponent(CollectionComponent);
     const collection = fixture.componentInstance;
     expect(collection.pageTitle).toEqual('collection');
   });

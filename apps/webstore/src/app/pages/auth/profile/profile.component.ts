@@ -212,6 +212,7 @@ export class ProfileComponent implements OnInit {
           'danger',
           20000
         );
+        console.log(err);
         isVerificationEmailSent = false;
         this.isResendVerificationEmailLoading = false;
       }
