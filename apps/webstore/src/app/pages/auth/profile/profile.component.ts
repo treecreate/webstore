@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   isLoading = false;
 
   isResendVerificationEmailLoading = false;
+  isUpdatingUserInfo = false;
 
   constructor(
     private userService: UserService,
@@ -136,6 +137,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUserQuery(): void {
+    this.isUpdatingUserInfo = true;
     this.userService
       .updateUser({
         name: this.accountInfoForm.get('name').value,
@@ -168,6 +170,7 @@ export class ProfileComponent implements OnInit {
               5000
             );
           }
+          this.isUpdatingUserInfo = false;
         },
         (err) => {
           console.log('Failed to update user');
@@ -178,6 +181,7 @@ export class ProfileComponent implements OnInit {
             2500
           );
           console.log(err.error.message);
+          this.isUpdatingUserInfo = false;
         }
       );
   }

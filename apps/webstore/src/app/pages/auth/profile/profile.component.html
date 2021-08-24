@@ -191,10 +191,25 @@
             <div class="actions">
                 <div class="button-section">
                     <button
+                        type="button"
+                        class="tc-button-50 loading-spinner-btn"
+                        *ngIf="isUpdatingUserInfo"
+                        disabled
+                    >
+                        <span
+                            class="spinner-border spinner-border-sm text-light"
+                            style="margin: 5px"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                        Updating...
+                    </button>
+                    <button
                         type="submit"
                         class="tc-button-50"
                         [disabled]="isDisabled()"
                         [ngClass]="isDisabled() ? 'disabled' : ''"
+                        *ngIf="!isUpdatingUserInfo"
                     >
                         Update info
                     </button>
