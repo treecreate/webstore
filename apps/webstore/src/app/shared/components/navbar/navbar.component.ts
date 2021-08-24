@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocaleType, LocalStorageVars } from '@models';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
-import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '../../services/local-storage';
-import { LocalStorageVars, LocaleType } from '@models';
 import { AuthService } from '../../services/authentication/auth.service';
+import { LocalStorageService } from '../../services/local-storage';
 import { ToastService } from '../toast/toast-service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'webstore-navbar',
@@ -56,10 +56,17 @@ export class NavbarComponent implements OnInit {
     );
 
     this.authUser$.subscribe(() => {
+      // TODO: refactor this logic so that it validates that the user data is correct
       // If the user data is undefined, assume that the user is logged out
       this.isLoggedIn = this.authUser$.getValue() != null ? true : false;
-      // TODO: update isVerified
     });
+
+    // Listen to changes to verification status
+    this.localStorageService
+      .getItem<boolean>(LocalStorageVars.isVerified)
+      .subscribe(() => {
+        this.isVerified = this.authService.getIsVerified();
+      });
 
     this.environment = environment;
   }
@@ -100,7 +107,6 @@ export class NavbarComponent implements OnInit {
     );
     this.authService.logout();
     window.scroll(0, 0);
-    this.router.navigate(['/home']);
   }
 
   autoCollapse() {

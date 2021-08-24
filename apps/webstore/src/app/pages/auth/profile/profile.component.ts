@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -15,6 +17,8 @@ import { UserService } from '../../../shared/services/user/user.service';
   ],
 })
 export class ProfileComponent implements OnInit {
+  public isVerified: boolean;
+
   currentUser: IUser;
   accountInfoForm: FormGroup;
   oldEmail: string;
@@ -25,14 +29,25 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private localStorageService: LocalStorageService
+  ) {
+    // Listen to changes to verification status
+    this.localStorageService
+      .getItem<boolean>(LocalStorageVars.isVerified)
+      .subscribe(() => {
+        this.isVerified = this.authService.getIsVerified();
+      });
+  }
 
   ngOnInit(): void {
     try {
       this.isLoading = true;
-      this.userService.getUser().subscribe((data) => {
-        this.currentUser = data;
+      this.userService.getUser().subscribe((user: IUser) => {
+        this.currentUser = user;
+        if (this.isVerified !== user.isVerified) {
+          this.authService.setIsVerified(user.isVerified);
+        }
         this.updateFormValues();
         this.isLoading = false;
       });
@@ -125,7 +140,7 @@ export class ProfileComponent implements OnInit {
       .updateUser({
         name: this.accountInfoForm.get('name').value,
         phoneNumber: this.accountInfoForm.get('phoneNumber').value,
-        email: this.oldEmail,
+        email: this.accountInfoForm.get('email').value,
         streetAddress: this.accountInfoForm.get('streetAddress').value,
         streetAddress2: this.accountInfoForm.get('streetAddress2').value,
         city: this.accountInfoForm.get('city').value,
@@ -142,8 +157,17 @@ export class ProfileComponent implements OnInit {
           );
           console.log('data logged: ');
           console.log(data);
-          this.userService.updateUser(data);
           this.currentUser = data;
+          if (this.accountInfoForm.get('email').value !== this.oldEmail) {
+            this.authService.logout();
+            // TODO: localize the alert
+            this.toastService.showAlert(
+              `You have been logged out because you've updated your email`,
+              `TODO: make me danish. You have been logged out because you've updated your email`,
+              'success',
+              5000
+            );
+          }
         },
         (err) => {
           console.log('Failed to update user');
@@ -168,7 +192,6 @@ export class ProfileComponent implements OnInit {
           'success',
           10000
         );
-        this.currentUser.isVerified = false;
         this.isResendVerificationEmailLoading = false;
       },
       (err: HttpErrorResponse) => {

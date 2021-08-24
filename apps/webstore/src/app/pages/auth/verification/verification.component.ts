@@ -30,6 +30,7 @@ export class VerificationComponent implements OnInit {
       () => {
         this.isVerificationSuccessful = true;
         this.isLoading = false;
+        this.authService.setIsVerified(true);
       },
       (err: HttpErrorResponse) => {
         console.error(err);
