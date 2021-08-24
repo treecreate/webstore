@@ -67,7 +67,7 @@ export class AuthService {
       .getValue();
     const params = new HttpParams().set('lang', localeCode);
     console.log(params);
-    return this.http.get(`${env.apiUrl}/users/verification/email2/me`, {
+    return this.http.get(`${env.apiUrl}/users/verification/email/me`, {
       params: params,
     });
   }

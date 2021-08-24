@@ -209,7 +209,7 @@
                 <button
                     type="button"
                     class="tc-button-100"
-                    *ngIf="!isVerified"
+                    *ngIf="!currentUser?.isVerified"
                     (click)="resendVerificationEmail()"
                 >
                     Resend verification e-mail

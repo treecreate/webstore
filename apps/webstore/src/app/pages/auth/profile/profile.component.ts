@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser, UpdateUserRequest } from '@interfaces';
+import { IUser } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -17,7 +17,6 @@ import { UserService } from '../../../shared/services/user/user.service';
 export class ProfileComponent implements OnInit {
   currentUser: IUser;
   accountInfoForm: FormGroup;
-  isVerified = false;
   oldEmail: string;
   isLoading = false;
 
@@ -34,7 +33,6 @@ export class ProfileComponent implements OnInit {
       this.isLoading = true;
       this.userService.getUser().subscribe((data) => {
         this.currentUser = data;
-        this.isVerified = this.currentUser.isVerified;
         this.updateFormValues();
         this.isLoading = false;
       });
@@ -42,8 +40,6 @@ export class ProfileComponent implements OnInit {
       console.error(error);
       // TODO: handle failed fetching of the data
     }
-
-    //this.isVerified = this.currentUser.isVerified;
 
     this.accountInfoForm = new FormGroup({
       name: new FormControl('', [
@@ -67,10 +63,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateFormValues() {
-    // check if the user is changing their email address.
     this.oldEmail = this.currentUser.email;
-    // TODO: add a isVerified value to the IUser and set the this.isVerified = this.currentUser.isVerified
-    // set all form values after the user has been fetched.
     this.accountInfoForm.setValue({
       name: this.currentUser.name,
       phoneNumber: this.currentUser.phoneNumber,
@@ -118,32 +111,13 @@ export class ProfileComponent implements OnInit {
         2500
       );
     } else {
-      // Check if the user has changed their email
+      // request verification if the user has changed their email
       if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-        // update user info and email
-        this.updateUserWithEmailChange();
-      } else {
-        // update user info
-        this.updateUserQuery();
+        this.resendVerificationEmail();
       }
-      this.updateCurrentUser();
+      // update user info
+      this.updateUserQuery();
     }
-  }
-
-  updateCurrentUser() {
-    this.currentUser.name = this.accountInfoForm.get('name').value;
-    this.currentUser.phoneNumber = this.accountInfoForm.get(
-      'phoneNumber'
-    ).value;
-    this.currentUser.email = this.accountInfoForm.get('email').value;
-    this.currentUser.streetAddress = this.accountInfoForm.get(
-      'streetAddress'
-    ).value;
-    this.currentUser.streetAddress2 = this.accountInfoForm.get(
-      'streetAddress2'
-    ).value;
-    this.currentUser.city = this.accountInfoForm.get('city').value;
-    this.currentUser.postcode = this.accountInfoForm.get('postcode').value;
   }
 
   updateUserQuery(): void {
@@ -158,7 +132,7 @@ export class ProfileComponent implements OnInit {
         postcode: this.accountInfoForm.get('postcode').value,
       })
       .subscribe(
-        (data: UpdateUserRequest) => {
+        (data: IUser) => {
           console.log('User updated');
           this.toastService.showAlert(
             'Your profile has been updated!',
@@ -169,6 +143,7 @@ export class ProfileComponent implements OnInit {
           console.log('data logged: ');
           console.log(data);
           this.userService.updateUser(data);
+          this.currentUser = data;
         },
         (err) => {
           console.log('Failed to update user');
@@ -183,17 +158,8 @@ export class ProfileComponent implements OnInit {
       );
   }
 
-  updateUserWithEmailChange(): void {
-    // TODO: have this approved by Kwandes
-    // only update the user if the email veification is sent.
-    if (this.resendVerificationEmail()) {
-      this.updateUserQuery();
-    }
-  }
-
   resendVerificationEmail() {
     this.isResendVerificationEmailLoading = true;
-    let isVerificationEmailSent = false;
     this.authService.sendVerificationEmail().subscribe(
       () => {
         this.toastService.showAlert(
@@ -202,7 +168,7 @@ export class ProfileComponent implements OnInit {
           'success',
           10000
         );
-        isVerificationEmailSent = true;
+        this.currentUser.isVerified = false;
         this.isResendVerificationEmailLoading = false;
       },
       (err: HttpErrorResponse) => {
@@ -213,11 +179,9 @@ export class ProfileComponent implements OnInit {
           20000
         );
         console.log(err);
-        isVerificationEmailSent = false;
         this.isResendVerificationEmailLoading = false;
       }
     );
-    return isVerificationEmailSent;
   }
 
   scrollTop() {
