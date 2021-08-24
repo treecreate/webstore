@@ -1,5 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -23,6 +23,8 @@ export class NavbarComponent implements OnInit {
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
+  isResendVerificationEmailLoading = false;
+
   @ViewChild('profileMenu') profileMenu: ElementRef;
 
   basketItemOptions(amount: number): string {
@@ -35,8 +37,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
-    private toastService: ToastService,
-    private router: Router
+    private toastService: ToastService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -107,6 +108,31 @@ export class NavbarComponent implements OnInit {
     );
     this.authService.logout();
     window.scroll(0, 0);
+  }
+
+  async resendVerificationEmail() {
+    this.isResendVerificationEmailLoading = true;
+    this.authService.sendVerificationEmail().subscribe(
+      () => {
+        this.toastService.showAlert(
+          'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
+          'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
+          'success',
+          10000
+        );
+        this.isResendVerificationEmailLoading = false;
+      },
+      (err: HttpErrorResponse) => {
+        this.toastService.showAlert(
+          `Failed to send a verification email. try again later`,
+          'Der skete en fejl med din email, prøv venligst igen',
+          'danger',
+          20000
+        );
+        console.log(err);
+        this.isResendVerificationEmailLoading = false;
+      }
+    );
   }
 
   autoCollapse() {

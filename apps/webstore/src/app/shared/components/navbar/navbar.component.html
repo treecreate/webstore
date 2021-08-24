@@ -151,8 +151,17 @@
     </div>
 </nav>
 <div class="unverified-email" *ngIf="isLoggedIn && !isVerified">
-    Your e-mail is still unverified:
-    <button class="verify-email-link" (click)="resendVerificationEmail()">
+    Your e-mail is still not verified:
+    <div
+        *ngIf="isResendVerificationEmailLoading"
+        class="spinner-border spinner-border-sm text-warning"
+        role="status"
+    ></div>
+    <button
+        *ngIf="!isResendVerificationEmailLoading"
+        class="verify-email-link"
+        (click)="resendVerificationEmail()"
+    >
         Resend e-mail
     </button>
 </div>
