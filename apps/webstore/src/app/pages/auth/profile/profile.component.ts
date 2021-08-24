@@ -162,10 +162,9 @@ export class ProfileComponent implements OnInit {
           this.currentUser = data;
           if (this.accountInfoForm.get('email').value !== this.oldEmail) {
             this.authService.logout();
-            // TODO: localize the alert
             this.toastService.showAlert(
               `You have been logged out because you've updated your email`,
-              `TODO: make me danish. You have been logged out because you've updated your email`,
+              `Du er bleven logget ud, fordi din e-mail er bleven ændret.`,
               'success',
               5000
             );
