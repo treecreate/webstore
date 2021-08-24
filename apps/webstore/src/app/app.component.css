@@ -1,3 +1,7 @@
 .full-page {
   min-height: calc(100vh - 288px);
 }
+
+.min-width {
+  min-width: 310px;
+}

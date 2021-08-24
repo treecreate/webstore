@@ -2,6 +2,7 @@ package dk.treecreate.api.users;
 
 import dk.treecreate.api.TestUtilsService;
 import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.user.UserService;
@@ -20,11 +21,10 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,6 +43,8 @@ class UserControllerTests
     private MockMvc mvc;
     @MockBean
     private UserRepository userRepository;
+    @MockBean
+    private MailService mailService;
 
     @Nested
     class AuthenticationTests
@@ -89,6 +91,15 @@ class UserControllerTests
         {
             UUID uuid = new UUID(0, 0);
             mvc.perform(delete("/users/" + uuid))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName(
+            "GET /users/verification endpoint returns 401 when user credentials are invalid")
+        void sendVerificationEmailReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            mvc.perform(delete("/users/verification"))
                 .andExpect(status().isUnauthorized());
         }
     }
@@ -328,6 +339,78 @@ class UserControllerTests
             Mockito.doNothing().when(userRepository).delete(user);
 
             mvc.perform(delete("/users/" + userId))
+                .andExpect(status().isNoContent());
+        }
+    }
+
+    @Nested
+    class UserVerificationTests
+    {
+        @Test
+        @DisplayName(
+            "GET /users/verification/email/me endpoint returns 204: No Content when successfully sending a verification email")
+        @WithMockUser(username = "user@hotdeals.dev", password = "testPassword")
+        void sendVerificationEmailReturnsNoContent() throws Exception
+        {
+            User user = new User();
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+            Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
+                .thenReturn(user);
+            Mockito.when(mailService.getLocale(any())).thenReturn(new Locale("dk"));
+            Mockito.doNothing().when(mailService)
+                .sendVerificationEmail(anyString(), anyString(),
+                    any(Locale.class));
+            mvc.perform(get("/users/verification/email/me"))
+                .andExpect(status().isNoContent());
+        }
+
+        @Test
+        @DisplayName(
+            "GET /users/verification/:token endpoint returns 404: Not Found if the token doesn't match any user")
+        void verifyUserWithIncorrectTokenReturnsNotFound() throws Exception
+        {
+            UUID token = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1235");
+
+            Mockito.when(userRepository.findByToken(token)).thenReturn(Optional.empty());
+            mvc.perform(get("/users/verification/" + token))
+                .andExpect(status().isNotFound());
+        }
+
+        @Test
+        @DisplayName(
+            "GET /users/verification/:token endpoint returns 403: Forbidden if the user is already verified")
+        void verifyUserThatIsAlreadyVerifiedReturnsBadRequest() throws Exception
+        {
+            UUID token = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1235");
+            User user = new User();
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+            user.setToken(token);
+            user.setIsVerified(true);
+
+            Mockito.when(userRepository.findByToken(token)).thenReturn(Optional.of(user));
+            mvc.perform(get("/users/verification/" + token))
+                .andExpect(status().isForbidden());
+        }
+
+        @Test
+        @DisplayName(
+            "GET /users/verification/:token endpoint returns 200: OK and updates users isVerified status")
+        void verifyUserCorrectlyUpdatesUser() throws Exception
+        {
+            UUID token = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1235");
+            User user = new User();
+            user.setEmail("user@hotdeals.dev");
+            user.setUsername(user.getEmail());
+            user.setToken(token);
+            user.setIsVerified(false);
+
+            Mockito.when(userRepository.findByToken(token)).thenReturn(Optional.of(user));
+            Mockito.when(userRepository.save(user)).thenReturn(user);
+            mvc.perform(get("/users/verification/" + token))
                 .andExpect(status().isNoContent());
         }
     }

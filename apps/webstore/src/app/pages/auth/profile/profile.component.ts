@@ -1,7 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser, UpdateUserRequest } from '@interfaces';
+import { IUser } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -13,20 +17,40 @@ import { UserService } from '../../../shared/services/user/user.service';
   ],
 })
 export class ProfileComponent implements OnInit {
+  public isVerified: boolean;
+
   currentUser: IUser;
   accountInfoForm: FormGroup;
-  isVerified = false;
   oldEmail: string;
+  isLoading = false;
+
+  isResendVerificationEmailLoading = false;
+  isUpdatingUserInfo = false;
 
   constructor(
     private userService: UserService,
-    private toastService: ToastService
-  ) {}
+    private authService: AuthService,
+    private toastService: ToastService,
+    private localStorageService: LocalStorageService
+  ) {
+    // Listen to changes to verification status
+    this.localStorageService
+      .getItem<boolean>(LocalStorageVars.isVerified)
+      .subscribe(() => {
+        this.isVerified = this.authService.getIsVerified();
+      });
+  }
 
   ngOnInit(): void {
     try {
-      this.userService.getUser().subscribe((data) => {
-        this.currentUser = data;
+      this.isLoading = true;
+      this.userService.getUser().subscribe((user: IUser) => {
+        this.currentUser = user;
+        if (this.isVerified !== user.isVerified) {
+          this.authService.setIsVerified(user.isVerified);
+        }
+        this.updateFormValues();
+        this.isLoading = false;
       });
     } catch (error) {
       console.error(error);
@@ -52,19 +76,10 @@ export class ProfileComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]),
     });
-
-    // TODO: should not be a timer. should run the updateFormValues() after the currentUser has been fetched
-    // NOTE: Could be achieved by subscribing to the query result ~Kwandes
-    setTimeout(() => {
-      this.updateFormValues();
-    }, 1000);
   }
 
   updateFormValues() {
-    // check if the user is changing their email address.
     this.oldEmail = this.currentUser.email;
-    // TODO: add a isVerified value to the IUser and set the this.isVerified = this.currentUser.isVerified
-    // set all form values after the user has been fetched.
     this.accountInfoForm.setValue({
       name: this.currentUser.name,
       phoneNumber: this.currentUser.phoneNumber,
@@ -95,7 +110,7 @@ export class ProfileComponent implements OnInit {
     // Check if the user has changed any form values
     if (this.hasChangedValues()) {
       this.toastService.showAlert(
-        'You havent changed any values in the form',
+        "You haven't changed any values in the form",
         'Du har ikke ændret nogen informationer',
         'danger',
         2500
@@ -112,47 +127,29 @@ export class ProfileComponent implements OnInit {
         2500
       );
     } else {
-      // Check if the user has changed their email
+      // request verification if the user has changed their email
       if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-        // update user info and email
-        this.updateUserWithEmailChange();
-      } else {
-        // update user info
-        this.updateUserQuery();
+        this.resendVerificationEmail();
       }
-      this.updateCurrentUser();
+      // update user info
+      this.updateUserQuery();
     }
   }
 
-  updateCurrentUser() {
-    this.currentUser.name = this.accountInfoForm.get('name').value;
-    this.currentUser.phoneNumber = this.accountInfoForm.get(
-      'phoneNumber'
-    ).value;
-    this.currentUser.email = this.accountInfoForm.get('email').value;
-    this.currentUser.streetAddress = this.accountInfoForm.get(
-      'streetAddress'
-    ).value;
-    this.currentUser.streetAddress2 = this.accountInfoForm.get(
-      'streetAddress2'
-    ).value;
-    this.currentUser.city = this.accountInfoForm.get('city').value;
-    this.currentUser.postcode = this.accountInfoForm.get('postcode').value;
-  }
-
   updateUserQuery(): void {
+    this.isUpdatingUserInfo = true;
     this.userService
       .updateUser({
         name: this.accountInfoForm.get('name').value,
         phoneNumber: this.accountInfoForm.get('phoneNumber').value,
-        email: this.oldEmail,
+        email: this.accountInfoForm.get('email').value,
         streetAddress: this.accountInfoForm.get('streetAddress').value,
         streetAddress2: this.accountInfoForm.get('streetAddress2').value,
         city: this.accountInfoForm.get('city').value,
         postcode: this.accountInfoForm.get('postcode').value,
       })
       .subscribe(
-        (data: UpdateUserRequest) => {
+        (data: IUser) => {
           console.log('User updated');
           this.toastService.showAlert(
             'Your profile has been updated!',
@@ -162,7 +159,17 @@ export class ProfileComponent implements OnInit {
           );
           console.log('data logged: ');
           console.log(data);
-          this.userService.updateUser(data);
+          this.currentUser = data;
+          if (this.accountInfoForm.get('email').value !== this.oldEmail) {
+            this.authService.logout();
+            this.toastService.showAlert(
+              `You have been logged out because you've updated your email`,
+              `Du er bleven logget ud, fordi din e-mail er bleven ændret.`,
+              'success',
+              5000
+            );
+          }
+          this.isUpdatingUserInfo = false;
         },
         (err) => {
           console.log('Failed to update user');
@@ -173,23 +180,33 @@ export class ProfileComponent implements OnInit {
             2500
           );
           console.log(err.error.message);
+          this.isUpdatingUserInfo = false;
         }
       );
   }
 
-  updateUserWithEmailChange(): void {
-    this.updateUserQuery();
-    this.resendVerificationEmail();
-  }
-
   resendVerificationEmail() {
-    // TODO: add email change logic like verifying your email and sent userVerified = false;
-    console.log('New verification email sent');
-    this.toastService.showAlert(
-      'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
-      'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
-      'success',
-      3500
+    this.isResendVerificationEmailLoading = true;
+    this.authService.sendVerificationEmail().subscribe(
+      () => {
+        this.toastService.showAlert(
+          'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
+          'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
+          'success',
+          10000
+        );
+        this.isResendVerificationEmailLoading = false;
+      },
+      (err: HttpErrorResponse) => {
+        this.toastService.showAlert(
+          `Failed to send a verification email. try again later`,
+          'Der skete en fejl med din email, prøv venligst igen',
+          'danger',
+          20000
+        );
+        console.log(err);
+        this.isResendVerificationEmailLoading = false;
+      }
     );
   }
 

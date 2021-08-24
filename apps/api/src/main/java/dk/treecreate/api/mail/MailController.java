@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 @RestController()
 @RequestMapping("mail")
 @Api(tags = {"Sending out emails"})
@@ -41,7 +43,8 @@ public class MailController
 
         try
         {
-            mailService.sendSignupEmail(signupDto.getEmail(), mailService.getLocale(lang));
+            mailService.sendSignupEmail(signupDto.getEmail(), UUID.randomUUID().toString(),
+                mailService.getLocale(lang));
         } catch (Exception e)
         {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,

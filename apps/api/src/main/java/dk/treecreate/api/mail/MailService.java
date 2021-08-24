@@ -31,11 +31,12 @@ public class MailService
         this.orderMailSender = orderMailSender;
     }
 
-    public void sendSignupEmail(String to, Locale locale)
+    public void sendSignupEmail(String to, String token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
+        context.setVariable("verificationToken", token);
         String subject = "Welcome to Treecreate";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
     }
@@ -47,6 +48,16 @@ public class MailService
         context.setVariable("email", to);
         String subject = "Hello Customer, you forgot your password";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
+    }
+
+    public void sendVerificationEmail(String to, String token, Locale locale)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(locale);
+        context.setVariable("email", to);
+        context.setVariable("verificationToken", token);
+        String subject = "Treecreate - verify email";
+        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
     }
 
     private void sendMail(String to, MailDomain from, String subject, Context context,

@@ -44,8 +44,8 @@ class HealthcheckTests
     void healthcheckBodyTest() throws Exception
     {
         mvc.perform(get("/healthcheck")
-            // Ensure it is a Json
-            .contentType(MediaType.APPLICATION_JSON))
+                // Ensure it is a Json
+                .contentType(MediaType.APPLICATION_JSON))
             // Check the contents of the body.
             .andExpect(jsonPath("status", is("OK")))
             .andExpect(jsonPath("message", is("Server is live")));

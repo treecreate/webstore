@@ -23,6 +23,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -91,8 +93,8 @@ class MailControllerTest
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
-        doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(email, new Locale("dk"));
+        Mockito.doThrow(UnsupportedEncodingException.class).when(mailService)
+            .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
@@ -123,7 +125,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
-            .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Provided email is not a valid email",
                 result.getResponse().getErrorMessage()));
@@ -140,10 +142,10 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
         doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(email, new Locale("dk"));
+            .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
-            .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Failed to send an email",
                 result.getResponse().getErrorMessage()));
@@ -208,7 +210,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
         mvc.perform(post("/mail/resetPassword").content(TestUtilsService.asJsonString(params))
-            .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Provided email is not a valid email",
                 result.getResponse().getErrorMessage()));
@@ -228,7 +230,7 @@ class MailControllerTest
             .sendResetPasswordEmail(email, new Locale("dk"));
 
         mvc.perform(post("/mail/resetPassword").content(TestUtilsService.asJsonString(params))
-            .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Failed to send an email",
                 result.getResponse().getErrorMessage()));

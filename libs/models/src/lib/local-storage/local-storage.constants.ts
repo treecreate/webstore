@@ -3,4 +3,5 @@ export enum LocalStorageVars {
   cookiesAccepted = 'cookiesAccepted',
   authToken = 'authToken',
   authUser = 'authUser',
+  isVerified = 'isVerified',
 }

@@ -2,6 +2,7 @@ package dk.treecreate.api.user;
 
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.dto.GetUsersResponse;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
 import io.swagger.annotations.Api;
@@ -9,12 +10,18 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +31,7 @@ import java.util.UUID;
 @Api(tags = {"Users"})
 public class UserController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     UserRepository userRepository;
@@ -31,6 +39,8 @@ public class UserController
     UserService userService;
     @Autowired
     AuthUserService authUserService;
+    @Autowired
+    MailService mailService;
 
     @GetMapping()
     @Operation(summary = "Get all users")
@@ -70,6 +80,7 @@ public class UserController
         @ApiParam(name = "userId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
         @PathVariable UUID userId,
         @RequestBody(required = false) @Valid UpdateUserRequest updateUserRequest)
+        throws MessagingException, UnsupportedEncodingException
     {
         User user = userRepository.findByUserId(userId)
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -87,6 +98,7 @@ public class UserController
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public User updateCurrentUser(
         @RequestBody(required = false) @Valid UpdateUserRequest updateUserRequest)
+        throws MessagingException, UnsupportedEncodingException
     {
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User user = userRepository.findByEmail(userDetails.getUsername())
@@ -125,5 +137,54 @@ public class UserController
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         return userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    @Operation(summary = "Send a verification email for the currently authenticated user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Email sent successfully"),
+        @ApiResponse(code = 404, message = "User not found")
+    })
+    @GetMapping("verification/email/me")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public void sendVerificationEmailForCurrentUser(@Parameter(name = "lang",
+        description = "Language of the email. Defaults to danish (dk)." +
+            "\nValid values: 'en', 'dk'", example = "en") @RequestParam(required = false)
+                                                        String lang)
+    {
+        User user = authUserService.getCurrentlyAuthenticatedUser();
+        try
+        {
+            mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
+                mailService.getLocale(lang));
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to process a verification email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to send the email. Try again later");
+        }
+    }
+
+    @Operation(summary = "Verify a user with specified token")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "User has been verified"),
+        @ApiResponse(code = 403, message = "User is already verified"),
+        @ApiResponse(code = 404, message = "User with associated token not found")
+    })
+    @GetMapping("verification/{token}")
+    public void verifyUserByToken(
+        @ApiParam(name = "token", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @Valid @PathVariable UUID token)
+    {
+        User user = userRepository.findByToken(token)
+            .orElseThrow(
+                () -> new ResourceNotFoundException("User with specified token not found"));
+        if (user.getIsVerified() != null && user.getIsVerified())
+        {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is already verified");
+        }
+        user.setIsVerified(true);
+        userRepository.save(user);
     }
 }

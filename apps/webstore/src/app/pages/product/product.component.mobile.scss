@@ -1,4 +1,5 @@
 @media screen and (max-width: 1130px) {
+  // TODO: create a slide in / slide out animation for the mobile options menu
   .design-options-desktop {
     display: none;
   }
@@ -21,6 +22,9 @@
     transform: scale(0.7);
     top: 114px;
     right: -10px;
+  }
+  .product-section {
+    padding-top: 0;
   }
 }
 

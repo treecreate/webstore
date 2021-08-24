@@ -59,6 +59,11 @@ button[type='button'] {
   margin-bottom: 0 !important;
 }
 
+.loading-spinner-btn {
+  display: flex;
+  justify-content: center;
+}
+
 .city-code-section .tc-input-group {
   width: 45%;
 }

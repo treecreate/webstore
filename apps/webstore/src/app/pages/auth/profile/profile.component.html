@@ -8,7 +8,10 @@
         <div class="title">
             <h2>Account Info</h2>
         </div>
-        <div class="account-info-input">
+        <div
+            [ngClass]="isLoading ? 'hide-opacity' : 'show-opacity'"
+            class="account-info-input"
+        >
             <div class="sub-title">
                 <p>Contact</p>
                 <hr />
@@ -187,10 +190,25 @@
             <div class="actions">
                 <div class="button-section">
                     <button
+                        type="button"
+                        class="tc-button-50 loading-spinner-btn"
+                        *ngIf="isUpdatingUserInfo"
+                        disabled
+                    >
+                        <span
+                            class="spinner-border spinner-border-sm text-light"
+                            style="margin: 5px"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                        Updating...
+                    </button>
+                    <button
                         type="submit"
                         class="tc-button-50"
                         [disabled]="isDisabled()"
                         [ngClass]="isDisabled() ? 'disabled' : ''"
+                        *ngIf="!isUpdatingUserInfo"
                     >
                         Update info
                     </button>
@@ -204,8 +222,22 @@
                 </div>
                 <button
                     type="button"
+                    class="tc-button-100 loading-spinner-btn"
+                    *ngIf="!isVerified && isResendVerificationEmailLoading"
+                    disabled
+                >
+                    <span
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    Sending email...
+                </button>
+                <button
+                    type="button"
                     class="tc-button-100"
-                    *ngIf="!isVerified"
+                    *ngIf="!isVerified && !isResendVerificationEmailLoading"
                     (click)="resendVerificationEmail()"
                 >
                     Resend verification e-mail

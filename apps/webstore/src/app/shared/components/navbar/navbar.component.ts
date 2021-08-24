@@ -1,12 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LocaleType, LocalStorageVars } from '@models';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
-import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '../../services/local-storage';
-import { LocalStorageVars, LocaleType } from '@models';
 import { AuthService } from '../../services/authentication/auth.service';
+import { LocalStorageService } from '../../services/local-storage';
 import { ToastService } from '../toast/toast-service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'webstore-navbar',
@@ -17,10 +17,13 @@ export class NavbarComponent implements OnInit {
   public isMenuCollapsed = true;
   private authUser$: BehaviorSubject<string>;
   public isLoggedIn: boolean;
+  public isVerified: boolean;
 
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
+
+  isResendVerificationEmailLoading = false;
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
 
@@ -34,8 +37,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
-    private toastService: ToastService,
-    private router: Router
+    private toastService: ToastService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -55,9 +57,17 @@ export class NavbarComponent implements OnInit {
     );
 
     this.authUser$.subscribe(() => {
+      // TODO: refactor this logic so that it validates that the user data is correct
       // If the user data is undefined, assume that the user is logged out
       this.isLoggedIn = this.authUser$.getValue() != null ? true : false;
     });
+
+    // Listen to changes to verification status
+    this.localStorageService
+      .getItem<boolean>(LocalStorageVars.isVerified)
+      .subscribe(() => {
+        this.isVerified = this.authService.getIsVerified();
+      });
 
     this.environment = environment;
   }
@@ -98,7 +108,31 @@ export class NavbarComponent implements OnInit {
     );
     this.authService.logout();
     window.scroll(0, 0);
-    this.router.navigate(['/home']);
+  }
+
+  resendVerificationEmail() {
+    this.isResendVerificationEmailLoading = true;
+    this.authService.sendVerificationEmail().subscribe(
+      () => {
+        this.toastService.showAlert(
+          'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
+          'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
+          'success',
+          10000
+        );
+        this.isResendVerificationEmailLoading = false;
+      },
+      (err: HttpErrorResponse) => {
+        this.toastService.showAlert(
+          `Failed to send a verification email. try again later`,
+          'Der skete en fejl med din email, prøv venligst igen',
+          'danger',
+          20000
+        );
+        console.log(err);
+        this.isResendVerificationEmailLoading = false;
+      }
+    );
   }
 
   autoCollapse() {
