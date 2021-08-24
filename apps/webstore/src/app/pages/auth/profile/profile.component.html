@@ -208,8 +208,22 @@
                 </div>
                 <button
                     type="button"
+                    class="tc-button-100 loading-spinner-btn"
+                    *ngIf="!isVerified && isResendVerificationEmailLoading"
+                    disabled
+                >
+                    <span
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    Sending email...
+                </button>
+                <button
+                    type="button"
                     class="tc-button-100"
-                    *ngIf="!isVerified"
+                    *ngIf="!isVerified && !isResendVerificationEmailLoading"
                     (click)="resendVerificationEmail()"
                 >
                     Resend verification e-mail

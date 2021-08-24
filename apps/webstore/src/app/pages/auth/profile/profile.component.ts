@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   oldEmail: string;
   isLoading = false;
 
-  isResendVerificationEmailLoading = true;
+  isResendVerificationEmailLoading = false;
 
   constructor(
     private userService: UserService,

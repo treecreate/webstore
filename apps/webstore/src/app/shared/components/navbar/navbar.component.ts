@@ -110,7 +110,7 @@ export class NavbarComponent implements OnInit {
     window.scroll(0, 0);
   }
 
-  async resendVerificationEmail() {
+  resendVerificationEmail() {
     this.isResendVerificationEmailLoading = true;
     this.authService.sendVerificationEmail().subscribe(
       () => {
