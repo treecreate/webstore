@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit {
     // Check if the user has changed any form values
     if (this.hasChangedValues()) {
       this.toastService.showAlert(
-        'You havent changed any values in the form',
+        "You haven't changed any values in the form",
         'Du har ikke ændret nogen informationer',
         'danger',
         2500
@@ -173,7 +173,7 @@ export class ProfileComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         this.toastService.showAlert(
-          `Failed to send an email. try again later`,
+          `Failed to send a verification email. try again later`,
           'Der skete en fejl med din email, prøv venligst igen',
           'danger',
           20000
