@@ -13,6 +13,7 @@ import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
+import { BasketComponent } from './pages/auth/basket/basket.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
@@ -42,6 +43,7 @@ const routes: Routes = [
   },
   { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
+  { path: 'basket', component: BasketComponent, canActivate: [CookieGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
 ];

@@ -1,0 +1,68 @@
+<div class="basket-container">
+    <div class="basket-content-wrapper">
+        <h2 class="basket-title">Shopping Cart</h2>
+        <div class="basket-content">
+            <div class="basket-items">Here are items</div>
+            <div class="basket-options">
+                <!-- Tree donation -->
+                <div class="basket-options-item">
+                    <div class="tree-title">
+                        Donate 10kr to plant another tree
+                    </div>
+                    <div class="donate-tree-option">
+                        <button
+                            class="box-size-plus tc-button-sm-square low-dropshadow"
+                            data-cy="box-size-plus"
+                        >
+                            <div class="button-plus"></div>
+                        </button>
+                        <div class="amount-of-trees">
+                            {{ 1 }} x <img src="../../../../assets/icons/seed-icon.svg" alt="" class="seed-icon"/>
+                        </div>
+                        <button
+                            class="box-size-plus tc-button-sm-square low-dropshadow"
+                            data-cy="box-size-minus"
+                        >
+                            <div class="icon">
+                                <div class="button-minus"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Discount code -->
+                <div class="basket-options-item">
+                    <input
+                        type="text"
+                        class="special-input-field"
+                        placeholder="Discount code"
+                    />
+                    <button class="tc-button-100 margin-top low-dropshadow">
+                        Apply Discount
+                    </button>
+                </div>
+                <!-- Price info -->
+                <div class="basket-options-item">
+                    <div class="price-info-container">
+                        <div class="price-subtitles">
+                            <span> Subtotal <br /> </span>
+                            <span> Delivery <br /> </span>
+                            <span> Save <br /> </span>
+                            <span class="weight">
+                                <strong> Total </strong>
+                            </span>
+                        </div>
+                        <div class="price-info">
+                            <span> {{ 2180 }}.00 DKK <br /> </span>
+                            <span> FREE <br /> </span>
+                            <span> {{ 625 }}.35 DKK <br /> </span>
+                            <span class="weight">
+                                <strong> {{ 1555 }},00 DKK </strong>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="tc-button-100 green low-dropshadow">Go To Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

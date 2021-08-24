@@ -32,6 +32,7 @@ import { ResetPasswordComponent } from './pages/auth/reset-password/reset-passwo
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
+import { BasketComponent } from './pages/auth/basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
     ProfileComponent,
     ToastsContainerComponent,
     DesignItemComponent,
+    BasketComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,8 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [
+    BasketComponent
+  ],
 })
 export class AppModule {}
