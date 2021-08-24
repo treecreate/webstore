@@ -26,8 +26,8 @@ public class UserService
     public User updateUser(UpdateUserRequest updateUserRequest, User user)
         throws MessagingException, UnsupportedEncodingException
     {
-
-        if (updateUserRequest.getEmail() != null)
+        if (updateUserRequest.getEmail() != null &&
+            !updateUserRequest.getEmail().equals(user.getEmail()))
         {
             if (!updateUserRequest.getEmail().equals(user.getEmail()) &&
                 userRepository.existsByEmail(updateUserRequest.getEmail()))

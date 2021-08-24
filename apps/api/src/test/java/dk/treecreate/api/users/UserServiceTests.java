@@ -201,4 +201,33 @@ class UserServiceTests
 
         assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
     }
+
+
+    @Test
+    void dontChangeUserVerificationStatusWhenEmailIsTheSame()
+        throws MessagingException, UnsupportedEncodingException
+    {
+        User baseUser = new User();
+        User user = new User();
+        var updateUserRequest = new UpdateUserRequest();
+        baseUser.setUserId(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234"));
+        baseUser.setToken(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1235"));
+        baseUser.setEmail("base@hotdeals.dev");
+        baseUser.setUsername(baseUser.getEmail());
+        baseUser.setIsVerified(true);
+        updateUserRequest.setEmail("base@hotdeals.dev");
+        user.setUserId(baseUser.getUserId());
+        user.setToken(baseUser.getToken());
+        user.setPassword("");
+        user.setEmail("base@hotdeals.dev");
+        user.setUsername(user.getEmail());
+        user.setIsVerified(true);
+
+        Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
+        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.doNothing().when(mailService)
+            .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
+
+        assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
+    }
 }
