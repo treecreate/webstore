@@ -143,6 +143,10 @@
   height: 50px;
 }
 
+.opacity {
+  opacity: 0;
+}
+
 // TODO: make page mobile responsive Because my brain is dying and i cant make it work
 @media screen and (max-width: 1095px) {
   .mobile-title {
@@ -153,17 +157,16 @@
   .desktop-title {
     display: none;
   }
-  .basket-content {
-  }
   .basket-items-container {
     margin-bottom: 0;
   }
   .basket-options {
-    min-width: 670px;
+    width: 650px;
     margin: 0;
     margin-bottom: 20px;
   }
-  .basket-items {
+  .basket-options-item {
+    margin: 10px 0;
   }
 }
 
@@ -171,5 +174,10 @@
   .basket-items-container {
     width: 90vw;
     min-width: none;
+  }
+  .basket-options {
+    width: 90vw;
+    margin: 0;
+    margin-bottom: 20px;
   }
 }
