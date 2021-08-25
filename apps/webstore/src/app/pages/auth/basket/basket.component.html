@@ -2,7 +2,25 @@
     <div class="basket-content-wrapper">
         <h2 class="basket-title">Shopping Cart</h2>
         <div class="basket-content">
-            <div class="basket-items">Here are items</div>
+            <div class="basket-items-container">
+                <!-- basket items -->
+                <div class="basket-items"></div>
+                <!-- If there are not items in basket -->
+                <div class="no-items" *ngIf="basketItems.length <= 3">
+                    <img
+                        src="../../../../assets/icons/no-design-icon.svg"
+                        alt=""
+                        routerLink="/product"
+                        class="no-design-icon"
+                    />
+                    <div class="no-items-text">
+                        You have no items in your basket
+                    </div>
+                    <button class="tc-button-50" routerLink="/product">
+                        Start Creating
+                    </button>
+                </div>
+            </div>
             <div class="basket-options">
                 <!-- Tree donation -->
                 <div class="basket-options-item">
