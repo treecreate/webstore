@@ -25,7 +25,7 @@
   box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 10%);
   background-color: white;
   width: 45vw;
-  min-width: 650px;
+  min-width: 650px; 
   display: flex;
   margin: 10px;
   margin-bottom: 20px;
@@ -42,9 +42,6 @@
 
 .basket-options {
   width: 32%;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 10;
 }
 
 .basket-options-item {
@@ -138,4 +135,11 @@
 .no-design-icon {
   width: 50px;
   height: 50px;
+}
+
+// TODO: make page mobile responsive Because my brain is dying and i cant make it work
+@media screen and (max-width: 1095px) {
+  .basket-items-container,.basket-options, .basket-items, .basket-content{
+    width: 100%; 
+  }
 }
