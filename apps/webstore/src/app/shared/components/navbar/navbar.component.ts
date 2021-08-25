@@ -60,9 +60,10 @@ export class NavbarComponent implements OnInit {
     );
 
     this.authUser$.subscribe(() => {
-      // TODO: refactor this logic so that it validates that the user data is correct
-      // If the user data is undefined, assume that the user is logged out
-      this.isLoggedIn = this.authUser$.getValue() != null ? true : false;
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
     });
 
     // Listen to changes to verification status

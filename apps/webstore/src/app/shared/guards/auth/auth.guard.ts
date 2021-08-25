@@ -40,14 +40,17 @@ export class AuthGuard implements CanActivate {
         `;
     }
 
-    const authUser: IAuthUser = this.authService.getAuthUser();
-    // Check if the user data even exists
-    if (authUser == null) {
+    // Check if the authentication data is correct
+    if (!this.authService.isAccessTokenValid()) {
       this.router.navigate(['/PageNotFound'], { skipLocationChange: true });
       return false;
     }
 
     // check if the user is authorized to view the given page
+    const authUser: IAuthUser = this.authService.getAuthUser();
+    if (authUser === null) {
+      return false;
+    }
     const userRoles: string[] = authUser.roles;
     const isAuthorized = userRoles.includes(...requiredRoles);
     if (!isAuthorized) {

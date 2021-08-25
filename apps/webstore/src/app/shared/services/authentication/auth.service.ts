@@ -79,4 +79,24 @@ export class AuthService {
 
     return null;
   }
+
+  public isAccessTokenValid(): boolean {
+    const authUser = this.localStorageService
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
+      .getValue();
+    if (authUser === null) {
+      return false;
+    }
+    const isExpired = this.isJwtExpired(authUser.accessToken);
+    if (isExpired) {
+      console.warn('Your session has expired, logging you out');
+      this.localStorageService.removeItem(LocalStorageVars.authUser);
+    }
+    return !isExpired;
+  }
+
+  public isJwtExpired(token: string): boolean {
+    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
+  }
 }

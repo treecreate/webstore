@@ -31,11 +31,9 @@ export class VerifyService {
 
   getIsVerified(): boolean {
     // fetch verification info if user is logged in
-    if (this.authService.getAuthUser() != null) {
+    const authUser = this.authService.getAuthUser();
+    if (authUser != null && !this.authService.isAccessTokenValid()) {
       this.userService.getUser().subscribe((user: IUser) => {
-        const authUser = this.localStorageService
-          .getItem<IAuthUser>(LocalStorageVars.authUser)
-          .getValue();
         if (authUser.isVerified !== user.isVerified) {
           authUser.isVerified = user.isVerified;
           this.localStorageService.setItem<IAuthUser>(
