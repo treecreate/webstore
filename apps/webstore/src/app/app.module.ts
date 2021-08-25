@@ -68,8 +68,6 @@ import { BasketComponent } from './pages/auth/basket/basket.component';
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [
-    BasketComponent
-  ],
+  exports: [BasketComponent],
 })
 export class AppModule {}
