@@ -1,9 +1,10 @@
 export interface IRegisterResponse {
-  roles: [string];
-  accessToken: string;
-  tokenType: string;
   userId: string;
   email: string;
+  isVerified: boolean;
+  roles: string[];
+  accessToken: string;
+  tokenType: string;
 }
 
 export interface IRegisterRequestParams {
