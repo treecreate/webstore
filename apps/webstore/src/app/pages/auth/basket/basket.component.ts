@@ -9,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
   ],
 })
 export class BasketComponent implements OnInit {
-  
-  // TODO: get actual items in basket from API 
+  // TODO: get actual items in basket from API
   basketItems = [
     {
       title: 'First design',
@@ -43,7 +42,5 @@ export class BasketComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 }

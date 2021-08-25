@@ -1,13 +1,19 @@
-.basket-container {
+.basket-page-container {
   display: flex;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
+  width: 100vw;
 }
 
-.basket-title {
+.desktop-title,
+.mobile-title {
   font-weight: 400;
   margin: 0 20px;
+}
+
+.mobile-title {
+  display: none;
 }
 
 .basket-content-wrapper {
@@ -15,7 +21,8 @@
 }
 
 .basket-content {
-  max-width: 90vw;
+  width: 100%;
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
@@ -25,7 +32,7 @@
   box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 10%);
   background-color: white;
   width: 45vw;
-  min-width: 650px; 
+  min-width: 650px;
   display: flex;
   margin: 10px;
   margin-bottom: 20px;
@@ -139,7 +146,24 @@
 
 // TODO: make page mobile responsive Because my brain is dying and i cant make it work
 @media screen and (max-width: 1095px) {
-  .basket-items-container,.basket-options, .basket-items, .basket-content{
-    width: 100%; 
+  .mobile-title {
+    text-align: center;
+    display: block;
+    margin: 10px 0;
+  }
+  .desktop-title {
+    display: none;
+  }
+  .basket-content {
+  }
+  .basket-items-container {
+    margin-bottom: 0;
+  }
+  .basket-options {
+    min-width: 670px;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  .basket-items {
   }
 }
