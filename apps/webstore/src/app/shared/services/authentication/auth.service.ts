@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -7,11 +7,8 @@ import {
   ILoginResponse,
   IRegisterRequestParams,
   IRegisterResponse,
-  IUser,
-  IVerifyUserRequestParams,
-  IVerifyUserResponse,
 } from '@interfaces';
-import { LocaleType, LocalStorageVars } from '@models';
+import { LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 import { LocalStorageService } from '../local-storage';
@@ -55,62 +52,6 @@ export class AuthService {
       },
       httpOptions
     );
-  }
-
-  getIsVerified(): boolean {
-    // fetch verification info if user is logged in
-    if (this.getAuthUser() != null) {
-      this.userService.getUser().subscribe((user: IUser) => {
-        const authUser = this.localStorageService
-          .getItem<IAuthUser>(LocalStorageVars.authUser)
-          .getValue();
-        if (authUser.isVerified !== user.isVerified) {
-          authUser.isVerified = user.isVerified;
-          this.localStorageService.setItem<IAuthUser>(
-            LocalStorageVars.authUser,
-            authUser
-          );
-        }
-      });
-      // return current value while the system updates
-      return this.localStorageService
-        .getItem<IAuthUser>(LocalStorageVars.authUser)
-        .getValue().isVerified;
-    } else {
-      return null;
-    }
-  }
-
-  setIsVerified(isVerified: boolean) {
-    const authUser = this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .getValue();
-    authUser.isVerified = isVerified;
-    this.localStorageService.setItem<IAuthUser>(
-      LocalStorageVars.authUser,
-      authUser
-    );
-  }
-
-  verifyUser(
-    params: IVerifyUserRequestParams
-  ): Observable<IVerifyUserResponse> {
-    const { token } = params;
-    return this.http.get<IVerifyUserResponse>(
-      `${env.apiUrl}/users/verification/${token}`,
-      httpOptions
-    );
-  }
-
-  sendVerificationEmail() {
-    const localeCode = this.localStorageService
-      .getItem<LocaleType>(LocalStorageVars.locale)
-      .getValue();
-    const params = new HttpParams().set('lang', localeCode);
-    console.log(params);
-    return this.http.get(`${env.apiUrl}/users/verification/email/me`, {
-      params: params,
-    });
   }
 
   public logout() {

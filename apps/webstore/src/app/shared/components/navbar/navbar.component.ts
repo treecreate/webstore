@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
 import { LocalStorageService } from '../../services/local-storage';
+import { VerifyService } from '../../services/verify/verify.service';
 import { ToastService } from '../toast/toast-service';
 
 @Component({
@@ -38,6 +39,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
+    private verifyService: VerifyService,
     private toastService: ToastService
   ) {
     // Listen to changes to locale
@@ -67,7 +69,7 @@ export class NavbarComponent implements OnInit {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
-        this.isVerified = this.authService.getIsVerified();
+        this.isVerified = this.verifyService.getIsVerified();
       });
 
     this.environment = environment;
@@ -113,7 +115,7 @@ export class NavbarComponent implements OnInit {
 
   resendVerificationEmail() {
     this.isResendVerificationEmailLoading = true;
-    this.authService.sendVerificationEmail().subscribe(
+    this.verifyService.sendVerificationEmail().subscribe(
       () => {
         this.toastService.showAlert(
           'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',

@@ -7,6 +7,7 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
+import { VerifyService } from '../../../shared/services/verify/verify.service';
 
 @Component({
   selector: 'webstore-profile',
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private verifyService: VerifyService,
     private toastService: ToastService,
     private localStorageService: LocalStorageService
   ) {
@@ -37,7 +39,7 @@ export class ProfileComponent implements OnInit {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
-        this.isVerified = this.authService.getIsVerified();
+        this.isVerified = this.verifyService.getIsVerified();
       });
   }
 
@@ -47,7 +49,7 @@ export class ProfileComponent implements OnInit {
       this.userService.getUser().subscribe((user: IUser) => {
         this.currentUser = user;
         if (this.isVerified !== user.isVerified) {
-          this.authService.setIsVerified(user.isVerified);
+          this.verifyService.setIsVerified(user.isVerified);
         }
         this.updateFormValues();
         this.isLoading = false;
@@ -187,7 +189,7 @@ export class ProfileComponent implements OnInit {
 
   resendVerificationEmail() {
     this.isResendVerificationEmailLoading = true;
-    this.authService.sendVerificationEmail().subscribe(
+    this.verifyService.sendVerificationEmail().subscribe(
       () => {
         this.toastService.showAlert(
           'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
