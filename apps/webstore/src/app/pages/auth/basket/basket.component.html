@@ -4,9 +4,14 @@
         <div class="basket-content">
             <div class="basket-items-container">
                 <!-- basket items -->
-                <div class="basket-items"></div>
+                <div class="basket-items" *ngIf="!(basketItems.length <= 0)">
+                    <webstore-basket-item
+                        *ngFor="let item of basketItems"
+                        [item]="item"
+                    ></webstore-basket-item>
+                </div>
                 <!-- If there are not items in basket -->
-                <div class="no-items" *ngIf="basketItems.length <= 3">
+                <div class="no-items" *ngIf="basketItems.length <= 0">
                     <img
                         src="../../../../assets/icons/no-design-icon.svg"
                         alt=""
@@ -30,9 +35,11 @@
                     <div class="donate-tree-option">
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            data-cy="box-size-plus"
+                            data-cy="box-size-minus"
                         >
-                            <div class="button-plus"></div>
+                            <div class="icon">
+                                <div class="button-minus"></div>
+                            </div>
                         </button>
                         <div class="amount-of-trees">
                             {{ 1 }} x
@@ -44,11 +51,9 @@
                         </div>
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            data-cy="box-size-minus"
+                            data-cy="box-size-plus"
                         >
-                            <div class="icon">
-                                <div class="button-minus"></div>
-                            </div>
+                            <div class="button-plus"></div>
                         </button>
                     </div>
                 </div>

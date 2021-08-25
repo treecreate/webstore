@@ -1,0 +1,93 @@
+.basket-item-container {
+  display: flex;
+  justify-content: space-between;
+  min-width: 600px;
+  margin: 20px 10px;
+}
+
+hr {
+  margin: 5px 0;
+}
+
+.design-image {
+  width: 200px;
+}
+
+.item-image {
+  margin-right: 20px;
+}
+
+.item-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.item-type-title {
+  text-align: center;
+}
+
+.item-info-container {
+  display: flex;
+  justify-content: stretch;
+  align-content: stretch;
+}
+
+.item-subtitle,
+.item-actions {
+  width: 50%;
+  margin: 5px;
+  line-height: 33px;
+  font-weight: 300;
+}
+
+.item-actions {
+  text-align: right;
+}
+
+.item-title {
+  font-weight: 700;
+  font-size: x-large;
+}
+
+.margin-top {
+  margin-top: 10px;
+}
+
+.option,
+.option-amount,
+.option-size,
+.option-price {
+  display: flex;
+  margin-top: 7px;
+}
+
+.option {
+  width: 60%;
+}
+.text {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+
+.amount {
+  border: 1px solid #ebc6ab;
+  display: flex;
+  margin: 0 5px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+}
+
+.price-text {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.option-actions {
+  display: flex;
+  justify-content: space-between;
+}
