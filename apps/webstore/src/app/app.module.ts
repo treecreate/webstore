@@ -33,6 +33,7 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
+import { BasketItemComponent } from './shared/components/basket-item/basket-item.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { BasketComponent } from './pages/auth/basket/basket.component';
     ToastsContainerComponent,
     DesignItemComponent,
     BasketComponent,
+    BasketItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,6 @@ import { BasketComponent } from './pages/auth/basket/basket.component';
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [BasketComponent],
+  exports: [BasketComponent, BasketItemComponent],
 })
 export class AppModule {}
