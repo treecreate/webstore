@@ -53,7 +53,7 @@ export class CookiePromptModalComponent implements OnInit {
   }
 
   acceptCookies() {
-    this.localStorageService.setItem(
+    this.localStorageService.setItem<CookieStatus>(
       LocalStorageVars.cookiesAccepted,
       CookieStatus.accepted
     );
@@ -66,7 +66,7 @@ export class CookiePromptModalComponent implements OnInit {
   }
 
   rejectCookies() {
-    this.localStorageService.setItem(
+    this.localStorageService.setItem<CookieStatus>(
       LocalStorageVars.cookiesAccepted,
       CookieStatus.rejected
     );

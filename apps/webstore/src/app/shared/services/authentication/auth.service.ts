@@ -65,7 +65,7 @@ export class AuthService {
             .getItem<boolean>(LocalStorageVars.isVerified)
             .getValue() !== user.isVerified
         ) {
-          this.localStorageService.setItem(
+          this.localStorageService.setItem<boolean>(
             LocalStorageVars.isVerified,
             user.isVerified
           );
@@ -81,7 +81,10 @@ export class AuthService {
   }
 
   setIsVerified(isVerified: boolean) {
-    this.localStorageService.setItem(LocalStorageVars.isVerified, isVerified);
+    this.localStorageService.setItem<boolean>(
+      LocalStorageVars.isVerified,
+      isVerified
+    );
   }
 
   verifyUser(
@@ -114,7 +117,7 @@ export class AuthService {
 
   public saveAuthToken(token: string): void {
     this.localStorageService.removeItem(LocalStorageVars.authToken);
-    this.localStorageService.setItem(LocalStorageVars.authToken, token);
+    this.localStorageService.setItem<string>(LocalStorageVars.authToken, token);
   }
 
   public getAuthToken(): string | null {

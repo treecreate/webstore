@@ -18,9 +18,9 @@ export class UserService {
   // Save auth user information to local storage
   public saveAuthUser(user: IAuthUser): void {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
-    this.localStorageService.setItem(
+    this.localStorageService.setItem<IAuthUser>(
       LocalStorageVars.authUser,
-      JSON.stringify(user)
+      user
     );
   }
 
