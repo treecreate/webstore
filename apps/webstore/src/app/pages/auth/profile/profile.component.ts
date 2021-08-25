@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser } from '@interfaces';
+import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   ) {
     // Listen to changes to verification status
     this.localStorageService
-      .getItem<boolean>(LocalStorageVars.isVerified)
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
         this.isVerified = this.authService.getIsVerified();
       });

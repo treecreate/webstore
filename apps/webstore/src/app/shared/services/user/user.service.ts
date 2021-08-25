@@ -1,40 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { IUser, UpdateUserRequest } from '@interfaces';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from '../local-storage';
-import { LocalStorageVars } from '@models';
-import { IAuthUser, IUser, UpdateUserRequest } from '@interfaces';
 import { environment as env } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService
-  ) {}
-
-  // Save auth user information to local storage
-  public saveAuthUser(user: IAuthUser): void {
-    this.localStorageService.removeItem(LocalStorageVars.authUser);
-    this.localStorageService.setItem<IAuthUser>(
-      LocalStorageVars.authUser,
-      user
-    );
-  }
-
-  // Get user information for authentication. The data comes from local storage. Use getUser() to get full user entity
-  public getAuthUser(): IAuthUser {
-    const user = this.localStorageService
-      .getItem<string>(LocalStorageVars.authUser)
-      .getValue();
-    if (user) {
-      return JSON.parse(user);
-    }
-
-    return null;
-  }
+  constructor(private http: HttpClient) {}
 
   public getUser(): Observable<IUser> {
     return this.http.get<IUser>(`${env.apiUrl}/users/me`);

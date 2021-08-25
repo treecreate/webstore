@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { IAuthUser } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -15,7 +16,7 @@ import { ToastService } from '../toast/toast-service';
 })
 export class NavbarComponent implements OnInit {
   public isMenuCollapsed = true;
-  private authUser$: BehaviorSubject<string>;
+  private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
   public isVerified: boolean;
 
@@ -52,7 +53,7 @@ export class NavbarComponent implements OnInit {
     this.localeCode = this.locale$.getValue();
 
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<string>(
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
       LocalStorageVars.authUser
     );
 
@@ -64,7 +65,7 @@ export class NavbarComponent implements OnInit {
 
     // Listen to changes to verification status
     this.localStorageService
-      .getItem<boolean>(LocalStorageVars.isVerified)
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
         this.isVerified = this.authService.getIsVerified();
       });

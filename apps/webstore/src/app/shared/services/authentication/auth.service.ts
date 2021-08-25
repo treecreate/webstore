@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  IAuthUser,
   ILoginRequestParams,
   ILoginResponse,
   IRegisterRequestParams,
@@ -58,32 +59,36 @@ export class AuthService {
 
   getIsVerified(): boolean {
     // fetch verification info if user is logged in
-    if (this.getAuthToken() != null) {
+    if (this.getAuthUser() != null) {
       this.userService.getUser().subscribe((user: IUser) => {
-        if (
-          this.localStorageService
-            .getItem<boolean>(LocalStorageVars.isVerified)
-            .getValue() !== user.isVerified
-        ) {
-          this.localStorageService.setItem<boolean>(
-            LocalStorageVars.isVerified,
-            user.isVerified
+        const authUser = this.localStorageService
+          .getItem<IAuthUser>(LocalStorageVars.authUser)
+          .getValue();
+        if (authUser.isVerified !== user.isVerified) {
+          authUser.isVerified = user.isVerified;
+          this.localStorageService.setItem<IAuthUser>(
+            LocalStorageVars.authUser,
+            authUser
           );
         }
       });
       // return current value while the system updates
       return this.localStorageService
-        .getItem<boolean>(LocalStorageVars.isVerified)
-        .getValue();
+        .getItem<IAuthUser>(LocalStorageVars.authUser)
+        .getValue().isVerified;
     } else {
       return null;
     }
   }
 
   setIsVerified(isVerified: boolean) {
-    this.localStorageService.setItem<boolean>(
-      LocalStorageVars.isVerified,
-      isVerified
+    const authUser = this.localStorageService
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
+      .getValue();
+    authUser.isVerified = isVerified;
+    this.localStorageService.setItem<IAuthUser>(
+      LocalStorageVars.authUser,
+      authUser
     );
   }
 
@@ -109,20 +114,28 @@ export class AuthService {
   }
 
   public logout() {
-    this.localStorageService.removeItem(LocalStorageVars.authToken);
     this.localStorageService.removeItem(LocalStorageVars.authUser);
-    this.localStorageService.removeItem(LocalStorageVars.isVerified);
     this.router.navigate(['/home']);
   }
 
-  public saveAuthToken(token: string): void {
-    this.localStorageService.removeItem(LocalStorageVars.authToken);
-    this.localStorageService.setItem<string>(LocalStorageVars.authToken, token);
+  // Save auth user information to local storage
+  public saveAuthUser(user: IAuthUser): void {
+    this.localStorageService.removeItem(LocalStorageVars.authUser);
+    this.localStorageService.setItem<IAuthUser>(
+      LocalStorageVars.authUser,
+      user
+    );
   }
 
-  public getAuthToken(): string | null {
-    return this.localStorageService
-      .getItem<string>(LocalStorageVars.authToken)
+  // Get user information for authentication. The data comes from local storage. Use getUser() to get full user entity
+  public getAuthUser(): IAuthUser {
+    const user = this.localStorageService
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
       .getValue();
+    if (user) {
+      return user;
+    }
+
+    return null;
   }
 }

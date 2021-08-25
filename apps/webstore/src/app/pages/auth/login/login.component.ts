@@ -5,14 +5,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ILoginResponse } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
-import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { UserService } from '../../../shared/services/user/user.service';
-import { ILoginResponse } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
 
 @Component({
   selector: 'webstore-login',
@@ -34,14 +33,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private authService: AuthService,
-    private userService: UserService,
     private router: Router,
     private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     // if user is already logged in redirect to profile
-    if (this.authService.getAuthToken()) {
+    if (this.authService.getAuthUser()) {
       this.router.navigate(['/profile']);
     }
 
@@ -62,8 +60,7 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(
         (data: ILoginResponse) => {
-          this.authService.saveAuthToken(data.accessToken);
-          this.userService.saveAuthUser(data);
+          this.authService.saveAuthUser(data);
 
           this.toastService.showAlert(
             'Welcome back! You are now logged in.',
@@ -74,8 +71,6 @@ export class LoginComponent implements OnInit {
 
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.userService.getAuthUser().roles;
-          // this.showSuccessfulLogin();
           this.router.navigate(['/']);
         },
         (err) => {
@@ -85,6 +80,7 @@ export class LoginComponent implements OnInit {
             'danger',
             2500
           );
+          console.error(err);
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
         }

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
   ActivatedRouteSnapshot,
-  UrlTree,
+  CanActivate,
   Router,
+  UrlTree,
 } from '@angular/router';
 import { IAuthUser } from '@interfaces';
 import { Observable } from 'rxjs';
-import { UserService } from '../../services/user/user.service';
+import { AuthService } from '../../services/authentication/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot
@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
         `;
     }
 
-    const authUser: IAuthUser = this.userService.getAuthUser();
+    const authUser: IAuthUser = this.authService.getAuthUser();
     // Check if the user data even exists
     if (authUser == null) {
       this.router.navigate(['/PageNotFound'], { skipLocationChange: true });
