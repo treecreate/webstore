@@ -21,18 +21,17 @@
 }
 
 .basket-content {
-  width: 100%;
+  width: 100vw;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
 }
 
 .basket-items-container {
   box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 10%);
   background-color: white;
-  width: 45vw;
-  min-width: 650px;
+  width: fit-content;
+  max-width: 650px;
   display: flex;
   margin: 10px;
   margin-bottom: 20px;
@@ -165,5 +164,12 @@
     margin-bottom: 20px;
   }
   .basket-items {
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .basket-items-container {
+    width: 90vw;
+    min-width: none;
   }
 }
