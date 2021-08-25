@@ -103,6 +103,7 @@ class AuthControllerTests
         user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
         user.setEmail(loginRequest.getEmail());
         user.setUsername(loginRequest.getEmail());
+        user.setIsVerified(true);
         user.setPassword(
             "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
         Set<Role> roles = new HashSet<>();
@@ -118,6 +119,7 @@ class AuthControllerTests
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
+            .andExpect(jsonPath("isVerified", is(user.getIsVerified())))
             .andExpect(jsonPath("roles", hasItem(ERole.ROLE_USER.toString())))
             .andExpect(jsonPath("tokenType", is("Bearer")))
             .andExpect(jsonPath("accessToken", is(notNullValue())));
