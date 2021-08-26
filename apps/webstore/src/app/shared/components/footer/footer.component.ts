@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { IAuthUser } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
+import { LocalStorageService } from '../../services/local-storage';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
@@ -16,12 +19,17 @@ import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-
 })
 export class FooterComponent implements OnInit {
   public isLoggedIn: boolean;
-  private authUser$: BehaviorSubject<string>;
+  private authUser$: BehaviorSubject<IAuthUser>;
 
   constructor(
     private modalService: NgbModal,
+    private localStorageService: LocalStorageService,
     private authService: AuthService
   ) {
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
       this.isLoggedIn =
