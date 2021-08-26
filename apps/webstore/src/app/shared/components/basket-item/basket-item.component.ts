@@ -24,5 +24,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('basket item');
+  }
 }
