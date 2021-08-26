@@ -13,9 +13,15 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.main-image-container {
+  display: flex;
+  justify-content: center;
+  width: 47%;
+}
+
 .main-content {
-  width: 30vw;
-  min-width: 400px;
+  width: 47%;
+  max-width: 550px;
   margin-bottom: 50px;
 }
 .main-image {
@@ -35,8 +41,20 @@
 .main-text {
   margin: 10px 0 20px 0;
 }
-.min-width {
-  min-width: 170px;
+.button {
+  margin: 10px 0;
+}
+
+@media screen and (max-width: 840px) {
+  .main-image-container {
+    width: 100%;
+  }
+  .page-content {
+    width: 100%;
+  }
+  .main-content {
+    width: 60vw;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -45,6 +63,18 @@
     padding: 30px;
   }
   .main-content {
+    width: 80vw;
+  }
+  .main-image {
+    width: 60vw;
+  }
+  .main-image-container {
+    width: 100vw;
+  }
+  .tc-button-50 {
     width: 100%;
+  }
+  .actions-container {
+    flex-wrap: wrap;
   }
 }
