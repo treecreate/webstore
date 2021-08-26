@@ -35,6 +35,7 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
+import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-i
     InfoPopoverComponent,
     PaymentSuccessComponent,
     NotSignedInComponent,
+    AddToBasketModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +74,6 @@ import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-i
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [AddToBasketModalComponent],
 })
 export class AppModule {}

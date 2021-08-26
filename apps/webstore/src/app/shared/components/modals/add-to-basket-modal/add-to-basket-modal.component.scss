@@ -1,0 +1,153 @@
+.modal-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-header,
+.modal-container,
+.modal-body,
+.modal-content {
+  border: none !important;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.option-amount,
+.option-size,
+.option-title,
+.option-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.option {
+  display: flex;
+  margin-top: 7px;
+}
+.text {
+  text-align: center;
+}
+
+.amount {
+  border: 1px solid #ebc6ab;
+  display: flex;
+  margin: 0 5px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+}
+
+.price-text {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.option-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.option-design-title {
+  border: 1px solid #ebc6ab;
+}
+
+.tc-button-100 {
+  margin: 5px 0;
+}
+
+.title-input {
+  width: 100%;
+  border: none;
+  text-align: center;
+  height: 35px;
+}
+
+.title {
+  margin-bottom: 5px;
+}
+
+.title-input:focus {
+  outline: none;
+}
+
+.button-container,
+.extra-info,
+.option,
+.option-design-title {
+  width: 60%;
+}
+
+.text-container {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.extra-info {
+  text-align: center;
+  font-weight: 200;
+  font-size: small;
+}
+
+.button-plus,
+.button-minus {
+  position: relative;
+  margin: 0px 2px 0px 2px;
+  width: 20px;
+  height: 20px;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    background-color: white;
+  }
+}
+
+.button-plus {
+  /* Vertical line */
+  &:before {
+    top: 0;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    margin-left: -2px;
+  }
+
+  /* horizontal line */
+  &:after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    margin-top: -2px;
+  }
+}
+.button-minus {
+  /* horizontal line */
+  &:after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    margin-top: -2px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .button-container,
+  .extra-info,
+  .option,
+  .option-design-title {
+    width: 90%;
+  }
+}

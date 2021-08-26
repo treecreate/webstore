@@ -78,3 +78,8 @@ strong {
   width: 100%;
   text-align: center;
 }
+
+.green {
+  background-color: #52d73d;
+  color: white;
+}
