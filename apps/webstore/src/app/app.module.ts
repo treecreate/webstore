@@ -68,8 +68,6 @@ import { InfoPopoverComponent } from './shared/components/info-popover/info-popo
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [
-    InfoPopoverComponent
-  ],
+  exports: [InfoPopoverComponent],
 })
 export class AppModule {}
