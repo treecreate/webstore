@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap')
+
+$primary-bg: white
+
+$text: #2d2d2d
+$box-shadow: rgba(0, 0, 0, 0.15)
+
+body, html
+  height: 100vh
+  width: 100vw
+
+body
+  background: white
+  background-size: cover
+  display: flex
+  flex-direction: column
+  overflow: hidden
+  font-family: 'Spartan', sans-serif
+  color: $text
+\::selection
+  // color: $text
+  background: rgba(170,170,170, 0.3)
+
+.heading
+  width: max-content
+  display: flex
+  flex-direction: column
+  > div 
+    overflow: hidden
+    > p
+      width: max-content
+      white-space: nowrap
+      margin: 0
+      line-height: 117%
+.green
+  color: #32c267
+@for $i from 2 through 3
+  div.heading
+    > div
+      animation-delay: 0
+      &:nth-child(#{$i})
+        > p
+          animation-delay: $i * 0.025s
+      
+.slide-up
+  animation: slide-up 0.9s cubic-bezier(0.65, 0, 0.35, 1) both
+  
+@keyframes slide-up
+  0%
+    transform: translateY(100px)
+  100%
+    transform: translateY(0)

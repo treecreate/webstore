@@ -25,6 +25,7 @@
 .back-to-home {
   font-weight: 700;
   transition: 0.5s;
+  margin-left: 5px;
 }
 
 .back-to-home-container {
@@ -34,7 +35,7 @@
 
 .back-to-home:hover {
   text-decoration: none;
-  margin-right: 5px;
+  margin-left: 0;
   color: #ebc6ab !important;
 }
 
@@ -55,8 +56,9 @@
 }
 
 .teamtrees-link:hover {
-  color: #ebc6ab;
+  color: #32c267 !important;
   margin: 0 10px;
+  text-decoration: none;
 }
 
 .teamtrees-link {
