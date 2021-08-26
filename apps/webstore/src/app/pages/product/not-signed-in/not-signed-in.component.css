@@ -1,0 +1,50 @@
+.not-signed-in-page-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.page-content {
+  margin-top: 100px;
+  width: 90vw;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.main-content {
+  width: 30vw;
+  min-width: 400px;
+  margin-bottom: 50px;
+}
+.main-image {
+  width: 400px;
+  margin-bottom: 30px;
+}
+.actions-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-title {
+  font-size: x-large;
+  font-weight: 600;
+}
+
+.main-text {
+  margin: 10px 0 20px 0;
+}
+.min-width {
+  min-width: 170px;
+}
+
+@media screen and (max-width: 600px) {
+  .page-content {
+    width: 100vw;
+    padding: 30px;
+  }
+  .main-content {
+    width: 100%;
+  }
+}
