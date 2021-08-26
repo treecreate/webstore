@@ -1,6 +1,7 @@
 .success-container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   background-color: #f5f2f2;
   display: flex;
   justify-content: center;
@@ -16,10 +17,13 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
+  transition: 0.5s;
 }
 
 .success-logo {
+  width: 250px;
   margin-bottom: 20px;
+  transition: 0.5s;
 }
 
 .back-to-home {
@@ -44,6 +48,7 @@
   margin: 15px;
   font-size: 48px;
   font-weight: 700;
+  transition: 0.5s;
 }
 
 .success-main-text {
@@ -53,6 +58,7 @@
 .teamtrees-link-container {
   margin: 20px;
   display: flex;
+  transition: 0.5s;
 }
 
 .teamtrees-link:hover {
@@ -70,4 +76,19 @@
 
 .teamtrees-icon {
   width: 30px;
+}
+
+@media screen and (max-width: 600px) {
+  .success-content {
+    width: 100vw;
+  }
+  .teamtrees-link-container {
+    transform: scale(0.8);
+  }
+  .success-thank-you {
+    font-size: 36px;
+  }
+  .success-logo {
+    width: 150px;
+  }
 }
