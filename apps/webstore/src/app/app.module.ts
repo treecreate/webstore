@@ -32,6 +32,7 @@ import { ResetPasswordComponent } from './pages/auth/reset-password/reset-passwo
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
+import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
     ProfileComponent,
     ToastsContainerComponent,
     DesignItemComponent,
+    InfoPopoverComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +68,8 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [
+    InfoPopoverComponent
+  ],
 })
 export class AppModule {}
