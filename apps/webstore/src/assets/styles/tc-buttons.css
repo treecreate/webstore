@@ -78,3 +78,16 @@ strong {
   width: 100%;
   text-align: center;
 }
+
+.low-dropshadow {
+  box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.07);
+}
+
+.low-dropshadow:hover {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+}
+
+.green {
+  background-color: #52d73d;
+  color: white;
+}
