@@ -23,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private eleRef: ElementRef
   ) {
     this.initialTop = 0;
     this.parallaxRatio = 0.7;
