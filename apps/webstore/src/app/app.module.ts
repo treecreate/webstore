@@ -70,6 +70,5 @@ import { BasketItemComponent } from './shared/components/basket-item/basket-item
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [BasketComponent, BasketItemComponent],
 })
 export class AppModule {}
