@@ -2,4 +2,70 @@
   width: 100vw;
   height: 100vh;
   background-color: #f5f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.success-content {
+  min-height: 80vh;
+  width: 80vw;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.success-logo {
+  margin-bottom: 20px;
+}
+
+.back-to-home {
+  font-weight: 700;
+  transition: 0.5s;
+}
+
+.back-to-home-container {
+  text-align: left;
+  width: 100%;
+}
+
+.back-to-home:hover {
+  text-decoration: none;
+  margin-right: 5px;
+  color: #ebc6ab !important;
+}
+
+.success-thank-you {
+  margin-top: 30px;
+  margin: 15px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.success-main-text {
+  font-size: larger;
+}
+
+.teamtrees-link-container {
+  margin: 20px;
+  display: flex;
+}
+
+.teamtrees-link:hover {
+  color: #ebc6ab;
+  margin: 0 10px;
+}
+
+.teamtrees-link {
+  font-size: 36px;
+  font-weight: 500;
+  transition: 0.5s;
+  margin: 0 30px;
+}
+
+.teamtrees-icon {
+  width: 30px;
 }
