@@ -17,18 +17,15 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
-  transition: 0.5s;
 }
 
 .success-logo {
   width: 250px;
   margin-bottom: 20px;
-  transition: 0.5s;
 }
 
 .back-to-home {
   font-weight: 700;
-  transition: 0.5s;
   margin-left: 5px;
 }
 
@@ -48,7 +45,6 @@
   margin: 15px;
   font-size: 48px;
   font-weight: 700;
-  transition: 0.5s;
 }
 
 .success-main-text {
@@ -58,7 +54,6 @@
 .teamtrees-link-container {
   margin: 20px;
   display: flex;
-  transition: 0.5s;
 }
 
 .teamtrees-link:hover {
@@ -70,7 +65,6 @@
 .teamtrees-link {
   font-size: 36px;
   font-weight: 500;
-  transition: 0.5s;
   margin: 0 30px;
 }
 
@@ -79,6 +73,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .back-to-home {
+    font-size: 12px;
+    margin: 0;
+  }
   .success-content {
     width: 100vw;
   }
