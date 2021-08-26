@@ -1,11 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { IAuthUser } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
 import { LocalStorageService } from '../../services/local-storage';
+import { VerifyService } from '../../services/verify/verify.service';
 import { ToastService } from '../toast/toast-service';
 
 @Component({
@@ -15,7 +17,7 @@ import { ToastService } from '../toast/toast-service';
 })
 export class NavbarComponent implements OnInit {
   public isMenuCollapsed = true;
-  private authUser$: BehaviorSubject<string>;
+  private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
   public isVerified: boolean;
 
@@ -37,6 +39,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
+    private verifyService: VerifyService,
     private toastService: ToastService
   ) {
     // Listen to changes to locale
@@ -52,21 +55,22 @@ export class NavbarComponent implements OnInit {
     this.localeCode = this.locale$.getValue();
 
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<string>(
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
       LocalStorageVars.authUser
     );
 
     this.authUser$.subscribe(() => {
-      // TODO: refactor this logic so that it validates that the user data is correct
-      // If the user data is undefined, assume that the user is logged out
-      this.isLoggedIn = this.authUser$.getValue() != null ? true : false;
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
     });
 
     // Listen to changes to verification status
     this.localStorageService
-      .getItem<boolean>(LocalStorageVars.isVerified)
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
-        this.isVerified = this.authService.getIsVerified();
+        this.isVerified = this.verifyService.getIsVerified();
       });
 
     this.environment = environment;
@@ -112,7 +116,7 @@ export class NavbarComponent implements OnInit {
 
   resendVerificationEmail() {
     this.isResendVerificationEmailLoading = true;
-    this.authService.sendVerificationEmail().subscribe(
+    this.verifyService.sendVerificationEmail().subscribe(
       () => {
         this.toastService.showAlert(
           'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',

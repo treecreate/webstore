@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { VerifyService } from '../../../shared/services/verify/verify.service';
 @Component({
   selector: 'webstore-verification',
   templateUrl: './verification.component.html',
@@ -17,7 +17,7 @@ export class VerificationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService
+    private verifyService: VerifyService
   ) {}
 
   ngOnInit(): void {
@@ -26,11 +26,11 @@ export class VerificationComponent implements OnInit {
   }
 
   async verifyUser(token: string) {
-    this.authService.verifyUser({ token: token }).subscribe(
+    this.verifyService.verifyUser({ token: token }).subscribe(
       () => {
         this.isVerificationSuccessful = true;
         this.isLoading = false;
-        this.authService.setIsVerified(true);
+        this.verifyService.setIsVerified(true);
       },
       (err: HttpErrorResponse) => {
         console.error(err);

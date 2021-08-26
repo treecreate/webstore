@@ -1,16 +1,14 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  IAuthUser,
   ILoginRequestParams,
   ILoginResponse,
   IRegisterRequestParams,
   IRegisterResponse,
-  IUser,
-  IVerifyUserRequestParams,
-  IVerifyUserResponse,
 } from '@interfaces';
-import { LocaleType, LocalStorageVars } from '@models';
+import { LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 import { LocalStorageService } from '../local-storage';
@@ -56,70 +54,49 @@ export class AuthService {
     );
   }
 
-  getIsVerified(): boolean {
-    // fetch verification info if user is logged in
-    if (this.getAuthToken() != null) {
-      this.userService.getUser().subscribe((user: IUser) => {
-        if (
-          this.localStorageService
-            .getItem<boolean>(LocalStorageVars.isVerified)
-            .getValue() !== user.isVerified
-        ) {
-          this.localStorageService.setItem(
-            LocalStorageVars.isVerified,
-            user.isVerified
-          );
-        }
-      });
-      // return current value while the system updates
-      return this.localStorageService
-        .getItem<boolean>(LocalStorageVars.isVerified)
-        .getValue();
-    } else {
-      return null;
-    }
-  }
-
-  setIsVerified(isVerified: boolean) {
-    this.localStorageService.setItem(LocalStorageVars.isVerified, isVerified);
-  }
-
-  verifyUser(
-    params: IVerifyUserRequestParams
-  ): Observable<IVerifyUserResponse> {
-    const { token } = params;
-    return this.http.get<IVerifyUserResponse>(
-      `${env.apiUrl}/users/verification/${token}`,
-      httpOptions
-    );
-  }
-
-  sendVerificationEmail() {
-    const localeCode = this.localStorageService
-      .getItem<LocaleType>(LocalStorageVars.locale)
-      .getValue();
-    const params = new HttpParams().set('lang', localeCode);
-    console.log(params);
-    return this.http.get(`${env.apiUrl}/users/verification/email/me`, {
-      params: params,
-    });
-  }
-
   public logout() {
-    this.localStorageService.removeItem(LocalStorageVars.authToken);
     this.localStorageService.removeItem(LocalStorageVars.authUser);
-    this.localStorageService.removeItem(LocalStorageVars.isVerified);
     this.router.navigate(['/home']);
   }
 
-  public saveAuthToken(token: string): void {
-    this.localStorageService.removeItem(LocalStorageVars.authToken);
-    this.localStorageService.setItem(LocalStorageVars.authToken, token);
+  // Save auth user information to local storage
+  public saveAuthUser(user: IAuthUser): void {
+    this.localStorageService.removeItem(LocalStorageVars.authUser);
+    this.localStorageService.setItem<IAuthUser>(
+      LocalStorageVars.authUser,
+      user
+    );
   }
 
-  public getAuthToken(): string | null {
-    return this.localStorageService
-      .getItem<string>(LocalStorageVars.authToken)
+  // Get user information for authentication. The data comes from local storage. Use getUser() to get full user entity
+  public getAuthUser(): IAuthUser {
+    const user = this.localStorageService
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
       .getValue();
+    if (user) {
+      return user;
+    }
+
+    return null;
+  }
+
+  public isAccessTokenValid(): boolean {
+    const authUser = this.localStorageService
+      .getItem<IAuthUser>(LocalStorageVars.authUser)
+      .getValue();
+    if (authUser === null) {
+      return false;
+    }
+    const isExpired = this.isJwtExpired(authUser.accessToken);
+    if (isExpired) {
+      console.warn('Your session has expired, logging you out');
+      this.localStorageService.removeItem(LocalStorageVars.authUser);
+    }
+    return !isExpired;
+  }
+
+  public isJwtExpired(token: string): boolean {
+    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 }

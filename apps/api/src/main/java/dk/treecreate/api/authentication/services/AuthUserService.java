@@ -50,6 +50,7 @@ public class AuthUserService
         return new JwtResponse(jwt,
             userDetails.getUsedId(),
             userDetails.getEmail(),
+            userDetails.getIsVerified(),
             roles);
     }
 
