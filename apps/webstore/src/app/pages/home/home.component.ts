@@ -1,8 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '../../shared/services/local-storage';
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
@@ -21,22 +19,15 @@ export class HomeComponent implements OnInit {
 
   title = 'homeComponent';
 
-  constructor(
-    private authService: AuthService,
-    private localStorageService: LocalStorageService,
-    private eleRef: ElementRef
-  ) {
+  constructor(private authService: AuthService, private eleRef: ElementRef) {
     this.initialTop = 0;
     this.parallaxRatio = 0.7;
 
-    this.authUser$ = this.localStorageService.getItem<string>(
-      LocalStorageVars.authUser
-    );
-
     this.authUser$.subscribe(() => {
-      // TODO: refactor this logic so that it validates that the user data is correct
-      // If the user data is undefined, assume that the user is logged out
-      this.isLoggedIn = this.authUser$.getValue() != null ? true : false;
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
     });
   }
 
@@ -52,5 +43,7 @@ export class HomeComponent implements OnInit {
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //
+  }
 }
