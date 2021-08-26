@@ -74,6 +74,5 @@ import { AddToBasketModalComponent } from './shared/components/modals/add-to-bas
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [AddToBasketModalComponent],
 })
 export class AppModule {}
