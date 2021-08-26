@@ -10,6 +10,6 @@ export class AddToBasketModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {
-    console.log('');
+    //
   }
 }
