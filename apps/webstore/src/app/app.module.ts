@@ -34,6 +34,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
     DesignItemComponent,
     InfoPopoverComponent,
     PaymentSuccessComponent,
+    NotSignedInComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +72,6 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [InfoPopoverComponent, PaymentSuccessComponent],
+  exports: [],
 })
 export class AppModule {}

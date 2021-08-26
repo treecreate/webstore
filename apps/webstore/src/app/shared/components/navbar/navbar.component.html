@@ -68,7 +68,9 @@
                 <li class="nav-item">
                     <a
                         class="nav-link waves-light"
-                        routerLink="/product"
+                        routerLink="{{
+                            isLoggedIn ? '/product' : '/notSignedIn'
+                        }}"
                         (click)="autoCollapse()"
                         >Product</a
                     >

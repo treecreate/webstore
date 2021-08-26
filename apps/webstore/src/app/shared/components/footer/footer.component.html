@@ -13,13 +13,27 @@
                     <div class="col">
                         <ul class="list-unstyled">
                             <li>
-                                <a routerLink="/aboutUs">About Us</a>
+                                <a routerLink="/home">Home</a>
                             </li>
                             <li>
+                                <a
+                                    routerLink="{{
+                                        isLoggedIn ? '/product' : '/notSignedIn'
+                                    }}"
+                                    >Product</a
+                                >
+                            </li>
+                            <li *ngIf="!isLoggedIn">
+                                <a routerLink="/login">login</a>
+                            </li>
+                            <li *ngIf="isLoggedIn">
                                 <a routerLink="/profile">Profile</a>
                             </li>
+                            <li *ngIf="isLoggedIn">
+                                <a routerLink="/collection">Collection</a>
+                            </li>
                             <li>
-                                <a routerLink="/product">Producs</a>
+                                <a routerLink="/basket">Basket</a>
                             </li>
                         </ul>
                     </div>
