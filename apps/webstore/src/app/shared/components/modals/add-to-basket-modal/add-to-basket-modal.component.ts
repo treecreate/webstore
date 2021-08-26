@@ -9,7 +9,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AddToBasketModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) {}
 
-  ngOnInit(): void {
-    //
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 }
