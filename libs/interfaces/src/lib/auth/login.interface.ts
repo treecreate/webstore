@@ -1,6 +1,7 @@
 export interface ILoginResponse {
   userId: string;
   email: string;
+  isVerified: boolean;
   roles: string[];
   accessToken: string;
   tokenType: string;

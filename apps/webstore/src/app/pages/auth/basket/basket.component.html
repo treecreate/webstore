@@ -1,0 +1,105 @@
+<div class="basket-page-container">
+    <div class="basket-content-wrapper">
+        <div class="basket-content">
+            <div class="wrapper">
+                <h2 class="desktop-title">BASKET</h2>
+                <div class="basket-items-container">
+                    <h2 class="mobile-title">BASKET</h2>
+                    <!-- basket items -->
+                    <div
+                        class="basket-items"
+                        *ngIf="!(basketItems.length <= 0)"
+                    >
+                        <webstore-basket-item
+                            *ngFor="let item of basketItems"
+                            [item]="item"
+                        ></webstore-basket-item>
+                    </div>
+                    <!-- If there are not items in basket -->
+                    <div class="no-items" *ngIf="basketItems.length <= 0">
+                        <img
+                            src="../../../../assets/icons/no-design-icon.svg"
+                            alt=""
+                            routerLink="/product"
+                            class="no-design-icon"
+                        />
+                        <div class="no-items-text">
+                            You have no items in your basket
+                        </div>
+                        <button class="tc-button-50" routerLink="/product">
+                            Start Creating
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="basket-options">
+                <h2 class="desktop-title opacity">|</h2>
+                <!-- Tree donation -->
+                <div class="basket-options-item">
+                    <div class="tree-title">
+                        Donate 10kr to plant another tree
+                    </div>
+                    <div class="donate-tree-option">
+                        <button
+                            class="box-size-plus tc-button-sm-square low-dropshadow"
+                            data-cy="box-size-minus"
+                        >
+                            <div class="icon">
+                                <div class="button-minus"></div>
+                            </div>
+                        </button>
+                        <div class="amount-of-trees">
+                            {{ 1 }} x
+                            <img
+                                src="../../../../assets/icons/seed-icon.svg"
+                                alt=""
+                                class="seed-icon"
+                            />
+                        </div>
+                        <button
+                            class="box-size-plus tc-button-sm-square low-dropshadow"
+                            data-cy="box-size-plus"
+                        >
+                            <div class="button-plus"></div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Discount code -->
+                <div class="basket-options-item">
+                    <input
+                        type="text"
+                        class="special-input-field"
+                        placeholder="Discount code"
+                    />
+                    <button class="tc-button-100 margin-top low-dropshadow">
+                        Apply Discount
+                    </button>
+                </div>
+                <!-- Price info -->
+                <div class="basket-options-item">
+                    <div class="price-info-container">
+                        <div class="price-subtitles">
+                            <span> Subtotal <br /> </span>
+                            <span> Delivery <br /> </span>
+                            <span> Save <br /> </span>
+                            <span class="weight">
+                                <strong> Total </strong>
+                            </span>
+                        </div>
+                        <div class="price-info">
+                            <span> {{ 2180 }}.00 DKK <br /> </span>
+                            <span> FREE <br /> </span>
+                            <span> {{ 625 }}.35 DKK <br /> </span>
+                            <span class="weight">
+                                <strong> {{ 1555 }},00 DKK </strong>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="tc-button-100 green low-dropshadow">
+                        Go To Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

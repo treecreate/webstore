@@ -1,0 +1,79 @@
+<div class="basket-item-container">
+    <!-- image -->
+    <div class="item-image">
+        <img src="/assets/img/design-ex1-img.png" class="design-image" />
+        <div class="item-type-title">Family tree</div>
+    </div>
+
+    <div class="item-container">
+        <div class="item-title">{{ item.title }}</div>
+
+        <!-- amount -->
+        <div class="option-amount">
+            <div class="text">
+                <span> Amount </span>
+            </div>
+            <div class="option">
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-minus"
+                >
+                    <div class="icon">
+                        <div class="button-minus"></div>
+                    </div>
+                </button>
+                <div class="amount">
+                    {{ item.amount }}
+                </div>
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-plus"
+                >
+                    <div class="button-plus"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- size -->
+        <div class="option-size">
+            <div class="text">
+                <span> Size </span>
+            </div>
+            <div class="option">
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-minus"
+                >
+                    <div class="icon">
+                        <div class="button-minus"></div>
+                    </div>
+                </button>
+                <div class="amount">
+                    {{ item.size }}
+                </div>
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-plus"
+                >
+                    <div class="button-plus"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- price -->
+        <div class="option-price">
+            <div class="text">
+                <span> Price </span>
+            </div>
+            <div class="option price-text">
+                {{ calcPrice(item.size, item.amount) }},00 DKK
+            </div>
+        </div>
+        <hr class="margin-top" />
+        <!-- actions -->
+        <div class="option-actions">
+            <button class="tc-button-50 margin-top">View</button>
+            <button class="tc-button-50 margin-top">Delete</button>
+        </div>
+    </div>
+</div>

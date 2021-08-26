@@ -13,6 +13,7 @@ import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
+import { BasketComponent } from './pages/auth/basket/basket.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 
@@ -50,6 +51,7 @@ const routes: Routes = [
   },
   { path: 'paymentSuccess', component: PaymentSuccessComponent },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
+  { path: 'basket', component: BasketComponent, canActivate: [CookieGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
 ];

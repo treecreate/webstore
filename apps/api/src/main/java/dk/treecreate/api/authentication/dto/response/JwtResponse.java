@@ -25,13 +25,17 @@ public class JwtResponse
     @ApiModelProperty(notes = "User's email", example = "example@hotdeals.dev")
     private String email;
 
-    public JwtResponse(String accessToken, UUID userId, String email,
+    @ApiModelProperty(notes = "Email verification status", example = "false")
+    private boolean isVerified;
+
+    public JwtResponse(String accessToken, UUID userId, String email, boolean isVerified,
                        List<String> roles)
     {
         this.accessToken = accessToken;
         this.userId = userId;
         this.email = email;
         this.roles = roles;
+        this.isVerified = isVerified;
     }
 
     public String getAccessToken()
@@ -72,6 +76,16 @@ public class JwtResponse
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public boolean getIsVerified()
+    {
+        return isVerified;
+    }
+
+    public void setIsVerified(boolean isVerified)
+    {
+        this.isVerified = isVerified;
     }
 
     public List<String> getRoles()

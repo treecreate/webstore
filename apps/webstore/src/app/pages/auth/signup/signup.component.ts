@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     // if user is already logged in redirect to profile
-    if (this.authService.getAuthToken()) {
+    if (this.authService.getAuthUser()) {
       this.router.navigate(['/profile']);
     }
 
@@ -67,8 +67,7 @@ export class SignupComponent implements OnInit {
           );
           this.isSuccessful = true;
           this.isSignUpFailed = false;
-          this.authService.saveAuthToken(data.accessToken);
-          this.userService.saveAuthUser(data);
+          this.authService.saveAuthUser(data);
           this.router.navigate(['/profile']);
         },
         (err) => {

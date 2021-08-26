@@ -19,7 +19,7 @@ export class RejectedCookiesComponent implements OnInit {
   ngOnInit(): void {}
 
   acceptCookies() {
-    this.localStorageService.setItem(
+    this.localStorageService.setItem<CookieStatus>(
       LocalStorageVars.cookiesAccepted,
       CookieStatus.accepted
     );
