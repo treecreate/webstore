@@ -33,6 +33,7 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { InfoPopoverComponent } from './shared/components/info-popover/info-popo
     ToastsContainerComponent,
     DesignItemComponent,
     InfoPopoverComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,6 @@ import { InfoPopoverComponent } from './shared/components/info-popover/info-popo
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [InfoPopoverComponent],
+  exports: [InfoPopoverComponent, PaymentSuccessComponent],
 })
 export class AppModule {}
