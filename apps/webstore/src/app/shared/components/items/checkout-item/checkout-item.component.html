@@ -13,10 +13,12 @@
                 <span>Size:</span> <span> {{ item.size }} </span>
             </div>
             <div class="info-line">
-                <span>Amount:</span> <span>{{ item.amount }}</span>
+                <span>Price:</span>
+                <span>{{ item.amount }} x {{ item.price }}</span>
             </div>
             <div class="info-line">
-                <span>Price:</span> <span> {{ item.price }} </span>
+                <span>Total:</span>
+                <span> {{ item.price * item.amount }} </span>
             </div>
         </div>
     </div>

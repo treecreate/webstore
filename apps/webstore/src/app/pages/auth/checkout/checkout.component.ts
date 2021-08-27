@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit {
       title: 'First design',
       size: 'small',
       amount: 2,
-      price: 990,
+      price: 495,
       type: 'Family tree',
     },
     {
@@ -46,7 +46,7 @@ export class CheckoutComponent implements OnInit {
       title: 'Last design',
       size: 'medium',
       amount: 2,
-      price: 1390,
+      price: 695,
       type: 'Family tree',
     },
   ];
@@ -124,6 +124,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   showTermsOfSale() {
-    this.modalService.open(TermsOfSaleModalComponent, { size: 'lg'} )
+    this.modalService.open(TermsOfSaleModalComponent, { size: 'lg' });
   }
 }
