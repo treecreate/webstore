@@ -8,14 +8,197 @@
         </div>
         <div class="back-to-basket-container">
             <a routerLink="/basket" class="back-to-basket add-transition">
-                < Back to basket</a
-            >
+                < <strong> Back to basket </strong>
+            </a>
         </div>
-        <div class="checkout-content">
+        <form
+            class="checkout-content"
+            name="checkoutForm"
+            [formGroup]="checkoutForm"
+            (ngSubmit)="submitCheckout()"
+        >
+            <!-- delivery address -->
+            <div class="checkout-section">
+                <div class="title-container">
+                    <span class="title">Delivery Address </span>
+                    <hr />
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        formControlName="name"
+                        placeholder="Your name"
+                        id="name"
+                        autocomplete="name"
+                    />
+                    <label for="name" class="tc-input-label">Name</label>
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.checkoutForm.get('name').dirty &&
+                        this.checkoutForm.get('name').invalid
+                    "
+                >
+                    Invalid name.
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        formControlName="phoneNumber"
+                        placeholder="12345678"
+                        name="phoneNumber"
+                        id="phoneNumber"
+                        autocomplete="phoneNumber"
+                    />
+                    <label for="phoneNumber" class="tc-input-label"
+                        >Phone number</label
+                    >
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.checkoutForm.get('phoneNumber').dirty &&
+                        this.checkoutForm.get('phoneNumber').invalid
+                    "
+                >
+                    Invalid phone number.
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="email"
+                        class="tc-input-field"
+                        placeholder="E-mail"
+                        formControlName="email"
+                        name="email"
+                        id="profileEmail"
+                        autocomplete="email"
+                        required
+                    />
+                    <label for="email" class="tc-input-label">E-mail</label>
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.checkoutForm.get('email').dirty &&
+                        this.checkoutForm.get('email').invalid
+                    "
+                >
+                    Invalid email.
+                </div>
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        name="streedOne"
+                        formControlName="streetAddress"
+                        placeholder="Your street name"
+                        id="streetAddress"
+                    />
+                    <label for="streetAddress" class="tc-input-label"
+                        >Street address</label
+                    >
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.checkoutForm.get('streetAddress').dirty &&
+                        this.checkoutForm.get('streetAddress').invalid
+                    "
+                >
+                    The address is too long.
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        name="streedTwo"
+                        formControlName="streetAddress2"
+                        placeholder="Your street name"
+                        id="streetAddress2"
+                    />
+                    <label for="streetAddress2" class="tc-input-label"
+                        >Street address 2</label
+                    >
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.checkoutForm.get('streetAddress2').dirty &&
+                        this.checkoutForm.get('streetAddress2').invalid
+                    "
+                >
+                    The address is too long.
+                </div>
+
+                <div class="city-code-section">
+                    <div class="tc-input-group field">
+                        <input
+                            type="text"
+                            class="tc-input-field"
+                            name="city"
+                            formControlName="city"
+                            id="city"
+                            placeholder="City"
+                        />
+                        <label for="city" class="tc-input-label">City</label>
+                        <div
+                            class="error-message offset"
+                            *ngIf="
+                                this.checkoutForm.get('city').dirty &&
+                                this.checkoutForm.get('city').invalid
+                            "
+                        >
+                            The city name is too long.
+                        </div>
+                    </div>
+
+                    <div class="tc-input-group field">
+                        <input
+                            type="text"
+                            class="tc-input-field"
+                            formControlName="postcode"
+                            id="postcode"
+                            name="postcode"
+                            placeholder="1234"
+                        />
+                        <label for="postcode" class="tc-input-label"
+                            >Postcode</label
+                        >
+                        <div
+                            class="error-message offset"
+                            *ngIf="
+                                this.checkoutForm.get('postcode').dirty &&
+                                this.checkoutForm.get('postcode').invalid
+                            "
+                        >
+                            Invalid danish postcode.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- delivery and payment -->
+            <div class="checkout-section">
+                <!-- delivery method -->
+                <div class="sub-section"></div>
+                <!-- payment method -->
+                <div class="sub-section"></div>
+            </div>
+
+            <!-- order resume -->
             <div class="checkout-section"></div>
-            <div class="checkout-section"></div>
-            <div class="checkout-section"></div>
-            <div class="checkout-section"></div>
-        </div>
+        </form>
     </div>
 </div>
