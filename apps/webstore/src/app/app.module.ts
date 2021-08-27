@@ -34,6 +34,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { BasketItemComponent } from './shared/components/basket-item/basket-item.component';
+import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { BasketItemComponent } from './shared/components/basket-item/basket-item
     DesignItemComponent,
     BasketComponent,
     BasketItemComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

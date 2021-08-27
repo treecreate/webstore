@@ -1,5 +1,5 @@
 <div class="min-width">
-    <webstore-navbar></webstore-navbar>
+    <webstore-navbar *ngIf="router.url != '/checkout'"></webstore-navbar>
     <div class="full-page">
         <router-outlet></router-outlet>
     </div>
@@ -7,7 +7,8 @@
         *ngIf="
             router.url != '/login' &&
             router.url != '/signup' &&
-            router.url != '/resetPassword'
+            router.url != '/resetPassword' &&
+            router.url != '/checkout'
         "
     ></webstore-footer>
     <webstore-cookie-prompt-modal></webstore-cookie-prompt-modal>
