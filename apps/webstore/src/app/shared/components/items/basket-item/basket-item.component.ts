@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './basket-item.component.html',
   styleUrls: [
     './basket-item.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
+    '../../../../../assets/styles/tc-input-field.scss',
   ],
 })
 export class BasketItemComponent implements OnInit {

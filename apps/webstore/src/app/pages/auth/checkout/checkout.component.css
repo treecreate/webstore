@@ -43,6 +43,18 @@
   flex-direction: column;
 }
 
+.offset {
+  margin-top: 9px;
+}
+
+.no-strech {
+  align-self: flex-start;
+}
+
+.section-container {
+  flex-grow: 1;
+}
+
 .title-container hr {
   margin: 2px 0 2px 0;
   border-top: 1px solid rgba(0, 0, 0, 1);
@@ -119,6 +131,19 @@
 
 .icon-section img {
   margin-left: 10px;
+}
+
+.info-line {
+  display: flex;
+  justify-content: space-between;
+  line-height: 30px;
+}
+.total {
+  font-weight: 700;
+}
+
+.green-text {
+  color: #52d73d;
 }
 
 @media screen and (max-width: 600px) {

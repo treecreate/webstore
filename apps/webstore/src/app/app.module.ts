@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
-import { DesignItemComponent } from './shared/components/design-item/design-item.component';
+import { DesignItemComponent } from './shared/components/items/design-item/design-item.component';
 
 //Pages
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
@@ -33,8 +33,9 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
-import { BasketItemComponent } from './shared/components/basket-item/basket-item.component';
+import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
+import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
     BasketComponent,
     BasketItemComponent,
     CheckoutComponent,
+    CheckoutItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,5 +74,6 @@ import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
+  exports: [CheckoutItemComponent],
 })
 export class AppModule {}

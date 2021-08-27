@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
@@ -17,8 +17,37 @@ import { VerifyService } from '../../../shared/services/verify/verify.service';
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
-  public isVerified: boolean;
   currentUser: IUser;
+  isHomeDelivery = false;
+  isSubscribed: boolean;
+  subscribeToNewsletter = true;
+  moneySaved = 1;
+  public isVerified: boolean;
+
+  // TODO: get itemList from basket
+  checkoutItems = [
+    {
+      title: 'First design',
+      size: 'small',
+      amount: 2,
+      price: 990,
+      type: 'Family tree',
+    },
+    {
+      title: 'Second design',
+      size: 'large',
+      amount: 1,
+      price: 995,
+      type: 'Family tree',
+    },
+    {
+      title: 'Last design',
+      size: 'medium',
+      amount: 2,
+      price: 1390,
+      type: 'Family tree',
+    },
+  ];
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -46,8 +75,11 @@ export class CheckoutComponent implements OnInit {
       });
     } catch (err) {
       console.log(err);
-      //TODO: handle failed fetching data
+      // TODO: handle failed fetching data
     }
+
+    // TODO: Check if user is already subscribed to newsletter
+    // this.isSubscribed =
 
     this.checkoutForm = new FormGroup({
       name: new FormControl('', [
@@ -82,5 +114,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  submitCheckout() {}
+  submitCheckout() {
+    if (this.subscribeToNewsletter) {
+      // TODO: subscribe the user to the newsletter
+    }
+  }
 }
