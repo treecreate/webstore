@@ -146,6 +146,10 @@
   color: #52d73d;
 }
 
+.margin-top {
+  margin-top: 15px;
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;

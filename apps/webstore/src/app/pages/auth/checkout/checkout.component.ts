@@ -1,7 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -53,7 +55,8 @@ export class CheckoutComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private toastService: ToastService,
     private userService: UserService,
-    private verifyService: VerifyService
+    private verifyService: VerifyService,
+    private modalService: NgbModal
   ) {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
@@ -118,5 +121,9 @@ export class CheckoutComponent implements OnInit {
     if (this.subscribeToNewsletter) {
       // TODO: subscribe the user to the newsletter
     }
+  }
+
+  showTermsOfSale() {
+    this.modalService.open(TermsOfSaleModalComponent, { size: 'lg'} )
   }
 }

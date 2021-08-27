@@ -302,10 +302,14 @@
                     <span class="title">Your Order</span>
                     <hr />
                 </div>
+
+                <!-- Items in order -->
                 <webstore-checkout-item
                     *ngFor="let item of checkoutItems"
                     [item]="item"
                 ></webstore-checkout-item>
+
+                <!-- Order info -->
                 <div class="order-info-section">
                     <div class="info-line">
                         <span>Subtotal</span><span>{{ 2180 }},00 DKK</span>
@@ -322,6 +326,28 @@
                     <div class="info-line total">
                         <span>Total</span><span>{{ 1555 }},00 DKK</span>
                     </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions">
+                    <div class="terms-and-conditions-container">
+                        <label class="checkbox-container">
+                            <input type="checkbox" />
+                            <span
+                                class="checkmark"
+                                data-cy="checkbox-big-font"
+                            ></span>
+                        </label>
+                        <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
+                        <a
+                            class="option-title"
+                            (click)="showTermsOfSale()"
+                            >I accept terms and conditions</a
+                        >
+                    </div>
+                    <button class="tc-button-100 green margin-top">
+                        Go to secure payment
+                    </button>
                 </div>
             </div>
         </form>
