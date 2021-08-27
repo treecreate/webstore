@@ -11,7 +11,6 @@ export class InfoPopoverComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('');
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 }

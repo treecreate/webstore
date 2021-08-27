@@ -29,10 +29,8 @@ export class ProductComponent implements OnInit {
 
   constructor(private modalService: NgbModal) {}
 
-  ngOnInit(): void {
-    // the lint test fail if the ngOnInit is empty
-    console.log('open product page');
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 
   showOptions() {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
