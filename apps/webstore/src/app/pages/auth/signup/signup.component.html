@@ -79,7 +79,6 @@
         >
             The passwords must match each other
         </div>
-        <!-- TODO: Add an option to signup for the newsletter -->
         <div class="terms-and-conditions-container">
             <label class="checkbox-container">
                 <input
@@ -96,7 +95,22 @@
             >
         </div>
 
-        <!-- TODO: add an alert for failed signup attempts -->
+        <div class="sign-up-container">
+            <label class="checkbox-container">
+                <input
+                    type="checkbox"
+                    (change)="
+                        this.signUpForNewletter = !this.signUpForNewletter
+                    "
+                />
+                <span class="checkmark" data-cy="checkbox-big-font"></span>
+            </label>
+            <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
+            <div class="sign-up">
+                Sign up for newsletter and get 10% off your first purchase!
+            </div>
+        </div>
+
         <button
             class="tc-button-100"
             type="submit"

@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
   termsAndConditions = false;
   isSuccessful = false;
   isSignUpFailed = false;
+  signUpForNewletter = false;
   errorMessage = '';
 
   constructor(
@@ -51,6 +52,7 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  // TODO: add user to newsletter when signupForNewsletter is checked
   onSubmit(): void {
     this.authService
       .register({

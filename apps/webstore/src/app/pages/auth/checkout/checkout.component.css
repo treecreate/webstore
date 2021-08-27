@@ -1,10 +1,10 @@
 .checkout-container {
   background-color: #f5f2f2;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding-top: 30px;
+  padding: 30px;
 }
 
 .checkout-content-container {
@@ -44,8 +44,8 @@
 }
 
 .title-container hr {
-  margin: 2px 0 5px 0;
-  border-top: 2px solid rgba(0, 0, 0, 1);
+  margin: 2px 0 2px 0;
+  border-top: 1px solid rgba(0, 0, 0, 1);
 }
 .title {
   font-size: large;
@@ -72,6 +72,53 @@
 .back-to-basket-container {
   text-align: left;
   width: 100%;
+}
+
+.city-code-section {
+  display: flex;
+}
+
+.city-code-section .city-code:first-child {
+  margin-right: 20px;
+}
+
+.city-code {
+  flex-grow: 1;
+}
+
+.checkout-delivery-payment-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.delivery-payment-section {
+  min-width: 250px;
+  background-color: white;
+  margin: 5px;
+  padding: 20px;
+}
+
+.option-title {
+  font-size: 14px;
+  text-align: left;
+  margin: 0;
+  margin-left: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkmark {
+  top: -1px !important;
+}
+
+.rm-margin {
+  margin-top: 5px;
+  margin-bottom: 0 !important;
+}
+
+.icon-section img {
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 600px) {

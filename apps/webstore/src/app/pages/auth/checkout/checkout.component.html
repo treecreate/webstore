@@ -143,7 +143,7 @@
                 </div>
 
                 <div class="city-code-section">
-                    <div class="tc-input-group field">
+                    <div class="tc-input-group field city-code city">
                         <input
                             type="text"
                             class="tc-input-field"
@@ -164,7 +164,7 @@
                         </div>
                     </div>
 
-                    <div class="tc-input-group field">
+                    <div class="tc-input-group field city-code postcode">
                         <input
                             type="text"
                             class="tc-input-field"
@@ -187,14 +187,139 @@
                         </div>
                     </div>
                 </div>
+                <div class="option">
+                    <label class="checkbox-container rm-margin">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="option-title">
+                        Subscribe to newsletter - 25% off next purchase
+                    </div>
+                </div>
             </div>
 
             <!-- delivery and payment -->
-            <div class="checkout-section">
-                <!-- delivery method -->
-                <div class="sub-section"></div>
-                <!-- payment method -->
-                <div class="sub-section"></div>
+            <div class="checkout-delivery-payment-container">
+                <div class="delivery-payment-section">
+                    <!-- delivery method -->
+                    <div class="title-container">
+                        <span class="title">Delivery</span>
+                        <hr />
+                    </div>
+                    <div class="option">
+                        <label class="checkbox-container">
+                            <input type="checkbox" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="option-title">
+                            <div class="type">Parcelshop delivery</div>
+                            <div class="price">00,00 DKK</div>
+                        </div>
+                    </div>
+                    <!--                     
+                    TODO: import shipmondos API to find a parchelshop
+                    <div class="tc-input-group field city-code postcode">
+                        <input
+                            type="text"
+                            class="tc-input-field"
+                            formControlName="parcelshopPostcode"
+                            id="parcelshopPostcode"
+                            name="parcelshopPostcode"
+                            placeholder="1234"
+                        />
+                        <label for="parcelshopPostcode" class="tc-input-label"
+                            >Postcode</label
+                        >
+                        <div
+                            class="error-message offset"
+                            *ngIf="
+                                this.checkoutForm.get('parcelshopPostcode')
+                                    .dirty &&
+                                this.checkoutForm.get('parcelshopPostcode')
+                                    .invalid
+                            "
+                        >
+                            Invalid danish postcode.
+                        </div>
+                    </div>
+                    <div class="tc-input-group field city-code postcode">
+                        <input
+                            type="text"
+                            class="tc-input-field"
+                            formControlName="parcelshop"
+                            id="parcelshop"
+                            name="parcelshop"
+                            placeholder="1234"
+                        />
+                        <label for="parcelshop" class="tc-input-label"
+                            >Parcelshop</label
+                        >
+                        <div
+                            class="error-message offset"
+                            *ngIf="
+                                this.checkoutForm.get('parcelshop').dirty &&
+                                this.checkoutForm.get('parcelshop').invalid
+                            "
+                        >
+                            Invalid danish postcode.
+                        </div>
+                    </div> -->
+                    <hr />
+                    <div class="option">
+                        <label class="checkbox-container">
+                            <input type="checkbox" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="option-title">
+                            <div class="type">Home delivery</div>
+                            <div class="price">29,00 DKK</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="delivery-payment-section">
+                    <!-- payment method -->
+                    <div class="title-container">
+                        <span class="title">Payment Method</span>
+                        <hr />
+                    </div>
+                    <div class="option">
+                        <label class="checkbox-container">
+                            <input type="checkbox" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="option-title">
+                            Mobilepay
+                            <img
+                                src="/assets/icons/payment-types/mobilePay.svg"
+                                alt=""
+                            />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="option">
+                        <label class="checkbox-container">
+                            <input type="checkbox" />
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="option-title">
+                            Credit Card
+                            <div class="icon-section">
+                                <img
+                                    src="/assets/icons/payment-types/dankortLogo.svg"
+                                    alt=""
+                                />
+                                <img
+                                    src="/assets/icons/payment-types/mastercardLogo.svg"
+                                    alt=""
+                                />
+                                <img
+                                    src="/assets/icons/payment-types/visaLogo.svg"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- order resume -->
