@@ -2,4 +2,7 @@
     #designCanvas
     (mousedown)="mouseDownHandler($event)"
     (mouseup)="mouseUpHandler($event)"
+    (touchmove)="mouseMoveHandler($event)"
+    (touchstart)="mouseDownHandler($event)"
+    (touchend)="mouseUpHandler($event)"
 ></canvas>

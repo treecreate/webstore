@@ -126,9 +126,25 @@ export class FamilyTreeDesignComponent implements AfterViewInit {
       scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
       scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
 
+    // get coordinates based on whether it is a touch or mouse event
+    const clientX =
+      event instanceof TouchEvent
+        ? Math.ceil(
+            event.changedTouches[event.changedTouches.length - 1].clientX
+          )
+        : event.clientX;
+
+    const clientY =
+      event instanceof TouchEvent
+        ? Math.ceil(
+            event.changedTouches[event.changedTouches.length - 1].clientY
+          )
+        : event.clientY;
+
+    // scale mouse coordinates after they have been adjusted to be relative to element
     return {
-      x: (event.clientX - rect.left) * scaleX, // scale mouse coordinates after they have
-      y: (event.clientY - rect.top) * scaleY, // been adjusted to be relative to element
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
     };
   }
 
