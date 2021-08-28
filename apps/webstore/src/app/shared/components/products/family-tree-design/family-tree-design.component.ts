@@ -15,7 +15,6 @@ interface IDraggableBox {
   previousY: number;
   width: number;
   height: number;
-  rgb;
   dragging: boolean;
   boxDesign: HTMLImageElement;
 }
@@ -120,7 +119,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.canvasResolution.height / 4,
       (this.canvasResolution.width / 10) * 2,
       this.canvasResolution.height / 10,
-      'green',
       this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
     );
     this.myBoxes[1] = this.createBox(
@@ -128,7 +126,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.canvasResolution.height / 2,
       (this.canvasResolution.width / 10) * 2,
       this.canvasResolution.height / 10,
-      'blue',
       this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
     );
     this.myBoxes[2] = this.createBox(
@@ -136,7 +133,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.canvasResolution.height / 3,
       (this.canvasResolution.width / 10) * 2,
       this.canvasResolution.height / 10,
-      'yellow',
       this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
     );
     console.log('Boxes', this.myBoxes);
@@ -150,15 +146,20 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   }
 
   // create a new box
-  createBox(x:number, y:number, w:number, h:number, rgb, boxDesign: HTMLImageElement): IDraggableBox {
+  createBox(
+    initialX: number,
+    initialY: number,
+    width: number,
+    height: number,
+    boxDesign: HTMLImageElement
+  ): IDraggableBox {
     return {
-      x: x,
-      y: y,
-      previousX: x, //saving x
-      previousY: y, //saving y
-      width: w,
-      height: h,
-      rgb: rgb,
+      x: initialX,
+      y: initialY,
+      previousX: initialX, //saving x
+      previousY: initialY, //saving y
+      width: width,
+      height: height,
       dragging: false,
       boxDesign: boxDesign,
     };
