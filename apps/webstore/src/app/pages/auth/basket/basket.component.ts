@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 
 @Component({
@@ -30,8 +31,16 @@ export class BasketComponent implements OnInit {
   ];
   public donatedTrees = 1;
   public discount = 0.1;
+  discountForm: FormGroup;
 
-  constructor(private toastService: ToastService) {}
+  constructor(private toastService: ToastService) {
+    this.discountForm = new FormGroup({
+      discountCode: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^\\S*$'),
+      ]),
+    });
+  }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
@@ -49,6 +58,10 @@ export class BasketComponent implements OnInit {
     }
   }
 
+  calcDonationPrice() {
+    return (this.donatedTrees - 1) * 10;
+  }
+
   calcSubtotalPrice(): number {
     let sum = 0;
     for (let i = 0; i < this.basketItems.length; i++) {
@@ -57,7 +70,6 @@ export class BasketComponent implements OnInit {
         this.basketItems[i].size
       );
     }
-    sum = sum + (this.donatedTrees - 1) * 10;
     return sum;
   }
 
@@ -82,5 +94,9 @@ export class BasketComponent implements OnInit {
 
   calcVat() {
     return this.calcTotal() * 0.2;
+  }
+
+  applyDiscount() {
+    console.log(this.discountForm.get('discountCode').value);
   }
 }

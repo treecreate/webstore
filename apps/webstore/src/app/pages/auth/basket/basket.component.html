@@ -69,20 +69,37 @@
                     </div>
                 </div>
                 <!-- Discount code -->
-                <div class="basket-options-item">
+                <form
+                    [formGroup]="discountForm"
+                    (ngSubmit)="applyDiscount()"
+                    class="basket-options-item"
+                >
                     <input
+                        formControlName="discountCode"
                         type="text"
                         class="special-input-field"
                         placeholder="Discount code"
                     />
-                    <button class="tc-button-100 margin-top low-dropshadow">
+                    <div
+                        class="error-message"
+                        *ngIf="
+                            this.discountForm.get('discountCode').invalid &&
+                            this.discountForm.get('discountCode').value != ''
+                        "
+                    >
+                        Invalid input
+                    </div>
+                    <button
+                        class="tc-button-100 margin-top low-dropshadow"
+                        type="submit"
+                    >
                         Apply Discount
                     </button>
                     <div *ngIf="discount > 0" class="discount-code-display">
                         <span>Amount dicount:</span>
                         <span>-{{ discount * 100 }}% </span>
                     </div>
-                </div>
+                </form>
                 <!-- Price info -->
                 <div class="basket-options-item">
                     <div class="price-info-container">
@@ -103,7 +120,11 @@
                             </span>
                             <span class="weight">
                                 <strong>
-                                    {{ calcTotal().toFixed(2) }}
+                                    {{
+                                        (
+                                            calcTotal() + calcDonationPrice()
+                                        ).toFixed(2)
+                                    }}
                                     DKK
                                 </strong>
                                 <br />
