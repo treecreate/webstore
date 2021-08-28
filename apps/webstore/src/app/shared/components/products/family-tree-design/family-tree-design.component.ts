@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { TreeDesignEnum, BoxDesignEnum } from '@assets';
 
 interface IDraggableBox {
   x;
@@ -16,6 +17,7 @@ interface IDraggableBox {
   h;
   rgb;
   dragging: boolean;
+  boxDesign: HTMLImageElement;
 }
 
 @Component({
@@ -34,8 +36,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   public context: CanvasRenderingContext2D;
 
   canvasResolution = {
-    height: 1000,
-    width: 1000,
+    height: 4000,
+    width: 4000,
   };
 
   myBoxes: IDraggableBox[] = [];
@@ -50,6 +52,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   // SVGs
 
   treeImage = new Image();
+  boxDesigns: HTMLImageElement[] = [];
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -60,9 +63,31 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    // Load and validate box designs
+
+    console.log('Box design enum:', BoxDesignEnum);
+
+    for (let i = 0; i < Object.values(BoxDesignEnum).length; i++) {
+      let image = new Image();
+      console.log('box path', Object.values(BoxDesignEnum)[i]);
+      image.src = Object.values(BoxDesignEnum)[i];
+      image.onerror = () => {
+        console.error('Failed to load a box design');
+        image = null;
+        this.alert = {
+          type: 'danger',
+          message: 'Design information has failed to load',
+          dismissible: false,
+        };
+        // stop rendering
+        clearInterval(this.timeInterval);
+      };
+
+      this.boxDesigns.push(image);
+    }
 
     // load and validate tree image svg
-    this.treeImage.src = '/assets/family-tree/tree-design/tree1.svg';
+    this.treeImage.src = TreeDesignEnum.basicTree;
     this.treeImage.onload = () => {
       console.log('loading');
     };
@@ -90,9 +115,30 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     console.log('Context', this.context);
 
     // Setup boxes
-    this.myBoxes[0] = this.createBox(10, 10, 50, 100, 'green');
-    this.myBoxes[1] = this.createBox(80, 50, 100, 75, 'blue');
-    this.myBoxes[2] = this.createBox(40, 150, 20, 70, 'yellow');
+    this.myBoxes[0] = this.createBox(
+      10,
+      10,
+      50,
+      100,
+      'green',
+      this.boxDesigns[0]
+    );
+    this.myBoxes[1] = this.createBox(
+      80,
+      50,
+      100,
+      75,
+      'blue',
+      this.boxDesigns[1]
+    );
+    this.myBoxes[2] = this.createBox(
+      40,
+      150,
+      20,
+      70,
+      'yellow',
+      this.boxDesigns[2]
+    );
     console.log('Boxes', this.myBoxes);
 
     // run the render loop
@@ -104,7 +150,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   }
 
   // create a new box
-  createBox(x, y, w, h, rgb): IDraggableBox {
+  createBox(x, y, w, h, rgb, boxDesign: HTMLImageElement): IDraggableBox {
     return {
       x: x,
       y: y,
@@ -114,6 +160,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       h: h,
       rgb: rgb,
       dragging: false,
+      boxDesign: boxDesign,
     };
   }
 
