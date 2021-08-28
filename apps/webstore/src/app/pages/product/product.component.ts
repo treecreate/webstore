@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'webstore-product',
   templateUrl: './product.component.html',
