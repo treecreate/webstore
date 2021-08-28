@@ -1,1 +1,5 @@
-<canvas #designCanvas></canvas>
+<canvas
+    #designCanvas
+    (mousedown)="mouseDownHandler($event)"
+    (mouseup)="mouseUpHandler($event)"
+></canvas>
