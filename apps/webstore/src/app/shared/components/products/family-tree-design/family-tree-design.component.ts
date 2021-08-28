@@ -9,12 +9,12 @@ import {
 import { TreeDesignEnum, BoxDesignEnum } from '@assets';
 
 interface IDraggableBox {
-  x;
-  y;
-  xS;
-  yS;
-  w;
-  h;
+  x: number;
+  y: number;
+  previousX: number;
+  previousY: number;
+  width: number;
+  height: number;
   rgb;
   dragging: boolean;
   boxDesign: HTMLImageElement;
@@ -154,10 +154,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     return {
       x: x,
       y: y,
-      xS: x, //saving x
-      yS: y, //saving y
-      w: w,
-      h: h,
+      previousX: x, //saving x
+      previousY: y, //saving y
+      width: w,
+      height: h,
       rgb: rgb,
       dragging: false,
       boxDesign: boxDesign,
@@ -173,14 +173,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.designCanvas.nativeElement.height
     );
 
-    //Droppable area (where the boxes can be dropped)
-    this.context.fillStyle = 'red';
-    this.context.fillRect(
-      this.designCanvas.nativeElement.width / 2,
-      0,
-      this.designCanvas.nativeElement.width,
-      this.designCanvas.nativeElement.height
-    );
     // draw the background image
     if (this.treeImage !== null && this.treeImage.complete) {
       this.context.drawImage(this.treeImage, 0, 0);
@@ -193,13 +185,23 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       // if the box is moving, draw a ghost in its original spot
       if (box.dragging) {
         this.context.fillStyle = 'grey'; //I chose a different color to make it appear more as a shadow of the box that's being moved.
-        this.context.fillRect(box.xS, box.yS, box.w, box.h);
-        this.context.strokeRect(box.xS, box.yS, box.w, box.h);
+        this.context.fillRect(
+          box.previousX,
+          box.previousY,
+          box.width,
+          box.height
+        );
+        this.context.strokeRect(
+          box.previousX,
+          box.previousY,
+          box.width,
+          box.height
+        );
       }
 
       this.context.fillStyle = box.rgb;
-      this.context.fillRect(box.x, box.y, box.w, box.h);
-      this.context.strokeRect(box.x, box.y, box.w, box.h);
+      this.context.fillRect(box.x, box.y, box.width, box.height);
+      this.context.strokeRect(box.x, box.y, box.width, box.height);
     }
   }
 
@@ -231,6 +233,15 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     };
   }
 
+  mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
+    return (
+      this.mouseCords.x < 0 ||
+      this.mouseCords.x > this.designCanvas.nativeElement.width - boxWidth ||
+      this.mouseCords.y < 0 ||
+      this.mouseCords.y > this.designCanvas.nativeElement.height - boxHeight
+    );
+  }
+
   mouseDownHandler(event) {
     console.log('down');
     event = event || window.event;
@@ -243,9 +254,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       const box = this.myBoxes[i];
       if (
         this.mouseCords.x > box.x &&
-        this.mouseCords.x < box.x + box.w &&
+        this.mouseCords.x < box.x + box.width &&
         this.mouseCords.y > box.y &&
-        this.mouseCords.y < box.y + box.h
+        this.mouseCords.y < box.y + box.height
       ) {
         this.myBoxes[i].dragging = true;
         this.myBoxes[i].dragging = true;
@@ -267,9 +278,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
       if (box.dragging) {
-        this.myBoxes[i].x = this.mouseCords.x;
-        this.myBoxes[i].y = this.mouseCords.y;
-        this.myBoxes[i] = box;
+        if (!this.mouseOutsideBoundaries(box.width, box.height)) {
+          // move the box with the cursor
+          this.myBoxes[i].x = this.mouseCords.x;
+          this.myBoxes[i].y = this.mouseCords.y;
+          this.myBoxes[i] = box;
+        }
       }
     }
   }
@@ -285,20 +299,23 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
       if (box.dragging) {
-        //if the box is inside the droppable area
-        if (box.x > this.designCanvas.nativeElement.width / 2) {
+        if (this.mouseOutsideBoundaries(box.width, box.height)) {
+          // send back to its last saved position
+          this.myBoxes[i].x = box.previousX;
+          this.myBoxes[i].y = box.previousY;
+          this.myBoxes[i].dragging = false;
+          console.log('Sending box back to init', this.myBoxes[i]);
+        } else {
+          // save the box in its new position
           this.myBoxes[i].x = this.mouseCords.x;
           this.myBoxes[i].y = this.mouseCords.y;
+          this.myBoxes[i].previousX = this.mouseCords.x;
+          this.myBoxes[i].previousY = this.mouseCords.y;
           this.myBoxes[i].dragging = false;
           console.log(
             'Dropping the box wherever it is, iz gucci',
             this.myBoxes[i]
           );
-        } else {
-          this.myBoxes[i].x = box.xS;
-          this.myBoxes[i].y = box.yS;
-          this.myBoxes[i].dragging = false;
-          console.log('Sending box back to init', this.myBoxes[i]);
         }
       }
     }
