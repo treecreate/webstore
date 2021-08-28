@@ -45,6 +45,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     y: 0,
   };
 
+  // stores the difference between the mouse cursor and the top-left corner of the box
+  mouseClickOffset = {
+    x: 0,
+    y: 0,
+  };
+
   timeInterval;
   framesPerSecond = 60; // FPS of the render loop
 
@@ -222,10 +228,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
   mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
     return (
-      this.mouseCords.x < 0 ||
-      this.mouseCords.x > this.designCanvas.nativeElement.width - boxWidth ||
-      this.mouseCords.y < 0 ||
-      this.mouseCords.y > this.designCanvas.nativeElement.height - boxHeight
+      this.mouseCords.x - this.mouseClickOffset.x < 0 ||
+      this.mouseCords.x - this.mouseClickOffset.x >
+        this.designCanvas.nativeElement.width - boxWidth ||
+      this.mouseCords.y - this.mouseClickOffset.y < 0 ||
+      this.mouseCords.y - this.mouseClickOffset.y >
+        this.designCanvas.nativeElement.height - boxHeight
     );
   }
 
@@ -246,8 +254,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.mouseCords.y < box.y + box.height
       ) {
         this.myBoxes[i].dragging = true;
-        this.myBoxes[i].dragging = true;
-        this.myBoxes[i] = box;
+        this.mouseClickOffset.x = this.mouseCords.x - box.x;
+        this.mouseClickOffset.y = this.mouseCords.y - box.y;
         console.log('Boxes:', this.myBoxes);
       }
     }
@@ -267,9 +275,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       if (box.dragging) {
         if (!this.mouseOutsideBoundaries(box.width, box.height)) {
           // move the box with the cursor
-          this.myBoxes[i].x = this.mouseCords.x;
-          this.myBoxes[i].y = this.mouseCords.y;
-          this.myBoxes[i] = box;
+          this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
+          this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
         }
       }
     }
@@ -294,10 +301,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
           console.log('Sending box back to init', this.myBoxes[i]);
         } else {
           // save the box in its new position
-          this.myBoxes[i].x = this.mouseCords.x;
-          this.myBoxes[i].y = this.mouseCords.y;
-          this.myBoxes[i].previousX = this.mouseCords.x;
-          this.myBoxes[i].previousY = this.mouseCords.y;
+          this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
+          this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+          this.myBoxes[i].previousX =
+            this.mouseCords.x - this.mouseClickOffset.x;
+          this.myBoxes[i].previousY =
+            this.mouseCords.y - this.mouseClickOffset.y;
           this.myBoxes[i].dragging = false;
           console.log(
             'Dropping the box wherever it is, iz gucci',
