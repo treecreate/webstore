@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 
@@ -26,7 +27,7 @@ interface IDraggableBox {
     '../../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class FamilyTreeDesignComponent implements AfterViewInit {
+export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   @ViewChild('designCanvas', { static: true })
   designCanvas: ElementRef<HTMLCanvasElement>;
 
@@ -46,7 +47,38 @@ export class FamilyTreeDesignComponent implements AfterViewInit {
   timeInterval;
   framesPerSecond = 60; // FPS of the render loop
 
+  // SVGs
+
+  treeImage = new Image();
+
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
+  };
+
   constructor() {}
+
+  ngOnInit(): void {
+
+    // load and validate tree image svg
+    this.treeImage.src = '/assets/family-tree/tree-design/tree1.svg';
+    this.treeImage.onload = () => {
+      console.log('loading');
+    };
+    this.treeImage.onerror = () => {
+      console.error('Failed to load the Tree design SVG');
+      this.treeImage = null;
+      this.alert = {
+        type: 'danger',
+        message: 'Design information has failed to load',
+        dismissible: false,
+      };
+
+      // stop rendering
+      clearInterval(this.timeInterval);
+    };
+  }
 
   ngAfterViewInit(): void {
     console.log('Setting up design area');
@@ -102,6 +134,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit {
       this.designCanvas.nativeElement.width,
       this.designCanvas.nativeElement.height
     );
+    // draw the background image
+    if (this.treeImage !== null && this.treeImage.complete) {
+      this.context.drawImage(this.treeImage, 0, 0);
+    }
 
     // render the boxes
     for (let i = 0; i < this.myBoxes.length; i++) {
