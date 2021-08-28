@@ -22,7 +22,7 @@
   },
   "projects": {
     "api": { "tags": [] },
-    "webstore": { "tags": [] },
+    "webstore": { "tags": [], "implicitDependencies": ["assets"] },
     "webstore-e2e": { "tags": [], "implicitDependencies": ["webstore"] },
     "models": { "tags": [] },
     "interfaces": { "tags": [] },
