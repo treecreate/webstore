@@ -257,6 +257,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.mouseClickOffset.x = this.mouseCords.x - box.x;
         this.mouseClickOffset.y = this.mouseCords.y - box.y;
         console.log('Boxes:', this.myBoxes);
+        // skip checking the other boxes
+        return;
       }
     }
   }
@@ -277,6 +279,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
           // move the box with the cursor
           this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
           this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+          // skip checking the other boxes
+          return;
         }
       }
     }
@@ -313,6 +317,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
             this.myBoxes[i]
           );
         }
+        // skip checking the other boxes
+        return;
       }
     }
   }
