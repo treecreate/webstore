@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'webstore-family-tree-design',
@@ -9,9 +9,36 @@ import { Component, OnInit } from '@angular/core';
     '../../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class FamilyTreeDesignComponent implements OnInit {
+export class FamilyTreeDesignComponent implements AfterViewInit {
+  @ViewChild('designCanvas', { static: true })
+  designCanvas: ElementRef<HTMLCanvasElement>;
+
+  public context: CanvasRenderingContext2D;
+
+  canvasResolution = {
+    height: 4000,
+    width: 4000,
+  };
+
   constructor() {}
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    // Setup canvas
+    this.designCanvas.nativeElement.width = this.canvasResolution.width;
+    this.designCanvas.nativeElement.height = this.canvasResolution.height;
+    this.context = this.designCanvas.nativeElement.getContext('2d');
+    this.renderDefaultTree();
+  }
+
+  renderDefaultTree() {
+    this.context.fillStyle = 'red';
+    this.context.fillRect(
+      0,
+      0,
+      this.designCanvas.nativeElement.width,
+      this.designCanvas.nativeElement.height
+    );
+    this.context.fillStyle = 'purple';
+    this.context.fillRect(0, 0, 100, 100);
+  }
 }
