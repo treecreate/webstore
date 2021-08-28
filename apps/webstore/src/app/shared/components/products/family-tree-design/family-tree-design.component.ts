@@ -116,28 +116,28 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
     // Setup boxes
     this.myBoxes[0] = this.createBox(
-      10,
-      10,
-      50,
-      100,
+      this.canvasResolution.width / 8,
+      this.canvasResolution.height / 4,
+      (this.canvasResolution.width / 10) * 2,
+      this.canvasResolution.height / 10,
       'green',
-      this.boxDesigns[0]
+      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
     );
     this.myBoxes[1] = this.createBox(
-      80,
-      50,
-      100,
-      75,
+      this.canvasResolution.width / 6,
+      this.canvasResolution.height / 2,
+      (this.canvasResolution.width / 10) * 2,
+      this.canvasResolution.height / 10,
       'blue',
-      this.boxDesigns[1]
+      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
     );
     this.myBoxes[2] = this.createBox(
-      40,
-      150,
-      20,
-      70,
+      this.canvasResolution.width / 2,
+      this.canvasResolution.height / 3,
+      (this.canvasResolution.width / 10) * 2,
+      this.canvasResolution.height / 10,
       'yellow',
-      this.boxDesigns[2]
+      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
     );
     console.log('Boxes', this.myBoxes);
 
@@ -150,7 +150,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   }
 
   // create a new box
-  createBox(x, y, w, h, rgb, boxDesign: HTMLImageElement): IDraggableBox {
+  createBox(x:number, y:number, w:number, h:number, rgb, boxDesign: HTMLImageElement): IDraggableBox {
     return {
       x: x,
       y: y,
@@ -181,27 +181,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     // render the boxes
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
-
-      // if the box is moving, draw a ghost in its original spot
-      if (box.dragging) {
-        this.context.fillStyle = 'grey'; //I chose a different color to make it appear more as a shadow of the box that's being moved.
-        this.context.fillRect(
-          box.previousX,
-          box.previousY,
-          box.width,
-          box.height
-        );
-        this.context.strokeRect(
-          box.previousX,
-          box.previousY,
-          box.width,
-          box.height
-        );
-      }
-
-      this.context.fillStyle = box.rgb;
-      this.context.fillRect(box.x, box.y, box.width, box.height);
-      this.context.strokeRect(box.x, box.y, box.width, box.height);
+      this.context.drawImage(
+        box.boxDesign,
+        box.x,
+        box.y,
+        box.width,
+        box.height
+      );
     }
   }
 
