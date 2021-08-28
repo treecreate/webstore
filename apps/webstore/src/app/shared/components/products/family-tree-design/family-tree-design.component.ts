@@ -38,8 +38,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit {
   };
 
   myBoxes: IDraggableBox[] = [];
-  x = 0;
-  y = 0;
+  mouseCords = {
+    x: 0,
+    y: 0,
+  };
 
   timeInterval;
   framesPerSecond = 60; // FPS of the render loop
@@ -118,19 +120,33 @@ export class FamilyTreeDesignComponent implements AfterViewInit {
     }
   }
 
+  // get current mouse position scaled to the canvas dimensions
+  getMousePosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+    return {
+      x: (event.clientX - rect.left) * scaleX, // scale mouse coordinates after they have
+      y: (event.clientY - rect.top) * scaleY, // been adjusted to be relative to element
+    };
+  }
+
   mouseDownHandler(event) {
     console.log('down');
     event = event || window.event;
-    this.x = event.pageX - this.designCanvas.nativeElement.offsetLeft;
-    this.y = event.pageY - this.designCanvas.nativeElement.offsetTop;
+    this.mouseCords = this.getMousePosition(
+      this.designCanvas.nativeElement,
+      event
+    );
 
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
       if (
-        this.x > box.x &&
-        this.x < box.x + box.w &&
-        this.y > box.y &&
-        this.y < box.y + box.h
+        this.mouseCords.x > box.x &&
+        this.mouseCords.x < box.x + box.w &&
+        this.mouseCords.y > box.y &&
+        this.mouseCords.y < box.y + box.h
       ) {
         this.myBoxes[i].dragging = true;
         this.myBoxes[i].dragging = true;
@@ -144,14 +160,16 @@ export class FamilyTreeDesignComponent implements AfterViewInit {
   @HostListener('document:mousemove', ['$event'])
   mouseMoveHandler(event) {
     event = event || window.event;
-    this.x = event.pageX - this.designCanvas.nativeElement.offsetLeft;
-    this.y = event.pageY - this.designCanvas.nativeElement.offsetTop;
+    this.mouseCords = this.getMousePosition(
+      this.designCanvas.nativeElement,
+      event
+    );
 
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
       if (box.dragging) {
-        this.myBoxes[i].x = this.x;
-        this.myBoxes[i].y = this.y;
+        this.myBoxes[i].x = this.mouseCords.x;
+        this.myBoxes[i].y = this.mouseCords.y;
         this.myBoxes[i] = box;
       }
     }
@@ -160,16 +178,18 @@ export class FamilyTreeDesignComponent implements AfterViewInit {
   mouseUpHandler(event) {
     console.log('up');
     event = event || window.event;
-    this.x = event.pageX - this.designCanvas.nativeElement.offsetLeft;
-    this.y = event.pageY - this.designCanvas.nativeElement.offsetTop;
+    this.mouseCords = this.getMousePosition(
+      this.designCanvas.nativeElement,
+      event
+    );
 
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
       if (box.dragging) {
         //if the box is inside the droppable area
         if (box.x > this.designCanvas.nativeElement.width / 2) {
-          this.myBoxes[i].x = this.x;
-          this.myBoxes[i].y = this.y;
+          this.myBoxes[i].x = this.mouseCords.x;
+          this.myBoxes[i].y = this.mouseCords.y;
           this.myBoxes[i].dragging = false;
           console.log(
             'Dropping the box wherever it is, iz gucci',
