@@ -257,6 +257,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.mouseClickOffset.x = this.mouseCords.x - box.x;
         this.mouseClickOffset.y = this.mouseCords.y - box.y;
         console.log('Boxes:', this.myBoxes);
+        // swap the dragged box to the top of rending order, displaying it on top of the other boxes
+        const temp = this.myBoxes[this.myBoxes.length - 1];
+        this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
+        this.myBoxes[i] = temp;
         // skip checking the other boxes
         return;
       }
