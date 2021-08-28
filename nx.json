@@ -25,6 +25,7 @@
     "webstore": { "tags": [] },
     "webstore-e2e": { "tags": [], "implicitDependencies": ["webstore"] },
     "models": { "tags": [] },
-    "interfaces": { "tags": [] }
+    "interfaces": { "tags": [] },
+    "assets": { "tags": [] }
   }
 }

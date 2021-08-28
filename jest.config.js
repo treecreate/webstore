@@ -3,5 +3,6 @@ module.exports = {
     '<rootDir>/apps/webstore',
     '<rootDir>/libs/models',
     '<rootDir>/libs/interfaces',
+    '<rootDir>/libs/assets',
   ],
 };
