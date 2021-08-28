@@ -34,7 +34,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { BasketItemComponent } from './shared/components/basket-item/basket-item.component';
-import { FamilyTreeDesignComponent } from './shared/components/products/family-tree-design/family-tree-design.component';
+import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 
 @NgModule({
   declarations: [

@@ -25,7 +25,7 @@ interface IDraggableBox {
   styleUrls: [
     './family-tree-design.component.scss',
     './family-tree-design.component.mobile.scss',
-    '../../../../../assets/styles/tc-input-field.scss',
+    '../../../../../../assets/styles/tc-input-field.scss',
   ],
 })
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
