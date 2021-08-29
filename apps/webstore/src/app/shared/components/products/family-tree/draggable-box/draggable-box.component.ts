@@ -1,8 +1,10 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
+  EventEmitter,
+  HostListener,
   Input,
+  Output,
 } from '@angular/core';
 
 @Component({
@@ -29,10 +31,45 @@ export class DraggableBoxComponent implements AfterViewInit {
   @Input()
   text: string;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  @Output()
+  mousedownEvent = new EventEmitter();
+  @Output()
+  mouseupEvent = new EventEmitter();
+  @Output()
+  touchmoveEvent = new EventEmitter();
+  @Output()
+  touchstartEvent = new EventEmitter();
+  @Output()
+  touchendEvent = new EventEmitter();
+
+  constructor() {}
 
   ngAfterViewInit(): void {
     console.log('box created', this);
-    // this.cdr.detectChanges();
+  }
+
+  @HostListener('mousedown', ['$event'])
+  onMouseDown($event) {
+    this.mousedownEvent.emit($event);
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onMouseUp($event) {
+    this.mouseupEvent.emit($event);
+  }
+
+  @HostListener('touchmove', ['$event'])
+  onTouchMove($event) {
+    this.touchmoveEvent.emit($event);
+  }
+
+  @HostListener('touchstart', ['$event'])
+  onTouchStart($event) {
+    this.touchstartEvent.emit($event);
+  }
+
+  @HostListener('touchend', ['$event'])
+  onTouchEnd($event) {
+    this.touchendEvent.emit($event);
   }
 }

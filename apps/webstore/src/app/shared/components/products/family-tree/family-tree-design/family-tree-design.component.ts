@@ -165,6 +165,23 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       );
       const draggableBoxRef = this.designWrapper.createComponent(factory);
 
+      // set the listeners on the new component
+      draggableBoxRef.instance.mousedownEvent.subscribe((value) => {
+        this.mouseDownHandler(value);
+      });
+      draggableBoxRef.instance.mouseupEvent.subscribe((value) => {
+        this.mouseUpHandler(value);
+      });
+
+      draggableBoxRef.instance.touchmoveEvent.subscribe((value) => {
+        this.mouseMoveHandler(value);
+      });
+      draggableBoxRef.instance.touchstartEvent.subscribe((value) => {
+        this.mouseDownHandler(value);
+      });
+      draggableBoxRef.instance.touchendEvent.subscribe((value) => {
+        this.mouseUpHandler(value);
+      });
       // set the reference to the draggable box component instance
       this.myBoxes[i].inputRef = draggableBoxRef;
       this.cdr.detectChanges();
@@ -328,7 +345,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.myBoxes[i].dragging = true;
         this.mouseClickOffset.x = this.mouseCords.x - box.x;
         this.mouseClickOffset.y = this.mouseCords.y - box.y;
-        console.log('Boxes:', this.myBoxes);
         // swap the dragged box to the top of rending order, displaying it on top of the other boxes
         const temp = this.myBoxes[this.myBoxes.length - 1];
         this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
