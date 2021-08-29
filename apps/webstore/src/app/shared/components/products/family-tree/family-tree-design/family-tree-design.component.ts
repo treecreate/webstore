@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
+  ComponentRef,
   ElementRef,
   HostListener,
   OnInit,
@@ -21,6 +22,7 @@ interface IDraggableBox {
   height: number;
   dragging: boolean;
   boxDesign: HTMLImageElement;
+  inputRef?: ComponentRef<DraggableBoxComponent>;
 }
 
 @Component({
@@ -162,12 +164,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         DraggableBoxComponent
       );
       const draggableBoxRef = this.designWrapper.createComponent(factory);
-      draggableBoxRef.instance.x = this.myBoxes[i].x;
-      draggableBoxRef.instance.y = this.myBoxes[i].y;
-      draggableBoxRef.instance.text = 'yeet' + i;
+
+      // set the reference to the draggable box component instance
+      this.myBoxes[i].inputRef = draggableBoxRef;
       this.cdr.detectChanges();
     }
     // run the render loop
+    // TODO: Switch to request animation frame
     clearInterval(this.timeInterval);
     this.timeInterval = setInterval(() => {
       this.draw();
@@ -219,6 +222,18 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         box.width,
         box.height
       );
+      const cords = this.getRealCords(this.designCanvas.nativeElement, {
+        x: box.x,
+        y: box.y,
+      });
+      // Update position of the input field to match the box
+      if (this.myBoxes[i].inputRef !== undefined) {
+        this.myBoxes[i].inputRef.instance.x = cords.x;
+        this.myBoxes[i].inputRef.instance.y = cords.y;
+        this.myBoxes[i].inputRef.instance.width = box.width;
+        this.myBoxes[i].inputRef.instance.height = box.height;
+        this.myBoxes[i].inputRef.instance.text = 'Box ' + i;
+      }
     }
   }
 
@@ -250,6 +265,17 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     };
   }
 
+  // calculate document mouse coordinates based on canvas coordinates
+  getRealCords(canvas, cords: { x: number; y: number }) {
+    const rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+    return {
+      x: cords.x / scaleX + rect.left + window.pageXOffset,
+      y: cords.y / scaleY + rect.top + window.pageYOffset,
+    };
+  }
+
   mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
     return (
       this.mouseCords.x - this.mouseClickOffset.x < 0 ||
@@ -262,7 +288,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   }
 
   mouseDownHandler(event) {
-    console.log('down');
     event = event || window.event;
     this.mouseCords = this.getMousePosition(
       this.designCanvas.nativeElement,
@@ -271,6 +296,14 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
+      // console.log('down', this.mouseCords);
+      // console.log('real', { x: event.clientX, y: event.clientY });
+      // console.log(
+      //   'Computed back',
+      //   this.getRealCords(this.designCanvas.nativeElement,{x: box.x, y: box.y})
+      // );
+      // console.log('-----------------------');
+
       if (
         this.mouseCords.x > box.x &&
         this.mouseCords.x < box.x + box.width &&
