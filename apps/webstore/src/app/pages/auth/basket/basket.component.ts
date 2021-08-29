@@ -97,7 +97,7 @@ export class BasketComponent implements OnInit {
   }
 
   applyDiscount() {
-    if (this.discountForm.get('discountCode').value == '123') {
+    if (this.discountForm.get('discountCode').value === '123') {
       this.toastService.showAlert(
         'Your discount code: ' +
           this.discountForm.get('discountCode').value +

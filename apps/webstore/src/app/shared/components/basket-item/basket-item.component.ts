@@ -54,6 +54,7 @@ export class BasketItemComponent implements OnInit {
           'danger',
           3000
         );
+        break;
       case 'medium':
         this.item.size = 'small';
         break;
