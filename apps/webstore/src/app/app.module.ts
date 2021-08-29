@@ -35,6 +35,7 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { BasketItemComponent } from './shared/components/basket-item/basket-item.component';
 import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { FamilyTreeDesignComponent } from './shared/components/products/family-t
     BasketComponent,
     BasketItemComponent,
     FamilyTreeDesignComponent,
+    DraggableBoxComponent,
   ],
   imports: [
     BrowserModule,

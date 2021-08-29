@@ -1,12 +1,16 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
+  ComponentFactoryResolver,
   ElementRef,
   HostListener,
   OnInit,
   ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { TreeDesignEnum, BoxDesignEnum } from '@assets';
+import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 interface IDraggableBox {
   x: number;
@@ -29,6 +33,9 @@ interface IDraggableBox {
   ],
 })
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
+  @ViewChild('designWrapper', { read: ViewContainerRef })
+  designWrapper: ViewContainerRef;
+
   @ViewChild('designCanvas', { static: true })
   designCanvas: ElementRef<HTMLCanvasElement>;
 
@@ -65,7 +72,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     dismissible: boolean;
   };
 
-  constructor() {}
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     // Load and validate box designs
@@ -143,6 +153,20 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     );
     console.log('Boxes', this.myBoxes);
 
+    // TODO: Make the boxes get created during init, then populated after the view is loaded, then fill out with data
+    // TODO: Make the new boxes get created when background is clicked
+    // TODO: Make boxes get deleted
+    // Create inputs for each box. Possible approach: https://codepen.io/sirspinach/pen/tflio
+    for (let i = 0; i < this.myBoxes.length; i++) {
+      const factory = this.resolver.resolveComponentFactory(
+        DraggableBoxComponent
+      );
+      const draggableBoxRef = this.designWrapper.createComponent(factory);
+      draggableBoxRef.instance.x = this.myBoxes[i].x;
+      draggableBoxRef.instance.y = this.myBoxes[i].y;
+      draggableBoxRef.instance.text = 'yeet' + i;
+      this.cdr.detectChanges();
+    }
     // run the render loop
     clearInterval(this.timeInterval);
     this.timeInterval = setInterval(() => {
