@@ -1,4 +1,6 @@
 .draggable-box-input {
   position: absolute;
-  border: purple 1px solid;
+  border: none;
+  background: transparent;
+  text-align: center;
 }

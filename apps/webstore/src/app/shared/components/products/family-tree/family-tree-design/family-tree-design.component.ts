@@ -228,13 +228,28 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       });
       // Update position of the input field to match the box
       if (this.myBoxes[i].inputRef !== undefined) {
+        const scale = this.getCanvasScale(this.designCanvas.nativeElement);
         this.myBoxes[i].inputRef.instance.x = cords.x;
         this.myBoxes[i].inputRef.instance.y = cords.y;
-        this.myBoxes[i].inputRef.instance.width = box.width;
-        this.myBoxes[i].inputRef.instance.height = box.height;
+        // set the input dimensions, accounting for the scale between canvas and document
+        this.myBoxes[i].inputRef.instance.width = Math.floor(
+          box.width / scale.scaleX
+        );
+        this.myBoxes[i].inputRef.instance.height = Math.floor(
+          box.height / scale.scaleY
+        );
+        // Set example text
         this.myBoxes[i].inputRef.instance.text = 'Box ' + i;
       }
     }
+  }
+
+  getCanvasScale(canvas): { scaleX: number; scaleY: number } {
+    const rect = canvas.getBoundingClientRect(); // abs. size of element
+    return {
+      scaleX: canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
+    };
   }
 
   // get current mouse position scaled to the canvas dimensions

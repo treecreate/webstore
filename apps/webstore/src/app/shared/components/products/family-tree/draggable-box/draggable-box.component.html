@@ -3,6 +3,12 @@
     type="input"
     [placeholder]="text"
     class="draggable-box-input"
-    [ngStyle]="{ top: y + 'px', left: x + 'px', width: width/10 + 'px', height: height/10 + 'px'}"
+    [ngStyle]="{
+        top: y + 'px',
+        left: x + 'px',
+        width: width * 0.8 + 'px',
+        height: height * 0.5 + 'px',
+        margin: height * 0.25 + 'px ' + width * 0.1 + 'px'
+    }"
 />
 {{ width }}
