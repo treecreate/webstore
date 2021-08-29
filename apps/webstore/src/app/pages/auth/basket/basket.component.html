@@ -80,15 +80,6 @@
                         class="special-input-field"
                         placeholder="Discount code"
                     />
-                    <div
-                        class="error-message"
-                        *ngIf="
-                            this.discountForm.get('discountCode').invalid &&
-                            this.discountForm.get('discountCode').value != ''
-                        "
-                    >
-                        Invalid input
-                    </div>
                     <button
                         class="tc-button-100 margin-top low-dropshadow"
                         type="submit"

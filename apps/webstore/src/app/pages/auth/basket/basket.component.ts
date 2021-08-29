@@ -97,6 +97,24 @@ export class BasketComponent implements OnInit {
   }
 
   applyDiscount() {
-    console.log(this.discountForm.get('discountCode').value);
+    if (this.discountForm.get('discountCode').value == '123') {
+      this.toastService.showAlert(
+        'Your discount code: ' +
+          this.discountForm.get('discountCode').value +
+          ' has been activated!',
+        'Din rabat kode: ' +
+          this.discountForm.get('discountCode').value +
+          ' er aktiveret!',
+        'success',
+        4000
+      );
+    } else {
+      this.toastService.showAlert(
+        'Invalid discount code',
+        'Ugyldig rabatkode',
+        'danger',
+        4000
+      );
+    }
   }
 }
