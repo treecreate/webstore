@@ -21,7 +21,7 @@
                 <!-- delivery address -->
                 <div class="checkout-section no-strech">
                     <div class="title-container">
-                        <span class="title">Delivery Address </span>
+                        <span class="title">Shipping Address </span>
                         <hr />
                     </div>
 
@@ -194,6 +194,21 @@
                         <label class="checkbox-container rm-margin">
                             <input
                                 type="checkbox"
+                                [checked]="billingAddressIsTheSame"
+                                (change)="
+                                    billingAddressIsTheSame = !billingAddressIsTheSame
+                                "
+                            />
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="option-title">
+                            Billing address is the same as delivery address
+                        </div>
+                    </div>
+                    <div class="option margin-top">
+                        <label class="checkbox-container rm-margin">
+                            <input
+                                type="checkbox"
                                 [checked]="subscribeToNewsletter"
                                 (change)="
                                     subscribeToNewsletter = !subscribeToNewsletter
@@ -206,6 +221,204 @@
                         </div>
                     </div>
                 </div>
+
+                <form
+                    class="billing-address-container"
+                    *ngIf="!billingAddressIsTheSame"
+                    class="checkout-content"
+                    name="billingAddressForm"
+                    [formGroup]="billingAddressForm"
+                >
+                    <!-- billing address -->
+                    <div class="checkout-section no-strech">
+                        <div class="title-container">
+                            <span class="title">Billing Address </span>
+                            <hr />
+                        </div>
+
+                        <div class="tc-input-group field">
+                            <input
+                                type="text"
+                                class="tc-input-field"
+                                formControlName="name"
+                                placeholder="Your name"
+                                id="name"
+                                autocomplete="name"
+                            />
+                            <label for="name" class="tc-input-label"
+                                >Name</label
+                            >
+                        </div>
+
+                        <div
+                            class="error-message"
+                            *ngIf="
+                                this.billingAddressForm.get('name').dirty &&
+                                this.billingAddressForm.get('name').invalid
+                            "
+                        >
+                            Invalid name.
+                        </div>
+
+                        <div class="tc-input-group field">
+                            <input
+                                type="text"
+                                class="tc-input-field"
+                                formControlName="phoneNumber"
+                                placeholder="12345678"
+                                name="phoneNumber"
+                                id="phoneNumber"
+                                autocomplete="phoneNumber"
+                            />
+                            <label for="phoneNumber" class="tc-input-label"
+                                >Phone number</label
+                            >
+                        </div>
+
+                        <div
+                            class="error-message"
+                            *ngIf="
+                                this.billingAddressForm.get('phoneNumber')
+                                    .dirty &&
+                                this.billingAddressForm.get('phoneNumber')
+                                    .invalid
+                            "
+                        >
+                            Invalid phone number.
+                        </div>
+
+                        <div class="tc-input-group field">
+                            <input
+                                type="email"
+                                class="tc-input-field"
+                                placeholder="E-mail"
+                                formControlName="email"
+                                name="email"
+                                id="profileEmail"
+                                autocomplete="email"
+                                required
+                            />
+                            <label for="email" class="tc-input-label"
+                                >E-mail</label
+                            >
+                        </div>
+
+                        <div
+                            class="error-message"
+                            *ngIf="
+                                this.billingAddressForm.get('email').dirty &&
+                                this.billingAddressForm.get('email').invalid
+                            "
+                        >
+                            Invalid email.
+                        </div>
+                        <div class="tc-input-group field">
+                            <input
+                                type="text"
+                                class="tc-input-field"
+                                name="streedOne"
+                                formControlName="streetAddress"
+                                placeholder="Your street name"
+                                id="streetAddress"
+                            />
+                            <label for="streetAddress" class="tc-input-label"
+                                >Street address</label
+                            >
+                        </div>
+
+                        <div
+                            class="error-message"
+                            *ngIf="
+                                this.billingAddressForm.get('streetAddress')
+                                    .dirty &&
+                                this.billingAddressForm.get('streetAddress')
+                                    .invalid
+                            "
+                        >
+                            The address is too long.
+                        </div>
+
+                        <div class="tc-input-group field">
+                            <input
+                                type="text"
+                                class="tc-input-field"
+                                name="streedTwo"
+                                formControlName="streetAddress2"
+                                placeholder="Your street name"
+                                id="streetAddress2"
+                            />
+                            <label for="streetAddress2" class="tc-input-label"
+                                >Street address 2</label
+                            >
+                        </div>
+
+                        <div
+                            class="error-message"
+                            *ngIf="
+                                this.billingAddressForm.get('streetAddress2')
+                                    .dirty &&
+                                this.billingAddressForm.get('streetAddress2')
+                                    .invalid
+                            "
+                        >
+                            The address is too long.
+                        </div>
+
+                        <div class="city-code-section">
+                            <div class="tc-input-group field city-code city">
+                                <input
+                                    type="text"
+                                    class="tc-input-field"
+                                    name="city"
+                                    formControlName="city"
+                                    id="city"
+                                    placeholder="City"
+                                />
+                                <label for="city" class="tc-input-label"
+                                    >City</label
+                                >
+                                <div
+                                    class="error-message offset"
+                                    *ngIf="
+                                        this.billingAddressForm.get('city')
+                                            .dirty &&
+                                        this.billingAddressForm.get('city')
+                                            .invalid
+                                    "
+                                >
+                                    The city name is too long.
+                                </div>
+                            </div>
+
+                            <div
+                                class="tc-input-group field city-code postcode"
+                            >
+                                <input
+                                    type="text"
+                                    class="tc-input-field"
+                                    formControlName="postcode"
+                                    id="postcode"
+                                    name="postcode"
+                                    placeholder="1234"
+                                />
+                                <label for="postcode" class="tc-input-label"
+                                    >Postcode</label
+                                >
+                                <div
+                                    class="error-message offset"
+                                    *ngIf="
+                                        this.billingAddressForm.get('postcode')
+                                            .dirty &&
+                                        this.billingAddressForm.get('postcode')
+                                            .invalid
+                                    "
+                                >
+                                    Invalid danish postcode.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
                 <!-- delivery and payment -->
                 <div class="checkout-delivery-payment-container">

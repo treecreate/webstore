@@ -19,10 +19,12 @@ import { VerifyService } from '../../../shared/services/verify/verify.service';
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
+  billingAddressForm: FormGroup;
   currentUser: IUser;
   isHomeDelivery = false;
   isSubscribed: boolean;
   subscribeToNewsletter = true;
+  billingAddressIsTheSame = true;
   moneySaved = 1;
   isTermsAndConditionsAccepted = false;
   public isVerified: boolean;
@@ -104,6 +106,26 @@ export class CheckoutComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]),
     });
+
+    this.billingAddressForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.pattern("^[a-zA-Z-' ]*$"),
+      ]),
+      phoneNumber: new FormControl('', [
+        Validators.maxLength(11),
+        Validators.pattern('^[0-9+]*$'),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      streetAddress: new FormControl('', [Validators.maxLength(50)]),
+      streetAddress2: new FormControl('', [Validators.maxLength(50)]),
+      city: new FormControl('', [Validators.maxLength(50)]),
+      postcode: new FormControl('', [
+        Validators.max(9999),
+        Validators.min(555),
+        Validators.pattern('^[0-9]*$'),
+      ]),
+    });
   }
 
   updateFormValues() {
@@ -124,15 +146,17 @@ export class CheckoutComponent implements OnInit {
     }
 
     console.log(
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value,
-      this.checkoutForm.get('').value
+      this.checkoutForm.get('name').value,
+      this.checkoutForm.get('phoneNumber').value,
+      this.checkoutForm.get('email').value,
+      this.checkoutForm.get('streetAddress').value,
+      this.checkoutForm.get('streetAddress2').value,
+      this.checkoutForm.get('city').value,
+      this.checkoutForm.get('postcode').value,
+      this.subscribeToNewsletter,
+      this.isHomeDelivery
+        ? 'I want home delivery'
+        : 'I want parcelshop delivery'
     );
   }
 

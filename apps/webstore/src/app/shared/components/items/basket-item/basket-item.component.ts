@@ -24,7 +24,6 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    console.log('basket item');
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 }

@@ -11,9 +11,8 @@ export class DesignItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('design-item');
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 
   deleteDesign(design: Design) {
     console.log('Delete design: ', design);
