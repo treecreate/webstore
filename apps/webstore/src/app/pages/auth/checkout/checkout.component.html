@@ -34,7 +34,7 @@
                             id="name"
                             autocomplete="name"
                         />
-                        <label for="name" class="tc-input-label">Name</label>
+                        <label for="name" class="tc-input-label">Name *</label>
                     </div>
 
                     <div
@@ -72,7 +72,10 @@
                         Invalid phone number.
                     </div>
 
-                    <div class="tc-input-group field">
+                    <div
+                        class="tc-input-group field"
+                        (click)="notAllowedToChangeEmailAlert()"
+                    >
                         <input
                             type="email"
                             class="tc-input-field"
@@ -81,9 +84,11 @@
                             name="email"
                             id="profileEmail"
                             autocomplete="email"
-                            required
+                            disabled
                         />
-                        <label for="email" class="tc-input-label">E-mail</label>
+                        <label for="email" class="tc-input-label"
+                            >E-mail *</label
+                        >
                     </div>
 
                     <div
@@ -105,7 +110,7 @@
                             id="streetAddress"
                         />
                         <label for="streetAddress" class="tc-input-label"
-                            >Street address</label
+                            >Street address *</label
                         >
                     </div>
 
@@ -154,8 +159,8 @@
                                 placeholder="City"
                             />
                             <label for="city" class="tc-input-label"
-                                >City</label
-                            >
+                                >City *
+                            </label>
                             <div
                                 class="error-message offset"
                                 *ngIf="
@@ -177,7 +182,7 @@
                                 placeholder="1234"
                             />
                             <label for="postcode" class="tc-input-label"
-                                >Postcode</label
+                                >Postcode *</label
                             >
                             <div
                                 class="error-message offset"
@@ -246,7 +251,7 @@
                                 autocomplete="name"
                             />
                             <label for="name" class="tc-input-label"
-                                >Name</label
+                                >Name *</label
                             >
                         </div>
 
@@ -299,7 +304,7 @@
                                 required
                             />
                             <label for="email" class="tc-input-label"
-                                >E-mail</label
+                                >E-mail *</label
                             >
                         </div>
 
@@ -322,7 +327,7 @@
                                 id="streetAddress"
                             />
                             <label for="streetAddress" class="tc-input-label"
-                                >Street address</label
+                                >Street address *</label
                             >
                         </div>
 
@@ -375,8 +380,8 @@
                                     placeholder="City"
                                 />
                                 <label for="city" class="tc-input-label"
-                                    >City</label
-                                >
+                                    >City *
+                                </label>
                                 <div
                                     class="error-message offset"
                                     *ngIf="
@@ -402,7 +407,7 @@
                                     placeholder="1234"
                                 />
                                 <label for="postcode" class="tc-input-label"
-                                    >Postcode</label
+                                    >Postcode *</label
                                 >
                                 <div
                                     class="error-message offset"
@@ -545,7 +550,13 @@
                 <div class="actions">
                     <div class="terms-and-conditions-container">
                         <label class="checkbox-container">
-                            <input type="checkbox" />
+                            <input
+                                type="checkbox"
+                                [checked]="isTermsAndConditionsAccepted"
+                                (change)="
+                                    isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted
+                                "
+                            />
                             <span class="checkmark"></span>
                         </label>
                         <div class="option-title">
@@ -556,7 +567,12 @@
                             >
                         </div>
                     </div>
-                    <button class="tc-button-100 green margin-top">
+                    <button
+                        class="tc-button-100 green margin-top"
+                        type="submit"
+                        [disabled]="!isTermsAndConditionsAccepted"
+                        [ngClass]="!isDisabled() ? 'disabled' : ''"
+                    >
                         Go to secure payment
                     </button>
                 </div>

@@ -17,9 +17,12 @@ export class CollectionComponent implements OnInit {
     new Design('5', '1', 'test title'),
   ];
 
+  scrollTop() {
+    window.scroll(0, 0);
+  }
+
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('collection');
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 }

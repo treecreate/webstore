@@ -28,6 +28,11 @@ export class BasketComponent implements OnInit {
     },
   ];
 
+  constructor() {}
+
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
+
   calcFinalPrice(...prices: number[]): number {
     let sum = 0;
     for (let i = 0; i < prices.length; i++) {
@@ -40,9 +45,7 @@ export class BasketComponent implements OnInit {
     return finalPrice * 0.2;
   }
 
-  constructor() {}
-
-  ngOnInit(): void {
-    console.log('basket');
+  scrollTop() {
+    window.scroll(0, 0);
   }
 }

@@ -38,20 +38,20 @@ export class CheckoutComponent implements OnInit {
       price: 495,
       type: 'Family tree',
     },
-    {
-      title: 'Second design',
-      size: 'large',
-      amount: 1,
-      price: 995,
-      type: 'Family tree',
-    },
-    {
-      title: 'Last design',
-      size: 'medium',
-      amount: 2,
-      price: 695,
-      type: 'Family tree',
-    },
+    // {
+    //   title: 'Second design',
+    //   size: 'large',
+    //   amount: 1,
+    //   price: 995,
+    //   type: 'Family tree',
+    // },
+    // {
+    //   title: 'Last design',
+    //   size: 'medium',
+    //   amount: 2,
+    //   price: 695,
+    //   type: 'Family tree',
+    // },
   ];
 
   constructor(
@@ -157,6 +157,42 @@ export class CheckoutComponent implements OnInit {
       this.isHomeDelivery
         ? 'I want home delivery'
         : 'I want parcelshop delivery'
+    );
+  }
+
+  isDisabled() {
+    if (this.billingAddressIsTheSame) {
+      return (
+        this.isTermsAndConditionsAccepted &&
+        this.checkoutForm.get('name').valid &&
+        this.checkoutForm.get('email').valid &&
+        this.checkoutForm.get('streetAddress').valid &&
+        this.checkoutForm.get('city').valid &&
+        this.checkoutForm.get('postcode').valid
+      );
+    } else {
+      return (
+        this.isTermsAndConditionsAccepted &&
+        this.checkoutForm.get('name').valid &&
+        this.checkoutForm.get('email').valid &&
+        this.checkoutForm.get('streetAddress').valid &&
+        this.checkoutForm.get('city').valid &&
+        this.checkoutForm.get('postcode').valid &&
+        this.billingAddressForm.get('name').valid &&
+        this.billingAddressForm.get('email').valid &&
+        this.billingAddressForm.get('streetAddress').valid &&
+        this.billingAddressForm.get('city').valid &&
+        this.billingAddressForm.get('postcode').valid
+      );
+    }
+  }
+
+  notAllowedToChangeEmailAlert() {
+    this.toastService.showAlert(
+      'Your email must be verified for you to complete a purchase. If you want to change your email, you can do so in Account info.',
+      'Din email skal verifiseres før du kan gennemfører et køb. Hvis du vil ændre din email kan du gøre det på Konto info',
+      'danger',
+      10000
     );
   }
 
