@@ -1,4 +1,7 @@
-<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg mb-3">
+<nav
+    data-cy="navbar"
+    class="navbar fixed-top navbar-expand-lg mb-3 add-transition"
+>
     <div class="container min-width">
         <div>
             <a class="navbar-brand" routerLink="/">
@@ -65,7 +68,9 @@
                 <li class="nav-item">
                     <a
                         class="nav-link waves-light"
-                        routerLink="/product"
+                        routerLink="{{
+                            isLoggedIn ? '/product' : '/notSignedIn'
+                        }}"
                         (click)="autoCollapse()"
                         >Product</a
                     >

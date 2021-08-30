@@ -37,19 +37,23 @@
                 <!-- Tree donation -->
                 <div class="basket-options-item">
                     <div class="tree-title">
-                        Donate 10kr to plant another tree
+                        Plant an extra tree - 10kr
+                        <div class="subtext">
+                            (Planting 1 tree is included in the price)
+                        </div>
                     </div>
+
                     <div class="donate-tree-option">
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            data-cy="box-size-minus"
+                            (click)="decreaseDonatingAmount()"
                         >
                             <div class="icon">
                                 <div class="button-minus"></div>
                             </div>
                         </button>
                         <div class="amount-of-trees">
-                            {{ 1 }} x
+                            {{ donatedTrees }} x
                             <img
                                 src="../../../../assets/icons/seed-icon.svg"
                                 alt=""
@@ -58,40 +62,67 @@
                         </div>
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            data-cy="box-size-plus"
+                            (click)="donatedTrees = donatedTrees + 1"
                         >
                             <div class="button-plus"></div>
                         </button>
                     </div>
                 </div>
                 <!-- Discount code -->
-                <div class="basket-options-item">
+                <form
+                    [formGroup]="discountForm"
+                    (ngSubmit)="applyDiscount()"
+                    class="basket-options-item"
+                >
                     <input
+                        formControlName="discountCode"
                         type="text"
                         class="special-input-field"
                         placeholder="Discount code"
                     />
-                    <button class="tc-button-100 margin-top low-dropshadow">
+                    <button
+                        class="tc-button-100 margin-top low-dropshadow"
+                        type="submit"
+                    >
                         Apply Discount
                     </button>
-                </div>
+                    <div *ngIf="discount > 0" class="discount-code-display">
+                        <span>Amount dicount:</span>
+                        <span>-{{ discount * 100 }}% </span>
+                    </div>
+                </form>
                 <!-- Price info -->
                 <div class="basket-options-item">
                     <div class="price-info-container">
                         <div class="price-subtitles">
                             <span> Subtotal <br /> </span>
-                            <span> Delivery <br /> </span>
-                            <span> Save <br /> </span>
+                            <span> You Save <br /> </span>
                             <span class="weight">
-                                <strong> Total </strong>
+                                <strong> Total </strong> <br />
                             </span>
+                            <span> VAT <br /> </span>
                         </div>
                         <div class="price-info">
-                            <span> {{ 2180 }}.00 DKK <br /> </span>
-                            <span> FREE <br /> </span>
-                            <span> {{ 625 }}.35 DKK <br /> </span>
+                            <span>
+                                {{ calcSubtotalPrice().toFixed(2) }} DKK <br />
+                            </span>
+                            <span>
+                                {{ calcAmountSaved().toFixed(2) }} DKK <br />
+                            </span>
                             <span class="weight">
-                                <strong> {{ 1555 }},00 DKK </strong>
+                                <strong>
+                                    {{
+                                        (
+                                            calcTotal() + calcDonationPrice()
+                                        ).toFixed(2)
+                                    }}
+                                    DKK
+                                </strong>
+                                <br />
+                            </span>
+                            <span>
+                                {{ calcVat().toFixed(2) }} DKK
+                                <br />
                             </span>
                         </div>
                     </div>

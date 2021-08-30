@@ -1,0 +1,103 @@
+<div class="modal-container add-transition">
+    <div class="modal-content">
+        <div class="option-title">
+            <div class="title">
+                Title
+                <webstore-info-popover
+                    title="Title"
+                    text="Add a good title so you can keep track of your designs."
+                ></webstore-info-popover>
+            </div>
+            <div class="option-design-title add-transition">
+                <input
+                    type="text"
+                    class="title-input"
+                    placeholder="Untitled-1"
+                />
+            </div>
+        </div>
+
+        <!-- amount -->
+        <div class="option-amount add-transition">
+            <div class="text">
+                <span> Amount </span>
+                <webstore-info-popover
+                    title="Amount"
+                    text="The amount of designs you wish to purchase."
+                ></webstore-info-popover>
+            </div>
+            <div class="option add-transition">
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-minus"
+                >
+                    <div class="icon">
+                        <div class="button-minus"></div>
+                    </div>
+                </button>
+                <div class="amount">
+                    {{ 0 }}
+                </div>
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-plus"
+                >
+                    <div class="button-plus"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- size -->
+        <div class="option-size add-transition">
+            <div class="text">
+                <span> Size </span>
+                <webstore-info-popover
+                    title="Size"
+                    text="The size of your design. You can choose between 20x20cm, 25x25cm and 30x30cm."
+                ></webstore-info-popover>
+            </div>
+            <div class="option">
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-minus"
+                >
+                    <div class="icon">
+                        <div class="button-minus"></div>
+                    </div>
+                </button>
+                <div class="amount">
+                    {{ 0 }}
+                </div>
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    data-cy="box-size-plus"
+                >
+                    <div class="button-plus"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Price -->
+
+        <!-- Actions -->
+        <div class="option-actions add-transition">
+            <div class="button-container">
+                <button class="tc-button-100 green">Add to basket</button>
+                <button class="tc-button-100" (click)="activeModal.close()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <!-- Extra info -->
+        <div class="text-container add-transition">
+            <div class="extra-info">
+                <strong> Note: <br /> </strong>
+                For every design you purchase, you are automatically planting a
+                tree. Thereby you support re-floreshing the forrests, which has
+                never been a more vital task. <br />
+                <strong> THANK YOU FOR YOUR SUPPORT!</strong>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,8 +12,8 @@ describe('HomePage', () => {
     cy.get('[data-cy=navbar]').should('exist');
     cy.get('[data-cy=footer]').should('exist');
   });
-  it('should redirect to product page when "start" button is pressed', () => {
+  it('should redirect to notSignedIn page when "start" button is pressed', () => {
     cy.get('.tc-start-main').click({ force: true });
-    cy.url().should('contain', '/product');
+    cy.url().should('contain', '/notSignedIn');
   });
 });

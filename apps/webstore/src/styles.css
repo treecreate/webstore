@@ -50,3 +50,7 @@ html {
   transition: opacity 0.25s linear;
   opacity: 0;
 }
+
+.add-transition {
+  transition: 0.5s;
+}

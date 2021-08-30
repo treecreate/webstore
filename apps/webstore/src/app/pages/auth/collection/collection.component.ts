@@ -19,7 +19,6 @@ export class CollectionComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log('collection');
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 }

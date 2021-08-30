@@ -16,7 +16,7 @@
             <div class="option">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-minus"
+                    (click)="decreaseAmount()"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -27,7 +27,7 @@
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-plus"
+                    (click)="item.amount = item.amount + 1"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -42,7 +42,7 @@
             <div class="option">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-minus"
+                    (click)="decreaseSize()"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -53,7 +53,7 @@
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-plus"
+                    (click)="increaseSize()"
                 >
                     <div class="button-plus"></div>
                 </button>
