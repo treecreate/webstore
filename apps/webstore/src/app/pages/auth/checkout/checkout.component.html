@@ -301,7 +301,6 @@
                                 name="email"
                                 id="profileEmail"
                                 autocomplete="email"
-                                required
                             />
                             <label for="email" class="tc-input-label"
                                 >E-mail *</label
@@ -527,27 +526,58 @@
                     [item]="item"
                 ></webstore-checkout-item>
 
+                <!-- TODO: Add donated trees section -->
+
                 <!-- Order info -->
                 <div class="order-info-section">
                     <div class="info-line">
-                        <span>Subtotal</span><span>{{ 2180 }},00 DKK</span>
+                        <span>Delivery</span
+                        ><span
+                            >{{
+                                calcPriceService.getDeliveryPricePrint()
+                            }}
+                            DKK</span
+                        >
                     </div>
                     <div class="info-line">
-                        <span>Delivery</span><span>{{ 0 }},00 DKK</span>
+                        <span>Subtotal</span
+                        ><span
+                            >{{
+                                calcPriceService.calcFullPricePrint()
+                            }}
+                            DKK</span
+                        >
                     </div>
                     <div
                         class="info-line"
-                        [ngClass]="moneySaved > 0 ? 'green-text' : ''"
+                        [ngClass]="
+                            calcPriceService.calcDiscountAmount() > 0
+                                ? 'green-text'
+                                : ''
+                        "
                     >
-                        <span>Save</span><span>{{ 625 }},00 DKK</span>
+                        <span>You save</span
+                        ><span
+                            >{{
+                                calcPriceService.calcDiscountAmountPrint()
+                            }}
+                            DKK</span
+                        >
                     </div>
                     <div class="info-line total">
-                        <span>Total</span><span>{{ 1555 }},00 DKK</span>
+                        <span>Total</span
+                        ><span
+                            >{{
+                                calcPriceService.calcFinalPricePrint()
+                            }}
+                            DKK</span
+                        >
                     </div>
                 </div>
 
                 <!-- Actions -->
                 <div class="actions">
+                    <hr />
                     <div class="terms-and-conditions-container">
                         <label class="checkbox-container">
                             <input

@@ -5,6 +5,7 @@ import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { CalcPriceService } from '../../../shared/services/calc-price/calc-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
 import { VerifyService } from '../../../shared/services/verify/verify.service';
@@ -25,7 +26,7 @@ export class CheckoutComponent implements OnInit {
   isSubscribed: boolean;
   subscribeToNewsletter = true;
   billingAddressIsTheSame = true;
-  moneySaved = 1;
+  discount = 0.1;
   isTermsAndConditionsAccepted = false;
   public isVerified: boolean;
 
@@ -38,20 +39,20 @@ export class CheckoutComponent implements OnInit {
       price: 495,
       type: 'Family tree',
     },
-    // {
-    //   title: 'Second design',
-    //   size: 'large',
-    //   amount: 1,
-    //   price: 995,
-    //   type: 'Family tree',
-    // },
-    // {
-    //   title: 'Last design',
-    //   size: 'medium',
-    //   amount: 2,
-    //   price: 695,
-    //   type: 'Family tree',
-    // },
+    {
+      title: 'Second design',
+      size: 'large',
+      amount: 1,
+      price: 995,
+      type: 'Family tree',
+    },
+    {
+      title: 'Last design',
+      size: 'medium',
+      amount: 2,
+      price: 695,
+      type: 'Family tree',
+    },
   ];
 
   constructor(
@@ -59,13 +60,17 @@ export class CheckoutComponent implements OnInit {
     private toastService: ToastService,
     private userService: UserService,
     private verifyService: VerifyService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public calcPriceService: CalcPriceService
   ) {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
         this.isVerified = this.verifyService.getIsVerified();
       });
+
+    // Activate calcPrice service
+    this.calcPriceService.setAll(this.checkoutItems, 0.1, this.isHomeDelivery);
   }
 
   ngOnInit(): void {
@@ -83,7 +88,6 @@ export class CheckoutComponent implements OnInit {
       console.log(err);
       // TODO: handle failed fetching data
     }
-
     // TODO: Check if user is already subscribed to newsletter
     // this.isSubscribed =
 
@@ -126,6 +130,10 @@ export class CheckoutComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]),
     });
+  }
+
+  changeDelivery() {
+    this.calcPriceService.setDelivery(!this.isHomeDelivery);
   }
 
   updateFormValues() {
