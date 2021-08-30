@@ -24,6 +24,7 @@ export class CheckoutComponent implements OnInit {
   isSubscribed: boolean;
   subscribeToNewsletter = true;
   moneySaved = 1;
+  isTermsAndConditionsAccepted = false;
   public isVerified: boolean;
 
   // TODO: get itemList from basket
@@ -121,6 +122,18 @@ export class CheckoutComponent implements OnInit {
     if (this.subscribeToNewsletter) {
       // TODO: subscribe the user to the newsletter
     }
+
+    console.log(
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value,
+      this.checkoutForm.get('').value
+    );
   }
 
   showTermsOfSale() {

@@ -74,6 +74,5 @@ import { CheckoutItemComponent } from './shared/components/items/checkout-item/c
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [CheckoutItemComponent],
 })
 export class AppModule {}

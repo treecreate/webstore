@@ -88,27 +88,29 @@
     <div class="footer-copyright text-center py-3">
         <div class="container">
             <div class="row">
-                <div class="col">© 2021 Copyright Treecreate</div>
+                <div class="col">
+                    © {{ this.currentYear }} Copyright Treecreate
+                </div>
                 <hr class="remove-mobile clearfix w-100 d-md-none" />
                 <div class="col">
                     <a
                         data-cy="footer-terms-of-use-modal-link"
                         (click)="showTermsOfUse()"
-                        class="terms"
+                        class="terms TnC"
                         >Terms</a
                     >
                     -
                     <a
                         data-cy="footer-terms-of-sale-modal-link"
                         (click)="showTermsOfSale()"
-                        class="terms"
+                        class="terms TnC"
                         >Sale</a
                     >
                     -
                     <a
                         data-cy="footer-privacy-notice-modal-link"
                         (click)="showPrivacyNotice()"
-                        class="terms"
+                        class="terms TnC"
                         >Privacy</a
                     >
                 </div>

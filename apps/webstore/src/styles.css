@@ -50,3 +50,9 @@ html {
   transition: opacity 0.25s linear;
   opacity: 0;
 }
+
+.TnC:hover {
+  color: #ebc6ab !important;
+  text-decoration: underline !important;
+  cursor: pointer;
+}

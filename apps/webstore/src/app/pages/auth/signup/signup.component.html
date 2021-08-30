@@ -89,10 +89,13 @@
                 />
                 <span class="checkmark" data-cy="checkbox-big-font"></span>
             </label>
-            <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
-            <a class="terms-and-conditions" (click)="showTermsOfUse()"
-                >I accept terms and conditions</a
-            >
+            <div class="terms-and-conditions">
+                I accept terms and conditions<a
+                    class="TnC"
+                    (click)="showTermsOfUse()"
+                    >Read here</a
+                >
+            </div>
         </div>
 
         <div class="sign-up-container">

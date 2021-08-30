@@ -333,15 +333,15 @@
                     <div class="terms-and-conditions-container">
                         <label class="checkbox-container">
                             <input type="checkbox" />
-                            <span
-                                class="checkmark"
-                                data-cy="checkbox-big-font"
-                            ></span>
+                            <span class="checkmark"></span>
                         </label>
-                        <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
-                        <a class="option-title" (click)="showTermsOfSale()"
-                            >I accept terms and conditions</a
-                        >
+                        <div class="option-title">
+                            I accept terms and conditions<a
+                                class="TnC"
+                                (click)="showTermsOfSale()"
+                                >Read them here</a
+                            >
+                        </div>
                     </div>
                     <button class="tc-button-100 green margin-top">
                         Go to secure payment
