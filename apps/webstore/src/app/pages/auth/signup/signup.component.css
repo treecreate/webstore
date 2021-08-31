@@ -22,14 +22,14 @@
 .terms-and-conditions {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--medium-small-font);
   text-align: left;
   margin: 0;
   margin-left: 40px;
 }
 
 .sign-up {
-  font-size: 14px;
+  font-size: var(--medium-small-font);
   text-align: left;
   margin: 0;
   margin-left: 40px;

@@ -30,7 +30,7 @@ h1 {
   font-family: Seravek;
   font-style: normal;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: var(--large-font);
 }
 .icon {
   width: 200px;

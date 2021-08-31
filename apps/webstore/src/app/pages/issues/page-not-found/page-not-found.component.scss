@@ -19,14 +19,14 @@
   width: 90vw;
 }
 h1 {
-  font-size: 7rem;
+  font-size: var(--extra-massive-font);
   margin-bottom: 0;
   margin-top: 0;
 }
 h2 {
   margin-top: 0;
   max-width: 700px;
-  font-size: 30px;
+  font-size: var(--large-font);
   width: 100%;
 }
 p {

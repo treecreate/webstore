@@ -10,7 +10,7 @@
   border: 0;
   border-bottom: 1px solid var(--gray-color);
   outline: 0;
-  font-size: 1rem;
+  font-size: var(--small-font);
   color: black;
   padding: 5px 0;
   background: transparent;
@@ -21,7 +21,7 @@
   }
 
   &:placeholder-shown ~ .tc-input-label {
-    font-size: 1rem;
+    font-size: var(--small-font);
     cursor: text;
     top: 22px;
   }
@@ -32,7 +32,7 @@
   top: 0;
   display: block;
   transition: 0.2s;
-  font-size: 0.7rem;
+  font-size: var(--extra-small-font);
   color: var(--gray-color);
 }
 
@@ -42,7 +42,7 @@
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 0.7rem;
+    font-size: var(--extra-small-font);
     color: var(--action-color);
     font-weight: 500;
   }
@@ -84,7 +84,7 @@ select:-webkit-autofill:focus {
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: var(--regular-font);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

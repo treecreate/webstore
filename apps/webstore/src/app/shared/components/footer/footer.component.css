@@ -1,5 +1,5 @@
 h5 {
-  font-size: 24px;
+  font-size: var(--regular-font);
   line-height: 29px;
 }
 .container {
@@ -106,9 +106,6 @@ h5 {
   }
   .mobile-br {
     display: block;
-  }
-  .font-small {
-    font-size: 0.8rem;
   }
   .contact-mobile-margin {
     margin-right: 30px;

@@ -23,8 +23,8 @@
 }
 
 .item-title {
-  font-size: large;
-  font-weight: 600;
+  font-size: var(--regular-font);
+  font-weight: 300;
 }
 
 .info-container {

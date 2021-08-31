@@ -35,7 +35,7 @@ hr {
   padding-left: 6px;
   margin-bottom: 2px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: var(--regular-font);
 }
 
 .top-margin {

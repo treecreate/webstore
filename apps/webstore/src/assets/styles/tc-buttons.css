@@ -17,7 +17,7 @@
   font-family: Seravek;
   font-style: normal;
   font-weight: 300;
-  font-size: 18px;
+  font-size: var(--medium-font);
   line-height: 22px;
   align-items: center;
   text-align: center;

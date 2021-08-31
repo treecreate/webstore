@@ -37,6 +37,7 @@
   margin-bottom: 20px;
   padding: 10px 15px;
   flex-direction: column;
+  align-self: stretch;
 }
 
 .basket-items {
@@ -58,7 +59,7 @@
 }
 
 .tree-title {
-  font-size: small;
+  font-size: var(--medium-small-font);
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -134,7 +135,7 @@
 
 .no-items-text {
   margin: 20px;
-  font-size: larger;
+  font-size: var(--regular-font);
   font-weight: 500;
 }
 

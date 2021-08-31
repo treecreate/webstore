@@ -29,7 +29,7 @@
   font-family: Argesta Display;
   font-style: normal;
   font-weight: normal;
-  font-size: 4rem;
+  font-size: var(--massive-font);
   align-items: center;
   letter-spacing: 0.2em;
 }
@@ -37,7 +37,7 @@
   font-family: Seravek;
   font-style: normal;
   font-weight: 100;
-  font-size: 2.25rem;
+  font-size: var(--large-font);
   line-height: 30px;
   letter-spacing: 0.1em;
 }
@@ -66,7 +66,7 @@
   font-family: Seravek;
   font-style: normal;
   font-weight: 200;
-  font-size: 1.5rem;
+  font-size: var(--regular-font);
   letter-spacing: 0.1em;
   padding: 0.1rem 1.5rem;
   border: 2px solid white;
@@ -133,7 +133,7 @@
 .start-design-button {
   border-radius: 6px;
   height: 50px;
-  font-size: 24px;
+  font-size: var(--regular-font);
 }
 
 .example-img {

@@ -6,10 +6,14 @@
   --gray-color: #9b9b9b;
   --gray-background: #e5e5e5;
   --gray-box-color: #e8e3e3;
+  --extra-small-font: 0.7rem;
+  --medium-small-font: 0.875rem;
   --small-font: 1rem;
+  --medium-font: 1.15rem;
   --regular-font: 1.5rem;
   --large-font: 2.25rem;
   --massive-font: 3rem;
+  --extra-massive-font: 6rem;
   --thin-font: 200;
   --thick-font: 700;
 }

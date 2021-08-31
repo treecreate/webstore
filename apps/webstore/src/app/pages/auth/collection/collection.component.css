@@ -36,7 +36,7 @@
 }
 
 .sub-title {
-  font-size: 24px;
+  font-size: var(--regular-font);
   font-weight: 500;
 }
 

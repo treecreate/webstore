@@ -47,8 +47,8 @@ hr {
 }
 
 .item-title {
-  font-weight: 700;
-  font-size: x-large;
+  font-weight: 300;
+  font-size: var(--regular-font);
 }
 
 .margin-top {

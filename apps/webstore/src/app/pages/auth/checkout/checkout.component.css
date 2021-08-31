@@ -61,7 +61,7 @@
   border-top: 1px solid rgba(0, 0, 0, 1);
 }
 .title {
-  font-size: large;
+  font-size: var(--regular-font);
   margin-left: 5px;
   font-weight: 500;
 }
@@ -113,7 +113,7 @@
 }
 
 .option-title {
-  font-size: 14px;
+  font-size: var(--medium-small-font);
   text-align: left;
   margin: 0;
   margin-left: 40px;
