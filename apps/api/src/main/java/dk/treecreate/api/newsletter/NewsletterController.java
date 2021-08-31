@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -74,11 +75,17 @@ public class NewsletterController
     @Operation(summary = "Create a new newsletter entry")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Newsletter information",
-            response = Newsletter.class)})
+            response = Newsletter.class),
+        @ApiResponse(code = 400, message = "Duplicate newsletter")})
     public Newsletter createNewsletter(
         @ApiParam(name = "email", example = "example@hotdeals.dev")
         @PathVariable String email)
     {
+        if (newsletterRepository.existsByEmail(email))
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Email is already registered");
+        }
         Newsletter newsletter = new Newsletter();
         newsletter.setEmail(email);
         return newsletterRepository.save(newsletter);

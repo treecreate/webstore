@@ -12,4 +12,6 @@ public interface NewsletterRepository extends JpaRepository<Newsletter, Long>
     Optional<Newsletter> findByEmail(String email);
 
     Optional<Newsletter> findByNewsletterId(UUID newsletterId);
+
+    Boolean existsByEmail(String email);
 }
