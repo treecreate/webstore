@@ -75,3 +75,7 @@ html {
   text-decoration: underline !important;
   cursor: pointer;
 }
+
+.add-transition {
+  transition: 0.5s;
+}

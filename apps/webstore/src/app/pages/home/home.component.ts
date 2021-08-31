@@ -1,4 +1,9 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { IAuthUser } from '@interfaces';
+import { LocalStorageVars } from '@models';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../shared/services/authentication/auth.service';
+import { LocalStorageService } from '../../shared/services/local-storage';
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
@@ -12,12 +17,30 @@ export class HomeComponent implements OnInit {
   initialTop: 0;
   parallaxRatio: number;
   showUpArrow = false;
+  public isLoggedIn: boolean;
+  private authUser$: BehaviorSubject<IAuthUser>;
 
   title = 'homeComponent';
 
-  constructor(private eleRef: ElementRef) {
+  constructor(
+    private localStorageService: LocalStorageService,
+    private authService: AuthService,
+    private eleRef: ElementRef
+  ) {
     this.initialTop = 0;
     this.parallaxRatio = 0.7;
+
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
+    });
   }
 
   @HostListener('window:scroll')

@@ -1,0 +1,85 @@
+.success-container {
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #f5f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.success-content {
+  min-height: 80vh;
+  width: 80vw;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.success-logo {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.back-to-home {
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.back-to-home-container {
+  text-align: left;
+  width: 100%;
+}
+
+.back-to-home:hover {
+  text-decoration: none;
+  margin-left: 0;
+  color: #ebc6ab !important;
+}
+
+.success-thank-you {
+  margin-top: 30px;
+  margin: 15px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.success-main-text {
+  font-size: larger;
+}
+
+.teamtrees-link-container {
+  margin: 20px;
+  display: flex;
+  transform: scale(0.6);
+}
+
+.teamtrees-link {
+  margin: 0 30px;
+}
+
+.teamtrees-link:hover {
+  transform: scale(0.9);
+}
+
+@media screen and (max-width: 600px) {
+  .back-to-home {
+    font-size: 12px;
+    margin: 0;
+  }
+  .success-content {
+    width: 100vw;
+  }
+  .teamtrees-link-container {
+    transform: scale(0.8);
+  }
+  .success-thank-you {
+    font-size: 36px;
+  }
+  .success-logo {
+    width: 150px;
+  }
+}

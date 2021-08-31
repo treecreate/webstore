@@ -58,6 +58,21 @@
   margin-bottom: 4px;
 }
 
+.subtext {
+  font-weight: 200;
+}
+
+.error-message {
+  margin-top: 12px;
+}
+
+.discount-code-display {
+  margin-top: 7px;
+  padding: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .special-input-field {
   border: none;
   width: 100%;
