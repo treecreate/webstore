@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ToastService } from '../toast/toast-service';
+import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'webstore-basket-item',

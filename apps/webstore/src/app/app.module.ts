@@ -33,7 +33,7 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
-import { BasketItemComponent } from './shared/components/basket-item/basket-item.component';
+import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
