@@ -3,7 +3,6 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  width: 100vw;
 }
 
 .desktop-title,
@@ -21,7 +20,6 @@
 }
 
 .basket-content {
-  width: 100vw;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
@@ -45,10 +43,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.basket-options {
-  width: 32%;
 }
 
 .basket-options-item {
@@ -129,8 +123,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  height: 388px;
+  width: 650px;
 }
 
 .no-items-text {
@@ -161,7 +155,8 @@
   .basket-items-container {
     margin-bottom: 0;
   }
-  .basket-options {
+  .basket-options,
+  .no-items {
     width: 650px;
     margin: 0;
     margin-bottom: 20px;
@@ -180,5 +175,8 @@
     width: 90vw;
     margin: 0;
     margin-bottom: 20px;
+  }
+  .no-items {
+    width: 100%;
   }
 }

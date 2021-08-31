@@ -11,21 +11,21 @@ import { Component, OnInit } from '@angular/core';
 export class BasketComponent implements OnInit {
   // TODO: get actual items in basket from API
   basketItems = [
-    {
-      title: 'First design',
-      size: 'small',
-      amount: 2,
-    },
-    {
-      title: 'Second design',
-      size: 'large',
-      amount: 1,
-    },
-    {
-      title: 'Last design',
-      size: 'medium',
-      amount: 2,
-    },
+    // {
+    //   title: 'First design',
+    //   size: 'small',
+    //   amount: 2,
+    // },
+    // {
+    //   title: 'Second design',
+    //   size: 'large',
+    //   amount: 1,
+    // },
+    // {
+    //   title: 'Last design',
+    //   size: 'medium',
+    //   amount: 2,
+    // },
   ];
 
   constructor() {}
