@@ -133,7 +133,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   changeDelivery() {
-    this.calcPriceService.setDelivery(!this.isHomeDelivery);
+    console.log('run update');
+    this.isHomeDelivery = !this.isHomeDelivery;
+    this.calcPriceService.setAll(this.checkoutItems, 0.1, this.isHomeDelivery);
   }
 
   updateFormValues() {

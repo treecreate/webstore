@@ -437,7 +437,7 @@
                                 <input
                                     type="checkbox"
                                     [checked]="!isHomeDelivery"
-                                    (change)="isHomeDelivery = !isHomeDelivery"
+                                    (change)="changeDelivery()"
                                 />
                                 <span class="checkmark"></span>
                             </label>
@@ -500,7 +500,7 @@
                                 <input
                                     type="checkbox"
                                     [checked]="isHomeDelivery"
-                                    (change)="isHomeDelivery = !isHomeDelivery"
+                                    (change)="changeDelivery()"
                                 />
                                 <span class="checkmark"></span>
                             </label>
@@ -531,15 +531,6 @@
                 <!-- Order info -->
                 <div class="order-info-section">
                     <div class="info-line">
-                        <span>Delivery</span
-                        ><span
-                            >{{
-                                calcPriceService.getDeliveryPricePrint()
-                            }}
-                            DKK</span
-                        >
-                    </div>
-                    <div class="info-line">
                         <span>Subtotal</span
                         ><span
                             >{{
@@ -560,6 +551,15 @@
                         ><span
                             >{{
                                 calcPriceService.calcDiscountAmountPrint()
+                            }}
+                            DKK</span
+                        >
+                    </div>
+                    <div class="info-line">
+                        <span>Delivery</span
+                        ><span
+                            >{{
+                                calcPriceService.getDeliveryPricePrint()
                             }}
                             DKK</span
                         >
