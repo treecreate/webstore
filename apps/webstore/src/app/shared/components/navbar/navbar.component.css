@@ -89,7 +89,7 @@
   text-align: center;
 }
 .dropdown-item-list a:hover {
-  background-color: #ebc6ab;
+  background-color: var(--action-color);
   color: white !important;
 }
 .dropdown-item-list a:first-child:hover {
@@ -122,7 +122,7 @@
   border: none;
 }
 .navbar-basket-icon {
-  background-color: #52d73d;
+  background-color: var(--green-color);
   border-radius: 5px;
   color: white;
   padding: 0 8px 3px 8px;
@@ -140,7 +140,7 @@
 .unverified-email {
   position: fixed;
   top: 56px;
-  background-color: #ebc6abc0;
+  background-color: var(--action-color);
   width: 100%;
   color: white;
   text-align: center;

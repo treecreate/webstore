@@ -73,7 +73,7 @@ hr {
 }
 
 .amount {
-  border: 1px solid #ebc6ab;
+  border: 1px solid var(--action-color);
   display: flex;
   margin: 0 5px;
   justify-content: center;

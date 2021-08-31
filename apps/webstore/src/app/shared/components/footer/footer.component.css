@@ -68,7 +68,7 @@ h5 {
   transition: 0.4s;
 }
 .terms:hover {
-  color: #ebc6ab !important;
+  color: var(--action-color) !important;
   text-decoration: none;
 }
 .remove-mobile {

@@ -1,5 +1,5 @@
 .checkout-container {
-  background-color: #f5f2f2;
+  background-color: var(--gray-background);
   width: 100vw;
   min-height: 100vh;
   display: flex;
@@ -79,7 +79,7 @@
 .back-to-basket:hover {
   text-decoration: none;
   margin-left: 5px;
-  color: #ebc6ab !important;
+  color: var(--action-color) !important;
 }
 
 .back-to-basket-container {
@@ -144,7 +144,7 @@
 }
 
 .green-text {
-  color: #52d73d;
+  color: var(--green-color);
 }
 
 .margin-top {

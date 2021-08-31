@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --green-color: #52d73d;
+  --action-color: #ebc6ab;
+  --light-action-color: #fff0e4;
+  --gray-color: #9b9b9b;
+  --gray-background: #e5e5e5;
+  --gray-box-color: #e8e3e3;
+  --small-font: 1rem;
+  --regular-font: 1.5rem;
+  --large-font: 2.25rem;
+  --massive-font: 3rem;
+  --thin-font: 200;
+  --thick-font: 700;
+}
+
 body {
   min-width: 100%;
 }
