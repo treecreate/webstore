@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .authorizeRequests()
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/users/verification/{token}").permitAll()
+            .antMatchers("/newsletter/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
             .antMatchers("/docs", // Swagger docs endpoints
                 "/v2/api-docs",
