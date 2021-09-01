@@ -194,6 +194,10 @@
     justify-content: center;
   }
 
+  .trees-donated-price {
+    min-width: 80px;
+  }
+
   .trees-donated {
     margin-top: 10px;
     align-self: stretch;
@@ -201,5 +205,9 @@
 
   .show-mobile {
     display: block;
+  }
+
+  .no-margin {
+    margin: 5px 0;
   }
 }
