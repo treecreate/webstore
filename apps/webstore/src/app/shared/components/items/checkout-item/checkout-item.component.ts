@@ -21,4 +21,15 @@ export class CheckoutItemComponent implements OnInit {
     );
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
+
+  sizeInCm(size: string): string {
+    switch (size) {
+      case 'small':
+        return '20cm x 20cm';
+      case 'medium':
+        return '25cm x 25cm';
+      case 'large':
+        return '30cm x 30cm';
+    }
+  }
 }

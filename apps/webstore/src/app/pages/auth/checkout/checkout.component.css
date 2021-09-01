@@ -88,6 +88,7 @@
 
 .city-code-section {
   display: flex;
+  flex-shrink: 1;
 }
 
 .city-code-section .city-code:first-child {
@@ -150,6 +151,25 @@
   margin-top: 15px;
 }
 
+.seed-icon {
+  margin: 0 15px 0 18px;
+}
+
+.trees-donated {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trees-donated-container {
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.show-mobile {
+  display: none;
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;
@@ -159,10 +179,27 @@
     width: 90vw;
   }
 
-  .checkout-container {
-  }
-
   .checkout-section {
     width: 90vw;
+  }
+
+  .remove-mobile {
+    display: none;
+  }
+
+  .trees-donated-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .trees-donated {
+    margin-top: 10px;
+    align-self: stretch;
+  }
+
+  .show-mobile {
+    display: block;
   }
 }

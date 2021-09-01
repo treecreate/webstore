@@ -148,51 +148,47 @@
                         The address is too long.
                     </div>
 
-                    <div class="city-code-section">
-                        <div class="tc-input-group field city-code city">
-                            <input
-                                type="text"
-                                class="tc-input-field"
-                                name="city"
-                                formControlName="city"
-                                id="city"
-                                placeholder="City"
-                            />
-                            <label for="city" class="tc-input-label"
-                                >City *
-                            </label>
-                            <div
-                                class="error-message offset"
-                                *ngIf="
-                                    this.checkoutForm.get('city').dirty &&
-                                    this.checkoutForm.get('city').invalid
-                                "
-                            >
-                                The city name is too long.
-                            </div>
+                    <div class="tc-input-group field">
+                        <input
+                            type="text"
+                            class="tc-input-field"
+                            name="city"
+                            formControlName="city"
+                            id="city"
+                            placeholder="City"
+                        />
+                        <label for="city" class="tc-input-label">City * </label>
+                        <div
+                            class="error-message offset"
+                            *ngIf="
+                                this.checkoutForm.get('city').dirty &&
+                                this.checkoutForm.get('city').invalid
+                            "
+                        >
+                            The city name is too long.
                         </div>
+                    </div>
 
-                        <div class="tc-input-group field city-code postcode">
-                            <input
-                                type="text"
-                                class="tc-input-field"
-                                formControlName="postcode"
-                                id="postcode"
-                                name="postcode"
-                                placeholder="1234"
-                            />
-                            <label for="postcode" class="tc-input-label"
-                                >Postcode *</label
-                            >
-                            <div
-                                class="error-message offset"
-                                *ngIf="
-                                    this.checkoutForm.get('postcode').dirty &&
-                                    this.checkoutForm.get('postcode').invalid
-                                "
-                            >
-                                Invalid danish postcode.
-                            </div>
+                    <div class="tc-input-group field">
+                        <input
+                            type="text"
+                            class="tc-input-field"
+                            formControlName="postcode"
+                            id="postcode"
+                            name="postcode"
+                            placeholder="1234"
+                        />
+                        <label for="postcode" class="tc-input-label"
+                            >Postcode *</label
+                        >
+                        <div
+                            class="error-message offset"
+                            *ngIf="
+                                this.checkoutForm.get('postcode').dirty &&
+                                this.checkoutForm.get('postcode').invalid
+                            "
+                        >
+                            Invalid danish postcode.
                         </div>
                     </div>
                     <div class="option">
@@ -287,10 +283,9 @@
                         <div
                             class="error-message"
                             *ngIf="
-                                this.billingAddressForm.get('phoneNumber')
-                                    .dirty &&
-                                this.billingAddressForm.get('phoneNumber')
-                                    .invalid
+                                this.billingAddressForm.get(
+                                    'billingPhoneNumber'
+                                ).invalid
                             "
                         >
                             Invalid phone number.
@@ -301,12 +296,12 @@
                                 type="email"
                                 class="tc-input-field"
                                 placeholder="E-mail"
-                                formControlName="email"
-                                name="email"
-                                id="profileEmail"
+                                formControlName="billingEmail"
+                                name="billingEmail"
+                                id="billingEmail"
                                 autocomplete="email"
                             />
-                            <label for="email" class="tc-input-label"
+                            <label for="billingEmail" class="tc-input-label"
                                 >E-mail *</label
                             >
                         </div>
@@ -314,8 +309,10 @@
                         <div
                             class="error-message"
                             *ngIf="
-                                this.billingAddressForm.get('email').dirty &&
-                                this.billingAddressForm.get('email').invalid
+                                this.billingAddressForm.get('billingEmail')
+                                    .dirty &&
+                                this.billingAddressForm.get('billingEmail')
+                                    .invalid
                             "
                         >
                             Invalid email.
@@ -324,12 +321,14 @@
                             <input
                                 type="text"
                                 class="tc-input-field"
-                                name="streedOne"
-                                formControlName="streetAddress"
+                                name="billingStreetAddress"
+                                formControlName="billingStreetAddress"
                                 placeholder="Your street name"
-                                id="streetAddress"
+                                id="billingStreetAddress"
                             />
-                            <label for="streetAddress" class="tc-input-label"
+                            <label
+                                for="billingStreetAddress"
+                                class="tc-input-label"
                                 >Street address *</label
                             >
                         </div>
@@ -337,10 +336,12 @@
                         <div
                             class="error-message"
                             *ngIf="
-                                this.billingAddressForm.get('streetAddress')
-                                    .dirty &&
-                                this.billingAddressForm.get('streetAddress')
-                                    .invalid
+                                this.billingAddressForm.get(
+                                    'billingStreetAddress'
+                                ).dirty &&
+                                this.billingAddressForm.get(
+                                    'billingStreetAddress'
+                                ).invalid
                             "
                         >
                             The address is too long.
@@ -350,12 +351,14 @@
                             <input
                                 type="text"
                                 class="tc-input-field"
-                                name="streedTwo"
-                                formControlName="streetAddress2"
+                                name="billingStreetAddress2"
+                                formControlName="billingStreetAddress2"
                                 placeholder="Your street name"
-                                id="streetAddress2"
+                                id="billingStreetAddress2"
                             />
-                            <label for="streetAddress2" class="tc-input-label"
+                            <label
+                                for="billingStreetAddress2"
+                                class="tc-input-label"
                                 >Street address 2</label
                             >
                         </div>
@@ -363,66 +366,63 @@
                         <div
                             class="error-message"
                             *ngIf="
-                                this.billingAddressForm.get('streetAddress2')
-                                    .dirty &&
-                                this.billingAddressForm.get('streetAddress2')
-                                    .invalid
+                                this.billingAddressForm.get(
+                                    'billingStreetAddress2'
+                                ).invalid
                             "
                         >
                             The address is too long.
                         </div>
 
-                        <div class="city-code-section">
-                            <div class="tc-input-group field city-code city">
-                                <input
-                                    type="text"
-                                    class="tc-input-field"
-                                    name="city"
-                                    formControlName="city"
-                                    id="city"
-                                    placeholder="City"
-                                />
-                                <label for="city" class="tc-input-label"
-                                    >City *
-                                </label>
-                                <div
-                                    class="error-message offset"
-                                    *ngIf="
-                                        this.billingAddressForm.get('city')
-                                            .dirty &&
-                                        this.billingAddressForm.get('city')
-                                            .invalid
-                                    "
-                                >
-                                    The city name is too long.
-                                </div>
-                            </div>
-
+                        <div class="tc-input-group field">
+                            <input
+                                type="text"
+                                class="tc-input-field"
+                                name="billingCity"
+                                formControlName="billignCity"
+                                id="billingCity"
+                                placeholder="City"
+                            />
+                            <label for="billingCity" class="tc-input-label"
+                                >City *
+                            </label>
                             <div
-                                class="tc-input-group field city-code postcode"
+                                class="error-message offset"
+                                *ngIf="
+                                    this.billingAddressForm.get('billingCity')
+                                        .dirty &&
+                                    this.billingAddressForm.get('billingCity')
+                                        .invalid
+                                "
                             >
-                                <input
-                                    type="text"
-                                    class="tc-input-field"
-                                    formControlName="postcode"
-                                    id="postcode"
-                                    name="postcode"
-                                    placeholder="1234"
-                                />
-                                <label for="postcode" class="tc-input-label"
-                                    >Postcode *</label
-                                >
-                                <div
-                                    class="error-message offset"
-                                    *ngIf="
-                                        this.billingAddressForm.get('postcode')
-                                            .dirty &&
-                                        this.billingAddressForm.get('postcode')
-                                            .invalid
-                                    "
-                                >
-                                    Invalid danish postcode.
-                                </div>
+                                The city name is too long.
+                            </div>
+                        </div>
+
+                        <div class="tc-input-group field">
+                            <input
+                                type="text"
+                                class="tc-input-field"
+                                formControlName="billingPostcode"
+                                id="billingPostcode"
+                                name="billingPostcode"
+                                placeholder="1234"
+                            />
+                            <label for="billingPostcode" class="tc-input-label"
+                                >Postcode *</label
+                            >
+                            <div
+                                class="error-message offset"
+                                *ngIf="
+                                    this.billingAddressForm.get(
+                                        'billingPostcode'
+                                    ).dirty &&
+                                    this.billingAddressForm.get(
+                                        'billingPostcode'
+                                    ).invalid
+                                "
+                            >
+                                Invalid danish postcode.
                             </div>
                         </div>
                     </div>
@@ -531,12 +531,37 @@
                 ></webstore-checkout-item>
 
                 <!-- TODO: Add donated trees section -->
+                <div
+                    class="trees-donated-container"
+                    *ngIf="extraDonatedTrees > 0"
+                >
+                    <img
+                        src="../../../../assets/icons/seed-icon.svg"
+                        alt=""
+                        class="seed-icon show-mobile"
+                    />
+                    <div class="trees-donated">
+                        <div>
+                            <img
+                                src="../../../../assets/icons/seed-icon.svg"
+                                alt=""
+                                class="seed-icon remove-mobile"
+                            />
+                            Thank you for planting
+                            <strong>{{ extraDonatedTrees }} extra</strong>
+                            tree(s)!
+                        </div>
+                        <div class="trees-donated-price">
+                            {{ priceInfo.extraTreesPrice.toFixed(2) }} DKK
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Order info -->
                 <div class="order-info-section">
                     <div class="info-line">
                         <span>Subtotal</span
-                        ><span>{{ priceInfo.fullPrice }} DKK</span>
+                        ><span>{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
                     </div>
                     <div
                         class="info-line"
@@ -545,18 +570,23 @@
                         "
                     >
                         <span>You save</span
-                        ><span>{{ priceInfo.discountAmount }} DKK</span>
+                        ><span
+                            >{{ priceInfo.discountAmount.toFixed(2) }} DKK</span
+                        >
                     </div>
                     <div class="info-line">
                         <span>Delivery</span
-                        ><span>{{ priceInfo.deliveryPrice }} DKK</span>
+                        ><span
+                            >{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span
+                        >
                     </div>
                     <div class="info-line total">
                         <span>Total</span
-                        ><span>{{ priceInfo.finalPrice }} DKK</span>
+                        ><span>{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
                     </div>
                     <div class="info-line">
-                        <span>VAT</span><span>{{ priceInfo.vat }} DKK</span>
+                        <span>VAT</span
+                        ><span>{{ priceInfo.vat.toFixed(2) }} DKK</span>
                     </div>
                 </div>
 

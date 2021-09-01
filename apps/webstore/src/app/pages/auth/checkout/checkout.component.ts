@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit {
   currentUser: IUser;
 
   isHomeDelivery = false;
-  donatedTrees = 1;
+  extraDonatedTrees = 1;
   isSubscribed: boolean;
 
   subscribeToNewsletter = true;
@@ -85,7 +85,7 @@ export class CheckoutComponent implements OnInit {
       this.checkoutItems,
       this.discount,
       this.isHomeDelivery,
-      this.donatedTrees
+      this.extraDonatedTrees
     );
 
     try {
@@ -105,19 +105,27 @@ export class CheckoutComponent implements OnInit {
       name: new FormControl('', [
         Validators.maxLength(50),
         Validators.pattern("^[a-zA-Z-' ]*$"),
+        Validators.required,
       ]),
       phoneNumber: new FormControl('', [
         Validators.maxLength(11),
         Validators.pattern('^[0-9+]*$'),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50)]),
+      streetAddress: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.required,
+      ]),
       streetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      city: new FormControl('', [Validators.maxLength(50)]),
+      city: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.required,
+      ]),
       postcode: new FormControl('', [
         Validators.max(9999),
         Validators.min(555),
         Validators.pattern('^[0-9]*$'),
+        Validators.required,
       ]),
     });
 
@@ -147,11 +155,15 @@ export class CheckoutComponent implements OnInit {
 
   changeDelivery() {
     this.isHomeDelivery = !this.isHomeDelivery;
+    this.updatePrices();
+  }
+
+  updatePrices() {
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.checkoutItems,
       this.discount,
       this.isHomeDelivery,
-      this.donatedTrees
+      this.extraDonatedTrees
     );
   }
 
@@ -189,14 +201,7 @@ export class CheckoutComponent implements OnInit {
 
   isDisabled() {
     if (this.billingAddressIsTheSame) {
-      return (
-        this.isTermsAndConditionsAccepted &&
-        this.checkoutForm.get('name').valid &&
-        this.checkoutForm.get('email').valid &&
-        this.checkoutForm.get('streetAddress').valid &&
-        this.checkoutForm.get('city').valid &&
-        this.checkoutForm.get('postcode').valid
-      );
+      return this.isTermsAndConditionsAccepted && this.checkoutForm.valid;
     } else {
       return (
         this.isTermsAndConditionsAccepted &&

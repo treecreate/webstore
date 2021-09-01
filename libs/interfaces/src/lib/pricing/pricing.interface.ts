@@ -4,5 +4,6 @@ export interface IPricing {
   finalPrice: number;
   discountAmount: number;
   deliveryPrice: number;
+  extraTreesPrice: number;
   vat: number;
 }

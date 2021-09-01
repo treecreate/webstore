@@ -37,8 +37,11 @@ export class CalculatePriceService {
     // Get delivery price
     const deliveryPrice = isHomeDelivery ? 29 : 0;
 
+    // Get donated trees price
+    const extraTreesPrice = donatedTrees * 10;
+
     // Get final price with delivery and donation
-    const finalPrice = discountedPrice + donatedTrees * 10 + deliveryPrice;
+    const finalPrice = discountedPrice + extraTreesPrice + deliveryPrice;
 
     // Get VAT for the final price
     const vat = finalPrice * 0.2;
@@ -49,6 +52,7 @@ export class CalculatePriceService {
       finalPrice,
       discountAmount,
       deliveryPrice,
+      extraTreesPrice,
       vat,
     };
   }

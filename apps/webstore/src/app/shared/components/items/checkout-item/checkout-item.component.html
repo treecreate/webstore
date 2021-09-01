@@ -2,7 +2,7 @@
     <img src="/assets/img/design-ex1-img.png" class="item-image" />
     <div class="item-info">
         <div class="item-title">
-            {{ item.title }}
+            <strong>{{ item.title }}</strong>
         </div>
         <div class="info-container">
             <div class="info-line">
@@ -10,15 +10,20 @@
             </div>
 
             <div class="info-line">
-                <span>Size:</span> <span> {{ item.size }} </span>
+                <span>Size:</span> <span> {{ sizeInCm(item.size) }} </span>
             </div>
             <div class="info-line">
                 <span>Price:</span>
-                <span>{{ item.amount }} x {{ itemUnitPrice }}</span>
+                <span
+                    >{{ item.amount }} x
+                    {{ itemUnitPrice.toFixed(2) }} DKK</span
+                >
             </div>
             <div class="info-line">
-                <span>Total:</span>
-                <span> {{ itemPrice }} </span>
+                <span> <strong>Total:</strong> </span>
+                <span>
+                    <strong>{{ itemPrice.toFixed(2) }} DKK</strong></span
+                >
             </div>
         </div>
     </div>
