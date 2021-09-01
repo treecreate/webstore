@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DiscountType, IDesign, IDiscount, IPricing } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 
 @Component({
   selector: 'webstore-basket',
@@ -12,28 +14,36 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 })
 export class BasketComponent implements OnInit {
   // TODO: get actual items in basket from API
-  basketItems = [
+  itemList: IDesign[] = [
     {
-      title: 'First design',
+      designId: '1',
+      userId: '1',
+      title: 'first design',
       size: 'small',
       amount: 2,
     },
     {
-      title: 'Second design',
-      size: 'large',
+      designId: '2',
+      userId: '1',
+      title: 'second design',
+      size: 'medium',
       amount: 1,
     },
-    {
-      title: 'Last design',
-      size: 'medium',
-      amount: 2,
-    },
   ];
-  public donatedTrees = 1;
-  public discount = 0.1;
-  discountForm: FormGroup;
 
-  constructor(private toastService: ToastService) {
+  donatedTrees = 0;
+  discount: IDiscount = {
+    amount: 0,
+    type: DiscountType.percent,
+  };
+
+  discountForm: FormGroup;
+  priceInfo: IPricing;
+
+  constructor(
+    private toastService: ToastService,
+    private calculatePriceService: CalculatePriceService
+  ) {
     this.discountForm = new FormGroup({
       discountCode: new FormControl('', [
         Validators.required,
@@ -42,8 +52,19 @@ export class BasketComponent implements OnInit {
     });
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.updatePrices();
+  }
+
+  @HostListener('click')
+  updatePrices() {
+    this.priceInfo = this.calculatePriceService.calculatePrices(
+      this.itemList,
+      this.discount,
+      false,
+      this.donatedTrees
+    );
+  }
 
   decreaseDonatingAmount() {
     if (this.donatedTrees > 1) {
@@ -58,42 +79,18 @@ export class BasketComponent implements OnInit {
     }
   }
 
-  calcDonationPrice() {
-    return (this.donatedTrees - 1) * 10;
+  discountPercent(): boolean {
+    return (
+      this.priceInfo.discountAmount > 0 &&
+      this.discount.type === DiscountType.percent
+    );
   }
 
-  calcSubtotalPrice(): number {
-    let sum = 0;
-    for (let i = 0; i < this.basketItems.length; i++) {
-      sum += this.calcItemPrice(
-        this.basketItems[i].amount,
-        this.basketItems[i].size
-      );
-    }
-    return sum;
-  }
-
-  calcTotal(): number {
-    return this.calcSubtotalPrice() * (1 - this.discount);
-  }
-
-  calcAmountSaved(): number {
-    return this.calcSubtotalPrice() * this.discount;
-  }
-
-  calcItemPrice(amount: number, size: string) {
-    switch (size) {
-      case 'small':
-        return amount * 495;
-      case 'medium':
-        return amount * 695;
-      case 'large':
-        return amount * 995;
-    }
-  }
-
-  calcVat() {
-    return this.calcTotal() * 0.2;
+  discountAmount(): boolean {
+    return (
+      this.priceInfo.discountAmount > 0 &&
+      this.discount.type === DiscountType.amount
+    );
   }
 
   applyDiscount() {

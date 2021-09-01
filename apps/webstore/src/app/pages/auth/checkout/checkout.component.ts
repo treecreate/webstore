@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
   public isVerified: boolean;
 
   // TODO: get itemList from basket
-  checkoutItems: IDesign[] = [
+  itemList: IDesign[] = [
     {
       designId: '1',
       userId: '1',
@@ -81,12 +81,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.priceInfo = this.calculatePriceService.calculatePrices(
-      this.checkoutItems,
-      this.discount,
-      this.isHomeDelivery,
-      this.extraDonatedTrees
-    );
+    this.updatePrices();
 
     try {
       //Get user and update form
@@ -160,7 +155,7 @@ export class CheckoutComponent implements OnInit {
 
   updatePrices() {
     this.priceInfo = this.calculatePriceService.calculatePrices(
-      this.checkoutItems,
+      this.itemList,
       this.discount,
       this.isHomeDelivery,
       this.extraDonatedTrees

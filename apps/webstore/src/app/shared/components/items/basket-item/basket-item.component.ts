@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IDesign } from '@interfaces';
+import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -10,13 +12,27 @@ import { ToastService } from '../../toast/toast-service';
   ],
 })
 export class BasketItemComponent implements OnInit {
-  @Input() item;
+  @Input() item: IDesign;
 
-  constructor(private toastService: ToastService) {}
+  itemPrice: number;
+
+  constructor(
+    private toastService: ToastService,
+    private calculatePriceService: CalculatePriceService
+  ) {}
+
+  ngOnInit(): void {
+    this.updatePrice();
+  }
+
+  updatePrice() {
+    this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
+  }
 
   decreaseAmount() {
-    if (this.item.amount > 0) {
+    if (this.item.amount > 1) {
       this.item.amount = this.item.amount - 1;
+      this.updatePrice();
     } else {
       this.toastService.showAlert(
         "Press Delete if you don't wish to purchase this design.",
@@ -31,9 +47,11 @@ export class BasketItemComponent implements OnInit {
     switch (this.item.size) {
       case 'small':
         this.item.size = 'medium';
+        this.updatePrice();
         break;
       case 'medium':
         this.item.size = 'large';
+        this.updatePrice();
         break;
       case 'large':
         this.toastService.showAlert(
@@ -57,24 +75,12 @@ export class BasketItemComponent implements OnInit {
         break;
       case 'medium':
         this.item.size = 'small';
+        this.updatePrice();
         break;
       case 'large':
         this.item.size = 'medium';
+        this.updatePrice();
         break;
     }
   }
-
-  calcPrice(size: string, amount: number) {
-    switch (size) {
-      case 'small':
-        return 495 * amount;
-      case 'medium':
-        return 695 * amount;
-      case 'large':
-        return 995 * amount;
-    }
-  }
-
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
 }

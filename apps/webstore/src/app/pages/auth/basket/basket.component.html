@@ -6,17 +6,14 @@
                 <div class="basket-items-container">
                     <h2 class="mobile-title">BASKET</h2>
                     <!-- basket items -->
-                    <div
-                        class="basket-items"
-                        *ngIf="!(basketItems.length <= 0)"
-                    >
+                    <div class="basket-items" *ngIf="!(itemList.length <= 0)">
                         <webstore-basket-item
-                            *ngFor="let item of basketItems"
+                            *ngFor="let item of itemList"
                             [item]="item"
                         ></webstore-basket-item>
                     </div>
                     <!-- If there are not items in basket -->
-                    <div class="no-items" *ngIf="basketItems.length <= 0">
+                    <div class="no-items" *ngIf="itemList.length <= 0">
                         <img
                             src="../../../../assets/icons/no-design-icon.svg"
                             alt=""
@@ -86,9 +83,16 @@
                     >
                         Apply Discount
                     </button>
-                    <div *ngIf="discount > 0" class="discount-code-display">
+                    <div
+                        *ngIf="discountPercent()"
+                        class="discount-code-display"
+                    >
                         <span>Amount dicount:</span>
-                        <span>-{{ discount * 100 }}% </span>
+                        <span>-{{ discount.amount * 100 }}% </span>
+                    </div>
+                    <div *ngIf="discountAmount()" class="discount-code-display">
+                        <span>Amount dicount:</span>
+                        <span>-{{ discount.amount }} </span>
                     </div>
                 </form>
                 <!-- Price info -->
@@ -104,24 +108,21 @@
                         </div>
                         <div class="price-info">
                             <span>
-                                {{ calcSubtotalPrice().toFixed(2) }} DKK <br />
+                                {{ priceInfo.fullPrice.toFixed(2) }} DKK <br />
                             </span>
                             <span>
-                                {{ calcAmountSaved().toFixed(2) }} DKK <br />
+                                {{ priceInfo.discountAmount.toFixed(2) }} DKK
+                                <br />
                             </span>
                             <span class="weight">
                                 <strong>
-                                    {{
-                                        (
-                                            calcTotal() + calcDonationPrice()
-                                        ).toFixed(2)
-                                    }}
+                                    {{ priceInfo.finalPrice.toFixed(2) }}
                                     DKK
                                 </strong>
                                 <br />
                             </span>
                             <span>
-                                {{ calcVat().toFixed(2) }} DKK
+                                {{ priceInfo.vat.toFixed(2) }} DKK
                                 <br />
                             </span>
                         </div>

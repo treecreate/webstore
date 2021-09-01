@@ -27,7 +27,7 @@
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="item.amount = item.amount + 1"
+                    (click)="item.amount = item.amount + 1; this.updatePrice()"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -65,9 +65,7 @@
             <div class="text">
                 <span> Price </span>
             </div>
-            <div class="option price-text">
-                {{ calcPrice(item.size, item.amount) }},00 DKK
-            </div>
+            <div class="option price-text">{{ itemPrice.toFixed(2) }} DKK</div>
         </div>
         <hr class="margin-top" />
         <!-- actions -->
