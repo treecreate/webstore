@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAuthUser, IUser } from '@interfaces';
+import {
+  DiscountType,
+  IAuthUser,
+  IDesign,
+  IDiscount,
+  IPricing,
+  IUser,
+} from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
-import { CalcPriceService } from '../../../shared/services/calc-price/calc-price.service';
+import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
 import { VerifyService } from '../../../shared/services/verify/verify.service';
@@ -21,37 +28,40 @@ import { VerifyService } from '../../../shared/services/verify/verify.service';
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
   billingAddressForm: FormGroup;
+
   currentUser: IUser;
+
   isHomeDelivery = false;
+  donatedTrees = 1;
   isSubscribed: boolean;
+
   subscribeToNewsletter = true;
   billingAddressIsTheSame = true;
-  discount = 0.1;
+
+  priceInfo: IPricing;
+  discount: IDiscount = {
+    amount: 0,
+    type: DiscountType.percent,
+  };
+
   isTermsAndConditionsAccepted = false;
   public isVerified: boolean;
 
   // TODO: get itemList from basket
-  checkoutItems = [
+  checkoutItems: IDesign[] = [
     {
-      title: 'First design',
+      designId: '1',
+      userId: '1',
+      title: 'first design',
       size: 'small',
       amount: 2,
-      price: 495,
-      type: 'Family tree',
     },
     {
-      title: 'Second design',
-      size: 'large',
-      amount: 1,
-      price: 995,
-      type: 'Family tree',
-    },
-    {
-      title: 'Last design',
+      designId: '2',
+      userId: '1',
+      title: 'second design',
       size: 'medium',
-      amount: 2,
-      price: 695,
-      type: 'Family tree',
+      amount: 1,
     },
   ];
 
@@ -61,27 +71,27 @@ export class CheckoutComponent implements OnInit {
     private userService: UserService,
     private verifyService: VerifyService,
     private modalService: NgbModal,
-    public calcPriceService: CalcPriceService
+    private calculatePriceService: CalculatePriceService
   ) {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
         this.isVerified = this.verifyService.getIsVerified();
       });
-
-    // Activate calcPrice service
-    this.calcPriceService.setAll(this.checkoutItems, 0.1, this.isHomeDelivery);
   }
 
   ngOnInit(): void {
+    this.priceInfo = this.calculatePriceService.calculatePrices(
+      this.checkoutItems,
+      this.discount,
+      this.isHomeDelivery,
+      this.donatedTrees
+    );
+
     try {
       //Get user and update form
       this.userService.getUser().subscribe((user: IUser) => {
         this.currentUser = user;
-        //Check for isVerified status change
-        if (this.isVerified !== user.isVerified) {
-          this.verifyService.setIsVerified(user.isVerified);
-        }
         this.updateFormValues();
       });
     } catch (err) {
@@ -112,19 +122,22 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.billingAddressForm = new FormGroup({
-      name: new FormControl('', [
+      billingName: new FormControl('', [
         Validators.maxLength(50),
         Validators.pattern("^[a-zA-Z-' ]*$"),
       ]),
-      phoneNumber: new FormControl('', [
+      billingPhoneNumber: new FormControl('', [
         Validators.maxLength(11),
         Validators.pattern('^[0-9+]*$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50)]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      city: new FormControl('', [Validators.maxLength(50)]),
-      postcode: new FormControl('', [
+      billingEmail: new FormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      billingStreetAddress: new FormControl('', [Validators.maxLength(50)]),
+      billingStreetAddress2: new FormControl('', [Validators.maxLength(50)]),
+      billingCity: new FormControl('', [Validators.maxLength(50)]),
+      billingPostcode: new FormControl('', [
         Validators.max(9999),
         Validators.min(555),
         Validators.pattern('^[0-9]*$'),
@@ -133,9 +146,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   changeDelivery() {
-    console.log('run update');
     this.isHomeDelivery = !this.isHomeDelivery;
-    this.calcPriceService.setAll(this.checkoutItems, 0.1, this.isHomeDelivery);
+    this.priceInfo = this.calculatePriceService.calculatePrices(
+      this.checkoutItems,
+      this.discount,
+      this.isHomeDelivery,
+      this.donatedTrees
+    );
   }
 
   updateFormValues() {
@@ -188,11 +205,11 @@ export class CheckoutComponent implements OnInit {
         this.checkoutForm.get('streetAddress').valid &&
         this.checkoutForm.get('city').valid &&
         this.checkoutForm.get('postcode').valid &&
-        this.billingAddressForm.get('name').valid &&
-        this.billingAddressForm.get('email').valid &&
-        this.billingAddressForm.get('streetAddress').valid &&
-        this.billingAddressForm.get('city').valid &&
-        this.billingAddressForm.get('postcode').valid
+        this.billingAddressForm.get('billingName').valid &&
+        this.billingAddressForm.get('billingEmail').valid &&
+        this.billingAddressForm.get('billingStreetAddress').valid &&
+        this.billingAddressForm.get('billingCity').valid &&
+        this.billingAddressForm.get('billingPostcode').valid
       );
     }
   }

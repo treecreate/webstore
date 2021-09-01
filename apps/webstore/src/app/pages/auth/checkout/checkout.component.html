@@ -210,7 +210,7 @@
                             Billing address is the same as delivery address
                         </div>
                     </div>
-                    <div class="option margin-top">
+                    <div class="option margin-top" *ngIf="!isSubscribed">
                         <label class="checkbox-container rm-margin">
                             <input
                                 type="checkbox"
@@ -245,12 +245,12 @@
                             <input
                                 type="text"
                                 class="tc-input-field"
-                                formControlName="name"
+                                formControlName="billingName"
                                 placeholder="Your name"
-                                id="name"
-                                autocomplete="name"
+                                id="billingName"
+                                autocomplete="billingName"
                             />
-                            <label for="name" class="tc-input-label"
+                            <label for="billingName" class="tc-input-label"
                                 >Name *</label
                             >
                         </div>
@@ -258,8 +258,10 @@
                         <div
                             class="error-message"
                             *ngIf="
-                                this.billingAddressForm.get('name').dirty &&
-                                this.billingAddressForm.get('name').invalid
+                                this.billingAddressForm.get('billingName')
+                                    .dirty &&
+                                this.billingAddressForm.get('billingName')
+                                    .invalid
                             "
                         >
                             Invalid name.
@@ -269,13 +271,15 @@
                             <input
                                 type="text"
                                 class="tc-input-field"
-                                formControlName="phoneNumber"
+                                formControlName="billingPhoneNumber"
                                 placeholder="12345678"
-                                name="phoneNumber"
-                                id="phoneNumber"
+                                name="billingPhoneNumber"
+                                id="billingPhoneNumber"
                                 autocomplete="phoneNumber"
                             />
-                            <label for="phoneNumber" class="tc-input-label"
+                            <label
+                                for="billingPhoneNumber"
+                                class="tc-input-label"
                                 >Phone number</label
                             >
                         </div>
@@ -532,46 +536,27 @@
                 <div class="order-info-section">
                     <div class="info-line">
                         <span>Subtotal</span
-                        ><span
-                            >{{
-                                calcPriceService.calcFullPricePrint()
-                            }}
-                            DKK</span
-                        >
+                        ><span>{{ priceInfo.fullPrice }} DKK</span>
                     </div>
                     <div
                         class="info-line"
                         [ngClass]="
-                            calcPriceService.calcDiscountAmount() > 0
-                                ? 'green-text'
-                                : ''
+                            priceInfo.discountAmount > 0 ? 'green-text' : ''
                         "
                     >
                         <span>You save</span
-                        ><span
-                            >{{
-                                calcPriceService.calcDiscountAmountPrint()
-                            }}
-                            DKK</span
-                        >
+                        ><span>{{ priceInfo.discountAmount }} DKK</span>
                     </div>
                     <div class="info-line">
                         <span>Delivery</span
-                        ><span
-                            >{{
-                                calcPriceService.getDeliveryPricePrint()
-                            }}
-                            DKK</span
-                        >
+                        ><span>{{ priceInfo.deliveryPrice }} DKK</span>
                     </div>
                     <div class="info-line total">
                         <span>Total</span
-                        ><span
-                            >{{
-                                calcPriceService.calcFinalPricePrint()
-                            }}
-                            DKK</span
-                        >
+                        ><span>{{ priceInfo.finalPrice }} DKK</span>
+                    </div>
+                    <div class="info-line">
+                        <span>VAT</span><span>{{ priceInfo.vat }} DKK</span>
                     </div>
                 </div>
 

@@ -6,7 +6,7 @@
         </div>
         <div class="info-container">
             <div class="info-line">
-                <span>Type:</span> <span> {{ item.type }} </span>
+                <span>Type:</span> <span> {{ 'Family Tree' }} </span>
             </div>
 
             <div class="info-line">
@@ -14,11 +14,11 @@
             </div>
             <div class="info-line">
                 <span>Price:</span>
-                <span>{{ item.amount }} x {{ item.price }}</span>
+                <span>{{ item.amount }} x {{ itemUnitPrice }}</span>
             </div>
             <div class="info-line">
                 <span>Total:</span>
-                <span> {{ item.price * item.amount }} </span>
+                <span> {{ itemPrice }} </span>
             </div>
         </div>
     </div>

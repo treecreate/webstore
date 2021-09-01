@@ -13,21 +13,21 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 export class BasketComponent implements OnInit {
   // TODO: get actual items in basket from API
   basketItems = [
-    // {
-    //   title: 'First design',
-    //   size: 'small',
-    //   amount: 2,
-    // },
-    // {
-    //   title: 'Second design',
-    //   size: 'large',
-    //   amount: 1,
-    // },
-    // {
-    //   title: 'Last design',
-    //   size: 'medium',
-    //   amount: 2,
-    // },
+    {
+      title: 'First design',
+      size: 'small',
+      amount: 2,
+    },
+    {
+      title: 'Second design',
+      size: 'large',
+      amount: 1,
+    },
+    {
+      title: 'Last design',
+      size: 'medium',
+      amount: 2,
+    },
   ];
   public donatedTrees = 1;
   public discount = 0.1;

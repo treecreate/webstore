@@ -52,7 +52,9 @@ const routes: Routes = [
   },
   { path: 'paymentSuccess', component: PaymentSuccessComponent },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
+  //TODO: add authguard
   { path: 'basket', component: BasketComponent, canActivate: [CookieGuard] },
+  //TODO: add authguard
   {
     path: 'checkout',
     component: CheckoutComponent,
