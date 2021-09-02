@@ -1,5 +1,9 @@
 <div class="modal-container add-transition">
-    <form [formGroup]="addToBasketForm" class="modal-content">
+    <form
+        [formGroup]="addToBasketForm"
+        (ngSubmit)="submit()"
+        class="modal-content"
+    >
         <div class="option-title">
             <div class="title">
                 Title
@@ -80,18 +84,18 @@
 
         <!-- Price -->
         <div class="price-container">
-            <div class="isnt-more-than-4" *ngIf="!isMoreThan4">
+            <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
                 <span>Save 25%</span
                 ><span
-                    >purchase
+                    >order
                     {{ 4 - addToBasketForm.get('amount').value }} more</span
                 >
             </div>
-            <div class="is-more-than-4" *ngIf="isMoreThan4">
+            <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
                 <span>You save: (-25%)</span
                 ><span>{{ (price * 0.25).toFixed(2) }}</span>
             </div>
-            <div class="price">
+            <div class="price add-transition">
                 <span>Price:</span
                 ><span>{{
                     isMoreThan4 ? (price * 0.75).toFixed(2) : price.toFixed(2)
@@ -102,8 +106,14 @@
         <!-- Actions -->
         <div class="option-actions add-transition">
             <div class="button-container add-transition">
-                <button class="tc-button-100 green">Add to basket</button>
-                <button class="tc-button-100" (click)="activeModal.close()">
+                <button class="tc-button-100 green" type="submit">
+                    Add to basket
+                </button>
+                <button
+                    class="tc-button-100"
+                    type="button"
+                    (click)="activeModal.close()"
+                >
                     Cancel
                 </button>
             </div>

@@ -44,6 +44,20 @@ export class AddToBasketModalComponent implements OnInit {
     this.updatePrice();
   }
 
+  submit() {
+    if (this.addToBasketForm.get('title').invalid) {
+      this.toastService.showAlert(
+        'Missing title (min 3 letters, max 50)',
+        'Titel mangler (min 3 bokstaver, max 50)',
+        'danger',
+        4000
+      );
+    } else {
+      // TODO: send the design to basket
+      console.log('perfect');
+    }
+  }
+
   updatePrice() {
     this.price = this.calculatePriceService.calculateItemPriceAlternative(
       this.addToBasketForm.get('amount').value,
