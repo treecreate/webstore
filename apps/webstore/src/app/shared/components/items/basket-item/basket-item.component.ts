@@ -43,6 +43,11 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
+  increaseAmount() {
+    this.item.amount = this.item.amount + 1;
+    this.updatePrice();
+  }
+
   increaseSize() {
     switch (this.item.size) {
       case 'small':
