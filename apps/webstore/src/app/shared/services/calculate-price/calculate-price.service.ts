@@ -16,7 +16,7 @@ export class CalculatePriceService {
     // Get full price of items in basket
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
-      let item = itemList[i];
+      const item = itemList[i];
       sum += this.calculateItemPrice(item);
     }
     const fullPrice = sum;
