@@ -80,6 +80,17 @@ export class CalculatePriceService {
     }
   }
 
+  calculateItemPriceAlternative(amount: number, size: string): number {
+    switch (size) {
+      case '20cm x 20cm':
+        return amount * 495;
+      case '25cm x 25cm':
+        return amount * 695;
+      case '30cm x 30cm':
+        return amount * 995;
+    }
+  }
+
   calculateItemUnitPrice(itemSize): number {
     switch (itemSize) {
       case 'small':

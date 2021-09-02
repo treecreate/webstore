@@ -57,7 +57,7 @@
                     text="The size of your design. You can choose between 20x20cm, 25x25cm and 30x30cm."
                 ></webstore-info-popover>
             </div>
-            <div class="option">
+            <div class="option add-transition">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
@@ -79,10 +79,29 @@
         </div>
 
         <!-- Price -->
+        <div class="price-container">
+            <div class="isnt-more-than-4" *ngIf="!isMoreThan4">
+                <span>Save 25%</span
+                ><span
+                    >purchase
+                    {{ 4 - addToBasketForm.get('amount').value }} more</span
+                >
+            </div>
+            <div class="is-more-than-4" *ngIf="isMoreThan4">
+                <span>You save: (-25%)</span
+                ><span>{{ (price * 0.25).toFixed(2) }}</span>
+            </div>
+            <div class="price">
+                <span>Price:</span
+                ><span>{{
+                    isMoreThan4 ? (price * 0.75).toFixed(2) : price.toFixed(2)
+                }}</span>
+            </div>
+        </div>
 
         <!-- Actions -->
         <div class="option-actions add-transition">
-            <div class="button-container">
+            <div class="button-container add-transition">
                 <button class="tc-button-100 green">Add to basket</button>
                 <button class="tc-button-100" (click)="activeModal.close()">
                     Cancel
@@ -92,7 +111,7 @@
 
         <!-- Extra info -->
         <div class="text-container add-transition">
-            <div class="extra-info">
+            <div class="extra-info add-transition">
                 <strong> Note: <br /> </strong>
                 For every design you purchase, you are automatically planting a
                 tree. Thereby you support re-floreshing the forrests, which has

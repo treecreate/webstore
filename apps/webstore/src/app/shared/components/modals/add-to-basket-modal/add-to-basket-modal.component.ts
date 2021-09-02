@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'webstore-add-to-basket-modal',
@@ -9,8 +11,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
+  price: number;
+  isMoreThan4: boolean;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private toastService: ToastService,
+    private calculatePriceService: CalculatePriceService
+  ) {}
 
   ngOnInit(): void {
     this.addToBasketForm = new FormGroup({
@@ -32,15 +40,33 @@ export class AddToBasketModalComponent implements OnInit {
       amount: 1,
       size: '20cm x 20cm',
     });
+
+    this.updatePrice();
+  }
+
+  updatePrice() {
+    this.price = this.calculatePriceService.calculateItemPriceAlternative(
+      this.addToBasketForm.get('amount').value,
+      this.addToBasketForm.get('size').value
+    );
+    this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items([
+      {
+        designId: '',
+        userId: '',
+        title: '',
+        size: this.addToBasketForm.get('size').value,
+        amount: this.addToBasketForm.get('amount').value,
+      },
+    ]);
   }
 
   increaseAmount() {
-    console.log('object');
     this.addToBasketForm.setValue({
       title: this.addToBasketForm.get('title').value,
       amount: this.addToBasketForm.get('amount').value + 1,
       size: this.addToBasketForm.get('size').value,
     });
+    this.updatePrice();
   }
 
   decreaseAmount() {
@@ -50,8 +76,7 @@ export class AddToBasketModalComponent implements OnInit {
         amount: this.addToBasketForm.get('amount').value - 1,
         size: this.addToBasketForm.get('size').value,
       });
-    } else {
-      // TODO: alert
+      this.updatePrice();
     }
   }
 
@@ -72,15 +97,26 @@ export class AddToBasketModalComponent implements OnInit {
         });
         break;
       case '30cm x 30cm':
-        // TODO: alert
+        this.toastService.showAlert(
+          "We don't sell larger designs. For special requests you can send us an e-mail: info@treecreate.dk",
+          'Vi sælger ikke større designs. For specielle henvendelser kan du sende os en e-mail: info@treecreate.dk',
+          'danger',
+          3000
+        );
         break;
     }
+    this.updatePrice();
   }
 
   decreaseSize() {
     switch (this.addToBasketForm.get('size').value) {
       case '20cm x 20cm':
-        // TODO: alert
+        this.toastService.showAlert(
+          "We don't have smaller sizes",
+          'Vi har ikke mindre størrelser',
+          'danger',
+          3000
+        );
         break;
       case '25cm x 25cm':
         this.addToBasketForm.setValue({
@@ -97,5 +133,6 @@ export class AddToBasketModalComponent implements OnInit {
         });
         break;
     }
+    this.updatePrice();
   }
 }

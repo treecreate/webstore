@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .option {
@@ -33,6 +33,26 @@
 }
 .text {
   text-align: center;
+}
+
+.price-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.is-more-than-4,
+.isnt-more-than-4,
+.price {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: 5px 0;
+}
+
+.is-more-than-4 {
+  color: var(--green);
 }
 
 .amount {
