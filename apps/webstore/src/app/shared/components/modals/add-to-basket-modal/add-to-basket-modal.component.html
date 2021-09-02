@@ -1,5 +1,5 @@
 <div class="modal-container add-transition">
-    <div class="modal-content">
+    <form [formGroup]="addToBasketForm" class="modal-content">
         <div class="option-title">
             <div class="title">
                 Title
@@ -13,6 +13,7 @@
                     type="text"
                     class="title-input"
                     placeholder="Untitled-1"
+                    formControlName="title"
                 />
             </div>
         </div>
@@ -29,18 +30,18 @@
             <div class="option add-transition">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-minus"
+                    (click)="decreaseAmount()"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
                 <div class="amount">
-                    {{ 0 }}
+                    {{ this.addToBasketForm.get('amount').value }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-plus"
+                    (click)="increaseAmount()"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -59,18 +60,18 @@
             <div class="option">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-minus"
+                    (click)="decreaseSize()"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
                 <div class="amount">
-                    {{ 0 }}
+                    {{ this.addToBasketForm.get('size').value }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-plus"
+                    (click)="increaseSize()"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -99,5 +100,5 @@
                 <strong> THANK YOU FOR YOUR SUPPORT!</strong>
             </div>
         </div>
-    </div>
+    </form>
 </div>
