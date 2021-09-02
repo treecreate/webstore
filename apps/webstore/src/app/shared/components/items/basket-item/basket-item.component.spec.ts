@@ -1,7 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
-
 import { BasketItemComponent } from './basket-item.component';
 
 describe('BasketItemComponent', () => {
