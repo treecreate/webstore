@@ -5,6 +5,21 @@
   min-height: 100vh;
 }
 
+.line-container {
+  display: flex;
+  justify-content: space-between;
+  line-height: 36px;
+  font-weight: 300;
+}
+
+.margin-bottom {
+  margin-bottom: 10px;
+}
+
+.green-text {
+  color: var(--green);
+}
+
 .desktop-title,
 .mobile-title {
   font-weight: 400;

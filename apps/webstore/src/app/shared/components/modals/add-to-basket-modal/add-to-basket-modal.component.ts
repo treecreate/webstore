@@ -63,6 +63,8 @@ export class AddToBasketModalComponent implements OnInit {
       this.addToBasketForm.get('amount').value,
       this.addToBasketForm.get('size').value
     );
+
+    // ( addToBasketForm.get('amount') + all basket items )
     this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items([
       {
         designId: '',
@@ -71,6 +73,7 @@ export class AddToBasketModalComponent implements OnInit {
         size: this.addToBasketForm.get('size').value,
         amount: this.addToBasketForm.get('amount').value,
       },
+      // TODO: add the list of items that are already in basket
     ]);
   }
 

@@ -92,6 +92,8 @@
                 <span>Save 25%</span
                 ><span
                     >order
+                    <!-- TODO: Make this display the full amount of items in the basket -->
+                    <!-- So it looks like this: 4 - ( addToBasketForm.get('amount') + all basket items )  -->
                     {{ 4 - addToBasketForm.get('amount').value }} more</span
                 >
             </div>

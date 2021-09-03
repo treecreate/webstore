@@ -33,8 +33,8 @@ export class BasketComponent implements OnInit {
 
   donatedTrees = 0;
   discount: IDiscount = {
-    amount: 0,
-    type: DiscountType.percent,
+    amount: 100,
+    type: DiscountType.amount,
   };
 
   discountForm: FormGroup;

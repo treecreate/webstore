@@ -18,4 +18,5 @@ export interface IUser {
   city?: string;
   postcode?: string;
   country?: string;
+  //TODO: add the basket IDesign[] list so it stays even when they leave the page
 }
