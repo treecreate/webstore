@@ -1,0 +1,55 @@
+.carousel-container {
+  width: 100vw;
+}
+
+.review-section {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.review-container {
+  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+  min-width: 350px;
+  width: 60vw;
+  padding-top: 8px !important;
+  padding: 15px;
+  margin: 25px;
+}
+
+.star-icon {
+  margin: 0 3px;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.quotation-mark {
+  position: relative;
+  top: 13px;
+  left: 13px;
+}
+
+.review-text {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 0 5px;
+}
+
+.review-author {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+::ng-deep .carousel-indicators li {
+  background-color: #976148;
+}

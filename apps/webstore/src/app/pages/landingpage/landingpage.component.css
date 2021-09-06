@@ -202,6 +202,16 @@
   flex-direction: row-reverse;
 }
 
+.carousel {
+  width: 100vw;
+  height: 200px;
+  background-color: #874d32;
+}
+
+.is-mobile {
+  display: none;
+}
+
 @media screen and (max-width: 945px) {
   .main-text-container {
     width: 85vw;
@@ -232,6 +242,15 @@
   }
   .align-right {
     text-align: center;
+  }
+  .is-mobile {
+    display: block;
+  }
+  .bottom-fade {
+    bottom: -18px;
+  }
+  .is-desktop {
+    display: none;
   }
 }
 
@@ -271,5 +290,11 @@
   .text-container,
   .descriptive-img {
     width: 80vw;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .bottom-fade {
+    bottom: 0px;
   }
 }

@@ -39,6 +39,7 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
+import { CarouselComponent } from './pages/landingpage/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { LandingpageComponent } from './pages/landingpage/landingpage.component'
     BasketComponent,
     BasketItemComponent,
     LandingpageComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,6 @@ import { LandingpageComponent } from './pages/landingpage/landingpage.component'
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [LandingpageComponent],
+  exports: [LandingpageComponent, CarouselComponent],
 })
 export class AppModule {}
