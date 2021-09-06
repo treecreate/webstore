@@ -1,9 +1,20 @@
+.page-container {
+  color: #874d32;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Roboto';
+}
+
+.title {
+  font-family: 'slabo 27px';
+}
+
 .main-section {
   min-height: 500px;
   height: 100vh;
   width: 100%;
   display: flex;
-  font-family: 'Roboto';
 
   /* Background image properties */
   background-image: url('apps/webstore/src/assets/img/main-img-02.jpg');
@@ -12,7 +23,6 @@
 }
 
 .main-text-container {
-  color: #874d32;
   width: 40vw;
   margin: 10vw 0 0 13vh;
   letter-spacing: 2px;
@@ -32,7 +42,7 @@
 }
 
 .review-section {
-  margin-top: 20px;
+  margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -43,7 +53,6 @@
   box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: white;
-  color: #874d32;
   width: 350px;
   padding-top: 8px !important;
   padding: 15px;
@@ -74,6 +83,68 @@
 .review-author {
   text-align: center;
   margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.subscribe-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.subscribe-section {
+  margin: 50px 0;
+}
+
+.subscribe-title {
+  font-size: 56px;
+  margin: 15px 0;
+  width: 60vw;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.subscribe-subtitle {
+  width: 40vw;
+  text-align: center;
+  margin-bottom: 25px;
+  line-height: 36px;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+}
+
+.email-input-field::placeholder {
+  color: #874d32;
+  opacity: 0.8;
+}
+
+.email-input-field {
+  font-size: 24px;
+  border-radius: 3px;
+  border: 2px solid #874d32;
+  margin-bottom: 10px;
+  color: #874d32;
+  padding-left: 6px;
+  padding: 8px;
+}
+
+.email-input-field:focus {
+  outline: none;
+}
+
+.subscribe-button {
+  background-color: #874d32;
+  color: white;
+  font-size: 24px;
+  border-radius: 3px;
+  border: none;
+  letter-spacing: 3px;
+  padding: 8px;
 }
 
 @media screen and (max-width: 960px) {
@@ -84,8 +155,14 @@
   }
   .main-section {
     justify-content: center;
-
     background-position: -30vh;
+  }
+  .subscribe-subtitle,
+  .action-container {
+    width: 60vw;
+  }
+  .subscribe-title {
+    width: 80vw;
   }
 }
 
@@ -108,5 +185,18 @@
   .main-section {
     background-image: url('apps/webstore/src/assets/img/main-background-mobile.jpg');
     background-position: center center;
+  }
+
+  .subscribe-subtitle,
+  .action-container,
+  .subscribe-title {
+    width: 80vw;
+  }
+  .subscribe-title {
+    font-size: 36px;
+  }
+  .email-input-field,
+  .subscribe-button {
+    font-size: 18px;
   }
 }
