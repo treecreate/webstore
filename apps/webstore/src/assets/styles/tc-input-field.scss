@@ -1,5 +1,5 @@
-$primary: #ebc6ab;
-$gray: #9b9b9b;
+$primary: #874d32;
+$gray: #a8765f;
 .tc-input-group {
   position: relative;
   padding: 15px 0 0;
@@ -13,7 +13,7 @@ $gray: #9b9b9b;
   border-bottom: 1px solid $gray;
   outline: 0;
   font-size: 1rem;
-  color: black;
+  color: $primary;
   padding: 5px 0;
   background: transparent;
   transition: border-color 0.2s;

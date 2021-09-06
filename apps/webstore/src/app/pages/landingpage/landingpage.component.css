@@ -23,8 +23,8 @@
 }
 
 .main-text-container {
-  width: 40vw;
-  margin: 10vw 0 0 13vh;
+  width: 45vw;
+  margin: 8vw 0 0 8vh;
   letter-spacing: 2px;
 }
 
@@ -78,6 +78,7 @@
 .review-text {
   text-align: center;
   margin-bottom: 15px;
+  padding: 0 5px;
 }
 
 .review-author {
@@ -138,6 +139,7 @@
 }
 
 .subscribe-button {
+  transition: 0.5s;
   background-color: #874d32;
   color: white;
   font-size: 24px;
@@ -145,12 +147,61 @@
   border: none;
   letter-spacing: 3px;
   padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media screen and (max-width: 960px) {
+.button-text {
+  transition: 0.5s;
+  position: relative;
+  left: -20px;
+  opacity: 1;
+}
+
+.send-email-icon {
+  width: 50px;
+  transition: 0.5s;
+  opacity: 0;
+  position: relative;
+  left: -35px;
+  top: -2px;
+}
+
+.subscribe-button:hover > .send-email-icon {
+  left: 50px;
+  opacity: 1;
+}
+
+.subscribe-button:hover > .button-text {
+  left: 60px;
+  opacity: 0;
+}
+
+.descriptive-content-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 40px 10px;
+}
+
+.text-container {
+  min-width: 300px;
+  width: 30vw;
+  margin: 15px 30px;
+}
+
+.descriptive-img {
+  min-width: 470px;
+  width: 30vw;
+  border-radius: 5px;
+  filter: drop-shadow(0px 5px 35px rgba(0, 0, 0, 0.2));
+}
+
+@media screen and (max-width: 945px) {
   .main-text-container {
-    width: 80vw;
-    margin: 150px 0 0 0;
+    width: 85vw;
+    margin: 100px 0 0 0;
     text-align: center;
   }
   .main-section {
@@ -163,6 +214,20 @@
   }
   .subscribe-title {
     width: 80vw;
+  }
+  .text-container,
+  .descriptive-img {
+    width: 60vw;
+    text-align: center;
+  }
+  .descriptive-img {
+    min-width: 60vw;
+  }
+  .text-container {
+    margin-top: 20px;
+  }
+  .align-right {
+    text-align: center;
   }
 }
 
@@ -198,5 +263,9 @@
   .email-input-field,
   .subscribe-button {
     font-size: 18px;
+  }
+  .text-container,
+  .descriptive-img {
+    width: 80vw;
   }
 }

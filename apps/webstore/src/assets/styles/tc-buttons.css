@@ -8,13 +8,14 @@
 .tc-button-static {
   /* button */
   box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-  background: #ebc6ab;
+  background: #874d32;
   height: 35px;
   border: none;
 
   /* text */
   color: white;
-  font-family: Seravek;
+  font-family: 'slabo 27px';
+  letter-spacing: 1px;
   font-style: normal;
   font-weight: 300;
   font-size: 18px;
