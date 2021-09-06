@@ -5,44 +5,7 @@
 >
     <div class="container">
         <div class="row container-footer">
-            <div class="col-main col-md-3 border-right">
-                <div class="row">
-                    <div class="col">
-                        <h5 class="font-weight-bold mt-3">Navigation</h5>
-                    </div>
-                    <div class="col">
-                        <ul class="list-unstyled">
-                            <li>
-                                <a routerLink="/home">Home</a>
-                            </li>
-                            <li>
-                                <a
-                                    routerLink="{{
-                                        isLoggedIn ? '/product' : '/notSignedIn'
-                                    }}"
-                                    >Product</a
-                                >
-                            </li>
-                            <li *ngIf="!isLoggedIn">
-                                <a routerLink="/login">Login</a>
-                            </li>
-                            <li *ngIf="isLoggedIn">
-                                <a routerLink="/profile">Profile</a>
-                            </li>
-                            <li *ngIf="isLoggedIn">
-                                <a routerLink="/collection">Collection</a>
-                            </li>
-                            <li>
-                                <a routerLink="/basket">Basket</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <hr class="clearfix w-100 d-md-none" />
-
-            <div class="col-main col-md-3 border-right">
+            <div class="col-main col-md-4 border-right">
                 <div class="row">
                     <div class="col">
                         <h5 class="font-weight-bold mt-3 contact-mobile-margin">
@@ -80,8 +43,9 @@
 
             <hr class="remove-margin clearfix w-100 d-md-none" />
 
-            <div class="col-main col-md-3 final-col">
-                <h5 class="font-weight-bold mt-3">Premium offers</h5>
+            <div class="col-main col-md-4 final-col">
+                <h5 class="font-weight-bold mt-3">Tilmeld dig nyhedsbrevet</h5>
+                <p>Få lækre tilbud når vi åbner og sådan noget.</p>
                 <div class="tc-input-group field">
                     <input
                         type="email"
@@ -107,29 +71,6 @@
         <div class="container">
             <div class="row">
                 <div class="col">© 2021 Copyright Treecreate</div>
-                <hr class="remove-mobile clearfix w-100 d-md-none" />
-                <div class="col">
-                    <a
-                        data-cy="footer-terms-of-use-modal-link"
-                        (click)="showTermsOfUse()"
-                        class="terms"
-                        >Terms</a
-                    >
-                    -
-                    <a
-                        data-cy="footer-terms-of-sale-modal-link"
-                        (click)="showTermsOfSale()"
-                        class="terms"
-                        >Sale</a
-                    >
-                    -
-                    <a
-                        data-cy="footer-privacy-notice-modal-link"
-                        (click)="showPrivacyNotice()"
-                        class="terms"
-                        >Privacy</a
-                    >
-                </div>
                 <hr class="remove-mobile clearfix w-100 d-md-none" />
                 <div class="col">
                     <img
