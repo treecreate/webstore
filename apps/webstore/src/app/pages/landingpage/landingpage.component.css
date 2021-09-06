@@ -1,4 +1,4 @@
-.main-section-container {
+.main-section {
   min-height: 500px;
   height: 100vh;
   width: 100%;
@@ -14,7 +14,7 @@
 .main-text-container {
   color: #874d32;
   width: 40vw;
-  margin: 10vw 0 0 10vh;
+  margin: 10vw 0 0 13vh;
   letter-spacing: 2px;
 }
 
@@ -31,27 +31,82 @@
   bottom: 0;
 }
 
+.review-section {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.review-container {
+  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+  color: #874d32;
+  width: 350px;
+  padding-top: 8px !important;
+  padding: 15px;
+  margin: 15px;
+}
+
+.star-icon {
+  margin: 0 3px;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.quotation-mark {
+  position: relative;
+  top: 13px;
+  left: 13px;
+}
+
+.review-text {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.review-author {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 @media screen and (max-width: 960px) {
   .main-text-container {
     width: 80vw;
     margin: 150px 0 0 0;
     text-align: center;
   }
-  .main-section-container {
+  .main-section {
     justify-content: center;
 
     background-position: -30vh;
   }
 }
 
-@media screen and (max-width: 670px) {
-  .main-text-container {
-    width: 80vw;
-    margin: 150px 0 0 0;
+@media screen and (max-width: 620px) {
+  .title {
+    font-size: 28px;
+    font-weight: 400;
   }
-  .main-section-container {
+  .main-subtext {
+    font-size: 18px;
+  }
+  .main-text-container {
+    height: 60vh;
+    display: flex;
+    align-items: center;
     justify-content: center;
-
-    background-position: -30vh;
+    flex-direction: column;
+    margin: 0;
+  }
+  .main-section {
+    background-image: url('apps/webstore/src/assets/img/main-background-mobile.jpg');
+    background-position: center center;
   }
 }
