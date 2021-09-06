@@ -198,6 +198,10 @@
   filter: drop-shadow(0px 5px 35px rgba(0, 0, 0, 0.2));
 }
 
+.reverse {
+  flex-direction: row-reverse;
+}
+
 @media screen and (max-width: 945px) {
   .main-text-container {
     width: 85vw;
