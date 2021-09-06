@@ -3,11 +3,11 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-family: 'Roboto';
+  font-family: 'argestadisplay';
 }
 
 .title {
-  font-family: 'slabo 27px';
+  font-size: 36px !important;
 }
 
 .main-section {
@@ -76,15 +76,18 @@
 }
 
 .review-text {
-  text-align: center;
-  margin-bottom: 15px;
   padding: 0 5px;
 }
 
 .review-author {
+  font-size: 18px;
+}
+
+.review-author,
+.review-text {
+  font-family: 'argestadisplay-italic' !important;
   text-align: center;
   margin-bottom: 15px;
-  font-size: 18px;
 }
 
 .subscribe-section {
@@ -294,6 +297,14 @@
 }
 
 @media screen and (max-width: 450px) {
+  .title {
+    font-size: 24px !important;
+  }
+  .main-subtext,
+  .subscribe-subtitle {
+    font-size: 14px;
+    line-height: 24px;
+  }
   .bottom-fade {
     bottom: 0px;
   }

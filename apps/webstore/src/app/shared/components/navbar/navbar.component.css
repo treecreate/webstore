@@ -28,6 +28,7 @@
   transition: 0.4s;
   padding: 0.5rem;
   color: #874d32;
+  font-family: 'argestadisplay';
 }
 .navbar-brand {
   width: 125px;
@@ -117,6 +118,8 @@
 }
 .nav-section {
   display: flex;
+  font-size: 20px;
+  margin-right: 5px;
 }
 .navbar-basket-icon {
   background-color: transparent;

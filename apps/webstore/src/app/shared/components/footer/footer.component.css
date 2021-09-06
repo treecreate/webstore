@@ -19,6 +19,7 @@ h5 {
   width: 100%;
   background-color: transparent;
   color: #874d32;
+  font-family: 'argestadisplay';
 }
 .list-unstyled li {
   padding-bottom: 7px;
@@ -52,7 +53,7 @@ h5 {
 }
 
 .title {
-  font-family: 'slabo 27px';
+  font-size: 20px;
 }
 
 /* COPYRIGHT */
