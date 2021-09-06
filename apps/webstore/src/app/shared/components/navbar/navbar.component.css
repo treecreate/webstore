@@ -20,13 +20,14 @@
   padding-bottom: 1px;
 }
 .navbar a {
-  color: black !important;
+  color: #874d32 !important;
 }
 .navbar {
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   transition: 0.4s;
   padding: 0.5rem;
+  color: #874d32;
 }
 .navbar-brand {
   width: 125px;
