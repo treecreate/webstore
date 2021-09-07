@@ -85,11 +85,11 @@ html {
 }
 
 .error-message {
-  font-size: 10px;
+  font-size: 13px;
   text-align: left;
-  color: red;
+  /* color: red; */
   line-height: 0;
-  margin-bottom: 5px;
+  margin-bottom: 11px;
 }
 
 .disabled {
