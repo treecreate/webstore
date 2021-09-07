@@ -160,6 +160,10 @@
   justify-content: center;
 }
 
+.subscribe-button:disabled {
+  background-color: #857873;
+}
+
 .button-text {
   transition: 0.5s;
   position: relative;

@@ -161,20 +161,42 @@
             Og få 15% rabat på dit første køb, samt vær med i lodtrækningen om
             at vinde et stamtræ!
         </h5>
-        <div class="action-container add-transition">
-            <input
-                type="text"
-                placeholder="Din E-mail"
-                class="email-input-field"
-            />
-            <button class="subscribe-button title-font">
-                <img
-                    src="/assets/icons/white-send-email-icon.svg"
-                    class="send-email-icon"
+        <form
+            (ngSubmit)="onNewsletterSignup()"
+            name="newsletterForm"
+            [formGroup]="newsletterForm"
+        >
+            <div class="action-container add-transition">
+                <input
+                    type="text"
+                    placeholder="Din E-mail"
+                    class="email-input-field"
+                    formControlName="newsletterEmail"
+                    name="newsletterEmail"
                 />
-                <div class="button-text">Tilmeld</div>
-            </button>
-        </div>
+                <!-- TODO: Fix the error message being too small -->
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.newsletterForm.get('newsletterEmail').dirty &&
+                        isValidEmail()
+                    "
+                >
+                    Invalid e-mail
+                </div>
+                <button
+                    class="subscribe-button title-font"
+                    type="submit"
+                    [disabled]="isValidEmail()"
+                >
+                    <img
+                        src="/assets/icons/white-send-email-icon.svg"
+                        class="send-email-icon"
+                    />
+                    <div class="button-text">Tilmeld</div>
+                </button>
+            </div>
+        </form>
     </div>
 
     <div class="descriptive-content-container">
