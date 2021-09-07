@@ -139,6 +139,7 @@
   color: #874d32;
   padding-left: 6px;
   padding: 8px;
+  text-align: center;
 }
 
 .email-input-field:focus {
