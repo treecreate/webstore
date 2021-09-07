@@ -21,7 +21,6 @@ import { DesignItemComponent } from './shared/components/design-item/design-item
 //Pages
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
-import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
@@ -50,7 +49,6 @@ import { CarouselComponent } from './pages/landingpage/carousel/carousel.compone
     SignupComponent,
     LoginComponent,
     PageNotFoundComponent,
-    CookiePromptModalComponent,
     TermsOfSaleModalComponent,
     TermsOfUseModalComponent,
     PrivacyNoticeModalComponent,
@@ -82,6 +80,5 @@ import { CarouselComponent } from './pages/landingpage/carousel/carousel.compone
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [LandingpageComponent, CarouselComponent],
 })
 export class AppModule {}

@@ -7,10 +7,7 @@ import { NewsletterService } from '../../shared/services/newsletter/newsletter.s
 @Component({
   selector: 'webstore-landingpage',
   templateUrl: './landingpage.component.html',
-  styleUrls: [
-    './landingpage.component.css',
-    '../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./landingpage.component.css'],
 })
 export class LandingpageComponent implements OnInit {
   isNewsletterSignupLoading = false;

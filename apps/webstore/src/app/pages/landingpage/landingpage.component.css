@@ -136,10 +136,21 @@
   border-radius: 3px;
   border: 2px solid #874d32;
   margin-bottom: 10px;
-  color: #874d32;
+  color: #874d32 !important;
   padding-left: 6px;
   padding: 8px;
   text-align: center;
+}
+
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  border: 2px solid #874d32;
+  background-color: transparent;
+  color: var(--second-action-color) !important;
+  -webkit-text-fill-color: var(--second-action-color);
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .email-input-field:focus {
