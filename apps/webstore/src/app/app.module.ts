@@ -17,14 +17,20 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { DesignItemComponent } from './shared/components/items/design-item/design-item.component';
+import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
+import { CarouselComponent } from './pages/home/carousel/carousel.component';
 
-//Pages
-import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
-import { HomeComponent } from './pages/home/home.component';
+//Modals
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
+import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
+
+//Pages
+import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
+import { HomeComponent } from './pages/home/home.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { LoginComponent } from './pages/auth/login/login.component';
@@ -34,12 +40,9 @@ import { ProductComponent } from './pages/product/product.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
-import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
-import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
-import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +74,7 @@ import { CheckoutItemComponent } from './shared/components/items/checkout-item/c
     BasketItemComponent,
     CheckoutComponent,
     CheckoutItemComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,

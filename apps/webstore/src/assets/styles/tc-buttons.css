@@ -8,7 +8,7 @@
 .tc-button-static {
   /* button */
   box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-  background: var(--action-color);
+  background: var(--second-action-color);
   height: 35px;
   border: none;
 
@@ -21,6 +21,8 @@
   line-height: 22px;
   align-items: center;
   text-align: center;
+
+  border-radius: 3px;
 
   /* effect */
   outline: none !important;

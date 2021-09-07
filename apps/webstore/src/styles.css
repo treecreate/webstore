@@ -1,23 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-:root {
-  --green-color: #52d73d;
-  --action-color: #ebc6ab;
-  --light-action-color: #fff0e4;
-  --gray-color: #9b9b9b;
-  --gray-background: #e5e5e5;
-  --gray-box-color: #e8e3e3;
-  --extra-small-font: 0.7rem;
-  --medium-small-font: 0.875rem;
-  --small-font: 1rem;
-  --medium-font: 1.15rem;
-  --regular-font: 1.5rem;
-  --large-font: 2.25rem;
-  --massive-font: 3rem;
-  --extra-massive-font: 6rem;
-  --thin-font: 200;
-  --thick-font: 700;
-}
-
 @font-face {
   font-family: 'archia-light';
   src: local('archia-light'),
@@ -95,12 +76,37 @@
     url(./assets/fonts/wotfard-extralight-webfont.ttf) format('truetype');
 }
 
+:root {
+  --green-color: #52d73d;
+  --action-color: #ebc6ab;
+  --second-action-color: #874d32;
+  --light-second-action-color: rgba(135, 77, 50, 0.2);
+  --light-action-color: #fff0e4;
+  --gray-color: #9b9b9b;
+  --gray-background: #e5e5e5;
+  --gray-box-color: #e8e3e3;
+  --extra-small-font: 0.7rem;
+  --medium-small-font: 0.875rem;
+  --small-font: 1rem;
+  --medium-font: 1.15rem;
+  --regular-font: 1.5rem;
+  --large-font: 2.25rem;
+  --massive-font: 3rem;
+  --extra-massive-font: 6rem;
+  --thin-font: 200;
+  --thick-font: 700;
+}
+
 body {
   min-width: 100%;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+hr {
+  border-top: solid 1px rgba(0, 0, 0, 0.2);
 }
 
 .error-message {
@@ -148,7 +154,7 @@ html {
 }
 
 .TnC:hover {
-  color: #ebc6ab !important;
+  color: var(--second-action-color) !important;
   text-decoration: underline !important;
   cursor: pointer;
 }

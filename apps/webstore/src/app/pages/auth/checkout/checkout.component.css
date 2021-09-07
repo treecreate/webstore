@@ -78,7 +78,7 @@
 .back-to-basket:hover {
   text-decoration: none;
   margin-left: 5px;
-  color: var(--action-color) !important;
+  color: var(--second-action-color) !important;
 }
 
 .back-to-basket-container {

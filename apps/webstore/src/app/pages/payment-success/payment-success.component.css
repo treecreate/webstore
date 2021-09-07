@@ -2,7 +2,7 @@
   width: 100vw;
   min-height: 100vh;
   height: 100%;
-  background-color: #f5f2f2;
+  background-color: var(--gray-background);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -37,7 +37,7 @@
 .back-to-home:hover {
   text-decoration: none;
   margin-left: 0;
-  color: #ebc6ab !important;
+  color: var(--second-action-color) !important;
 }
 
 .success-thank-you {

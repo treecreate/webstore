@@ -24,7 +24,7 @@
 .forgot-password-link:hover {
   text-decoration: none;
   transition: 0.5s;
-  color: var(--action-color) !important;
+  color: var(--second-action-color) !important;
 }
 
 .tc-button-100 {
