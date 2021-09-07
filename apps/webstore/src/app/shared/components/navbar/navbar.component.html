@@ -172,9 +172,17 @@
     Your e-mail is still not verified:
     <div
         *ngIf="isResendVerificationEmailLoading"
-        class="spinner-border spinner-border-sm text-warning"
+        class="loading-spinner-btn"
         role="status"
-    ></div>
+    >
+        Sending e-mail...
+        <span
+            class="spinner-border spinner-border-sm text-light"
+            style="margin: 0 5px"
+            role="status"
+            aria-hidden="true"
+        ></span>
+    </div>
     <button
         *ngIf="!isResendVerificationEmailLoading"
         class="verify-email-link"

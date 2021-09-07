@@ -89,7 +89,7 @@
   text-align: center;
 }
 .dropdown-item-list a:hover {
-  background-color: var(--action-color);
+  background-color: var(--second-action-color);
   color: white !important;
 }
 .dropdown-item-list a:first-child:hover {
@@ -102,7 +102,7 @@
   padding: 10px;
 }
 .dropdown-item:focus {
-  background-color: #fff0e4;
+  background-color: var(--light-second-action-color);
 }
 .backdrop {
   position: fixed;
@@ -137,16 +137,25 @@
   top: 1px;
   font-size: 12px;
 }
+.loading-spinner-btn {
+  position: relative;
+  left: 5px;
+}
+
 .unverified-email {
+  margin-top: 3px;
   position: fixed;
   top: 56px;
-  background-color: var(--action-color);
+  background-color: rgba(132, 77, 50, 0.8);
   width: 100%;
   color: white;
   text-align: center;
   padding: 3px;
   backdrop-filter: blur(10px);
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .verify-email-link {
   color: white;

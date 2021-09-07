@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-family: 'argestadisplay';
 }
 .title {
   font-size: 36px !important;
