@@ -18,6 +18,83 @@
   --thick-font: 700;
 }
 
+@font-face {
+  font-family: 'archia-light';
+  src: local('archia-light'),
+    url(./assets/fonts/archia-light-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'archia-medium';
+  src: local('archia-medium'),
+    url(./assets/fonts/archia-medium-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'archia-thin';
+  src: local('archia-thin'),
+    url(./assets/fonts/archia-thin-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'argestadisplay';
+  src: local('argestadisplay'),
+    url(./assets/fonts/argestadisplay-regular-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'argestadisplay-italic';
+  src: local('argestadisplay-italic'),
+    url(./assets/fonts/argestadisplay-regularitalic-webfont.ttf)
+      format('truetype');
+}
+@font-face {
+  font-family: 'bairol-bold';
+  src: local('bairol-bold'),
+    url(./assets/fonts/bariol_bold-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'bairol-bold-italic';
+  src: local('bairol-bold-italic'),
+    url(./assets/fonts/bariol_serif_bold_italic-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'bould-light';
+  src: local('bould-light'),
+    url(./assets/fonts/bould-extralight-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'calendas-italic';
+  src: local('calendas-italic'),
+    url(./assets/fonts/calendas_plus_italic-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'calendas';
+  src: local('calendas'),
+    url(./assets/fonts/calendas_plus-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'cassannet';
+  src: local('cassannet'),
+    url(./assets/fonts/cassannet_plus_light-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'knile';
+  src: local('knile'),
+    url(./assets/fonts/knile-medium-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'silkamono-light-italic';
+  src: local('silkamono-light-italic'),
+    url(./assets/fonts/silkamono-lightitalic-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'silkamono';
+  src: local('silkamono'),
+    url(./assets/fonts/silkamono-medium-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'wotfard';
+  src: local('wotfard'),
+    url(./assets/fonts/wotfard-extralight-webfont.ttf) format('truetype');
+}
+
 body {
   min-width: 100%;
 }
