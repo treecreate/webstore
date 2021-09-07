@@ -123,10 +123,23 @@
 
   <build>
     <plugins>
-      <plugin>
+	<!-- Packaging the jar into an executable form -->
+    <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
+        <version>2.1.6.RELEASE</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>repackage</goal>
+                </goals>
+                <configuration>
+                    <mainClass>dk.treecreate.api.ApiApplication</mainClass>
+                    <outputDirectory>${project.basedir}/docker</outputDirectory>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
     </plugins>
   </build>
 
