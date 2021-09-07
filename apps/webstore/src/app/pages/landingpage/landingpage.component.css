@@ -23,7 +23,7 @@
   /* Background image properties */
   background-image: url('apps/webstore/src/assets/img/main-img-02.jpg');
   background-size: cover;
-  background-position: center center;
+  background-position: bottom center;
 }
 
 .main-text-container {
@@ -34,7 +34,7 @@
 
 .bottom-fade {
   position: absolute;
-  height: 40px;
+  height: 30px;
   width: 100%;
   background: linear-gradient(
     360deg,
