@@ -1,4 +1,5 @@
 .carousel-container {
+  color: var(--second-action-color);
   width: 100vw;
 }
 
@@ -51,7 +52,7 @@
 }
 
 ::ng-deep .carousel-indicators li {
-  background-color: black;
+  background-color: var(--second-action-color);
   opacity: 0.3;
 }
 

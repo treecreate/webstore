@@ -125,7 +125,7 @@
   outline: none;
 }
 .subscribe-button {
-  transition: 0.5s;
+  transition: 0.2s;
   background-color: var(--second-action-color);
   color: white;
   font-size: 24px;
@@ -189,7 +189,7 @@
 }
 .hide .arrow-up-item,
 .hide {
-  transition: 1s;
+  transition: 0.4s;
   opacity: 0 !important;
   bottom: 30px;
 }
@@ -197,7 +197,7 @@
   bottom: 100px;
 }
 .show {
-  transition: 0.5s;
+  transition: 0.4s;
   opacity: 1;
 }
 /* Arrow button */
