@@ -81,6 +81,7 @@
 
 .review-text {
   padding: 0 5px;
+  min-height: 100px;
 }
 
 .review-author {
