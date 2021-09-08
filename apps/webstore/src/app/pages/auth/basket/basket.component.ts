@@ -54,6 +54,7 @@ export class BasketComponent implements OnInit {
 
   ngOnInit(): void {
     this.updatePrices();
+    console.log(this.priceInfo);
   }
 
   @HostListener('click')
