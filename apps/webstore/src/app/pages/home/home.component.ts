@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
     } else {
       this.showUpArrow = false;
     }
-    // For the start button 
+    // For the start button
     if (window.scrollY < 50) {
       this.showStartButton = false;
     } else if (window.scrollY < 1800) {

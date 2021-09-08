@@ -9,7 +9,7 @@ import { CalculatePriceService } from '../../../shared/services/calculate-price/
   templateUrl: './basket.component.html',
   styleUrls: [
     './basket.component.scss',
-    '../../../../assets/styles/tc-input-field.scss'
+    '../../../../assets/styles/tc-input-field.scss',
   ],
 })
 export class BasketComponent implements OnInit {
@@ -31,7 +31,7 @@ export class BasketComponent implements OnInit {
     },
   ];
 
-  donatedTrees = 0;
+  donatedTrees = 1;
   discount: IDiscount = {
     amount: 100,
     type: DiscountType.amount,
@@ -57,13 +57,12 @@ export class BasketComponent implements OnInit {
     console.log(this.priceInfo);
   }
 
-  @HostListener('click')
   updatePrices() {
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
       false,
-      this.donatedTrees
+      this.donatedTrees - 1
     );
   }
 

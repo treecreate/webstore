@@ -8,6 +8,7 @@
                     <!-- basket items -->
                     <div class="basket-items" *ngIf="!(itemList.length <= 0)">
                         <webstore-basket-item
+                            (click)="updatePrices()"
                             *ngFor="let item of itemList"
                             [item]="item"
                         ></webstore-basket-item>
@@ -16,7 +17,6 @@
                     <div class="no-items" *ngIf="itemList.length <= 0">
                         <img
                             src="/assets/icons/no-design-icon.svg"
-                            alt=""
                             routerLink="/product"
                             class="no-design-icon"
                         />
@@ -44,7 +44,7 @@
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-less-trees-btn"
-                            (click)="decreaseDonatingAmount()"
+                            (click)="decreaseDonatingAmount(); updatePrices()"
                         >
                             <div class="icon">
                                 <div class="button-minus"></div>
@@ -53,15 +53,16 @@
                         <div class="amount-of-trees">
                             {{ donatedTrees }} x
                             <img
-                                src="../../../../assets/icons/seed-icon.svg"
-                                alt=""
+                                src="/assets/icons/seed-icon.svg"
                                 class="seed-icon"
                             />
                         </div>
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-extra-trees-btn"
-                            (click)="donatedTrees = donatedTrees + 1"
+                            (click)="
+                                donatedTrees = donatedTrees + 1; updatePrices()
+                            "
                         >
                             <div class="button-plus"></div>
                         </button>
@@ -70,7 +71,7 @@
                 <!-- Discount code -->
                 <form
                     [formGroup]="discountForm"
-                    (ngSubmit)="applyDiscount()"
+                    (ngSubmit)="applyDiscount(); updatePrices()"
                     class="basket-options-item"
                 >
                     <input
@@ -87,9 +88,17 @@
                     </button>
 
                     <!-- Discount display -->
-                    <div *ngIf="priceInfo.discountAmount > 0" class="discount-code-display">
+                    <div
+                        *ngIf="priceInfo.discountAmount > 0"
+                        class="discount-code-display"
+                    >
                         <span>Amount dicount:</span>
-                        <span>-{{ priceInfo.discountAmount.toFixed(2) }} DKK</span>
+                        <span
+                            >-{{
+                                priceInfo.discountAmount.toFixed(2)
+                            }}
+                            DKK</span
+                        >
                     </div>
                 </form>
                 <!-- Price info -->

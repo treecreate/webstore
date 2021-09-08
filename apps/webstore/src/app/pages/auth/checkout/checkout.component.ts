@@ -14,6 +14,7 @@ import { TermsOfSaleModalComponent } from '../../../shared/components/modals/ter
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
+import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 import { UserService } from '../../../shared/services/user/user.service';
 import { VerifyService } from '../../../shared/services/verify/verify.service';
 
@@ -71,7 +72,8 @@ export class CheckoutComponent implements OnInit {
     private userService: UserService,
     private verifyService: VerifyService,
     private modalService: NgbModal,
-    private calculatePriceService: CalculatePriceService
+    private calculatePriceService: CalculatePriceService,
+    private newsletterService: NewsletterService
   ) {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
@@ -93,8 +95,19 @@ export class CheckoutComponent implements OnInit {
       console.log(err);
       // TODO: handle failed fetching data
     }
-    // TODO: Check if user is already subscribed to newsletter
-    // this.isSubscribed =
+
+    // Check if user isSubscribed
+    this.newsletterService.isSubscribed().subscribe(
+      () => {
+        this.isSubscribed = true;
+      },
+      (error) => {
+        this.isSubscribed = false;
+        if (error.error.status !== 404) {
+          console.error(error);
+        }
+      }
+    );
 
     this.checkoutForm = new FormGroup({
       name: new FormControl('', [
