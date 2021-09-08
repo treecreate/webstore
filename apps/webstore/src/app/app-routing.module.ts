@@ -52,13 +52,17 @@ const routes: Routes = [
   },
   { path: 'paymentSuccess', component: PaymentSuccessComponent },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
-  //TODO: add authguard
-  { path: 'basket', component: BasketComponent, canActivate: [CookieGuard] },
-  //TODO: add authguard
+  {
+    path: 'basket',
+    component: BasketComponent,
+    canActivate: [CookieGuard, AuthGuard],
+    data: { roles: [UserRoles.user] },
+  },
   {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [CookieGuard],
+    canActivate: [CookieGuard, AuthGuard],
+    data: { roles: [UserRoles.user] },
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests

@@ -40,13 +40,12 @@ export class HomeComponent implements OnInit {
   @HostListener('window:scroll')
   onScrollShow() {
     // For the up arrow that scrolls to top
-    console.log(window.scrollY);
     if (window.scrollY > 800) {
       this.showUpArrow = true;
     } else {
       this.showUpArrow = false;
     }
-    console.log(this.showStartButton);
+    // For the start button 
     if (window.scrollY < 50) {
       this.showStartButton = false;
     } else if (window.scrollY < 1800) {

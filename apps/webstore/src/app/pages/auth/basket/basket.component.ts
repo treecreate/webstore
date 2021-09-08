@@ -9,7 +9,7 @@ import { CalculatePriceService } from '../../../shared/services/calculate-price/
   templateUrl: './basket.component.html',
   styleUrls: [
     './basket.component.scss',
-    '../../../../assets/styles/tc-input-field.scss',
+    '../../../../assets/styles/tc-input-field.scss'
   ],
 })
 export class BasketComponent implements OnInit {
@@ -77,20 +77,6 @@ export class BasketComponent implements OnInit {
         3000
       );
     }
-  }
-
-  discountPercent(): boolean {
-    return (
-      this.priceInfo.discountAmount > 0 &&
-      this.discount.type === DiscountType.percent
-    );
-  }
-
-  discountAmount(): boolean {
-    return (
-      this.priceInfo.discountAmount > 0 &&
-      this.discount.type === DiscountType.amount
-    );
   }
 
   applyDiscount() {
