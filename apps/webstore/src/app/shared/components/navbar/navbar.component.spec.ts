@@ -15,7 +15,7 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      providers: [NgbModal, NgbModal, NgbActiveModal],
+      providers: [NgbModal, NgbActiveModal],
       imports: [NgbModule, RouterTestingModule, HttpClientModule],
     }).compileComponents();
   });

@@ -20,9 +20,25 @@
             <div class="section-container">
                 <!-- delivery address -->
                 <div class="checkout-section no-strech">
-                    <div class="title-container">
+                    <div class="title-container" style="margin-bottom: 5px">
                         <span class="title">Shipping Address </span>
                         <hr />
+                    </div>
+
+                    <div class="option">
+                        <label class="checkbox-container rm-margin">
+                            <input
+                                type="checkbox"
+                                [checked]="billingAddressIsTheSame"
+                                (change)="
+                                    billingAddressIsTheSame = !billingAddressIsTheSame
+                                "
+                            />
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="option-title">
+                            Billing address is the same as delivery address
+                        </div>
                     </div>
 
                     <div class="tc-input-group field">
@@ -191,42 +207,12 @@
                             Invalid danish postcode.
                         </div>
                     </div>
-                    <div class="option">
-                        <label class="checkbox-container rm-margin">
-                            <input
-                                type="checkbox"
-                                [checked]="billingAddressIsTheSame"
-                                (change)="
-                                    billingAddressIsTheSame = !billingAddressIsTheSame
-                                "
-                            />
-                            <span class="checkmark"></span>
-                        </label>
-                        <div class="option-title">
-                            Billing address is the same as delivery address
-                        </div>
-                    </div>
-                    <div class="option margin-top" *ngIf="!isSubscribed">
-                        <label class="checkbox-container rm-margin">
-                            <input
-                                type="checkbox"
-                                [checked]="subscribeToNewsletter"
-                                (change)="
-                                    subscribeToNewsletter = !subscribeToNewsletter
-                                "
-                            />
-                            <span class="checkmark"></span>
-                        </label>
-                        <div class="option-title">
-                            Subscribe to newsletter - 25% off next purchase
-                        </div>
-                    </div>
                 </div>
 
                 <form
-                    class="billing-address-container"
+                    class="billing-address-container checkout-content"
                     *ngIf="!billingAddressIsTheSame"
-                    class="checkout-content"
+                    id="billingAddressDiv"
                     name="billingAddressForm"
                     [formGroup]="billingAddressForm"
                 >
@@ -593,6 +579,21 @@
                 <!-- Actions -->
                 <div class="actions">
                     <hr />
+                    <div class="option margin-top" *ngIf="!isSubscribed">
+                        <label class="checkbox-container rm-margin">
+                            <input
+                                type="checkbox"
+                                [checked]="subscribeToNewsletter"
+                                (change)="
+                                    subscribeToNewsletter = !subscribeToNewsletter
+                                "
+                            />
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="option-title">
+                            Subscribe to newsletter - 25% off next purchase
+                        </div>
+                    </div>
                     <div class="terms-and-conditions-container">
                         <label class="checkbox-container">
                             <input
