@@ -15,7 +15,9 @@ describe('FooterComponent', () => {
   it('should contain a Navigation, Contact and Premium Offers sections', () => {
     cy.get('[data-cy=footer]').contains('Navigation').should('exist');
     cy.get('[data-cy=footer]').contains('Contact').should('exist');
-    cy.get('[data-cy=footer]').contains('Subscribe to our newsletter').should('exist');
+    cy.get('[data-cy=footer]')
+      .contains('Subscribe to our newsletter')
+      .should('exist');
   });
 
   describe.skip('should contain buttons for modals that', () => {
