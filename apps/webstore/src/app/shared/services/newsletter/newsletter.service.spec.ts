@@ -9,8 +9,8 @@ describe('NewsletterService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
-      providers: [AuthService, RouterTestingModule],
+      imports: [HttpClientModule, RouterTestingModule],
+      providers: [AuthService],
     });
     service = TestBed.inject(NewsletterService);
   });
