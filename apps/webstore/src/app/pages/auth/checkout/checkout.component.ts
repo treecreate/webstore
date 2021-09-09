@@ -91,23 +91,22 @@ export class CheckoutComponent implements OnInit {
         this.currentUser = user;
         this.updateFormValues();
       });
+      // Check if user isSubscribed
+      this.newsletterService.isSubscribed().subscribe(
+        () => {
+          this.isSubscribed = true;
+        },
+        (error) => {
+          this.isSubscribed = false;
+          if (error.error.status !== 404) {
+            console.error(error);
+          }
+        }
+      );
     } catch (err) {
       console.log(err);
       // TODO: handle failed fetching data
     }
-
-    // Check if user isSubscribed
-    this.newsletterService.isSubscribed().subscribe(
-      () => {
-        this.isSubscribed = true;
-      },
-      (error) => {
-        this.isSubscribed = false;
-        if (error.error.status !== 404) {
-          console.error(error);
-        }
-      }
-    );
 
     this.checkoutForm = new FormGroup({
       name: new FormControl('', [
