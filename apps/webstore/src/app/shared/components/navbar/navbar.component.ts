@@ -143,6 +143,11 @@ export class NavbarComponent implements OnInit {
     if (window.innerWidth < 992) {
       this.isMenuCollapsed = true;
     }
+    this.scrollTop();
+  }
+
+  scrollTop() {
+    window.scroll(0, 0);
   }
 
   isEnglish() {

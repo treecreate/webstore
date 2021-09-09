@@ -63,7 +63,7 @@
 .bar3 {
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 5px 0;
   transition: 0.4s;
 }
@@ -89,7 +89,7 @@
   text-align: center;
 }
 .dropdown-item-list a:hover {
-  background-color: #ebc6ab;
+  background-color: var(--second-action-color);
   color: white !important;
 }
 .dropdown-item-list a:first-child:hover {
@@ -102,7 +102,7 @@
   padding: 10px;
 }
 .dropdown-item:focus {
-  background-color: #fff0e4;
+  background-color: var(--light-second-action-color);
 }
 .backdrop {
   position: fixed;
@@ -122,7 +122,7 @@
   border: none;
 }
 .navbar-basket-icon {
-  background-color: #52d73d;
+  background-color: var(--green-color);
   border-radius: 5px;
   color: white;
   padding: 0 8px 3px 8px;
@@ -137,16 +137,25 @@
   top: 1px;
   font-size: 12px;
 }
+.loading-spinner-btn {
+  position: relative;
+  left: 5px;
+}
+
 .unverified-email {
+  font-size: var(--extra-small-font);
+  margin-top: 3px;
   position: fixed;
   top: 56px;
-  background-color: #ebc6abc0;
+  background-color: rgba(132, 77, 50, 0.8);
   width: 100%;
   color: white;
   text-align: center;
-  padding: 3px;
   backdrop-filter: blur(10px);
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .verify-email-link {
   color: white;
@@ -155,6 +164,12 @@
 }
 .verify-email-link:hover {
   text-decoration: underline;
+}
+.spinner-style {
+  height: 10px;
+  width: 10px;
+  position: relative;
+  top: -2px;
 }
 
 @media all and (max-width: 992px) {

@@ -1,10 +1,113 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'archia-light';
+  src: local('archia-light'),
+    url(./assets/fonts/archia-light-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'archia-medium';
+  src: local('archia-medium'),
+    url(./assets/fonts/archia-medium-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'archia-thin';
+  src: local('archia-thin'),
+    url(./assets/fonts/archia-thin-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'argestadisplay';
+  src: local('argestadisplay'),
+    url(./assets/fonts/argestadisplay-regular-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'argestadisplay-italic';
+  src: local('argestadisplay-italic'),
+    url(./assets/fonts/argestadisplay-regularitalic-webfont.ttf)
+      format('truetype');
+}
+@font-face {
+  font-family: 'bairol-bold';
+  src: local('bairol-bold'),
+    url(./assets/fonts/bariol_bold-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'bairol-bold-italic';
+  src: local('bairol-bold-italic'),
+    url(./assets/fonts/bariol_serif_bold_italic-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'bould-light';
+  src: local('bould-light'),
+    url(./assets/fonts/bould-extralight-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'calendas-italic';
+  src: local('calendas-italic'),
+    url(./assets/fonts/calendas_plus_italic-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'calendas';
+  src: local('calendas'),
+    url(./assets/fonts/calendas_plus-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'cassannet';
+  src: local('cassannet'),
+    url(./assets/fonts/cassannet_plus_light-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'knile';
+  src: local('knile'),
+    url(./assets/fonts/knile-medium-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'silkamono-light-italic';
+  src: local('silkamono-light-italic'),
+    url(./assets/fonts/silkamono-lightitalic-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'silkamono';
+  src: local('silkamono'),
+    url(./assets/fonts/silkamono-medium-webfont.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'wotfard';
+  src: local('wotfard'),
+    url(./assets/fonts/wotfard-extralight-webfont.ttf) format('truetype');
+}
+
+:root {
+  --green-color: #52d73d;
+  --action-color: #ebc6ab;
+  --second-action-color: #874d32;
+  --light-second-action-color: #f3e5e3;
+  --light-action-color: #f3f3f3;
+  --gray-color: #9b9b9b;
+  --gray-background: #ececec;
+  --gray-box-color: #e8e3e3;
+  --extra-small-font: 0.7rem;
+  --medium-small-font: 0.875rem;
+  --small-font: 1rem;
+  --medium-font: 1.15rem;
+  --regular-font: 1.5rem;
+  --large-font: 2.25rem;
+  --massive-font: 3rem;
+  --extra-massive-font: 6rem;
+  --thin-font: 200;
+  --thick-font: 700;
+}
+
 body {
   min-width: 100%;
+  font-family: 'argestadisplay' !important;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+hr {
+  border-top: solid 1px rgba(0, 0, 0, 0.2);
 }
 
 .error-message {
@@ -49,6 +152,12 @@ html {
 .alert-hide {
   transition: opacity 0.25s linear;
   opacity: 0;
+}
+
+.TnC:hover {
+  color: var(--second-action-color) !important;
+  text-decoration: underline !important;
+  cursor: pointer;
 }
 
 .add-transition {

@@ -15,7 +15,7 @@
 }
 
 .design-container {
-  border: 2px solid green;
+  border: 2px solid var(--green-color);
   min-width: 50%;
   margin: 30px 15px 30px 30px;
 }
@@ -37,8 +37,8 @@
 }
 
 .option-title {
-  font-size: 18px !important;
-  font-weight: 700;
+  font-size: var(--medium-font) !important;
+  font-weight: 500;
   margin-bottom: 5px;
 }
 
@@ -76,7 +76,12 @@
 
 .option-design-title {
   width: 100%;
-  border: 2px solid #ebc6ab;
+  border-radius: 3px;
+  border: 2px solid var(--second-action-color);
+}
+
+.option-design-title::placeholder {
+  color: var(--light-second-action);
 }
 
 .title-input {
@@ -90,7 +95,8 @@
 }
 
 .display {
-  border: 2px solid #ebc6ab;
+  border: 2px solid var(--second-action-color);
+  border-radius: 3px;
   width: 100%;
   margin: 0 5px;
   padding-top: 3px;
@@ -127,7 +133,7 @@
 
 /* option toggle button */
 .option-toggler {
-  background-color: #ebc6ab;
+  background-color: var(--second-action-color);
   transition: 0.5s;
   display: none;
   position: absolute;
@@ -179,7 +185,8 @@
 }
 
 .mobile-options-items {
-  border: 3px solid #ebc6ab;
+  border: 2px solid var(--second-action-color);
+  border-radius: 3px;
   transition: 0.5s;
   transform: scale(0.9);
   position: absolute;

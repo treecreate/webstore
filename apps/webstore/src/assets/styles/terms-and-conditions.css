@@ -39,10 +39,10 @@
 /* mobile */
 @media (max-width: 992px) {
   h2 {
-    font-size: 1.5rem;
+    font-size: var(--regular-font);
   }
   h1 {
-    font-size: 2rem;
+    font-size: var(--large-font);
     margin-block: auto;
   }
 }

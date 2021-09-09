@@ -6,20 +6,17 @@
                 <div class="basket-items-container">
                     <h2 class="mobile-title">BASKET</h2>
                     <!-- basket items -->
-                    <div
-                        class="basket-items"
-                        *ngIf="!(basketItems.length <= 0)"
-                    >
+                    <div class="basket-items" *ngIf="!(itemList.length <= 0)">
                         <webstore-basket-item
-                            *ngFor="let item of basketItems"
+                            (click)="updatePrices()"
+                            *ngFor="let item of itemList"
                             [item]="item"
                         ></webstore-basket-item>
                     </div>
                     <!-- If there are not items in basket -->
-                    <div class="no-items" *ngIf="basketItems.length <= 0">
+                    <div class="no-items" *ngIf="itemList.length <= 0">
                         <img
-                            src="../../../../assets/icons/no-design-icon.svg"
-                            alt=""
+                            src="/assets/icons/no-design-icon.svg"
                             routerLink="/product"
                             class="no-design-icon"
                         />
@@ -46,7 +43,8 @@
                     <div class="donate-tree-option">
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            (click)="decreaseDonatingAmount()"
+                            id="donate-less-trees-btn"
+                            (click)="decreaseDonatingAmount(); updatePrices()"
                         >
                             <div class="icon">
                                 <div class="button-minus"></div>
@@ -55,14 +53,16 @@
                         <div class="amount-of-trees">
                             {{ donatedTrees }} x
                             <img
-                                src="../../../../assets/icons/seed-icon.svg"
-                                alt=""
+                                src="/assets/icons/seed-icon.svg"
                                 class="seed-icon"
                             />
                         </div>
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            (click)="donatedTrees = donatedTrees + 1"
+                            id="donate-extra-trees-btn"
+                            (click)="
+                                donatedTrees = donatedTrees + 1; updatePrices()
+                            "
                         >
                             <div class="button-plus"></div>
                         </button>
@@ -71,7 +71,7 @@
                 <!-- Discount code -->
                 <form
                     [formGroup]="discountForm"
-                    (ngSubmit)="applyDiscount()"
+                    (ngSubmit)="applyDiscount(); updatePrices()"
                     class="basket-options-item"
                 >
                     <input
@@ -84,50 +84,63 @@
                         class="tc-button-100 margin-top low-dropshadow"
                         type="submit"
                     >
-                        Apply Discount
+                        Apply discount
                     </button>
-                    <div *ngIf="discount > 0" class="discount-code-display">
+
+                    <!-- Discount display -->
+                    <div
+                        *ngIf="priceInfo.discountAmount > 0"
+                        class="discount-code-display"
+                    >
                         <span>Amount dicount:</span>
-                        <span>-{{ discount * 100 }}% </span>
+                        <span
+                            >-{{
+                                priceInfo.discountAmount.toFixed(2)
+                            }}
+                            DKK</span
+                        >
                     </div>
                 </form>
                 <!-- Price info -->
                 <div class="basket-options-item">
-                    <div class="price-info-container">
-                        <div class="price-subtitles">
-                            <span> Subtotal <br /> </span>
-                            <span> You Save <br /> </span>
-                            <span class="weight">
-                                <strong> Total </strong> <br />
-                            </span>
-                            <span> VAT <br /> </span>
-                        </div>
-                        <div class="price-info">
-                            <span>
-                                {{ calcSubtotalPrice().toFixed(2) }} DKK <br />
-                            </span>
-                            <span>
-                                {{ calcAmountSaved().toFixed(2) }} DKK <br />
-                            </span>
-                            <span class="weight">
-                                <strong>
-                                    {{
-                                        (
-                                            calcTotal() + calcDonationPrice()
-                                        ).toFixed(2)
-                                    }}
-                                    DKK
-                                </strong>
-                                <br />
-                            </span>
-                            <span>
-                                {{ calcVat().toFixed(2) }} DKK
-                                <br />
-                            </span>
-                        </div>
+                    <div class="line-container">
+                        <span> Subtotal </span>
+                        <span>
+                            {{ priceInfo.fullPrice.toFixed(2) }} DKK <br />
+                        </span>
                     </div>
-                    <button class="tc-button-100 green low-dropshadow">
-                        Go To Checkout
+                    <div
+                        class="line-container"
+                        [ngClass]="
+                            priceInfo.discountAmount > 0 ? 'green-text' : ''
+                        "
+                    >
+                        <span> You Save </span>
+                        <span>
+                            - {{ priceInfo.discountAmount.toFixed(2) }} DKK
+                        </span>
+                    </div>
+                    <div class="line-container weight">
+                        <span>
+                            <strong> Total </strong>
+                        </span>
+                        <span>
+                            <strong
+                                >{{ priceInfo.finalPrice.toFixed(2) }} DKK
+                            </strong>
+                        </span>
+                    </div>
+                    <div class="line-container margin-bottom">
+                        <span> VAT </span>
+                        <span> {{ priceInfo.vat.toFixed(2) }} DKK </span>
+                    </div>
+
+                    <button
+                        class="tc-button-100 green low-dropshadow"
+                        routerLink="/checkout"
+                        (click)="scrollTop()"
+                    >
+                        Go to checkout
                     </button>
                 </div>
             </div>

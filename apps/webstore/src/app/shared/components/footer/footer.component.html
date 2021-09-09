@@ -81,7 +81,10 @@
             <hr class="remove-margin clearfix w-100 d-md-none" />
 
             <div class="col-main col-md-3 final-col">
-                <h5 class="font-weight-bold mt-3">Premium offers</h5>
+                <h5 class="font-weight-bold mt-3">
+                    Subscribe to our newsletter
+                </h5>
+                <p>Get 10% off your first purchase.</p>
                 <div class="tc-input-group field">
                     <input
                         type="email"
@@ -95,7 +98,7 @@
                 </div>
                 <div class="signup-button">
                     <button type="button" class="tc-button-50">
-                        <span>Sign Up</span>
+                        <span>Sign up</span>
                     </button>
                 </div>
             </div>
@@ -106,27 +109,29 @@
     <div class="footer-copyright text-center py-3">
         <div class="container">
             <div class="row">
-                <div class="col">© 2021 Copyright Treecreate</div>
+                <div class="col">
+                    © {{ this.currentYear }} Copyright Treecreate
+                </div>
                 <hr class="remove-mobile clearfix w-100 d-md-none" />
                 <div class="col">
                     <a
                         data-cy="footer-terms-of-use-modal-link"
                         (click)="showTermsOfUse()"
-                        class="terms"
+                        class="terms TnC"
                         >Terms</a
                     >
                     -
                     <a
                         data-cy="footer-terms-of-sale-modal-link"
                         (click)="showTermsOfSale()"
-                        class="terms"
+                        class="terms TnC"
                         >Sale</a
                     >
                     -
                     <a
                         data-cy="footer-privacy-notice-modal-link"
                         (click)="showPrivacyNotice()"
-                        class="terms"
+                        class="terms TnC"
                         >Privacy</a
                     >
                 </div>

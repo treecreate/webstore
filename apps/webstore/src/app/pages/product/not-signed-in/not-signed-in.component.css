@@ -3,6 +3,7 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  font-family: 'argestadisplay';
 }
 .page-content {
   margin-top: 100px;

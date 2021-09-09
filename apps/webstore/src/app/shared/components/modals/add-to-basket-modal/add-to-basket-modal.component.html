@@ -1,5 +1,9 @@
 <div class="modal-container add-transition">
-    <div class="modal-content">
+    <form
+        [formGroup]="addToBasketForm"
+        (ngSubmit)="submit()"
+        class="modal-content"
+    >
         <div class="option-title">
             <div class="title">
                 Title
@@ -13,6 +17,7 @@
                     type="text"
                     class="title-input"
                     placeholder="Untitled-1"
+                    formControlName="title"
                 />
             </div>
         </div>
@@ -29,18 +34,20 @@
             <div class="option add-transition">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-minus"
+                    (click)="decreaseAmount()"
+                    id="decrease-amount-btn"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
                 <div class="amount">
-                    {{ 0 }}
+                    {{ this.addToBasketForm.get('amount').value }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-plus"
+                    (click)="increaseAmount()"
+                    id="increase-amount-btn"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -56,21 +63,23 @@
                     text="The size of your design. You can choose between 20x20cm, 25x25cm and 30x30cm."
                 ></webstore-info-popover>
             </div>
-            <div class="option">
+            <div class="option add-transition">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-minus"
+                    (click)="decreaseSize()"
+                    id="decrease-size-btn"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
                 <div class="amount">
-                    {{ 0 }}
+                    {{ this.addToBasketForm.get('size').value }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    data-cy="box-size-plus"
+                    (click)="increaseSize()"
+                    id="increase-size-btn"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -78,12 +87,39 @@
         </div>
 
         <!-- Price -->
+        <div class="price-container">
+            <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
+                <span>Save 25%</span
+                ><span
+                    >order
+                    <!-- TODO: Make this display the full amount of items in the basket -->
+                    <!-- So it looks like this: 4 - ( addToBasketForm.get('amount') + all basket items )  -->
+                    {{ 4 - addToBasketForm.get('amount').value }} more</span
+                >
+            </div>
+            <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
+                <span>You save: (-25%)</span
+                ><span>{{ (price * 0.25).toFixed(2) }}</span>
+            </div>
+            <div class="price add-transition">
+                <span>Price:</span
+                ><span>{{
+                    isMoreThan4 ? (price * 0.75).toFixed(2) : price.toFixed(2)
+                }}</span>
+            </div>
+        </div>
 
         <!-- Actions -->
         <div class="option-actions add-transition">
-            <div class="button-container">
-                <button class="tc-button-100 green">Add to basket</button>
-                <button class="tc-button-100" (click)="activeModal.close()">
+            <div class="button-container add-transition">
+                <button class="tc-button-100 green" type="submit">
+                    Add to basket
+                </button>
+                <button
+                    class="tc-button-100"
+                    type="button"
+                    (click)="activeModal.close()"
+                >
                     Cancel
                 </button>
             </div>
@@ -91,7 +127,7 @@
 
         <!-- Extra info -->
         <div class="text-container add-transition">
-            <div class="extra-info">
+            <div class="extra-info add-transition">
                 <strong> Note: <br /> </strong>
                 For every design you purchase, you are automatically planting a
                 tree. Thereby you support re-floreshing the forrests, which has
@@ -99,5 +135,5 @@
                 <strong> THANK YOU FOR YOUR SUPPORT!</strong>
             </div>
         </div>
-    </div>
+    </form>
 </div>

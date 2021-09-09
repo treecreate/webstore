@@ -20,6 +20,7 @@ import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-
 export class FooterComponent implements OnInit {
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
+  public currentYear = new Date().getFullYear();
 
   constructor(
     private modalService: NgbModal,

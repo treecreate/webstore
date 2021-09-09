@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { IAuthUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
@@ -7,16 +7,12 @@ import { LocalStorageService } from '../../shared/services/local-storage';
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
-  styleUrls: [
-    './home.component.css',
-    './home.component.mobile.css',
-    './home.component.side-scroll.css',
-  ],
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   initialTop: 0;
-  parallaxRatio: number;
   showUpArrow = false;
+  showStartButton = false;
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
 
@@ -24,11 +20,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private authService: AuthService,
-    private eleRef: ElementRef
+    private authService: AuthService
   ) {
     this.initialTop = 0;
-    this.parallaxRatio = 0.7;
 
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(
@@ -44,14 +38,27 @@ export class HomeComponent implements OnInit {
   }
 
   @HostListener('window:scroll')
-  onWindowScroll() {
+  onScrollShow() {
     // For the up arrow that scrolls to top
     if (window.scrollY > 800) {
       this.showUpArrow = true;
     } else {
       this.showUpArrow = false;
     }
-    return this.initialTop - window.scrollY * this.parallaxRatio + 'px';
+    // For the start button
+    if (window.scrollY < 50) {
+      this.showStartButton = false;
+    } else if (window.scrollY < 1800) {
+      this.showStartButton = true;
+    } else {
+      this.showStartButton = false;
+    }
+  }
+
+  onWindowScroll() {}
+
+  scrollTop() {
+    window.scrollTo(0, 0);
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method

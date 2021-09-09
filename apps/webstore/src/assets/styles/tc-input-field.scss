@@ -1,5 +1,3 @@
-$primary: #ebc6ab;
-$gray: #9b9b9b;
 .tc-input-group {
   position: relative;
   padding: 15px 0 0;
@@ -10,9 +8,9 @@ $gray: #9b9b9b;
   font-family: inherit;
   width: 100%;
   border: 0;
-  border-bottom: 1px solid $gray;
+  border-bottom: 1px solid var(--gray-color);
   outline: 0;
-  font-size: 1rem;
+  font-size: var(--small-font);
   color: black;
   padding: 5px 0;
   background: transparent;
@@ -23,7 +21,7 @@ $gray: #9b9b9b;
   }
 
   &:placeholder-shown ~ .tc-input-label {
-    font-size: 1rem;
+    font-size: var(--small-font);
     cursor: text;
     top: 22px;
   }
@@ -34,8 +32,8 @@ $gray: #9b9b9b;
   top: 0;
   display: block;
   transition: 0.2s;
-  font-size: 0.7rem;
-  color: $gray;
+  font-size: var(--extra-small-font);
+  color: var(--gray-color);
 }
 
 .tc-input-field:focus {
@@ -44,14 +42,14 @@ $gray: #9b9b9b;
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 0.7rem;
-    color: $primary;
+    font-size: var(--extra-small-font);
+    color: var(--second-action-color);
     font-weight: 500;
   }
   padding-bottom: 4px;
   font-weight: 500;
   border-width: 2px;
-  border-color: $primary;
+  border-color: var(--second-action-color);
   border-image-slice: 1;
 }
 /* reset input */
@@ -86,7 +84,7 @@ select:-webkit-autofill:focus {
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: var(--regular-font);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -108,6 +106,7 @@ select:-webkit-autofill:focus {
   height: 25px;
   width: 25px;
   background-color: #eee;
+  border-radius: 2px;
 }
 
 .checkbox-container:hover input ~ .checkmark {
@@ -115,7 +114,7 @@ select:-webkit-autofill:focus {
 }
 
 .checkbox-container input:checked ~ .checkmark {
-  background-color: #ebc6ab;
+  background-color: var(--second-action-color);
 }
 
 .checkmark:after {

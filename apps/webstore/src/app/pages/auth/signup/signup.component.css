@@ -20,16 +20,19 @@
 }
 
 .terms-and-conditions {
-  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--medium-small-font);
   text-align: left;
   margin: 0;
   margin-left: 40px;
 }
 
-.terms-and-conditions:hover {
-  text-decoration: none;
-  transition: 0.5s;
-  color: #ebc6ab !important;
+.sign-up {
+  font-size: var(--medium-small-font);
+  text-align: left;
+  margin: 0;
+  margin-left: 40px;
 }
 
 .checkmark {

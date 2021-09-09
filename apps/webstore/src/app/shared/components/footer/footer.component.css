@@ -1,5 +1,5 @@
 h5 {
-  font-size: 24px;
+  font-size: var(--regular-font);
   line-height: 29px;
 }
 .container {
@@ -16,13 +16,12 @@ h5 {
 .page-footer {
   width: 100%;
   background-color: white;
-  color: black;
 }
 .list-unstyled li {
   padding-bottom: 7px;
 }
 .list-unstyled li a {
-  color: black;
+  color: black !important;
   transition: 0.5s;
 }
 .list-unstyled li a:hover {
@@ -30,7 +29,7 @@ h5 {
   text-decoration: none;
 }
 .border-right {
-  border-right: 1px solid black;
+  border-right: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 .signup-button {
   text-align: right;
@@ -64,11 +63,11 @@ h5 {
 }
 .terms {
   margin: 0 5px;
-  color: black;
+  color: black !important;
   transition: 0.4s;
 }
 .terms:hover {
-  color: #ebc6ab !important;
+  color: var(--second-action-color) !important;
   text-decoration: none;
 }
 .remove-mobile {
@@ -106,9 +105,6 @@ h5 {
   }
   .mobile-br {
     display: block;
-  }
-  .font-small {
-    font-size: 0.8rem;
   }
   .contact-mobile-margin {
     margin-right: 30px;

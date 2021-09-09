@@ -5,7 +5,7 @@
         class="signup-form"
         [formGroup]="signupForm"
     >
-        <h1 class="page-title">Sign Up</h1>
+        <h1 class="page-title">Sign up</h1>
         <div class="tc-input-group field">
             <input
                 type="email"
@@ -79,7 +79,6 @@
         >
             The passwords must match each other
         </div>
-        <!-- TODO: Add an option to signup for the newsletter -->
         <div class="terms-and-conditions-container">
             <label class="checkbox-container">
                 <input
@@ -90,13 +89,31 @@
                 />
                 <span class="checkmark" data-cy="checkbox-big-font"></span>
             </label>
-            <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
-            <a class="terms-and-conditions" (click)="showTermsOfUse()"
-                >I accept terms and conditions</a
-            >
+            <div class="terms-and-conditions">
+                I accept terms and conditions<a
+                    class="TnC"
+                    (click)="showTermsOfUse()"
+                    >Read here</a
+                >
+            </div>
         </div>
 
-        <!-- TODO: add an alert for failed signup attempts -->
+        <div class="sign-up-container">
+            <label class="checkbox-container">
+                <input
+                    type="checkbox"
+                    (change)="
+                        this.signUpForNewletter = !this.signUpForNewletter
+                    "
+                />
+                <span class="checkmark" data-cy="checkbox-big-font"></span>
+            </label>
+            <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
+            <div class="sign-up">
+                Sign up for newsletter and get 10% off your first purchase!
+            </div>
+        </div>
+
         <button
             class="tc-button-100"
             type="submit"
@@ -107,7 +124,7 @@
         </button>
 
         <button class="tc-button-100" type="button" routerLink="/login">
-            Back to Login
+            Back to login
         </button>
     </form>
 </div>

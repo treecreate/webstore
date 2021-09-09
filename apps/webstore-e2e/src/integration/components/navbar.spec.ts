@@ -19,6 +19,5 @@ describe('NavbarComponent', () => {
     cy.get('[data-cy=navbar]').contains('Home').should('exist');
     cy.get('[data-cy=navbar]').contains('Product').should('exist');
     cy.get('[data-cy=navbar]').contains('Log In').should('exist');
-    cy.get('[data-cy=navbar]').contains('Basket').should('exist');
   });
 });

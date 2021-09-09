@@ -1,5 +1,5 @@
 import { CookieStatus, LocalStorageVars } from '@models';
-describe('PrivacyNoticeModal', () => {
+describe.skip('PrivacyNoticeModal', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.cookiesAccepted,
