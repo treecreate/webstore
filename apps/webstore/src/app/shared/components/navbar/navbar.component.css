@@ -143,6 +143,7 @@
 }
 
 .unverified-email {
+  font-size: var(--extra-small-font);
   margin-top: 3px;
   position: fixed;
   top: 56px;
@@ -150,7 +151,6 @@
   width: 100%;
   color: white;
   text-align: center;
-  padding: 3px;
   backdrop-filter: blur(10px);
   z-index: 1000;
   display: flex;
@@ -164,6 +164,12 @@
 }
 .verify-email-link:hover {
   text-decoration: underline;
+}
+.spinner-style {
+  height: 10px;
+  width: 10px;
+  position: relative;
+  top: -2px;
 }
 
 @media all and (max-width: 992px) {
