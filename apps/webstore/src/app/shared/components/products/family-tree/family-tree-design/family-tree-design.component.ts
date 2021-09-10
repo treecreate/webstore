@@ -90,59 +90,38 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Load and validate box designs
-
-    console.log('Box design enum:', BoxDesignEnum);
-
+    // Load and validate box design SVGs
     for (let i = 0; i < Object.values(BoxDesignEnum).length; i++) {
       let image = new Image();
-      console.log('box path', Object.values(BoxDesignEnum)[i]);
       image.src = Object.values(BoxDesignEnum)[i];
       image.onerror = () => {
-        console.error('Failed to load a box design');
         image = null;
-        this.alert = {
-          type: 'danger',
-          message: 'Design information has failed to load',
-          dismissible: false,
-        };
-        // stop rendering
-        clearInterval(this.timeInterval);
+        this.handleFailedResourceLoading('Failed to load a box design');
       };
-
       this.boxDesigns.push(image);
     }
-
-    // load and validate close button image svg
+    // load and validate close button image SVG
     this.closeButton.src = BoxDesignEnum.closeButton;
-    this.closeButton.onload = () => {};
     this.closeButton.onerror = () => {
-      console.error('Failed to load the close button design SVG');
-      this.closeButton = null;
-      this.alert = {
-        type: 'danger',
-        message: 'Design information has failed to load',
-        dismissible: false,
-      };
-
-      // stop rendering
-      clearInterval(this.timeInterval);
+      this.handleFailedResourceLoading('Failed to load the tree design SVG');
     };
-    // load and validate tree image svg
+    // load and validate tree image SVG
     this.treeImage.src = TreeDesignEnum.basicTree;
-    this.treeImage.onload = () => {};
     this.treeImage.onerror = () => {
-      console.error('Failed to load the Tree design SVG');
-      this.treeImage = null;
-      this.alert = {
-        type: 'danger',
-        message: 'Design information has failed to load',
-        dismissible: false,
-      };
-
-      // stop rendering
-      clearInterval(this.timeInterval);
+      this.handleFailedResourceLoading('Failed to load the close button SVG');
     };
+  }
+
+  handleFailedResourceLoading(message: string) {
+    console.error(message);
+    this.treeImage = null;
+    this.alert = {
+      type: 'danger',
+      message: 'Design information has failed to load',
+      dismissible: false,
+    };
+    // stop the canvas rendering process
+    clearInterval(this.timeInterval);
   }
 
   ngAfterViewInit(): void {
@@ -176,7 +155,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     console.log('Boxes', this.myBoxes);
 
     // TODO: Make the boxes get created during init, then populated after the view is loaded, then fill out with data
-    // TODO: Make the new boxes get created when background is clicked
     for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
     // TODO: Switch to request animation frame
@@ -382,6 +360,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
           this.mouseCords.y > box.y &&
           this.mouseCords.y < box.y + this.closeButtonDimensions.width
         ) {
+          // remove the box and the input component
           this.myBoxes[i].inputRef.destroy();
           this.myBoxes.splice(i, 1);
           return;
