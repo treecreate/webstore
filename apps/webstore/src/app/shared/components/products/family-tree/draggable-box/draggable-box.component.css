@@ -3,4 +3,9 @@
   border: none;
   background: transparent;
   text-align: center;
+  background-color: white;
+}
+
+.draggable-box-input:focus {
+  outline: none;
 }
