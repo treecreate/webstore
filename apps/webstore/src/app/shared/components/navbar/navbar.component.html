@@ -72,6 +72,7 @@
                         routerLink="{{
                             isLoggedIn ? '/product' : '/notSignedIn'
                         }}"
+                        i18n="@@nav-product-link"
                         (click)="autoCollapse()"
                         >Product</a
                     >
@@ -81,7 +82,8 @@
                         class="nav-link waves-light"
                         routerLink="/login"
                         (click)="autoCollapse()"
-                        >Log In</a
+                        i18n="@@nav-login-link"
+                        >Log in</a
                     >
                 </li>
 
@@ -91,6 +93,7 @@
                         *ngIf="isLoggedIn"
                         routerLink="/collection"
                         (click)="autoCollapse()"
+                        i18n="@@nav-collection-link"
                         >Collection</a
                     >
                 </li>
@@ -100,6 +103,7 @@
                         *ngIf="isLoggedIn"
                         routerLink="/profile"
                         (click)="autoCollapse()"
+                        i18n="@@nav-profile-link"
                         >Profile</a
                     >
                 </li>
@@ -109,6 +113,7 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         (click)="logout(); autoCollapse()"
+                        i18n="@@nav-logout-link"
                         >Log out</a
                     >
                 </li>
@@ -125,6 +130,7 @@
                             ngbDropdownToggle
                             class="nav-link waves-light"
                             (mouseenter)="showProfileMenu()"
+                            i18n="@@nav-profile-link"
                             >Profile</a
                         >
                         <div
@@ -137,12 +143,14 @@
                                 ngbDropdownItem
                                 routerLink="/profile"
                                 (click)="scrollTop()"
-                                >Account Info</a
+                                i18n="@@nav-account-info-link"
+                                >Account info</a
                             >
                             <a
                                 ngbDropdownItem
                                 routerLink="/collection"
                                 (click)="scrollTop()"
+                                i18n="@@nav-collection-link"
                                 >Collection</a
                             >
                             <a ngbDropdownItem (click)="logout(); scrollTop()"
@@ -169,13 +177,13 @@
     </div>
 </nav>
 <div class="unverified-email" *ngIf="isLoggedIn && !isVerified">
-    Your e-mail is still not verified:
+    <span i18n="@@nav-verify-email">Your e-mail is still not verified:</span>
     <div
         *ngIf="isResendVerificationEmailLoading"
         class="loading-spinner-btn"
         role="status"
     >
-        Sending e-mail...
+        <span i18n="@@sending-email">Sending e-mail...</span>
         <span
             class="spinner-border spinner-style spinner-border-sm text-light"
             role="status"
@@ -186,6 +194,7 @@
         *ngIf="!isResendVerificationEmailLoading"
         class="verify-email-link"
         (click)="resendVerificationEmail()"
+        i18n="@@resend-email"
     >
         Resend e-mail
     </button>
