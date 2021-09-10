@@ -341,16 +341,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.designCanvas.nativeElement,
       event
     );
-
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
-      // console.log('down', this.mouseCords);
-      // console.log('real', { x: event.clientX, y: event.clientY });
-      // console.log(
-      //   'Computed back',
-      //   this.getRealCords(this.designCanvas.nativeElement,{x: box.x, y: box.y})
-      // );
-      // console.log('-----------------------');
 
       if (
         this.mouseCords.x > box.x &&
@@ -395,7 +387,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   }
 
   mouseUpHandler(event) {
-    console.log('up');
     event = event || window.event;
     this.mouseCords = this.getMousePosition(
       this.designCanvas.nativeElement,
@@ -410,7 +401,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
           this.myBoxes[i].x = box.previousX;
           this.myBoxes[i].y = box.previousY;
           this.myBoxes[i].dragging = false;
-          console.log('Sending box back to init', this.myBoxes[i]);
         } else {
           // save the box in its new position
           this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
@@ -420,10 +410,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
           this.myBoxes[i].previousY =
             this.mouseCords.y - this.mouseClickOffset.y;
           this.myBoxes[i].dragging = false;
-          console.log(
-            'Dropping the box wherever it is, iz gucci',
-            this.myBoxes[i]
-          );
         }
         // skip checking the other boxes
         return;
