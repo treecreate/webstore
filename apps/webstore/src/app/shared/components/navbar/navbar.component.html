@@ -109,6 +109,7 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         (click)="logout(); autoCollapse()"
+                        data-cy="navbar-log-out-btn"
                         >Log out</a
                     >
                 </li>
@@ -125,6 +126,7 @@
                             ngbDropdownToggle
                             class="nav-link waves-light"
                             (mouseenter)="showProfileMenu()"
+                            data-cy="navbar-profile-dropdown"
                             >Profile</a
                         >
                         <div

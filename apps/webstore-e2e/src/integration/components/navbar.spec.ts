@@ -34,4 +34,16 @@ describe('NavbarComponent', () => {
     cy.get('[data-cy=navbar]').contains('Log In').should('not.exist');
     cy.get('[data-cy=navbar]').contains('Profile').should('exist');
   });
+
+  it('should log the out user and clear local storage information', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    cy.get('[data-cy=navbar-profile-dropdown]').trigger('mouseenter');
+    cy.get('[data-cy=navbar-log-out-btn]').click({ force: true });
+    cy.url().should('contain', '/home');
+    cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+    cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
+  });
 });
