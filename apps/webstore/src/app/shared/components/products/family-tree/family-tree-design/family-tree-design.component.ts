@@ -23,6 +23,7 @@ interface IDraggableBox {
   dragging: boolean;
   boxDesign: HTMLImageElement;
   inputRef?: ComponentRef<DraggableBoxComponent>;
+  text: string;
 }
 
 @Component({
@@ -137,28 +138,30 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.canvasResolution.height / 4,
       (this.canvasResolution.width / 10) * 2,
       this.canvasResolution.height / 10,
-      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
+      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
+      ''
     );
     this.myBoxes[1] = this.createBox(
       this.canvasResolution.width / 6,
       this.canvasResolution.height / 2,
       (this.canvasResolution.width / 10) * 2,
       this.canvasResolution.height / 10,
-      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
+      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
+      ''
     );
     this.myBoxes[2] = this.createBox(
       this.canvasResolution.width / 2,
       this.canvasResolution.height / 3,
       (this.canvasResolution.width / 10) * 2,
       this.canvasResolution.height / 10,
-      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)]
+      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
+      ''
     );
     console.log('Boxes', this.myBoxes);
 
     // TODO: Make the boxes get created during init, then populated after the view is loaded, then fill out with data
     // TODO: Make the new boxes get created when background is clicked
     // TODO: Make boxes get deleted
-    // Create inputs for each box. Possible approach: https://codepen.io/sirspinach/pen/tflio
     for (let i = 0; i < this.myBoxes.length; i++) {
       const factory = this.resolver.resolveComponentFactory(
         DraggableBoxComponent
@@ -182,6 +185,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       draggableBoxRef.instance.touchendEvent.subscribe((value) => {
         this.mouseUpHandler(value);
       });
+      draggableBoxRef.instance.newTextValue.subscribe((value) => {
+        // We don't actually use the value yet since we can't directly apply it to the element in myBoxes (indexes change)
+        // Instead, we update all of the boxes via their refs whenever there is a value change (efficient af am I rite?)
+        this.updateBoxRefText();
+      });
+      draggableBoxRef.instance.text = this.myBoxes[i].text;
       // set the reference to the draggable box component instance
       this.myBoxes[i].inputRef = draggableBoxRef;
       this.cdr.detectChanges();
@@ -195,13 +204,20 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     console.log('Render loop started');
   }
 
+  updateBoxRefText() {
+    for (let i = 0; i < this.myBoxes.length; i++) {
+      this.myBoxes[i].text = this.myBoxes[i].inputRef.instance.text;
+    }
+  }
+
   // create a new box
   createBox(
     initialX: number,
     initialY: number,
     width: number,
     height: number,
-    boxDesign: HTMLImageElement
+    boxDesign: HTMLImageElement,
+    text: string
   ): IDraggableBox {
     return {
       x: initialX,
@@ -212,6 +228,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       height: height,
       dragging: false,
       boxDesign: boxDesign,
+      text: text,
     };
   }
 
@@ -255,8 +272,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.myBoxes[i].inputRef.instance.height = Math.floor(
           box.height / scale.scaleY
         );
-        // Set example text
-        this.myBoxes[i].inputRef.instance.text = 'Box ' + i;
+        this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
       }
     }
   }

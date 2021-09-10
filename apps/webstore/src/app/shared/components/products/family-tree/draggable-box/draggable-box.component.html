@@ -1,8 +1,10 @@
 <!-- NOTE: the top/left thing is broken since it doesn't scale -->
 <input
     type="input"
-    [placeholder]="text"
+    placeholder="..."
+    [ngModel]="text"
     class="draggable-box-input"
+    (ngModelChange)="onInputChange($event)"
     [ngStyle]="{
         top: y + 'px',
         left: x + 'px',

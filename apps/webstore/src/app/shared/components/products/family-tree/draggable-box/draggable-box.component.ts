@@ -41,6 +41,8 @@ export class DraggableBoxComponent implements AfterViewInit {
   touchstartEvent = new EventEmitter();
   @Output()
   touchendEvent = new EventEmitter();
+  @Output()
+  newTextValue = new EventEmitter<string>();
 
   constructor() {}
 
@@ -71,5 +73,10 @@ export class DraggableBoxComponent implements AfterViewInit {
   @HostListener('touchend', ['$event'])
   onTouchEnd($event) {
     this.touchendEvent.emit($event);
+  }
+
+  onInputChange($event) {
+    this.text = $event;
+    this.newTextValue.emit($event);
   }
 }
