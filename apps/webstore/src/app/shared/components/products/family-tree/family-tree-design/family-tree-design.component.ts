@@ -68,6 +68,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
   treeImage = new Image();
   boxDesigns: HTMLImageElement[] = [];
+  closeButton = new Image();
+  closeButtonDimensions = {
+    height: this.canvasResolution.height / 30,
+    width: this.canvasResolution.width / 30,
+  };
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -104,11 +109,24 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.boxDesigns.push(image);
     }
 
+    // load and validate close button image svg
+    this.closeButton.src = BoxDesignEnum.closeButton;
+    this.closeButton.onload = () => {};
+    this.closeButton.onerror = () => {
+      console.error('Failed to load the close button design SVG');
+      this.closeButton = null;
+      this.alert = {
+        type: 'danger',
+        message: 'Design information has failed to load',
+        dismissible: false,
+      };
+
+      // stop rendering
+      clearInterval(this.timeInterval);
+    };
     // load and validate tree image svg
     this.treeImage.src = TreeDesignEnum.basicTree;
-    this.treeImage.onload = () => {
-      console.log('loading');
-    };
+    this.treeImage.onload = () => {};
     this.treeImage.onerror = () => {
       console.error('Failed to load the Tree design SVG');
       this.treeImage = null;
@@ -161,7 +179,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
     // TODO: Make the boxes get created during init, then populated after the view is loaded, then fill out with data
     // TODO: Make the new boxes get created when background is clicked
-    // TODO: Make boxes get deleted
     for (let i = 0; i < this.myBoxes.length; i++) {
       const factory = this.resolver.resolveComponentFactory(
         DraggableBoxComponent
@@ -275,6 +292,14 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         );
         this.myBoxes[i].inputRef.instance.zIndex = i;
         this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
+        // draw the close button within the box ()
+        this.context.drawImage(
+          this.closeButton,
+          box.x + this.closeButtonDimensions.width / 4,
+          box.y + this.closeButtonDimensions.height / 4,
+          this.closeButtonDimensions.width,
+          this.closeButtonDimensions.height
+        );
       }
     }
   }
@@ -352,6 +377,18 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.mouseCords.y > box.y &&
         this.mouseCords.y < box.y + box.height
       ) {
+        // check if the Close button got pressed
+        if (
+          this.mouseCords.x > box.x &&
+          this.mouseCords.x < box.x + this.closeButtonDimensions.width &&
+          this.mouseCords.y > box.y &&
+          this.mouseCords.y < box.y + this.closeButtonDimensions.width
+        ) {
+          this.myBoxes[i].inputRef.destroy();
+          this.myBoxes.splice(i, 1);
+          return;
+        }
+
         this.myBoxes[i].dragging = true;
         this.mouseClickOffset.x = this.mouseCords.x - box.x;
         this.mouseClickOffset.y = this.mouseCords.y - box.y;
