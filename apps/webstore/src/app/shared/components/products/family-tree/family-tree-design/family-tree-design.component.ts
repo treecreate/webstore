@@ -68,6 +68,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
   treeImage = new Image();
   boxDesigns: HTMLImageElement[] = [];
+  boxDimensions = {
+    height: this.canvasResolution.height / 10,
+    width: this.canvasResolution.width / 5,
+  };
   closeButton = new Image();
   closeButtonDimensions = {
     height: this.canvasResolution.height / 30,
@@ -151,27 +155,21 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     console.log('Context', this.context);
 
     // Setup boxes
-    this.myBoxes[0] = this.createBox(
+    this.createBox(
       this.canvasResolution.width / 8,
       this.canvasResolution.height / 4,
-      (this.canvasResolution.width / 10) * 2,
-      this.canvasResolution.height / 10,
       this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
       ''
     );
-    this.myBoxes[1] = this.createBox(
+    this.createBox(
       this.canvasResolution.width / 6,
       this.canvasResolution.height / 2,
-      (this.canvasResolution.width / 10) * 2,
-      this.canvasResolution.height / 10,
       this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
       ''
     );
-    this.myBoxes[2] = this.createBox(
+    this.createBox(
       this.canvasResolution.width / 2,
       this.canvasResolution.height / 3,
-      (this.canvasResolution.width / 10) * 2,
-      this.canvasResolution.height / 10,
       this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
       ''
     );
@@ -179,40 +177,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
     // TODO: Make the boxes get created during init, then populated after the view is loaded, then fill out with data
     // TODO: Make the new boxes get created when background is clicked
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      const factory = this.resolver.resolveComponentFactory(
-        DraggableBoxComponent
-      );
-      const draggableBoxRef = this.designWrapper.createComponent(factory);
-
-      // set the listeners on the new component
-      draggableBoxRef.instance.mousedownEvent.subscribe((value) => {
-        this.mouseDownHandler(value);
-      });
-      draggableBoxRef.instance.mouseupEvent.subscribe((value) => {
-        this.mouseUpHandler(value);
-      });
-
-      draggableBoxRef.instance.touchmoveEvent.subscribe((value) => {
-        this.mouseMoveHandler(value);
-      });
-      draggableBoxRef.instance.touchstartEvent.subscribe((value) => {
-        this.mouseDownHandler(value);
-      });
-      draggableBoxRef.instance.touchendEvent.subscribe((value) => {
-        this.mouseUpHandler(value);
-      });
-      draggableBoxRef.instance.newTextValue.subscribe((value) => {
-        // We don't actually use the value yet since we can't directly apply it to the element in myBoxes (indexes change)
-        // Instead, we update all of the boxes via their refs whenever there is a value change (efficient af am I rite?)
-        this.updateBoxRefText();
-      });
-      draggableBoxRef.instance.text = this.myBoxes[i].text;
-      draggableBoxRef.instance.zIndex = i;
-      // set the reference to the draggable box component instance
-      this.myBoxes[i].inputRef = draggableBoxRef;
-      this.cdr.detectChanges();
-    }
+    for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
     // TODO: Switch to request animation frame
     clearInterval(this.timeInterval);
@@ -232,22 +197,55 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
   createBox(
     initialX: number,
     initialY: number,
-    width: number,
-    height: number,
     boxDesign: HTMLImageElement,
     text: string
-  ): IDraggableBox {
-    return {
+  ) {
+    const newBox: IDraggableBox = {
       x: initialX,
       y: initialY,
       previousX: initialX, //saving x
       previousY: initialY, //saving y
-      width: width,
-      height: height,
+      width: this.boxDimensions.width,
+      height: this.boxDimensions.height,
       dragging: false,
       boxDesign: boxDesign,
       text: text,
     };
+
+    const factory = this.resolver.resolveComponentFactory(
+      DraggableBoxComponent
+    );
+    const draggableBoxRef = this.designWrapper.createComponent(factory);
+
+    // set the listeners on the new component
+    draggableBoxRef.instance.mousedownEvent.subscribe((value) => {
+      this.mouseDownHandler(value);
+    });
+    draggableBoxRef.instance.mouseupEvent.subscribe((value) => {
+      this.mouseUpHandler(value);
+    });
+
+    draggableBoxRef.instance.touchmoveEvent.subscribe((value) => {
+      this.mouseMoveHandler(value);
+    });
+    draggableBoxRef.instance.touchstartEvent.subscribe((value) => {
+      this.mouseDownHandler(value);
+    });
+    draggableBoxRef.instance.touchendEvent.subscribe((value) => {
+      this.mouseUpHandler(value);
+    });
+    draggableBoxRef.instance.newTextValue.subscribe((value) => {
+      // We don't actually use the value yet since we can't directly apply it to the element in myBoxes (indexes change)
+      // Instead, we update all of the boxes via their refs whenever there is a value change (efficient af am I rite?)
+      this.updateBoxRefText();
+    });
+    draggableBoxRef.instance.text = newBox.text;
+    draggableBoxRef.instance.zIndex = this.myBoxes.length;
+    // set the reference to the draggable box component instance
+    newBox.inputRef = draggableBoxRef;
+    this.cdr.detectChanges();
+
+    this.myBoxes.push(newBox);
   }
 
   // Draw the entire canvas with the boxes etc
@@ -400,6 +398,14 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         return;
       }
     }
+    // this will only be reached if none of the boxes was clicked on
+    // create new box
+    this.createBox(
+      this.mouseCords.x - this.boxDimensions.width / 2,
+      this.mouseCords.y - this.boxDimensions.height / 2,
+      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
+      ''
+    );
   }
 
   // the mousemove event is not available as a angular attribute so it has to be declared explicitly
