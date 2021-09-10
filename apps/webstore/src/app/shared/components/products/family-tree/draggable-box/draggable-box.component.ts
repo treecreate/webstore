@@ -20,6 +20,9 @@ export class DraggableBoxComponent implements AfterViewInit {
   y: number;
 
   @Input()
+  zIndex: number;
+
+  @Input()
   width: number;
 
   @Input()

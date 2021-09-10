@@ -191,6 +191,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.updateBoxRefText();
       });
       draggableBoxRef.instance.text = this.myBoxes[i].text;
+      draggableBoxRef.instance.zIndex = i;
       // set the reference to the draggable box component instance
       this.myBoxes[i].inputRef = draggableBoxRef;
       this.cdr.detectChanges();
@@ -272,6 +273,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.myBoxes[i].inputRef.instance.height = Math.floor(
           box.height / scale.scaleY
         );
+        this.myBoxes[i].inputRef.instance.zIndex = i;
         this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
       }
     }
