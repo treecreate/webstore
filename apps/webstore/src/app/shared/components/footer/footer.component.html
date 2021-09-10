@@ -1,4 +1,8 @@
-<footer data-cy="footer" class="page-footer font-small bottom" id="footer">
+<footer
+    data-cy="footer"
+    class="page-footer font-small bottom add-transition"
+    id="footer"
+>
     <div class="container">
         <div class="row container-footer">
             <div class="col-main col-md-3 border-right">
@@ -9,13 +13,27 @@
                     <div class="col">
                         <ul class="list-unstyled">
                             <li>
-                                <a routerLink="/aboutUs">About Us</a>
+                                <a routerLink="/home">Home</a>
                             </li>
                             <li>
+                                <a
+                                    routerLink="{{
+                                        isLoggedIn ? '/product' : '/notSignedIn'
+                                    }}"
+                                    >Product</a
+                                >
+                            </li>
+                            <li *ngIf="!isLoggedIn">
+                                <a routerLink="/login">Login</a>
+                            </li>
+                            <li *ngIf="isLoggedIn">
                                 <a routerLink="/profile">Profile</a>
                             </li>
+                            <li *ngIf="isLoggedIn">
+                                <a routerLink="/collection">Collection</a>
+                            </li>
                             <li>
-                                <a routerLink="/product">Producs</a>
+                                <a routerLink="/basket">Basket</a>
                             </li>
                         </ul>
                     </div>
@@ -63,7 +81,10 @@
             <hr class="remove-margin clearfix w-100 d-md-none" />
 
             <div class="col-main col-md-3 final-col">
-                <h5 class="font-weight-bold mt-3">Premium offers</h5>
+                <h5 class="font-weight-bold mt-3">
+                    Subscribe to our newsletter
+                </h5>
+                <p>Get 10% off your first purchase.</p>
                 <div class="tc-input-group field">
                     <input
                         type="email"
@@ -77,7 +98,7 @@
                 </div>
                 <div class="signup-button">
                     <button type="button" class="tc-button-50">
-                        <span>Sign Up</span>
+                        <span>Sign up</span>
                     </button>
                 </div>
             </div>
@@ -88,27 +109,29 @@
     <div class="footer-copyright text-center py-3">
         <div class="container">
             <div class="row">
-                <div class="col">© 2021 Copyright Treecreate</div>
+                <div class="col">
+                    © {{ this.currentYear }} Copyright Treecreate
+                </div>
                 <hr class="remove-mobile clearfix w-100 d-md-none" />
                 <div class="col">
                     <a
                         data-cy="footer-terms-of-use-modal-link"
                         (click)="showTermsOfUse()"
-                        class="terms"
+                        class="terms TnC"
                         >Terms</a
                     >
                     -
                     <a
                         data-cy="footer-terms-of-sale-modal-link"
                         (click)="showTermsOfSale()"
-                        class="terms"
+                        class="terms TnC"
                         >Sale</a
                     >
                     -
                     <a
                         data-cy="footer-privacy-notice-modal-link"
                         (click)="showPrivacyNotice()"
-                        class="terms"
+                        class="terms TnC"
                         >Privacy</a
                     >
                 </div>

@@ -1,10 +1,13 @@
-<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg mb-3">
+<nav
+    data-cy="navbar"
+    class="navbar fixed-top navbar-expand-lg mb-3 add-transition"
+>
     <div class="container min-width">
         <div>
             <a class="navbar-brand" routerLink="/">
                 <img
                     data-cy="navbar-logo-img"
-                    src="/assets/logos/TCTextLogo.svg"
+                    src="/assets/logos/tc-black-text-logo.svg"
                     class="logo"
                     width="100"
                 />
@@ -37,7 +40,8 @@
                     src="/assets/icons/basket-white-icon.svg"
                     class="nav-icon-mobile"
                 />
-                <span class="item-number">{{ 0 }}</span>
+                <!-- TODO: add items in basket -->
+                <span class="item-number">{{ 3 }}</span>
             </button>
             <button
                 class="navbar-toggler"
@@ -65,7 +69,9 @@
                 <li class="nav-item">
                     <a
                         class="nav-link waves-light"
-                        routerLink="/product"
+                        routerLink="{{
+                            isLoggedIn ? '/product' : '/notSignedIn'
+                        }}"
                         (click)="autoCollapse()"
                         >Product</a
                     >
@@ -127,23 +133,35 @@
                             aria-labelledby="dropdownBasic"
                             #profileMenu
                         >
-                            <a ngbDropdownItem routerLink="/profile"
+                            <a
+                                ngbDropdownItem
+                                routerLink="/profile"
+                                (click)="scrollTop()"
                                 >Account Info</a
                             >
-                            <a ngbDropdownItem routerLink="/collection"
+                            <a
+                                ngbDropdownItem
+                                routerLink="/collection"
+                                (click)="scrollTop()"
                                 >Collection</a
                             >
-                            <a ngbDropdownItem (click)="logout()">Log Out</a>
+                            <a ngbDropdownItem (click)="logout(); scrollTop()"
+                                >Log Out</a
+                            >
                         </div>
                     </div>
                 </div>
                 <li class="nav-item purchase-btn">
-                    <a class="nav-link waves-light" routerLink="/basket">
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/basket"
+                        (click)="scrollTop()"
+                    >
                         <img
                             src="/assets/icons/basket-black-icon.svg"
-                            class="nav-icon"
+                            class="nav-icon basket-icon"
                         />
-                        {{ basketItemOptions(0) }}
+                        {{ basketItemOptions(2) }}
                     </a>
                 </li>
             </ul>
@@ -154,9 +172,16 @@
     Your e-mail is still not verified:
     <div
         *ngIf="isResendVerificationEmailLoading"
-        class="spinner-border spinner-border-sm text-warning"
+        class="loading-spinner-btn"
         role="status"
-    ></div>
+    >
+        Sending e-mail...
+        <span
+            class="spinner-border spinner-style spinner-border-sm text-light"
+            role="status"
+            aria-hidden="true"
+        ></span>
+    </div>
     <button
         *ngIf="!isResendVerificationEmailLoading"
         class="verify-email-link"

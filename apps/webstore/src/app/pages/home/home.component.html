@@ -1,200 +1,230 @@
-<section class="main-section">
-    <div class="main-section-container">
-        <div class="main-text">
-            <h2 class="main-title">MY FAMILY TREE</h2>
-            <h5 class="main-subtitle">Prices from: 396kr</h5>
-            <button class="tc-start-main" routerLink="/product">
-                Start Creating
-            </button>
-        </div>
-    </div>
-</section>
-
-<div class="arrow-container">
-    <button
-        class="down-arrow"
-        onClick="document.getElementById('product').scrollIntoView();"
-    >
-        <div class="icon">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-        </div>
-    </button>
-</div>
-
-<section class="product-section" id="product">
-    <div class="product-content">
-        <div class="home-text">
-            <h1 class="home-title">Product</h1>
-            <p>
-                Unique wood design with several styling options which make every
-                product become completely unique. In just a few minutes, you can
-                create your own family tree and get it laser-cut into a
-                beautiful piece of oak wood.
-            </p>
+<div class="page-container">
+    <!-- Front page -->
+    <div class="main-section add-transition">
+        <div class="main-text-container add-transition">
+            <h1 class="title title-font">
+                <strong>Mere end bare et stamtræ</strong>
+            </h1>
+            <h5 class="main-subtext">
+                Ét træ, der binder hele familien sammen. På blot få minutter,
+                kan du bestille en helt særlig gave til én, du holder af.
+                Treecreate, en personlig gave i fin kvalitet og med kærlig
+                omtanke for miljøet.
+            </h5>
         </div>
     </div>
 
-    <div class="parallax-space">
-        <div class="parallax-img" [style.top]="onWindowScroll()"></div>
-    </div>
+    <!-- Review section -->
+    <div id="review">
+        <!-- Mobile version -->
+        <webstore-carousel class="is-mobile"></webstore-carousel>
 
-    <div class="arrow-container">
-        <button
-            class="down-arrow"
-            onClick="document.getElementById('create').scrollIntoView();"
-        >
-            <div class="icon">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-            </div>
-        </button>
-    </div>
-</section>
-
-<section class="product-section" id="create">
-    <div class="product-content">
-        <div class="home-text create-section">
-            <h1 class="home-title">Create</h1>
-            <p>
-                There are many ways to create your family tree design. In this
-                example, of a family tree, the couples in the family are
-                connected by having their names placed next to each other. If
-                there are too many names you can also put the couples on top of
-                each other so the tree doesn't get too wide. Be inspired or
-                experiment with your own design, until you find the design that
-                suits you best.
-            </p>
-        </div>
-    </div>
-
-    <div class="scroll-view mobile-remove">
-        <div class="slider">
-            <div class="slides slides-desktop">
-                <div id="slide-1">
-                    <img
-                        src="/assets/img/design-ex1-img.png"
-                        class="example-img"
-                    />
-                    <img
-                        src="/assets/img/design-ex1-result.png"
-                        class="example-img"
-                    />
+        <!-- Desktop version -->
+        <div class="review-section is-desktop">
+            <div class="review-container">
+                <div class="header-icons">
+                    <div class="quotation-mark">
+                        <img
+                            src="/assets/icons/quote-brown-icon.svg"
+                            width="30"
+                            height="30"
+                        />
+                    </div>
+                    <div class="rating">
+                        <div class="star-container">
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                        </div>
+                    </div>
                 </div>
-                <div id="slide-2">
-                    <img
-                        src="/assets/img/design-ex1-img.png"
-                        class="example-img"
-                    />
-                    <img
-                        src="/assets/img/design-ex1-result.png"
-                        class="example-img"
-                    />
+                <div class="review-text">
+                    “Fantastisk fint og helt unikt produkt, som rammer lige i
+                    "skabet". Vi købte stamtræer til begge hold bedsteforældre
+                    som gaver, hvilket var en stor succes.”
                 </div>
-                <div id="slide-3">
-                    <img
-                        src="/assets/img/design-ex1-img.png"
-                        class="example-img"
-                    />
-                    <img
-                        src="/assets/img/design-ex1-result.png"
-                        class="example-img"
-                    />
+                <div class="review-author">
+                    <strong> - Birgitte Hansson</strong>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="scroll-view desktop-remove">
-        <div class="slider">
-            <div class="slides">
-                <div id="slide-1">
-                    <img
-                        src="/assets/img/design-ex1-img.png"
-                        class="example-img"
-                    />
+            <div class="review-container">
+                <div class="header-icons">
+                    <div class="quotation-mark">
+                        <img
+                            src="/assets/icons/quote-brown-icon.svg"
+                            width="30"
+                            height="30"
+                        />
+                    </div>
+                    <div class="rating">
+                        <div class="star-container">
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                        </div>
+                    </div>
                 </div>
-                <div id="slide-2">
-                    <img
-                        src="/assets/img/design-ex1-result.png"
-                        class="example-img"
-                    />
+                <div class="review-text">
+                    “10/10! Og mere til .. det for ros hvergang vi har gæster,
+                    og mange spørg til det. Meget lækkert produkt, kvalitet i
+                    top, vi er mere end tilfredse.”
                 </div>
-                <div id="slide-3">
-                    <img
-                        src="/assets/img/design-ex1-img.png"
-                        class="example-img"
-                    />
+                <div class="review-author">
+                    <strong> - Stine Olsen</strong>
                 </div>
-                <div id="slide-4">
-                    <img
-                        src="/assets/img/design-ex1-result.png"
-                        class="example-img"
-                    />
+            </div>
+
+            <div class="review-container">
+                <div class="header-icons">
+                    <div class="quotation-mark">
+                        <img
+                            src="/assets/icons/quote-brown-icon.svg"
+                            width="30"
+                            height="30"
+                        />
+                    </div>
+                    <div class="rating">
+                        <div class="star-container">
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                        </div>
+                    </div>
                 </div>
-                <div id="slide-5">
-                    <img
-                        src="/assets/img/design-ex1-img.png"
-                        class="example-img"
-                    />
+                <div class="review-text">
+                    “Min familie blev utroligt glade for gaven, jeg synes at det
+                    er fedt at kunne få familien med ind i indretning!”
                 </div>
-                <div id="slide-6">
-                    <img
-                        src="/assets/img/design-ex1-result.png"
-                        class="example-img"
-                    />
+                <div class="review-author">
+                    <strong> - Sabrine Dam</strong>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="arrow-container">
-        <button
-            class="down-arrow"
-            onClick="document.getElementById('package').scrollIntoView();"
-        >
-            <div class="icon">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
+    <div>
+        <div class="subscribe-section add-transition" id="subscribe">
+            <h1 class="subscribe-title title title-font add-transition">
+                Tilmeld dig vores nyhedsbrev
+            </h1>
+            <h5 class="subscribe-subtitle add-transition">
+                Og få 10% rabat på dit første køb, samt vær med i lodtrækningen
+                om at vinde et stamtræ!
+            </h5>
+            <!-- TODO: Add a form and the subscribe to newsletter function -->
+            <div class="action-container add-transition">
+                <input
+                    type="text"
+                    placeholder="Din E-mail"
+                    class="email-input-field"
+                />
+                <button class="subscribe-button title-font">
+                    <img
+                        src="/assets/icons/white-send-email-icon.svg"
+                        class="send-email-icon"
+                    />
+                    <div class="button-text">Tilmeld</div>
+                </button>
             </div>
-        </button>
-    </div>
-</section>
-
-<section class="product-section" id="package">
-    <div class="product-content">
-        <div class="home-text">
-            <h1 class="home-title">Package</h1>
-            <p>
-                When you purchase a tree design, you are automatically planting
-                a tree. The packaging is made with a zero procent waste agenda:
-                0% plastic and 100% reused FSC certified paper. You also receive
-                a treecreate keychain, as well as a wooden stand that matches
-                your family tree.
-            </p>
         </div>
     </div>
 
-    <div class="package-images">
-        <img
-            src="/assets/img/design-ex1-result.png"
-            class="package-design-img package-image"
-        />
-        <img
-            src="/assets/img/design-stand.png"
-            class="package-stand-img package-image"
-        />
+    <div class="descriptive-content-container">
+        <img src="/assets/img/description1.jpg" class="descriptive-img" />
+        <div class="text-container">
+            <h1 class="discriptive-title title title-font">
+                Den mest personlige gave
+            </h1>
+            <div class="descriptive-text">
+                Når du giver et Treecreate stamtræ i gave, kan du være sikker på
+                at overraske dine nære og kære hver gang. Din gave er nemlig
+                helt unik for den, der pakker den op, og mere personligt bliver
+                det ikke.
+                <br />
+                <br />
+                Dit Treecreate stamtræ er omhyggeligt udskåret i smukt,
+                velduftende egetræ med bark på toppen. Det giver et naturligt
+                udtryk, og tankerne føres let hen på en dejlig sommerdag i
+                familiens favn.
+            </div>
+        </div>
     </div>
 
-    <div class="start-btn-section">
-        <button class="tc-button-static" routerLink="/product">
-            Start Creating
-        </button>
+    <div class="descriptive-content-container reverse">
+        <img src="/assets/img/description2.jpg" class="descriptive-img" />
+        <div class="text-container">
+            <h1 class="discriptive-title title title-font align-right">
+                En gave med omtanke
+            </h1>
+            <div class="descriptive-text align-right">
+                For hvert stamtræ, du bestiller fra Treecreate, planter vi et
+                træ. På den måde kan vi hjælpe hinanden med at passe på vores
+                natur, og derved gøre vores verden til et grønnere sted.
+                <br />
+                <br />
+                Når vi sender dit Treecreate stamtræ, bliver det omhyggeligt
+                pakket ind i holdbart FSC-certificeret genbrugspapir. På den
+                måde sikrer vi, at din værdifulde gave er beskyttet på rejsen
+                hjem til dig, og samtidig undgår vi unødig brug af plastik.
+            </div>
+        </div>
     </div>
 
     <div class="arrow-up-container" [ngClass]="showUpArrow ? 'show' : 'hide'">
-        <div class="arrow-up-item">
-            <button class="up-arrow" onClick="window.scrollTo(0,0);">
+        <div class="arrow-up-item" (click)="scrollTop()">
+            <button class="up-arrow">
                 <div class="icon">
                     <div class="up-bar1"></div>
                     <div class="up-bar2"></div>
@@ -202,4 +232,21 @@
             </button>
         </div>
     </div>
-</section>
+
+    <div
+        class="start-creating-button-container"
+        [ngClass]="showStartButton ? 'show' : 'hide'"
+    >
+        <button
+            class="start-creating-button title-font"
+            routerLink="/product"
+            (click)="scrollTop()"
+        >
+            <img
+                src="/assets/icons/arrow-white-right.svg"
+                class="start-creating-icon"
+            />
+            <div class="start-button-text">Start</div>
+        </button>
+    </div>
+</div>

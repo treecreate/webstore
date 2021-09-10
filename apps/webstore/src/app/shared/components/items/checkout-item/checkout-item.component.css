@@ -1,0 +1,31 @@
+.item-container {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.item-info {
+  flex-grow: 2;
+  min-width: 200px;
+}
+
+.item-image {
+  max-width: 150px;
+  margin-bottom: 10px;
+}
+
+.info-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-title {
+  font-size: var(--regular-font);
+  font-weight: 300;
+}
+
+.info-container {
+  line-height: 30px;
+}

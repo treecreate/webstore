@@ -1,7 +1,7 @@
 {
   "name": "webstore",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "BSD 3-Clause License",
   "scripts": {
     "nx": "nx",
     "start": "nx serve webstore",

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DesignItemComponent } from '../../../shared/components/design-item/design-item.component';
+import { DesignItemComponent } from '../../../shared/components/items/design-item/design-item.component';
 
 import { CollectionComponent } from './collection.component';
 

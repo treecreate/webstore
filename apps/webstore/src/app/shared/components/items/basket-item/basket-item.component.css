@@ -47,8 +47,8 @@ hr {
 }
 
 .item-title {
-  font-weight: 700;
-  font-size: x-large;
+  font-weight: 300;
+  font-size: var(--regular-font);
 }
 
 .margin-top {
@@ -73,7 +73,7 @@ hr {
 }
 
 .amount {
-  border: 1px solid #ebc6ab;
+  border: 1px solid var(--second-action-color);
   display: flex;
   margin: 0 5px;
   justify-content: center;

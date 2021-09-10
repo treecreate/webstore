@@ -44,11 +44,10 @@
             <div class="option option-design-name">
                 <div class="option-title">
                     Title
-                    <img
-                        src="/assets/icons/questionmark-icon.svg"
-                        alt=""
-                        class="questionmark-icon"
-                    />
+                    <webstore-info-popover
+                        title="Title"
+                        text="Add a good title so you can keep track of your designs."
+                    ></webstore-info-popover>
                 </div>
                 <div class="option-design-title">
                     <input
@@ -65,11 +64,10 @@
             <div class="option option-font-select">
                 <div class="option-title">
                     Font
-                    <img
-                        src="/assets/icons/questionmark-icon.svg"
-                        alt=""
-                        class="questionmark-icon"
-                    />
+                    <webstore-info-popover
+                        title="Font"
+                        text="Choose the font that best suits you."
+                    ></webstore-info-popover>
                 </div>
                 <div class="option-tree-design-btn">
                     <button
@@ -98,11 +96,10 @@
             <div class="option option-tree-design">
                 <div class="option-title">
                     Design
-                    <img
-                        src="/assets/icons/questionmark-icon.svg"
-                        alt=""
-                        class="questionmark-icon"
-                    />
+                    <webstore-info-popover
+                        title="Design"
+                        text="Change the design of the tree and find the one you like the most."
+                    ></webstore-info-popover>
                 </div>
                 <div class="option-tree-design-btn">
                     <button
@@ -126,11 +123,10 @@
             <div class="option option-box-size">
                 <div class="option-title">
                     Box Size
-                    <img
-                        src="/assets/icons/questionmark-icon.svg"
-                        alt=""
-                        class="questionmark-icon"
-                    />
+                    <webstore-info-popover
+                        title="Box Size"
+                        text="You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design."
+                    ></webstore-info-popover>
                 </div>
                 <div>
                     <button
@@ -166,16 +162,15 @@
                             class="checkmark"
                             data-cy="checkbox-banner"
                         ></span>
-                        <img
-                            src="/assets/icons/questionmark-icon.svg"
-                            alt=""
-                            class="questionmark-icon"
-                        />
+                        <webstore-info-popover
+                            title="Banner"
+                            text="Add or remove the banner from your design."
+                        ></webstore-info-popover>
                     </label>
                 </div>
                 <div class="option-big-font">
                     <label class="checkbox-container option-title">
-                        Big font
+                        Large font
                         <input
                             type="checkbox"
                             (change)="this.bigFont = !this.bigFont"
@@ -184,11 +179,10 @@
                             class="checkmark"
                             data-cy="checkbox-big-font"
                         ></span>
-                        <img
-                            src="/assets/icons/questionmark-icon.svg"
-                            alt=""
-                            class="questionmark-icon"
-                        />
+                        <webstore-info-popover
+                            title="Large font"
+                            text="Add or remove big font. With the large font the visibility will be better, but there wont be space for a surname."
+                        ></webstore-info-popover>
                     </label>
                 </div>
             </div>
@@ -202,7 +196,10 @@
                         class="option-icon"
                     />
                 </button>
-                <button class="btn-add-to-cart tc-button-50">
+                <button
+                    class="btn-add-to-cart tc-button-50"
+                    (click)="openAddToBasketModal()"
+                >
                     Add
                     <img
                         src="/assets/icons/basket-white-icon.svg"

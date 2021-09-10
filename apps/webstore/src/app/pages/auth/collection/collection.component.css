@@ -1,7 +1,6 @@
 .collection-page-container {
   display: flex;
   justify-content: center;
-  width: 100vw;
 }
 
 .collection-container {
@@ -36,7 +35,7 @@
 }
 
 .sub-title {
-  font-size: 24px;
+  font-size: var(--regular-font);
   font-weight: 500;
 }
 

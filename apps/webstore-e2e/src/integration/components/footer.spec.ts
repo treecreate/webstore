@@ -15,10 +15,12 @@ describe('FooterComponent', () => {
   it('should contain a Navigation, Contact and Premium Offers sections', () => {
     cy.get('[data-cy=footer]').contains('Navigation').should('exist');
     cy.get('[data-cy=footer]').contains('Contact').should('exist');
-    cy.get('[data-cy=footer]').contains('Premium offers').should('exist');
+    cy.get('[data-cy=footer]')
+      .contains('Subscribe to our newsletter')
+      .should('exist');
   });
 
-  describe('should contain buttons for modals that', () => {
+  describe.skip('should contain buttons for modals that', () => {
     it('should open terms of use modal when clicked on its link, and close by clicking on the backdrop', () => {
       cy.get('[data-cy=footer-terms-of-use-modal-link]').should('be.visible');
       cy.get('[data-cy=footer-terms-of-use-modal-link]').click({ force: true });

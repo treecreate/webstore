@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 @Component({
   selector: 'webstore-product',
   templateUrl: './product.component.html',
@@ -26,12 +27,10 @@ export class ProductComponent implements OnInit {
   banner = false;
   bigFont = false;
 
-  constructor() {}
+  constructor(private modalService: NgbModal) {}
 
-  ngOnInit(): void {
-    // the lint test fail if the ngOnInit is empty
-    console.log('open product page');
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 
   showOptions() {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
@@ -65,5 +64,9 @@ export class ProductComponent implements OnInit {
 
   onKey(event) {
     this.designTitle = event.target.value;
+  }
+
+  openAddToBasketModal() {
+    this.modalService.open(AddToBasketModalComponent);
   }
 }

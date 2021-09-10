@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomeComponent } from './home.component';
 
@@ -9,7 +11,7 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      providers: [],
+      imports: [HttpClientModule, RouterTestingModule],
     }).compileComponents();
   });
 
@@ -23,12 +25,5 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     expect(component.title).toBe('homeComponent');
-  });
-
-  it('should have parallax <div>', () => {
-    const div: HTMLElement = fixture.nativeElement.querySelector(
-      '.parallax-img'
-    );
-    expect(div.style.backgroundImage).toBe(``);
   });
 });
