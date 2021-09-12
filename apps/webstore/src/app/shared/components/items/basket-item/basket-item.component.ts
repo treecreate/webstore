@@ -50,39 +50,24 @@ export class BasketItemComponent implements OnInit {
 
   increaseSize() {
     switch (this.item.size) {
-      case 'small':
+      case '20cm x 20cm':
         this.item.size = 'medium';
         this.updatePrice();
         break;
-      case 'medium':
+      case '25cm x 25cm':
         this.item.size = 'large';
         this.updatePrice();
         break;
-      case 'large':
-        this.toastService.showAlert(
-          'This is the largest size that we offer',
-          'Dette er den største størrelse du kan bestille',
-          'danger',
-          3000
-        );
     }
   }
 
   decreaseSize() {
     switch (this.item.size) {
-      case 'small':
-        this.toastService.showAlert(
-          'This is the smallest size that we offer',
-          'Dette er den største størrelse du kan bestille',
-          'danger',
-          3000
-        );
-        break;
-      case 'medium':
+      case '25cm x 25cm':
         this.item.size = 'small';
         this.updatePrice();
         break;
-      case 'large':
+      case '30cm x 30cm':
         this.item.size = 'medium';
         this.updatePrice();
         break;

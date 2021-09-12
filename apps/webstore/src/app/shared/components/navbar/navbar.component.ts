@@ -25,16 +25,11 @@ export class NavbarComponent implements OnInit {
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
+  basketItems = [{ number: 1 }, { number: 1 }];
+
   isResendVerificationEmailLoading = false;
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
-
-  basketItemOptions(amount: number): string {
-    if (amount === 0) {
-      return 'Basket empty';
-    }
-    return `(${amount}) products `;
-  }
 
   constructor(
     private localStorageService: LocalStorageService,

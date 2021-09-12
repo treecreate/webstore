@@ -29,6 +29,10 @@
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">31,32</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="plant-extra-trees" datatype="html">
         <source>Plant an extra tree - 10 DKK</source>
@@ -40,7 +44,7 @@
       </trans-unit>
       <trans-unit id="plant-extra-trees-subtext" datatype="html">
         <source>(Planting 1 tree is included in the price)</source>
-        <target>(Med i prisen planter du allerede et træ)</target> 
+        <target>(Et træ er allerede med i prisen)</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">46,47</context>
@@ -459,8 +463,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="your-collection" datatype="html">
-        <source>Your collection</source>
-        <target>Din samling</target> 
+        <source>My collection</source>
+        <target>Min samling</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">4</context>
@@ -564,7 +568,7 @@
       </trans-unit>
       <trans-unit id="signup" datatype="html">
         <source>Sign up</source>
-        <target>Opret bruger</target> 
+        <target>Tilmeld</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
           <context context-type="linenumber">70,71</context>
@@ -579,8 +583,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="account-info" datatype="html">
-        <source>Account info</source>
-        <target>Konto informationer</target> 
+        <source>My account</source>
+        <target>Min konto</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">9</context>
@@ -1038,6 +1042,30 @@
           <context context-type="linenumber">101,102</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="terms" datatype="html">
+        <source>Terms</source>
+        <target>Betingelser</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sale" datatype="html">
+        <source>Sale</source>
+        <target>Salg</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="privacy" datatype="html">
+        <source>Privacy</source>
+        <target>Privat</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="family-tree" datatype="html">
         <source>Family tree</source>
         <target>Familietræ</target> 
@@ -1048,7 +1076,7 @@
       </trans-unit>
       <trans-unit id="amount" datatype="html">
         <source>Amount</source>
-        <target>Mængde</target> 
+        <target>Antal</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
           <context context-type="linenumber">14</context>
@@ -1148,7 +1176,7 @@
       </trans-unit>
       <trans-unit id="order" datatype="html">
         <source>order</source>
-        <target>bestilling</target> 
+        <target>bestil</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">94</context>
@@ -1284,6 +1312,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">203,204</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="time-to-start-designing" datatype="html">
+        <source>Time to start designing</source>
+        <target>Tid til at designe</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="not-signed-in-text" datatype="html">
+        <source>Start creating your first design. We recomment you login or create a user before you start designing. If you want to save designs or load previously created design, you must be logged in. </source>
+        <target>Begynd at lave dit første design. Vi anbefaler at du logger ind før du begynder. Så vil du kunne gemme dit design og være sikker på at det ikke forsvinder.</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
+          <context context-type="linenumber">12,16</context>
         </context-group>
       </trans-unit>
     </body>

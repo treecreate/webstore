@@ -62,14 +62,6 @@
                 <li class="nav-item">
                     <a
                         class="nav-link waves-light"
-                        routerLink="/"
-                        (click)="autoCollapse()"
-                        >Home</a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link waves-light"
                         routerLink="{{
                             isLoggedIn ? '/product' : '/notSignedIn'
                         }}"
@@ -173,7 +165,7 @@
                             src="/assets/icons/basket-black-icon.svg"
                             class="nav-icon basket-icon"
                         />
-                        {{ basketItemOptions(2) }}
+                        ({{ basketItems.length }})
                     </a>
                 </li>
             </ul>
