@@ -16,6 +16,7 @@
                 id="email"
                 autocomplete="email"
                 required
+                data-cy="signup-email-input"
             />
             <label for="email" class="tc-input-label">E-mail</label>
         </div>
@@ -26,6 +27,7 @@
                 this.signupForm.get('email').dirty &&
                 this.signupForm.get('email').invalid
             "
+            data-cy="signup-email-error"
         >
             Invalid e-mail
         </div>
@@ -40,6 +42,7 @@
                 id="password"
                 autocomplete="new-password"
                 required
+                data-cy="signup-password-input"
             />
             <label for="password" class="tc-input-label">Password</label>
         </div>
@@ -50,6 +53,7 @@
                 this.signupForm.get('password').dirty &&
                 this.signupForm.get('password').invalid
             "
+            data-cy="signup-password-error"
         >
             Must contain at least one upper- and lowecase letter and a number.
         </div>
@@ -64,6 +68,7 @@
                 id="confirmPassword"
                 autocomplete="new-password"
                 required
+                data-cy="signup-confirm-password-input"
             />
             <label for="confirmPassword" class="tc-input-label"
                 >Confirm password</label
@@ -76,6 +81,7 @@
                 this.signupForm.get('confirmPassword').dirty &&
                 !this.matchingPasswords()
             "
+            data-cy="signup-confirm-password-error"
         >
             The passwords must match each other
         </div>
@@ -87,7 +93,7 @@
                         this.termsAndConditions = !this.termsAndConditions
                     "
                 />
-                <span class="checkmark" data-cy="checkbox-big-font"></span>
+                <span class="checkmark" data-cy="checkbox-terms-of-use"></span>
             </label>
             <div class="terms-and-conditions">
                 I accept terms and conditions<a
@@ -106,7 +112,7 @@
                         this.signUpForNewletter = !this.signUpForNewletter
                     "
                 />
-                <span class="checkmark" data-cy="checkbox-big-font"></span>
+                <span class="checkmark" data-cy="checkbox-newsletter"></span>
             </label>
             <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
             <div class="sign-up">
@@ -119,27 +125,18 @@
             type="submit"
             [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
+            data-cy="signup-btn"
         >
             Create Account
         </button>
 
-        <button class="tc-button-100" type="button" routerLink="/login">
+        <button
+            class="tc-button-100"
+            type="button"
+            routerLink="/login"
+            data-cy="signup-redirect-login-btn"
+        >
             Back to login
         </button>
     </form>
 </div>
-
-<!-- For cy tests -->
-<div class="hide" data-cy="signup-email">
-    {{ this.signupForm.get('email').value }}
-</div>
-<div class="hide" data-cy="signup-password">
-    {{ this.signupForm.get('password').value }}
-</div>
-<div class="hide" data-cy="signup-confirm-password">
-    {{ this.signupForm.get('confirmPassword').value }}
-</div>
-<div class="hide" data-cy="signup-terms-and-conditions">
-    {{ this.termsAndConditions }}
-</div>
-<!-- cy test end -->
