@@ -8,11 +8,13 @@
         </div>
         <br />
         <div>
-            <h2>Email Verification</h2>
+            <h2 i18n="@@email-verification">Email Verification</h2>
         </div>
         <br />
         <div *ngIf="isLoading" class="verification-status-container">
-            <p>Please wait while we verify your email</p>
+            <p i18n="@@please-wait-while-we-verify">
+                Please wait while we verify your email
+            </p>
             <div class="spinner-border text-warning" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -20,13 +22,20 @@
         <div *ngIf="!isLoading" class="verification-status-container">
             <div *ngIf="isVerificationSuccessful">
                 <!-- TODO: add an icon to the success message (checkmark) -->
-                <p>Your email address has been verified</p>
-                <p class="verification-success-message">
+                <p i18n="@@verification-success-subtitle">
+                    Your email address has been verified
+                </p>
+                <p
+                    class="verification-success-message"
+                    i18n="@@verified-success"
+                >
                     Verification successfull!
                 </p>
             </div>
             <div *ngIf="!isVerificationSuccessful">
-                <p>The verification of your email failed.</p>
+                <p i18n="@@varification-failed-subtitle">
+                    The verification of your email failed.
+                </p>
                 <!-- TODO: add an icon to the error message (exclamation mark) -->
                 <span
                     class="glyphicon glyphicon-exclamation-sign"
@@ -46,6 +55,7 @@
                     data-cy="page-not-found-home-btn"
                     routerLink="/profile"
                     class="tc-button-25 home-button"
+                    i18n="@@profile"
                 >
                     Profile
                 </button>

@@ -6,7 +6,7 @@
         class="login-form"
         [formGroup]="loginForm"
     >
-        <h1 class="page-title">Login</h1>
+        <h1 class="page-title" i18n="@@login">Login</h1>
         <div class="tc-input-group field">
             <input
                 type="email"
@@ -34,7 +34,9 @@
                 autocomplete="current-password"
                 required
             />
-            <label for="password" class="tc-input-label">Password</label>
+            <label for="password" class="tc-input-label" i18n="@@password"
+                >Password</label
+            >
         </div>
 
         <div class="forgot-password-container">
@@ -42,6 +44,7 @@
                 data-cy="forgot-password-btn"
                 (click)="openForgotPasswordModal()"
                 class="forgot-password-link"
+                i18n="@@forgot-password"
             >
                 Forgot password?
             </a>
@@ -53,6 +56,7 @@
             type="submit"
             [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
+            i18n="@@login"
         >
             Login
         </button>
@@ -61,6 +65,7 @@
             data-cy="login-signup-btn"
             type="button"
             routerLink="/signup"
+            i18n="@@signup"
         >
             Sign up
         </button>

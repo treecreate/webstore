@@ -8,7 +8,7 @@
         </div>
         <div class="back-to-basket-container">
             <a routerLink="/basket" class="back-to-basket add-transition">
-                < <strong> Back to basket </strong>
+                < <strong i18n="@@back-to-basket"> Back to basket </strong>
             </a>
         </div>
         <form
@@ -21,7 +21,9 @@
                 <!-- delivery address -->
                 <div class="checkout-section no-strech">
                     <div class="title-container" style="margin-bottom: 5px">
-                        <span class="title">Shipping Address </span>
+                        <span class="title" i18n="@@shipping-address"
+                            >Shipping Address
+                        </span>
                         <hr />
                     </div>
 
@@ -36,7 +38,7 @@
                             />
                             <span class="checkmark"></span>
                         </label>
-                        <div class="option-title">
+                        <div class="option-title" i18n="@@same-billing-address">
                             Billing address is the same as delivery address
                         </div>
                     </div>
@@ -50,7 +52,9 @@
                             id="name"
                             autocomplete="name"
                         />
-                        <label for="name" class="tc-input-label">Name *</label>
+                        <label for="name" class="tc-input-label">
+                            <span i18n="@@name">Name</span> *</label
+                        >
                     </div>
 
                     <div
@@ -59,6 +63,7 @@
                             this.checkoutForm.get('name').dirty &&
                             this.checkoutForm.get('name').invalid
                         "
+                        i18n="@@invalid-name"
                     >
                         Invalid name.
                     </div>
@@ -73,7 +78,10 @@
                             id="phoneNumber"
                             autocomplete="phoneNumber"
                         />
-                        <label for="phoneNumber" class="tc-input-label"
+                        <label
+                            for="phoneNumber"
+                            class="tc-input-label"
+                            i18n="@@phone-number"
                             >Phone number</label
                         >
                     </div>
@@ -84,6 +92,7 @@
                             this.checkoutForm.get('phoneNumber').dirty &&
                             this.checkoutForm.get('phoneNumber').invalid
                         "
+                        i18n="@@invalid-phone-number"
                     >
                         Invalid phone number.
                     </div>
@@ -113,6 +122,7 @@
                             this.checkoutForm.get('email').dirty &&
                             this.checkoutForm.get('email').invalid
                         "
+                        i18n="@@invalid-email"
                     >
                         Invalid email.
                     </div>
@@ -126,7 +136,10 @@
                             id="streetAddress"
                         />
                         <label for="streetAddress" class="tc-input-label"
-                            >Street address *</label
+                            ><span i18n="@@street-address">
+                                Street address</span
+                            >
+                            *</label
                         >
                     </div>
 
@@ -136,6 +149,7 @@
                             this.checkoutForm.get('streetAddress').dirty &&
                             this.checkoutForm.get('streetAddress').invalid
                         "
+                        i18n="@@invalid-street-address"
                     >
                         The address is too long.
                     </div>
@@ -149,8 +163,9 @@
                             placeholder="Your street name"
                             id="streetAddress2"
                         />
-                        <label for="streetAddress2" class="tc-input-label"
-                            >Street address 2</label
+                        <label for="streetAddress2" class="tc-input-label">
+                            <span i18n="@@street-address"> Street address</span>
+                            2</label
                         >
                     </div>
 
@@ -160,6 +175,7 @@
                             this.checkoutForm.get('streetAddress2').dirty &&
                             this.checkoutForm.get('streetAddress2').invalid
                         "
+                        i18n="@@invalid-street-address"
                     >
                         The address is too long.
                     </div>
@@ -173,13 +189,16 @@
                             id="city"
                             placeholder="City"
                         />
-                        <label for="city" class="tc-input-label">City * </label>
+                        <label for="city" class="tc-input-label"
+                            ><span i18n="@@city">City</span> *
+                        </label>
                         <div
                             class="error-message offset"
                             *ngIf="
                                 this.checkoutForm.get('city').dirty &&
                                 this.checkoutForm.get('city').invalid
                             "
+                            i18n="@@invalid-city"
                         >
                             The city name is too long.
                         </div>
@@ -194,8 +213,8 @@
                             name="postcode"
                             placeholder="1234"
                         />
-                        <label for="postcode" class="tc-input-label"
-                            >Postcode *</label
+                        <label for="postcode" class="tc-input-label">
+                            <span i18n="@@postcode">Postcode</span> *</label
                         >
                         <div
                             class="error-message offset"
@@ -203,6 +222,7 @@
                                 this.checkoutForm.get('postcode').dirty &&
                                 this.checkoutForm.get('postcode').invalid
                             "
+                            i18n="@@invalid-postcode"
                         >
                             Invalid danish postcode.
                         </div>
@@ -219,7 +239,9 @@
                     <!-- billing address -->
                     <div class="checkout-section no-strech">
                         <div class="title-container">
-                            <span class="title">Billing Address </span>
+                            <span class="title" i18n="@@billing-address"
+                                >Billing Address
+                            </span>
                             <hr />
                         </div>
 
@@ -232,8 +254,8 @@
                                 id="billingName"
                                 autocomplete="billingName"
                             />
-                            <label for="billingName" class="tc-input-label"
-                                >Name *</label
+                            <label for="billingName" class="tc-input-label">
+                                <span i18n="@@name"> Name</span> *</label
                             >
                         </div>
 
@@ -245,6 +267,7 @@
                                 this.billingAddressForm.get('billingName')
                                     .invalid
                             "
+                            i18n="@@invalid-name"
                         >
                             Invalid name.
                         </div>
@@ -262,6 +285,7 @@
                             <label
                                 for="billingPhoneNumber"
                                 class="tc-input-label"
+                                i18n="@@phone-number"
                                 >Phone number</label
                             >
                         </div>
@@ -273,6 +297,7 @@
                                     'billingPhoneNumber'
                                 ).invalid
                             "
+                            i18n="@@invalid-phone-number"
                         >
                             Invalid phone number.
                         </div>
@@ -300,6 +325,7 @@
                                 this.billingAddressForm.get('billingEmail')
                                     .invalid
                             "
+                            i18n="@@invalid-email"
                         >
                             Invalid email.
                         </div>
@@ -315,7 +341,11 @@
                             <label
                                 for="billingStreetAddress"
                                 class="tc-input-label"
-                                >Street address *</label
+                            >
+                                <span i18n="@@street-address"
+                                    >Street address
+                                </span>
+                                *</label
                             >
                         </div>
 
@@ -329,6 +359,7 @@
                                     'billingStreetAddress'
                                 ).invalid
                             "
+                            i18n="@@invalid-street-address"
                         >
                             The address is too long.
                         </div>
@@ -345,7 +376,11 @@
                             <label
                                 for="billingStreetAddress2"
                                 class="tc-input-label"
-                                >Street address 2</label
+                            >
+                                <span i18n="@@street-address"
+                                    >Street address</span
+                                >
+                                2</label
                             >
                         </div>
 
@@ -356,6 +391,7 @@
                                     'billingStreetAddress2'
                                 ).invalid
                             "
+                            i18n="@@invalid-street-address"
                         >
                             The address is too long.
                         </div>
@@ -369,8 +405,8 @@
                                 id="billingCity"
                                 placeholder="City"
                             />
-                            <label for="billingCity" class="tc-input-label"
-                                >City *
+                            <label for="billingCity" class="tc-input-label">
+                                <span i18n="@@city"> City</span> *
                             </label>
                             <div
                                 class="error-message offset"
@@ -380,6 +416,7 @@
                                     this.billingAddressForm.get('billingCity')
                                         .invalid
                                 "
+                                i18n="@@invalid-city"
                             >
                                 The city name is too long.
                             </div>
@@ -394,8 +431,9 @@
                                 name="billingPostcode"
                                 placeholder="1234"
                             />
-                            <label for="billingPostcode" class="tc-input-label"
-                                >Postcode *</label
+                            <label for="billingPostcode" class="tc-input-label">
+                                <span i18n="@@postcode">Postcode </span>
+                                *</label
                             >
                             <div
                                 class="error-message offset"
@@ -407,6 +445,7 @@
                                         'billingPostcode'
                                     ).invalid
                                 "
+                                i18n="@@invalid-postcode"
                             >
                                 Invalid danish postcode.
                             </div>
@@ -419,7 +458,9 @@
                     <div class="delivery-payment-section">
                         <!-- delivery method -->
                         <div class="title-container">
-                            <span class="title">Delivery</span>
+                            <span class="title" i18n="@@delivery"
+                                >Delivery</span
+                            >
                             <hr />
                         </div>
                         <div class="option">
@@ -432,7 +473,9 @@
                                 <span class="checkmark"></span>
                             </label>
                             <div class="option-title">
-                                <div class="type">Parcelshop delivery</div>
+                                <div class="type" i18n="@@parcel-shop-delivery">
+                                    Parcelshop delivery
+                                </div>
                                 <div class="price">00,00 DKK</div>
                             </div>
                         </div>
@@ -495,7 +538,9 @@
                                 <span class="checkmark"></span>
                             </label>
                             <div class="option-title">
-                                <div class="type">Home delivery</div>
+                                <div class="type" i18n="@@home-delivery">
+                                    Home delivery
+                                </div>
                                 <div class="price">29,00 DKK</div>
                             </div>
                         </div>
@@ -506,7 +551,7 @@
             <!-- order resume -->
             <div class="checkout-section no-margin">
                 <div class="title-container">
-                    <span class="title">Your Order</span>
+                    <span class="title" i18n="@@your-order">Your Order</span>
                     <hr />
                 </div>
 
@@ -533,9 +578,15 @@
                                 alt=""
                                 class="seed-icon remove-mobile"
                             />
-                            Thank you for planting
-                            <strong>{{ extraDonatedTrees }} extra</strong>
-                            tree(s)!
+                            <span i18n="@@thank-you-for-planting"
+                                >Thank you for planting</span
+                            >
+
+                            <strong
+                                >{{ extraDonatedTrees }}
+                                <span i18n="@@extra">extra</span>
+                            </strong>
+                            <span i18n="@@tree">tree(s)!</span>
                         </div>
                         <div class="trees-donated-price">
                             {{ priceInfo.extraTreesPrice.toFixed(2) }} DKK
@@ -546,7 +597,7 @@
                 <!-- Order info -->
                 <div class="order-info-section">
                     <div class="info-line">
-                        <span>Subtotal</span
+                        <span i18n="@@subtotal">Subtotal</span
                         ><span>{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
                     </div>
                     <div
@@ -555,23 +606,23 @@
                             priceInfo.discountAmount > 0 ? 'green-text' : ''
                         "
                     >
-                        <span>You save</span
+                        <span i18n="@@you-save">You save</span
                         ><span
                             >{{ priceInfo.discountAmount.toFixed(2) }} DKK</span
                         >
                     </div>
                     <div class="info-line">
-                        <span>Delivery</span
+                        <span i18n="@@delivery">Delivery</span
                         ><span
                             >{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span
                         >
                     </div>
                     <div class="info-line total">
-                        <span>Total</span
+                        <span i18n="@@total">Total</span
                         ><span>{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
                     </div>
                     <div class="info-line">
-                        <span>VAT</span
+                        <span i18n="@@vat">VAT</span
                         ><span>{{ priceInfo.vat.toFixed(2) }} DKK</span>
                     </div>
                 </div>
@@ -590,7 +641,7 @@
                             />
                             <span class="checkmark"></span>
                         </label>
-                        <div class="option-title">
+                        <div class="option-title" i18n="@@subscribe-to-get-25%">
                             Subscribe to newsletter - 25% off next purchase
                         </div>
                     </div>
@@ -606,9 +657,13 @@
                             <span class="checkmark"></span>
                         </label>
                         <div class="option-title">
-                            I accept terms and conditions<a
+                            <span i18n="@@accept-terms"
+                                >I accept terms and conditions</span
+                            >
+                            <a
                                 class="TnC"
                                 (click)="showTermsOfSale()"
+                                i18n="@@read-here"
                                 >Read here</a
                             >
                         </div>
@@ -618,8 +673,9 @@
                         type="submit"
                         [disabled]="!isTermsAndConditionsAccepted"
                         [ngClass]="!isDisabled() ? 'disabled' : ''"
+                        i18n="@@go-to-quickpay"
                     >
-                        Go to secure payment
+                        Go to Quickpay
                     </button>
                 </div>
             </div>

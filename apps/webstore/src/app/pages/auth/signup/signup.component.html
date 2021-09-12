@@ -5,7 +5,7 @@
         class="signup-form"
         [formGroup]="signupForm"
     >
-        <h1 class="page-title">Sign up</h1>
+        <h1 class="page-title" i18n="@@signup">Sign up</h1>
         <div class="tc-input-group field">
             <input
                 type="email"
@@ -26,6 +26,7 @@
                 this.signupForm.get('email').dirty &&
                 this.signupForm.get('email').invalid
             "
+            i18n="@@invalid-email"
         >
             Invalid e-mail
         </div>
@@ -41,7 +42,9 @@
                 autocomplete="new-password"
                 required
             />
-            <label for="password" class="tc-input-label">Password</label>
+            <label for="password" class="tc-input-label" i18n="@@password"
+                >Password</label
+            >
         </div>
 
         <div
@@ -50,6 +53,7 @@
                 this.signupForm.get('password').dirty &&
                 this.signupForm.get('password').invalid
             "
+            i18n="@@password-error-message"
         >
             Must contain at least one upper- and lowecase letter and a number.
         </div>
@@ -65,7 +69,10 @@
                 autocomplete="new-password"
                 required
             />
-            <label for="confirmPassword" class="tc-input-label"
+            <label
+                for="confirmPassword"
+                class="tc-input-label"
+                i18n="@@confirma-password"
                 >Confirm password</label
             >
         </div>
@@ -76,6 +83,7 @@
                 this.signupForm.get('confirmPassword').dirty &&
                 !this.matchingPasswords()
             "
+            i18n="@@confirm-password-error-message"
         >
             The passwords must match each other
         </div>
@@ -90,9 +98,9 @@
                 <span class="checkmark" data-cy="checkbox-big-font"></span>
             </label>
             <div class="terms-and-conditions">
-                I accept terms and conditions<a
-                    class="TnC"
-                    (click)="showTermsOfUse()"
+                <span i18n="@@i-accept-terms"
+                    >I accept terms and conditions</span
+                ><a class="TnC" (click)="showTermsOfUse()" i18n="@@read-here"
                     >Read here</a
                 >
             </div>
@@ -109,7 +117,7 @@
                 <span class="checkmark" data-cy="checkbox-big-font"></span>
             </label>
             <!-- TODO: Make the link to terms and conditions more obvious (looks like normal, non-clickable text) -->
-            <div class="sign-up">
+            <div class="sign-up" i18n="@@signup-for-newsletter-subtitle">
                 Sign up for newsletter and get 10% off your first purchase!
             </div>
         </div>
@@ -119,11 +127,17 @@
             type="submit"
             [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
+            i18n="@@create-account"
         >
             Create Account
         </button>
 
-        <button class="tc-button-100" type="button" routerLink="/login">
+        <button
+            class="tc-button-100"
+            type="button"
+            routerLink="/login"
+            i18n="@@back-to-login"
+        >
             Back to login
         </button>
     </form>
