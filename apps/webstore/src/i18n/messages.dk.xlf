@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="basket-upper" datatype="html">
         <source>BASKET</source>
-        <target></target> 
+        <target>KURV</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">5</context>
@@ -15,40 +15,40 @@
         </context-group>
       </trans-unit>
       <trans-unit id="no-items-text" datatype="html">
-        <source> You have no items in your basket </source>
-        <target></target> 
+        <source>You have no items in your basket</source>
+        <target>Din kurv er tom</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">24,25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="start-creating" datatype="html">
-        <source> Start Creating </source>
-        <target></target> 
+        <source>Start creating</source>
+        <target>Start dit design</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">31,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plant-extra-trees" datatype="html">
-        <source>Plant an extra tree - 10kr</source>
-        <target></target> 
+        <source>Plant an extra tree - 10 DKK</source>
+        <target>Plant et ekstra træ - 10 DKK</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plant-extra-trees-subtext" datatype="html">
-        <source> (Planting 1 tree is included in the price) </source>
-        <target></target> 
+        <source>(Planting 1 tree is included in the price)</source>
+        <target>(Med i prisen planter du allerede et træ)</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">46,47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="apply-discount" datatype="html">
-        <source> Apply discount </source>
-        <target></target> 
+        <source>Apply discount</source>
+        <target>Aktiver rabatkode</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">95,96</context>
@@ -56,15 +56,15 @@
       </trans-unit>
       <trans-unit id="amount-discount" datatype="html">
         <source>Amount dicount:</source>
-        <target></target> 
+        <target>Rabat mængde: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subtotal" datatype="html">
-        <source> Subtotal </source>
-        <target></target> 
+        <source>Subtotal</source>
+        <target>Delsum</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">115</context>
@@ -75,8 +75,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="you-save" datatype="html">
-        <source> You Save </source>
-        <target></target> 
+        <source>You Save</source>
+        <target>Du spare</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">126</context>
@@ -87,8 +87,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="total" datatype="html">
-        <source> Total </source>
-        <target></target> 
+        <source>Total</source>
+        <target>I alt</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">133</context>
@@ -103,8 +103,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="vat" datatype="html">
-        <source> VAT </source>
-        <target></target> 
+        <source>VAT</source>
+        <target>Moms</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">142</context>
@@ -115,32 +115,32 @@
         </context-group>
       </trans-unit>
       <trans-unit id="go-to-checkout" datatype="html">
-        <source> Go to checkout </source>
-        <target></target> 
+        <source>Go to checkout</source>
+        <target>Gå til checkout</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">152,153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-basket" datatype="html">
-        <source> Back to basket </source>
-        <target></target> 
+        <source>Back to basket</source>
+        <target>Tilbage til kurv</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="shipping-address" datatype="html">
-        <source>Shipping Address </source>
-        <target></target> 
+        <source>Shipping Address</source>
+        <target>Forsendelsesadresse</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">25,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="same-billing-address" datatype="html">
-        <source> Billing address is the same as delivery address </source>
-        <target></target> 
+        <source>Billing address is the same as delivery address</source>
+        <target> Betalingsadresse er den samme som forsendelsesaddressen</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">42,43</context>
@@ -148,7 +148,7 @@
       </trans-unit>
       <trans-unit id="name" datatype="html">
         <source>Name</source>
-        <target></target> 
+        <target>Navn</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">56</context>
@@ -163,8 +163,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-name" datatype="html">
-        <source> Invalid name. </source>
-        <target></target> 
+        <source>Invalid name.</source>
+        <target>Ugyldigt navn.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">68,69</context>
@@ -180,7 +180,7 @@
       </trans-unit>
       <trans-unit id="phone-number" datatype="html">
         <source>Phone number</source>
-        <target></target> 
+        <target>Telefonnummber</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">85</context>
@@ -195,8 +195,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-phone-number" datatype="html">
-        <source> Invalid phone number. </source>
-        <target></target> 
+        <source>Invalid phone number.</source>
+        <target>Ugyldigt telefonnummer</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">97,98</context>
@@ -211,8 +211,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-email" datatype="html">
-        <source> Invalid email. </source>
-        <target></target> 
+        <source>Invalid e-mail.</source>
+        <target>Ugyldig e-mail.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">127,128</context>
@@ -235,8 +235,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="street-address" datatype="html">
-        <source> Street address</source>
-        <target></target> 
+        <source>Street address</source>
+        <target>Adresse </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">140</context>
@@ -263,8 +263,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-street-address" datatype="html">
-        <source> The address is too long. </source>
-        <target></target> 
+        <source>The address is too long.</source>
+        <target>Adressen er for lang.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">154,155</context>
@@ -292,7 +292,7 @@
       </trans-unit>
       <trans-unit id="city" datatype="html">
         <source>City</source>
-        <target></target> 
+        <target>By</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">193</context>
@@ -307,8 +307,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-city" datatype="html">
-        <source> The city name is too long. </source>
-        <target></target> 
+        <source>The city name is too long.</source>
+        <target>Bynavn er for langt.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">203,204</context>
@@ -324,7 +324,7 @@
       </trans-unit>
       <trans-unit id="postcode" datatype="html">
         <source>Postcode</source>
-        <target></target> 
+        <target>Postnummer</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">217</context>
@@ -339,8 +339,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-postcode" datatype="html">
-        <source> Invalid danish postcode. </source>
-        <target></target> 
+        <source>Invalid danish postcode.</source>
+        <target>Ugyldig dansk postnummer.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">227,228</context>
@@ -355,8 +355,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="billing-address" datatype="html">
-        <source>Billing Address </source>
-        <target></target> 
+        <source>Billing Address</source>
+        <target>Bestillingsadresse</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">243,244</context>
@@ -364,7 +364,7 @@
       </trans-unit>
       <trans-unit id="delivery" datatype="html">
         <source>Delivery</source>
-        <target></target> 
+        <target>Levering</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">462</context>
@@ -375,24 +375,24 @@
         </context-group>
       </trans-unit>
       <trans-unit id="parcel-shop-delivery" datatype="html">
-        <source> Parcelshop delivery </source>
-        <target></target> 
+        <source>Parcelshop delivery</source>
+        <target>Pakkeshop levering</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">477,478</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home-delivery" datatype="html">
-        <source> Home delivery </source>
-        <target></target> 
+        <source>Home delivery</source>
+        <target>Hjemmelevering</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">542,543</context>
         </context-group>
       </trans-unit>
       <trans-unit id="your-order" datatype="html">
-        <source>Your Order</source>
-        <target></target> 
+        <source>Your order</source>
+        <target>Din ordrer </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">554</context>
@@ -400,7 +400,7 @@
       </trans-unit>
       <trans-unit id="thank-you-for-planting" datatype="html">
         <source>Thank you for planting</source>
-        <target></target> 
+        <target>Tak fordi du planter</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">582</context>
@@ -408,23 +408,23 @@
       </trans-unit>
       <trans-unit id="extra" datatype="html">
         <source>extra</source>
-        <target></target> 
+        <target>ekstra</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">587</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tree" datatype="html">
-        <source>tree(s)!</source>
-        <target></target> 
+        <source>trees!</source>
+        <target>træer</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">589</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subscribe-to-get-25%" datatype="html">
-        <source> Subscribe to newsletter - 25% off next purchase </source>
-        <target></target> 
+        <source>Subscribe to newsletter - 25% off next purchase</source>
+        <target>Tilmeld dig nyhedsbrevet - 25% rabat på dit næste køb</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">645,646</context>
@@ -432,7 +432,7 @@
       </trans-unit>
       <trans-unit id="accept-terms" datatype="html">
         <source>I accept terms and conditions</source>
-        <target></target> 
+        <target>Jeg har læst og forstået betingelserne</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">661</context>
@@ -440,7 +440,7 @@
       </trans-unit>
       <trans-unit id="read-here" datatype="html">
         <source>Read here</source>
-        <target></target> 
+        <target>Læs her</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">667</context>
@@ -451,32 +451,32 @@
         </context-group>
       </trans-unit>
       <trans-unit id="go-to-quickpay" datatype="html">
-        <source> Go to Quickpay </source>
-        <target></target> 
+        <source>Go to Quickpay</source>
+        <target>Gå til Quickpay</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">678,679</context>
         </context-group>
       </trans-unit>
       <trans-unit id="your-collection" datatype="html">
-        <source>Your Collection</source>
-        <target></target> 
+        <source>Your collection</source>
+        <target>Din samling</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="create-new" datatype="html">
-        <source> Create New </source>
-        <target></target> 
+        <source>Create New</source>
+        <target>Start nyt</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">23,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="profile" datatype="html">
-        <source> Profile </source>
-        <target></target> 
+        <source>Profile</source>
+        <target>Profil</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">31,32</context>
@@ -499,24 +499,24 @@
         </context-group>
       </trans-unit>
       <trans-unit id="no-designs" datatype="html">
-        <source> You have no designs </source>
-        <target></target> 
+        <source>You have no designs</source>
+        <target>Du har ingen designs</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">38,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="no-designs-text" datatype="html">
-        <source> Go to the product page to start creating your first design! </source>
-        <target></target> 
+        <source>Go to the product page to start creating your first design!</source>
+        <target>Gå til produktsiden og begynd dit første design!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="start-designing" datatype="html">
-        <source> Start designing </source>
-        <target></target> 
+        <source>Start designing</source>
+        <target>Start dit design</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">49,50</context>
@@ -524,7 +524,7 @@
       </trans-unit>
       <trans-unit id="login" datatype="html">
         <source>Login</source>
-        <target></target> 
+        <target>Log ind</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
           <context context-type="linenumber">9</context>
@@ -544,7 +544,7 @@
       </trans-unit>
       <trans-unit id="password" datatype="html">
         <source>Password</source>
-        <target></target> 
+        <target>Kodeord</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
           <context context-type="linenumber">38</context>
@@ -555,16 +555,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="forgot-password" datatype="html">
-        <source> Forgot password? </source>
-        <target></target> 
+        <source>Forgot password?</source>
+        <target>Glemt kode?</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
           <context context-type="linenumber">49,50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signup" datatype="html">
-        <source> Sign up </source>
-        <target></target> 
+        <source>Sign up</source>
+        <target>Opret bruger</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
           <context context-type="linenumber">70,71</context>
@@ -579,8 +579,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="account-info" datatype="html">
-        <source>Account Info</source>
-        <target></target> 
+        <source>Account info</source>
+        <target>Konto informationer</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">9</context>
@@ -592,7 +592,7 @@
       </trans-unit>
       <trans-unit id="contact" datatype="html">
         <source>Contact</source>
-        <target></target> 
+        <target>Kontakt</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">16</context>
@@ -604,7 +604,7 @@
       </trans-unit>
       <trans-unit id="address" datatype="html">
         <source>Adress</source>
-        <target></target> 
+        <target>Adresse</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">99</context>
@@ -612,23 +612,23 @@
       </trans-unit>
       <trans-unit id="updating" datatype="html">
         <source>Updating...</source>
-        <target></target> 
+        <target>Opdaterer...</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">223</context>
         </context-group>
       </trans-unit>
       <trans-unit id="update-info" datatype="html">
-        <source> Update info </source>
-        <target></target> 
+        <source>Update info</source>
+        <target>Opdater info</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">233,234</context>
         </context-group>
       </trans-unit>
       <trans-unit id="collection" datatype="html">
-        <source> Collection </source>
-        <target></target> 
+        <source>Collection</source>
+        <target>Samling</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">241,242</context>
@@ -647,8 +647,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="sending-email" datatype="html">
-        <source>Sending email...</source>
-        <target></target> 
+        <source>Sending e-mail...</source>
+        <target>Sender e-mail...</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">256</context>
@@ -659,8 +659,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="resend-verification-email" datatype="html">
-        <source> Resend verification e-mail </source>
-        <target></target> 
+        <source>Resend verification e-mail</source>
+        <target>Send verifikations e-mail igen</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">265,266</context>
@@ -668,7 +668,7 @@
       </trans-unit>
       <trans-unit id="reset-password" datatype="html">
         <source>Reset your password</source>
-        <target></target> 
+        <target>Nulstil dit kodeord</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">15</context>
@@ -684,7 +684,7 @@
       </trans-unit>
       <trans-unit id="reset-password-subtitle" datatype="html">
         <source>Write your new password here:</source>
-        <target></target> 
+        <target>Skriv dit nye kodeord her: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">16</context>
@@ -692,15 +692,15 @@
       </trans-unit>
       <trans-unit id="new-password" datatype="html">
         <source>New password</source>
-        <target></target> 
+        <target>Nyt kodeord</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="password-error-message" datatype="html">
-        <source> Must contain at least one upper- and lowecase letter and a number. </source>
-        <target></target> 
+        <source>Must contain at least one upper- and lowecase letter and a number.</source>
+        <target>Skal indeholde følgende: et stort og et lille bokstav samt at tal. Det skal også være mindst 8 cifre</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">38,39</context>
@@ -712,7 +712,7 @@
       </trans-unit>
       <trans-unit id="confirma-password" datatype="html">
         <source>Confirm password</source>
-        <target></target> 
+        <target>Bekræft kodeord</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">54</context>
@@ -723,8 +723,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="confirm-password-error-message" datatype="html">
-        <source> The passwords must match each other </source>
-        <target></target> 
+        <source>The passwords must match each other</source>
+        <target>Kodeordet skal matche</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">66,67</context>
@@ -736,71 +736,71 @@
       </trans-unit>
       <trans-unit id="i-accept-terms" datatype="html">
         <source>I accept terms and conditions</source>
-        <target></target> 
+        <target>Jeg har læst og accepterer betingelserne</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
           <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signup-for-newsletter-subtitle" datatype="html">
-        <source> Sign up for newsletter and get 10% off your first purchase! </source>
-        <target></target> 
+        <source>Sign up for newsletter and get 10% off your first purchase!</source>
+        <target>Tilmeld dig nyhedsbrevet og få 10% rabat på dit første køb!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
           <context context-type="linenumber">121,122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="create-account" datatype="html">
-        <source> Create Account </source>
-        <target></target> 
+        <source>Create account</source>
+        <target>Opret konto</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
           <context context-type="linenumber">132,133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-login" datatype="html">
-        <source> Back to login </source>
-        <target></target> 
+        <source>Back to login</source>
+        <target>Tilbage til login</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
           <context context-type="linenumber">141,142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="email-verification" datatype="html">
-        <source>Email Verification</source>
-        <target></target> 
+        <source>E-mail verification</source>
+        <target>E-mail godkendelse</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="please-wait-while-we-verify" datatype="html">
-        <source> Please wait while we verify your email </source>
-        <target></target> 
+        <source>Please wait while we verify your e-mail</source>
+        <target>Vent venligst imens vi godkender din e-mail</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
           <context context-type="linenumber">16,17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="verification-success-subtitle" datatype="html">
-        <source> Your email address has been verified </source>
-        <target></target> 
+        <source>Your e-mail has been verified</source>
+        <target>Din e-mail er bleven godkendt</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
           <context context-type="linenumber">26,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="verified-success" datatype="html">
-        <source> Verification successfull! </source>
-        <target></target> 
+        <source>Verification successfull!</source>
+        <target>Godkendelsen var succesfuld!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
           <context context-type="linenumber">32,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="varification-failed-subtitle" datatype="html">
-        <source> The verification of your email failed. </source>
-        <target></target> 
+        <source>The verification of your e-mail failed.</source>
+        <target>Godkendelsen mislykkedes desværre.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
           <context context-type="linenumber">37,38</context>
@@ -823,8 +823,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home-02-title" datatype="html">
-        <source> Subscribe to our newsletter</source>
-        <target> Tilmeld dig vores nyhedsbrev</target> 
+        <source>Subscribe to our newsletter</source>
+        <target>Tilmeld dig vores nyhedsbrev</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">28,29</context>
@@ -832,7 +832,7 @@
       </trans-unit>
       <trans-unit id="home-02-text" datatype="html">
         <source>get 10% discount on your first purchase, and have a chance to win a family tree!</source>
-        <target> få 10% rabat på dit første køb, samt vær med i lodtrækningen om at vinde et stamtræ!</target> 
+        <target>få 10% rabat på dit første køb, samt vær med i lodtrækningen om at vinde et stamtræ!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">31,33</context>
@@ -847,8 +847,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home-03-title" datatype="html">
-        <source> The most personal present</source>
-        <target> Den mest personlige gave</target> 
+        <source>The most personal present</source>
+        <target>Den mest personlige gave</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">59,60</context>
@@ -863,7 +863,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home-03-text-02" datatype="html">
-        <source>Your Treecreate family tree is carefully carved in beautiful fragant oak wood with bark on top. it gives a natural expression as your thoughts are easily led to a lovely summerday with the family.</source> 
+        <source>Your Treecreate family tree is carefully carved in beautiful fragant oak wood with bark on top. it gives a natural expression as your thoughts are easily led to a lovely summerday with the family.</source>
         <target>Dit Treecreate stamtræ er omhyggeligt udskåret i smukt, velduftende egetræ med bark på toppen. Det giver et naturligt udtryk, og tankerne føres let hen på en dejlig sommerdag i familiens favn.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
@@ -871,8 +871,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home-04-title" datatype="html">
-        <source> A present with care</source>
-        <target> En gave med omtanke</target> 
+        <source>A present with care</source>
+        <target>En gave med omtanke</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">87,88</context>
@@ -903,7 +903,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="page-not-found-text" datatype="html">
-        <source> I tried to catch some fog, but I mist. If you are having issues, feel free to send us an e-mail at: </source>
+        <source>I tried to catch some fog, but I mist. If you are having issues, feel free to send us an e-mail at:</source>
         <target>Vi kunne desværre ikke finde siden. Hvis du har problemer er du velkommen til at sende os en e-mail på: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
@@ -911,16 +911,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="back" datatype="html">
-        <source> Back </source>
-        <target> Tilbage</target> 
+        <source>Back</source>
+        <target>Tilbage</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">27,28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home" datatype="html">
-        <source> Home </source>
-        <target> Hjem</target> 
+        <source>Home</source>
+        <target>Hjem</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">35,36</context>
@@ -935,7 +935,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="rejected-cookies-text" datatype="html">
-        <source> We've baked some cookies for you and we are very sad that you don't like them. This means that you cannot access Treecreate until you do accept them. </source>
+        <source>We've baked some cookies for you and we are very sad that you don't like them. This means that you cannot access Treecreate until you do accept them.</source>
         <target>Vi har bagt nogle cookies til dig og vi er meget kede af at du ikke kan lide dem. Det betyder at du ikke kan få adgang til Treecreate intil du godkender dem.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
@@ -963,15 +963,15 @@
         </context-group>
       </trans-unit>
       <trans-unit id="accept-all-cookies" datatype="html">
-        <source> Accept Cookies </source>
-        <target> Godkend Cookies</target> 
+        <source>Accept Cookies</source>
+        <target>Godkend Cookies</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
           <context context-type="linenumber">29,30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="if-you-have-questions" datatype="html">
-        <source> If you have any questions, feel free to send us an e-mail at: </source>
+        <source>If you have any questions, feel free to send us an e-mail at:</source>
         <target> Hvis du har nogen spørgsmål er du velkommen til at sende os en e-mail på: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
@@ -979,8 +979,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-home" datatype="html">
-        <source> Back to home page</source>
-        <target> Tilbage </target> 
+        <source>Back to home page</source>
+        <target>Tilbage</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
           <context context-type="linenumber">13</context>
@@ -995,8 +995,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="payment-succes-text" datatype="html">
-        <source> Shortly you should recieve an order confirmation on your e-mail. We thank you for buying at Treecreate.dk, and for planting a tree. Your support is more important now, than it has ever been. If you wish to plant more trees, please visit: </source>
-        <target> Om et øje blik skulle du gerne modtage en ordrerbekræftelse på din e-mail. Vi takker dig for at have købt hos Treecreate.dk, og for at plante et træ. Din støtte har aldrig været vigtigere. Hvis du ønsker at plante flere træer, har du mulighed for at gøre det her: </target> 
+        <source>Shortly you should recieve an order confirmation on your e-mail. We thank you for buying at Treecreate.dk, and for planting a tree. Your support is more important now, than it has ever been. If you wish to plant more trees, please visit:</source>
+        <target>Om et øje blik skulle du gerne modtage en ordrerbekræftelse på din e-mail. Vi takker dig for at have købt hos Treecreate.dk, og for at plante et træ. Din støtte har aldrig været vigtigere. Hvis du ønsker at plante flere træer, har du mulighed for at gøre det her: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
           <context context-type="linenumber">24,28</context>
@@ -1023,16 +1023,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subscribe-to-newsletter-title" datatype="html">
-        <source> Subscribe to our newsletter </source>
-        <target> Tilmeld dig vores nyhedsbrev</target> 
+        <source>Subscribe to our newsletter</source>
+        <target>Tilmeld dig vores nyhedsbrev</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">98,99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subscribe-to-newsletter-subtitle" datatype="html">
-        <source> Get 10% off your first purchase. </source>
-        <target> Få 10% rabat på dit første køb. </target> 
+        <source>Get 10% off your first purchase.</source>
+        <target>Få 10% rabat på dit første køb. </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">101,102</context>
@@ -1171,7 +1171,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="add-to-basket-extra-info" datatype="html">
-        <source>For every design you purchase, you are automatically planting a tree. Thereby you support re-floreshing the forrests, which has never been a more vital task. </source>
+        <source>For every design you purchase, you are automatically planting a tree. Thereby you support re-floreshing the forrests, which has never been a more vital task.</source>
         <target>For hvert produkt du køber, planter du automatisk et træ igennem Treecreate. Dermed støtter du naturen, hvilket aldrig har været vigtigere end det er nu.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
@@ -1195,7 +1195,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="cookie-prompt-text" datatype="html">
-        <source>Hey there, Treecreate uses cookies to save anonymous information through google analytics to continuously improve the page. Without accepting these cookies, you will sadly not be able to use the page. If you wish to see the cookies that we store, you can go to this link: </source>
+        <source>Hey there, Treecreate uses cookies to save anonymous information through google analytics to continuously improve the page. Without accepting these cookies, you will sadly not be able to use the page. If you wish to see the cookies that we store, you can go to this link:</source>
         <target>Hejsa, Treecreate bruger cookies to at gemme anonyme informationer gennem google analytics til at forbedre siden. Hvis du ikke godkender disse cookies kan du desværre ikke komme til at bruge siden. Hvis du vil se hvilke cookies vi gemmer, så kan du læse om dem her: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
@@ -1235,7 +1235,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="forgot-password-if-message" datatype="html">
-        <source> If your e-mail is in our system, you will recieve a link shortly to reset your password. </source>
+        <source>If your e-mail is in our system, you will recieve a link shortly to reset your password.</source>
         <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
@@ -1243,8 +1243,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="close" datatype="html">
-        <source> Close </source>
-        <target></target> 
+        <source>Close</source>
+        <target>Tilbage</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
           <context context-type="linenumber">62,63</context>
@@ -1252,7 +1252,7 @@
       </trans-unit>
       <trans-unit id="fe46ccaae902ce974e2441abe752399288298619" datatype="html">
         <source>Language</source>
-        <target></target> 
+        <target>Sprog</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">28</context>
@@ -1260,7 +1260,7 @@
       </trans-unit>
       <trans-unit id="logout" datatype="html">
         <source>Log out</source>
-        <target></target> 
+        <target>Log ud</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">118</context>
@@ -1272,15 +1272,15 @@
       </trans-unit>
       <trans-unit id="nav-verify-email" datatype="html">
         <source>Your e-mail is still not verified:</source>
-        <target></target> 
+        <target>Din e-mail er stadig ikke godkendt:</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">184</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resend-email" datatype="html">
-        <source> Resend e-mail </source>
-        <target></target> 
+        <source>Resend e-mail</source>
+        <target>Send e-mail igen</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">203,204</context>
