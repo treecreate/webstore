@@ -24,6 +24,7 @@
                     attr.data-cy="{{ environment.locale }}"
                     i18n-src
                     i18n-alt
+                    i18n="@@language"
                     alt="Language"
                     (click)="changeLocale()"
                 />
@@ -72,7 +73,7 @@
                         routerLink="{{
                             isLoggedIn ? '/product' : '/notSignedIn'
                         }}"
-                        i18n="@@nav-product-link"
+                        i18n="@@product"
                         (click)="autoCollapse()"
                         >Product</a
                     >
@@ -82,7 +83,7 @@
                         class="nav-link waves-light"
                         routerLink="/login"
                         (click)="autoCollapse()"
-                        i18n="@@nav-login-link"
+                        i18n="@@login"
                         >Log in</a
                     >
                 </li>
@@ -93,7 +94,7 @@
                         *ngIf="isLoggedIn"
                         routerLink="/collection"
                         (click)="autoCollapse()"
-                        i18n="@@nav-collection-link"
+                        i18n="@@collection"
                         >Collection</a
                     >
                 </li>
@@ -103,7 +104,7 @@
                         *ngIf="isLoggedIn"
                         routerLink="/profile"
                         (click)="autoCollapse()"
-                        i18n="@@nav-profile-link"
+                        i18n="@@profile"
                         >Profile</a
                     >
                 </li>
@@ -113,7 +114,7 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         (click)="logout(); autoCollapse()"
-                        i18n="@@nav-logout-link"
+                        i18n="@@logout"
                         >Log out</a
                     >
                 </li>
@@ -130,7 +131,7 @@
                             ngbDropdownToggle
                             class="nav-link waves-light"
                             (mouseenter)="showProfileMenu()"
-                            i18n="@@nav-profile-link"
+                            i18n="@@profile"
                             >Profile</a
                         >
                         <div
@@ -143,17 +144,20 @@
                                 ngbDropdownItem
                                 routerLink="/profile"
                                 (click)="scrollTop()"
-                                i18n="@@nav-account-info-link"
+                                i18n="@@account-info"
                                 >Account info</a
                             >
                             <a
                                 ngbDropdownItem
                                 routerLink="/collection"
                                 (click)="scrollTop()"
-                                i18n="@@nav-collection-link"
+                                i18n="@@collection"
                                 >Collection</a
                             >
-                            <a ngbDropdownItem (click)="logout(); scrollTop()"
+                            <a
+                                ngbDropdownItem
+                                (click)="logout(); scrollTop()"
+                                i18n="@@logout"
                                 >Log Out</a
                             >
                         </div>
