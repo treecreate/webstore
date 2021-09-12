@@ -2,42 +2,1153 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="dk">
     <body>
-      <!-- Add to basket modal -->
-      <trans-unit id="title" datatype="html">
-        <source>Title</source>
-        <target>Titel</target> 
+      <trans-unit id="basket-upper" datatype="html">
+        <source>BASKET</source>
+        <target></target> 
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no-items-text" datatype="html">
+        <source> You have no items in your basket </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="start-creating" datatype="html">
+        <source> Start Creating </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">31,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plant-extra-trees" datatype="html">
+        <source>Plant an extra tree - 10kr</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plant-extra-trees-subtext" datatype="html">
+        <source> (Planting 1 tree is included in the price) </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="apply-discount" datatype="html">
+        <source> Apply discount </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">95,96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="amount-discount" datatype="html">
+        <source>Amount dicount:</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subtotal" datatype="html">
+        <source> Subtotal </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">600</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="you-save" datatype="html">
+        <source> You Save </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">609</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="total" datatype="html">
+        <source> Total </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">133</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">621</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="vat" datatype="html">
+        <source> VAT </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">625</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="go-to-checkout" datatype="html">
+        <source> Go to checkout </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">152,153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="back-to-basket" datatype="html">
+        <source> Back to basket </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shipping-address" datatype="html">
+        <source>Shipping Address </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="same-billing-address" datatype="html">
+        <source> Billing address is the same as delivery address </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">42,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="name" datatype="html">
+        <source>Name</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">258</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-name" datatype="html">
+        <source> Invalid name. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">68,69</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">272,273</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">42,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="phone-number" datatype="html">
+        <source>Phone number</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">289</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-phone-number" datatype="html">
+        <source> Invalid phone number. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">97,98</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">302,303</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">71,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-email" datatype="html">
+        <source> Invalid email. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">127,128</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">330,331</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">95,96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">31,32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">38,39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="street-address" datatype="html">
+        <source> Street address</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">346,347</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">381</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-street-address" datatype="html">
+        <source> The address is too long. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">154,155</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">180,181</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">364,365</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">396,397</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">128,129</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">153,154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="city" datatype="html">
+        <source>City</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">193</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">409</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-city" datatype="html">
+        <source> The city name is too long. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">203,204</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">421,422</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">177,178</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="postcode" datatype="html">
+        <source>Postcode</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">217</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">435</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-postcode" datatype="html">
+        <source> Invalid danish postcode. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">227,228</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">450,451</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">204,205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="billing-address" datatype="html">
+        <source>Billing Address </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">243,244</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="delivery" datatype="html">
+        <source>Delivery</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">462</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">615</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="parcel-shop-delivery" datatype="html">
+        <source> Parcelshop delivery </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">477,478</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-delivery" datatype="html">
+        <source> Home delivery </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">542,543</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="your-order" datatype="html">
+        <source>Your Order</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">554</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="thank-you-for-planting" datatype="html">
+        <source>Thank you for planting</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">582</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="extra" datatype="html">
+        <source>extra</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">587</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tree" datatype="html">
+        <source>tree(s)!</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">589</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subscribe-to-get-25%" datatype="html">
+        <source> Subscribe to newsletter - 25% off next purchase </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">645,646</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accept-terms" datatype="html">
+        <source>I accept terms and conditions</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">661</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="read-here" datatype="html">
+        <source>Read here</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">667</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="go-to-quickpay" datatype="html">
+        <source> Go to Quickpay </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">678,679</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="your-collection" datatype="html">
+        <source>Your Collection</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="create-new" datatype="html">
+        <source> Create New </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile" datatype="html">
+        <source> Profile </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
+          <context context-type="linenumber">31,32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
+          <context context-type="linenumber">60,61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no-designs" datatype="html">
+        <source> You have no designs </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
+          <context context-type="linenumber">38,39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no-designs-text" datatype="html">
+        <source> Go to the product page to start creating your first design! </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="start-designing" datatype="html">
+        <source> Start designing </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
+          <context context-type="linenumber">49,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login" datatype="html">
+        <source>Login</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password" datatype="html">
+        <source>Password</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="forgot-password" datatype="html">
+        <source> Forgot password? </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
+          <context context-type="linenumber">49,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="signup" datatype="html">
+        <source> Sign up </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="account-info" datatype="html">
+        <source>Account Info</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact" datatype="html">
+        <source>Contact</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="address" datatype="html">
+        <source>Adress</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="updating" datatype="html">
+        <source>Updating...</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">223</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="update-info" datatype="html">
+        <source> Update info </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">233,234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="collection" datatype="html">
+        <source> Collection </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">241,242</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sending-email" datatype="html">
+        <source>Sending email...</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">256</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">190</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resend-verification-email" datatype="html">
+        <source> Resend verification e-mail </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">265,266</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reset-password" datatype="html">
+        <source>Reset your password</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">82,83</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">54,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reset-password-subtitle" datatype="html">
+        <source>Write your new password here:</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="new-password" datatype="html">
+        <source>New password</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password-error-message" datatype="html">
+        <source> Must contain at least one upper- and lowecase letter and a number. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">38,39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirma-password" datatype="html">
+        <source>Confirm password</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirm-password-error-message" datatype="html">
+        <source> The passwords must match each other </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">88,89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="i-accept-terms" datatype="html">
+        <source>I accept terms and conditions</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="signup-for-newsletter-subtitle" datatype="html">
+        <source> Sign up for newsletter and get 10% off your first purchase! </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">121,122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="create-account" datatype="html">
+        <source> Create Account </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">132,133</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="back-to-login" datatype="html">
+        <source> Back to login </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">141,142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email-verification" datatype="html">
+        <source>Email Verification</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="please-wait-while-we-verify" datatype="html">
+        <source> Please wait while we verify your email </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="verification-success-subtitle" datatype="html">
+        <source> Your email address has been verified </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="verified-success" datatype="html">
+        <source> Verification successfull! </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="varification-failed-subtitle" datatype="html">
+        <source> The verification of your email failed. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-01-title" datatype="html">
+        <source>More than just a family tree</source>
+        <target>Mere end bare et stamtræ</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-01-text" datatype="html">
+        <source>A tree, that binds the whole family together. In just a few minutes, you can order a very special present to someone you care about. Treecreate, a personal present of high quality and with special care for the environment.</source>
+        <target>Ét træ, der binder hele familien sammen. På blot få minutter, kan du bestille en helt særlig gave til én, du holder af. Treecreate, en personlig gave i fin kvalitet og med kærlig omtanke for miljøet. </target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">9,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-02-title" datatype="html">
+        <source> Subscribe to our newsletter</source>
+        <target> Tilmeld dig vores nyhedsbrev</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-02-text" datatype="html">
+        <source>get 10% discount on your first purchase, and have a chance to win a family tree!</source>
+        <target> få 10% rabat på dit første køb, samt vær med i lodtrækningen om at vinde et stamtræ!</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subscribe" datatype="html">
+        <source>Subscribe</source>
+        <target>Tilmeld</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-03-title" datatype="html">
+        <source> The most personal present</source>
+        <target> Den mest personlige gave</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-03-text-01" datatype="html">
+        <source>When you give a Treecreate family tree, you can be sure to surprise your nearest every time. Your gift is completely unique to the person you give it to, and it does not get more personal.</source>
+        <target>Når du giver et Treecreate stamtræ i gave, kan du være sikker på at overraske dine nære og kære hver gang. Din gave er nemlig helt unik for den, der pakker den op, og mere personligt bliver det ikke.</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">63,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-03-text-02" datatype="html">
+        <source>Your Treecreate family tree is carefully carved in beautiful fragant oak wood with bark on top. it gives a natural expression as your thoughts are easily led to a lovely summerday with the family.</source> 
+        <target>Dit Treecreate stamtræ er omhyggeligt udskåret i smukt, velduftende egetræ med bark på toppen. Det giver et naturligt udtryk, og tankerne føres let hen på en dejlig sommerdag i familiens favn.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">71,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-04-title" datatype="html">
+        <source> A present with care</source>
+        <target> En gave med omtanke</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">87,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-04-text-01" datatype="html">
+        <source>For each family tree you order from Treecreate, we plant a tree. That way we can help each other protect our nature and thereby make the world a greener place.</source>
+        <target>For hvert stamtræ, du bestiller fra Treecreate, planter vi et træ. På den måde kan vi hjælpe hinanden med at passe på vores natur, og derved gøre vores verden til et grønnere sted.</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">91,94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-04-text-02" datatype="html">
+        <source>When we sendt your Treecreate family tree, it is carefully packed in strong FSC-certified re-use paper. In that way we secure that your valuable present is protected on the journey home, and we avoid using unnecessary plastic.</source>
+        <target>Når vi sender dit Treecreate stamtræ, bliver det omhyggeligt pakket ind i holdbart FSC-certificeret genbrugspapir. På den måde sikrer vi, at din værdifulde gave er beskyttet på rejsen hjem til dig, og samtidig undgår vi unødig brug af plastik.</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">99,103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page-not-found" datatype="html">
+        <source>Page not found</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page-not-found-text" datatype="html">
+        <source> I tried to catch some fog, but I mist. If you are having issues, feel free to send us an e-mail at: </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="back" datatype="html">
+        <source> Back </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home" datatype="html">
+        <source> Home </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rejected-cookies-title" datatype="html">
+        <source>You have rejected cookies</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rejected-cookies-text" datatype="html">
+        <source> We've baked some cookies for you and we are very sad that you don't like them. This means that you cannot access Treecreate until you do accept them. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
+          <context context-type="linenumber">6,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="rejected-cookies-text2" datatype="html">
+        <source>If you wish to see the cookies that we store, you can go to this link:</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="terms-of-use" datatype="html">
+        <source>Terms of Use</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accept-all-cookies" datatype="html">
+        <source> Accept all Cookies </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="if-you-have-questions" datatype="html">
+        <source> If you have any questions, feel free to send us an e-mail at: </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="back-to-home" datatype="html">
+        <source> &lt; Back to home page</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="thank-you" datatype="html">
+        <source>THANK YOU!</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="payment-succes-text" datatype="html">
+        <source> Shortly you should recieve an order confirmation on your email. We thank you for buying at Treecreate.dk, and for planting a tree. Your support is more important now, than it has ever been. If you wish to plant more trees, please visit: </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
+          <context context-type="linenumber">24,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="product" datatype="html">
+        <source>Product</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="basket" datatype="html">
+        <source>Basket</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subscribe-to-newsletter-title" datatype="html">
+        <source> Subscribe to our newsletter </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subscribe-to-newsletter-subtitle" datatype="html">
+        <source> Get 10% off your first purchase. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
+          <context context-type="linenumber">101,102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="family-tree" datatype="html">
+        <source>Family tree</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="amount" datatype="html">
-        <source>Amount</source>
-        <target>Antal</target> 
+        <source> Amount </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="size" datatype="html">
-        <source>Size</source>
-        <target>Størrelse</target> 
+        <source> Size </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="price" datatype="html">
+        <source> Price </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="view" datatype="html">
+        <source>View</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="delete" datatype="html">
+        <source> Delete </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
+          <context context-type="linenumber">75,76</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/design-item/design-item.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="add-to-basket" datatype="html">
+        <source> Add to basket </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/design-item/design-item.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
+          <context context-type="linenumber">120,121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit" datatype="html">
+        <source>Edit</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/design-item/design-item.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="title" datatype="html">
+        <source>Title</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="save-25%" datatype="html">
         <source>Save 25%</source>
-        <target>Spar 25%</target> 
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="order" datatype="html">
-        <source>order</source>
-        <target>bestilling</target> 
+        <source>order </source>
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">94</context>
@@ -45,31 +1156,15 @@
       </trans-unit>
       <trans-unit id="you-save-25%" datatype="html">
         <source>You save: (-25%)</source>
-        <target>Du sparer: (-25%)</target> 
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="price" datatype="html">
-        <source>Price:</source>
-        <target>Pris:</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">105</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="add-to-basket" datatype="html">
-        <source>Add to basket</source>
-        <target>Læg i kurv</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">120,121</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="cancel" datatype="html">
-        <source>Cancel</source>
-        <target>Tilbage</target> 
+        <source> Cancel </source>
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">128,129</context>
@@ -77,7 +1172,7 @@
       </trans-unit>
       <trans-unit id="add-to-basket-extra-info" datatype="html">
         <source> For every design you purchase, you are automatically planting a tree. Thereby you support re-floreshing the forrests, which has never been a more vital task. </source>
-        <target>For hvert design du køber, er du automatisk med til at plante et træ. Dermed er du med til at gøre verden et grønnere sted, og det har aldrig været en mere vigtig opgave end nu.</target> 
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">138,141</context>
@@ -85,115 +1180,110 @@
       </trans-unit>
       <trans-unit id="thank-you-message" datatype="html">
         <source>THANK YOU FOR YOUR SUPPORT!</source>
-        <target>TAK FOR DIN STØTTE!</target> 
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
-      <!-- navbar -->
-      <trans-unit id="b8156662eb9694d00f90aa1dad0c108e38f76ffc" datatype="html">
-        <source>/assets/icons/languageEnglish.svg</source>
-        <target>/assets/icons/languageDanish.svg</target>
+      <trans-unit id="accept-cookies" datatype="html">
+        <source>Accept Cookies</source>
+        <target></target> 
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="a0843de0a64adcc7ee6a946408b6876cd8abdcae" datatype="html">
-        <source>English</source>
-        <target>Danish</target>
+      <trans-unit id="cookie-prompt-text" datatype="html">
+        <source> Hey there, Treecreate uses cookies to save anonymous information through google analytics to continuously improve the page. Without accepting these cookies, you will sadly not be able to use the page. If you wish to see the cookies that we store, you can go to this link: </source>
+        <target></target> 
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
+          <context context-type="linenumber">10,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reject" datatype="html">
+        <source> Reject </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accept" datatype="html">
+        <source> Accept </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="forgotten-password" datatype="html">
+        <source>Forgotten password</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="write-email" datatype="html">
+        <source>Write your e-mail here:</source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="forgot-password-if-message" datatype="html">
+        <source> If your e-mail is in our system, you will recieve a link shortly to reset your password. </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="close" datatype="html">
+        <source> Close </source>
+        <target></target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">62,63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fe46ccaae902ce974e2441abe752399288298619" datatype="html">
         <source>Language</source>
-        <target>Sprog</target> 
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="nav-product-link" datatype="html">
-        <source>Product</source>
-        <target>Produkt</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">77</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="nav-login-link" datatype="html">
-        <source>Log in</source>
-        <target>Log ind</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">86</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="nav-collection-link" datatype="html">
-        <source>Collection</source>
-        <target>Kollektion</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">97</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">154</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="nav-profile-link" datatype="html">
-        <source>Profile</source>
-        <target>Profil</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">107</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">134</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="nav-logout-link" datatype="html">
+      <trans-unit id="logout" datatype="html">
         <source>Log out</source>
-        <target>Log ud</target> 
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">118</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="nav-account-info-link" datatype="html">
-        <source>Account info</source>
-        <target>Kontooplysninger</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="nav-verify-email" datatype="html">
         <source>Your e-mail is still not verified:</source>
-        <target>Din e-mail er ikke godkendt:</target> 
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">180</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="sending-email" datatype="html">
-        <source>Sending e-mail...</source>
-        <target>Sender e-mail...</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">186</context>
+          <context context-type="linenumber">184</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resend-email" datatype="html">
-        <source>Resend e-mail</source>
-        <target>Send e-mail igen</target> 
+        <source> Resend e-mail </source>
+        <target></target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">199,200</context>
+          <context context-type="linenumber">203,204</context>
         </context-group>
       </trans-unit>
     </body>
