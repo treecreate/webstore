@@ -26,6 +26,36 @@ interface IDraggableBox {
   text: string;
 }
 
+enum FamilyTreeFontEnum {
+  timesNewRoam = 'Times new roman',
+  roboto = 'Roboto',
+  georgia = 'Georgia',
+  shareTech = 'Share Tech',
+  spectral = 'Spectral',
+  sansita = 'Sansita',
+}
+
+enum FamilyTreeDesignEnum {
+  first,
+  second,
+}
+
+interface IFamilyTreeBanner {
+  text: string;
+  style: 'first';
+}
+
+interface IFamilyTree {
+  id: string;
+  title: string;
+  front: FamilyTreeFontEnum;
+  design: FamilyTreeDesignEnum;
+  boxSize: number;
+  banner: boolean | IFamilyTreeBanner;
+  largeFont: boolean;
+  boxes: IDraggableBox[];
+}
+
 @Component({
   selector: 'webstore-family-tree-design',
   templateUrl: './family-tree-design.component.html',
@@ -268,11 +298,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         );
         this.myBoxes[i].inputRef.instance.zIndex = i;
         this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
-        // draw the close button within the box ()
+        // draw the close button within the box
         this.context.drawImage(
           this.closeButton,
-          box.x + this.closeButtonDimensions.width / 4,
-          box.y + this.closeButtonDimensions.height / 4,
+          this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
+          this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
           this.closeButtonDimensions.width,
           this.closeButtonDimensions.height
         );
