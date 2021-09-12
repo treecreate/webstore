@@ -735,6 +735,83 @@
           <context context-type="linenumber">37,38</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="home-01-title" datatype="html">
+        <source>Mere end bare et stamtræ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-01-text" datatype="html">
+        <source> Ét træ, der binder hele familien sammen. På blot få minutter, kan du bestille en helt særlig gave til én, du holder af. Treecreate, en personlig gave i fin kvalitet og med kærlig omtanke for miljøet. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">9,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-02-title" datatype="html">
+        <source> Tilmeld dig vores nyhedsbrev </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-02-text" datatype="html">
+        <source> Og få 10% rabat på dit første køb, samt vær med i lodtrækningen om at vinde et stamtræ! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="subscribe" datatype="html">
+        <source>Tilmeld</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-03-title" datatype="html">
+        <source> Den mest personlige gave </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-03-text-01" datatype="html">
+        <source>Når du giver et Treecreate stamtræ i gave, kan du være sikker på at overraske dine nære og kære hver gang. Din gave er nemlig helt unik for den, der pakker den op, og mere personligt bliver det ikke.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">63,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-03-text-02" datatype="html">
+        <source>Dit Treecreate stamtræ er omhyggeligt udskåret i smukt, velduftende egetræ med bark på toppen. Det giver et naturligt udtryk, og tankerne føres let hen på en dejlig sommerdag i familiens favn.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">71,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-04-title" datatype="html">
+        <source> En gave med omtanke </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">87,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-04-text-01" datatype="html">
+        <source>For hvert stamtræ, du bestiller fra Treecreate, planter vi et træ. På den måde kan vi hjælpe hinanden med at passe på vores natur, og derved gøre vores verden til et grønnere sted.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">91,94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-04-text-02" datatype="html">
+        <source>Når vi sender dit Treecreate stamtræ, bliver det omhyggeligt pakket ind i holdbart FSC-certificeret genbrugspapir. På den måde sikrer vi, at din værdifulde gave er beskyttet på rejsen hjem til dig, og samtidig undgår vi unødig brug af plastik.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">99,103</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="page-not-found" datatype="html">
         <source>Page not found</source>
         <context-group purpose="location">
