@@ -21,7 +21,7 @@ describe('Signup Page', () => {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
       }).as('signupRequest');
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
       cy.get('[data-cy=signup-btn]').should('be.disabled');
       cy.get('[data-cy=signup-email-input]').type('e2e@test.com');
@@ -30,7 +30,7 @@ describe('Signup Page', () => {
       cy.get('[data-cy=checkbox-terms-of-use]').click();
       cy.get('[data-cy=checkbox-newsletter]').click();
       cy.get('[data-cy=signup-btn]').should('be.enabled').click();
-      cy.get('[data-cy=navbar]').contains('Log In').should('not.exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('exist');
       cy.url().should('contain', '/profile');
     });
@@ -40,7 +40,7 @@ describe('Signup Page', () => {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
       }).as('signupRequest');
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
       cy.get('[data-cy=signup-btn]').should('be.disabled');
       cy.get('[data-cy=signup-email-input]').type('e2e@test.com');
@@ -95,7 +95,7 @@ describe('Signup Page', () => {
       // should get redirected away from login since the user is detected as logged in
       cy.url().should('not.contain', '/login');
 
-      cy.get('[data-cy=navbar]').contains('Log In').should('not.exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('exist');
     });
 
@@ -103,7 +103,7 @@ describe('Signup Page', () => {
       cy.visit('/signup');
       cy.url().should('contain', '/signup');
 
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
     });
 
@@ -118,7 +118,7 @@ describe('Signup Page', () => {
 
       cy.url().should('contain', '/signup');
 
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
     });
   });

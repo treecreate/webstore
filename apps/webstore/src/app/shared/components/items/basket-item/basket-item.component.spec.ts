@@ -21,7 +21,7 @@ describe('BasketItemComponent', () => {
       designId: '1',
       userId: '1',
       title: 'first design',
-      size: 'small',
+      size: '20cm x 20cm',
       amount: 1,
     };
 
@@ -34,24 +34,24 @@ describe('BasketItemComponent', () => {
   });
 
   it('should increse the size', () => {
-    expect(component.item.size).toEqual('small');
+    expect(component.item.size).toEqual('20cm x 20cm');
     component.increaseSize();
-    expect(component.item.size).toEqual('medium');
+    expect(component.item.size).toEqual('25cm x 25cm');
     component.increaseSize();
-    expect(component.item.size).toEqual('large');
+    expect(component.item.size).toEqual('30cm x 30cm');
     component.increaseSize();
-    expect(component.item.size).toEqual('large');
+    expect(component.item.size).toEqual('30cm x 30cm');
   });
 
   it('should decrease the size', () => {
-    component.item.size = 'large';
-    expect(component.item.size).toEqual('large');
+    component.item.size = '30cm x 30cm';
+    expect(component.item.size).toEqual('30cm x 30cm');
     component.decreaseSize();
-    expect(component.item.size).toEqual('medium');
+    expect(component.item.size).toEqual('25cm x 25cm');
     component.decreaseSize();
-    expect(component.item.size).toEqual('small');
+    expect(component.item.size).toEqual('20cm x 20cm');
     component.decreaseSize();
-    expect(component.item.size).toEqual('small');
+    expect(component.item.size).toEqual('20cm x 20cm');
   });
 
   it('should increase amount', () => {

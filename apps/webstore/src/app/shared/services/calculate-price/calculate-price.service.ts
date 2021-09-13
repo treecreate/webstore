@@ -71,11 +71,11 @@ export class CalculatePriceService {
 
   calculateItemPrice(item: IDesign): number {
     switch (item.size) {
-      case 'small':
+      case '20cm x 20cm':
         return item.amount * 495;
-      case 'medium':
+      case '25cm x 25cm':
         return item.amount * 695;
-      case 'large':
+      case '30cm x 30cm':
         return item.amount * 995;
     }
   }
@@ -93,11 +93,11 @@ export class CalculatePriceService {
 
   calculateItemUnitPrice(itemSize): number {
     switch (itemSize) {
-      case 'small':
+      case '20cm x 20cm':
         return 495;
-      case 'medium':
+      case '25cm x 25cm':
         return 695;
-      case 'large':
+      case '30cm x 30cm':
         return 995;
     }
   }

@@ -41,8 +41,11 @@
 
 .review-text {
   text-align: center;
+  display: flex;
+  align-items: center;
   margin-bottom: 15px;
   padding: 0 5px;
+  min-height: 75px;
 }
 
 .review-author {
@@ -75,5 +78,8 @@
   }
   .review-container {
     min-width: 80%;
+  }
+  .review-text {
+    min-height: 130px;
   }
 }

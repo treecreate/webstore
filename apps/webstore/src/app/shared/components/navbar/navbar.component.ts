@@ -25,16 +25,12 @@ export class NavbarComponent implements OnInit {
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
+  basketItems = [{ number: 1 }, { number: 1 }];
+
   isResendVerificationEmailLoading = false;
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
-
-  basketItemOptions(amount: number): string {
-    if (amount === 0) {
-      return 'Basket empty';
-    }
-    return `(${amount}) products `;
-  }
+  @ViewChild('languageChange') languageChange: ElementRef;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -76,26 +72,16 @@ export class NavbarComponent implements OnInit {
     this.environment = environment;
   }
 
-  changeLocale() {
+  changeLocale(language: string) {
     // TODO: make the change language alert show on screen after reload
-    if (this.localeCode === LocaleType.en) {
-      this.localeCode = LocaleType.dk;
-      this.toastService.showAlert(
-        '',
-        'Sprog skiftet til: Dansk',
-        'success',
-        2500
-      );
-    } else {
-      this.localeCode = LocaleType.en;
-      this.toastService.showAlert(
-        'Change language to: English',
-        '',
-        'success',
-        2500
-      );
+    switch (language) {
+      case 'dk':
+        this.localeCode = LocaleType.dk;
+        break;
+      case 'en':
+        this.localeCode = LocaleType.en;
+        break;
     }
-
     this.locale$ = this.localStorageService.setItem<LocaleType>(
       LocalStorageVars.locale,
       this.localeCode
@@ -160,6 +146,14 @@ export class NavbarComponent implements OnInit {
 
   showProfileMenu() {
     this.profileMenu.nativeElement.classList.add('show');
+  }
+
+  showLanguageChange() {
+    this.languageChange.nativeElement.classList.add('show');
+  }
+
+  hideLanguageChange() {
+    this.languageChange.nativeElement.classList.remove('show');
   }
 
   hideProfileMenu() {

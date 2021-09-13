@@ -1,7 +1,7 @@
 <div class="collection-page-container add-transition">
     <div class="collection-container add-transition">
         <div class="title">
-            <h2>Your Collection</h2>
+            <h2 i18n="@@your-collection">Your collection</h2>
         </div>
         <div>
             <div
@@ -15,13 +15,18 @@
                 <div class="full-width">
                     <hr class="match-button" />
                     <div class="match-section">
-                        <button class="tc-button-50" routerLink="/product">
-                            Create New
+                        <button
+                            class="tc-button-50"
+                            routerLink="/product"
+                            i18n="@@create-new"
+                        >
+                            Create new
                         </button>
                         <button
                             class="tc-button-50"
                             routerLink="/profile"
                             (click)="scrollTop()"
+                            i18n="@@profile"
                         >
                             Profile
                         </button>
@@ -29,12 +34,18 @@
                 </div>
             </div>
             <div class="no-content" *ngIf="designCollection.length === 0">
-                <div class="sub-title">You have no designs</div>
-                <span>
+                <div class="sub-title" i18n="@@no-designs">
+                    You have no designs
+                </div>
+                <span i18n="@@no-designs-text">
                     Go to the product page to start creating your first design!
                 </span>
                 <div class="button-section">
-                    <button class="tc-button-50" routerLink="/product">
+                    <button
+                        class="tc-button-50"
+                        routerLink="/product"
+                        i18n="@@start-designing"
+                    >
                         Start designing
                     </button>
                 </div>
