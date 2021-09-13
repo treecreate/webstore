@@ -36,7 +36,7 @@ describe('NavbarComponent', () => {
       JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
     );
 
-    cy.get('[data-cy=navbar]').contains('Log In').should('not.exist');
+    cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
     cy.get('[data-cy=navbar]').contains('Profile').should('exist');
   });
 
@@ -48,7 +48,7 @@ describe('NavbarComponent', () => {
     cy.get('[data-cy=navbar-profile-dropdown]').trigger('mouseenter');
     cy.get('[data-cy=navbar-log-out-btn]').click({ force: true });
     cy.url().should('contain', '/home');
-    cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+    cy.get('[data-cy=navbar]').contains('Log in').should('exist');
     cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
   });
 });
