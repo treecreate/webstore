@@ -143,6 +143,7 @@
                         *ngIf="isLoggedIn"
                         (click)="logout(); autoCollapse()"
                         i18n="@@logout"
+                        data-cy="navbar-log-out-btn"
                         >Log out</a
                     >
                 </li>
@@ -160,6 +161,7 @@
                             class="nav-link waves-light"
                             (mouseenter)="showProfileMenu()"
                             i18n="@@profile"
+                            data-cy="navbar-profile-dropdown"
                             >Profile</a
                         >
                         <div
