@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
 import { LocalStorageService } from '../../services/local-storage';
 
@@ -56,5 +56,6 @@ export class ReviewCarouselComponent implements OnInit {
     this.localeCode = this.locale$.getValue();
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 }

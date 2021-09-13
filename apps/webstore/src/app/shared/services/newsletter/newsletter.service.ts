@@ -20,7 +20,6 @@ export class NewsletterService {
   }
 
   isSubscribed(): Observable<INewsletter> {
-    const userEmail = this.authService.getAuthUser().email;
     return this.http.get<INewsletter>(`${env.apiUrl}/newsletter/me`, {});
   }
 }

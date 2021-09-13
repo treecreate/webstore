@@ -51,11 +51,11 @@ export class BasketItemComponent implements OnInit {
   increaseSize() {
     switch (this.item.size) {
       case '20cm x 20cm':
-        this.item.size = 'medium';
+        this.item.size = '25cm x 25cm';
         this.updatePrice();
         break;
       case '25cm x 25cm':
-        this.item.size = 'large';
+        this.item.size = '30cm x 30cm';
         this.updatePrice();
         break;
     }
@@ -64,11 +64,11 @@ export class BasketItemComponent implements OnInit {
   decreaseSize() {
     switch (this.item.size) {
       case '25cm x 25cm':
-        this.item.size = 'small';
+        this.item.size = '20cm x 20cm';
         this.updatePrice();
         break;
       case '30cm x 30cm':
-        this.item.size = 'medium';
+        this.item.size = '25cm x 25cm';
         this.updatePrice();
         break;
     }

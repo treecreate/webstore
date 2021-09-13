@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DiscountType, IDesign, IDiscount, IPricing } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
@@ -19,14 +19,14 @@ export class BasketComponent implements OnInit {
       designId: '1',
       userId: '1',
       title: 'first design',
-      size: 'small',
+      size: '20cm x 20cm',
       amount: 2,
     },
     {
       designId: '2',
       userId: '1',
       title: 'second design',
-      size: 'medium',
+      size: '25cm x 25cm',
       amount: 1,
     },
   ];

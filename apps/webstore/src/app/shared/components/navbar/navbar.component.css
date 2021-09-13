@@ -149,7 +149,8 @@
   margin-top: 3px;
   position: fixed;
   top: 56px;
-  background-color: rgba(132, 77, 50, 0.8);
+  background-color: var(--second-action-color);
+  opacity: 0.7;
   width: 100%;
   color: white;
   text-align: center;
