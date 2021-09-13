@@ -24,11 +24,13 @@
                     width="100"
                 />
             </a>
+            <!-- localization -->
             <div
                 ngbDropdown
                 class="d-inline-block language-icon"
                 (mouseenter)="showLanguageChange()"
                 (mouseleave)="hideLanguageChange()"
+                data-cy="navbar-localization"
             >
                 <a class="nav-item" ngbDropdownToggle class="waves-light">
                     <img src="/assets/icons/globe.svg" width="15px" />
@@ -43,7 +45,7 @@
                         ngbDropdownItem
                         (click)="changeLocale('en')"
                         href="/{{ localeCode }}/"
-                        data-cy="navbar-localization"
+                        data-cy="navbar-localization-en"
                         i18n="@@engelsk"
                         >Engelsk</a
                     >
@@ -51,7 +53,7 @@
                         ngbDropdownItem
                         (click)="changeLocale('dk')"
                         href="/{{ localeCode }}/"
-                        data-cy="navbar-localization"
+                        data-cy="navbar-localization-dk"
                         i18n="@@dansk"
                         >Dansk</a
                     >
