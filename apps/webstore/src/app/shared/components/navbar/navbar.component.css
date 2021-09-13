@@ -12,6 +12,13 @@
   text-decoration: none;
   opacity: 0.5;
 }
+.nav-section:hover > .navbar-basket-icon {
+  transform: scale(1.1);
+}
+.nav-start {
+  display: flex;
+  align-items: center;
+}
 .navbar-brand {
   margin-right: 0 !important;
 }
@@ -29,7 +36,6 @@
   padding: 0.5rem;
 }
 .navbar-brand {
-  width: 125px;
   transition-duration: 0.5s;
 }
 .navbar-brand:hover {
@@ -46,17 +52,13 @@
   bottom: 1px;
 }
 .language-icon {
-  transform: scale(0.7);
+  position: relative;
+  top: -2px;
+  padding: 10px 15px;
 }
-.dk {
-  height: 18px;
-  content: url('/assets/icons/languageDanish.svg');
+.language-dropdown {
+  left: -45px;
 }
-.en {
-  height: 18px;
-  content: url('/assets/icons/languageEnglish.svg');
-}
-
 /* menu toggle button */
 .bar1,
 .bar2,
@@ -184,11 +186,5 @@
   }
   .nav-item:hover {
     border-bottom: none;
-  }
-}
-
-@media all and (max-width: 400px) {
-  .language-icon {
-    transform: scale(0.6);
   }
 }

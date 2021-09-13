@@ -78,7 +78,7 @@ export class SignupComponent implements OnInit {
             err.error.message,
             // this was removed to prompt the user to why it wasnt working.
             // 'Signup failed, please try again.',
-            'Der skete en fejl, prøv venligst igen',
+            err.error.message,
             'danger',
             5000
           );

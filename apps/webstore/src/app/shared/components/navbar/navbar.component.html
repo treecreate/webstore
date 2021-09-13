@@ -3,7 +3,19 @@
     class="navbar fixed-top navbar-expand-lg mb-3 add-transition"
 >
     <div class="container min-width">
-        <div>
+        <div class="nav-start">
+            <button
+                class="navbar-toggler"
+                type="button"
+                (click)="isMenuCollapsed = !isMenuCollapsed"
+            >
+                <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </button>
+
             <a class="navbar-brand" routerLink="/">
                 <img
                     data-cy="navbar-logo-img"
@@ -12,8 +24,41 @@
                     width="100"
                 />
             </a>
+            <div
+                ngbDropdown
+                class="d-inline-block language-icon"
+                (mouseenter)="showLanguageChange()"
+                (mouseleave)="hideLanguageChange()"
+            >
+                <a class="nav-item" ngbDropdownToggle class="waves-light">
+                    <img src="/assets/icons/globe.svg" width="15px" />
+                </a>
+                <div
+                    class="dropdown-menu-container language-dropdown dropdown-item-list"
+                    ngbDropdownMenu
+                    aria-labelledby="dropdownBasic"
+                    #languageChange
+                >
+                    <a
+                        ngbDropdownItem
+                        (click)="changeLocale('en')"
+                        href="/{{ localeCode }}/"
+                        data-cy="navbar-localization"
+                        i18n="@@engelsk"
+                        >Engelsk</a
+                    >
+                    <a
+                        ngbDropdownItem
+                        (click)="changeLocale('dk')"
+                        href="/{{ localeCode }}/"
+                        data-cy="navbar-localization"
+                        i18n="@@dansk"
+                        >Dansk</a
+                    >
+                </div>
+            </div>
 
-            <a
+            <!-- <a
                 class="navbar-language"
                 href="/{{ localeCode }}/"
                 data-cy="navbar-localization"
@@ -28,7 +73,7 @@
                     alt="Language"
                     (click)="changeLocale()"
                 />
-            </a>
+            </a> -->
         </div>
 
         <div class="nav-section">
@@ -43,17 +88,6 @@
                 />
                 <!-- TODO: add items in basket -->
                 <span class="item-number">{{ 3 }}</span>
-            </button>
-            <button
-                class="navbar-toggler"
-                type="button"
-                (click)="isMenuCollapsed = !isMenuCollapsed"
-            >
-                <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
-                </div>
             </button>
         </div>
 
@@ -155,19 +189,20 @@
                         </div>
                     </div>
                 </div>
-                <li class="nav-item purchase-btn">
-                    <a
-                        class="nav-link waves-light"
+                <div class="nav-section remove-on-mobile">
+                    <button
+                        class="navbar-basket-icon"
                         routerLink="/basket"
-                        (click)="scrollTop()"
+                        (click)="autoCollapse()"
                     >
                         <img
-                            src="/assets/icons/basket-black-icon.svg"
-                            class="nav-icon basket-icon"
+                            src="/assets/icons/basket-white-icon.svg"
+                            class="nav-icon-mobile"
                         />
-                        ({{ basketItems.length }})
-                    </a>
-                </li>
+                        <!-- TODO: add items in basket -->
+                        <span class="item-number">{{ 3 }}</span>
+                    </button>
+                </div>
             </ul>
         </div>
     </div>

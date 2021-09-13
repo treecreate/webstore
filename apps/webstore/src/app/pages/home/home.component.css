@@ -365,7 +365,8 @@
 
 @media screen and (max-width: 540px) {
   .main-text-container {
-    height: 50vh;
+    height: 40vh;
+    margin-top: 50px;
   }
   .start-creating-button {
     width: 40vw;
@@ -374,7 +375,7 @@
 
 @media screen and (max-width: 450px) {
   .main-text-container {
-    height: 60vh;
+    height: 50vh;
   }
   .title {
     font-size: 24px !important;
