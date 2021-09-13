@@ -21,13 +21,13 @@ describe('Login Page', () => {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
       }).as('signinRequest');
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
       cy.get('[data-cy=login-btn]').should('be.disabled');
       cy.get('[data-cy=login-email-input]').type('e2e@test.com');
       cy.get('[data-cy=login-password-input]').type('abcDEF123');
       cy.get('[data-cy=login-btn]').should('be.enabled').click();
-      cy.get('[data-cy=navbar]').contains('Log In').should('not.exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('exist');
       cy.url().should('contain', '/home');
     });
@@ -37,13 +37,13 @@ describe('Login Page', () => {
         body: 'Unauthorized',
         statusCode: 401,
       }).as('signinRequest');
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
       cy.get('[data-cy=login-btn]').should('be.disabled');
       cy.get('[data-cy=login-email-input]').type('e2e@test.com');
       cy.get('[data-cy=login-password-input]').type('incorrectPassword');
       cy.get('[data-cy=login-btn]').should('be.enabled').click();
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
       cy.url().should('contain', '/login');
     });
@@ -69,7 +69,7 @@ describe('Login Page', () => {
       // should get redirected away from login since the user is detected as logged in
       cy.url().should('not.contain', '/login');
 
-      cy.get('[data-cy=navbar]').contains('Log In').should('not.exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('exist');
     });
 
@@ -77,7 +77,7 @@ describe('Login Page', () => {
       cy.visit('/login');
       cy.url().should('contain', '/login');
 
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
     });
 
@@ -92,7 +92,7 @@ describe('Login Page', () => {
 
       cy.url().should('contain', '/login');
 
-      cy.get('[data-cy=navbar]').contains('Log In').should('exist');
+      cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
     });
   });
