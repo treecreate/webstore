@@ -129,7 +129,14 @@
             [disabled]="isDisabled()"
             i18n="@@create-account"
         >
-            Create account
+            {{ isLoading ? '' : 'Create account' }}
+            <span
+                *ngIf="isLoading"
+                class="spinner-border spinner-border-sm text-light"
+                style="margin: 5px"
+                role="status"
+                aria-hidden="true"
+            ></span>
         </button>
 
         <button

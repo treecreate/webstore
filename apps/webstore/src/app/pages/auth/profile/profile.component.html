@@ -7,7 +7,17 @@
     >
         <div class="title">
             <h2 i18n="@@account-info">Account info</h2>
+            <div class="spinner" *ngIf="isLoading">
+                <span
+                    class="spinner-border spinner-border-sm"
+                    style="margin: 0 10px"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+                <span>Loading...</span>
+            </div>
         </div>
+
         <div
             [ngClass]="isLoading ? 'hide-opacity' : 'show-opacity'"
             class="account-info-input"

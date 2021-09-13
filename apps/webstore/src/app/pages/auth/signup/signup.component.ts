@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
   isSignUpFailed = false;
   signUpForNewletter = false;
   errorMessage = '';
+  isLoading = false;
 
   constructor(
     private modalService: NgbModal,
@@ -54,6 +55,7 @@ export class SignupComponent implements OnInit {
 
   // TODO: add user to newsletter when signupForNewsletter is checked
   onSubmit(): void {
+    this.isLoading = true;
     this.authService
       .register({
         email: this.signupForm.get('email').value,
@@ -69,6 +71,7 @@ export class SignupComponent implements OnInit {
           );
           this.isSuccessful = true;
           this.isSignUpFailed = false;
+          this.isLoading = false;
           this.authService.saveAuthUser(data);
           this.router.navigate(['/profile']);
         },
@@ -82,6 +85,7 @@ export class SignupComponent implements OnInit {
             'danger',
             5000
           );
+          this.isLoading = false;
           this.errorMessage = err.error.message;
           this.isSignUpFailed = true;
         }

@@ -58,7 +58,14 @@
             [disabled]="isDisabled()"
             i18n="@@login"
         >
-            Login
+            {{ isLoading ? '' : 'Login' }}
+            <span
+                *ngIf="isLoading"
+                class="spinner-border spinner-border-sm text-light"
+                style="margin: 5px"
+                role="status"
+                aria-hidden="true"
+            ></span>
         </button>
         <button
             class="tc-button-100"

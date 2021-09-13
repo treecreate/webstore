@@ -1,8 +1,3 @@
-.page-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
 .title {
   font-size: 36px !important;
 }
@@ -12,7 +7,7 @@
 .main-section {
   min-height: 500px;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   display: flex;
 
   /* Background image properties */
@@ -274,7 +269,7 @@
 
 .start-creating-button-container {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: center;
   bottom: 20px;
