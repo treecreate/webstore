@@ -3,6 +3,7 @@ package dk.treecreate.api.designs;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.designs.dto.CreateDesignRequest;
 import dk.treecreate.api.designs.dto.GetAllDesignsResponse;
+import dk.treecreate.api.designs.dto.UpdateDesignRequest;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -148,16 +149,32 @@ public class DesignController
         newDesign.setUser(user);
         return designRepository.save(newDesign);
     }
-    // TODO: Update endpoint
+
+    @PutMapping()
+    @Operation(summary = "Update design. Only possible for design owner.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Design entity.",
+            response = Design.class),
+        @ApiResponse(code = 404, message = "Design not found.")
+    })
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Design update(
+        @RequestBody() @Valid UpdateDesignRequest updateDesignRequest)
+    {
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        User currentUser = userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Design design = designRepository.findByDesignId(updateDesignRequest.getDesignId())
+            .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
+        if (design.getUser().getUserId() != currentUser.getUserId())
+        {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                "The design belongs to another user");
+        }
+        design.setDesignType(updateDesignRequest.getDesignType());
+        design.setDesignProperties(updateDesignRequest.getDesignProperties());
+        return designRepository.save(design);
+    }
+    
     // TODO: DELETE endpoint
-
-    /*
-    Get ALL /designs
-    Get all of specific user /designs/{userId}
-    Get specific design /designs/{designId}
-    Get all of my designs /designs/me
-    Get one of my designs /designs/me/{designId}
-
-
-     */
 }
