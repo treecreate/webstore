@@ -24,7 +24,7 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("designs")
-@Api(tags = {"designs"})
+@Api(tags = {"Designs"})
 public class DesignController
 {
 
