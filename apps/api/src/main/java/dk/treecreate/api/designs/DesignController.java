@@ -131,22 +131,11 @@ public class DesignController
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        // Get the specified user
-        User user = userRepository.findByUserId(design.getUserId())
-            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        // validate that the design belongs to the logged in user
-        // ignore if the current user is a developer/admin.
-        // Since every dev and admin has the user role, the roles list will be longer than 1
-        if (user.getUserId() != currentUser.getUserId() && currentUser.getRoles().size() == 1)
-        {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                "The design belongs to another user");
-        }
         // Create the design, assign it to the collection and persist itr
         Design newDesign = new Design();
         newDesign.setDesignType(design.getDesignType());
         newDesign.setDesignProperties(design.getDesignProperties());
-        newDesign.setUser(user);
+        newDesign.setUser(currentUser);
         return designRepository.save(newDesign);
     }
 

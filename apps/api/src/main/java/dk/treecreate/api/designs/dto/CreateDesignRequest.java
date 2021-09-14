@@ -22,10 +22,6 @@ public class CreateDesignRequest
     @ApiModelProperty(example = "FAMILY_TREE", required = true)
     private DesignType designType;
 
-    @NotNull
-    @ApiModelProperty(example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = true)
-    private UUID userId;
-
     public String getDesignProperties()
     {
         return designProperties;
@@ -44,15 +40,5 @@ public class CreateDesignRequest
     public void setDesignType(DesignType designType)
     {
         this.designType = designType;
-    }
-
-    public UUID getUserId()
-    {
-        return userId;
-    }
-
-    public void setUserId(UUID userId)
-    {
-        this.userId = userId;
     }
 }
