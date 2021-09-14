@@ -131,7 +131,7 @@ public class DesignController
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        // Create the design, assign it to the collection and persist itr
+        // Create the design, assign the user to it and persist it
         Design newDesign = new Design();
         newDesign.setDesignType(design.getDesignType());
         newDesign.setDesignProperties(design.getDesignProperties());
