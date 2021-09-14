@@ -175,6 +175,30 @@ public class DesignController
         design.setDesignProperties(updateDesignRequest.getDesignProperties());
         return designRepository.save(design);
     }
-    
-    // TODO: DELETE endpoint
+
+    @DeleteMapping("{designId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete design. Only possible for design owner.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Design is removed."),
+        @ApiResponse(code = 404, message = "Design not found.")
+    })
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public void delete(
+        @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID designId)
+    {
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        User currentUser = userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Design design = designRepository.findByDesignId(designId)
+            .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
+        if (design.getUser().getUserId() != currentUser.getUserId())
+        {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                "The design belongs to another user");
+        }
+        designRepository.delete(design);
+    }
+
 }
