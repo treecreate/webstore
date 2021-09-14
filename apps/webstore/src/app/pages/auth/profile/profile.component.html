@@ -35,6 +35,7 @@
                     placeholder="Your name"
                     id="name"
                     autocomplete="name"
+                    data-cy="profile-name-input"
                 />
                 <label for="name" class="tc-input-label" i18n="@@name"
                     >Name</label
@@ -61,6 +62,7 @@
                     name="phoneNumber"
                     id="phoneNumber"
                     autocomplete="phoneNumber"
+                    data-cy="profile-phone-number-input"
                 />
                 <label
                     for="phoneNumber"
@@ -90,6 +92,7 @@
                     name="email"
                     id="profileEmail"
                     autocomplete="email"
+                    data-cy="profile-email-input"
                 />
                 <label for="email" class="tc-input-label">E-mail</label>
             </div>
@@ -118,6 +121,7 @@
                     formControlName="streetAddress"
                     placeholder="Your street name"
                     id="streetAddress"
+                    data-cy="profile-street-address-input"
                 />
                 <label
                     for="streetAddress"
@@ -146,6 +150,7 @@
                     formControlName="streetAddress2"
                     placeholder="Your street name"
                     id="streetAddress2"
+                    data-cy="profile-street-address-2-input"
                 />
                 <label for="streetAddress2" class="tc-input-label">
                     <span i18n="@@street-address">Street address</span> 2</label
@@ -172,6 +177,7 @@
                         formControlName="city"
                         id="city"
                         placeholder="City"
+                        data-cy="profile-city-input"
                     />
                     <label for="city" class="tc-input-label" i18n="@@city"
                         >City</label
@@ -196,6 +202,7 @@
                         id="postcode"
                         name="postcode"
                         placeholder="1234"
+                        data-cy="profile-postcode-input"
                     />
                     <label
                         for="postcode"
@@ -239,6 +246,7 @@
                         [ngClass]="isDisabled() ? 'disabled' : ''"
                         *ngIf="!isUpdatingUserInfo"
                         i18n="@@update-info"
+                        data-cy="profile-update-button"
                     >
                         Update info
                     </button>
@@ -247,6 +255,7 @@
                         routerLink="/collection"
                         (click)="scrollTop()"
                         i18n="@@collection"
+                        data-cy="profile-collection-button"
                     >
                         Collection
                     </button>
