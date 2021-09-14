@@ -1,10 +1,12 @@
 package dk.treecreate.api.designs;
 
+import dk.treecreate.api.user.User;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -25,10 +27,14 @@ public class Design
         }
     )
     @Type(type = "uuid-char")
-    @Column(name = "designId_id", updatable = false, nullable = false)
+    @Column(name = "design_id", updatable = false, nullable = false)
     @ApiModelProperty(notes = "UUID of the design entity",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
     private UUID designId;
+
+    @ManyToOne
+    @ApiModelProperty(notes = "The user the design belongs to")
+    private User user;
 
     @Column(name = "design_properties", nullable = false)
     @ApiModelProperty(notes = "Design-specific properties, as a JSON string",
@@ -59,6 +65,16 @@ public class Design
         this.designId = designId;
     }
 
+    public User getUser()
+    {
+        return user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
     public String getDesignProperties()
     {
         return designProperties;
@@ -84,7 +100,13 @@ public class Design
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Design design = (Design) o;
-        return designType.equals(design.designType) && designId.equals(design.designId) &&
-            designProperties.equals(design.designProperties);
+        return designId.equals(design.designId) && Objects.equals(user, design.user) &&
+            designProperties.equals(design.designProperties) && designType == design.designType;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(designId, user, designProperties, designType);
     }
 }
