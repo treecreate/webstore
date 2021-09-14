@@ -94,8 +94,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onWindowScroll() {}
-
   scrollTop() {
     window.scrollTo(0, 0);
   }
