@@ -31,7 +31,7 @@ describe('BasketItemComponent', () => {
       roles: [UserRoles.user],
       isVerified: true,
     };
-  
+
     const mockTransactionItem: ITransactionItem = {
       design: {
         designId: '1',

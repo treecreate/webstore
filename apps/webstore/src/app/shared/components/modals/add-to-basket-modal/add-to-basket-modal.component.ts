@@ -54,7 +54,10 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   submit() {
-    if (this.addToBasketForm.get('title').dirty && this.addToBasketForm.get('title').invalid) {
+    if (
+      this.addToBasketForm.get('title').dirty &&
+      this.addToBasketForm.get('title').invalid
+    ) {
       this.toastService.showAlert(
         'Missing title (min 3 letters, max 50)',
         'Titel mangler (min 3 bokstaver, max 50)',

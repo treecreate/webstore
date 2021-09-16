@@ -33,4 +33,3 @@ export class CheckoutItemComponent implements OnInit {
     }
   }
 }
-
