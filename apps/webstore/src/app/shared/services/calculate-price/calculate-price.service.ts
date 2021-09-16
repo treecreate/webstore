@@ -83,6 +83,8 @@ export class CalculatePriceService {
         return item.quantity * 695;
       case DesignDimensionEnum.large:
         return item.quantity * 995;
+      default:
+        return 99999999;
     }
   }
 
@@ -97,6 +99,8 @@ export class CalculatePriceService {
         return quantity * 695;
       case DesignDimensionEnum.large:
         return quantity * 995;
+      default:
+        return 99999999;
     }
   }
 
@@ -108,6 +112,8 @@ export class CalculatePriceService {
         return 695;
       case DesignDimensionEnum.large:
         return 995;
+      default:
+        return 99999999;
     }
   }
 }
