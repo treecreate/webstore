@@ -2,7 +2,7 @@
     <!-- image -->
     <div class="item-image">
         <img src="/assets/img/design-ex1-img.png" class="design-image" />
-        <div class="item-type-title">Family tree</div>
+        <div class="item-type-title" i18n="@@family-tree">Family tree</div>
     </div>
 
     <div class="item-container">
@@ -13,7 +13,7 @@
         <!-- quantity -->
         <div class="option-quantity">
             <div class="text">
-                <span> Quantity </span>
+                <span i18n="@@amount"> Amount </span>
             </div>
             <div class="option">
                 <button
@@ -39,7 +39,7 @@
         <!-- size -->
         <div class="option-size">
             <div class="text">
-                <span> Size </span>
+                <span i18n="@@size"> Size </span>
             </div>
             <div class="option">
                 <button
@@ -65,15 +65,17 @@
         <!-- price -->
         <div class="option-price">
             <div class="text">
-                <span> Price </span>
+                <span i18n="@@price"> Price </span>
             </div>
             <div class="option price-text">{{ itemPrice.toFixed(2) }} DKK</div>
         </div>
         <hr class="margin-top" />
         <!-- actions -->
         <div class="option-actions">
-            <button class="tc-button-50 margin-top">View</button>
-            <button class="tc-button-50 margin-top">Delete</button>
+            <button class="tc-button-50 margin-top" i18n="@@view">View</button>
+            <button class="tc-button-50 margin-top" i18n="@@delete">
+                Delete
+            </button>
         </div>
     </div>
 </div>

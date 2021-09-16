@@ -20,20 +20,27 @@
                                     routerLink="{{
                                         isLoggedIn ? '/product' : '/notSignedIn'
                                     }}"
+                                    i18n="@@product"
                                     >Product</a
                                 >
                             </li>
                             <li *ngIf="!isLoggedIn">
-                                <a routerLink="/login">Login</a>
+                                <a routerLink="/login" i18n="@@login">Log in</a>
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/profile">Profile</a>
+                                <a routerLink="/profile" i18n="@@profile"
+                                    >Profile</a
+                                >
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/collection">Collection</a>
+                                <a routerLink="/collection" i18n="@@collection"
+                                    >Collection</a
+                                >
                             </li>
                             <li>
-                                <a routerLink="/basket">Basket</a>
+                                <a routerLink="/basket" i18n="@@basket"
+                                    >Basket</a
+                                >
                             </li>
                         </ul>
                     </div>
@@ -45,7 +52,10 @@
             <div class="col-main col-md-3 border-right">
                 <div class="row">
                     <div class="col">
-                        <h5 class="font-weight-bold mt-3 contact-mobile-margin">
+                        <h5
+                            class="font-weight-bold mt-3 contact-mobile-margin"
+                            i18n="@@contact"
+                        >
                             Contact
                         </h5>
                     </div>
@@ -81,10 +91,15 @@
             <hr class="remove-margin clearfix w-100 d-md-none" />
 
             <div class="col-main col-md-3 final-col">
-                <h5 class="font-weight-bold mt-3">
+                <h5
+                    class="font-weight-bold mt-3"
+                    i18n="@@subscribe-to-newsletter-title"
+                >
                     Subscribe to our newsletter
                 </h5>
-                <p>Get 10% off your first purchase.</p>
+                <p i18n="@@subscribe-to-newsletter-subtitle">
+                    Get 10% off your first purchase.
+                </p>
                 <div class="tc-input-group field">
                     <input
                         type="email"
@@ -98,7 +113,7 @@
                 </div>
                 <div class="signup-button">
                     <button type="button" class="tc-button-50">
-                        <span>Sign up</span>
+                        <span i18n="@@signup">Sign up</span>
                     </button>
                 </div>
             </div>
@@ -118,6 +133,7 @@
                         data-cy="footer-terms-of-use-modal-link"
                         (click)="showTermsOfUse()"
                         class="terms TnC"
+                        i18n="@@terms"
                         >Terms</a
                     >
                     -
@@ -125,6 +141,7 @@
                         data-cy="footer-terms-of-sale-modal-link"
                         (click)="showTermsOfSale()"
                         class="terms TnC"
+                        i18n="@@sale"
                         >Sale</a
                     >
                     -
@@ -132,6 +149,7 @@
                         data-cy="footer-privacy-notice-modal-link"
                         (click)="showPrivacyNotice()"
                         class="terms TnC"
+                        i18n="@@privacy"
                         >Privacy</a
                     >
                 </div>

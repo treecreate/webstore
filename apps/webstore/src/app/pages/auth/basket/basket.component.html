@@ -2,9 +2,9 @@
     <div class="basket-content-wrapper">
         <div class="basket-content">
             <div class="wrapper">
-                <h2 class="desktop-title">BASKET</h2>
+                <h2 class="desktop-title" i18n="@@basket-upper">BASKET</h2>
                 <div class="basket-items-container">
-                    <h2 class="mobile-title">BASKET</h2>
+                    <h2 class="mobile-title" i18n="@@basket-upper">BASKET</h2>
                     <!-- basket items -->
                     <div class="basket-items" *ngIf="!(itemList.length <= 0)">
                         <webstore-basket-item
@@ -20,10 +20,14 @@
                             routerLink="/product"
                             class="no-design-icon"
                         />
-                        <div class="no-items-text">
+                        <div class="no-items-text" i18n="@@no-items-text">
                             You have no items in your basket
                         </div>
-                        <button class="tc-button-50" routerLink="/product">
+                        <button
+                            class="tc-button-50"
+                            routerLink="/product"
+                            i18n="@@start-creating"
+                        >
                             Start Creating
                         </button>
                     </div>
@@ -34,8 +38,11 @@
                 <!-- Tree donation -->
                 <div class="basket-options-item">
                     <div class="tree-title">
-                        Plant an extra tree - 10kr
-                        <div class="subtext">
+                        <span i18n="@@plant-extra-trees"
+                            >Plant an extra tree - 10kr</span
+                        >
+
+                        <div class="subtext" i18n="@@plant-extra-trees-subtext">
                             (Planting 1 tree is included in the price)
                         </div>
                     </div>
@@ -83,6 +90,7 @@
                     <button
                         class="tc-button-100 margin-top low-dropshadow"
                         type="submit"
+                        i18n="@@apply-discount"
                     >
                         Apply discount
                     </button>
@@ -92,7 +100,7 @@
                         *ngIf="priceInfo.discountAmount > 0"
                         class="discount-code-display"
                     >
-                        <span>Amount discount:</span>
+                        <span i18n="@@amount-discount">Amount dicount:</span>
                         <span
                             >-{{
                                 priceInfo.discountAmount.toFixed(2)
@@ -104,7 +112,7 @@
                 <!-- Price info -->
                 <div class="basket-options-item">
                     <div class="line-container">
-                        <span> Subtotal </span>
+                        <span i18n="@@subtotal"> Subtotal </span>
                         <span>
                             {{ priceInfo.fullPrice.toFixed(2) }} DKK <br />
                         </span>
@@ -115,14 +123,14 @@
                             priceInfo.discountAmount > 0 ? 'green-text' : ''
                         "
                     >
-                        <span> You Save </span>
+                        <span i18n="@@you-save"> You save </span>
                         <span>
                             - {{ priceInfo.discountAmount.toFixed(2) }} DKK
                         </span>
                     </div>
                     <div class="line-container weight">
                         <span>
-                            <strong> Total </strong>
+                            <strong i18n="@@total"> Total </strong>
                         </span>
                         <span>
                             <strong
@@ -131,7 +139,7 @@
                         </span>
                     </div>
                     <div class="line-container margin-bottom">
-                        <span> VAT </span>
+                        <span i18n="@@vat"> VAT </span>
                         <span> {{ priceInfo.vat.toFixed(2) }} DKK </span>
                     </div>
 
@@ -139,6 +147,7 @@
                         class="tc-button-100 green low-dropshadow"
                         routerLink="/checkout"
                         (click)="scrollTop()"
+                        i18n="@@go-to-checkout"
                     >
                         Go to checkout
                     </button>

@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  isLoading = false;
 
   constructor(
     private modalService: NgbModal,
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isLoading = true;
     this.authService
       .login({
         email: this.loginForm.get('email').value,
@@ -68,7 +70,7 @@ export class LoginComponent implements OnInit {
             'success',
             2500
           );
-
+          this.isLoading = false;
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.router.navigate(['/']);
@@ -83,6 +85,7 @@ export class LoginComponent implements OnInit {
           console.error(err);
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
+          this.isLoading = false;
         }
       );
   }

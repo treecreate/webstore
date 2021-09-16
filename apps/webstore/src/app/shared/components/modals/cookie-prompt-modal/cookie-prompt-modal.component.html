@@ -3,19 +3,22 @@
         <img class="icon" src="/assets/icons/cookies-brown-icon.png" />
     </div>
     <div class="modal-body">
-        <h1>Accept Cookies</h1>
+        <h1 i18n="@@accept-cookies">Accept cookies</h1>
         <div class="text">
             <p>
-                Hey there, Treecreate uses cookies to save anonymous information
-                through google analytics to continuously improve the page.
-                Without accepting these cookies, you will sadly not be able to
-                use the page. If you wish to see the cookies that we store, you
-                can go to this link:
+                <span i18n="@@cookie-prompt-text">
+                    Hey there, Treecreate uses cookies to save anonymous
+                    information through google analytics to continuously improve
+                    the page. Without accepting these cookies, you will sadly
+                    not be able to use the page. If you wish to see the cookies
+                    that we store, you can go to this link:
+                </span>
                 <strong
                     ><a
                         data-cy="cookie-prompt-modal-terms-of-use-link"
                         (click)="showTermsOfUse()"
-                        >Terms of Use</a
+                        i18n="@@terms-of-use"
+                        >Terms of use</a
                     ></strong
                 >
             </p>
@@ -27,8 +30,8 @@
             routerLink="/rejectedCookies"
             type="button"
             class="tc-button-50"
-            (click)="modal.close('reject')"
-            (click)="rejectCookies()"
+            (click)="rejectCookies(); modal.close('reject')"
+            i18n="@@reject"
         >
             Reject
         </button>
@@ -37,6 +40,7 @@
             type="button"
             class="tc-button-50"
             (click)="modal.close('accept')"
+            i18n="@@accept"
         >
             Accept
         </button>

@@ -3,171 +3,41 @@
     <div class="main-section add-transition">
         <div class="main-text-container add-transition">
             <h1 class="title title-font">
-                <strong>Mere end bare et stamtræ</strong>
+                <strong i18n="@@home-01-title"
+                    >More than just a family tree</strong
+                >
             </h1>
-            <h5 class="main-subtext">
-                Ét træ, der binder hele familien sammen. På blot få minutter,
-                kan du bestille en helt særlig gave til én, du holder af.
-                Treecreate, en personlig gave i fin kvalitet og med kærlig
-                omtanke for miljøet.
+            <h5 class="main-subtext" i18n="@@home-01-text">
+                A tree, that binds the whole family together. In just a few
+                minutes, you can order a very special present to someone you
+                care about. Treecreate, a personal present of high quality and
+                with special care for the environment.
             </h5>
         </div>
     </div>
 
     <!-- Review section -->
     <div id="review">
-        <!-- Mobile version -->
-        <webstore-carousel class="is-mobile"></webstore-carousel>
-
-        <!-- Desktop version -->
-        <div class="review-section is-desktop">
-            <div class="review-container">
-                <div class="header-icons">
-                    <div class="quotation-mark">
-                        <img
-                            src="/assets/icons/quote-brown-icon.svg"
-                            width="30"
-                            height="30"
-                        />
-                    </div>
-                    <div class="rating">
-                        <div class="star-container">
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="review-text">
-                    “Fantastisk fint og helt unikt produkt, som rammer lige i
-                    "skabet". Vi købte stamtræer til begge hold bedsteforældre
-                    som gaver, hvilket var en stor succes.”
-                </div>
-                <div class="review-author">
-                    <strong> - Birgitte Hansson</strong>
-                </div>
-            </div>
-
-            <div class="review-container">
-                <div class="header-icons">
-                    <div class="quotation-mark">
-                        <img
-                            src="/assets/icons/quote-brown-icon.svg"
-                            width="30"
-                            height="30"
-                        />
-                    </div>
-                    <div class="rating">
-                        <div class="star-container">
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="review-text">
-                    “10/10! Og mere til .. det for ros hvergang vi har gæster,
-                    og mange spørg til det. Meget lækkert produkt, kvalitet i
-                    top, vi er mere end tilfredse.”
-                </div>
-                <div class="review-author">
-                    <strong> - Stine Olsen</strong>
-                </div>
-            </div>
-
-            <div class="review-container">
-                <div class="header-icons">
-                    <div class="quotation-mark">
-                        <img
-                            src="/assets/icons/quote-brown-icon.svg"
-                            width="30"
-                            height="30"
-                        />
-                    </div>
-                    <div class="rating">
-                        <div class="star-container">
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                            <img
-                                src="/assets/icons/star-yellow-icon.svg"
-                                class="star-icon"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="review-text">
-                    “Min familie blev utroligt glade for gaven, jeg synes at det
-                    er fedt at kunne få familien med ind i indretning!”
-                </div>
-                <div class="review-author">
-                    <strong> - Sabrine Dam</strong>
-                </div>
-            </div>
-        </div>
+        <webstore-review-carousel></webstore-review-carousel>
     </div>
 
     <div>
         <div class="subscribe-section add-transition" id="subscribe">
-            <h1 class="subscribe-title title title-font add-transition">
-                Tilmeld dig vores nyhedsbrev
+            <h1
+                class="subscribe-title title title-font add-transition"
+                i18n="@@home-02-title"
+            >
+                Subscribe to our newsletter
             </h1>
-            <h5 class="subscribe-subtitle add-transition">
-                Og få 10% rabat på dit første køb, samt vær med i lodtrækningen
-                om at vinde et stamtræ!
+            <h5 class="subscribe-subtitle add-transition" i18n="@@home-02-text">
+                get 10% discount on your first purchase, and have a chance to
+                win a family tree!
             </h5>
             <!-- TODO: Add a form and the subscribe to newsletter function -->
             <div class="action-container add-transition">
                 <input
                     type="text"
-                    placeholder="Din E-mail"
+                    placeholder="E-mail"
                     class="email-input-field"
                 />
                 <button class="subscribe-button title-font">
@@ -175,7 +45,7 @@
                         src="/assets/icons/white-send-email-icon.svg"
                         class="send-email-icon"
                     />
-                    <div class="button-text">Tilmeld</div>
+                    <div class="button-text" i18n="@@subscribe">Subscribe</div>
                 </button>
             </div>
         </div>
@@ -184,20 +54,27 @@
     <div class="descriptive-content-container">
         <img src="/assets/img/description1.jpg" class="descriptive-img" />
         <div class="text-container">
-            <h1 class="discriptive-title title title-font">
-                Den mest personlige gave
+            <h1
+                class="discriptive-title title title-font"
+                i18n="@@home-03-title"
+            >
+                The most personal present
             </h1>
             <div class="descriptive-text">
-                Når du giver et Treecreate stamtræ i gave, kan du være sikker på
-                at overraske dine nære og kære hver gang. Din gave er nemlig
-                helt unik for den, der pakker den op, og mere personligt bliver
-                det ikke.
+                <span i18n="@@home-03-text-01"
+                    >When you give a Treecreate family tree, you can be sure to
+                    surprise your nearest every time. Your gift is completely
+                    unique to the person you give it to, and it does not get
+                    more personal.</span
+                >
                 <br />
                 <br />
-                Dit Treecreate stamtræ er omhyggeligt udskåret i smukt,
-                velduftende egetræ med bark på toppen. Det giver et naturligt
-                udtryk, og tankerne føres let hen på en dejlig sommerdag i
-                familiens favn.
+                <span i18n="@@home-03-text-02"
+                    >Your Treecreate family tree is carefully carved in
+                    beautiful fragant oak wood with bark on top. it gives a
+                    natural expression as your thoughts are easily led to a
+                    lovely summerday with the family.</span
+                >
             </div>
         </div>
     </div>
@@ -205,19 +82,26 @@
     <div class="descriptive-content-container reverse">
         <img src="/assets/img/description2.jpg" class="descriptive-img" />
         <div class="text-container">
-            <h1 class="discriptive-title title title-font align-right">
-                En gave med omtanke
+            <h1
+                class="discriptive-title title title-font align-right"
+                i18n="@@home-04-title"
+            >
+                A present with care
             </h1>
             <div class="descriptive-text align-right">
-                For hvert stamtræ, du bestiller fra Treecreate, planter vi et
-                træ. På den måde kan vi hjælpe hinanden med at passe på vores
-                natur, og derved gøre vores verden til et grønnere sted.
+                <span i18n="@@home-04-text-01"
+                    >For each family tree you order from Treecreate, we plant a
+                    tree. That way we can help each other protect our nature and
+                    thereby make the world a greener place.</span
+                >
                 <br />
                 <br />
-                Når vi sender dit Treecreate stamtræ, bliver det omhyggeligt
-                pakket ind i holdbart FSC-certificeret genbrugspapir. På den
-                måde sikrer vi, at din værdifulde gave er beskyttet på rejsen
-                hjem til dig, og samtidig undgår vi unødig brug af plastik.
+                <span i18n="@@home-04-text-02"
+                    >When we sendt your Treecreate family tree, it is carefully
+                    packed in strong FSC-certified re-use paper. In that way we
+                    secure that your valuable present is protected on the
+                    journey home, and we avoid using unnecessary plastic.</span
+                >
             </div>
         </div>
     </div>

@@ -77,10 +77,9 @@
 }
 
 :root {
-  --green-color: #52d73d;
-  --action-color: #ebc6ab;
-  --second-action-color: #874d32;
-  --light-second-action-color: #f3e5e3;
+  --green-color: #85a840;
+  --second-action-color: #af7949;
+  --light-second-action-color: #fcd7b5;
   --light-action-color: #f3f3f3;
   --gray-color: #9b9b9b;
   --gray-background: #ececec;
@@ -114,7 +113,6 @@ hr {
   font-size: 10px;
   text-align: left;
   color: red;
-  line-height: 0;
   margin-bottom: 5px;
 }
 
@@ -153,7 +151,9 @@ hr {
   transition: opacity 0.25s linear;
   opacity: 0;
 }
-
+.TnC {
+  min-width: 60px;
+}
 .TnC:hover {
   color: var(--second-action-color) !important;
   text-decoration: underline !important;

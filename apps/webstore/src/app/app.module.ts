@@ -3,12 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
-//Services etc
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
-//Components
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -18,17 +14,12 @@ import { CollectionComponent } from './pages/auth/collection/collection.componen
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { DesignItemComponent } from './shared/components/items/design-item/design-item.component';
 import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
-import { CarouselComponent } from './pages/home/carousel/carousel.component';
-
-//Modals
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
-
-//Pages
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
@@ -45,6 +36,7 @@ import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-i
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
+import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +71,7 @@ import { DraggableBoxComponent } from './shared/components/products/family-tree/
     CarouselComponent,
     FamilyTreeDesignComponent,
     DraggableBoxComponent,
+    ReviewCarouselComponent,
   ],
   imports: [
     BrowserModule,

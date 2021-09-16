@@ -1,0 +1,47 @@
+<ngb-carousel class="carousel-container">
+    <ng-template ngbSlide *ngFor="let review of reviewList">
+        <div class="review-section">
+            <div class="review-container">
+                <div class="header-icons">
+                    <div class="quotation-mark">
+                        <img
+                            src="/assets/icons/quote-brown-icon.svg"
+                            width="30"
+                            height="30"
+                        />
+                    </div>
+                    <div class="rating">
+                        <div class="star-container">
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                            <img
+                                src="/assets/icons/star-yellow-icon.svg"
+                                class="star-icon"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="review-text">
+                    {{ localeCode === 'dk' ? review.text : review.textEn }}
+                </div>
+                <div class="review-author">
+                    <strong> - {{ review.name }}</strong>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ngb-carousel>

@@ -6,14 +6,24 @@
         (ngSubmit)="updateUser()"
     >
         <div class="title">
-            <h2>Account Info</h2>
+            <h2 i18n="@@account-info">Account info</h2>
+            <div class="spinner" *ngIf="isLoading">
+                <span
+                    class="spinner-border spinner-border-sm"
+                    style="margin: 0 10px"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+                <span>Loading...</span>
+            </div>
         </div>
+
         <div
             [ngClass]="isLoading ? 'hide-opacity' : 'show-opacity'"
             class="account-info-input"
         >
             <div class="sub-title">
-                <p>Contact</p>
+                <p i18n="@@contact">Contact</p>
                 <hr />
             </div>
 
@@ -26,7 +36,9 @@
                     id="name"
                     autocomplete="name"
                 />
-                <label for="name" class="tc-input-label">Name</label>
+                <label for="name" class="tc-input-label" i18n="@@name"
+                    >Name</label
+                >
             </div>
 
             <div
@@ -35,6 +47,7 @@
                     this.accountInfoForm.get('name').dirty &&
                     this.accountInfoForm.get('name').invalid
                 "
+                i18n="@@invalid-name"
             >
                 Invalid name.
             </div>
@@ -49,7 +62,10 @@
                     id="phoneNumber"
                     autocomplete="phoneNumber"
                 />
-                <label for="phoneNumber" class="tc-input-label"
+                <label
+                    for="phoneNumber"
+                    class="tc-input-label"
+                    i18n="@@phone-number"
                     >Phone number</label
                 >
             </div>
@@ -60,6 +76,7 @@
                     this.accountInfoForm.get('phoneNumber').dirty &&
                     this.accountInfoForm.get('phoneNumber').invalid
                 "
+                i18n="@@invalid-phone-number"
             >
                 Invalid phone number.
             </div>
@@ -83,12 +100,13 @@
                     this.accountInfoForm.get('email').dirty &&
                     this.accountInfoForm.get('email').invalid
                 "
+                i18n="@@invalid-email"
             >
-                Invalid email.
+                Invalid e-mail.
             </div>
 
             <div class="sub-title top-margin">
-                <p>Adress</p>
+                <p i18n="@@address">Address</p>
                 <hr />
             </div>
 
@@ -101,7 +119,10 @@
                     placeholder="Your street name"
                     id="streetAddress"
                 />
-                <label for="streetAddress" class="tc-input-label"
+                <label
+                    for="streetAddress"
+                    class="tc-input-label"
+                    i18n="@@street-address"
                     >Street address</label
                 >
             </div>
@@ -112,6 +133,7 @@
                     this.accountInfoForm.get('streetAddress').dirty &&
                     this.accountInfoForm.get('streetAddress').invalid
                 "
+                i18n="@@invalid-street-address"
             >
                 The address is too long.
             </div>
@@ -125,8 +147,8 @@
                     placeholder="Your street name"
                     id="streetAddress2"
                 />
-                <label for="streetAddress2" class="tc-input-label"
-                    >Street address 2</label
+                <label for="streetAddress2" class="tc-input-label">
+                    <span i18n="@@street-address">Street address</span> 2</label
                 >
             </div>
 
@@ -136,6 +158,7 @@
                     this.accountInfoForm.get('streetAddress2').dirty &&
                     this.accountInfoForm.get('streetAddress2').invalid
                 "
+                i18n="@@invalid-street-address"
             >
                 The address is too long.
             </div>
@@ -150,13 +173,16 @@
                         id="city"
                         placeholder="City"
                     />
-                    <label for="city" class="tc-input-label">City</label>
+                    <label for="city" class="tc-input-label" i18n="@@city"
+                        >City</label
+                    >
                     <div
                         class="error-message offset"
                         *ngIf="
                             this.accountInfoForm.get('city').dirty &&
                             this.accountInfoForm.get('city').invalid
                         "
+                        i18n="@@invalid-city"
                     >
                         The city name is too long.
                     </div>
@@ -171,7 +197,10 @@
                         name="postcode"
                         placeholder="1234"
                     />
-                    <label for="postcode" class="tc-input-label"
+                    <label
+                        for="postcode"
+                        class="tc-input-label"
+                        i18n="@@postcode"
                         >Postcode</label
                     >
                     <div
@@ -180,6 +209,7 @@
                             this.accountInfoForm.get('postcode').dirty &&
                             this.accountInfoForm.get('postcode').invalid
                         "
+                        i18n="@@invalid-postcode"
                     >
                         Invalid danish postcode.
                     </div>
@@ -200,7 +230,7 @@
                             role="status"
                             aria-hidden="true"
                         ></span>
-                        Updating...
+                        <span i18n="@@updating">Updating...</span>
                     </button>
                     <button
                         type="submit"
@@ -208,6 +238,7 @@
                         [disabled]="isDisabled()"
                         [ngClass]="isDisabled() ? 'disabled' : ''"
                         *ngIf="!isUpdatingUserInfo"
+                        i18n="@@update-info"
                     >
                         Update info
                     </button>
@@ -215,6 +246,7 @@
                         class="tc-button-50"
                         routerLink="/collection"
                         (click)="scrollTop()"
+                        i18n="@@collection"
                     >
                         Collection
                     </button>
@@ -231,13 +263,14 @@
                         role="status"
                         aria-hidden="true"
                     ></span>
-                    Sending email...
+                    <span i18n="@@sending-email">Sending e-mail...</span>
                 </button>
                 <button
                     type="button"
                     class="tc-button-100"
                     *ngIf="!isVerified && !isResendVerificationEmailLoading"
                     (click)="resendVerificationEmail()"
+                    i18n="@@resend-verification-email"
                 >
                     Resend verification e-mail
                 </button>

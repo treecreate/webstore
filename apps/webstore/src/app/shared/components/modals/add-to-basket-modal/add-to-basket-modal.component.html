@@ -6,7 +6,7 @@
     >
         <div class="option-title">
             <div class="title">
-                Title
+                <span i18n="@@title">Title</span>
                 <webstore-info-popover
                     title="Title"
                     text="Add a good title so you can keep track of your designs."
@@ -25,7 +25,7 @@
         <!-- quantity -->
         <div class="option-quantity add-transition">
             <div class="text">
-                <span> Quantity </span>
+                <span i18n="@@amount"> Amount </span>
                 <webstore-info-popover
                     title="Quantity"
                     text="The quantity of designs you wish to purchase."
@@ -57,7 +57,7 @@
         <!-- size -->
         <div class="option-size add-transition">
             <div class="text">
-                <span> Size </span>
+                <span i18n="@@size"> Size </span>
                 <webstore-info-popover
                     title="Size"
                     text="The size of your design. You can choose between 20x20cm, 25x25cm and 30x30cm."
@@ -89,20 +89,20 @@
         <!-- Price -->
         <div class="price-container">
             <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
-                <span>Save 25%</span
-                ><span
-                    >order
-                    <!-- TODO: Make this display the full quantity of items in the basket -->
-                    <!-- So it looks like this: 4 - ( addToBasketForm.get('quantity') + all basket items )  -->
+                <span i18n="@@save-25%">Save 25%</span
+                ><span>
+                    <span i18n="@@order">order </span>
+                    <!-- TODO: Make this display the full amount of items in the basket -->
+                    <!-- So it looks like this: 4 - ( addToBasketForm.get('amount') + all basket items )  -->
                     {{ 4 - addToBasketForm.get('quantity').value }} more</span
                 >
             </div>
             <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
-                <span>You save: (-25%)</span
+                <span i18n="@@you-save-25%">You save: (-25%)</span
                 ><span>{{ (price * 0.25).toFixed(2) }}</span>
             </div>
             <div class="price add-transition">
-                <span>Price:</span
+                <span i18n="@@price">Price:</span
                 ><span>{{
                     isMoreThan4 ? (price * 0.75).toFixed(2) : price.toFixed(2)
                 }}</span>
@@ -112,13 +112,18 @@
         <!-- Actions -->
         <div class="option-actions add-transition">
             <div class="button-container add-transition">
-                <button class="tc-button-100 green" type="submit">
+                <button
+                    class="tc-button-100 green"
+                    type="submit"
+                    i18n="@@add-to-basket"
+                >
                     Add to basket
                 </button>
                 <button
                     class="tc-button-100"
                     type="button"
                     (click)="activeModal.close()"
+                    i18n="@@cancel"
                 >
                     Cancel
                 </button>
@@ -128,11 +133,18 @@
         <!-- Extra info -->
         <div class="text-container add-transition">
             <div class="extra-info add-transition">
-                <strong> Note: <br /> </strong>
-                For every design you purchase, you are automatically planting a
-                tree. Thereby you support re-floreshing the forrests, which has
-                never been a more vital task. <br />
-                <strong> THANK YOU FOR YOUR SUPPORT!</strong>
+                <strong i18n="@@note">Note:</strong><br />
+                <span i18n="@@add-to-basket-extra-info">
+                    For every design you purchase, you are automatically
+                    planting a tree. Thereby you support re-floreshing the
+                    forrests, which has never been a more vital task.
+                </span>
+                <br />
+                <strong>
+                    <span i18n="@@thank-you-message"
+                        >THANK YOU FOR YOUR SUPPORT!</span
+                    ></strong
+                >
             </div>
         </div>
     </form>

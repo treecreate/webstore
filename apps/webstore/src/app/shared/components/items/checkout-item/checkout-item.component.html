@@ -6,21 +6,22 @@
         </div>
         <div class="info-container">
             <div class="info-line">
-                <span>Type:</span> <span> {{ 'Family Tree' }} </span>
+                <span>Type</span> <span> {{ 'Family Tree' }} </span>
             </div>
 
             <div class="info-line">
-                <span>Size:</span> <span> {{ sizeInCm(item.dimension) }} </span>
+                <span i18n="@@size">Size:</span>
+                <span> {{ sizeInCm(item.dimension) }} </span>
             </div>
             <div class="info-line">
-                <span>Price:</span>
+                <span i18n="@@price">Price:</span>
                 <span
                     >{{ item.quantity }} x
                     {{ itemUnitPrice.toFixed(2) }} DKK</span
                 >
             </div>
             <div class="info-line">
-                <span> <strong>Total:</strong> </span>
+                <span> <strong i18n="@@total">Total:</strong> </span>
                 <span>
                     <strong>{{ itemPrice.toFixed(2) }} DKK</strong></span
                 >
