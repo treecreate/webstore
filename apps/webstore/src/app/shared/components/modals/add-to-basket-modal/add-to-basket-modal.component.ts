@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser } from '@interfaces';
+import { DesignDimensionEnum, IUser } from '@interfaces';
 import { UserRoles } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
@@ -37,25 +37,24 @@ export class AddToBasketModalComponent implements OnInit {
         Validators.maxLength(50),
         Validators.minLength(3),
       ]),
-      amount: new FormControl('', [
+      quantity: new FormControl('', [
         Validators.required,
         Validators.max(99),
         Validators.min(1),
       ]),
-      size: new FormControl('', [Validators.required]),
+      dimension: new FormControl('', [Validators.required]),
     });
-
     this.addToBasketForm.setValue({
       title: '',
-      amount: 1,
-      size: '20cm x 20cm',
+      quantity: 1,
+      dimension: DesignDimensionEnum.small,
     });
 
     this.updatePrice();
   }
 
   submit() {
-    if (this.addToBasketForm.get('title').invalid) {
+    if (this.addToBasketForm.get('title').dirty && this.addToBasketForm.get('title').invalid) {
       this.toastService.showAlert(
         'Missing title (min 3 letters, max 50)',
         'Titel mangler (min 3 bokstaver, max 50)',
@@ -70,60 +69,60 @@ export class AddToBasketModalComponent implements OnInit {
 
   updatePrice() {
     this.price = this.calculatePriceService.calculateItemPriceAlternative(
-      this.addToBasketForm.get('amount').value,
-      this.addToBasketForm.get('size').value
+      this.addToBasketForm.get('quantity').value,
+      this.addToBasketForm.get('dimension').value
     );
 
-    // ( addToBasketForm.get('amount') + all basket items )
+    // ( addToBasketForm.get('quantity') + all basket items )
     this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items([
       {
         transactionItemId: '',
         order: null,
         design: null,
-        dimension: this.addToBasketForm.get('size').value,
-        quantity: this.addToBasketForm.get('amount').value,
+        dimension: this.addToBasketForm.get('dimension').value,
+        quantity: this.addToBasketForm.get('quantity').value,
       },
       // TODO: add the list of items that are already in basket
     ]);
   }
 
-  increaseAmount() {
+  increaseQuantity() {
     this.addToBasketForm.setValue({
       title: this.addToBasketForm.get('title').value,
-      amount: this.addToBasketForm.get('amount').value + 1,
-      size: this.addToBasketForm.get('size').value,
+      quantity: this.addToBasketForm.get('quantity').value + 1,
+      dimension: this.addToBasketForm.get('dimension').value,
     });
     this.updatePrice();
   }
 
-  decreaseAmount() {
-    if (this.addToBasketForm.get('amount').value > 1) {
+  decreaseQuantity() {
+    if (this.addToBasketForm.get('quantity').value > 1) {
       this.addToBasketForm.setValue({
         title: this.addToBasketForm.get('title').value,
-        amount: this.addToBasketForm.get('amount').value - 1,
-        size: this.addToBasketForm.get('size').value,
+        quantity: this.addToBasketForm.get('quantity').value - 1,
+        dimension: this.addToBasketForm.get('dimension').value,
       });
       this.updatePrice();
     }
   }
 
   increaseSize() {
-    switch (this.addToBasketForm.get('size').value) {
-      case '20cm x 20cm':
+    switch (this.addToBasketForm.get('dimension').value) {
+      case DesignDimensionEnum.small:
         this.addToBasketForm.setValue({
           title: this.addToBasketForm.get('title').value,
-          amount: this.addToBasketForm.get('amount').value,
-          size: '25cm x 25cm',
+          quantity: this.addToBasketForm.get('quantity').value,
+          dimension: DesignDimensionEnum.medium,
         });
         break;
-      case '25cm x 25cm':
+      case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({
           title: this.addToBasketForm.get('title').value,
-          amount: this.addToBasketForm.get('amount').value,
-          size: '30cm x 30cm',
+          quantity: this.addToBasketForm.get('quantity').value,
+          dimension: DesignDimensionEnum.large,
         });
         break;
-      case '30cm x 30cm':
+      case DesignDimensionEnum.large:
         this.toastService.showAlert(
           "We don't sell larger designs. For special requests you can send us an e-mail: info@treecreate.dk",
           'Vi sælger ikke større designs. For specielle henvendelser kan du sende os en e-mail: info@treecreate.dk',
@@ -136,8 +135,8 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   decreaseSize() {
-    switch (this.addToBasketForm.get('size').value) {
-      case '20cm x 20cm':
+    switch (this.addToBasketForm.get('dimension').value) {
+      case DesignDimensionEnum.small:
         this.toastService.showAlert(
           "We don't have smaller sizes",
           'Vi har ikke mindre størrelser',
@@ -145,18 +144,18 @@ export class AddToBasketModalComponent implements OnInit {
           3000
         );
         break;
-      case '25cm x 25cm':
+      case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({
           title: this.addToBasketForm.get('title').value,
-          amount: this.addToBasketForm.get('amount').value,
-          size: '20cm x 20cm',
+          quantity: this.addToBasketForm.get('quantity').value,
+          dimension: DesignDimensionEnum.small,
         });
         break;
-      case '30cm x 30cm':
+      case DesignDimensionEnum.large:
         this.addToBasketForm.setValue({
           title: this.addToBasketForm.get('title').value,
-          amount: this.addToBasketForm.get('amount').value,
-          size: '25cm x 25cm',
+          quantity: this.addToBasketForm.get('quantity').value,
+          dimension: DesignDimensionEnum.medium,
         });
         break;
     }

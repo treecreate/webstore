@@ -10,26 +10,26 @@
             {{ item.design.designProperties.properties.title }}
         </div>
 
-        <!-- amount -->
-        <div class="option-amount">
+        <!-- quantity -->
+        <div class="option-quantity">
             <div class="text">
-                <span> Amount </span>
+                <span> Quantity </span>
             </div>
             <div class="option">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="decreaseAmount()"
+                    (click)="decreaseQuantity()"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="amount">
+                <div class="quantity">
                     {{ item.quantity }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="increaseAmount()"
+                    (click)="increaseQuantity()"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -50,7 +50,7 @@
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="amount">
+                <div class="quantity">
                     {{ item.dimension }}
                 </div>
                 <button

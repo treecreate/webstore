@@ -86,13 +86,16 @@ export class CalculatePriceService {
     }
   }
 
-  calculateItemPriceAlternative(quantity: number, size: string): number {
-    switch (size) {
-      case '20cm x 20cm':
+  calculateItemPriceAlternative(
+    quantity: number,
+    dimension: DesignDimensionEnum
+  ): number {
+    switch (dimension) {
+      case DesignDimensionEnum.small:
         return quantity * 495;
-      case '25cm x 25cm':
+      case DesignDimensionEnum.medium:
         return quantity * 695;
-      case '30cm x 30cm':
+      case DesignDimensionEnum.large:
         return quantity * 995;
     }
   }

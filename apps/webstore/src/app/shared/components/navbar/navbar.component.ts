@@ -29,11 +29,11 @@ export class NavbarComponent implements OnInit {
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
 
-  basketItemOptions(amount: number): string {
-    if (amount === 0) {
+  basketItemOptions(quantity: number): string {
+    if (quantity === 0) {
       return 'Basket empty';
     }
-    return `(${amount}) products `;
+    return `(${quantity}) products `;
   }
 
   constructor(

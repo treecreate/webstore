@@ -29,7 +29,7 @@ export class BasketItemComponent implements OnInit {
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  decreaseAmount() {
+  decreaseQuantity() {
     if (this.item.quantity > 1) {
       this.item.quantity = this.item.quantity - 1;
       this.updatePrice();
@@ -43,7 +43,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  increaseAmount() {
+  increaseQuantity() {
     this.item.quantity = this.item.quantity + 1;
     this.updatePrice();
   }

@@ -22,32 +22,32 @@
             </div>
         </div>
 
-        <!-- amount -->
-        <div class="option-amount add-transition">
+        <!-- quantity -->
+        <div class="option-quantity add-transition">
             <div class="text">
-                <span> Amount </span>
+                <span> Quantity </span>
                 <webstore-info-popover
-                    title="Amount"
-                    text="The amount of designs you wish to purchase."
+                    title="Quantity"
+                    text="The quantity of designs you wish to purchase."
                 ></webstore-info-popover>
             </div>
             <div class="option add-transition">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="decreaseAmount()"
-                    id="decrease-amount-btn"
+                    (click)="decreaseQuantity()"
+                    id="decrease-quantity-btn"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="amount">
-                    {{ this.addToBasketForm.get('amount').value }}
+                <div class="quantity">
+                    {{ this.addToBasketForm.get('quantity').value }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="increaseAmount()"
-                    id="increase-amount-btn"
+                    (click)="increaseQuantity()"
+                    id="increase-quantity-btn"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -73,8 +73,8 @@
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="amount">
-                    {{ this.addToBasketForm.get('size').value }}
+                <div class="quantity">
+                    {{ this.addToBasketForm.get('dimension').value }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
@@ -92,9 +92,9 @@
                 <span>Save 25%</span
                 ><span
                     >order
-                    <!-- TODO: Make this display the full amount of items in the basket -->
-                    <!-- So it looks like this: 4 - ( addToBasketForm.get('amount') + all basket items )  -->
-                    {{ 4 - addToBasketForm.get('amount').value }} more</span
+                    <!-- TODO: Make this display the full quantity of items in the basket -->
+                    <!-- So it looks like this: 4 - ( addToBasketForm.get('quantity') + all basket items )  -->
+                    {{ 4 - addToBasketForm.get('quantity').value }} more</span
                 >
             </div>
             <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
