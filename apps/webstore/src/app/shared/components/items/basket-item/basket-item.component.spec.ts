@@ -1,10 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  FamilyTreeDesignEnum,
+  FamilyTreeFontEnum,
+  ITransactionItem,
+  IUser,
+} from '@interfaces';
+import { UserRoles } from '@models';
 import { BasketItemComponent } from './basket-item.component';
 
 describe('BasketItemComponent', () => {
   let component: BasketItemComponent;
   let fixture: ComponentFixture<BasketItemComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [BasketItemComponent],
@@ -16,16 +24,38 @@ describe('BasketItemComponent', () => {
     fixture = TestBed.createComponent(BasketItemComponent);
     component = fixture.componentInstance;
 
-    //mock the basketItem
-    const item = {
-      designId: '1',
+    //mock the transaction item
+    const mockUser: IUser = {
       userId: '1',
-      title: 'first design',
-      size: 'small',
-      amount: 1,
+      email: 'mock@hotdeals.dev',
+      roles: [UserRoles.user],
+      isVerified: true,
+    };
+  
+    const mockTransactionItem: ITransactionItem = {
+      design: {
+        designId: '1',
+        designProperties: {
+          properties: {
+            title: 'Mock 1',
+            font: FamilyTreeFontEnum.roboto,
+            design: FamilyTreeDesignEnum.first,
+            boxSize: 10,
+            banner: false,
+            largeFont: true,
+            boxes: [],
+          },
+        },
+        user: mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.small,
+      quantity: 1,
+      order: null,
+      transactionItemId: '1',
     };
 
-    component.item = item;
+    component.item = mockTransactionItem;
     fixture.detectChanges();
   });
 
@@ -33,44 +63,44 @@ describe('BasketItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should increse the size', () => {
-    expect(component.item.size).toEqual('small');
+  it('should increase the size', () => {
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.small);
     component.increaseSize();
-    expect(component.item.size).toEqual('medium');
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.medium);
     component.increaseSize();
-    expect(component.item.size).toEqual('large');
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.large);
     component.increaseSize();
-    expect(component.item.size).toEqual('large');
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.large);
   });
 
   it('should decrease the size', () => {
-    component.item.size = 'large';
-    expect(component.item.size).toEqual('large');
+    component.item.dimension = DesignDimensionEnum.large;
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.large);
     component.decreaseSize();
-    expect(component.item.size).toEqual('medium');
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.medium);
     component.decreaseSize();
-    expect(component.item.size).toEqual('small');
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.small);
     component.decreaseSize();
-    expect(component.item.size).toEqual('small');
+    expect(component.item.dimension).toEqual(DesignDimensionEnum.small);
   });
 
-  it('should increase amount', () => {
-    expect(component.item.amount).toEqual(1);
-    component.increaseAmount();
-    expect(component.item.amount).toEqual(2);
-    component.increaseAmount();
-    expect(component.item.amount).toEqual(3);
-    component.increaseAmount();
+  it('should increase quantity', () => {
+    expect(component.item.quantity).toEqual(1);
+    component.increaseQuantity();
+    expect(component.item.quantity).toEqual(2);
+    component.increaseQuantity();
+    expect(component.item.quantity).toEqual(3);
+    component.increaseQuantity();
   });
 
-  it('should decrease amount', () => {
-    component.item.amount = 3;
-    expect(component.item.amount).toEqual(3);
-    component.decreaseAmount();
-    expect(component.item.amount).toEqual(2);
-    component.decreaseAmount();
-    expect(component.item.amount).toEqual(1);
-    component.decreaseAmount();
-    expect(component.item.amount).toEqual(1);
+  it('should decrease quantity', () => {
+    component.item.quantity = 3;
+    expect(component.item.quantity).toEqual(3);
+    component.decreaseQuantity();
+    expect(component.item.quantity).toEqual(2);
+    component.decreaseQuantity();
+    expect(component.item.quantity).toEqual(1);
+    component.decreaseQuantity();
+    expect(component.item.quantity).toEqual(1);
   });
 });
