@@ -48,7 +48,7 @@ export const authUserInvalid: IAuthUser = {
 export const authUserNotVerified: IAuthUser = {
   email: 'e2e-not-verified@test.com',
   accessToken: '',
-  roles: ['ROLE_USER', 'ROLE_DEVELOPER'],
+  roles: ['ROLE_USER'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
   isVerified: false,
