@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IUser } from '@interfaces';
+import { UserRoles } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { ToastService } from '../../toast/toast-service';
@@ -10,6 +12,14 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
 export class AddToBasketModalComponent implements OnInit {
+  // TODO: get actual items in basket from API
+  mockUser: IUser = {
+    userId: '1',
+    email: 'mock@hotdeals.dev',
+    roles: [UserRoles.user],
+    isVerified: true,
+  };
+
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
@@ -67,11 +77,11 @@ export class AddToBasketModalComponent implements OnInit {
     // ( addToBasketForm.get('amount') + all basket items )
     this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items([
       {
-        designId: '',
-        userId: '',
-        title: '',
-        size: this.addToBasketForm.get('size').value,
-        amount: this.addToBasketForm.get('amount').value,
+        transactionItemId: '',
+        order: null,
+        design: null,
+        dimension: this.addToBasketForm.get('size').value,
+        quantity: this.addToBasketForm.get('amount').value,
       },
       // TODO: add the list of items that are already in basket
     ]);

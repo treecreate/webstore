@@ -6,7 +6,9 @@
     </div>
 
     <div class="item-container">
-        <div class="item-title">{{ item.title }}</div>
+        <div class="item-title">
+            {{ item.design.designProperties.properties.title }}
+        </div>
 
         <!-- amount -->
         <div class="option-amount">
@@ -23,7 +25,7 @@
                     </div>
                 </button>
                 <div class="amount">
-                    {{ item.amount }}
+                    {{ item.quantity }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
@@ -49,7 +51,7 @@
                     </div>
                 </button>
                 <div class="amount">
-                    {{ item.size }}
+                    {{ item.dimension }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IDesign } from '@interfaces';
+import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -12,7 +12,7 @@ import { ToastService } from '../../toast/toast-service';
   ],
 })
 export class BasketItemComponent implements OnInit {
-  @Input() item: IDesign;
+  @Input() item: ITransactionItem;
 
   itemPrice: number;
 
@@ -30,8 +30,8 @@ export class BasketItemComponent implements OnInit {
   }
 
   decreaseAmount() {
-    if (this.item.amount > 1) {
-      this.item.amount = this.item.amount - 1;
+    if (this.item.quantity > 1) {
+      this.item.quantity = this.item.quantity - 1;
       this.updatePrice();
     } else {
       this.toastService.showAlert(
@@ -44,18 +44,18 @@ export class BasketItemComponent implements OnInit {
   }
 
   increaseAmount() {
-    this.item.amount = this.item.amount + 1;
+    this.item.quantity = this.item.quantity + 1;
     this.updatePrice();
   }
 
   increaseSize() {
-    switch (this.item.size) {
+    switch (this.item.dimension) {
       case 'small':
-        this.item.size = 'medium';
+        this.item.dimension = DesignDimensionEnum.medium;
         this.updatePrice();
         break;
       case 'medium':
-        this.item.size = 'large';
+        this.item.dimension = DesignDimensionEnum.large;
         this.updatePrice();
         break;
       case 'large':
@@ -69,8 +69,8 @@ export class BasketItemComponent implements OnInit {
   }
 
   decreaseSize() {
-    switch (this.item.size) {
-      case 'small':
+    switch (this.item.dimension) {
+      case DesignDimensionEnum.small:
         this.toastService.showAlert(
           'This is the smallest size that we offer',
           'Dette er den største størrelse du kan bestille',
@@ -78,12 +78,12 @@ export class BasketItemComponent implements OnInit {
           3000
         );
         break;
-      case 'medium':
-        this.item.size = 'small';
+      case DesignDimensionEnum.medium:
+        this.item.dimension = DesignDimensionEnum.small;
         this.updatePrice();
         break;
-      case 'large':
-        this.item.size = 'medium';
+      case DesignDimensionEnum.large:
+        this.item.dimension = DesignDimensionEnum.medium;
         this.updatePrice();
         break;
     }
