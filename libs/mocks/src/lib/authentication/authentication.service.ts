@@ -5,6 +5,7 @@ import {
   authUser,
   authUserExpired,
   authUserInvalid,
+  authUserNotVerified,
   authUserRoleDeveloper,
   authUserRoleOwner,
 } from './auth-user.mock';
@@ -23,6 +24,13 @@ export class AuthenticationService {
     switch (authUserType) {
       case AuthUserEnum.authUser:
         authUserMock = authUser;
+        authUserMock.accessToken = this.generateAccessToken(
+          true,
+          authUserMock.email
+        );
+        break;
+      case AuthUserEnum.authUserNotVerified:
+        authUserMock = authUserNotVerified;
         authUserMock.accessToken = this.generateAccessToken(
           true,
           authUserMock.email
