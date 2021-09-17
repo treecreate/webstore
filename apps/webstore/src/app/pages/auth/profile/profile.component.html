@@ -250,12 +250,8 @@
                     <button
                         type="submit"
                         class="tc-button-50"
-                        [disabled]="hasChangedValues() || !hasInvalidValues()"
-                        [ngClass]="
-                            hasChangedValues() || !hasInvalidValues()
-                                ? 'disabled'
-                                : ''
-                        "
+                        [disabled]="hasChangedValues()"
+                        [ngClass]="hasChangedValues() ? 'disabled' : ''"
                         *ngIf="!isUpdatingUserInfo"
                         i18n="@@update-info"
                         data-cy="account-update-button"

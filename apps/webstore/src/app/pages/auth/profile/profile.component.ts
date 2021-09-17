@@ -119,18 +119,6 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  hasInvalidValues() {
-    return (
-      this.accountInfoForm.get('name').valid &&
-      this.accountInfoForm.get('phoneNumber').valid &&
-      this.accountInfoForm.get('email').valid &&
-      this.accountInfoForm.get('streetAddress').valid &&
-      this.accountInfoForm.get('streetAddress2').valid &&
-      this.accountInfoForm.get('city').valid &&
-      this.accountInfoForm.get('postcode').valid
-    );
-  }
-
   updateUser() {
     // request verification if the user has changed their email
     if (this.accountInfoForm.get('email').value !== this.oldEmail) {

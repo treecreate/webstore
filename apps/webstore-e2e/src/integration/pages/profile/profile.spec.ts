@@ -9,8 +9,8 @@ describe('accountPage', () => {
     userId: '1',
     email: 'e2e@test.com',
     roles: [UserRoles.user],
-    isVerified: true,
-    name: '',
+    isVerified: false,
+    name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',
     streetAddress2: '',
@@ -23,7 +23,7 @@ describe('accountPage', () => {
     userId: '1',
     email: 'e2e@test.com',
     roles: [UserRoles.user],
-    isVerified: false,
+    isVerified: true,
     name: '',
     phoneNumber: '+4512345678',
     streetAddress: 'Yo mammas house 69, 3rd floor',
@@ -40,7 +40,9 @@ describe('accountPage', () => {
     );
     localStorage.setItem(
       LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+      JSON.stringify(
+        authMockService.getMockUser(AuthUserEnum.authUserNotVerified)
+      )
     );
     //Mock return user request
     cy.intercept('GET', '/users/me', {
@@ -52,12 +54,6 @@ describe('accountPage', () => {
   });
 
   it('should update user', () => {
-    //Mock update user request
-    cy.intercept('PUT', '/users', {
-      body: updatedMockUser,
-      statusCode: 200,
-    }).as('updateUserRequest');
-
     //Update values in form to mach the retrieved user
     cy.get('[data-cy=account-email-input]');
 
@@ -129,10 +125,20 @@ describe('accountPage', () => {
     cy.get('[data-cy=account-invalid-postcode]').should('not.exist');
     cy.get('[data-cy=account-postcode-input]').type('123');
     cy.get('[data-cy=account-invalid-postcode]').should('exist');
-
-    cy.get('[data-cy=account-update-button]').should('be.disabled');
   });
 
   //TODO: Check that a verified user doesnt have the resend verification button
-  it('should not show resend-verification-button with a verified user', () => {});
+  it('should not show resend-verification-button with a verified user', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(
+        authMockService.getMockUser(AuthUserEnum.authUserNotVerified)
+      )
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: updatedMockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+  });
 });
