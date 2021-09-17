@@ -4,6 +4,7 @@
         [formGroup]="accountInfoForm"
         name="accountInfoForm"
         (ngSubmit)="updateUser()"
+        data-cy="account-info-form"
     >
         <div class="title">
             <h2 i18n="@@account-info">Account info</h2>
@@ -35,7 +36,7 @@
                     placeholder="Your name"
                     id="name"
                     autocomplete="name"
-                    data-cy="profile-name-input"
+                    data-cy="account-name-input"
                 />
                 <label for="name" class="tc-input-label" i18n="@@name"
                     >Name</label
@@ -49,6 +50,7 @@
                     this.accountInfoForm.get('name').invalid
                 "
                 i18n="@@invalid-name"
+                data-cy="account-invalid-name"
             >
                 Invalid name.
             </div>
@@ -62,7 +64,7 @@
                     name="phoneNumber"
                     id="phoneNumber"
                     autocomplete="phoneNumber"
-                    data-cy="profile-phone-number-input"
+                    data-cy="account-phone-number-input"
                 />
                 <label
                     for="phoneNumber"
@@ -79,6 +81,7 @@
                     this.accountInfoForm.get('phoneNumber').invalid
                 "
                 i18n="@@invalid-phone-number"
+                data-cy="account-invalid-phone-number"
             >
                 Invalid phone number.
             </div>
@@ -90,9 +93,9 @@
                     placeholder="E-mail"
                     formControlName="email"
                     name="email"
-                    id="profileEmail"
+                    id="accountEmail"
                     autocomplete="email"
-                    data-cy="profile-email-input"
+                    data-cy="account-email-input"
                 />
                 <label for="email" class="tc-input-label">E-mail</label>
             </div>
@@ -104,6 +107,7 @@
                     this.accountInfoForm.get('email').invalid
                 "
                 i18n="@@invalid-email"
+                data-cy="account-invalid-email"
             >
                 Invalid e-mail.
             </div>
@@ -121,7 +125,7 @@
                     formControlName="streetAddress"
                     placeholder="Your street name"
                     id="streetAddress"
-                    data-cy="profile-street-address-input"
+                    data-cy="account-address-input"
                 />
                 <label
                     for="streetAddress"
@@ -138,6 +142,7 @@
                     this.accountInfoForm.get('streetAddress').invalid
                 "
                 i18n="@@invalid-street-address"
+                data-cy="account-invalid-address"
             >
                 The address is too long.
             </div>
@@ -150,7 +155,7 @@
                     formControlName="streetAddress2"
                     placeholder="Your street name"
                     id="streetAddress2"
-                    data-cy="profile-street-address-2-input"
+                    data-cy="account-address-2-input"
                 />
                 <label for="streetAddress2" class="tc-input-label">
                     <span i18n="@@street-address">Street address</span> 2</label
@@ -164,6 +169,7 @@
                     this.accountInfoForm.get('streetAddress2').invalid
                 "
                 i18n="@@invalid-street-address"
+                data-cy="account-invalid-address-2"
             >
                 The address is too long.
             </div>
@@ -177,7 +183,7 @@
                         formControlName="city"
                         id="city"
                         placeholder="City"
-                        data-cy="profile-city-input"
+                        data-cy="account-city-input"
                     />
                     <label for="city" class="tc-input-label" i18n="@@city"
                         >City</label
@@ -189,6 +195,7 @@
                             this.accountInfoForm.get('city').invalid
                         "
                         i18n="@@invalid-city"
+                        data-cy="account-invalid-city"
                     >
                         The city name is too long.
                     </div>
@@ -202,7 +209,7 @@
                         id="postcode"
                         name="postcode"
                         placeholder="1234"
-                        data-cy="profile-postcode-input"
+                        data-cy="account-postcode-input"
                     />
                     <label
                         for="postcode"
@@ -217,6 +224,7 @@
                             this.accountInfoForm.get('postcode').invalid
                         "
                         i18n="@@invalid-postcode"
+                        data-cy="account-invalid-postcode"
                     >
                         Invalid danish postcode.
                     </div>
@@ -242,11 +250,15 @@
                     <button
                         type="submit"
                         class="tc-button-50"
-                        [disabled]="isDisabled()"
-                        [ngClass]="isDisabled() ? 'disabled' : ''"
+                        [disabled]="hasChangedValues() || !hasInvalidValues()"
+                        [ngClass]="
+                            hasChangedValues() || !hasInvalidValues()
+                                ? 'disabled'
+                                : ''
+                        "
                         *ngIf="!isUpdatingUserInfo"
                         i18n="@@update-info"
-                        data-cy="profile-update-button"
+                        data-cy="account-update-button"
                     >
                         Update info
                     </button>
@@ -255,7 +267,7 @@
                         routerLink="/collection"
                         (click)="scrollTop()"
                         i18n="@@collection"
-                        data-cy="profile-collection-button"
+                        data-cy="account-collection-button"
                     >
                         Collection
                     </button>
