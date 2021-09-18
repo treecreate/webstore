@@ -13,7 +13,15 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { FamilyTreeDesignEnum, IDesign, IDraggableBox } from '@interfaces';
+import {
+  FamilyTreeDesignEnum,
+  FamilyTreeFontEnum,
+  IDesign,
+  IDraggableBox,
+  IFamilyTree,
+} from '@interfaces';
+import { LocalStorageVars } from '@models';
+import { LocalStorageService } from '../../../../services/local-storage';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({
@@ -72,6 +80,8 @@ export class FamilyTreeDesignComponent
 
   timeInterval;
   framesPerSecond = 60; // FPS of the render loop
+  autosaveFrequencyInMinutes = 1;
+  autosaveInterval;
 
   // SVGs
 
@@ -104,7 +114,8 @@ export class FamilyTreeDesignComponent
 
   constructor(
     private resolver: ComponentFactoryResolver,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -130,9 +141,6 @@ export class FamilyTreeDesignComponent
     };
   }
 
-  loadDesign() {}
-  saveDesign() {}
-
   handleFailedResourceLoading(message: string) {
     console.error(message);
     this.treeImage = null;
@@ -143,6 +151,7 @@ export class FamilyTreeDesignComponent
     };
     // stop the canvas rendering process
     clearInterval(this.timeInterval);
+    clearInterval(this.autosaveInterval);
   }
 
   ngAfterViewInit(): void {
@@ -184,6 +193,12 @@ export class FamilyTreeDesignComponent
       this.draw();
     }, 1000 / this.framesPerSecond);
     console.log('Render loop started');
+
+    // start autosave of design
+    clearInterval(this.autosaveInterval);
+    this.autosaveInterval = setInterval(() => {
+      this.saveDesign();
+    }, 1000 * 60 * this.autosaveFrequencyInMinutes);
   }
 
   updateBoxRefText() {
@@ -297,6 +312,29 @@ export class FamilyTreeDesignComponent
         );
       }
     }
+  }
+
+  saveDesign() {
+    console.log('Saving your design...');
+    // const designProperties: IFamilyTree = ;
+    const boxesCopy: IDraggableBox[] = this.myBoxes;
+    boxesCopy.forEach((box) => {
+      delete box['inputRef'];
+    });
+    console.log('boxes', boxesCopy);
+    this.localStorageService.setItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree,
+      {
+        title: 'temp',
+        font: FamilyTreeFontEnum.georgia,
+        design: FamilyTreeDesignEnum.first,
+        boxSize: this.boxSize,
+        banner: null,
+        largeFont: this.isLargeFont,
+        boxes: boxesCopy,
+      }
+    );
+    console.log('Design saved');
   }
 
   // handle input value updates
