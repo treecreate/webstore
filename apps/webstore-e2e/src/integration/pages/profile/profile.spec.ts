@@ -9,7 +9,7 @@ describe('accountPage', () => {
     userId: '1',
     email: 'e2e@test.com',
     roles: [UserRoles.user],
-    isVerified: false,
+    isVerified: true,
     name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',
@@ -21,9 +21,9 @@ describe('accountPage', () => {
 
   const updatedMockUser: IUser = {
     userId: '1',
-    email: 'e2e@test.com',
+    email: 'suckmeoff@test.com',
     roles: [UserRoles.user],
-    isVerified: true,
+    isVerified: false,
     name: '',
     phoneNumber: '+4512345678',
     streetAddress: 'Yo mammas house 69, 3rd floor',
@@ -38,11 +38,12 @@ describe('accountPage', () => {
       LocalStorageVars.cookiesAccepted,
       `"${CookieStatus.accepted}"` // localStorage saves the data differently from our LocalStorageService
     );
+  });
+
+  it('should update user', () => {
     localStorage.setItem(
       LocalStorageVars.authUser,
-      JSON.stringify(
-        authMockService.getMockUser(AuthUserEnum.authUserNotVerified)
-      )
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
     );
     //Mock return user request
     cy.intercept('GET', '/users/me', {
@@ -51,9 +52,7 @@ describe('accountPage', () => {
     }).as('getUserRequest');
 
     cy.visit('/profile');
-  });
 
-  it('should update user', () => {
     //Update values in form to mach the retrieved user
     cy.get('[data-cy=account-email-input]');
 
@@ -71,16 +70,49 @@ describe('accountPage', () => {
   });
 
   it('should not update when no inputfields have been changed', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+
+    cy.visit('/profile');
     cy.get('[data-cy=account-update-button]').should('be.disabled');
   });
 
   it('should redirect to collection page', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+
+    cy.visit('/profile');
     cy.get('[data-cy=account-collection-button]').click();
     cy.url().should('contain', '/collection');
   });
 
-  //TODO: check all input fields are correct / incorrect
   it('should see if inputs fields are disabled when wrong', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+
+    cy.visit('/profile');
+
     cy.get('[data-cy=account-phone-number-input]').type('+4512345678');
     cy.get('[data-cy=account-invalid-phone-number]').should('not.exist');
     cy.get('[data-cy=account-phone-number-input]').clear();
@@ -127,7 +159,6 @@ describe('accountPage', () => {
     cy.get('[data-cy=account-invalid-postcode]').should('exist');
   });
 
-  //TODO: Check that a verified user doesnt have the resend verification button
   it('should not show resend-verification-button with a verified user', () => {
     localStorage.setItem(
       LocalStorageVars.authUser,
@@ -135,10 +166,15 @@ describe('accountPage', () => {
         authMockService.getMockUser(AuthUserEnum.authUserNotVerified)
       )
     );
-    //Mock return user request
+
+    //Mock return not verified user request
     cy.intercept('GET', '/users/me', {
       body: updatedMockUser,
       statusCode: 200,
     }).as('getUserRequest');
+
+    cy.visit('/profile');
+
+    cy.get('[data-cy=resend-verification-email-button]').should('exist');
   });
 });

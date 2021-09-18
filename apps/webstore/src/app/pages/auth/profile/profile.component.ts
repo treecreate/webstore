@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
+        //TODO: isVerified is null, the verify service returns null
         this.isVerified = this.verifyService.getIsVerified();
       });
   }
