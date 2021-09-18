@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DesignDimensionEnum } from '@interfaces';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { AddToBasketModalComponent } from './add-to-basket-modal.component';
 
 describe('AddToBasketModalComponent', () => {

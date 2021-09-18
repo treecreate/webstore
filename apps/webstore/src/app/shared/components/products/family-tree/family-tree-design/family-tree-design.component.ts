@@ -3,59 +3,15 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
-  ComponentRef,
   ElementRef,
   HostListener,
   OnInit,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { TreeDesignEnum, BoxDesignEnum } from '@assets';
+import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import { IDesign, IDraggableBox } from '@interfaces';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
-
-// interface IDraggableBox {
-//   x: number;
-//   y: number;
-//   previousX: number;
-//   previousY: number;
-//   width: number;
-//   height: number;
-//   dragging: boolean;
-//   boxDesign: HTMLImageElement;
-//   inputRef?: ComponentRef<DraggableBoxComponent>;
-//   text: string;
-// }
-
-// enum FamilyTreeFontEnum {
-//   timesNewRoam = 'Times new roman',
-//   roboto = 'Roboto',
-//   georgia = 'Georgia',
-//   shareTech = 'Share Tech',
-//   spectral = 'Spectral',
-//   sansita = 'Sansita',
-// }
-
-// enum FamilyTreeDesignEnum {
-//   first,
-//   second,
-// }
-
-// interface IFamilyTreeBanner {
-//   text: string;
-//   style: 'first';
-// // }
-
-// interface IFamilyTree {
-//   id: string;
-//   title: string;
-//   front: FamilyTreeFontEnum;
-//   design: FamilyTreeDesignEnum;
-//   boxSize: number;
-//   banner: boolean | IFamilyTreeBanner;
-//   largeFont: boolean;
-//   boxes: IDraggableBox[];
-// }
 
 @Component({
   selector: 'webstore-family-tree-design',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DesignDimensionEnum, IDesign, ITransactionItem } from '@interfaces';
+import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 
 @Component({

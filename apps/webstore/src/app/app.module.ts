@@ -68,7 +68,6 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
     BasketItemComponent,
     CheckoutComponent,
     CheckoutItemComponent,
-    CarouselComponent,
     FamilyTreeDesignComponent,
     DraggableBoxComponent,
     ReviewCarouselComponent,
