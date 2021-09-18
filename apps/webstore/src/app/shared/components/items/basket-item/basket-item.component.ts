@@ -58,6 +58,14 @@ export class BasketItemComponent implements OnInit {
         this.item.dimension = DesignDimensionEnum.large;
         this.updatePrice();
         break;
+      case DesignDimensionEnum.large:
+        this.toastService.showAlert(
+          'This is the largest size that we offer',
+          'Dette er den største størrelse du kan bestille',
+          'danger',
+          3000
+        );
+        break;
     }
   }
 
@@ -66,7 +74,7 @@ export class BasketItemComponent implements OnInit {
       case DesignDimensionEnum.small:
         this.toastService.showAlert(
           'This is the smallest size that we offer',
-          'Dette er den største størrelse du kan bestille',
+          'Dette er den mindste størrelse du kan bestille',
           'danger',
           3000
         );
