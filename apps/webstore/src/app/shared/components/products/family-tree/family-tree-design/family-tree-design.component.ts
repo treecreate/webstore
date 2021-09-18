@@ -5,12 +5,15 @@ import {
   ComponentFactoryResolver,
   ElementRef,
   HostListener,
+  Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { IDesign, IDraggableBox } from '@interfaces';
+import { FamilyTreeDesignEnum, IDesign, IDraggableBox } from '@interfaces';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({
@@ -22,7 +25,21 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
     '../../../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
+export class FamilyTreeDesignComponent
+  implements AfterViewInit, OnInit, OnChanges {
+  // Inputs for design settings
+  @Input()
+  design: FamilyTreeDesignEnum;
+
+  @Input()
+  boxSize = 10;
+
+  @Input()
+  showBanner: boolean;
+
+  @Input()
+  isLargeFont: boolean;
+
   // Design
 
   savedDesign: IDesign;
@@ -60,14 +77,23 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
   treeImage = new Image();
   boxDesigns: HTMLImageElement[] = [];
+  boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
-    height: this.canvasResolution.height / 10,
-    width: this.canvasResolution.width / 5,
+    height:
+      (this.canvasResolution.height / 10) *
+      (this.boxSize * this.boxSizeScalingMultiplier),
+    width:
+      (this.canvasResolution.width / 5) *
+      (this.boxSize * this.boxSizeScalingMultiplier),
   };
   closeButton = new Image();
   closeButtonDimensions = {
-    height: this.canvasResolution.height / 30,
-    width: this.canvasResolution.width / 30,
+    height:
+      (this.canvasResolution.height / 30) *
+      (this.boxSize * this.boxSizeScalingMultiplier),
+    width:
+      (this.canvasResolution.width / 30) *
+      (this.boxSize * this.boxSizeScalingMultiplier),
   };
 
   alert: {
@@ -103,6 +129,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       this.handleFailedResourceLoading('Failed to load the close button SVG');
     };
   }
+
+  loadDesign() {}
+  saveDesign() {}
 
   handleFailedResourceLoading(message: string) {
     console.error(message);
@@ -175,8 +204,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       y: initialY,
       previousX: initialX, //saving x
       previousY: initialY, //saving y
-      width: this.boxDimensions.width,
-      height: this.boxDimensions.height,
       dragging: false,
       boxDesign: boxDesign,
       text: text,
@@ -239,8 +266,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         box.boxDesign,
         box.x,
         box.y,
-        box.width,
-        box.height
+        this.boxDimensions.width,
+        this.boxDimensions.height
       );
       const cords = this.getRealCords(this.designCanvas.nativeElement, {
         x: box.x,
@@ -253,10 +280,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
         this.myBoxes[i].inputRef.instance.y = cords.y;
         // set the input dimensions, accounting for the scale between canvas and document
         this.myBoxes[i].inputRef.instance.width = Math.floor(
-          box.width / scale.scaleX
+          this.boxDimensions.width / scale.scaleX
         );
         this.myBoxes[i].inputRef.instance.height = Math.floor(
-          box.height / scale.scaleY
+          this.boxDimensions.height / scale.scaleY
         );
         this.myBoxes[i].inputRef.instance.zIndex = i;
         this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
@@ -271,6 +298,32 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
       }
     }
   }
+
+  // handle input value updates
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.boxSize !== undefined) {
+      this.boxDimensions = {
+        height:
+          (this.canvasResolution.height / 10) *
+          (this.boxSize * this.boxSizeScalingMultiplier),
+        width:
+          (this.canvasResolution.width / 5) *
+          (this.boxSize * this.boxSizeScalingMultiplier),
+      };
+
+      this.closeButtonDimensions = {
+        height:
+          (this.canvasResolution.height / 30) *
+          (this.boxSize * this.boxSizeScalingMultiplier),
+        width:
+          (this.canvasResolution.width / 30) *
+          (this.boxSize * this.boxSizeScalingMultiplier),
+      };
+    }
+  }
+
+  // handle canvas events
 
   getCanvasScale(canvas): { scaleX: number; scaleY: number } {
     const rect = canvas.getBoundingClientRect(); // abs. size of element
@@ -341,9 +394,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
 
       if (
         this.mouseCords.x > box.x &&
-        this.mouseCords.x < box.x + box.width &&
+        this.mouseCords.x < box.x + this.boxDimensions.width &&
         this.mouseCords.y > box.y &&
-        this.mouseCords.y < box.y + box.height
+        this.mouseCords.y < box.y + this.boxDimensions.height
       ) {
         // check if the Close button got pressed
         if (
@@ -391,7 +444,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
       if (box.dragging) {
-        if (!this.mouseOutsideBoundaries(box.width, box.height)) {
+        if (
+          !this.mouseOutsideBoundaries(
+            this.boxDimensions.width,
+            this.boxDimensions.height
+          )
+        ) {
           // move the box with the cursor
           this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
           this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
@@ -412,7 +470,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
       if (box.dragging) {
-        if (this.mouseOutsideBoundaries(box.width, box.height)) {
+        if (
+          this.mouseOutsideBoundaries(
+            this.boxDimensions.width,
+            this.boxDimensions.height
+          )
+        ) {
           // send back to its last saved position
           this.myBoxes[i].x = box.previousX;
           this.myBoxes[i].y = box.previousY;

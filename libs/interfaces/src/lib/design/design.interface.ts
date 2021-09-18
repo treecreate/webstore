@@ -28,8 +28,6 @@ export interface IDraggableBox {
   y: number;
   previousX: number;
   previousY: number;
-  width: number;
-  height: number;
   dragging: boolean;
   boxDesign: HTMLImageElement;
   // can't declare the actual component so the ref is any

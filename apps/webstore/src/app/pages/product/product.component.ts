@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FamilyTreeDesignEnum } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 @Component({
@@ -10,7 +11,7 @@ import { AddToBasketModalComponent } from '../../shared/components/modals/add-to
     '../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent {
   fontCollection = [
     'Times new roman',
     'Roboto',
@@ -22,25 +23,24 @@ export class ProductComponent implements OnInit {
   isMobileOptionOpen = false;
   designTitle = 'Untitled-1';
   font = this.fontCollection[0];
-  design = 'first';
-  boxSize = 10;
-  banner = false;
-  bigFont = false;
+  design = FamilyTreeDesignEnum.first;
+  boxSize = 20;
+  maxSize = 40;
+  minSize = 10;
+  showBanner = false;
+  isLargeFont = false;
 
   constructor(private modalService: NgbModal) {}
-
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
 
   showOptions() {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }
 
   nextDesign() {
-    if (this.design === 'first') {
-      this.design = 'second';
+    if (this.design === FamilyTreeDesignEnum.first) {
+      this.design = FamilyTreeDesignEnum.second;
     } else {
-      this.design = 'first';
+      this.design = FamilyTreeDesignEnum.first;
     }
   }
 

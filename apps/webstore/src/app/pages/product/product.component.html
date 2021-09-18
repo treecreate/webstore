@@ -16,7 +16,12 @@
             </div>
         </button>
 
-        <webstore-family-tree-design></webstore-family-tree-design>
+        <webstore-family-tree-design
+            [design]="design"
+            [boxSize]="boxSize"
+            [showBanner]="showBanner"
+            [isLargeFont]="isLargeFont"
+        ></webstore-family-tree-design>
     </div>
 
     <!-- FOR CY TESTS -->
@@ -24,8 +29,8 @@
     <div class="hide" data-cy="font">{{ font }}</div>
     <div class="hide" data-cy="design">{{ design }}</div>
     <div class="hide" data-cy="box-size">{{ boxSize }}</div>
-    <div class="hide" data-cy="banner">{{ banner }}</div>
-    <div class="hide" data-cy="big-font">{{ bigFont }}</div>
+    <div class="hide" data-cy="banner">{{ showBanner }}</div>
+    <div class="hide" data-cy="large-font">{{ isLargeFont }}</div>
     <!-- END CY TESTS -->
 
     <div
@@ -133,7 +138,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-plus"
                         (click)="this.boxSize = this.boxSize + 1"
-                        [disabled]="this.boxSize >= 30"
+                        [disabled]="this.boxSize >= maxSize"
                     >
                         <div class="button-plus"></div>
                     </button>
@@ -141,7 +146,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-minus"
                         (click)="this.boxSize = this.boxSize - 1"
-                        [disabled]="this.boxSize <= 0"
+                        [disabled]="this.boxSize <= minSize"
                     >
                         <div class="icon">
                             <div class="button-minus"></div>
@@ -156,7 +161,7 @@
                         Banner
                         <input
                             type="checkbox"
-                            (change)="this.banner = !this.banner"
+                            (change)="this.showBanner = !this.showBanner"
                         />
                         <span
                             class="checkmark"
@@ -168,20 +173,20 @@
                         ></webstore-info-popover>
                     </label>
                 </div>
-                <div class="option-big-font">
+                <div class="option-large-font">
                     <label class="checkbox-container option-title">
                         Large font
                         <input
                             type="checkbox"
-                            (change)="this.bigFont = !this.bigFont"
+                            (change)="this.isLargeFont = !this.isLargeFont"
                         />
                         <span
                             class="checkmark"
-                            data-cy="checkbox-big-font"
+                            data-cy="checkbox-large-font"
                         ></span>
                         <webstore-info-popover
                             title="Large font"
-                            text="Add or remove big font. With the large font the visibility will be better, but there wont be space for a surname."
+                            text="Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname."
                         ></webstore-info-popover>
                     </label>
                 </div>
