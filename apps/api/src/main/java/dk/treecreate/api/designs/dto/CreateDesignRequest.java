@@ -9,8 +9,8 @@ import java.util.UUID;
 public class CreateDesignRequest
 {
     @NotNull
-    @ApiModelProperty(example = "{ title: Example design," +
-        "  front: 'Roboto'," +
+    @ApiModelProperty(example = "{ title: 'Example design'," +
+        "  font: 'Roboto'," +
         "  design: 'first'," +
         "  boxSize: 10," +
         "  banner: false," +

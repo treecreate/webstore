@@ -38,8 +38,8 @@ public class Design
 
     @Column(name = "design_properties", nullable = false)
     @ApiModelProperty(notes = "Design-specific properties, as a JSON string",
-        example = "{ title: Example design," +
-            "  front: 'Roboto'," +
+        example = "{ title: 'Example design'," +
+            "  font: 'Roboto'," +
             "  design: 'first'," +
             "  boxSize: 10," +
             "  banner: false," +
