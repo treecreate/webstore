@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { FamilyTreeDesignEnum } from '@interfaces';
+import { FamilyTreeDesignEnum, FamilyTreeFontEnum } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EnumType } from 'typescript';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 @Component({
@@ -16,17 +17,10 @@ export class ProductComponent {
   @ViewChild('familyTreeDesignCanvas', { static: true })
   designCanvas: FamilyTreeDesignComponent;
 
-  fontCollection = [
-    'Times new roman',
-    'Roboto',
-    'Georgia',
-    'Share Tech',
-    'Spectral',
-    'Sansita',
-  ];
   isMobileOptionOpen = false;
   designTitle = 'Untitled-1';
-  font = this.fontCollection[0];
+  // set the default font
+  font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
   design = FamilyTreeDesignEnum.first;
   boxSize = 20;
   maxSize = 40;
@@ -53,20 +47,33 @@ export class ProductComponent {
   }
 
   nextFont() {
-    const fontIndex = this.fontCollection.indexOf(this.font);
-    if (fontIndex < this.fontCollection.length - 1) {
-      this.font = this.fontCollection[fontIndex + 1];
+    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(
+      this.font
+    );
+    const nextFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex + 1];
+    if (nextFont === undefined) {
+      // set the first font in the enum
+      this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
     } else {
-      this.font = this.fontCollection[0];
+      this.font = FamilyTreeFontEnum[nextFont];
     }
   }
 
   prevFont() {
-    const selectedFont = this.fontCollection.indexOf(this.font);
-    if (selectedFont === 0) {
-      this.font = this.fontCollection[this.fontCollection.length - 1];
+    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(
+      this.font
+    );
+    const previousFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex - 1];
+    if (previousFont === undefined) {
+      // set the last font in the enum
+      this.font =
+        FamilyTreeFontEnum[
+          Object.keys(FamilyTreeFontEnum)[
+            Object.values(FamilyTreeFontEnum).length - 1
+          ]
+        ];
     } else {
-      this.font = this.fontCollection[selectedFont - 1];
+      this.font = FamilyTreeFontEnum[previousFont];
     }
   }
 
