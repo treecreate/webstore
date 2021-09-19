@@ -17,6 +17,7 @@
         </button>
 
         <webstore-family-tree-design
+            #familyTreeDesignCanvas
             [design]="design"
             [boxSize]="boxSize"
             [showBanner]="showBanner"
@@ -193,7 +194,10 @@
             </div>
 
             <div class="option option-actions">
-                <button class="btn-save-design tc-button-50">
+                <button
+                    class="btn-save-design tc-button-50"
+                    (click)="saveDesign()"
+                >
                     Save
                     <img
                         src="/assets/icons/save-icon.svg"

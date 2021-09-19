@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FamilyTreeDesignEnum } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 @Component({
   selector: 'webstore-product',
   templateUrl: './product.component.html',
@@ -12,6 +13,9 @@ import { AddToBasketModalComponent } from '../../shared/components/modals/add-to
   ],
 })
 export class ProductComponent {
+  @ViewChild('familyTreeDesignCanvas', { static: true })
+  designCanvas: FamilyTreeDesignComponent;
+
   fontCollection = [
     'Times new roman',
     'Roboto',
@@ -31,6 +35,10 @@ export class ProductComponent {
   isLargeFont = false;
 
   constructor(private modalService: NgbModal) {}
+
+  saveDesign() {
+    this.designCanvas.saveDesign();
+  }
 
   showOptions() {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
