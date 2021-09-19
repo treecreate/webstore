@@ -9,7 +9,7 @@ import { ProfileComponent } from './profile.component';
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
-  let mockUser: IUser = {
+  const mockUser: IUser = {
     userId: '1',
     email: 'e2e@test.com',
     roles: [UserRoles.user],
