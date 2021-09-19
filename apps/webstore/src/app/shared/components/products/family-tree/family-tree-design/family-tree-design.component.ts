@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
+  DesignTypeEnum,
   FamilyTreeDesignEnum,
   FamilyTreeFontEnum,
   IDesign,
@@ -78,15 +79,17 @@ export class FamilyTreeDesignComponent
     y: 0,
   };
 
+  // render loop
   timeInterval;
   framesPerSecond = 60; // FPS of the render loop
-  autosaveFrequencyInMinutes = 1;
+  // autosaving of the design
+  autosaveFrequencyInMinutes = 5;
   autosaveInterval;
 
   // SVGs
 
   treeImage = new Image();
-  boxDesigns: HTMLImageElement[] = [];
+  boxDesigns: Map<BoxDesignEnum, HTMLImageElement> = new Map();
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
     height:
@@ -127,7 +130,7 @@ export class FamilyTreeDesignComponent
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.boxDesigns.push(image);
+      this.boxDesigns.set(Object.values(BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
     this.closeButton.src = BoxDesignEnum.closeButton;
@@ -163,25 +166,40 @@ export class FamilyTreeDesignComponent
     this.context = this.designCanvas.nativeElement.getContext('2d');
     console.log('Context', this.context);
 
-    // Setup boxes
-    this.createBox(
-      this.canvasResolution.width / 8,
-      this.canvasResolution.height / 4,
-      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
-      ''
-    );
-    this.createBox(
-      this.canvasResolution.width / 6,
-      this.canvasResolution.height / 2,
-      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
-      ''
-    );
-    this.createBox(
-      this.canvasResolution.width / 2,
-      this.canvasResolution.height / 3,
-      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
-      ''
-    );
+    // Load the design
+    const loadedBoxes = this.loadDesign();
+    if (loadedBoxes === null) {
+      // Setup default boxes if there is no saved design
+      this.createBox(
+        this.canvasResolution.width / 8,
+        this.canvasResolution.height / 4,
+        Object.values(BoxDesignEnum)[
+          Math.floor(Math.random() * this.boxDesigns.size)
+        ],
+        ''
+      );
+      this.createBox(
+        this.canvasResolution.width / 6,
+        this.canvasResolution.height / 2,
+        Object.values(BoxDesignEnum)[
+          Math.floor(Math.random() * this.boxDesigns.size)
+        ],
+        ''
+      );
+      this.createBox(
+        this.canvasResolution.width / 2,
+        this.canvasResolution.height / 3,
+        Object.values(BoxDesignEnum)[
+          Math.floor(Math.random() * this.boxDesigns.size)
+        ],
+        ''
+      );
+    } else {
+      // Setup boxes based on the loaded design
+      loadedBoxes.forEach((box) => {
+        this.createBox(box.x, box.y, box.boxDesign, box.text);
+      });
+    }
     console.log('Boxes', this.myBoxes);
 
     // TODO: Make the boxes get created during init, then populated after the view is loaded, then fill out with data
@@ -211,7 +229,7 @@ export class FamilyTreeDesignComponent
   createBox(
     initialX: number,
     initialY: number,
-    boxDesign: HTMLImageElement,
+    boxDesign: BoxDesignEnum,
     text: string
   ) {
     const newBox: IDraggableBox = {
@@ -277,8 +295,9 @@ export class FamilyTreeDesignComponent
     // render the boxes
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
+      // console.log('box', box)
       this.context.drawImage(
-        box.boxDesign,
+        this.boxDesigns.get(box.boxDesign),
         box.x,
         box.y,
         this.boxDimensions.width,
@@ -314,14 +333,43 @@ export class FamilyTreeDesignComponent
     }
   }
 
+  loadDesign(): IDraggableBox[] {
+    console.log('Loading design from local storage');
+    const design = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    );
+    if (design.value === null) {
+      console.log('There was no saved design, generating a clean slate');
+      return null;
+    }
+    // TODO: properly assign the banner
+    this.showBanner = design.value.banner === null;
+    this.boxSize = design.value.boxSize;
+    this.design = DesignTypeEnum[design.value.design];
+    this.isLargeFont = design.value.largeFont;
+    // TODO: Get font and title
+    console.log('Design loaded', design.value.boxes);
+    return design.value.boxes;
+  }
+
   saveDesign() {
     console.log('Saving your design...');
-    // const designProperties: IFamilyTree = ;
-    const boxesCopy: IDraggableBox[] = this.myBoxes;
-    boxesCopy.forEach((box) => {
-      delete box['inputRef'];
+    // deep copy the boxes by value (since it modifies the array)
+    const boxesCopy: IDraggableBox[] = [];
+
+    // deep copy the myBoxes array while omitting the inputRef property
+    this.myBoxes.forEach((box) => {
+      boxesCopy.push({
+        x: box.x,
+        y: box.y,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: box.boxDesign,
+        text: box.text,
+      });
     });
-    console.log('boxes', boxesCopy);
+
     this.localStorageService.setItem<IFamilyTree>(
       LocalStorageVars.designFamilyTree,
       {
@@ -465,7 +513,9 @@ export class FamilyTreeDesignComponent
     this.createBox(
       this.mouseCords.x - this.boxDimensions.width / 2,
       this.mouseCords.y - this.boxDimensions.height / 2,
-      this.boxDesigns[Math.floor(Math.random() * this.boxDesigns.length)],
+      Object.values(BoxDesignEnum)[
+        Math.floor(Math.random() * this.boxDesigns.size)
+      ],
       ''
     );
   }

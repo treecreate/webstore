@@ -4,7 +4,6 @@ import dk.treecreate.api.designs.DesignType;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 public class CreateDesignRequest
 {
