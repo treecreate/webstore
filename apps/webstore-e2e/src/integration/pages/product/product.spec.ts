@@ -14,23 +14,23 @@ describe('ProductPage', () => {
     cy.get('[data-cy=footer]').should('exist');
   });
 
-  it('should have a box-size of 10', () => {
-    cy.get('[data-cy=box-size]').should('have.text', '10');
+  it('should have a box-size of 20', () => {
+    cy.get('[data-cy=box-size]').should('have.text', '20');
   });
 
   it('should increase box size when + is pressed in options', () => {
-    cy.get('[data-cy=box-size]').should('have.text', '10');
+    cy.get('[data-cy=box-size]').should('have.text', '20');
     cy.get('[data-cy=box-size-plus]').click();
-    cy.get('[data-cy=box-size]').should('have.text', '11');
+    cy.get('[data-cy=box-size]').should('have.text', '21');
   });
 
   it('should decrease box size when - is pressed in options', () => {
-    cy.get('[data-cy=box-size]').should('have.text', '10');
+    cy.get('[data-cy=box-size]').should('have.text', '20');
     cy.get('[data-cy=box-size-minus]').click();
-    cy.get('[data-cy=box-size]').should('have.text', '9');
+    cy.get('[data-cy=box-size]').should('have.text', '19');
   });
 
-  it('should not increase box size above 30', () => {
+  it('should not increase box size above 40', () => {
     cy.get('[data-cy=box-size-plus]').should('not.be.disabled');
     for (let i = 0; i < 20; i++) {
       cy.get('[data-cy=box-size-plus]').click();
@@ -38,11 +38,11 @@ describe('ProductPage', () => {
     cy.get('[data-cy=box-size]')
       .invoke('text')
       .then(parseFloat)
-      .should('not.be.above', 30);
+      .should('not.be.above', 40);
     cy.get('[data-cy=box-size-plus]').should('be.disabled');
   });
 
-  it('should not decrease box size below 0', () => {
+  it('should not decrease box size below 10', () => {
     cy.get('[data-cy=box-size-minus]').should('not.be.disabled');
     for (let i = 0; i < 10; i++) {
       cy.get('[data-cy=box-size-minus]').click();
@@ -50,7 +50,7 @@ describe('ProductPage', () => {
     cy.get('[data-cy=box-size]')
       .invoke('text')
       .then(parseFloat)
-      .should('not.be.lt', 0);
+      .should('not.be.lt', 10);
     cy.get('[data-cy=box-size-minus]').should('be.disabled');
   });
 
@@ -74,11 +74,11 @@ describe('ProductPage', () => {
   });
 
   // Big font
-  it('should show/remove big-font', () => {
-    cy.get('[data-cy=big-font]').should('have.text', 'false');
-    cy.get('[data-cy=checkbox-big-font]').click();
-    cy.get('[data-cy=big-font]').should('have.text', 'true');
-    cy.get('[data-cy=checkbox-big-font]').click();
-    cy.get('[data-cy=big-font]').should('have.text', 'false');
+  it('should show/remove large-font', () => {
+    cy.get('[data-cy=large-font]').should('have.text', 'false');
+    cy.get('[data-cy=checkbox-large-font]').click();
+    cy.get('[data-cy=large-font]').should('have.text', 'true');
+    cy.get('[data-cy=checkbox-large-font]').click();
+    cy.get('[data-cy=large-font]').should('have.text', 'false');
   });
 });
