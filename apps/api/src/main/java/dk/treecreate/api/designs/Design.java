@@ -1,11 +1,13 @@
 package dk.treecreate.api.designs;
 
 import dk.treecreate.api.user.User;
+import dk.treecreate.api.utils.HashMapConverter;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -36,7 +38,7 @@ public class Design
     @ApiModelProperty(notes = "The user the design belongs to")
     private User user;
 
-    @Column(name = "design_properties", nullable = false)
+    @Column(name = "design_properties", nullable = false, columnDefinition = "longtext")
     @ApiModelProperty(notes = "Design-specific properties, as a JSON string",
         example = "{ title: 'Example design'," +
             "  font: 'Roboto'," +
@@ -45,7 +47,8 @@ public class Design
             "  banner: false," +
             "  largeFont: true," +
             "  boxes: []}")
-    private String designProperties;
+    @Convert(converter = HashMapConverter.class)
+    private Map<String, Object> designProperties;
 
     @Column(name = "design_type", nullable = false)
     @ApiModelProperty(notes = "Design type", example = "FAMILY_TREE")
@@ -75,12 +78,12 @@ public class Design
         this.user = user;
     }
 
-    public String getDesignProperties()
+    public Map<String, Object> getDesignProperties()
     {
         return designProperties;
     }
 
-    public void setDesignProperties(String designProperties)
+    public void setDesignProperties(Map<String, Object> designProperties)
     {
         this.designProperties = designProperties;
     }

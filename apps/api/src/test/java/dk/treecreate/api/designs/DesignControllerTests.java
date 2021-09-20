@@ -186,11 +186,9 @@ public class DesignControllerTests
             list.add(new Design());
             list.get(0).setUser(user);
             list.get(0).setDesignType(DesignType.FAMILY_TREE);
-            list.get(0).setDesignProperties("");
             list.add(new Design());
             list.get(1).setUser(user);
             list.get(1).setDesignType(DesignType.FAMILY_TREE);
-            list.get(1).setDesignProperties("");
 
             Mockito.when(designRepository.findAll()).thenReturn(list);
 
@@ -216,11 +214,9 @@ public class DesignControllerTests
             list.add(new Design());
             list.get(0).setUser(user);
             list.get(0).setDesignType(DesignType.FAMILY_TREE);
-            list.get(0).setDesignProperties("");
             list.add(new Design());
             list.get(1).setUser(user);
             list.get(1).setDesignType(DesignType.FAMILY_TREE);
-            list.get(1).setDesignProperties("");
 
             Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
             Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
@@ -260,11 +256,9 @@ public class DesignControllerTests
             list.add(new Design());
             list.get(0).setUser(user);
             list.get(0).setDesignType(DesignType.FAMILY_TREE);
-            list.get(0).setDesignProperties("");
             list.add(new Design());
             list.get(1).setUser(user);
             list.get(1).setDesignType(DesignType.FAMILY_TREE);
-            list.get(1).setDesignProperties("");
 
             Mockito.when(userRepository.findByUserId(uuid)).thenReturn(Optional.of(user));
             Mockito.when(designRepository.findByUser(user)).thenReturn(list);
@@ -301,7 +295,6 @@ public class DesignControllerTests
             Design design = new Design();
             design.setUser(user);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
 
             Mockito.when(userRepository.findByUserId(uuid)).thenReturn(Optional.of(user));
             Mockito.when(designRepository.findByDesignId(uuid)).thenReturn(Optional.of(design));
@@ -334,7 +327,6 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(secondUser);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
 
             Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
             Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
@@ -359,7 +351,6 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(user);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
 
             Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
             Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
@@ -389,12 +380,10 @@ public class DesignControllerTests
             Design design = new Design();
             design.setUser(user);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
             Design savedDesign = new Design();
             savedDesign.setDesignId(uuid);
             savedDesign.setUser(user);
             savedDesign.setDesignType(DesignType.FAMILY_TREE);
-            savedDesign.setDesignProperties("");
             CreateDesignRequest createDesignRequest = new CreateDesignRequest();
             createDesignRequest.setDesignType(design.getDesignType());
             createDesignRequest.setDesignProperties(design.getDesignProperties());
@@ -433,7 +422,6 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(secondUser);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
             UpdateDesignRequest updateDesignRequest = new UpdateDesignRequest();
             updateDesignRequest.setDesignId(design.getDesignId());
             updateDesignRequest.setDesignType(design.getDesignType());
@@ -464,12 +452,10 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(user);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
             Design updatedDesign = new Design();
             updatedDesign.setDesignId(uuid);
             updatedDesign.setUser(user);
             updatedDesign.setDesignType(DesignType.FAMILY_TREE);
-            updatedDesign.setDesignProperties("updated");
             UpdateDesignRequest updateDesignRequest = new UpdateDesignRequest();
             updateDesignRequest.setDesignId(updatedDesign.getDesignId());
             updateDesignRequest.setDesignType(updatedDesign.getDesignType());
@@ -512,7 +498,6 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(secondUser);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
 
             Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
             Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
@@ -537,7 +522,6 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(user);
             design.setDesignType(DesignType.FAMILY_TREE);
-            design.setDesignProperties("");
 
             Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
             Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
