@@ -5,15 +5,10 @@ import { BoxDesignEnum } from '@assets';
 
 export interface IDesign {
   designId: string;
-  designProperties: IDesignProperties;
+  designProperties: IFamilyTree;
   designType: DesignTypeEnum;
   user: IUser;
 }
-
-export interface IDesignProperties {
-  properties: IFamilyTree;
-}
-
 export interface IFamilyTree {
   title: string;
   font: FamilyTreeFontEnum;
