@@ -46,6 +46,9 @@ export class FamilyTreeDesignComponent
   boxSize = 10;
 
   @Input()
+  title: string;
+
+  @Input()
   showBanner: boolean;
 
   @Input()
@@ -368,7 +371,7 @@ export class FamilyTreeDesignComponent
     this.localStorageService.setItem<IFamilyTree>(
       LocalStorageVars.designFamilyTree,
       {
-        title: 'temp',
+        title: this.title,
         font: FamilyTreeFontEnum.georgia,
         design: FamilyTreeDesignEnum.first,
         boxSize: this.boxSize,

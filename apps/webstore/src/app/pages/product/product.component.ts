@@ -5,7 +5,7 @@ import {
   Component,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   DesignTypeEnum,
   FamilyTreeDesignEnum,
@@ -16,6 +16,7 @@ import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { ToastService } from '../../shared/components/toast/toast-service';
 import { DesignService } from '../../shared/services/design/design.service';
 import { LocalStorageService } from '../../shared/services/local-storage';
 @Component({
@@ -45,9 +46,11 @@ export class ProductComponent implements AfterViewInit {
   constructor(
     private modalService: NgbModal,
     private route: ActivatedRoute,
+    private router: Router,
     private designService: DesignService,
     private localStorageService: LocalStorageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastService: ToastService
   ) {}
 
   // TODO: properly assign the banner
@@ -109,6 +112,71 @@ export class ProductComponent implements AfterViewInit {
 
   saveDesign() {
     this.designCanvas.saveDesign();
+    const queryParams = this.route.snapshot.queryParams;
+    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    ).value;
+    if (queryParams.designId !== undefined) {
+      // design exists, save using the designId
+      this.designService
+        .updateDesign({
+          designId: queryParams.designId,
+          designType: DesignTypeEnum.familyTree,
+          designProperties: design,
+        })
+        .subscribe(
+          (result) => {
+            console.log('Design persisted', result);
+            this.toastService.showAlert(
+              'Your design has been saved',
+              'TODO: danish',
+              'success',
+              2500
+            );
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Failed to save design', error);
+            this.toastService.showAlert(
+              'Failed to save your design',
+              'TODO: danish',
+              'danger',
+              10000
+            );
+          }
+        );
+    } else {
+      // design is not persisted yet, create it instead
+      this.designService
+        .createDesign({
+          designType: DesignTypeEnum.familyTree,
+          designProperties: design,
+        })
+        .subscribe(
+          (result) => {
+            console.log('Design created and persisted', result);
+            this.toastService.showAlert(
+              'Your design has been saved',
+              'TODO: danish',
+              'success',
+              2500
+            );
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { designId: result.designId },
+              queryParamsHandling: 'merge', // remove to replace all query params by provided
+            });
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Failed to save design', error);
+            this.toastService.showAlert(
+              'Failed to save your design',
+              'TODO: danish',
+              'danger',
+              10000
+            );
+          }
+        );
+    }
   }
 
   loadDesign() {
