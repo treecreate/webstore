@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
+        //TODO: isVerified is null, the verify service returns null
         this.isVerified = this.verifyService.getIsVerified();
       });
   }
@@ -65,13 +66,24 @@ export class ProfileComponent implements OnInit {
         Validators.pattern("^[a-zA-Z-' ]*$"),
       ]),
       phoneNumber: new FormControl('', [
+        Validators.minLength(8),
         Validators.maxLength(11),
         Validators.pattern('^[0-9+]*$'),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50)]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      city: new FormControl('', [Validators.maxLength(50)]),
+      streetAddress: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(7),
+      ]),
+      streetAddress2: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+      ]),
+      city: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.pattern("^[a-zA-Z-' ]*$"),
+        Validators.minLength(3),
+      ]),
       postcode: new FormControl('', [
         Validators.max(9999),
         Validators.min(555),
@@ -109,33 +121,12 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser() {
-    // Check if the user has changed any form values
-    if (this.hasChangedValues()) {
-      this.toastService.showAlert(
-        "You haven't changed any values in the form",
-        'Du har ikke ændret nogen informationer',
-        'danger',
-        2500
-      );
-      return;
+    // request verification if the user has changed their email
+    if (this.accountInfoForm.get('email').value !== this.oldEmail) {
+      this.resendVerificationEmail();
     }
-    // Failsafe to check that there is a valid email
-    if (this.isDisabled()) {
-      console.warn('You cant update without an email');
-      this.toastService.showAlert(
-        "You can't update your account without a valid e-mail.",
-        'Du kan desværre ikke opdaterer din profil uden en valid e-mail',
-        'danger',
-        2500
-      );
-    } else {
-      // request verification if the user has changed their email
-      if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-        this.resendVerificationEmail();
-      }
-      // update user info
-      this.updateUserQuery();
-    }
+    // update user info
+    this.updateUserQuery();
   }
 
   updateUserQuery(): void {
@@ -214,9 +205,5 @@ export class ProfileComponent implements OnInit {
 
   scrollTop() {
     window.scroll(0, 0);
-  }
-
-  isDisabled(): boolean {
-    return this.accountInfoForm.get('email').invalid;
   }
 }

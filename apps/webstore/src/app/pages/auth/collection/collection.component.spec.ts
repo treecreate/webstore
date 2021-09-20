@@ -9,7 +9,6 @@ describe('CollectionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CollectionComponent, DesignItemComponent],
-      imports: [],
     }).compileComponents();
   });
 
