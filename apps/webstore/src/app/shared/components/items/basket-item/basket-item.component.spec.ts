@@ -36,15 +36,13 @@ describe('BasketItemComponent', () => {
       design: {
         designId: '1',
         designProperties: {
-          properties: {
-            title: 'Mock 1',
-            font: FamilyTreeFontEnum.roboto,
-            design: FamilyTreeDesignEnum.first,
-            boxSize: 10,
-            banner: false,
-            largeFont: true,
-            boxes: [],
-          },
+          title: 'Mock 1',
+          font: FamilyTreeFontEnum.roboto,
+          design: FamilyTreeDesignEnum.first,
+          boxSize: 10,
+          banner: false,
+          largeFont: true,
+          boxes: [],
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,

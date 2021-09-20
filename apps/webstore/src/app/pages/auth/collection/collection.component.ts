@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Design } from '@interfaces';
+import { IDesign } from '@interfaces';
 
 @Component({
   selector: 'webstore-collection',
@@ -9,13 +9,7 @@ import { Design } from '@interfaces';
 export class CollectionComponent implements OnInit {
   pageTitle = 'collection';
   // TODO: get collection of designs from user
-  designCollection = [
-    new Design('1', '1', 'test title'),
-    new Design('2', '2', 'test title'),
-    new Design('3', '3', 'test title'),
-    new Design('4', '2'),
-    new Design('5', '1', 'test title'),
-  ];
+  designCollection = [];
 
   scrollTop() {
     window.scroll(0, 0);
