@@ -1,9 +1,23 @@
-import { Component, ViewChild } from '@angular/core';
-import { FamilyTreeDesignEnum, FamilyTreeFontEnum } from '@interfaces';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {
+  DesignTypeEnum,
+  FamilyTreeDesignEnum,
+  FamilyTreeFontEnum,
+  IFamilyTree,
+} from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EnumType } from 'typescript';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { DesignService } from '../../shared/services/design/design.service';
+import { LocalStorageService } from '../../shared/services/local-storage';
 @Component({
   selector: 'webstore-product',
   templateUrl: './product.component.html',
@@ -13,7 +27,7 @@ import { FamilyTreeDesignComponent } from '../../shared/components/products/fami
     '../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class ProductComponent {
+export class ProductComponent implements AfterViewInit {
   @ViewChild('familyTreeDesignCanvas', { static: true })
   designCanvas: FamilyTreeDesignComponent;
 
@@ -28,10 +42,77 @@ export class ProductComponent {
   showBanner = false;
   isLargeFont = false;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private modalService: NgbModal,
+    private route: ActivatedRoute,
+    private designService: DesignService,
+    private localStorageService: LocalStorageService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  // TODO: properly assign the banner
+  ngAfterViewInit() {
+    let design: IFamilyTree;
+    const queryParams = this.route.snapshot.queryParams;
+    console.log('queryParams', queryParams);
+    if (queryParams.designId !== undefined) {
+      const designId = queryParams.designId;
+      console.log('Fetching design from database', designId);
+      this.designService.getDesign(designId).subscribe(
+        (result) => {
+          console.log('Result: ', result);
+          if (result.designType !== DesignTypeEnum.familyTree) {
+            console.warn('The requested design is not a family tree!');
+            return;
+          }
+          design = result.designProperties;
+          console.log('Fetched design: ', design);
+          if (result.designProperties === undefined) {
+            console.warn('Fetched data was invalid!');
+          } else {
+            this.localStorageService.setItem<IFamilyTree>(
+              LocalStorageVars.designFamilyTree,
+              design
+            );
+            // apply the design
+            this.designTitle = design.title;
+            this.font = design.font;
+            this.showBanner = design.banner === null;
+            this.boxSize = design.boxSize;
+            this.isLargeFont = design.largeFont;
+            this.cdr.detectChanges();
+            this.loadDesign();
+          }
+        },
+        (err: HttpErrorResponse) => {
+          console.error('Failed to fetch the', err);
+          this.loadDesign();
+        }
+      );
+    } else {
+      console.log('Loading design from local storage');
+      design = this.localStorageService.getItem<IFamilyTree>(
+        LocalStorageVars.designFamilyTree
+      ).value;
+      // apply the design
+      if (design !== null) {
+        this.designTitle = design.title;
+        this.font = design.font;
+        this.showBanner = design.banner === null;
+        this.boxSize = design.boxSize;
+        this.isLargeFont = design.largeFont;
+        this.cdr.detectChanges();
+        this.loadDesign();
+      }
+    }
+  }
 
   saveDesign() {
     this.designCanvas.saveDesign();
+  }
+
+  loadDesign() {
+    this.designCanvas.loadDesign();
   }
 
   showOptions() {

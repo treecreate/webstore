@@ -22,6 +22,8 @@
             [boxSize]="boxSize"
             [showBanner]="showBanner"
             [isLargeFont]="isLargeFont"
+            [title]="designTitle"
+            [font]="font"
         ></webstore-family-tree-design>
     </div>
 
@@ -59,7 +61,7 @@
                     <input
                         type="text"
                         class="title-input"
-                        [value]="designTitle ? '' : designTitle"
+                        [value]="designTitle"
                         (keyup)="onKey($event)"
                         placeholder="Untitled-1"
                         data-cy="design-title-input"
@@ -179,6 +181,7 @@
                         Large font
                         <input
                             type="checkbox"
+                            [checked]="this.isLargeFont"
                             (change)="this.isLargeFont = !this.isLargeFont"
                         />
                         <span

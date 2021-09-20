@@ -12,6 +12,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignTypeEnum,
@@ -22,6 +23,7 @@ import {
   IFamilyTree,
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
+import { DesignService } from '../../../../services/design/design.service';
 import { LocalStorageService } from '../../../../services/local-storage';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
@@ -48,6 +50,9 @@ export class FamilyTreeDesignComponent
 
   @Input()
   isLargeFont: boolean;
+
+  @Input()
+  font: FamilyTreeFontEnum;
 
   // Design
 
@@ -166,43 +171,6 @@ export class FamilyTreeDesignComponent
     this.context = this.designCanvas.nativeElement.getContext('2d');
     console.log('Context', this.context);
 
-    // Load the design
-    const loadedBoxes = this.loadDesign();
-    if (loadedBoxes === null) {
-      // Setup default boxes if there is no saved design
-      this.createBox(
-        this.canvasResolution.width / 8,
-        this.canvasResolution.height / 4,
-        Object.values(BoxDesignEnum)[
-          Math.floor(Math.random() * this.boxDesigns.size)
-        ],
-        ''
-      );
-      this.createBox(
-        this.canvasResolution.width / 6,
-        this.canvasResolution.height / 2,
-        Object.values(BoxDesignEnum)[
-          Math.floor(Math.random() * this.boxDesigns.size)
-        ],
-        ''
-      );
-      this.createBox(
-        this.canvasResolution.width / 2,
-        this.canvasResolution.height / 3,
-        Object.values(BoxDesignEnum)[
-          Math.floor(Math.random() * this.boxDesigns.size)
-        ],
-        ''
-      );
-    } else {
-      // Setup boxes based on the loaded design
-      loadedBoxes.forEach((box) => {
-        this.createBox(box.x, box.y, box.boxDesign, box.text);
-      });
-    }
-    console.log('Boxes', this.myBoxes);
-
-    // TODO: Make the boxes get created during init, then populated after the view is loaded, then fill out with data
     for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
     // TODO: Switch to request animation frame
@@ -333,23 +301,50 @@ export class FamilyTreeDesignComponent
     }
   }
 
-  loadDesign(): IDraggableBox[] {
-    console.log('Loading design from local storage');
-    const design = this.localStorageService.getItem<IFamilyTree>(
+  loadDesign() {
+    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
       LocalStorageVars.designFamilyTree
-    );
-    if (design.value === null) {
+    ).value;
+    // Load the design
+    if (design === null) {
+      // Setup default boxes if there is no saved design
       console.log('There was no saved design, generating a clean slate');
-      return null;
+      this.createBox(
+        this.canvasResolution.width / 8,
+        this.canvasResolution.height / 4,
+        Object.values(BoxDesignEnum)[
+          Math.floor(Math.random() * this.boxDesigns.size)
+        ],
+        ''
+      );
+      this.createBox(
+        this.canvasResolution.width / 6,
+        this.canvasResolution.height / 2,
+        Object.values(BoxDesignEnum)[
+          Math.floor(Math.random() * this.boxDesigns.size)
+        ],
+        ''
+      );
+      this.createBox(
+        this.canvasResolution.width / 2,
+        this.canvasResolution.height / 3,
+        Object.values(BoxDesignEnum)[
+          Math.floor(Math.random() * this.boxDesigns.size)
+        ],
+        ''
+      );
+    } else {
+      // Setup boxes based on the loaded design
+      this.showBanner = design.banner === null;
+      this.boxSize = design.boxSize;
+      this.design = DesignTypeEnum[design.design];
+      this.isLargeFont = design.largeFont;
+      design.boxes.forEach((box) => {
+        this.createBox(box.x, box.y, box.boxDesign, box.text);
+      });
     }
-    // TODO: properly assign the banner
-    this.showBanner = design.value.banner === null;
-    this.boxSize = design.value.boxSize;
-    this.design = DesignTypeEnum[design.value.design];
-    this.isLargeFont = design.value.largeFont;
-    // TODO: Get font and title
-    console.log('Design loaded', design.value.boxes);
-    return design.value.boxes;
+    console.log('Boxes', this.myBoxes);
+    console.log('Finished loading design');
   }
 
   saveDesign() {
