@@ -45,25 +45,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    try {
-      this.isLoading = true;
-      this.userService.getUser().subscribe((user: IUser) => {
-        this.currentUser = user;
-        if (this.isVerified !== user.isVerified) {
-          this.verifyService.setIsVerified(user.isVerified);
-        }
-        this.updateFormValues();
-        this.isLoading = false;
-      });
-    } catch (error) {
-      console.error(error);
-      // TODO: handle failed fetching of the data
-    }
-
     this.accountInfoForm = new FormGroup({
       name: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ]*$"),
+        Validators.pattern("^[a-zA-Z-' ÆØÅæøå]*$"),
       ]),
       phoneNumber: new FormControl('', [
         Validators.minLength(8),
@@ -81,7 +66,7 @@ export class ProfileComponent implements OnInit {
       ]),
       city: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ]*$"),
+        Validators.pattern("^[a-zA-Z-' ÆØÅæøå]*$"),
         Validators.minLength(3),
       ]),
       postcode: new FormControl('', [
@@ -90,6 +75,20 @@ export class ProfileComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]),
     });
+    try {
+      this.isLoading = true;
+      this.userService.getUser().subscribe((user: IUser) => {
+        this.currentUser = user;
+        if (this.isVerified !== user.isVerified) {
+          this.verifyService.setIsVerified(user.isVerified);
+        }
+        this.updateFormValues();
+        this.isLoading = false;
+      });
+    } catch (error) {
+      console.error(error);
+      // TODO: handle failed fetching of the data
+    }
   }
 
   updateFormValues() {

@@ -167,8 +167,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-name" datatype="html">
-        <source>Invalid name.</source>
-        <target>Ugyldigt navn.</target> 
+        <source>Invalid name</source>
+        <target>Ugyldigt navn</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">68,69</context>
@@ -199,7 +199,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-phone-number" datatype="html">
-        <source>Invalid phone number.</source>
+        <source>Invalid phone number</source>
         <target>Ugyldigt telefonnummer</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -215,8 +215,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-email" datatype="html">
-        <source>Invalid e-mail.</source>
-        <target>Ugyldig e-mail.</target> 
+        <source>Invalid e-mail</source>
+        <target>Ugyldig e-mail</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">127,128</context>
@@ -267,8 +267,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-street-address" datatype="html">
-        <source>The address is too long.</source>
-        <target>Adressen er for lang.</target> 
+        <source>Invalid address</source>
+        <target>Ugyldig adresse</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">154,155</context>
@@ -311,8 +311,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-city" datatype="html">
-        <source>The city name is too long.</source>
-        <target>Bynavn er for langt.</target> 
+        <source>Invalid city name</source>
+        <target>Ugyldigt bynavn</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">203,204</context>
@@ -343,8 +343,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-postcode" datatype="html">
-        <source>Invalid danish postcode.</source>
-        <target>Ugyldig dansk postnummer.</target> 
+        <source>Invalid danish postcode</source>
+        <target>Ugyldig dansk postnummer</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">227,228</context>
