@@ -1,16 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { CalculatePriceService } from './calculate-price.service';
+import { TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
-  FamilyTreeDesignEnum,
   FamilyTreeFontEnum,
-  IDesign,
   ITransactionItem,
   IUser,
 } from '@interfaces';
 import { UserRoles } from '@models';
+import { CalculatePriceService } from './calculate-price.service';
 
 describe('CalculatePriceService', () => {
   let service: CalculatePriceService;
@@ -33,15 +32,13 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          properties: {
-            title: 'first design',
-            font: FamilyTreeFontEnum.roboto,
-            design: FamilyTreeDesignEnum.first,
-            boxSize: 10,
-            banner: false,
-            largeFont: true,
-            boxes: [],
-          },
+          title: 'first design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: false,
+          largeFont: true,
+          boxes: [],
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,
@@ -55,15 +52,13 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          properties: {
-            title: 'second design',
-            font: FamilyTreeFontEnum.roboto,
-            design: FamilyTreeDesignEnum.first,
-            boxSize: 10,
-            banner: false,
-            largeFont: true,
-            boxes: [],
-          },
+          title: 'second design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree2,
+          boxSize: 10,
+          banner: false,
+          largeFont: true,
+          boxes: [],
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,
@@ -77,15 +72,13 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          properties: {
-            title: 'third design',
-            font: FamilyTreeFontEnum.roboto,
-            design: FamilyTreeDesignEnum.first,
-            boxSize: 10,
-            banner: false,
-            largeFont: true,
-            boxes: [],
-          },
+          title: 'third design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: false,
+          largeFont: true,
+          boxes: [],
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,
@@ -110,15 +103,13 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          properties: {
-            title: 'second design',
-            font: FamilyTreeFontEnum.roboto,
-            design: FamilyTreeDesignEnum.first,
-            boxSize: 10,
-            banner: false,
-            largeFont: true,
-            boxes: [],
-          },
+          title: 'second design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: false,
+          largeFont: true,
+          boxes: [],
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,
@@ -132,15 +123,13 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          properties: {
-            title: 'third design',
-            font: FamilyTreeFontEnum.roboto,
-            design: FamilyTreeDesignEnum.first,
-            boxSize: 10,
-            banner: false,
-            largeFont: true,
-            boxes: [],
-          },
+          title: 'third design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree2,
+          boxSize: 10,
+          banner: false,
+          largeFont: true,
+          boxes: [],
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,

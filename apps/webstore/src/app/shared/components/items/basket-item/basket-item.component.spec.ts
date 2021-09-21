@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
-  FamilyTreeDesignEnum,
   FamilyTreeFontEnum,
   ITransactionItem,
   IUser,
@@ -38,7 +38,7 @@ describe('BasketItemComponent', () => {
         designProperties: {
           title: 'Mock 1',
           font: FamilyTreeFontEnum.roboto,
-          design: FamilyTreeDesignEnum.first,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: false,
           largeFont: true,
