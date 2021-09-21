@@ -204,11 +204,20 @@ export class ProductComponent implements OnInit {
   clearDesignCanvas() {
     console.log('Clearing design canvas');
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { designId: null },
-      queryParamsHandling: 'merge', // remove to replace all query params by provided
-    });
+    if (this.route.snapshot.queryParams.designId === undefined) {
+      // trigger reload of the page by switching to another page and back
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+    } else {
+      // clear the designId param, triggering refetching of data
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { designId: null },
+        queryParamsHandling: 'merge', // remove to replace all query params by provided
+      });
+    }
   }
 
   showOptions() {
