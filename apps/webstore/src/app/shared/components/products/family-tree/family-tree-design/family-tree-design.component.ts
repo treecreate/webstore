@@ -12,7 +12,6 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignTypeEnum,
@@ -23,7 +22,6 @@ import {
   IFamilyTree,
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
-import { DesignService } from '../../../../services/design/design.service';
 import { LocalStorageService } from '../../../../services/local-storage';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
@@ -305,11 +303,17 @@ export class FamilyTreeDesignComponent
   }
 
   loadDesign() {
+    // clear the existing boxes info
+    this.myBoxes.forEach((box) => {
+      box.inputRef.destroy();
+    });
+    this.myBoxes = [];
+    // load the design from loca, storage
     const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
       LocalStorageVars.designFamilyTree
     ).value;
     // Load the design
-    if (design === null) {
+    if (design === null || design === undefined) {
       // Setup default boxes if there is no saved design
       console.log('There was no saved design, generating a clean slate');
       this.createBox(

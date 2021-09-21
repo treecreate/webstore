@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,7 +29,7 @@ import { LocalStorageService } from '../../shared/services/local-storage';
     '../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class ProductComponent implements AfterViewInit {
+export class ProductComponent implements OnInit, AfterViewInit {
   @ViewChild('familyTreeDesignCanvas', { static: true })
   designCanvas: FamilyTreeDesignComponent;
 
@@ -52,6 +53,13 @@ export class ProductComponent implements AfterViewInit {
     private cdr: ChangeDetectorRef,
     private toastService: ToastService
   ) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe((p) => {
+      console.warn('query paramas changed', p);
+      this.ngAfterViewInit();
+    });
+  }
 
   // TODO: properly assign the banner
   ngAfterViewInit() {
@@ -97,16 +105,27 @@ export class ProductComponent implements AfterViewInit {
       design = this.localStorageService.getItem<IFamilyTree>(
         LocalStorageVars.designFamilyTree
       ).value;
+      console.log('loaded design', design);
       // apply the design
-      if (design !== null) {
+      if (design !== null && design !== undefined) {
         this.designTitle = design.title;
         this.font = design.font;
         this.showBanner = design.banner === null;
         this.boxSize = design.boxSize;
         this.isLargeFont = design.largeFont;
-        this.cdr.detectChanges();
-        this.loadDesign();
+      } else {
+        // set the defaults
+        this.designTitle = 'Untitled-1';
+        this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
+        this.design = FamilyTreeDesignEnum.first;
+        this.boxSize = 20;
+        this.maxSize = 40;
+        this.minSize = 10;
+        this.showBanner = false;
+        this.isLargeFont = false;
       }
+      this.cdr.detectChanges();
+      this.loadDesign();
     }
   }
 
@@ -181,6 +200,16 @@ export class ProductComponent implements AfterViewInit {
 
   loadDesign() {
     this.designCanvas.loadDesign();
+  }
+
+  clearDesignCanvas() {
+    console.log('Clearing design canvas');
+    this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { designId: null },
+      queryParamsHandling: 'merge', // remove to replace all query params by provided
+    });
   }
 
   showOptions() {
