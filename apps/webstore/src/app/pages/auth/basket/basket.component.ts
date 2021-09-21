@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
-  FamilyTreeDesignEnum,
   FamilyTreeFontEnum,
   IDiscount,
   IPricing,
@@ -38,7 +38,7 @@ export class BasketComponent implements OnInit {
         designProperties: {
           title: 'Mock 1',
           font: FamilyTreeFontEnum.roboto,
-          design: FamilyTreeDesignEnum.first,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: false,
           largeFont: true,
@@ -58,7 +58,7 @@ export class BasketComponent implements OnInit {
         designProperties: {
           title: 'Mock 2',
           font: FamilyTreeFontEnum.roboto,
-          design: FamilyTreeDesignEnum.second,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 15,
           banner: false,
           largeFont: true,

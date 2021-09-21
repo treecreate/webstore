@@ -1,7 +1,7 @@
 import { IUser } from '../user';
 import { DesignTypeEnum } from './design-type.enum';
 import { ComponentRef } from '@angular/core';
-import { BoxDesignEnum } from '@assets';
+import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 
 export interface IDesign {
   designId: string;
@@ -12,7 +12,7 @@ export interface IDesign {
 export interface IFamilyTree {
   title: string;
   font: FamilyTreeFontEnum;
-  design: FamilyTreeDesignEnum;
+  backgroundTreeDesign: TreeDesignEnum;
   boxSize: number;
   banner: boolean | IFamilyTreeBanner;
   largeFont: boolean;
@@ -39,11 +39,6 @@ export enum FamilyTreeFontEnum {
   shareTech = 'Share Tech',
   spectral = 'Spectral',
   sansita = 'Sansita',
-}
-
-export enum FamilyTreeDesignEnum {
-  first,
-  second,
 }
 
 export interface IFamilyTreeBanner {

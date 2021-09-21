@@ -7,12 +7,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  DesignTypeEnum,
-  FamilyTreeDesignEnum,
-  FamilyTreeFontEnum,
-  IFamilyTree,
-} from '@interfaces';
+import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
+import { DesignTypeEnum, FamilyTreeFontEnum, IFamilyTree } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
@@ -37,7 +33,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   designTitle = 'Untitled-1';
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
-  design = FamilyTreeDesignEnum.first;
+  backgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 20;
   maxSize = 40;
   minSize = 10;
@@ -87,6 +83,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
             );
             // apply the design
             this.designTitle = design.title;
+            this.backgroundTreeDesign = design.backgroundTreeDesign;
             this.font = design.font;
             this.showBanner = design.banner === null;
             this.boxSize = design.boxSize;
@@ -117,7 +114,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
         // set the defaults
         this.designTitle = 'Untitled-1';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
-        this.design = FamilyTreeDesignEnum.first;
+        this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 20;
         this.maxSize = 40;
         this.minSize = 10;
@@ -216,11 +213,42 @@ export class ProductComponent implements OnInit, AfterViewInit {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }
 
+  getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameEnum {
+    switch (treeDesign) {
+      case TreeDesignEnum.tree1:
+        return TreeDesignNameEnum.tree1;
+      case TreeDesignEnum.tree2:
+        return TreeDesignNameEnum.tree2;
+    }
+  }
+
   nextDesign() {
-    if (this.design === FamilyTreeDesignEnum.first) {
-      this.design = FamilyTreeDesignEnum.second;
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(
+      this.backgroundTreeDesign
+    );
+    const nextDesign = Object.keys(TreeDesignEnum)[currentDesignIndex + 1];
+    if (nextDesign === undefined) {
+      // set the first design in the enum
+      this.backgroundTreeDesign =
+        TreeDesignEnum[Object.keys(TreeDesignEnum)[0]];
     } else {
-      this.design = FamilyTreeDesignEnum.first;
+      this.backgroundTreeDesign = TreeDesignEnum[nextDesign];
+    }
+  }
+
+  prevDesign() {
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(
+      this.backgroundTreeDesign
+    );
+    const previousDesign = Object.keys(TreeDesignEnum)[currentDesignIndex - 1];
+    if (previousDesign === undefined) {
+      // set the last design in the enum
+      this.backgroundTreeDesign =
+        TreeDesignEnum[
+          Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]
+        ];
+    } else {
+      this.backgroundTreeDesign = TreeDesignEnum[previousDesign];
     }
   }
 

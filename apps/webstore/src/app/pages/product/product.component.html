@@ -18,11 +18,11 @@
 
         <webstore-family-tree-design
             #familyTreeDesignCanvas
-            [design]="design"
             [boxSize]="boxSize"
             [showBanner]="showBanner"
             [isLargeFont]="isLargeFont"
             [title]="designTitle"
+            [backgroundTreeDesign]="backgroundTreeDesign"
             [font]="font"
         ></webstore-family-tree-design>
     </div>
@@ -30,7 +30,7 @@
     <!-- FOR CY TESTS -->
     <div class="hide" data-cy="design-title">{{ designTitle }}</div>
     <div class="hide" data-cy="font">{{ font }}</div>
-    <div class="hide" data-cy="design">{{ design }}</div>
+    <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
     <div class="hide" data-cy="box-size">{{ boxSize }}</div>
     <div class="hide" data-cy="banner">{{ showBanner }}</div>
     <div class="hide" data-cy="large-font">{{ isLargeFont }}</div>
@@ -117,11 +117,13 @@
                     >
                         <span class="arrow-left"></span>
                     </button>
-                    <div class="display display-design">{{ design }}</div>
+                    <div class="display display-design">
+                        {{ getDesignName(backgroundTreeDesign) }}
+                    </div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="design-arrow-right"
-                        (click)="nextDesign()"
+                        (click)="prevDesign()"
                     >
                         <span class="arrow-right"></span>
                     </button>

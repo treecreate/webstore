@@ -14,8 +14,6 @@ import {
 } from '@angular/core';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
-  DesignTypeEnum,
-  FamilyTreeDesignEnum,
   FamilyTreeFontEnum,
   IDesign,
   IDraggableBox,
@@ -37,8 +35,6 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
 export class FamilyTreeDesignComponent
   implements AfterViewInit, OnInit, OnChanges {
   // Inputs for design settings
-  @Input()
-  design: FamilyTreeDesignEnum;
 
   @Input()
   boxSize = 10;
@@ -54,6 +50,9 @@ export class FamilyTreeDesignComponent
 
   @Input()
   font: FamilyTreeFontEnum;
+
+  @Input()
+  backgroundTreeDesign: TreeDesignEnum;
 
   // Design
 
@@ -94,7 +93,7 @@ export class FamilyTreeDesignComponent
 
   // SVGs
 
-  treeImage = new Image();
+  treeDesigns: Map<TreeDesignEnum, HTMLImageElement> = new Map();
   boxDesigns: Map<BoxDesignEnum, HTMLImageElement> = new Map();
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
@@ -128,6 +127,16 @@ export class FamilyTreeDesignComponent
   ) {}
 
   ngOnInit(): void {
+    // Load and validate tree design SVGs
+    for (let i = 0; i < Object.values(TreeDesignEnum).length; i++) {
+      let image = new Image();
+      image.src = Object.values(TreeDesignEnum)[i];
+      image.onerror = () => {
+        image = null;
+        this.handleFailedResourceLoading('Failed to load a tree design');
+      };
+      this.treeDesigns.set(Object.values(TreeDesignEnum)[i], image);
+    }
     // Load and validate box design SVGs
     for (let i = 0; i < Object.values(BoxDesignEnum).length; i++) {
       let image = new Image();
@@ -143,16 +152,10 @@ export class FamilyTreeDesignComponent
     this.closeButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the tree design SVG');
     };
-    // load and validate tree image SVG
-    this.treeImage.src = TreeDesignEnum.basicTree;
-    this.treeImage.onerror = () => {
-      this.handleFailedResourceLoading('Failed to load the close button SVG');
-    };
   }
 
   handleFailedResourceLoading(message: string) {
     console.error(message);
-    this.treeImage = null;
     this.alert = {
       type: 'danger',
       message: 'Design information has failed to load',
@@ -257,8 +260,15 @@ export class FamilyTreeDesignComponent
     );
 
     // draw the background image
-    if (this.treeImage !== null && this.treeImage.complete) {
-      this.context.drawImage(this.treeImage, 0, 0);
+    if (
+      this.treeDesigns.get(this.backgroundTreeDesign) !== null &&
+      this.treeDesigns.get(this.backgroundTreeDesign).complete
+    ) {
+      this.context.drawImage(
+        this.treeDesigns.get(this.backgroundTreeDesign),
+        0,
+        0
+      );
     }
 
     // render the boxes
@@ -344,7 +354,7 @@ export class FamilyTreeDesignComponent
       // Setup boxes based on the loaded design
       this.showBanner = design.banner === null;
       this.boxSize = design.boxSize;
-      this.design = DesignTypeEnum[design.design];
+      this.backgroundTreeDesign = design.backgroundTreeDesign;
       this.isLargeFont = design.largeFont;
       design.boxes.forEach((box) => {
         this.createBox(box.x, box.y, box.boxDesign, box.text);
@@ -377,7 +387,7 @@ export class FamilyTreeDesignComponent
       {
         title: this.title,
         font: FamilyTreeFontEnum.georgia,
-        design: FamilyTreeDesignEnum.first,
+        backgroundTreeDesign: this.backgroundTreeDesign,
         boxSize: this.boxSize,
         banner: null,
         largeFont: this.isLargeFont,
@@ -429,14 +439,14 @@ export class FamilyTreeDesignComponent
 
     // get coordinates based on whether it is a touch or mouse event
     const clientX =
-      event instanceof TouchEvent
+      window.TouchEvent && event instanceof TouchEvent
         ? Math.ceil(
             event.changedTouches[event.changedTouches.length - 1].clientX
           )
         : event.clientX;
 
     const clientY =
-      event instanceof TouchEvent
+      window.TouchEvent && event instanceof TouchEvent
         ? Math.ceil(
             event.changedTouches[event.changedTouches.length - 1].clientY
           )
