@@ -14,10 +14,11 @@
   background-image: url('apps/webstore/src/assets/img/main-img-02.jpg');
   background-size: cover;
   background-position: bottom center;
+  background-position-y: 25px;
 }
 .main-text-container {
   width: 45vw;
-  margin: 8vw 0 0 8vh;
+  margin: 100px 0 0 50px;
   letter-spacing: 2px;
 }
 .review-section {
@@ -360,7 +361,7 @@
 
 @media screen and (max-width: 540px) {
   .main-text-container {
-    height: 40vh;
+    height: 35vh;
     margin-top: 50px;
   }
   .start-creating-button {
@@ -370,17 +371,25 @@
 
 @media screen and (max-width: 450px) {
   .main-text-container {
-    height: 50vh;
+    margin-top: 80px;
   }
   .title {
-    font-size: 24px !important;
+    font-size: 20px !important;
+    margin-bottom: 4px;
   }
   .main-subtext,
   .subscribe-subtitle {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 12px;
+    line-height: 20px;
   }
   .bottom-fade {
     bottom: 0px;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
+  .main-text-container {
+    margin-top: 90px;
+    letter-spacing: 2px;
   }
 }
