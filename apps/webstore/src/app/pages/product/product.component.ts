@@ -1,11 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import { DesignTypeEnum, FamilyTreeFontEnum, IFamilyTree } from '@interfaces';
@@ -25,7 +19,7 @@ import { LocalStorageService } from '../../shared/services/local-storage';
     '../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class ProductComponent implements OnInit, AfterViewInit {
+export class ProductComponent implements OnInit {
   @ViewChild('familyTreeDesignCanvas', { static: true })
   designCanvas: FamilyTreeDesignComponent;
 
@@ -51,20 +45,21 @@ export class ProductComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    // The subscription will get triggered right away, loading the design
     this.route.queryParams.subscribe((p) => {
       console.warn('query paramas changed', p);
-      this.ngAfterViewInit();
+      this.loadDesign();
     });
   }
 
   // TODO: properly assign the banner
-  ngAfterViewInit() {
+  loadDesign() {
     let design: IFamilyTree;
     const queryParams = this.route.snapshot.queryParams;
     console.log('queryParams', queryParams);
     if (queryParams.designId !== undefined) {
       const designId = queryParams.designId;
-      console.log('Fetching design from database', designId);
+      console.warn('Fetching design from database', designId);
       this.designService.getDesign(designId).subscribe(
         (result) => {
           console.log('Result: ', result);
@@ -89,12 +84,23 @@ export class ProductComponent implements OnInit, AfterViewInit {
             this.boxSize = design.boxSize;
             this.isLargeFont = design.largeFont;
             this.cdr.detectChanges();
-            this.loadDesign();
+            this.designCanvas.loadDesign();
           }
         },
         (err: HttpErrorResponse) => {
           console.error('Failed to fetch the', err);
-          this.loadDesign();
+          this.toastService.showAlert(
+            'Failed to load your design',
+            'TODO: danish',
+            'danger',
+            10000
+          );
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { designId: null },
+            queryParamsHandling: 'merge', // remove to replace all query params by provided
+          });
+          return;
         }
       );
     } else {
@@ -122,7 +128,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
         this.isLargeFont = false;
       }
       this.cdr.detectChanges();
-      this.loadDesign();
+      this.designCanvas.loadDesign();
     }
   }
 
@@ -193,10 +199,6 @@ export class ProductComponent implements OnInit, AfterViewInit {
           }
         );
     }
-  }
-
-  loadDesign() {
-    this.designCanvas.loadDesign();
   }
 
   clearDesignCanvas() {
