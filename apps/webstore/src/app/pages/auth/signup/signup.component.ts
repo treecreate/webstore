@@ -53,7 +53,6 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  // TODO: add user to newsletter when signupForNewsletter is checked
   onSubmit(): void {
     this.isLoading = true;
     this.authService
@@ -77,7 +76,6 @@ export class SignupComponent implements OnInit {
                   );
                 },
                 (error) => {
-                  // TODO: translate API errors to danish
                   this.toastService.showAlert(
                     error.error.message,
                     error.error.message,

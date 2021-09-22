@@ -5,6 +5,7 @@ import {
   IAuthUser,
   IDesign,
   IDiscount,
+  INewsletter,
   IPricing,
   IUser,
 } from '@interfaces';
@@ -174,6 +175,32 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+  subscribeUserToNewsletter() {
+    //TODO: add a fucntion that automatically sends an email to the user 3 weekes
+    //after the purchase is completed with a discount code that works once for 25% off
+    this.newsletterService
+      .registerNewsletterEmail(this.billingAddressForm.get('email').value)
+      .subscribe(
+        (data: INewsletter) => {
+          this.toastService.showAlert(
+            `Thank you for subscribing: ${data.email}`,
+            `Tak for din tilmelding: ${data.email}`,
+            'success',
+            3000
+          );
+        },
+        (error) => {
+          this.toastService.showAlert(
+            error.error.message,
+            error.error.message,
+            'danger',
+            100000
+          );
+          console.error(error);
+        }
+      );
+  }
+
   updateFormValues() {
     this.checkoutForm.setValue({
       name: this.currentUser.name,
@@ -188,9 +215,10 @@ export class CheckoutComponent implements OnInit {
 
   submitCheckout() {
     if (this.subscribeToNewsletter) {
-      // TODO: subscribe the user to the newsletter
+      this.subscribeUserToNewsletter();
     }
 
+    //TODO: create a Quickpay call and redirect to a payment link
     console.log(
       this.checkoutForm.get('name').value,
       this.checkoutForm.get('phoneNumber').value,
