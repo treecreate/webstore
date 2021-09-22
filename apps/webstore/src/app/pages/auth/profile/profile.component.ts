@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
@@ -33,7 +35,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private verifyService: VerifyService,
     private toastService: ToastService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private modalService: NgbModal
   ) {
     // Listen to changes to verification status
     this.localStorageService
@@ -204,5 +207,9 @@ export class ProfileComponent implements OnInit {
 
   scrollTop() {
     window.scroll(0, 0);
+  }
+
+  openChangePasswordModal() {
+    this.modalService.open(ChangePasswordModalComponent);
   }
 }

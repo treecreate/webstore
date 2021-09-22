@@ -16,7 +16,7 @@
   box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 15%);
   background-color: white;
   max-width: 90vw;
-  min-width: 60vw;
+  min-width: 600px;
   margin-top: 100px;
   margin-bottom: 50px;
   display: flex;
@@ -74,6 +74,7 @@ button[type='button'] {
 .button-section {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .offset {
@@ -81,12 +82,17 @@ button[type='button'] {
   top: 9px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 650px) {
   .account-info-form {
     padding: 0;
     margin-bottom: 10px;
+    min-width: 80vw;
+    transition: 0.5s;
   }
   .title {
     margin-top: 25px;
+  }
+  .tc-button-50 {
+    width: 100%;
   }
 }
