@@ -17,6 +17,7 @@ import { BasketComponent } from './pages/auth/basket/basket.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
+import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'verification/:token',
     component: VerificationComponent,
+    canActivate: [CookieGuard],
+  },
+  {
+    path: 'unsubscribe/:token',
+    component: UnsubscribeComponent,
     canActivate: [CookieGuard],
   },
   { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },

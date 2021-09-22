@@ -36,6 +36,7 @@ import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-i
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
+import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ChangePasswordModalComponent } from './shared/components/modals/change-
     CheckoutItemComponent,
     ReviewCarouselComponent,
     ChangePasswordModalComponent,
+    UnsubscribeComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,5 @@ import { ChangePasswordModalComponent } from './shared/components/modals/change-
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [ChangePasswordModalComponent],
 })
 export class AppModule {}

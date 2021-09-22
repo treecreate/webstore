@@ -1,0 +1,24 @@
+<div class="full-page">
+    <span
+        *ngIf="isLoading"
+        class="spinner-border spinner-border-sm"
+        style="margin: 5px"
+        role="status"
+        aria-hidden="true"
+    ></span>
+    <div *ngIf="!isLoading && unsubscribeSuccessful">
+        <h3 i18n="@@unsubscribe-success">Unsubscribe success</h3>
+        <p i18n="@@have-a-good-day">
+            Thank you for your time. Have a good day.
+        </p>
+    </div>
+    <div *ngIf="!isLoading && !unsubscribeSuccessful" class="failed">
+        <h3 i18n="@@unsubscribe-failed">Unsubscribe failed</h3>
+        <p i18n="@@if-you-have-questions">
+            If you are having issues, feel welcome to contact us at:
+        </p>
+        <a href="mailto:info@treecreate.dk">
+            <strong>Info@treecreate.dk</strong></a
+        >
+    </div>
+</div>

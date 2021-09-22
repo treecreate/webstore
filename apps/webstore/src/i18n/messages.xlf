@@ -490,7 +490,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
@@ -527,7 +527,7 @@
         <source> Sign up </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
-          <context context-type="linenumber">77,78</context>
+          <context context-type="linenumber">76,77</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
@@ -618,11 +618,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">82,83</context>
+          <context context-type="linenumber">81,82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
-          <context context-type="linenumber">59,60</context>
+          <context context-type="linenumber">55,56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reset-password-subtitle" datatype="html">
@@ -644,10 +644,10 @@
         </context-group>
       </trans-unit>
       <trans-unit id="info-password" datatype="html">
-        <source> Password must contain: min 9 characters, at least one upper case letter, at least one lower case letter and at least one number. </source>
+        <source> Password must contain: min 6 characters, at least one upper case letter, at least one lower case letter and at least one number. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">31,34</context>
+          <context context-type="linenumber">31,33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
@@ -662,7 +662,7 @@
         <source> Invalid password </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">43,44</context>
+          <context context-type="linenumber">42,43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
@@ -677,7 +677,7 @@
         <source>Confirm password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
@@ -692,7 +692,7 @@
         <source> The passwords must match each other </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">71,72</context>
+          <context context-type="linenumber">70,71</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
@@ -718,23 +718,49 @@
         </context-group>
       </trans-unit>
       <trans-unit id="create-account" datatype="html">
-        <source> <x id="INTERPOLATION" equiv-text="{{ isLoading ? &apos;&apos; : &apos;Create account&apos; }}"/> <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span
-                *ngIf=&quot;isLoading&quot;
-                class=&quot;spinner-border spinner-border-sm text-light&quot;
-                style=&quot;margin: 5px&quot;
-                role=&quot;status&quot;
-                aria-hidden=&quot;true&quot;
-            &gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <source>Create account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">141,149</context>
+          <context context-type="linenumber">142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-login" datatype="html">
         <source> Back to login </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">159,160</context>
+          <context context-type="linenumber">160,161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unsubscribe-success" datatype="html">
+        <source>Unsubscribe success</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="have-a-good-day" datatype="html">
+        <source>Thank you for your time. Have a good day.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unsubscribe-failed" datatype="html">
+        <source>Unsubscribe failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="if-you-have-questions" datatype="html">
+        <source>If you are having issues, feel welcome to contact us at:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="email-verification" datatype="html">
@@ -914,13 +940,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
           <context context-type="linenumber">29,30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="if-you-have-questions" datatype="html">
-        <source> If you have any questions, feel free to send us an e-mail at: </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
-          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-home" datatype="html">
@@ -1167,21 +1186,21 @@
         </context-group>
       </trans-unit>
       <trans-unit id="update-password" datatype="html">
-        <source> Update Password </source>
+        <source>Update Password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
-          <context context-type="linenumber">90,91</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="close" datatype="html">
         <source> Close </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">108,109</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
-          <context context-type="linenumber">68,69</context>
+          <context context-type="linenumber">64,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accept-cookies" datatype="html">
@@ -1234,14 +1253,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="engelsk" datatype="html">
-        <source>English</source>
+        <source>Engelsk</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dansk" datatype="html">
-        <source>Danish</source>
+        <source>Dansk</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">58</context>
@@ -1493,14 +1512,18 @@
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.AM" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="Step: number;"/></source>
+        <source><x id="INTERPOLATION" equiv-text="Step: number;
+
+"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">116,123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.PM" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="sible.*/"/></source>
+        <source><x id="INTERPOLATION" equiv-text="sible.
+   */
+  "/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">125,130</context>
