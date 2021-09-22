@@ -49,7 +49,10 @@
                 >Password</label
             >
         </div>
-
+        <div class="info-message" i18n="@@info-password">
+            Password must contain: min 6 characters, at least one upper case
+            letter, at least one lower case letter and at least one number.
+        </div>
         <div
             class="error-message"
             *ngIf="
@@ -57,9 +60,9 @@
                 this.signupForm.get('password').invalid
             "
             data-cy="signup-password-error"
-            i18n="@@password-error-message"
+            i18n="@@invalid-password"
         >
-            Must contain at least one upper- and lowecase letter and a number.
+            Invalid password
         </div>
 
         <div class="tc-input-group field">
@@ -77,7 +80,7 @@
             <label
                 for="confirmPassword"
                 class="tc-input-label"
-                i18n="@@confirma-password"
+                i18n="@@confirm-password"
                 >Confirm password</label
             >
         </div>
@@ -89,7 +92,7 @@
                 !this.matchingPasswords()
             "
             data-cy="signup-confirm-password-error"
-            i18n="@@confirm-password-error-message"
+            i18n="@@invalid-confirm-password"
         >
             The passwords must match each other
         </div>

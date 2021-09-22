@@ -119,6 +119,7 @@ hr {
 .info-message {
   font-size: var(--extra-small-font);
   opacity: 0.5;
+  text-align: left;
 }
 
 .disabled {

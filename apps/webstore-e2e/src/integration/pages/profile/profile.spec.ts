@@ -84,22 +84,6 @@ describe('accountPage', () => {
     cy.get('[data-cy=account-update-button]').should('be.disabled');
   });
 
-  it('should redirect to collection page', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
-    //Mock return user request
-    cy.intercept('GET', '/users/me', {
-      body: mockUser,
-      statusCode: 200,
-    }).as('getUserRequest');
-
-    cy.visit('/profile');
-    cy.get('[data-cy=account-collection-button]').click();
-    cy.url().should('contain', '/collection');
-  });
-
   it('should see if inputs fields are disabled when wrong', () => {
     localStorage.setItem(
       LocalStorageVars.authUser,

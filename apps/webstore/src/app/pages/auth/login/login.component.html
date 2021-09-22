@@ -56,9 +56,8 @@
             type="submit"
             [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
-            i18n="@@login"
         >
-            {{ isLoading ? '' : 'Login' }}
+            <span i18n="@@login" *ngIf="!isLoading">Login</span>
             <span
                 *ngIf="isLoading"
                 class="spinner-border spinner-border-sm text-light"

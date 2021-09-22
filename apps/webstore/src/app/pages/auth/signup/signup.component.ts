@@ -27,7 +27,6 @@ export class SignupComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private authService: AuthService,
-    private userService: UserService,
     private router: Router,
     private toastService: ToastService
   ) {}

@@ -122,16 +122,7 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  updateUser() {
-    // request verification if the user has changed their email
-    if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-      this.resendVerificationEmail();
-    }
-    // update user info
-    this.updateUserQuery();
-  }
-
-  updateUserQuery(): void {
+  updateUser(): void {
     this.isUpdatingUserInfo = true;
     this.userService
       .updateUser({
@@ -156,6 +147,7 @@ export class ProfileComponent implements OnInit {
           console.log(data);
           this.currentUser = data;
           if (this.accountInfoForm.get('email').value !== this.oldEmail) {
+            this.resendVerificationEmail();
             this.authService.logout();
             this.toastService.showAlert(
               `You have been logged out because you've updated your email`,

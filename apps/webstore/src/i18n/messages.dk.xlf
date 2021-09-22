@@ -535,7 +535,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
-          <context context-type="linenumber">61,62</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
+          <context context-type="linenumber">30,31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
@@ -543,7 +547,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="password" datatype="html">
@@ -630,6 +634,18 @@
           <context context-type="linenumber">233,234</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="change-password" datatype="html">
+        <source> Change password </source>
+        <target>Skift kodeord</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">268,269</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="collection" datatype="html">
         <source>Collection</source>
         <target>Samling</target> 
@@ -701,41 +717,41 @@
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="password-error-message" datatype="html">
-        <source>Must contain at least one upper- and lowecase letter and a number.</source>
-        <target>Skal indeholde følgende: et stort og et lille bokstav samt at tal. Det skal også være mindst 8 cifre</target> 
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">38,39</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">58,59</context>
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="confirma-password" datatype="html">
-        <source>Confirm password</source>
-        <target>Bekræft kodeord</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">54</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">76</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="confirm-password-error-message" datatype="html">
-        <source>The passwords must match each other</source>
-        <target>Kodeordet skal matche</target> 
+      <trans-unit id="invalid-confirm-password" datatype="html">
+        <source> The passwords must match each other </source>
+        <target>Kodeorne skal være ens</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">66,67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">88,89</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="info-password" datatype="html">
+        <source> Password must contain: min 6 characters, at least one upper case letter, at least one lower case letter and at least one number. </source>
+        <target>Kodeordet skal indeholde: min 6 tegn, mindst et stort bokstav, mindst et lille bokstav og mindst et nummer.</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">31,34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">53,55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
+          <context context-type="linenumber">36,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="i-accept-terms" datatype="html">
@@ -1198,6 +1214,14 @@
           <context context-type="linenumber">128,129</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="note" datatype="html">
+        <source>Note:</source>
+        <target>Bemærk:</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="add-to-basket-extra-info" datatype="html">
         <source>For every design you purchase, you are automatically planting a tree. Thereby you support re-floreshing the forrests, which has never been a more vital task.</source>
         <target>For hvert produkt du køber, planter du automatisk et træ igennem Treecreate. Dermed støtter du naturen, hvilket aldrig har været vigtigere end det er nu.</target> 
@@ -1212,6 +1236,42 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirm-password" datatype="html">
+        <source>Confirm password</source>
+        <target>Bekræft kode</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="update-password" datatype="html">
+        <source> Update Password </source>
+        <target>Opdater kodeord</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
+          <context context-type="linenumber">90,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="close" datatype="html">
+        <source> Close </source>
+        <target>Luk</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
+          <context context-type="linenumber">99,100</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">63,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accept-cookies" datatype="html">
@@ -1260,6 +1320,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="info-forgot-password" datatype="html">
+        <source> If your e-mail is in our system, you will recieve and e-mail from us shortly with a link to changing your password.</source>
+        <target>Hvis din e-mail er i vores system, vil du modtage en e-mail fra os inden for et par minutter med et link til at skifte din kode.</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
+          <context context-type="linenumber">31,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="forgot-password-if-message" datatype="html">
