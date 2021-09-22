@@ -644,7 +644,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="info-password" datatype="html">
-        <source> Password must contain: min 6 characters, at least one upper case letter, at least one lower case letter and at least one number. </source>
+        <source> Password must contain: min 9 characters, at least one upper case letter, at least one lower case letter and at least one number. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">31,34</context>
@@ -1233,22 +1233,15 @@
           <context context-type="linenumber">31,34</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="forgot-password-if-message" datatype="html">
-        <source> If your e-mail is in our system, you will recieve a link shortly to reset your password. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
-          <context context-type="linenumber">46,48</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="engelsk" datatype="html">
-        <source>Engelsk</source>
+        <source>English</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dansk" datatype="html">
-        <source>Dansk</source>
+        <source>Danish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">58</context>
@@ -1500,18 +1493,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.AM" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="Step: number;
-
-"/></source>
+        <source><x id="INTERPOLATION" equiv-text="Step: number;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">116,123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.PM" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="sible.
-   */
-  "/></source>
+        <source><x id="INTERPOLATION" equiv-text="sible.*/"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/@ng-bootstrap/src/timepicker/timepicker.ts</context>
           <context context-type="linenumber">125,130</context>

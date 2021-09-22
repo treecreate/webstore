@@ -143,8 +143,6 @@ export class ProfileComponent implements OnInit {
             'success',
             2500
           );
-          console.log('data logged: ');
-          console.log(data);
           this.currentUser = data;
           if (this.accountInfoForm.get('email').value !== this.oldEmail) {
             this.resendVerificationEmail();

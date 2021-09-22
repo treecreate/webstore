@@ -50,7 +50,7 @@
             >
         </div>
         <div class="info-message" i18n="@@info-password">
-            Password must contain: min 6 characters, at least one upper case
+            Password must contain: min 9 characters, at least one upper case
             letter, at least one lower case letter and at least one number.
         </div>
         <div
@@ -137,9 +137,10 @@
             [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
             data-cy="signup-btn"
-            i18n="@@create-account"
         >
-            {{ isLoading ? '' : 'Create account' }}
+            <span i18n="@@create-account" *ngIf="!isLoading"
+                >Create account</span
+            >
             <span
                 *ngIf="isLoading"
                 class="spinner-border spinner-border-sm text-light"

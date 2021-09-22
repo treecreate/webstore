@@ -1,12 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IRegisterResponse } from '@interfaces';
+import { INewsletter, IRegisterResponse } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { UserService } from '../../../shared/services/user/user.service';
+import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 @Component({
   selector: 'webstore-signup',
   templateUrl: './signup.component.html',
@@ -28,7 +28,8 @@ export class SignupComponent implements OnInit {
     private modalService: NgbModal,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private newsletterService: NewsletterService
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +63,31 @@ export class SignupComponent implements OnInit {
       })
       .subscribe(
         (data: IRegisterResponse) => {
+          // Subscribe to newsletter
+          if (this.signUpForNewletter) {
+            this.newsletterService
+              .registerNewsletterEmail(this.signupForm.get('email').value)
+              .subscribe(
+                (newsletterData: INewsletter) => {
+                  this.toastService.showAlert(
+                    `Thank you for subscribing: ${newsletterData.email}`,
+                    `Tak for din tilmelding: ${newsletterData.email}`,
+                    'success',
+                    3000
+                  );
+                },
+                (error) => {
+                  // TODO: translate API errors to danish
+                  this.toastService.showAlert(
+                    error.error.message,
+                    error.error.message,
+                    'danger',
+                    100000
+                  );
+                  console.error(error);
+                }
+              );
+          }
           this.toastService.showAlert(
             'Welcome to Treecreate, you have successfully been registered!',
             'Velkommen til Treecreate, du er nu bleven registreret!',
