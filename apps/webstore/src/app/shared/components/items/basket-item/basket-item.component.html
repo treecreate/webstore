@@ -19,6 +19,7 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
+                    [disabled]="item.quantity === 1"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -45,6 +46,7 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
+                    [disabled]="item.dimension === 'small'"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -56,6 +58,7 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseSize()"
+                    [disabled]="item.dimension === 'large'"
                 >
                     <div class="button-plus"></div>
                 </button>
