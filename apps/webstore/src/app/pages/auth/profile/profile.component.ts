@@ -51,7 +51,6 @@ export class ProfileComponent implements OnInit {
     this.accountInfoForm = new FormGroup({
       name: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ÆØÅæøå]*$"),
       ]),
       phoneNumber: new FormControl('', [
         Validators.minLength(8),
