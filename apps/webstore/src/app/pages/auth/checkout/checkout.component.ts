@@ -218,7 +218,6 @@ export class CheckoutComponent implements OnInit {
       this.subscribeUserToNewsletter();
     }
 
-    //TODO: create a Quickpay call and redirect to a payment link
     console.log(
       this.checkoutForm.get('name').value,
       this.checkoutForm.get('phoneNumber').value,
