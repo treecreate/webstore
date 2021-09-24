@@ -33,9 +33,14 @@ const routes: Routes = [
     canActivate: [CookieGuard],
   },
   {
-    path: 'unsubscribe/:token',
-    component: UnsubscribeComponent,
-    canActivate: [CookieGuard],
+    path: 'newsletter',
+    children: [
+      {
+        path: 'unsubscribe/:newsletterId',
+        component: UnsubscribeComponent,
+        canActivate: [CookieGuard],
+      },
+    ],
   },
   { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
   {
