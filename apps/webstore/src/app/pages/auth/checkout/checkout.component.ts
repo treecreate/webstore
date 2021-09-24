@@ -176,8 +176,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   subscribeUserToNewsletter() {
-    //TODO: add a fucntion that automatically sends an email to the user 3 weekes
-    //after the purchase is completed with a discount code that works once for 25% off
     this.newsletterService
       .registerNewsletterEmail(this.billingAddressForm.get('email').value)
       .subscribe(
