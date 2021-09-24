@@ -12,7 +12,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { BoxDesignEnum, TreeDesignEnum } from '@assets';
+import { BoxDesignEnum, CloseBoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   FamilyTreeFontEnum,
   IDesign,
@@ -148,7 +148,7 @@ export class FamilyTreeDesignComponent
       this.boxDesigns.set(Object.values(BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
-    this.closeButton.src = BoxDesignEnum.closeButton;
+    this.closeButton.src = CloseBoxDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the tree design SVG');
     };

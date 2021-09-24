@@ -1,5 +1,4 @@
 export enum BoxDesignEnum {
-  closeButton = 'assets/family-tree/box-design/close-button.svg',
   box1 = 'assets/family-tree/box-design/box1.svg',
   box2 = 'assets/family-tree/box-design/box2.svg',
   box3 = 'assets/family-tree/box-design/box3.svg',
