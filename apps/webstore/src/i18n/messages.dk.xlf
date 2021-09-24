@@ -486,6 +486,10 @@
           <context context-type="linenumber">31,32</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
           <context context-type="linenumber">60,61</context>
         </context-group>
@@ -495,11 +499,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">136</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
       <trans-unit id="no-designs" datatype="html">
@@ -802,12 +806,12 @@
           <context context-type="linenumber">141,142</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="unsubscribe-success" datatype="html">
-        <source>Unsubscribe success</source>
-        <target>Afmelding var en succes</target> 
+      <trans-unit id="unsubscribing" datatype="html">
+        <source>Unsubscribing</source>
+        <target>Afmelding</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="have-a-good-day" datatype="html">
@@ -816,14 +820,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
           <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="unsubscribe-failed" datatype="html">
-        <source>Unsubscribe failed</source>
-        <target>Afmeldingen fejlede</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
-          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="email-verification" datatype="html">

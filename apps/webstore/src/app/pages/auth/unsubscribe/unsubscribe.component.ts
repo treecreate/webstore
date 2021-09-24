@@ -10,6 +10,7 @@ import { NewsletterService } from '../../../shared/services/newsletter/newslette
 export class UnsubscribeComponent implements OnInit {
   isLoading = false;
   unsubscribeSuccessful = false;
+  errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,11 @@ export class UnsubscribeComponent implements OnInit {
       (err) => {
         console.log(err);
         this.isLoading = false;
+        if (err.status === 400) {
+          this.errorMessage = 'The verification token is invalid';
+        } else {
+          this.errorMessage = err.error.message;
+        }
       }
     );
   }

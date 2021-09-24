@@ -49,9 +49,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountInfoForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.maxLength(50),
-      ]),
+      name: new FormControl('', [Validators.maxLength(50)]),
       phoneNumber: new FormControl('', [
         Validators.minLength(8),
         Validators.maxLength(11),
@@ -89,7 +87,7 @@ export class ProfileComponent implements OnInit {
       });
     } catch (error) {
       console.error(error);
-      // TODO: handle failed fetching of the data
+      // TODO: add an alert on the page, not just a toast message
     }
   }
 

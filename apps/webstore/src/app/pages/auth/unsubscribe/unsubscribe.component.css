@@ -3,8 +3,44 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column;
+  margin: 20px;
 }
 
 .failed {
   text-align: center;
+}
+
+.actions {
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  margin: 0 10px;
+}
+
+.unsubscribing-failed-message {
+  color: darkred;
+  background-color: lightpink;
+  border-radius: 3px;
+  border: 2px solid lightcoral;
+  padding: 10px;
+}
+
+.unsubscribing-success-message {
+  color: white;
+  background-color: var(--green-color);
+  border-radius: 3px;
+  border: 2px solid rgb(169, 202, 169);
+  padding: 10px;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .actions {
+    width: 80vh;
+  }
 }
