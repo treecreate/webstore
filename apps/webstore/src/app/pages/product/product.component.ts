@@ -23,6 +23,8 @@ export class ProductComponent implements OnInit {
   @ViewChild('familyTreeDesignCanvas', { static: true })
   designCanvas: FamilyTreeDesignComponent;
 
+  isDesignValid = false;
+
   isMobileOptionOpen = false;
   designTitle = 'Untitled-1';
   // set the default font
@@ -300,5 +302,10 @@ export class ProductComponent implements OnInit {
 
   openAddToBasketModal() {
     this.modalService.open(AddToBasketModalComponent);
+  }
+
+  onIsDesignValidEvent($event) {
+    console.warn('Design state has changed. Valid:', $event);
+    this.isDesignValid = $event;
   }
 }

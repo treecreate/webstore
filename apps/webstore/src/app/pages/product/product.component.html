@@ -24,6 +24,7 @@
             [title]="designTitle"
             [backgroundTreeDesign]="backgroundTreeDesign"
             [font]="font"
+            (isDesignValidEvent)="onIsDesignValidEvent($event)"
         ></webstore-family-tree-design>
     </div>
 
@@ -202,6 +203,7 @@
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign()"
+                    [disabled]="!isDesignValid"
                 >
                     Save
                     <img

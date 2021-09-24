@@ -4,10 +4,12 @@ import {
   Component,
   ComponentFactoryResolver,
   ElementRef,
+  EventEmitter,
   HostListener,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
@@ -53,6 +55,11 @@ export class FamilyTreeDesignComponent
 
   @Input()
   backgroundTreeDesign: TreeDesignEnum;
+
+  @Output()
+  isDesignValidEvent = new EventEmitter<boolean>();
+
+  isDesignValid = false;
 
   // Design
 
@@ -163,7 +170,11 @@ export class FamilyTreeDesignComponent
     };
     // stop the canvas rendering process
     clearInterval(this.timeInterval);
+    this.timeInterval = null;
     clearInterval(this.autosaveInterval);
+    this.autosaveInterval = null;
+    this.isDesignValid = false;
+    this.isDesignValidEvent.emit(this.isDesignValid);
   }
 
   ngAfterViewInit(): void {
@@ -180,7 +191,24 @@ export class FamilyTreeDesignComponent
     // TODO: Switch to request animation frame
     clearInterval(this.timeInterval);
     this.timeInterval = setInterval(() => {
-      this.draw();
+      try {
+        this.draw();
+      } catch (error) {
+        console.error('failed to draw the design', error);
+        // disable autosave and the drawing loop
+        clearInterval(this.timeInterval);
+        this.timeInterval = null;
+        clearInterval(this.autosaveInterval);
+        this.autosaveInterval = null;
+        this.alert = {
+          type: 'danger',
+          message:
+            'Failed to load design. Please contact us at info@treecreate.dk if it keeps occurring',
+          dismissible: false,
+        };
+        this.isDesignValid = false;
+        this.isDesignValidEvent.emit(this.isDesignValid);
+      }
     }, 1000 / this.framesPerSecond);
     console.log('Render loop started');
 
@@ -189,6 +217,8 @@ export class FamilyTreeDesignComponent
     this.autosaveInterval = setInterval(() => {
       this.saveDesign();
     }, 1000 * 60 * this.autosaveFrequencyInMinutes);
+    this.isDesignValid = true;
+    this.isDesignValidEvent.emit(this.isDesignValid);
   }
 
   updateBoxRefText() {
@@ -366,6 +396,11 @@ export class FamilyTreeDesignComponent
 
   saveDesign() {
     console.log('Saving your design...');
+    console.log(this.timeInterval);
+    if (this.timeInterval === null) {
+      console.warn('The design is not valid, and thus it cannot get saved!');
+      return false;
+    }
     // deep copy the boxes by value (since it modifies the array)
     const boxesCopy: IDraggableBox[] = [];
 
