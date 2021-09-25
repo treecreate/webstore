@@ -307,5 +307,6 @@ export class ProductComponent implements OnInit {
   onIsDesignValidEvent($event) {
     console.warn('Design state has changed. Valid:', $event);
     this.isDesignValid = $event;
+    this.cdr.detectChanges();
   }
 }
