@@ -169,7 +169,7 @@ export class FamilyTreeDesignComponent
       dismissible: false,
     };
     // stop the canvas rendering process
-    clearInterval(this.timeInterval);
+    cancelAnimationFrame(this.timeInterval);
     this.timeInterval = null;
     clearInterval(this.autosaveInterval);
     this.autosaveInterval = null;
@@ -188,28 +188,25 @@ export class FamilyTreeDesignComponent
 
     for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
-    // TODO: Switch to request animation frame
-    clearInterval(this.timeInterval);
-    this.timeInterval = setInterval(() => {
-      try {
-        this.draw();
-      } catch (error) {
-        console.error('failed to draw the design', error);
-        // disable autosave and the drawing loop
-        clearInterval(this.timeInterval);
-        this.timeInterval = null;
-        clearInterval(this.autosaveInterval);
-        this.autosaveInterval = null;
-        this.alert = {
-          type: 'danger',
-          message:
-            'Failed to load design. Please contact us at info@treecreate.dk if it keeps occurring',
-          dismissible: false,
-        };
-        this.isDesignValid = false;
-        this.isDesignValidEvent.emit(this.isDesignValid);
-      }
-    }, 1000 / this.framesPerSecond);
+    cancelAnimationFrame(this.timeInterval);
+    try {
+      this.draw();
+    } catch (error) {
+      console.error('failed to draw the design', error);
+      // disable autosave and the drawing loop
+      cancelAnimationFrame(this.timeInterval);
+      this.timeInterval = null;
+      clearInterval(this.autosaveInterval);
+      this.autosaveInterval = null;
+      this.alert = {
+        type: 'danger',
+        message:
+          'Failed to load design. Please contact us at info@treecreate.dk if it keeps occurring',
+        dismissible: false,
+      };
+      this.isDesignValid = false;
+      this.isDesignValidEvent.emit(this.isDesignValid);
+    }
     console.log('Render loop started');
 
     // start autosave of design
@@ -282,6 +279,7 @@ export class FamilyTreeDesignComponent
 
   // Draw the entire canvas with the boxes etc
   draw() {
+    requestAnimationFrame(this.draw.bind(this));
     this.context.clearRect(
       0,
       0,
