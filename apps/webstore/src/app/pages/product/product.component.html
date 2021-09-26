@@ -33,7 +33,9 @@
     <div class="hide" data-cy="font">{{ font }}</div>
     <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
     <div class="hide" data-cy="box-size">{{ boxSize }}</div>
-    <div class="hide" data-cy="banner">{{ banner }}</div>
+    <div class="hide" data-cy="banner">
+        {{ banner !== undefined ? banner.text : '' }}
+    </div>
     <div class="hide" data-cy="large-font">{{ isLargeFont }}</div>
     <!-- END CY TESTS -->
 
@@ -198,7 +200,7 @@
                             [value]="this.banner ? this.banner.text : ''"
                             (keyup)="updateBannerText($event)"
                             placeholder="Banner text"
-                            data-cy="design-title-input"
+                            data-cy="design-banner-input"
                             maxlength="50"
                         />
                     </div>
