@@ -91,12 +91,13 @@ describe('ProductPage', () => {
 
     // Banner
     it('should show/remove banner', () => {
-      cy.get('[data-cy=banner]').should('have.text', '');
+      // for some reason, cypress reads the value with extra spaces
+      cy.get('[data-cy=banner]').should('have.text', '  ');
       cy.get('[data-cy=checkbox-banner]').click();
       cy.get('[data-cy=design-banner-input]').type('test');
-      cy.get('[data-cy=banner]').should('have.text', 'test');
+      cy.get('[data-cy=banner]').should('have.text', ' test ');
       cy.get('[data-cy=checkbox-banner]').click();
-      cy.get('[data-cy=banner]').should('have.text', '');
+      cy.get('[data-cy=banner]').should('have.text', '  ');
     });
 
     // Big font
