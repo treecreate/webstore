@@ -15,7 +15,6 @@ describe('FamilyTreeDesignComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FamilyTreeDesignComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {

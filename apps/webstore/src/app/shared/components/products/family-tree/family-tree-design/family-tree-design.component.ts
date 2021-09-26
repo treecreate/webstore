@@ -194,7 +194,6 @@ export class FamilyTreeDesignComponent
     };
     // stop the canvas rendering process
     cancelAnimationFrame(this.timeInterval);
-    this.timeInterval = null;
     clearInterval(this.autosaveInterval);
     this.autosaveInterval = null;
     this.isDesignValid = false;
@@ -219,7 +218,6 @@ export class FamilyTreeDesignComponent
       console.error('failed to draw the design', error);
       // disable autosave and the drawing loop
       cancelAnimationFrame(this.timeInterval);
-      this.timeInterval = null;
       clearInterval(this.autosaveInterval);
       this.autosaveInterval = null;
       this.alert = {
@@ -264,7 +262,6 @@ export class FamilyTreeDesignComponent
       boxDesign: boxDesign,
       text: text,
     };
-
     const factory = this.resolver.resolveComponentFactory(
       DraggableBoxComponent
     );
@@ -304,7 +301,9 @@ export class FamilyTreeDesignComponent
 
   // Draw the entire canvas with the boxes etc
   draw() {
-    requestAnimationFrame(this.draw.bind(this));
+    // https://medium.com/angular-in-depth/how-to-get-started-with-canvas-animations-in-angular-2f797257e5b4
+    this.timeInterval = requestAnimationFrame(this.draw.bind(this));
+
     this.context.clearRect(
       0,
       0,
@@ -395,61 +394,79 @@ export class FamilyTreeDesignComponent
   }
 
   loadDesign() {
-    // clear the existing boxes info
-    this.myBoxes.forEach((box) => {
-      box.inputRef.destroy();
-    });
-    this.myBoxes = [];
-    // load the design from loca, storage
-    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree
-    ).value;
-    // Load the design
-    if (design === null || design === undefined) {
-      // Setup default boxes if there is no saved design
-      console.log('There was no saved design, generating a clean slate');
-      this.createBox(
-        this.canvasResolution.width / 8,
-        this.canvasResolution.height / 4,
-        Object.values(BoxDesignEnum)[
-          Math.floor(Math.random() * this.boxDesigns.size)
-        ],
-        ''
-      );
-      this.createBox(
-        this.canvasResolution.width / 6,
-        this.canvasResolution.height / 2,
-        Object.values(BoxDesignEnum)[
-          Math.floor(Math.random() * this.boxDesigns.size)
-        ],
-        ''
-      );
-      this.createBox(
-        this.canvasResolution.width / 2,
-        this.canvasResolution.height / 3,
-        Object.values(BoxDesignEnum)[
-          Math.floor(Math.random() * this.boxDesigns.size)
-        ],
-        ''
-      );
-    } else {
-      // Setup boxes based on the loaded design
-      this.showBanner = design.banner === null;
-      this.boxSize = design.boxSize;
-      this.backgroundTreeDesign = design.backgroundTreeDesign;
-      this.isLargeFont = design.largeFont;
-      design.boxes.forEach((box) => {
-        this.createBox(box.x, box.y, box.boxDesign, box.text);
+    try {
+      // clear the existing boxes info
+      this.myBoxes.forEach((box) => {
+        box.inputRef.destroy();
       });
+      this.myBoxes = [];
+      // load the design from local storage
+      const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
+        LocalStorageVars.designFamilyTree
+      ).value;
+      // Load the design
+      if (design === null || design === undefined) {
+        // Setup default boxes if there is no saved design
+        console.log('There was no saved design, generating a clean slate');
+        this.createBox(
+          this.canvasResolution.width / 8,
+          this.canvasResolution.height / 4,
+          Object.values(BoxDesignEnum)[
+            Math.floor(Math.random() * this.boxDesigns.size)
+          ],
+          ''
+        );
+        this.createBox(
+          this.canvasResolution.width / 6,
+          this.canvasResolution.height / 2,
+          Object.values(BoxDesignEnum)[
+            Math.floor(Math.random() * this.boxDesigns.size)
+          ],
+          ''
+        );
+        this.createBox(
+          this.canvasResolution.width / 2,
+          this.canvasResolution.height / 3,
+          Object.values(BoxDesignEnum)[
+            Math.floor(Math.random() * this.boxDesigns.size)
+          ],
+          ''
+        );
+      } else {
+        // Setup boxes based on the loaded design
+        this.showBanner = design.banner === null;
+        this.boxSize = design.boxSize;
+        this.backgroundTreeDesign = design.backgroundTreeDesign;
+        this.isLargeFont = design.largeFont;
+        design.boxes.forEach((box) => {
+          this.createBox(box.x, box.y, box.boxDesign, box.text);
+        });
+      }
+      console.log('Boxes', this.myBoxes);
+      console.log('Finished loading design');
+      this.cdr.detectChanges();
+    } catch (error) {
+      console.error('Something went wrong while loading the design!', error);
+      this.alert = {
+        message: 'Something went wrong while loading the design!',
+        type: 'danger',
+        dismissible: false,
+      };
+      console.log('interval', this.timeInterval);
+      cancelAnimationFrame(this.timeInterval);
+      clearInterval(this.autosaveInterval);
+      this.isDesignValid = false;
     }
-    console.log('Boxes', this.myBoxes);
-    console.log('Finished loading design');
   }
 
   saveDesign() {
     console.log('Saving your design...');
     console.log(this.timeInterval);
-    if (this.timeInterval === null) {
+    if (
+      !this.isDesignValid ||
+      this.timeInterval === null ||
+      this.timeInterval === undefined
+    ) {
       console.warn('The design is not valid, and thus it cannot get saved!');
       return false;
     }
@@ -506,6 +523,7 @@ export class FamilyTreeDesignComponent
           (this.boxSize * this.boxSizeScalingMultiplier),
       };
     }
+    this.cdr.detectChanges();
   }
 
   // handle canvas events
