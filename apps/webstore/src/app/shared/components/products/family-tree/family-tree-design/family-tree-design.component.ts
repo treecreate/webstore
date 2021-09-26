@@ -319,7 +319,9 @@ export class FamilyTreeDesignComponent
       this.context.drawImage(
         this.treeDesigns.get(this.backgroundTreeDesign),
         0,
-        0
+        0,
+        this.designCanvas.nativeElement.width,
+        this.designCanvas.nativeElement.height
       );
     }
     // render the banner
