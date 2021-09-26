@@ -34,6 +34,8 @@ export class DraggableBoxComponent implements AfterViewInit {
   @Input()
   text: string;
 
+  private _boxSize;
+
   @Output()
   mousedownEvent = new EventEmitter();
   @Output()
@@ -46,6 +48,8 @@ export class DraggableBoxComponent implements AfterViewInit {
   touchendEvent = new EventEmitter();
   @Output()
   newTextValue = new EventEmitter<string>();
+
+  fontSize = 1;
 
   constructor() {}
 
@@ -81,5 +85,14 @@ export class DraggableBoxComponent implements AfterViewInit {
   onInputChange($event) {
     this.text = $event;
     this.newTextValue.emit($event);
+  }
+
+  public get boxSize() {
+    return this._boxSize;
+  }
+  public set boxSize(boxSize: number) {
+    this._boxSize = boxSize;
+    // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
+    this.fontSize = 0.0545 * this.boxSize + 0.05;
   }
 }

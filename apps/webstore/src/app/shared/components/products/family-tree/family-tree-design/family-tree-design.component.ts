@@ -39,7 +39,7 @@ export class FamilyTreeDesignComponent
   // Inputs for design settings
 
   @Input()
-  boxSize = 10;
+  boxSize = 20;
 
   @Input()
   title: string;
@@ -270,6 +270,7 @@ export class FamilyTreeDesignComponent
     });
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
+    draggableBoxRef.instance.boxSize = this.boxSize;
     // set the reference to the draggable box component instance
     newBox.inputRef = draggableBoxRef;
     this.cdr.detectChanges();
@@ -328,6 +329,7 @@ export class FamilyTreeDesignComponent
         );
         this.myBoxes[i].inputRef.instance.zIndex = i;
         this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
+        this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
         // draw the close button within the box
         this.context.drawImage(
           this.closeButton,
