@@ -338,17 +338,16 @@ export class FamilyTreeDesignComponent
           this.bannerDimensions.width,
           this.bannerDimensions.height
         );
-        const textWidth: number =
-          this.banner.text !== '' ? this.banner.text.length : 0;
         const bannerTextFontSize = 6; // in rem
-        this.context.font = `${bannerTextFontSize}rem Arial`;
+        this.context.font = `${bannerTextFontSize}rem ${this.font}`;
+        this.context.textAlign = 'center';
+        this.context.textBaseline = 'middle';
         this.context.fillText(
           this.banner.text,
-          // the font for the banner is Xrem, and each rem equals 16 pixels. Divide in half and bam, centered text
-          this.canvasResolution.width / 2 -
-            (textWidth * bannerTextFontSize * 16) / 2 / 2,
-          // I divide the height by 2.7 because the SVG has no proportions and the text is not exactly in the middle of it...
-          this.canvasResolution.height - this.bannerDimensions.height / 2.6
+          this.canvasResolution.width / 2,
+          // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
+          this.canvasResolution.height - this.bannerDimensions.height / 2.2,
+          this.bannerDimensions.width / 3
         );
       }
     }
