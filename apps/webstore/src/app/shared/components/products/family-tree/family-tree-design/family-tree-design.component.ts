@@ -14,7 +14,12 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { BoxDesignEnum, CloseBoxDesignEnum, TreeDesignEnum } from '@assets';
+import {
+  BannerDesignEnum,
+  BoxDesignEnum,
+  CloseBoxDesignEnum,
+  TreeDesignEnum,
+} from '@assets';
 import {
   FamilyTreeFontEnum,
   IDesign,
@@ -101,6 +106,11 @@ export class FamilyTreeDesignComponent
   // SVGs
 
   treeDesigns: Map<TreeDesignEnum, HTMLImageElement> = new Map();
+  bannerDesigns: Map<BannerDesignEnum, HTMLImageElement> = new Map();
+  bannerDimensions = {
+    height: this.canvasResolution.height / 8,
+    width: this.canvasResolution.width / 2,
+  };
   boxDesigns: Map<BoxDesignEnum, HTMLImageElement> = new Map();
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
@@ -143,6 +153,16 @@ export class FamilyTreeDesignComponent
         this.handleFailedResourceLoading('Failed to load a tree design');
       };
       this.treeDesigns.set(Object.values(TreeDesignEnum)[i], image);
+    }
+    // Load and validate banner SVGs
+    for (let i = 0; i < Object.values(BannerDesignEnum).length; i++) {
+      let image = new Image();
+      image.src = Object.values(BannerDesignEnum)[i];
+      image.onerror = () => {
+        image = null;
+        this.handleFailedResourceLoading('Failed to load a banner design');
+      };
+      this.bannerDesigns.set(Object.values(BannerDesignEnum)[i], image);
     }
     // Load and validate box design SVGs
     for (let i = 0; i < Object.values(BoxDesignEnum).length; i++) {
@@ -298,6 +318,22 @@ export class FamilyTreeDesignComponent
         0,
         0
       );
+    }
+    // render the banner
+    if (
+      this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
+      this.bannerDesigns.get(BannerDesignEnum.banner1).complete
+    ) {
+      if (this.showBanner) {
+        // draw the banner at the bottom middle of the tree
+        this.context.drawImage(
+          this.bannerDesigns.get(BannerDesignEnum.banner1),
+          this.canvasResolution.width / 2 - this.bannerDimensions.width / 2,
+          this.canvasResolution.height - this.bannerDimensions.height,
+          this.bannerDimensions.width,
+          this.bannerDimensions.height
+        );
+      }
     }
 
     // render the boxes
