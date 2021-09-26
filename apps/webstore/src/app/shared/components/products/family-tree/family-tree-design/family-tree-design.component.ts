@@ -389,6 +389,20 @@ export class FamilyTreeDesignComponent
           this.closeButtonDimensions.width,
           this.closeButtonDimensions.height
         );
+
+        // Draw the text within the box
+        // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
+        // times 5 to account for having different scale
+        const bannerTextFontSize = (0.0545 * this.boxSize + 0.05) * 5; // in rem
+        this.context.font = `${bannerTextFontSize}rem ${this.font}`;
+        this.context.textAlign = 'center';
+        this.context.textBaseline = 'middle';
+        this.context.fillText(
+          this.myBoxes[i].text,
+          this.myBoxes[i].x + this.boxDimensions.width / 2,
+          this.myBoxes[i].y + this.boxDimensions.height / 2,
+          (this.boxDimensions.width / 3) * 2
+        );
       }
     }
   }

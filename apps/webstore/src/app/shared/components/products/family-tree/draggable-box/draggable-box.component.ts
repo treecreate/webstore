@@ -13,6 +13,10 @@ import {
   styleUrls: ['./draggable-box.component.css'],
 })
 export class DraggableBoxComponent implements AfterViewInit {
+  // NOTE: The purpose of this component is to provide a way to easily track user inputs.
+  // The text written in the input here is not actually displayed on the page
+  // The input box size still has to scale well so the mouse is caught properly
+
   @Input()
   x: number;
 
