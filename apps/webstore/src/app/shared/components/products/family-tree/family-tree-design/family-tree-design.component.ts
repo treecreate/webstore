@@ -25,6 +25,7 @@ import {
   IDesign,
   IDraggableBox,
   IFamilyTree,
+  IFamilyTreeBanner,
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { LocalStorageService } from '../../../../services/local-storage';
@@ -51,6 +52,9 @@ export class FamilyTreeDesignComponent
 
   @Input()
   showBanner: boolean;
+
+  @Input()
+  banner: IFamilyTreeBanner;
 
   @Input()
   isLargeFont: boolean;
@@ -324,7 +328,7 @@ export class FamilyTreeDesignComponent
       this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
       this.bannerDesigns.get(BannerDesignEnum.banner1).complete
     ) {
-      if (this.showBanner) {
+      if (this.banner !== undefined && this.banner !== null) {
         // draw the banner at the bottom middle of the tree
         this.context.drawImage(
           this.bannerDesigns.get(BannerDesignEnum.banner1),
@@ -332,6 +336,18 @@ export class FamilyTreeDesignComponent
           this.canvasResolution.height - this.bannerDimensions.height,
           this.bannerDimensions.width,
           this.bannerDimensions.height
+        );
+        const textWidth: number =
+          this.banner.text !== '' ? this.banner.text.length : 0;
+        const bannerTextFontSize = 6; // in rem
+        this.context.font = `${bannerTextFontSize}rem Arial`;
+        this.context.fillText(
+          this.banner.text,
+          // the font for the banner is Xrem, and each rem equals 16 pixels. Divide in half and bam, centered text
+          this.canvasResolution.width / 2 -
+            (textWidth * bannerTextFontSize * 16) / 2 / 2,
+          // I divide the height by 2.7 because the SVG has no proportions and the text is not exactly in the middle of it...
+          this.canvasResolution.height - this.bannerDimensions.height / 2.6
         );
       }
     }
@@ -460,7 +476,7 @@ export class FamilyTreeDesignComponent
         font: FamilyTreeFontEnum.georgia,
         backgroundTreeDesign: this.backgroundTreeDesign,
         boxSize: this.boxSize,
-        banner: null,
+        banner: this.banner,
         largeFont: this.isLargeFont,
         boxes: boxesCopy,
       }

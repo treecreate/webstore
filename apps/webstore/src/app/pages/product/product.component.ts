@@ -2,7 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
-import { DesignTypeEnum, FamilyTreeFontEnum, IFamilyTree } from '@interfaces';
+import {
+  DesignTypeEnum,
+  FamilyTreeFontEnum,
+  IFamilyTree,
+  IFamilyTreeBanner,
+} from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
@@ -33,7 +38,7 @@ export class ProductComponent implements OnInit {
   boxSize = 20;
   maxSize = 40;
   minSize = 10;
-  showBanner = false;
+  banner: IFamilyTreeBanner = undefined;
   isLargeFont = false;
 
   constructor(
@@ -82,7 +87,7 @@ export class ProductComponent implements OnInit {
             this.designTitle = design.title;
             this.backgroundTreeDesign = design.backgroundTreeDesign;
             this.font = design.font;
-            this.showBanner = design.banner === null;
+            this.banner = design.banner;
             this.boxSize = design.boxSize;
             this.isLargeFont = design.largeFont;
             this.cdr.detectChanges();
@@ -115,7 +120,7 @@ export class ProductComponent implements OnInit {
       if (design !== null && design !== undefined) {
         this.designTitle = design.title;
         this.font = design.font;
-        this.showBanner = design.banner === null;
+        this.banner = design.banner;
         this.boxSize = design.boxSize;
         this.isLargeFont = design.largeFont;
       } else {
@@ -126,7 +131,7 @@ export class ProductComponent implements OnInit {
         this.boxSize = 20;
         this.maxSize = 40;
         this.minSize = 10;
-        this.showBanner = false;
+        this.banner = undefined;
         this.isLargeFont = false;
       }
       this.cdr.detectChanges();
@@ -298,6 +303,11 @@ export class ProductComponent implements OnInit {
 
   onKey(event) {
     this.designTitle = event.target.value;
+  }
+
+  updateBannerText($event) {
+    this.banner.text = $event.target.value;
+    console.log('banner text', this.banner.text);
   }
 
   openAddToBasketModal() {

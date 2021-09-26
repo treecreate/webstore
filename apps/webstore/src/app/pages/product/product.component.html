@@ -19,7 +19,7 @@
         <webstore-family-tree-design
             #familyTreeDesignCanvas
             [boxSize]="boxSize"
-            [showBanner]="showBanner"
+            [banner]="banner"
             [isLargeFont]="isLargeFont"
             [title]="designTitle"
             [backgroundTreeDesign]="backgroundTreeDesign"
@@ -33,7 +33,7 @@
     <div class="hide" data-cy="font">{{ font }}</div>
     <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
     <div class="hide" data-cy="box-size">{{ boxSize }}</div>
-    <div class="hide" data-cy="banner">{{ showBanner }}</div>
+    <div class="hide" data-cy="banner">{{ banner }}</div>
     <div class="hide" data-cy="large-font">{{ isLargeFont }}</div>
     <!-- END CY TESTS -->
 
@@ -167,8 +167,15 @@
                         Banner
                         <input
                             type="checkbox"
-                            [checked]="this.showBanner"
-                            (change)="this.showBanner = !this.showBanner"
+                            [checked]="this.banner !== undefined"
+                            (change)="
+                                this.banner === undefined
+                                    ? (this.banner = {
+                                          text: '',
+                                          style: 'first'
+                                      })
+                                    : (this.banner = undefined)
+                            "
                         />
                         <span
                             class="checkmark"
@@ -179,6 +186,20 @@
                             text="Add or remove the banner from your design."
                         ></webstore-info-popover>
                     </label>
+
+                    <div
+                        *ngIf="this.banner !== undefined"
+                        class="option-design-title"
+                    >
+                        <input
+                            type="text"
+                            class="title-input"
+                            [value]="this.banner ? this.banner.text : ''"
+                            (keyup)="updateBannerText($event)"
+                            placeholder="Banner text"
+                            data-cy="design-title-input"
+                        />
+                    </div>
                 </div>
                 <div class="option-large-font">
                     <label class="checkbox-container option-title">
