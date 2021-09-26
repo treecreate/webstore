@@ -3,10 +3,11 @@
   border: none;
   background: transparent;
   text-align: center;
-  background-color: white;
-  opacity: 0; /* the input doesn't need to actually show */
+  color: rgba(0, 0, 0, 0); /* the input text doesn't need to actually show */
 }
 
 .draggable-box-input:focus {
   outline: none;
+  background: rgba(182, 102, 33, 0.04);
+  border-radius: 20%;
 }
