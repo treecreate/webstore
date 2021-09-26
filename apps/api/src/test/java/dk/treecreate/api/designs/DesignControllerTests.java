@@ -21,10 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -373,6 +370,8 @@ public class DesignControllerTests
         void createDesignReturnsDesign() throws Exception
         {
             UUID uuid = new UUID(0, 0);
+            Map<String, Object> mockDesignProperties = new HashMap<>();
+            mockDesignProperties.put("key", "mockedValue");
             User user = new User();
             user.setUserId(uuid);
             user.setEmail("user@hotdeals.dev");
@@ -380,10 +379,12 @@ public class DesignControllerTests
             Design design = new Design();
             design.setUser(user);
             design.setDesignType(DesignType.FAMILY_TREE);
+            design.setDesignProperties(mockDesignProperties);
             Design savedDesign = new Design();
             savedDesign.setDesignId(uuid);
             savedDesign.setUser(user);
             savedDesign.setDesignType(DesignType.FAMILY_TREE);
+            savedDesign.setDesignProperties(design.getDesignProperties());
             CreateDesignRequest createDesignRequest = new CreateDesignRequest();
             createDesignRequest.setDesignType(design.getDesignType());
             createDesignRequest.setDesignProperties(design.getDesignProperties());
@@ -411,6 +412,8 @@ public class DesignControllerTests
         void updateDesignReturnsForbiddenWhenAccessingDesignOfAnotherUser() throws Exception
         {
             UUID uuid = new UUID(0, 0);
+            Map<String, Object> mockDesignProperties = new HashMap<>();
+            mockDesignProperties.put("key", "mockedValue");
             User user = new User();
             user.setUserId(UUID.randomUUID());
             user.setEmail("user@hotdeals.dev");
@@ -422,6 +425,7 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(secondUser);
             design.setDesignType(DesignType.FAMILY_TREE);
+            design.setDesignProperties(mockDesignProperties);
             UpdateDesignRequest updateDesignRequest = new UpdateDesignRequest();
             updateDesignRequest.setDesignId(design.getDesignId());
             updateDesignRequest.setDesignType(design.getDesignType());
@@ -445,6 +449,10 @@ public class DesignControllerTests
         void updateDesignReturnsDesign() throws Exception
         {
             UUID uuid = new UUID(0, 0);
+            Map<String, Object> mockDesignProperties = new HashMap<>();
+            mockDesignProperties.put("key", "mockedValue");
+            Map<String, Object> mockUpdatedDesignProperties = new HashMap<>();
+            mockUpdatedDesignProperties.put("key", "updatedValue");
             User user = new User();
             user.setEmail("user@hotdeals.dev");
             user.setUsername(user.getEmail());
@@ -452,10 +460,12 @@ public class DesignControllerTests
             design.setDesignId(uuid);
             design.setUser(user);
             design.setDesignType(DesignType.FAMILY_TREE);
+            design.setDesignProperties(mockDesignProperties);
             Design updatedDesign = new Design();
             updatedDesign.setDesignId(uuid);
             updatedDesign.setUser(user);
             updatedDesign.setDesignType(DesignType.FAMILY_TREE);
+            updatedDesign.setDesignProperties(mockUpdatedDesignProperties);
             UpdateDesignRequest updateDesignRequest = new UpdateDesignRequest();
             updateDesignRequest.setDesignId(updatedDesign.getDesignId());
             updateDesignRequest.setDesignType(updatedDesign.getDesignType());
