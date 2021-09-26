@@ -5,14 +5,17 @@ import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
   DesignTypeEnum,
   FamilyTreeFontEnum,
+  IAuthUser,
   IFamilyTree,
   IFamilyTreeBanner,
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { ToastService } from '../../shared/components/toast/toast-service';
+import { AuthService } from '../../shared/services/authentication/auth.service';
 import { DesignService } from '../../shared/services/design/design.service';
 import { LocalStorageService } from '../../shared/services/local-storage';
 @Component({
@@ -41,6 +44,9 @@ export class ProductComponent implements OnInit {
   banner: IFamilyTreeBanner = undefined;
   isLargeFont = false;
 
+  public isLoggedIn: boolean;
+  private authUser$: BehaviorSubject<IAuthUser>;
+
   constructor(
     private modalService: NgbModal,
     private route: ActivatedRoute,
@@ -48,8 +54,27 @@ export class ProductComponent implements OnInit {
     private designService: DesignService,
     private localStorageService: LocalStorageService,
     private cdr: ChangeDetectorRef,
-    private toastService: ToastService
-  ) {}
+    private toastService: ToastService,
+    private authService: AuthService
+  ) {
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
+      if (!this.isLoggedIn) {
+        console.warn(
+          'You do not have permission to view the product page, log in first!'
+        );
+        this.router.navigate(['notSignedIn']);
+        return;
+      }
+    });
+  }
 
   ngOnInit() {
     // The subscription will get triggered right away, loading the design
