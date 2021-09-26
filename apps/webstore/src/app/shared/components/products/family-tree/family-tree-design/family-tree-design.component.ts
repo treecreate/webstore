@@ -95,7 +95,7 @@ export class FamilyTreeDesignComponent
   timeInterval;
   framesPerSecond = 60; // FPS of the render loop
   // autosaving of the design
-  autosaveFrequencyInMinutes = 5;
+  autosaveFrequencyInMinutes = 2;
   autosaveInterval;
 
   // SVGs
