@@ -9,6 +9,21 @@ describe('ProductPage', () => {
       `"${CookieStatus.accepted}"` // localStorage saves the data differently from our LocalStorageService
     );
   });
+
+  /* TODO: Write the following tests (some of them may already exist. Mock all API calls):
+   * - should not be able to access the products page as an unauthenticated user (test via navbar button, and via changing the url)
+   * - should not get to fetch design based on the id when accessing the products page as an unauthenticated user (access with `designId` param in the url, validate via local storage)
+   * - should be able to see the page as an authenticated user (all of the tests below are for authenticated users)
+   * - should be able to change the title, font, design, box size, banner, large font, and save (check local storage for updated value)
+   * - should be able to click on the canvas and create a new box (click within canvas element, count inputs on page) (check saved data)
+   * - should be able to change the fonts (check saved data)
+   * - should be able to change the design (check saved data)
+   * - should be able to change the box size (verify min and max) (check saved data)
+   * - should be able to change the banner (click checkbox, type in the input) (check saved data)
+   * - should be able to change large font (check saved data)
+   * - should be able to load a design via url (change designId, mock API call Validate that all settings got applied)
+   */
+
   describe('Authenticated', () => {
     beforeEach(() => {
       localStorage.setItem(
