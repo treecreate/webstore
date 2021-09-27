@@ -66,13 +66,13 @@ export class ProductComponent implements OnInit {
       this.isLoggedIn =
         this.authUser$.getValue() != null &&
         this.authService.isAccessTokenValid();
-      if (!this.isLoggedIn) {
-        console.warn(
-          'You do not have permission to view the product page, log in first!'
-        );
-        this.router.navigate(['notSignedIn']);
-        return;
-      }
+      // if (!this.isLoggedIn) {
+      //   console.warn(
+      //     'You do not have permission to view the product page, log in first!'
+      //   );
+      //   this.router.navigate(['notSignedIn']);
+      //   return;
+      // }
     });
   }
 
@@ -224,6 +224,7 @@ export class ProductComponent implements OnInit {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
+              //TODO: Danish translation
               'TODO: danish',
               'danger',
               10000

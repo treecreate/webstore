@@ -81,7 +81,6 @@ export class NavbarComponent implements OnInit {
   }
 
   changeLocale(language: string) {
-    // TODO: make the change language alert show on screen after reload
     switch (language) {
       case 'dk':
         this.localeCode = LocaleType.dk;
