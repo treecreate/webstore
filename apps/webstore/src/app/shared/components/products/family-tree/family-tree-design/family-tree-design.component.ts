@@ -386,19 +386,23 @@ export class FamilyTreeDesignComponent
         this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
         this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
         // draw the close button within the box
-        this.context.drawImage(
-          this.closeButton,
-          this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
-          this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
-          this.closeButtonDimensions.width,
-          this.closeButtonDimensions.height
-        );
+        if (this.showDeleteBoxButtons) {
+          this.context.drawImage(
+            this.closeButton,
+            this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
+            this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
+            this.closeButtonDimensions.width,
+            this.closeButtonDimensions.height
+          );
+        }
 
         // Draw the text within the box
         // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
         // times 5 to account for having different scale
-        const bannerTextFontSize = (0.0545 * this.boxSize + 0.05) * 5; // in rem
-        this.context.font = `${bannerTextFontSize}rem ${this.font}`;
+        const boxTextFontSize =
+          (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
+        // TODO: add multi-line support
+        this.context.font = `${boxTextFontSize}rem ${this.font}`;
         this.context.textAlign = 'center';
         this.context.textBaseline = 'middle';
         this.context.fillText(
@@ -696,9 +700,9 @@ export class FamilyTreeDesignComponent
             // move the box with the cursor
             this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
             this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
-          // skip checking the other boxes
-          return;
-        }
+            // skip checking the other boxes
+            return;
+          }
         }
       }
     }
