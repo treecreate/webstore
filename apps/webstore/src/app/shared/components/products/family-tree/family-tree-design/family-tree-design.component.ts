@@ -650,6 +650,13 @@ export class FamilyTreeDesignComponent
       ],
       ''
     );
+
+    // auto-focus on the newly created element
+    setTimeout(() => {
+      this.myBoxes[
+        this.myBoxes.length - 1
+      ].inputRef.instance.input.nativeElement.focus();
+    });
   }
 
   // the mousemove event is not available as a angular attribute so it has to be declared explicitly
