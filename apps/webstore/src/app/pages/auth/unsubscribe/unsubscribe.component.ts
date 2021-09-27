@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
@@ -5,11 +6,14 @@ import { NewsletterService } from '../../../shared/services/newsletter/newslette
 @Component({
   selector: 'webstore-unsubscribe',
   templateUrl: './unsubscribe.component.html',
-  styleUrls: ['./unsubscribe.component.css'],
+  styleUrls: [
+    './unsubscribe.component.css',
+    '../../../../assets/styles/tc-buttons.css',
+  ],
 })
 export class UnsubscribeComponent implements OnInit {
   isLoading = false;
-  unsubscribeSuccessful = false;
+  isUnsubscribeSuccessful = false;
   errorMessage = '';
 
   constructor(
@@ -19,22 +23,25 @@ export class UnsubscribeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.unsubscribeUser(this.route.snapshot.params.token);
+    this.unsubscribeUser(this.route.snapshot.params.newsletterId);
   }
 
   unsubscribeUser(newsletterId: string) {
     this.newsletterService.unsubscribe(newsletterId).subscribe(
       () => {
-        this.unsubscribeSuccessful = true;
+        this.isUnsubscribeSuccessful = true;
         this.isLoading = false;
       },
-      (err) => {
-        console.log(err);
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.isUnsubscribeSuccessful = false;
         this.isLoading = false;
-        if (err.status === 400) {
-          this.errorMessage = 'The verification token is invalid';
+        if (error.error.status === 400) {
+          this.errorMessage = 'The provided data is invalid';
+        } else if (error.error.status === 404) {
+          this.errorMessage = 'Provided newsletter subscription was not found';
         } else {
-          this.errorMessage = err.error.message;
+          this.errorMessage = error.error.message;
         }
       }
     );
