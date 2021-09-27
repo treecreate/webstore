@@ -66,7 +66,6 @@ export class ProfileComponent implements OnInit {
       ]),
       city: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ÆØÅæøå]*$"),
         Validators.minLength(3),
       ]),
       postcode: new FormControl('', [
