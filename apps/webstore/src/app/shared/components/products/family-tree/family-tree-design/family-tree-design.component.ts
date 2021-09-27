@@ -141,6 +141,9 @@ export class FamilyTreeDesignComponent
     dismissible: boolean;
   };
 
+  // TODO: show only for one box instead of showing it for all if any of the boxes got moused over
+  showDeleteBoxButtons = false;
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private cdr: ChangeDetectorRef,
@@ -668,22 +671,40 @@ export class FamilyTreeDesignComponent
       event
     );
 
+    let boxesGotMousedOver = false;
+
     for (let i = 0; i < this.myBoxes.length; i++) {
       const box = this.myBoxes[i];
-      if (box.dragging) {
+      if (
+        !this.mouseOutsideBoundaries(
+          this.boxDimensions.width,
+          this.boxDimensions.height
+        )
+      ) {
+        // check if any of the boxes got moused over
         if (
-          !this.mouseOutsideBoundaries(
-            this.boxDimensions.width,
-            this.boxDimensions.height
-          )
+          this.mouseCords.x > box.x &&
+          this.mouseCords.x < box.x + this.boxDimensions.width &&
+          this.mouseCords.y > box.y &&
+          this.mouseCords.y < box.y + this.boxDimensions.height
         ) {
-          // move the box with the cursor
-          this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-          this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+          boxesGotMousedOver = true;
+          this.showDeleteBoxButtons = true;
+        }
+        if (box.dragging) {
+          {
+            // move the box with the cursor
+            this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
+            this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
           // skip checking the other boxes
           return;
         }
+        }
       }
+    }
+    // only stop showing the delete button if none of the boxes got moused over
+    if (!boxesGotMousedOver) {
+      this.showDeleteBoxButtons = false;
     }
   }
 
