@@ -66,13 +66,6 @@ export class ProductComponent implements OnInit {
       this.isLoggedIn =
         this.authUser$.getValue() != null &&
         this.authService.isAccessTokenValid();
-      // if (!this.isLoggedIn) {
-      //   console.warn(
-      //     'You do not have permission to view the product page, log in first!'
-      //   );
-      //   this.router.navigate(['notSignedIn']);
-      //   return;
-      // }
     });
   }
 
@@ -82,6 +75,7 @@ export class ProductComponent implements OnInit {
       console.warn('query paramas changed', p);
       this.loadDesign();
     });
+    console.log('logged in', this.isLoggedIn);
   }
 
   // TODO: properly assign the banner
@@ -166,6 +160,10 @@ export class ProductComponent implements OnInit {
 
   saveDesign() {
     this.designCanvas.saveDesign();
+    // don't persist the design if the user is not logged in
+    if (!this.isLoggedIn) {
+      return;
+    }
     const queryParams = this.route.snapshot.queryParams;
     const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
       LocalStorageVars.designFamilyTree
