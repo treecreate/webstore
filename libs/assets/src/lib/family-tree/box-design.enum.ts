@@ -20,7 +20,6 @@ export enum Tree1BoxDesignEnum {
   box6 = 'assets/family-tree/box-design-1/box6.svg',
   box7 = 'assets/family-tree/box-design-1/box7.svg',
   box8 = 'assets/family-tree/box-design-1/box8.svg',
-  box9 = 'assets/family-tree/box-design-1/box9.svg',
 }
 
 export enum Tree2BoxDesignEnum {
@@ -32,7 +31,6 @@ export enum Tree2BoxDesignEnum {
   box6 = 'assets/family-tree/box-design-2/box6.svg',
   box7 = 'assets/family-tree/box-design-2/box7.svg',
   box8 = 'assets/family-tree/box-design-2/box8.svg',
-  box9 = 'assets/family-tree/box-design-2/box9.svg',
 }
 
 export enum Tree3BoxDesignEnum {
@@ -44,5 +42,4 @@ export enum Tree3BoxDesignEnum {
   box6 = 'assets/family-tree/box-design-3/box6.svg',
   box7 = 'assets/family-tree/box-design-3/box7.svg',
   box8 = 'assets/family-tree/box-design-3/box8.svg',
-  box9 = 'assets/family-tree/box-design-3/box9.svg',
 }
