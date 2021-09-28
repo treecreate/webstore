@@ -16,7 +16,10 @@ import {
 } from '@angular/core';
 import {
   BannerDesignEnum,
+  BoxDesignEnum,
   Tree1BoxDesignEnum,
+  Tree2BoxDesignEnum,
+  Tree3BoxDesignEnum,
   CloseBoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
@@ -115,7 +118,9 @@ export class FamilyTreeDesignComponent
     height: this.canvasResolution.height / 8,
     width: this.canvasResolution.width / 2,
   };
-  boxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
+  tree1BoxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
+  tree2BoxDesigns: Map<Tree2BoxDesignEnum, HTMLImageElement> = new Map();
+  tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
     height:
@@ -172,6 +177,7 @@ export class FamilyTreeDesignComponent
       this.bannerDesigns.set(Object.values(BannerDesignEnum)[i], image);
     }
     // Load and validate box design SVGs
+    // Tree 1 designs
     for (let i = 0; i < Object.values(Tree1BoxDesignEnum).length; i++) {
       let image = new Image();
       image.src = Object.values(Tree1BoxDesignEnum)[i];
@@ -179,7 +185,27 @@ export class FamilyTreeDesignComponent
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.boxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
+      this.tree1BoxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
+    }
+    // Tree 2 designs
+    for (let i = 0; i < Object.values(Tree2BoxDesignEnum).length; i++) {
+      let image = new Image();
+      image.src = Object.values(Tree2BoxDesignEnum)[i];
+      image.onerror = () => {
+        image = null;
+        this.handleFailedResourceLoading('Failed to load a box design');
+      };
+      this.tree2BoxDesigns.set(Object.values(Tree2BoxDesignEnum)[i], image);
+    }
+    // Tree 3 designs
+    for (let i = 0; i < Object.values(Tree3BoxDesignEnum).length; i++) {
+      let image = new Image();
+      image.src = Object.values(Tree3BoxDesignEnum)[i];
+      image.onerror = () => {
+        image = null;
+        this.handleFailedResourceLoading('Failed to load a box design');
+      };
+      this.tree3BoxDesigns.set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
     this.closeButton.src = CloseBoxDesignEnum.closeButton1;
@@ -253,7 +279,7 @@ export class FamilyTreeDesignComponent
   createBox(
     initialX: number,
     initialY: number,
-    boxDesign: Tree1BoxDesignEnum,
+    boxDesign: BoxDesignEnum,
     text: string
   ) {
     const newBox: IDraggableBox = {
@@ -307,109 +333,111 @@ export class FamilyTreeDesignComponent
     // https://medium.com/angular-in-depth/how-to-get-started-with-canvas-animations-in-angular-2f797257e5b4
     this.timeInterval = requestAnimationFrame(this.draw.bind(this));
 
-    this.context.clearRect(
-      0,
-      0,
-      this.designCanvas.nativeElement.width,
-      this.designCanvas.nativeElement.height
-    );
-
-    // draw the background image
-    if (
-      this.treeDesigns.get(this.backgroundTreeDesign) !== null &&
-      this.treeDesigns.get(this.backgroundTreeDesign).complete
-    ) {
-      this.context.drawImage(
-        this.treeDesigns.get(this.backgroundTreeDesign),
+      this.context.clearRect(
         0,
         0,
         this.designCanvas.nativeElement.width,
         this.designCanvas.nativeElement.height
       );
-    }
-    // render the banner
-    if (
-      this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
-      this.bannerDesigns.get(BannerDesignEnum.banner1).complete
-    ) {
-      if (this.banner !== undefined && this.banner !== null) {
-        // draw the banner at the bottom middle of the tree
+
+      // draw the background image
+      if (
+        this.treeDesigns.get(this.backgroundTreeDesign) !== null &&
+        this.treeDesigns.get(this.backgroundTreeDesign).complete
+      ) {
         this.context.drawImage(
-          this.bannerDesigns.get(BannerDesignEnum.banner1),
-          this.canvasResolution.width / 2 - this.bannerDimensions.width / 2,
-          this.canvasResolution.height - this.bannerDimensions.height,
-          this.bannerDimensions.width,
-          this.bannerDimensions.height
-        );
-        const bannerTextFontSize = 6; // in rem
-        this.context.font = `${bannerTextFontSize}rem ${this.font}`;
-        this.context.textAlign = 'center';
-        this.context.textBaseline = 'middle';
-        this.context.fillText(
-          this.banner.text,
-          this.canvasResolution.width / 2,
-          // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
-          this.canvasResolution.height - this.bannerDimensions.height / 2.2,
-          this.bannerDimensions.width / 3
+          this.treeDesigns.get(this.backgroundTreeDesign),
+          0,
+          0,
+          this.designCanvas.nativeElement.width,
+          this.designCanvas.nativeElement.height
         );
       }
-    }
-
-    // render the boxes
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      const box = this.myBoxes[i];
-      // console.log('box', box)
-      this.context.drawImage(
-        this.boxDesigns.get(box.boxDesign),
-        box.x,
-        box.y,
-        this.boxDimensions.width,
-        this.boxDimensions.height
-      );
-      const cords = this.getRealCords(this.designCanvas.nativeElement, {
-        x: box.x,
-        y: box.y,
-      });
-      // Update position of the input field to match the box
-      if (this.myBoxes[i].inputRef !== undefined) {
-        const scale = this.getCanvasScale(this.designCanvas.nativeElement);
-        this.myBoxes[i].inputRef.instance.x = cords.x;
-        this.myBoxes[i].inputRef.instance.y = cords.y;
-        // set the input dimensions, accounting for the scale between canvas and document
-        this.myBoxes[i].inputRef.instance.width = Math.floor(
-          this.boxDimensions.width / scale.scaleX
-        );
-        this.myBoxes[i].inputRef.instance.height = Math.floor(
-          this.boxDimensions.height / scale.scaleY
-        );
-        this.myBoxes[i].inputRef.instance.zIndex = i;
-        this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
-        this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
-        // draw the close button within the box
-        if (this.showDeleteBoxButtons) {
+      // render the banner
+      if (
+        this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
+        this.bannerDesigns.get(BannerDesignEnum.banner1).complete
+      ) {
+        if (this.banner !== undefined && this.banner !== null) {
+          // draw the banner at the bottom middle of the tree
           this.context.drawImage(
-            this.closeButton,
-            this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
-            this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
-            this.closeButtonDimensions.width,
-            this.closeButtonDimensions.height
+            this.bannerDesigns.get(BannerDesignEnum.banner1),
+            this.canvasResolution.width / 2 - this.bannerDimensions.width / 2,
+            this.canvasResolution.height - this.bannerDimensions.height,
+            this.bannerDimensions.width,
+            this.bannerDimensions.height
+          );
+          const bannerTextFontSize = 6; // in rem
+          this.context.font = `${bannerTextFontSize}rem ${this.font}`;
+          this.context.textAlign = 'center';
+          this.context.textBaseline = 'middle';
+          this.context.fillText(
+            this.banner.text,
+            this.canvasResolution.width / 2,
+            // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
+            this.canvasResolution.height - this.bannerDimensions.height / 2.2,
+            this.bannerDimensions.width / 3
           );
         }
+      }
 
-        // Draw the text within the box
-        // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-        // times 5 to account for having different scale
-        const boxTextFontSize =
-          (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
-        // TODO: add multi-line support
-        this.context.font = `${boxTextFontSize}rem ${this.font}`;
-        this.context.textAlign = 'center';
-        this.context.textBaseline = 'middle';
-        this.context.fillText(
-          this.myBoxes[i].text,
-          this.myBoxes[i].x + this.boxDimensions.width / 2,
-          this.myBoxes[i].y + this.boxDimensions.height / 2,
-          (this.boxDimensions.width / 3) * 2
+      // render the boxes
+      for (let i = 0; i < this.myBoxes.length; i++) {
+        const box = this.myBoxes[i];
+        this.context.drawImage(
+          this.getImageElementFromBoxDesign(
+            this.backgroundTreeDesign,
+            box.boxDesign
+          ),
+          box.x,
+          box.y,
+          this.boxDimensions.width,
+          this.boxDimensions.height
+        );
+        const cords = this.getRealCords(this.designCanvas.nativeElement, {
+          x: box.x,
+          y: box.y,
+        });
+        // Update position of the input field to match the box
+        if (this.myBoxes[i].inputRef !== undefined) {
+          const scale = this.getCanvasScale(this.designCanvas.nativeElement);
+          this.myBoxes[i].inputRef.instance.x = cords.x;
+          this.myBoxes[i].inputRef.instance.y = cords.y;
+          // set the input dimensions, accounting for the scale between canvas and document
+          this.myBoxes[i].inputRef.instance.width = Math.floor(
+            this.boxDimensions.width / scale.scaleX
+          );
+          this.myBoxes[i].inputRef.instance.height = Math.floor(
+            this.boxDimensions.height / scale.scaleY
+          );
+          this.myBoxes[i].inputRef.instance.zIndex = i;
+          this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
+          this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
+          // draw the close button within the box
+          if (this.showDeleteBoxButtons) {
+            this.context.drawImage(
+              this.closeButton,
+              this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
+              this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
+              this.closeButtonDimensions.width,
+              this.closeButtonDimensions.height
+            );
+          }
+
+          // Draw the text within the box
+          // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
+          // times 5 to account for having different scale
+          const boxTextFontSize =
+            (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
+          // TODO: add multi-line support
+          this.context.font = `${boxTextFontSize}rem ${this.font}`;
+          this.context.textAlign = 'center';
+          this.context.textBaseline = 'middle';
+          this.context.fillText(
+            this.myBoxes[i].text,
+            this.myBoxes[i].x + this.boxDimensions.width / 2,
+            this.myBoxes[i].y + this.boxDimensions.height / 2,
+            (this.boxDimensions.width / 3) * 2
         );
       }
     }
@@ -433,24 +461,24 @@ export class FamilyTreeDesignComponent
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
-          Object.values(Tree1BoxDesignEnum)[
-            Math.floor(Math.random() * this.boxDesigns.size)
+          Object.values(BoxDesignEnum)[
+            Math.floor(Math.random() * this.tree1BoxDesigns.size)
           ],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 6,
           this.canvasResolution.height / 2,
-          Object.values(Tree1BoxDesignEnum)[
-            Math.floor(Math.random() * this.boxDesigns.size)
+          Object.values(BoxDesignEnum)[
+            Math.floor(Math.random() * this.tree1BoxDesigns.size)
           ],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 3,
-          Object.values(Tree1BoxDesignEnum)[
-            Math.floor(Math.random() * this.boxDesigns.size)
+          Object.values(BoxDesignEnum)[
+            Math.floor(Math.random() * this.tree1BoxDesigns.size)
           ],
           ''
         );
@@ -652,8 +680,8 @@ export class FamilyTreeDesignComponent
     this.createBox(
       this.mouseCords.x - this.boxDimensions.width / 2,
       this.mouseCords.y - this.boxDimensions.height / 2,
-      Object.values(Tree1BoxDesignEnum)[
-        Math.floor(Math.random() * this.boxDesigns.size)
+      Object.values(BoxDesignEnum)[
+        Math.floor(Math.random() * this.tree1BoxDesigns.size)
       ],
       ''
     );
@@ -744,6 +772,44 @@ export class FamilyTreeDesignComponent
         }
         // skip checking the other boxes
         return;
+      }
+    }
+  }
+
+  // Util methods
+  // TODO: Extract them into a library
+
+  getImageElementFromBoxDesign(
+    treeDesign: TreeDesignEnum,
+    boxDesign: BoxDesignEnum
+  ): HTMLImageElement {
+    switch (treeDesign) {
+      case TreeDesignEnum.tree1: {
+        return this.tree1BoxDesigns.get(
+          Tree1BoxDesignEnum[
+            Object.keys(Tree1BoxDesignEnum)[
+              Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)
+            ]
+          ]
+        );
+      }
+      case TreeDesignEnum.tree2: {
+        return this.tree2BoxDesigns.get(
+          Tree2BoxDesignEnum[
+            Object.keys(Tree2BoxDesignEnum)[
+              Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)
+            ]
+          ]
+        );
+      }
+      case TreeDesignEnum.tree3: {
+        return this.tree3BoxDesigns.get(
+          Tree3BoxDesignEnum[
+            Object.keys(Tree3BoxDesignEnum)[
+              Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)
+            ]
+          ]
+        );
       }
     }
   }

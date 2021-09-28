@@ -263,6 +263,8 @@ export class ProductComponent implements OnInit {
         return TreeDesignNameEnum.tree1;
       case TreeDesignEnum.tree2:
         return TreeDesignNameEnum.tree2;
+      case TreeDesignEnum.tree3:
+        return TreeDesignNameEnum.tree3;
     }
   }
 

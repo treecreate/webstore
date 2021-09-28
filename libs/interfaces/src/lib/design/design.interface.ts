@@ -1,7 +1,7 @@
 import { IUser } from '../user';
 import { DesignTypeEnum } from './design-type.enum';
 import { ComponentRef } from '@angular/core';
-import { Tree1BoxDesignEnum, TreeDesignEnum } from '@assets';
+import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 
 export interface IDesign {
   designId: string;
@@ -25,7 +25,7 @@ export interface IDraggableBox {
   previousX: number;
   previousY: number;
   dragging: boolean;
-  boxDesign: Tree1BoxDesignEnum;
+  boxDesign: BoxDesignEnum;
   // can't declare the actual component so the ref is any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   inputRef?: ComponentRef<any>;
