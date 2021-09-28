@@ -241,23 +241,7 @@ export class FamilyTreeDesignComponent
     for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
     cancelAnimationFrame(this.timeInterval);
-    try {
-      this.draw();
-    } catch (error) {
-      console.error('failed to draw the design', error);
-      // disable autosave and the drawing loop
-      cancelAnimationFrame(this.timeInterval);
-      clearInterval(this.autosaveInterval);
-      this.autosaveInterval = null;
-      this.alert = {
-        type: 'danger',
-        message:
-          'Failed to load design. Please contact us at info@treecreate.dk if it keeps occurring',
-        dismissible: false,
-      };
-      this.isDesignValid = false;
-      this.isDesignValidEvent.emit(this.isDesignValid);
-    }
+    this.draw();
     console.log('Render loop started');
 
     // start autosave of design
@@ -330,8 +314,9 @@ export class FamilyTreeDesignComponent
 
   // Draw the entire canvas with the boxes etc
   draw() {
-    // https://medium.com/angular-in-depth/how-to-get-started-with-canvas-animations-in-angular-2f797257e5b4
-    this.timeInterval = requestAnimationFrame(this.draw.bind(this));
+    try {
+      // https://medium.com/angular-in-depth/how-to-get-started-with-canvas-animations-in-angular-2f797257e5b4
+      this.timeInterval = requestAnimationFrame(this.draw.bind(this));
 
       this.context.clearRect(
         0,
@@ -438,8 +423,23 @@ export class FamilyTreeDesignComponent
             this.myBoxes[i].x + this.boxDimensions.width / 2,
             this.myBoxes[i].y + this.boxDimensions.height / 2,
             (this.boxDimensions.width / 3) * 2
-        );
+          );
+        }
       }
+    } catch (error) {
+      console.error('An error has occurred while drawing the tree', error);
+      // disable autosave and the drawing loop
+      cancelAnimationFrame(this.timeInterval);
+      clearInterval(this.autosaveInterval);
+      this.autosaveInterval = null;
+      this.alert = {
+        type: 'danger',
+        message:
+          'An error has occurred while drawing the tree. Please contact us at info@treecreate.dk if it keeps occurring',
+        dismissible: false,
+      };
+      this.isDesignValid = false;
+      this.isDesignValidEvent.emit(this.isDesignValid);
     }
   }
 
