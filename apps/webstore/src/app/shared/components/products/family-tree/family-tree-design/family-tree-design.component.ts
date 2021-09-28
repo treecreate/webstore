@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import {
   BannerDesignEnum,
-  BoxDesignEnum,
+  Tree1BoxDesignEnum,
   CloseBoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
@@ -115,7 +115,7 @@ export class FamilyTreeDesignComponent
     height: this.canvasResolution.height / 8,
     width: this.canvasResolution.width / 2,
   };
-  boxDesigns: Map<BoxDesignEnum, HTMLImageElement> = new Map();
+  boxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
     height:
@@ -172,14 +172,14 @@ export class FamilyTreeDesignComponent
       this.bannerDesigns.set(Object.values(BannerDesignEnum)[i], image);
     }
     // Load and validate box design SVGs
-    for (let i = 0; i < Object.values(BoxDesignEnum).length; i++) {
+    for (let i = 0; i < Object.values(Tree1BoxDesignEnum).length; i++) {
       let image = new Image();
-      image.src = Object.values(BoxDesignEnum)[i];
+      image.src = Object.values(Tree1BoxDesignEnum)[i];
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.boxDesigns.set(Object.values(BoxDesignEnum)[i], image);
+      this.boxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
     this.closeButton.src = CloseBoxDesignEnum.closeButton1;
@@ -253,7 +253,7 @@ export class FamilyTreeDesignComponent
   createBox(
     initialX: number,
     initialY: number,
-    boxDesign: BoxDesignEnum,
+    boxDesign: Tree1BoxDesignEnum,
     text: string
   ) {
     const newBox: IDraggableBox = {
@@ -433,7 +433,7 @@ export class FamilyTreeDesignComponent
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
-          Object.values(BoxDesignEnum)[
+          Object.values(Tree1BoxDesignEnum)[
             Math.floor(Math.random() * this.boxDesigns.size)
           ],
           ''
@@ -441,7 +441,7 @@ export class FamilyTreeDesignComponent
         this.createBox(
           this.canvasResolution.width / 6,
           this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[
+          Object.values(Tree1BoxDesignEnum)[
             Math.floor(Math.random() * this.boxDesigns.size)
           ],
           ''
@@ -449,7 +449,7 @@ export class FamilyTreeDesignComponent
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 3,
-          Object.values(BoxDesignEnum)[
+          Object.values(Tree1BoxDesignEnum)[
             Math.floor(Math.random() * this.boxDesigns.size)
           ],
           ''
@@ -652,7 +652,7 @@ export class FamilyTreeDesignComponent
     this.createBox(
       this.mouseCords.x - this.boxDimensions.width / 2,
       this.mouseCords.y - this.boxDimensions.height / 2,
-      Object.values(BoxDesignEnum)[
+      Object.values(Tree1BoxDesignEnum)[
         Math.floor(Math.random() * this.boxDesigns.size)
       ],
       ''
