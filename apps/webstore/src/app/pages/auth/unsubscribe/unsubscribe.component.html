@@ -7,46 +7,61 @@
             />
         </div>
         <br />
-        <!-- TODO: re-localize the page. Currently it just has the verification version, and the old unsubscribe entires still exist but are no longer used-->
         <div>
-            <h2 i18n="@@unsubscribing">Newsletter Unsubscribe</h2>
+            <h2 i18n="@@unsubscribe-title">Newsletter Unsubscribe</h2>
         </div>
         <br />
         <div *ngIf="isLoading" class="newsletter-unsubscribe-status-container">
-            <p i18n="@@please-wait-while-we-verify">
+            <p i18n="@@unsubscribe-please-wait-while-we-verify">
                 Please wait while we unsubscribe you from newsletter
             </p>
-            <div class="spinner-border text-warning" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+            <span
+                class="spinner-border spinner-border-sm"
+                style="margin: 0 10px"
+                role="status"
+                aria-hidden="true"
+            ></span>
         </div>
         <div *ngIf="!isLoading" class="newsletter-unsubscribe-status-container">
             <div *ngIf="isUnsubscribeSuccessful">
-                <!-- TODO: add an icon to the success message (checkmark) -->
-                <p i18n="@@verification-success-subtitle">
+                <p i18n="@@unsubscribe-verification-success-subtitle">
                     Your email address has been unsubscribed from newsletter
                 </p>
-                <p
-                    class="newsletter-unsubscribe-success-message"
-                    i18n="@@verified-success"
-                >
-                    Unsubscribed!
-                </p>
+                <div class="newsletter-unsubscribe-success-message">
+                    <img
+                        src="/assets/icons/success-white-icon.svg"
+                        width="30"
+                        height="30"
+                    />
+                    <p class="remove-margin" i18n="@@unsubscribe-success">
+                        Unsubscribed!
+                    </p>
+                </div>
             </div>
             <div *ngIf="!isUnsubscribeSuccessful">
-                <p i18n="@@varification-failed-subtitle">
+                <p i18n="@@unsubscribing-failed-subtitle">
                     We have failed to unsubscribe you from the newsletter
                 </p>
-                <!-- TODO: add an icon to the error message (exclamation mark) -->
+
                 <span
                     class="glyphicon glyphicon-exclamation-sign"
                     aria-hidden="true"
                 ></span>
-                <p class="newsletter-unsubscribe-failed-message">
-                    {{ errorMessage }}
-                </p>
+
+                <div
+                    class="message-container newsletter-unsubscribe-failed-message"
+                >
+                    <img
+                        src="/assets/icons/error-icon.svg"
+                        width="30"
+                        height="30"
+                    />
+                    <p class="remove-margin">
+                        {{ errorMessage }}
+                    </p>
+                </div>
             </div>
-            <div>
+            <div class="actions">
                 <button
                     data-cy="page-not-found-home-btn"
                     routerLink="/"

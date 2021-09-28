@@ -487,7 +487,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
-          <context context-type="linenumber">32,33</context>
+          <context context-type="linenumber">63,64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
@@ -806,20 +806,44 @@
           <context context-type="linenumber">141,142</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="unsubscribing" datatype="html">
-        <source>Unsubscribing</source>
-        <target>Afmelding</target> 
+      <trans-unit id="unsubscribe-title" datatype="html">
+        <source>Newsletter Unsubscribe</source>
+        <target>Afmeld nyhedsbrev</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="have-a-good-day" datatype="html">
-        <source>Thank you for your time. Have a good day.</source>
-        <target>Tak for din tid. Du mp have en rigtigt god dag.</target> 
+      <trans-unit id="unsubscribe-please-wait-while-we-verify" datatype="html">
+        <source> Please wait while we unsubscribe you from newsletter </source>
+        <target>Vent venligst imens vi afmelder dig fra nyhedsbrevet</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unsubscribe-verification-success-subtitle" datatype="html">
+        <source> Your email address has been unsubscribed from newsletter </source>
+        <target>Din email er bleven afmeldt fra nyhedsbrevet</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unsubscribe-success" datatype="html">
+        <source> Unsubscribed! </source>
+        <target>Afmeldt!</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unsubscribing-failed-subtitle" datatype="html">
+        <source> We have failed to unsubscribe you from the newsletter </source>
+        <target>Der skete en fejl ved afmeldingen</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
+          <context context-type="linenumber">38,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="email-verification" datatype="html">
@@ -1029,10 +1053,6 @@
       <trans-unit id="if-you-have-questions" datatype="html">
         <source>If you have any questions, feel free to send us an e-mail at:</source>
         <target> Hvis du har nogen spørgsmål er du velkommen til at sende os en e-mail på: </target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/unsubscribe/unsubscribe.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
           <context context-type="linenumber">33,34</context>

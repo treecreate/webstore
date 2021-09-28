@@ -19,11 +19,15 @@
 }
 
 .header-icon {
-  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 
 .header {
   margin-top: 2rem;
+}
+
+.actions {
+  margin-bottom: 1.5rem;
 }
 
 .newsletter-unsubscribe-status-container {
@@ -34,20 +38,13 @@
   text-align: center;
 }
 
-.newsletter-unsubscribe-failed-message {
-  color: darkred;
-  background-color: lightpink;
-  border-radius: 3px;
-  border: 2px solid lightcoral;
-  padding: 10px;
-}
-
 .newsletter-unsubscribe-success-message {
   color: white;
   background-color: #52d73d;
   border-radius: 3px;
   border: 2px solid rgb(13, 177, 13);
   padding: 10px;
+  margin: 20px;
 }
 
 .home-button {
@@ -55,6 +52,21 @@
   margin: 0.5rem 1rem;
   min-width: 200px;
 }
+
+.message-container {
+  color: darkred;
+  background-color: lightpink;
+  border-radius: 3px;
+  border: 2px solid lightcoral;
+  padding: 10px;
+  margin: 20px;
+}
+
+.remove-margin {
+  margin-top: 5px;
+  margin-bottom: 0 !important;
+}
+
 @media (max-width: 900px) and (orientation: landscape) {
   .newsletter-unsubscribe-container {
     height: auto;
