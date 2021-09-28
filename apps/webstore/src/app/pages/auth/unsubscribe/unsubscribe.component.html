@@ -32,8 +32,13 @@
                         src="/assets/icons/success-white-icon.svg"
                         width="30"
                         height="30"
+                        data-cy="unsubscribe-success-icon"
                     />
-                    <p class="remove-margin" i18n="@@unsubscribe-success">
+                    <p
+                        class="remove-margin"
+                        i18n="@@unsubscribe-success"
+                        data-cy="unsubscribe-success-message"
+                    >
                         Unsubscribed!
                     </p>
                 </div>
@@ -55,27 +60,23 @@
                         src="/assets/icons/error-icon.svg"
                         width="30"
                         height="30"
+                        data-cy="unsubscribe-failed-icon"
                     />
-                    <p class="remove-margin">
+                    <p
+                        class="remove-margin"
+                        data-cy="unsubscribe-error-message"
+                    >
                         {{ errorMessage }}
                     </p>
                 </div>
             </div>
             <div class="actions">
                 <button
-                    data-cy="page-not-found-home-btn"
+                    data-cy="unsubscribe-home-btn"
                     routerLink="/"
                     class="tc-button-25 home-button"
                 >
                     Home
-                </button>
-                <button
-                    data-cy="page-not-found-home-btn"
-                    routerLink="/profile"
-                    class="tc-button-25 home-button"
-                    i18n="@@profile"
-                >
-                    Profile
                 </button>
             </div>
         </div>
