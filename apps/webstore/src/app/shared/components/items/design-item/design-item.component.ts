@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Design } from '@interfaces';
+import { IDesign } from '@interfaces';
 
 @Component({
   selector: 'webstore-design-item',
@@ -14,15 +14,15 @@ export class DesignItemComponent implements OnInit {
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 
-  deleteDesign(design: Design) {
+  deleteDesign(design: IDesign) {
     console.log('Delete design: ', design);
   }
 
-  editDesign(design: Design) {
+  editDesign(design: IDesign) {
     console.log('Edit design: ', design);
   }
 
-  addDesignToBasket(design: Design) {
+  addDesignToBasket(design: IDesign) {
     console.log('Add design to basket: ', design);
   }
 }

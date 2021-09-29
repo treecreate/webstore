@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IDesign } from '@interfaces';
+import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CalculatePriceService } from '../../../services/calculate-price/calcula
   styleUrls: ['./checkout-item.component.css'],
 })
 export class CheckoutItemComponent implements OnInit {
-  @Input() item: IDesign;
+  @Input() item: ITransactionItem;
 
   itemPrice: number;
   itemUnitPrice: number;
@@ -17,18 +17,18 @@ export class CheckoutItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemUnitPrice = this.calculatePriceService.calculateItemUnitPrice(
-      this.item.size
+      this.item.dimension
     );
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  sizeInCm(size: string): string {
-    switch (size) {
-      case 'small':
+  sizeInCm(dimension: string): string {
+    switch (dimension) {
+      case DesignDimensionEnum.small:
         return '20cm x 20cm';
-      case 'medium':
+      case DesignDimensionEnum.medium:
         return '25cm x 25cm';
-      case 'large':
+      case DesignDimensionEnum.large:
         return '30cm x 30cm';
     }
   }

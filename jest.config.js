@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/libs/models',
     '<rootDir>/libs/interfaces',
     '<rootDir>/libs/mocks',
+    '<rootDir>/libs/assets',
   ],
 };

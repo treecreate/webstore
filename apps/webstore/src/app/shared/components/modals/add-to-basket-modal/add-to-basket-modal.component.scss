@@ -15,7 +15,7 @@
   padding: 20px;
 }
 
-.option-amount,
+.option-quantity,
 .option-size,
 .option-title,
 .option-actions {
@@ -55,7 +55,7 @@
   color: var(--green);
 }
 
-.amount {
+.quantity {
   border-radius: 2px;
   border: 2px solid var(--second-action-color);
   display: flex;

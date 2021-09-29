@@ -6,28 +6,31 @@
     </div>
 
     <div class="item-container">
-        <div class="item-title">{{ item.title }}</div>
+        <div class="item-title">
+            {{ item.design.designProperties.title }}
+        </div>
 
-        <!-- amount -->
-        <div class="option-amount">
+        <!-- quantity -->
+        <div class="option-quantity">
             <div class="text">
                 <span i18n="@@amount"> Amount </span>
             </div>
             <div class="option">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="decreaseAmount()"
+                    (click)="decreaseQuantity()"
+                    [disabled]="item.quantity === 1"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="amount">
-                    {{ item.amount }}
+                <div class="quantity">
+                    {{ item.quantity }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="increaseAmount()"
+                    (click)="increaseQuantity()"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -43,17 +46,19 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
+                    [disabled]="item.dimension === 'small'"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="amount">
-                    {{ item.size }}
+                <div class="quantity">
+                    {{ item.dimension }}
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseSize()"
+                    [disabled]="item.dimension === 'large'"
                 >
                     <div class="button-plus"></div>
                 </button>

@@ -34,6 +34,8 @@ import { BasketItemComponent } from './shared/components/items/basket-item/baske
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
+import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 
 @NgModule({
@@ -66,6 +68,8 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
     BasketItemComponent,
     CheckoutComponent,
     CheckoutItemComponent,
+    FamilyTreeDesignComponent,
+    DraggableBoxComponent,
     ReviewCarouselComponent,
   ],
   imports: [

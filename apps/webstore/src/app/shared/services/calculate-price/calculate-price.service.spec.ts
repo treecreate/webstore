@@ -1,6 +1,15 @@
 import { TestBed } from '@angular/core/testing';
+import { TreeDesignEnum } from '@assets';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  DiscountType,
+  FamilyTreeFontEnum,
+  ITransactionItem,
+  IUser,
+} from '@interfaces';
+import { UserRoles } from '@models';
 import { CalculatePriceService } from './calculate-price.service';
-import { DiscountType, IDesign } from '@interfaces';
 
 describe('CalculatePriceService', () => {
   let service: CalculatePriceService;
@@ -12,27 +21,72 @@ describe('CalculatePriceService', () => {
     isHomeDelivery: true,
     donatedTrees: 0,
   };
-  const itemList: IDesign[] = [
+  const mockUser: IUser = {
+    userId: '1',
+    email: 'mock@hotdeals.dev',
+    roles: [UserRoles.user],
+    isVerified: true,
+  };
+  const itemList: ITransactionItem[] = [
     {
-      designId: '1',
-      userId: '1',
-      title: 'first design',
-      size: '20cm x 20cm',
-      amount: 2,
+      design: {
+        designId: '1',
+        designProperties: {
+          title: 'first design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.small,
+      quantity: 2,
+      order: null,
+      transactionItemId: '1',
     },
     {
-      designId: '2',
-      userId: '1',
-      title: 'second design',
-      size: '25cm x 25cm',
-      amount: 1,
+      design: {
+        designId: '1',
+        designProperties: {
+          title: 'second design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree2,
+          boxSize: 10,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.medium,
+      quantity: 1,
+      order: null,
+      transactionItemId: '1',
     },
     {
-      designId: '3',
-      userId: '1',
-      title: 'third design',
-      size: '30cm x 30cm',
-      amount: 1,
+      design: {
+        designId: '1',
+        designProperties: {
+          title: 'third design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.large,
+      quantity: 1,
+      order: null,
+      transactionItemId: '1',
     },
   ];
 
@@ -44,20 +98,46 @@ describe('CalculatePriceService', () => {
     isHomeDelivery: false,
     donatedTrees: 3,
   };
-  const secondItemList: IDesign[] = [
+  const secondItemList: ITransactionItem[] = [
     {
-      designId: '2',
-      userId: '1',
-      title: 'second design',
-      size: '25cm x 25cm',
-      amount: 2,
+      design: {
+        designId: '1',
+        designProperties: {
+          title: 'second design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.medium,
+      quantity: 2,
+      order: null,
+      transactionItemId: '1',
     },
     {
-      designId: '3',
-      userId: '1',
-      title: 'third design',
-      size: '30cm x 30cm',
-      amount: 1,
+      design: {
+        designId: '1',
+        designProperties: {
+          title: 'third design',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree2,
+          boxSize: 10,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.large,
+      quantity: 1,
+      order: null,
+      transactionItemId: '1',
     },
   ];
 
@@ -103,9 +183,9 @@ describe('CalculatePriceService', () => {
   });
 
   it('Should return the right unit prices for all design', () => {
-    expect(service.calculateItemUnitPrice(itemList[0].size)).toEqual(495);
-    expect(service.calculateItemUnitPrice(itemList[1].size)).toEqual(695);
-    expect(service.calculateItemUnitPrice(itemList[2].size)).toEqual(995);
+    expect(service.calculateItemUnitPrice(itemList[0].dimension)).toEqual(495);
+    expect(service.calculateItemUnitPrice(itemList[1].dimension)).toEqual(695);
+    expect(service.calculateItemUnitPrice(itemList[2].dimension)).toEqual(995);
   });
 
   it('Should calculate the full price correctly', () => {

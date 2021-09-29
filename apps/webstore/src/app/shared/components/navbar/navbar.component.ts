@@ -32,6 +32,13 @@ export class NavbarComponent implements OnInit {
   @ViewChild('profileMenu') profileMenu: ElementRef;
   @ViewChild('languageChange') languageChange: ElementRef;
 
+  basketItemOptions(quantity: number): string {
+    if (quantity === 0) {
+      return 'Basket empty';
+    }
+    return `(${quantity}) products `;
+  }
+
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
@@ -74,7 +81,6 @@ export class NavbarComponent implements OnInit {
   }
 
   changeLocale(language: string) {
-    // TODO: make the change language alert show on screen after reload
     switch (language) {
       case 'dk':
         this.localeCode = LocaleType.dk;

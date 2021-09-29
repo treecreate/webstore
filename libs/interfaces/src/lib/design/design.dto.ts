@@ -1,11 +1,13 @@
-export class Design {
-  designId: string;
-  userId: string;
-  title?: string;
+import { DesignTypeEnum } from './design-type.enum';
+import { IFamilyTree } from './design.interface';
 
-  constructor(designId: string, userId: string, title?: string) {
-    this.designId = designId;
-    this.userId = userId;
-    this.title = title || 'Untitled';
-  }
+export class UpdateDesignRequest {
+  designId: string;
+  designProperties: IFamilyTree;
+  designType: DesignTypeEnum;
+}
+
+export class CreateDesignRequest {
+  designProperties: IFamilyTree;
+  designType: DesignTypeEnum;
 }
