@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DiscountType, IDesign, IDiscount, IPricing } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DiscountType,
+  IDiscount,
+  IPricing,
+  ITransactionItem,
+} from '@interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +14,7 @@ export class CalculatePriceService {
   constructor() {}
 
   calculatePrices(
-    itemList: IDesign[],
+    itemList: ITransactionItem[],
     discount: IDiscount,
     isHomeDelivery: boolean,
     donatedTrees: number
@@ -57,10 +63,10 @@ export class CalculatePriceService {
     };
   }
 
-  isMoreThan4Items(itemList: IDesign[]): boolean {
+  isMoreThan4Items(itemList: ITransactionItem[]): boolean {
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
-      sum += itemList[i].amount;
+      sum += itemList[i].quantity;
     }
     if (sum >= 4) {
       return true;
@@ -69,36 +75,45 @@ export class CalculatePriceService {
     }
   }
 
-  calculateItemPrice(item: IDesign): number {
-    switch (item.size) {
-      case '20cm x 20cm':
-        return item.amount * 495;
-      case '25cm x 25cm':
-        return item.amount * 695;
-      case '30cm x 30cm':
-        return item.amount * 995;
+  calculateItemPrice(item: ITransactionItem): number {
+    switch (item.dimension) {
+      case DesignDimensionEnum.small:
+        return item.quantity * 495;
+      case DesignDimensionEnum.medium:
+        return item.quantity * 695;
+      case DesignDimensionEnum.large:
+        return item.quantity * 995;
+      default:
+        return 99999999;
     }
   }
 
-  calculateItemPriceAlternative(amount: number, size: string): number {
-    switch (size) {
-      case '20cm x 20cm':
-        return amount * 495;
-      case '25cm x 25cm':
-        return amount * 695;
-      case '30cm x 30cm':
-        return amount * 995;
+  calculateItemPriceAlternative(
+    quantity: number,
+    dimension: DesignDimensionEnum
+  ): number {
+    switch (dimension) {
+      case DesignDimensionEnum.small:
+        return quantity * 495;
+      case DesignDimensionEnum.medium:
+        return quantity * 695;
+      case DesignDimensionEnum.large:
+        return quantity * 995;
+      default:
+        return 99999999;
     }
   }
 
-  calculateItemUnitPrice(itemSize): number {
-    switch (itemSize) {
-      case '20cm x 20cm':
+  calculateItemUnitPrice(dimension: DesignDimensionEnum): number {
+    switch (dimension) {
+      case DesignDimensionEnum.small:
         return 495;
-      case '25cm x 25cm':
+      case DesignDimensionEnum.medium:
         return 695;
-      case '30cm x 30cm':
+      case DesignDimensionEnum.large:
         return 995;
+      default:
+        return 99999999;
     }
   }
 }

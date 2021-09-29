@@ -56,7 +56,7 @@ hr {
 }
 
 .option,
-.option-amount,
+.option-quantity,
 .option-size,
 .option-price {
   display: flex;
@@ -72,7 +72,7 @@ hr {
   align-items: center;
 }
 
-.amount {
+.quantity {
   border: 1px solid var(--second-action-color);
   display: flex;
   margin: 0 5px;

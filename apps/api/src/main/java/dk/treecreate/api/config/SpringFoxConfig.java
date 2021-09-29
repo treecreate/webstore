@@ -22,6 +22,7 @@ public class SpringFoxConfig
 {
 
     public static final String AUTHENTICATION_TAG = "Authentication";
+    public static final String DESIGNS_TAG = "Designs";
 
     private static ApiInfo apiInfo()
     {
@@ -40,6 +41,8 @@ public class SpringFoxConfig
             .paths(PathSelectors.any()).build()
             .tags(new Tag(AUTHENTICATION_TAG,
                 "User authentication and authorization"))
+            .tags(new Tag(DESIGNS_TAG,
+                "Product designs like family tree"))
             .apiInfo(apiInfo()) // information about the API shown at the top of the page
             .useDefaultResponseMessages(
                 false); // removes redundant codes like 404: Not found from every mapping

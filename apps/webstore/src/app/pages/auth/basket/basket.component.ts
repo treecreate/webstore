@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DiscountType, IDesign, IDiscount, IPricing } from '@interfaces';
+import { TreeDesignEnum } from '@assets';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  DiscountType,
+  FamilyTreeFontEnum,
+  IDiscount,
+  IPricing,
+  ITransactionItem,
+  IUser,
+} from '@interfaces';
+import { UserRoles } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 
@@ -14,20 +25,52 @@ import { CalculatePriceService } from '../../../shared/services/calculate-price/
 })
 export class BasketComponent implements OnInit {
   // TODO: get actual items in basket from API
-  itemList: IDesign[] = [
+  mockUser: IUser = {
+    userId: '1',
+    email: 'mock@hotdeals.dev',
+    roles: [UserRoles.user],
+    isVerified: true,
+  };
+  itemList: ITransactionItem[] = [
     {
-      designId: '1',
-      userId: '1',
-      title: 'first design',
-      size: '20cm x 20cm',
-      amount: 2,
+      design: {
+        designId: '1',
+        designProperties: {
+          title: 'Mock 1',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: this.mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.small,
+      quantity: 1,
+      order: null,
+      transactionItemId: '1',
     },
     {
-      designId: '2',
-      userId: '1',
-      title: 'second design',
-      size: '25cm x 25cm',
-      amount: 1,
+      design: {
+        designId: '2',
+        designProperties: {
+          title: 'Mock 2',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 15,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: this.mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.small,
+      quantity: 5,
+      order: null,
+      transactionItemId: '2',
     },
   ];
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IDesign } from '@interfaces';
+import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -12,7 +12,7 @@ import { ToastService } from '../../toast/toast-service';
   ],
 })
 export class BasketItemComponent implements OnInit {
-  @Input() item: IDesign;
+  @Input() item: ITransactionItem;
 
   itemPrice: number;
 
@@ -29,9 +29,9 @@ export class BasketItemComponent implements OnInit {
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  decreaseAmount() {
-    if (this.item.amount > 1) {
-      this.item.amount = this.item.amount - 1;
+  decreaseQuantity() {
+    if (this.item.quantity > 1) {
+      this.item.quantity = this.item.quantity - 1;
       this.updatePrice();
     } else {
       this.toastService.showAlert(
@@ -43,32 +43,48 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  increaseAmount() {
-    this.item.amount = this.item.amount + 1;
+  increaseQuantity() {
+    this.item.quantity = this.item.quantity + 1;
     this.updatePrice();
   }
 
   increaseSize() {
-    switch (this.item.size) {
-      case '20cm x 20cm':
-        this.item.size = '25cm x 25cm';
+    switch (this.item.dimension) {
+      case 'small':
+        this.item.dimension = DesignDimensionEnum.medium;
         this.updatePrice();
         break;
-      case '25cm x 25cm':
-        this.item.size = '30cm x 30cm';
+      case 'medium':
+        this.item.dimension = DesignDimensionEnum.large;
         this.updatePrice();
+        break;
+      case DesignDimensionEnum.large:
+        this.toastService.showAlert(
+          'This is the largest size that we offer',
+          'Dette er den største størrelse du kan bestille',
+          'danger',
+          3000
+        );
         break;
     }
   }
 
   decreaseSize() {
-    switch (this.item.size) {
-      case '25cm x 25cm':
-        this.item.size = '20cm x 20cm';
+    switch (this.item.dimension) {
+      case DesignDimensionEnum.small:
+        this.toastService.showAlert(
+          'This is the smallest size that we offer',
+          'Dette er den mindste størrelse du kan bestille',
+          'danger',
+          3000
+        );
+        break;
+      case DesignDimensionEnum.medium:
+        this.item.dimension = DesignDimensionEnum.small;
         this.updatePrice();
         break;
-      case '30cm x 30cm':
-        this.item.size = '25cm x 25cm';
+      case DesignDimensionEnum.large:
+        this.item.dimension = DesignDimensionEnum.medium;
         this.updatePrice();
         break;
     }

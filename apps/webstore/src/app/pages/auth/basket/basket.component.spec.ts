@@ -27,12 +27,12 @@ describe('BasketComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should increase donated trees amount', () => {
+  it('should increase donated trees quantity', () => {
     expect(component.donatedTrees).toEqual(1);
-    const increseButton = fixture.debugElement.query(
+    const increaseButton = fixture.debugElement.query(
       By.css('#donate-extra-trees-btn')
     );
-    const increaseButtonElement = increseButton.nativeElement;
+    const increaseButtonElement = increaseButton.nativeElement;
     increaseButtonElement.click();
     expect(component.donatedTrees).toEqual(2);
     increaseButtonElement.click();
@@ -41,11 +41,11 @@ describe('BasketComponent', () => {
     expect(component.donatedTrees).toEqual(4);
   });
 
-  it('should increase donated trees amount', () => {
-    const increseButton = fixture.debugElement.query(
+  it('should increase donated trees quantity', () => {
+    const increaseButton = fixture.debugElement.query(
       By.css('#donate-less-trees-btn')
     );
-    const increaseButtonElement = increseButton.nativeElement;
+    const increaseButtonElement = increaseButton.nativeElement;
     component.donatedTrees = 3;
 
     expect(component.donatedTrees).toEqual(3);
