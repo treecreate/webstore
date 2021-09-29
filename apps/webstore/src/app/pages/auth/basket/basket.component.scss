@@ -135,7 +135,7 @@
   display: flex;
 }
 
-.amount-of-trees {
+.quantity-of-trees {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -172,7 +172,6 @@
   opacity: 0;
 }
 
-// TODO: make page mobile responsive Because my brain is dying and i cant make it work
 @media screen and (max-width: 1095px) {
   .mobile-title {
     text-align: center;

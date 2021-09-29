@@ -1,0 +1,13 @@
+.draggable-box-input {
+  position: absolute;
+  border: none;
+  background: transparent;
+  text-align: center;
+  color: rgba(0, 0, 0, 0); /* the input text doesn't need to actually show */
+}
+
+.draggable-box-input:focus {
+  outline: none;
+  background: rgba(182, 102, 33, 0.04);
+  border-radius: 20%;
+}

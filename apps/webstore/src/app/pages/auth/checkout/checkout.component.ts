@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TreeDesignEnum } from '@assets';
 import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
   DiscountType,
+  FamilyTreeFontEnum,
   IAuthUser,
-  IDesign,
   IDiscount,
   IPricing,
+  ITransactionItem,
   IUser,
 } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { LocalStorageVars, UserRoles } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
@@ -49,23 +53,54 @@ export class CheckoutComponent implements OnInit {
   public isVerified: boolean;
 
   // TODO: get itemList from basket
-  itemList: IDesign[] = [
+  mockUser: IUser = {
+    userId: '1',
+    email: 'mock@hotdeals.dev',
+    roles: [UserRoles.user],
+    isVerified: true,
+  };
+  itemList: ITransactionItem[] = [
     {
-      designId: '1',
-      userId: '1',
-      title: 'first design',
-      size: 'small',
-      amount: 2,
+      design: {
+        designId: '1',
+        designProperties: {
+          title: 'Mock 1',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 10,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: this.mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.small,
+      quantity: 1,
+      order: null,
+      transactionItemId: '1',
     },
     {
-      designId: '2',
-      userId: '1',
-      title: 'second design',
-      size: 'medium',
-      amount: 1,
+      design: {
+        designId: '2',
+        designProperties: {
+          title: 'Mock 2',
+          font: FamilyTreeFontEnum.roboto,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          boxSize: 15,
+          banner: undefined,
+          largeFont: true,
+          boxes: [],
+        },
+        user: this.mockUser,
+        designType: DesignTypeEnum.familyTree,
+      },
+      dimension: DesignDimensionEnum.small,
+      quantity: 5,
+      order: null,
+      transactionItemId: '2',
     },
   ];
-
   constructor(
     private localStorageService: LocalStorageService,
     private toastService: ToastService,

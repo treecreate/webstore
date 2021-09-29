@@ -16,21 +16,27 @@
             </div>
         </button>
 
-        Name: {{ designTitle }} <br />
-        Font: {{ font }} <br />
-        Design: {{ design }} <br />
-        Box size: {{ boxSize }} <br />
-        Banner: {{ banner }} <br />
-        Big Font: {{ bigFont }} <br />
+        <webstore-family-tree-design
+            #familyTreeDesignCanvas
+            [boxSize]="boxSize"
+            [banner]="banner"
+            [isLargeFont]="isLargeFont"
+            [title]="designTitle"
+            [backgroundTreeDesign]="backgroundTreeDesign"
+            [font]="font"
+            (isDesignValidEvent)="onIsDesignValidEvent($event)"
+        ></webstore-family-tree-design>
     </div>
 
     <!-- FOR CY TESTS -->
     <div class="hide" data-cy="design-title">{{ designTitle }}</div>
     <div class="hide" data-cy="font">{{ font }}</div>
-    <div class="hide" data-cy="design">{{ design }}</div>
+    <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
     <div class="hide" data-cy="box-size">{{ boxSize }}</div>
-    <div class="hide" data-cy="banner">{{ banner }}</div>
-    <div class="hide" data-cy="big-font">{{ bigFont }}</div>
+    <div class="hide" data-cy="banner">
+        {{ banner !== undefined ? banner.text : '' }}
+    </div>
+    <div class="hide" data-cy="large-font">{{ isLargeFont }}</div>
     <!-- END CY TESTS -->
 
     <div
@@ -58,10 +64,11 @@
                     <input
                         type="text"
                         class="title-input"
-                        [value]="designTitle ? '' : designTitle"
+                        [value]="designTitle"
                         (keyup)="onKey($event)"
                         placeholder="Untitled-1"
                         data-cy="design-title-input"
+                        maxlength="50"
                     />
                 </div>
             </div>
@@ -114,11 +121,13 @@
                     >
                         <span class="arrow-left"></span>
                     </button>
-                    <div class="display display-design">{{ design }}</div>
+                    <div class="display display-design">
+                        {{ getDesignName(backgroundTreeDesign) }}
+                    </div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="design-arrow-right"
-                        (click)="nextDesign()"
+                        (click)="prevDesign()"
                     >
                         <span class="arrow-right"></span>
                     </button>
@@ -138,7 +147,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-plus"
                         (click)="this.boxSize = this.boxSize + 1"
-                        [disabled]="this.boxSize >= 30"
+                        [disabled]="this.boxSize >= maxSize"
                     >
                         <div class="button-plus"></div>
                     </button>
@@ -146,7 +155,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-minus"
                         (click)="this.boxSize = this.boxSize - 1"
-                        [disabled]="this.boxSize <= 0"
+                        [disabled]="this.boxSize <= minSize"
                     >
                         <div class="icon">
                             <div class="button-minus"></div>
@@ -161,7 +170,15 @@
                         Banner
                         <input
                             type="checkbox"
-                            (change)="this.banner = !this.banner"
+                            [checked]="this.banner !== undefined"
+                            (change)="
+                                this.banner === undefined
+                                    ? (this.banner = {
+                                          text: '',
+                                          style: 'first'
+                                      })
+                                    : (this.banner = undefined)
+                            "
                         />
                         <span
                             class="checkmark"
@@ -172,28 +189,48 @@
                             text="Add or remove the banner from your design."
                         ></webstore-info-popover>
                     </label>
+
+                    <div
+                        *ngIf="this.banner !== undefined"
+                        class="option-design-title"
+                    >
+                        <input
+                            type="text"
+                            class="title-input"
+                            [value]="this.banner ? this.banner.text : ''"
+                            (keyup)="updateBannerText($event)"
+                            placeholder="Banner text"
+                            data-cy="design-banner-input"
+                            maxlength="50"
+                        />
+                    </div>
                 </div>
-                <div class="option-big-font">
+                <div class="option-large-font">
                     <label class="checkbox-container option-title">
                         Large font
                         <input
                             type="checkbox"
-                            (change)="this.bigFont = !this.bigFont"
+                            [checked]="this.isLargeFont"
+                            (change)="this.isLargeFont = !this.isLargeFont"
                         />
                         <span
                             class="checkmark"
-                            data-cy="checkbox-big-font"
+                            data-cy="checkbox-large-font"
                         ></span>
                         <webstore-info-popover
                             title="Large font"
-                            text="Add or remove big font. With the large font the visibility will be better, but there wont be space for a surname."
+                            text="Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname."
                         ></webstore-info-popover>
                     </label>
                 </div>
             </div>
 
             <div class="option option-actions">
-                <button class="btn-save-design tc-button-50">
+                <button
+                    class="btn-save-design tc-button-50"
+                    (click)="saveDesign()"
+                    [disabled]="!isDesignValid"
+                >
                     Save
                     <img
                         src="/assets/icons/save-icon.svg"
@@ -208,6 +245,17 @@
                     Add
                     <img
                         src="/assets/icons/basket-white-icon.svg"
+                        alt=""
+                        class="option-icon"
+                    />
+                </button>
+            </div>
+
+            <div class="option misc-option-actions">
+                <button class="tc-button-33" (click)="clearDesignCanvas()">
+                    Reset
+                    <img
+                        src="/assets/icons/seed-icon.svg"
                         alt=""
                         class="option-icon"
                     />

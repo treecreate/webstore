@@ -1,6 +1,5 @@
 import { CookieStatus, LocalStorageVars } from '@models';
 
-// TODO: Re-activate these cy tests since terms of sale is now a part of the footer. ( I dont know how to do this - Teo )
 describe.skip('TermsOfSaleModal', () => {
   beforeEach(() => {
     localStorage.setItem(
