@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
@@ -33,7 +35,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private verifyService: VerifyService,
     private toastService: ToastService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private modalService: NgbModal
   ) {
     // Listen to changes to verification status
     this.localStorageService
@@ -45,26 +48,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    try {
-      this.isLoading = true;
-      this.userService.getUser().subscribe((user: IUser) => {
-        this.currentUser = user;
-        if (this.isVerified !== user.isVerified) {
-          this.verifyService.setIsVerified(user.isVerified);
-        }
-        this.updateFormValues();
-        this.isLoading = false;
-      });
-    } catch (error) {
-      console.error(error);
-      // TODO: handle failed fetching of the data
-    }
-
     this.accountInfoForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ]*$"),
-      ]),
+      name: new FormControl('', [Validators.maxLength(50)]),
       phoneNumber: new FormControl('', [
         Validators.minLength(8),
         Validators.maxLength(11),
@@ -81,7 +66,6 @@ export class ProfileComponent implements OnInit {
       ]),
       city: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ]*$"),
         Validators.minLength(3),
       ]),
       postcode: new FormControl('', [
@@ -90,6 +74,20 @@ export class ProfileComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]),
     });
+    try {
+      this.isLoading = true;
+      this.userService.getUser().subscribe((user: IUser) => {
+        this.currentUser = user;
+        if (this.isVerified !== user.isVerified) {
+          this.verifyService.setIsVerified(user.isVerified);
+        }
+        this.updateFormValues();
+        this.isLoading = false;
+      });
+    } catch (error) {
+      console.error(error);
+      // TODO: add an alert on the page, not just a toast message
+    }
   }
 
   updateFormValues() {
@@ -120,16 +118,7 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  updateUser() {
-    // request verification if the user has changed their email
-    if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-      this.resendVerificationEmail();
-    }
-    // update user info
-    this.updateUserQuery();
-  }
-
-  updateUserQuery(): void {
+  updateUser(): void {
     this.isUpdatingUserInfo = true;
     this.userService
       .updateUser({
@@ -150,10 +139,9 @@ export class ProfileComponent implements OnInit {
             'success',
             2500
           );
-          console.log('data logged: ');
-          console.log(data);
           this.currentUser = data;
           if (this.accountInfoForm.get('email').value !== this.oldEmail) {
+            this.resendVerificationEmail();
             this.authService.logout();
             this.toastService.showAlert(
               `You have been logged out because you've updated your email`,
@@ -205,5 +193,9 @@ export class ProfileComponent implements OnInit {
 
   scrollTop() {
     window.scroll(0, 0);
+  }
+
+  openChangePasswordModal() {
+    this.modalService.open(ChangePasswordModalComponent);
   }
 }

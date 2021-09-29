@@ -18,6 +18,7 @@
   background-color: white;
   min-width: 350px;
   width: 60vw;
+  max-width: 550px;
   padding-top: 8px !important;
   padding: 15px;
   margin: 25px;
@@ -80,6 +81,6 @@
     min-width: 80%;
   }
   .review-text {
-    min-height: 130px;
+    min-height: 150px;
   }
 }

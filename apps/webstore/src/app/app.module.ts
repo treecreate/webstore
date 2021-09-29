@@ -37,6 +37,8 @@ import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
+import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
+import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
     FamilyTreeDesignComponent,
     DraggableBoxComponent,
     ReviewCarouselComponent,
+    ChangePasswordModalComponent,
+    UnsubscribeComponent,
   ],
   imports: [
     BrowserModule,

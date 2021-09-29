@@ -32,7 +32,7 @@ export class VerifyService {
   getIsVerified(): boolean {
     // fetch verification info if user is logged in
     const authUser = this.authService.getAuthUser();
-    if (authUser != null && !this.authService.isAccessTokenValid()) {
+    if (authUser != null && this.authService.isAccessTokenValid()) {
       this.userService.getUser().subscribe((user: IUser) => {
         if (authUser.isVerified !== user.isVerified) {
           authUser.isVerified = user.isVerified;

@@ -1,0 +1,84 @@
+<div class="newsletter-unsubscribe-container">
+    <div class="newsletter-unsubscribe-section">
+        <div class="header">
+            <img
+                src="../../../assets/icons/send-email-brown-icon.svg"
+                class="header-icon"
+            />
+        </div>
+        <br />
+        <div>
+            <h2 i18n="@@unsubscribe-title">Newsletter Unsubscribe</h2>
+        </div>
+        <br />
+        <div *ngIf="isLoading" class="newsletter-unsubscribe-status-container">
+            <p i18n="@@unsubscribe-please-wait-while-we-verify">
+                Please wait while we unsubscribe you from newsletter
+            </p>
+            <span
+                class="spinner-border spinner-border-sm"
+                style="margin: 0 10px"
+                role="status"
+                aria-hidden="true"
+            ></span>
+        </div>
+        <div *ngIf="!isLoading" class="newsletter-unsubscribe-status-container">
+            <div *ngIf="isUnsubscribeSuccessful">
+                <p i18n="@@unsubscribe-verification-success-subtitle">
+                    Your email address has been unsubscribed from newsletter
+                </p>
+                <div class="newsletter-unsubscribe-success-message">
+                    <img
+                        src="/assets/icons/success-white-icon.svg"
+                        width="30"
+                        height="30"
+                        data-cy="unsubscribe-success-icon"
+                    />
+                    <p
+                        class="remove-margin"
+                        i18n="@@unsubscribe-success"
+                        data-cy="unsubscribe-success-message"
+                    >
+                        Unsubscribed!
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="!isUnsubscribeSuccessful">
+                <p i18n="@@unsubscribing-failed-subtitle">
+                    We have failed to unsubscribe you from the newsletter
+                </p>
+
+                <span
+                    class="glyphicon glyphicon-exclamation-sign"
+                    aria-hidden="true"
+                ></span>
+
+                <div
+                    class="message-container newsletter-unsubscribe-failed-message"
+                >
+                    <img
+                        src="/assets/icons/error-icon.svg"
+                        width="30"
+                        height="30"
+                        data-cy="unsubscribe-failed-icon"
+                    />
+                    <p
+                        class="remove-margin"
+                        data-cy="unsubscribe-error-message"
+                    >
+                        {{ errorMessage }}
+                    </p>
+                </div>
+            </div>
+            <div class="actions">
+                <button
+                    data-cy="unsubscribe-home-btn"
+                    routerLink="/"
+                    class="tc-button-25 home-button"
+                >
+                    Home
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

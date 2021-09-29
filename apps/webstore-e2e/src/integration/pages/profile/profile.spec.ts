@@ -33,6 +33,10 @@ describe('accountPage', () => {
     country: '',
   };
 
+  const mockUserNewPassword = {
+    password: 'abcDEF123',
+  };
+
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.cookiesAccepted,
@@ -69,6 +73,135 @@ describe('accountPage', () => {
     cy.get('[data-cy=account-update-button]').click();
   });
 
+  it('should open change password modal', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+
+    cy.visit('/profile');
+
+    cy.get('[data-cy=account-change-password-button]').click();
+    cy.get('[data-cy=change-password-modal]').should('exist');
+  });
+
+  it('should update password', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+
+    cy.intercept('PUT', '/users', {
+      body: mockUserNewPassword,
+      statusCode: 200,
+    }).as('updatePasswordRequest');
+
+    cy.visit('/profile');
+
+    cy.get('[data-cy=account-change-password-button]').click();
+    cy.get('[data-cy=change-password-modal]').should('exist');
+
+    cy.get('[data-cy=update-password-btn]').should('be.disabled');
+
+    cy.get('[data-cy=change-password-password-input]').type('abcDEF123');
+    cy.get('[data-cy=change-password-confirm-password-input]').type(
+      'abcDEF123'
+    );
+
+    cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
+    cy.get('[data-cy=update-password-btn]').click();
+
+    cy.get('[data-cy=change-password-modal]').should('not.exist');
+    cy.url().should('contain', '/home');
+  });
+
+  it('should not be able to update password with non matching password', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+
+    cy.intercept('PUT', '/users', {
+      body: mockUserNewPassword,
+      statusCode: 200,
+    }).as('updatePasswordRequest');
+
+    cy.visit('/profile');
+
+    cy.get('[data-cy=account-change-password-button]').click();
+    cy.get('[data-cy=change-password-modal]').should('exist');
+
+    cy.get('[data-cy=update-password-btn]').should('be.disabled');
+
+    cy.get('[data-cy=change-password-password-input]').type('abcDEF123');
+    cy.get('[data-cy=change-password-confirm-password-input]').type(
+      'abcDEF321'
+    );
+
+    cy.get('[data-cy=change-password-not-matching-message]').should(
+      'contain',
+      'Passwords must match'
+    );
+    cy.get('[data-cy=update-password-btn]').should('be.disabled');
+
+    cy.get('[data-cy=change-password-confirm-password-input]').clear();
+    cy.get('[data-cy=change-password-confirm-password-input]').type(
+      'abcDEF123'
+    );
+
+    cy.get('[data-cy=change-password-not-matching-message]').should(
+      'not.exist'
+    );
+  });
+
+  it('should detect that the access token is expired and log the user out after change password', () => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    //Mock return user request
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    }).as('getUserRequest');
+
+    cy.visit('/profile');
+
+    cy.intercept('PUT', '/users', {
+      body: mockUserNewPassword,
+      statusCode: 200,
+    }).as('updatePasswordRequest');
+
+    cy.get('[data-cy=account-change-password-button]').click();
+
+    cy.get('[data-cy=change-password-password-input]').type('abcDEF123');
+    cy.get('[data-cy=change-password-confirm-password-input]').type(
+      'abcDEF123'
+    );
+    cy.get('[data-cy=update-password-btn]').click();
+
+    cy.visit('/login');
+    cy.url().should('contain', '/login');
+
+    cy.get('[data-cy=navbar]').contains('Log in').should('exist');
+    cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
+  });
+
   it('should not update when no inputfields have been changed', () => {
     localStorage.setItem(
       LocalStorageVars.authUser,
@@ -82,22 +215,6 @@ describe('accountPage', () => {
 
     cy.visit('/profile');
     cy.get('[data-cy=account-update-button]').should('be.disabled');
-  });
-
-  it('should redirect to collection page', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
-    //Mock return user request
-    cy.intercept('GET', '/users/me', {
-      body: mockUser,
-      statusCode: 200,
-    }).as('getUserRequest');
-
-    cy.visit('/profile');
-    cy.get('[data-cy=account-collection-button]').click();
-    cy.url().should('contain', '/collection');
   });
 
   it('should see if inputs fields are disabled when wrong', () => {
