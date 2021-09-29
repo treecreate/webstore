@@ -18,9 +18,13 @@ export class UserService {
     return this.http.put<IUser>(`${env.apiUrl}/users`, params);
   }
 
-  public resetUserPassword(email: string): Observable<any> {
-    return this.http.post(env.apiUrl + '/resetPassword', email);
+  public sendResetUserPassword(email: string): Observable<any> {
+    return this.http.get(`${env.apiUrl}/sendResetPasswordEmail/${email}`);
   }
+
+  // public resetUserPassword(token: String, password: String) {
+  //   return this.http.put<IUser>(`${env.apiUrl}/`)
+  // }
 
   getPublicContent(): Observable<string> {
     return this.http.get(env.apiUrl + '/auth/test/all', {

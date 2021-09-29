@@ -33,9 +33,7 @@ export class ForgotPasswordModalComponent implements OnInit {
   }
 
   sendResetPasswordEmail(email: string) {
-    console.log(email);
-    // TODO: send the reset password email (possibly check if the email exists)
-    //this.userService.resetUserPassword(); 
+    this.userService.sendResetUserPassword(email);
   }
 
   resetPassword() {

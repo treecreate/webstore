@@ -4,6 +4,7 @@ import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.dto.GetUsersResponse;
+import dk.treecreate.api.user.dto.UpdatePasswordRequest;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -193,7 +194,7 @@ public class UserController
     @ApiResponses(value = {
         @ApiResponse(code = 202, message = "Email has been sent"),
     })
-    @PostMapping("resetPassword")
+    @GetMapping("resetPassword/{email}")
     public void sendResetPasswordEmail(
         @ApiParam(name = "email", example = "test@test.com") String email
     )
@@ -207,10 +208,22 @@ public class UserController
         {
             mailService.sendResetPasswordEmail(email, user.getToken().toString(),
                 mailService.getLocale(null));
-        } catch(Exception e) {
+        } catch (Exception e)
+        {
             LOGGER.error("Failed to process a verification email", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to send the email. Try again later");
         }
+    }
+
+    @Operation(summary = "Reset user password")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiResponse(code = 202, message = "Password reset")
+    @PutMapping("/resetPassword")
+    public void resetPassword(
+        @RequestBody(required = false) @Valid UpdatePasswordRequest updatePasswordRequest)
+        throws MessagingException, UnsupportedEncodingException
+    {
+
     }
 }
