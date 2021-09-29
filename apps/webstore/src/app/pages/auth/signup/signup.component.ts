@@ -1,12 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IRegisterResponse } from '@interfaces';
+import { INewsletter, IRegisterResponse } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { UserService } from '../../../shared/services/user/user.service';
+import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 @Component({
   selector: 'webstore-signup',
   templateUrl: './signup.component.html',
@@ -27,9 +27,9 @@ export class SignupComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private authService: AuthService,
-    private userService: UserService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private newsletterService: NewsletterService
   ) {}
 
   ngOnInit(): void {
@@ -42,18 +42,17 @@ export class SignupComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-zd].{8,}'),
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$'),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-zd].{8,}'),
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$'),
       ]),
     });
   }
 
-  // TODO: add user to newsletter when signupForNewsletter is checked
   onSubmit(): void {
     this.isLoading = true;
     this.authService
@@ -63,6 +62,30 @@ export class SignupComponent implements OnInit {
       })
       .subscribe(
         (data: IRegisterResponse) => {
+          // Subscribe to newsletter
+          if (this.signUpForNewletter) {
+            this.newsletterService
+              .registerNewsletterEmail(this.signupForm.get('email').value)
+              .subscribe(
+                (newsletterData: INewsletter) => {
+                  this.toastService.showAlert(
+                    `Thank you for subscribing: ${newsletterData.email}`,
+                    `Tak for din tilmelding: ${newsletterData.email}`,
+                    'success',
+                    3000
+                  );
+                },
+                (error) => {
+                  this.toastService.showAlert(
+                    error.error.message,
+                    error.error.message,
+                    'danger',
+                    100000
+                  );
+                  console.error(error);
+                }
+              );
+          }
           this.toastService.showAlert(
             'Welcome to Treecreate, you have successfully been registered!',
             'Velkommen til Treecreate, du er nu bleven registreret!',

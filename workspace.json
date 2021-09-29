@@ -167,7 +167,8 @@
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "webstore:build"
+            "browserTarget": "webstore:build",
+            "outputPath": "apps/webstore/src/i18n/"
           }
         },
         "lint": {

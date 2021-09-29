@@ -116,6 +116,12 @@ hr {
   margin-bottom: 5px;
 }
 
+.info-message {
+  font-size: var(--extra-small-font);
+  opacity: 0.5;
+  text-align: left;
+}
+
 .disabled {
   opacity: 0.5;
 }

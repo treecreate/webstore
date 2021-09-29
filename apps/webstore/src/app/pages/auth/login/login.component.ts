@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
             'Welcome back! You are now logged in.',
             'Velkommen tilbage! Du er nu logget ind.',
             'success',
-            2500
+            3500
           );
           this.isLoading = false;
           this.isLoginFailed = false;
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
             'Failed to login, please try again.',
             'Fejl ved login, prøv igen.',
             'danger',
-            2500
+            3500
           );
           console.error(err);
           this.errorMessage = err.error.message;

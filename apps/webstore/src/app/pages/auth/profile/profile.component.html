@@ -52,7 +52,7 @@
                 i18n="@@invalid-name"
                 data-cy="account-invalid-name"
             >
-                Invalid name.
+                Invalid name
             </div>
 
             <div class="tc-input-group field">
@@ -83,7 +83,7 @@
                 i18n="@@invalid-phone-number"
                 data-cy="account-invalid-phone-number"
             >
-                Invalid phone number.
+                Invalid phone number
             </div>
 
             <div class="tc-input-group field">
@@ -109,7 +109,7 @@
                 i18n="@@invalid-email"
                 data-cy="account-invalid-email"
             >
-                Invalid e-mail.
+                Invalid e-mail
             </div>
 
             <div class="sub-title top-margin">
@@ -144,7 +144,7 @@
                 i18n="@@invalid-street-address"
                 data-cy="account-invalid-address"
             >
-                The address is too long.
+                The address is too long
             </div>
 
             <div class="tc-input-group field">
@@ -171,7 +171,7 @@
                 i18n="@@invalid-street-address"
                 data-cy="account-invalid-address-2"
             >
-                The address is too long.
+                The address is too long
             </div>
 
             <div class="city-code-section">
@@ -197,7 +197,7 @@
                         i18n="@@invalid-city"
                         data-cy="account-invalid-city"
                     >
-                        The city name is too long.
+                        The city name is too long
                     </div>
                 </div>
 
@@ -226,7 +226,7 @@
                         i18n="@@invalid-postcode"
                         data-cy="account-invalid-postcode"
                     >
-                        Invalid danish postcode.
+                        Invalid danish postcode
                     </div>
                 </div>
             </div>
@@ -260,12 +260,12 @@
                     </button>
                     <button
                         class="tc-button-50"
-                        routerLink="/collection"
-                        (click)="scrollTop()"
-                        i18n="@@collection"
-                        data-cy="account-collection-button"
+                        (click)="openChangePasswordModal()"
+                        i18n="@@change-password"
+                        data-cy="account-change-password-button"
+                        type="button"
                     >
-                        Collection
+                        Change password
                     </button>
                 </div>
                 <button

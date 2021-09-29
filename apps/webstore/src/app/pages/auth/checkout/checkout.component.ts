@@ -8,6 +8,7 @@ import {
   FamilyTreeFontEnum,
   IAuthUser,
   IDiscount,
+  INewsletter,
   IPricing,
   ITransactionItem,
   IUser,
@@ -209,6 +210,30 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+  subscribeUserToNewsletter() {
+    this.newsletterService
+      .registerNewsletterEmail(this.billingAddressForm.get('email').value)
+      .subscribe(
+        (data: INewsletter) => {
+          this.toastService.showAlert(
+            `Thank you for subscribing: ${data.email}`,
+            `Tak for din tilmelding: ${data.email}`,
+            'success',
+            3000
+          );
+        },
+        (error) => {
+          this.toastService.showAlert(
+            error.error.message,
+            error.error.message,
+            'danger',
+            100000
+          );
+          console.error(error);
+        }
+      );
+  }
+
   updateFormValues() {
     this.checkoutForm.setValue({
       name: this.currentUser.name,
@@ -223,7 +248,7 @@ export class CheckoutComponent implements OnInit {
 
   submitCheckout() {
     if (this.subscribeToNewsletter) {
-      // TODO: subscribe the user to the newsletter
+      this.subscribeUserToNewsletter();
     }
 
     console.log(
