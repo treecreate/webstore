@@ -40,6 +40,8 @@ export class UnsubscribeComponent implements OnInit {
           this.errorMessage = 'The provided data is invalid';
         } else if (error.error.status === 404) {
           this.errorMessage = 'Provided newsletter subscription was not found';
+        } else if (error.error.message === undefined) {
+          this.errorMessage = 'Failed to connect to the backend service';
         } else {
           this.errorMessage = error.error.message;
         }
