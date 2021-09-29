@@ -41,19 +41,20 @@ describe('BasketComponent', () => {
     expect(component.donatedTrees).toEqual(4);
   });
 
-  it('should increase donated trees quantity', () => {
-    const increaseButton = fixture.debugElement.query(
+  it('should decrease donated trees quantity', () => {
+    const decreaseButton = fixture.debugElement.query(
       By.css('#donate-less-trees-btn')
     );
-    const increaseButtonElement = increaseButton.nativeElement;
+    const decreaseButtonElement = decreaseButton.nativeElement;
     component.donatedTrees = 3;
+    fixture.detectChanges();
 
     expect(component.donatedTrees).toEqual(3);
-    increaseButtonElement.click();
+    decreaseButtonElement.click();
     expect(component.donatedTrees).toEqual(2);
-    increaseButtonElement.click();
+    decreaseButtonElement.click();
     expect(component.donatedTrees).toEqual(1);
-    increaseButtonElement.click();
+    decreaseButtonElement.click();
     expect(component.donatedTrees).toEqual(1);
   });
 });

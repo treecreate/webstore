@@ -52,6 +52,7 @@
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-less-trees-btn"
                             (click)="decreaseDonatingAmount(); updatePrices()"
+                            [disabled]="donatedTrees === 1"
                         >
                             <div class="icon">
                                 <div class="button-minus"></div>
