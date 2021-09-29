@@ -187,4 +187,30 @@ public class UserController
         user.setIsVerified(true);
         userRepository.save(user);
     }
+
+    @Operation(summary = "Send a reset password email to the user")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses(value = {
+        @ApiResponse(code = 202, message = "Email has been sent"),
+    })
+    @PostMapping("resetPassword")
+    public void sendResetPasswordEmail(
+        @ApiParam(name = "email", example = "test@test.com") String email
+    )
+    {
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user == null)
+        {
+            return;
+        }
+        try
+        {
+            mailService.sendResetPasswordEmail(email, user.getToken().toString(),
+                mailService.getLocale(null));
+        } catch(Exception e) {
+            LOGGER.error("Failed to process a verification email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to send the email. Try again later");
+        }
+    }
 }

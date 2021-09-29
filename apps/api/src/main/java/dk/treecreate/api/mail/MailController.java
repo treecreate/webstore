@@ -73,7 +73,7 @@ public class MailController
         try
         {
             mailService
-                .sendResetPasswordEmail(resetPasswordDto.getEmail(), mailService.getLocale(lang));
+                .sendResetPasswordEmail(resetPasswordDto.getEmail(), "token", mailService.getLocale(lang));
         } catch (Exception e)
         {
             e.printStackTrace();
