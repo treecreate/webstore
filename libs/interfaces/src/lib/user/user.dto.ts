@@ -10,3 +10,7 @@ export class UpdateUserRequest {
   postcode?: string;
   country?: string;
 }
+export class UpdateUserPasswordRequest {
+  token: string;
+  password: string;
+}

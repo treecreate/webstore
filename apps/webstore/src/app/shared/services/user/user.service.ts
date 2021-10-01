@@ -1,6 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUser, UpdateUserRequest } from '@interfaces';
+import {
+  IUser,
+  UpdateUserPasswordRequest,
+  UpdateUserRequest,
+} from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
@@ -33,9 +37,10 @@ export class UserService {
     });
   }
 
-  // public resetUserPassword(token: String, password: String) {
-  //   return this.http.put<IUser>(`${env.apiUrl}/`)
-  // }
+  public updatePassword(params: UpdateUserPasswordRequest) {
+    console.log('params', params);
+    return this.http.put<IUser>(`${env.apiUrl}/users/updatePassword`, params);
+  }
 
   getPublicContent(): Observable<string> {
     return this.http.get(env.apiUrl + '/auth/test/all', {
