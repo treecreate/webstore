@@ -18,6 +18,7 @@ export class ForgotPasswordModalComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   @ViewChild('messageSent') messageSent: ElementRef;
   title = 'ForgotPasswordModal';
+  isLoading = false;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -33,6 +34,7 @@ export class ForgotPasswordModalComponent implements OnInit {
   }
 
   sendResetPasswordEmail() {
+    this.isLoading = true;
     this.userService
       .sendResetUserPassword(this.forgotPasswordForm.get('email').value)
       .subscribe(
@@ -44,6 +46,7 @@ export class ForgotPasswordModalComponent implements OnInit {
             'success',
             3500
           );
+          this.isLoading = false;
         },
         (err) => {
           this.toastService.showAlert(
@@ -52,6 +55,8 @@ export class ForgotPasswordModalComponent implements OnInit {
             'danger',
             10000
           );
+          console.log(err.error.message);
+          this.isLoading = false;
         }
       );
   }
