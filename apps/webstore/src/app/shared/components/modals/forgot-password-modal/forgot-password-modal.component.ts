@@ -32,19 +32,28 @@ export class ForgotPasswordModalComponent implements OnInit {
     });
   }
 
-  sendResetPasswordEmail(email: string) {
-    this.userService.sendResetUserPassword(email);
-  }
-
-  resetPassword() {
-    this.sendResetPasswordEmail(this.forgotPasswordForm.get('email').value);
-    this.activeModal.close();
-    this.toastService.showAlert(
-      'We have sent you an e-mail with a link to change your password.',
-      'Vi har sendt dig en e-mail med et link til at ændre din kode.',
-      'success',
-      3500
-    );
+  sendResetPasswordEmail() {
+    this.userService
+      .sendResetUserPassword(this.forgotPasswordForm.get('email').value)
+      .subscribe(
+        () => {
+          this.activeModal.close();
+          this.toastService.showAlert(
+            'We have sent you an e-mail with a link to change your password.',
+            'Vi har sendt dig en e-mail med et link til at ændre din kode.',
+            'success',
+            3500
+          );
+        },
+        (err) => {
+          this.toastService.showAlert(
+            'We have failed to send an email. Try again or contact us at info@treecreate.dk.',
+            'TODO: danish.',
+            'danger',
+            10000
+          );
+        }
+      );
   }
 
   isDisabled(): boolean {
