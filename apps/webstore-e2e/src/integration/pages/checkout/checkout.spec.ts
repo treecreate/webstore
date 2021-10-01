@@ -9,12 +9,12 @@ const mockUser: IUser = {
   roles: [UserRoles.user],
   isVerified: true,
   name: 'teodor jonasson',
-  phoneNumber: '',
-  streetAddress: '',
-  streetAddress2: '',
-  city: '',
-  postcode: '',
-  country: '',
+  phoneNumber: '26192327',
+  streetAddress: 'hillerødgade 69, 3 etage',
+  streetAddress2: 'whackado',
+  city: 'Århus',
+  postcode: '1234',
+  country: 'DenDenDen Wait, country? :o',
 };
 describe('CheckoutPage', () => {
   beforeEach(() => {
@@ -35,34 +35,31 @@ describe('CheckoutPage', () => {
     cy.visit('/checkout');
   });
 
-  it.skip('should not contain a navbar and footer', () => {
+  it('should not contain a navbar and footer', () => {
     cy.get('[data-cy=navbar]').should('not.exist');
     cy.get('[data-cy=footer]').should('not.exist');
   });
 
-  it.skip('should have billing address be the same as delivery address be true', () => {
+  it('should have billing address be the same as delivery address be true', () => {
     cy.get('[data-cy=billing-address-is-the-same-checkbox]').should(
       'be.checked'
     );
-  });
-
-  it.skip('should not show billing address form', () => {
     cy.get('[data-cy=billing-address-form]').should('not.exist');
   });
 
-  it.skip('should display billing address form when diabling billing and shipping address being the same', () => {
+  it('should display billing address form when diabling billing and shipping address being the same', () => {
     cy.get('[data-cy=billing-address-is-the-same-button]').click();
     cy.get('[data-cy=billing-address-form]').should('exist');
   });
 
-  it.skip('should have delivery be set to parcelshop delivery', () => {
+  it('should have delivery be set to parcelshop delivery', () => {
     cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should('be.checked');
     cy.get('[data-cy=checkout-form-home-delivery-checkbox]').should(
       'not.be.checked'
     );
   });
 
-  it.skip('should change to home delivery', () => {
+  it('should change to home delivery', () => {
     cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should('be.checked');
     cy.get('[data-cy=checkout-form-home-delivery-checkbox]').should(
       'not.be.checked'
@@ -76,7 +73,7 @@ describe('CheckoutPage', () => {
     );
   });
 
-  it.skip('should not show option to subscribe if user is already subscribed', () => {
+  it('should not show option to subscribe if user is already subscribed', () => {
     cy.intercept('GET', '/newsletter/me', {
       statusCode: 200,
     });
@@ -84,7 +81,7 @@ describe('CheckoutPage', () => {
     cy.get('[data-cy=checkout-form-subscribe-option]').should('not.exist');
   });
 
-  it.skip('should display subscribe option when user isnt subscribed', () => {
+  it('should display subscribe option when user isnt subscribed', () => {
     cy.intercept('GET', '/newsletter/me', {
       statusCode: 404,
     });
@@ -92,7 +89,57 @@ describe('CheckoutPage', () => {
     cy.get('[data-cy=checkout-form-subscribe-option]').should('exist');
   });
 
-  describe.skip('billingAddressForm', () => {
+  it('should have go to payment button disabled with wrong input in checkout form', () => {});
+
+  it('should have go to payment button disabled when terms are not accepted', () => {
+    cy.get('[data-cy=checkout-form-terms-checkbox]').should('not.be.checked');
+    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+      'be.disabled'
+    );
+    cy.get('[data-cy=checkout-form-terms-button]').click();
+    cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
+    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+      'not.be.disabled'
+    );
+  });
+
+  it('should have go to payment button disabled when billing form is not filled', () => {
+    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+      'be.disabled'
+    );
+    cy.get('[data-cy=checkout-form-terms-button]').click();
+    cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
+    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+      'not.be.disabled'
+    );
+    cy.get('[data-cy=billing-address-is-the-same-button]').click();
+    cy.get('[data-cy=billing-address-form]').should('exist');
+    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+      'be.disabled'
+    );
+  });
+
+  it('should have go to payment button not be disabled when billing address is filled', () => {
+    cy.get('[data-cy=checkout-form-terms-button]').click();
+    cy.get('[data-cy=billing-address-is-the-same-button]').click();
+    cy.get('[data-cy=billing-address-name-input]').type('test name');
+    cy.get('[data-cy=billing-address-street-address-input]').type(
+      'test address 123'
+    );
+    cy.get('[data-cy=billing-address-city-input]').type('test city');
+    cy.get('[data-cy=billing-address-postcode-input]').type('1234');
+    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+      'not.be.disabled'
+    );
+  });
+
+  it('should terms when link is clicked', () => {
+    cy.get('[data-cy=checkout-form-terms-of-sale]').click();
+    cy.get('[data-cy=terms-of-sale-modal]').should('exist');
+    cy.get('[data-cy=terms-of-sale-modal-close-btn]').click();
+  });
+
+  describe('billingAddressForm', () => {
     beforeEach(() => {
       cy.get('[data-cy=billing-address-is-the-same-button]').click();
     });
@@ -157,21 +204,88 @@ describe('CheckoutPage', () => {
     });
   });
 
-  describe.skip('checkoutForm', () => {
-    it('should update form values automatically', () => {});
+  describe('checkoutForm', () => {
+    it('should display error message for checkoutForm name input', () => {
+      cy.get('[data-cy=checkout-form-name-input]').clear();
+      cy.get('[data-cy=checkout-form-name-input]').type('test');
+      cy.get('[data-cy=checkout-form-name-error-message]').should('not.exist');
+      cy.get('[data-cy=checkout-form-name-input]').type('123');
+      cy.get('[data-cy=checkout-form-name-error-message]').should('exist');
+    });
 
-    it('should display error message for chekcoutForm name input', () => {});
+    it('should display error message for checkoutForm phone number input', () => {
+      cy.get('[data-cy=checkout-form-phone-number-input]').clear();
+      cy.get('[data-cy=checkout-form-phone-number-input]').type('12345678');
+      cy.get('[data-cy=checkout-form-phone-number-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=checkout-form-phone-number-input]').clear();
+      cy.get('[data-cy=checkout-form-phone-number-input]').type('+4512345678');
+      cy.get('[data-cy=checkout-form-phone-number-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=checkout-form-phone-number-input]').type('1');
+      cy.get('[data-cy=checkout-form-phone-number-error-message]').should(
+        'exist'
+      );
+      cy.get('[data-cy=checkout-form-phone-number-input]').clear();
+      cy.get('[data-cy=checkout-form-phone-number-input]').type('+4512oneTwo');
+      cy.get('[data-cy=checkout-form-phone-number-error-message]').should(
+        'exist'
+      );
+    });
 
-    it('should display error message for chekcoutForm phone number input', () => {});
+    it('email input should be disabled', () => {
+      cy.get('[data-cy=checkout-form-email-input]').should('be.disabled');
+    });
 
-    it('email input should be disabled', () => {});
+    it('should display error message for checkoutForm street address input', () => {
+      cy.get('[data-cy=checkout-form-street-address-input]').clear();
+      cy.get('[data-cy=checkout-form-street-address-input]').type('test');
+      cy.get('[data-cy=checkout-form-street-address-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=checkout-form-street-address-input]').type(
+        '123134112341234123412341234 1234 1234 1234 123 41234 123 41234 123 41234 1234 '
+      );
+      cy.get('[data-cy=checkout-form-street-address-error-message]').should(
+        'exist'
+      );
+    });
 
-    it('should display error message for chekcoutForm street address input', () => {});
+    it('should display error message for checkoutForm street address 2 input', () => {
+      cy.get('[data-cy=checkout-form-street-address-2-input]').clear();
+      cy.get('[data-cy=checkout-form-street-address-2-input]').type('test');
+      cy.get('[data-cy=checkout-form-street-address-2-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=checkout-form-street-address-2-input]').type(
+        '123134112341234123412341234 1234 1234 1234 123 41234 123 41234 123 41234 1234 '
+      );
+      cy.get('[data-cy=checkout-form-street-address-2-error-message]').should(
+        'exist'
+      );
+    });
 
-    it('should display error message for chekcoutForm street address 2 input', () => {});
+    it('should display error message for checkoutForm city input ', () => {
+      cy.get('[data-cy=checkout-form-city-input]').clear();
+      cy.get('[data-cy=checkout-form-city-input]').type('CityName');
+      cy.get('[data-cy=checkout-form-city-error-message]').should('not.exist');
+      cy.get('[data-cy=checkout-form-city-input]').type('123');
+      cy.get('[data-cy=checkout-form-city-error-message]').should('exist');
+    });
 
-    it('should display error message for chekcoutForm city input ', () => {});
-
-    it('should display error message for chekcoutForm postcode input ', () => {});
+    it('should display error message for checkoutForm postcode input ', () => {
+      cy.get('[data-cy=checkout-form-postcode-input]').clear();
+      cy.get('[data-cy=checkout-form-postcode-input]').type('1234');
+      cy.get('[data-cy=checkout-form-postcode-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=checkout-form-postcode-input]').type('1');
+      cy.get('[data-cy=checkout-form-postcode-error-message]').should('exist');
+      cy.get('[data-cy=checkout-form-postcode-input]').clear();
+      cy.get('[data-cy=checkout-form-postcode-input]').type('four');
+      cy.get('[data-cy=checkout-form-postcode-error-message]').should('exist');
+    });
   });
 });
