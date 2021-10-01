@@ -93,15 +93,68 @@ describe('CheckoutPage', () => {
   });
 
   describe.skip('billingAddressForm', () => {
-    it('should display error message for billingAddressForm name input', () => {});
+    beforeEach(() => {
+      cy.get('[data-cy=billing-address-is-the-same-button]').click();
+    });
+    it('should display error message for billingAddressForm name input', () => {
+      cy.get('[data-cy=billing-address-name-input]').type('test');
+      cy.get('[data-cy=billing-address-name-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=billing-address-name-input]').type('123');
+      cy.get('[data-cy=billing-address-name-error-message]').should('exist');
+    });
 
-    it('should display error message for billingAddressForm street address input', () => {});
+    it('should display error message for billingAddressForm street address input', () => {
+      cy.get('[data-cy=billing-address-street-address-input]').type('test');
+      cy.get('[data-cy=billing-address-street-address-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=billing-address-street-address-input]').type(
+        '123134112341234123412341234 1234 1234 1234 123 41234 123 41234 123 41234 1234 '
+      );
+      cy.get('[data-cy=billing-address-street-address-error-message]').should(
+        'exist'
+      );
+    });
 
-    it('should display error message for billingAddressForm street address 2 input', () => {});
+    it('should display error message for billingAddressForm street address 2 input', () => {
+      cy.get('[data-cy=billing-address-street-address-2-input]').type('test');
+      cy.get('[data-cy=billing-address-street-address-2-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=billing-address-street-address-2-input]').type(
+        '123134112341234123412341234 1234 1234 1234 123 41234 123 41234 123 41234 1234 '
+      );
+      cy.get('[data-cy=billing-address-street-address-2-error-message]').should(
+        'exist'
+      );
+    });
 
-    it('should display error message for billingAddressForm city input ', () => {});
+    it('should display error message for billingAddressForm city input ', () => {
+      cy.get('[data-cy=billing-address-city-input]').type('CityName');
+      cy.get('[data-cy=billing-address-city-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=billing-address-city-input]').type('123');
+      cy.get('[data-cy=billing-address-city-error-message]').should('exist');
+    });
 
-    it('should display error message for billingAddressForm postcode input ', () => {});
+    it('should display error message for billingAddressForm postcode input ', () => {
+      cy.get('[data-cy=billing-address-postcode-input]').type('1234');
+      cy.get('[data-cy=billing-address-postcode-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=billing-address-postcode-input]').type('1');
+      cy.get('[data-cy=billing-address-postcode-error-message]').should(
+        'exist'
+      );
+      cy.get('[data-cy=billing-address-postcode-input]').clear();
+      cy.get('[data-cy=billing-address-postcode-input]').type('four');
+      cy.get('[data-cy=billing-address-postcode-error-message]').should(
+        'exist'
+      );
+    });
   });
 
   describe.skip('checkoutForm', () => {

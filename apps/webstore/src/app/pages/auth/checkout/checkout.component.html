@@ -258,6 +258,7 @@
                                 placeholder="Your name"
                                 id="billingName"
                                 autocomplete="billingName"
+                                data-cy="billing-address-name-input"
                             />
                             <label for="billingName" class="tc-input-label">
                                 <span i18n="@@name"> Name</span> *</label
@@ -273,6 +274,7 @@
                                     .invalid
                             "
                             i18n="@@invalid-name"
+                            data-cy="billing-address-name-error-message"
                         >
                             Invalid name.
                         </div>
@@ -285,6 +287,7 @@
                                 formControlName="billingStreetAddress"
                                 placeholder="Your street name"
                                 id="billingStreetAddress"
+                                data-cy="billing-address-street-address-input"
                             />
                             <label
                                 for="billingStreetAddress"
@@ -308,6 +311,7 @@
                                 ).invalid
                             "
                             i18n="@@invalid-street-address"
+                            data-cy="billing-address-street-address-error-message"
                         >
                             The address is too long.
                         </div>
@@ -320,6 +324,7 @@
                                 formControlName="billingStreetAddress2"
                                 placeholder="Your street name"
                                 id="billingStreetAddress2"
+                                data-cy="billing-address-street-address-2-input"
                             />
                             <label
                                 for="billingStreetAddress2"
@@ -340,6 +345,7 @@
                                 ).invalid
                             "
                             i18n="@@invalid-street-address"
+                            data-cy="billing-address-street-address-2-error-message"
                         >
                             The address is too long.
                         </div>
@@ -352,6 +358,7 @@
                                 formControlName="billingCity"
                                 id="billingCity"
                                 placeholder="City"
+                                data-cy="billing-address-city-input"
                             />
                             <label for="billingCity" class="tc-input-label">
                                 <span i18n="@@city"> City</span> *
@@ -365,6 +372,7 @@
                                         .invalid
                                 "
                                 i18n="@@invalid-city"
+                                data-cy="billing-address-city-error-message"
                             >
                                 The city name is too long.
                             </div>
@@ -378,6 +386,7 @@
                                 id="billingPostcode"
                                 name="billingPostcode"
                                 placeholder="1234"
+                                data-cy="billing-address-postcode-input"
                             />
                             <label for="billingPostcode" class="tc-input-label">
                                 <span i18n="@@postcode">Postcode </span>
@@ -394,6 +403,7 @@
                                     ).invalid
                                 "
                                 i18n="@@invalid-postcode"
+                                data-cy="billing-address-postcode-error-message"
                             >
                                 Invalid danish postcode.
                             </div>

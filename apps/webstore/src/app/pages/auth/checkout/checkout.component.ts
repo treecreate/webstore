@@ -179,7 +179,10 @@ export class CheckoutComponent implements OnInit {
       ]),
       billingStreetAddress: new FormControl('', [Validators.maxLength(50)]),
       billingStreetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      billingCity: new FormControl('', [Validators.maxLength(50)]),
+      billingCity: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.pattern("^[a-zA-Z-' ]*$"),
+      ]),
       billingPostcode: new FormControl('', [
         Validators.max(9999),
         Validators.min(555),
