@@ -276,63 +276,6 @@
                             <input
                                 type="text"
                                 class="tc-input-field"
-                                formControlName="billingPhoneNumber"
-                                placeholder="12345678"
-                                name="billingPhoneNumber"
-                                id="billingPhoneNumber"
-                                autocomplete="phoneNumber"
-                            />
-                            <label
-                                for="billingPhoneNumber"
-                                class="tc-input-label"
-                                i18n="@@phone-number"
-                                >Phone number</label
-                            >
-                        </div>
-
-                        <div
-                            class="error-message"
-                            *ngIf="
-                                this.billingAddressForm.get(
-                                    'billingPhoneNumber'
-                                ).invalid
-                            "
-                            i18n="@@invalid-phone-number"
-                        >
-                            Invalid phone number.
-                        </div>
-
-                        <div class="tc-input-group field">
-                            <input
-                                type="email"
-                                class="tc-input-field"
-                                placeholder="E-mail"
-                                formControlName="billingEmail"
-                                name="billingEmail"
-                                id="billingEmail"
-                                autocomplete="email"
-                            />
-                            <label for="billingEmail" class="tc-input-label"
-                                >E-mail *</label
-                            >
-                        </div>
-
-                        <div
-                            class="error-message"
-                            *ngIf="
-                                this.billingAddressForm.get('billingEmail')
-                                    .dirty &&
-                                this.billingAddressForm.get('billingEmail')
-                                    .invalid
-                            "
-                            i18n="@@invalid-email"
-                        >
-                            Invalid e-mail.
-                        </div>
-                        <div class="tc-input-group field">
-                            <input
-                                type="text"
-                                class="tc-input-field"
                                 name="billingStreetAddress"
                                 formControlName="billingStreetAddress"
                                 placeholder="Your street name"

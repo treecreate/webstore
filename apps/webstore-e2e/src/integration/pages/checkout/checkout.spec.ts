@@ -13,24 +13,14 @@ describe('CheckoutPage', () => {
     cy.get('[data-cy=navbar]').should('not.exist');
     cy.get('[data-cy=footer]').should('not.exist');
   });
-    
-    it('should not show billing address form', () => {
 
-    });
+  it('should not show billing address form', () => {});
 
-    it('should display error message for shipping address name input', () => {
+  it('should display error message for shipping address name input', () => {});
 
-    });
+  it('should display error message for shipping address phone number input', () => {});
 
-    it('should display error message for shipping address phone number input', () => {
+  it('email input should be disabled', () => {});
 
-    });
-
-    it('email input should be disabled', () => {
-
-    });
-
-    it('should display error message for shipping address name input', () => {
-
-    });
+  it('should display error message for shipping address name input', () => {});
 });

@@ -177,14 +177,6 @@ export class CheckoutComponent implements OnInit {
         Validators.maxLength(50),
         Validators.pattern("^[a-zA-Z-' ]*$"),
       ]),
-      billingPhoneNumber: new FormControl('', [
-        Validators.maxLength(11),
-        Validators.pattern('^[0-9+]*$'),
-      ]),
-      billingEmail: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
       billingStreetAddress: new FormControl('', [Validators.maxLength(50)]),
       billingStreetAddress2: new FormControl('', [Validators.maxLength(50)]),
       billingCity: new FormControl('', [Validators.maxLength(50)]),
@@ -212,9 +204,10 @@ export class CheckoutComponent implements OnInit {
 
   subscribeUserToNewsletter() {
     this.newsletterService
-      .registerNewsletterEmail(this.billingAddressForm.get('email').value)
+      .registerNewsletterEmail(this.checkoutForm.get('email').value)
       .subscribe(
         (data: INewsletter) => {
+          //TODO: Add event for them to recieve a 25% off email in 2 weeks
           this.toastService.showAlert(
             `Thank you for subscribing: ${data.email}`,
             `Tak for din tilmelding: ${data.email}`,
@@ -278,7 +271,6 @@ export class CheckoutComponent implements OnInit {
         this.checkoutForm.get('city').valid &&
         this.checkoutForm.get('postcode').valid &&
         this.billingAddressForm.get('billingName').valid &&
-        this.billingAddressForm.get('billingEmail').valid &&
         this.billingAddressForm.get('billingStreetAddress').valid &&
         this.billingAddressForm.get('billingCity').valid &&
         this.billingAddressForm.get('billingPostcode').valid
