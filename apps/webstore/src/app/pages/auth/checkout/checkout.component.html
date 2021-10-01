@@ -35,8 +35,12 @@
                                 (change)="
                                     billingAddressIsTheSame = !billingAddressIsTheSame
                                 "
+                                data-cy="billing-address-is-the-same-checkbox"
                             />
-                            <span class="checkmark"></span>
+                            <span
+                                class="checkmark"
+                                data-cy="billing-address-is-the-same-button"
+                            ></span>
                         </label>
                         <div class="option-title" i18n="@@same-billing-address">
                             Billing address is the same as delivery address
@@ -235,6 +239,7 @@
                     id="billingAddressDiv"
                     name="billingAddressForm"
                     [formGroup]="billingAddressForm"
+                    data-cy="billing-address-form"
                 >
                     <!-- billing address -->
                     <div class="checkout-section no-strech">
@@ -344,7 +349,7 @@
                                 type="text"
                                 class="tc-input-field"
                                 name="billingCity"
-                                formControlName="billignCity"
+                                formControlName="billingCity"
                                 id="billingCity"
                                 placeholder="City"
                             />
@@ -412,8 +417,12 @@
                                     type="checkbox"
                                     [checked]="!isHomeDelivery"
                                     (change)="changeDelivery()"
+                                    data-cy="checkout-form-parcelshop-checkbox"
                                 />
-                                <span class="checkmark"></span>
+                                <span
+                                    class="checkmark"
+                                    data-cy="checkout-form-parcelshop-button"
+                                ></span>
                             </label>
                             <div class="option-title">
                                 <div class="type" i18n="@@parcel-shop-delivery">
@@ -477,8 +486,12 @@
                                     type="checkbox"
                                     [checked]="isHomeDelivery"
                                     (change)="changeDelivery()"
+                                    data-cy="checkout-form-home-delivery-checkbox"
                                 />
-                                <span class="checkmark"></span>
+                                <span
+                                    class="checkmark"
+                                    data-cy="checkout-form-home-delivery-button"
+                                ></span>
                             </label>
                             <div class="option-title">
                                 <div class="type" i18n="@@home-delivery">
@@ -572,7 +585,11 @@
                 <!-- Actions -->
                 <div class="actions">
                     <hr />
-                    <div class="option margin-top" *ngIf="!isSubscribed">
+                    <div
+                        class="option margin-top"
+                        *ngIf="!isSubscribed"
+                        data-cy="checkout-form-subscribe-option"
+                    >
                         <label class="checkbox-container rm-margin">
                             <input
                                 type="checkbox"
