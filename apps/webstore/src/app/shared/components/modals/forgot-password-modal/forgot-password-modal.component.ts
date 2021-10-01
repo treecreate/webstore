@@ -47,8 +47,8 @@ export class ForgotPasswordModalComponent implements OnInit {
         },
         (err) => {
           this.toastService.showAlert(
-            'We have failed to send an email. Try again or contact us at info@treecreate.dk.',
-            'TODO: danish.',
+            'We have failed to send an e-mail. Try again or contact us at info@treecreate.dk.',
+            'Der skete en fejl da vi skulle sende e-mailen. Prøv igen senere eller skriv til os på info@treecreate.dk',
             'danger',
             10000
           );
