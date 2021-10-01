@@ -33,12 +33,16 @@ export class VerificationComponent implements OnInit {
         this.isLoading = false;
         this.verifyService.setIsVerified(true);
       },
-      (err: HttpErrorResponse) => {
-        console.error(err);
-        if (err.status === 400) {
-          this.errorMessage = 'The verification token is invalid';
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        if (error.error.status === 400) {
+          this.errorMessage = 'The provided data is invalid';
+        } else if (error.error.status === 404) {
+          this.errorMessage = 'Provided user was not found';
+        } else if (error.error.message === undefined) {
+          this.errorMessage = 'Failed to connect to the backend service';
         } else {
-          this.errorMessage = err.error.message;
+          this.errorMessage = error.error.message;
         }
         this.isLoading = false;
         this.isVerificationSuccessful = false;
