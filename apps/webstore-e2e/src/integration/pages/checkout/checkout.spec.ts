@@ -72,7 +72,7 @@ describe('CheckoutPage', () => {
       cy.get('[data-cy=billing-address-form]').should('not.exist');
     });
 
-    it('should display billing address form when diabling billing and shipping address being the same', () => {
+    it('should display billing address form when disabling billing and shipping address being the same', () => {
       cy.get('[data-cy=billing-address-is-the-same-button]').click();
       cy.get('[data-cy=billing-address-form]').should('exist');
     });
@@ -110,7 +110,7 @@ describe('CheckoutPage', () => {
       cy.get('[data-cy=checkout-form-subscribe-option]').should('not.exist');
     });
 
-    it('should display subscribe option when user isnt subscribed', () => {
+    it(`should display subscribe option when user isn't subscribed`, () => {
       cy.intercept('GET', '/newsletter/me', {
         statusCode: 404,
       });
@@ -148,7 +148,7 @@ describe('CheckoutPage', () => {
       );
     });
 
-    it('should have go to payment button not be disabled when billing address is filled', () => {
+    it('should have "go to payment" button not be disabled when billing address is filled', () => {
       cy.get('[data-cy=checkout-form-terms-button]').click();
       cy.get('[data-cy=billing-address-is-the-same-button]').click();
       cy.get('[data-cy=billing-address-name-input]').type('test name');
@@ -162,7 +162,7 @@ describe('CheckoutPage', () => {
       );
     });
 
-    it('should terms when link is clicked', () => {
+    it('should show terms modal when link is clicked', () => {
       cy.get('[data-cy=checkout-form-terms-of-sale]').click();
       cy.get('[data-cy=terms-of-sale-modal]').should('exist');
       cy.get('[data-cy=terms-of-sale-modal-close-btn]').click();
