@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -15,10 +17,17 @@ export class BasketItemComponent implements OnInit {
   @Input() item: ITransactionItem;
 
   itemPrice: number;
+  isLoading = false;
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
+  };
 
   constructor(
     private toastService: ToastService,
-    private calculatePriceService: CalculatePriceService
+    private calculatePriceService: CalculatePriceService,
+    private transactionItemService: TransactionItemService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +41,7 @@ export class BasketItemComponent implements OnInit {
   decreaseQuantity() {
     if (this.item.quantity > 1) {
       this.item.quantity = this.item.quantity - 1;
+      this.updateTransactionItem();
       this.updatePrice();
     } else {
       this.toastService.showAlert(
@@ -45,6 +55,7 @@ export class BasketItemComponent implements OnInit {
 
   increaseQuantity() {
     this.item.quantity = this.item.quantity + 1;
+    this.updateTransactionItem();
     this.updatePrice();
   }
 
@@ -67,6 +78,7 @@ export class BasketItemComponent implements OnInit {
         );
         break;
     }
+    this.updateTransactionItem();
   }
 
   decreaseSize() {
@@ -88,5 +100,31 @@ export class BasketItemComponent implements OnInit {
         this.updatePrice();
         break;
     }
+    this.updateTransactionItem();
+  }
+
+  updateTransactionItem() {
+    this.transactionItemService
+      .updateTransactionItem(this.item.transactionItemId, {
+        quantity: this.item.quantity,
+        dimension: this.item.dimension,
+      })
+      .subscribe(
+        (item: ITransactionItem) => {
+          this.isLoading = false;
+          this.item = item;
+          console.log('Fetched transaction item', item);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+
+          this.alert = {
+            message: 'Failed to display the transaction item',
+            type: 'danger',
+            dismissible: false,
+          };
+          this.isLoading = false;
+        }
+      );
   }
 }

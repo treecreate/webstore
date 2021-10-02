@@ -37,10 +37,11 @@ export class TransactionItemService {
   }
 
   public updateTransactionItem(
+    transactionItemId: string,
     params: UpdateTransactionItemRequest
   ): Observable<ITransactionItem> {
     return this.http.put<ITransactionItem>(
-      `${env.apiUrl}/transaction-items/me`,
+      `${env.apiUrl}/transaction-items/me/${transactionItemId}`,
       params
     );
   }
