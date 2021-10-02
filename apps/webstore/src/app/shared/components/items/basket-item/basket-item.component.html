@@ -84,7 +84,11 @@
         <!-- actions -->
         <div class="option-actions">
             <button class="tc-button-50 margin-top" i18n="@@view">View</button>
-            <button class="tc-button-50 margin-top" i18n="@@delete">
+            <button
+                class="tc-button-50 margin-top"
+                (click)="deleteTransactionItem()"
+                i18n="@@delete"
+            >
                 Delete
             </button>
         </div>

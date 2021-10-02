@@ -45,4 +45,11 @@ export class TransactionItemService {
       params
     );
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public deleteTransactionItem(transactionItemId: string): Observable<any> {
+    return this.http.delete(
+      `${env.apiUrl}/transaction-items/me/${transactionItemId}`
+    );
+  }
 }

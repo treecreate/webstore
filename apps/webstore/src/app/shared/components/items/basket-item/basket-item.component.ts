@@ -127,4 +127,32 @@ export class BasketItemComponent implements OnInit {
         }
       );
   }
+
+  deleteTransactionItem() {
+    this.transactionItemService
+      .deleteTransactionItem(this.item.transactionItemId)
+      .subscribe(
+        () => {
+          this.isLoading = false;
+          this.alert = {
+            message: 'Set item for deletion',
+            type: 'success',
+            dismissible: false,
+          };
+          this.item = null;
+          console.log('Deleted transaction item');
+          // TODO - self-destruct the component
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+
+          this.alert = {
+            message: 'Failed to fully delete the transaction item',
+            type: 'danger',
+            dismissible: false,
+          };
+          this.isLoading = false;
+        }
+      );
+  }
 }
