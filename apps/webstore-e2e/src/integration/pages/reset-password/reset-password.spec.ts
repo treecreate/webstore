@@ -1,4 +1,4 @@
-import { LocalStorageVars, CookieStatus } from '@models';
+import { CookieStatus, LocalStorageVars } from '@models';
 
 const resetPasswordUUID = '1c1ca614-6600-4e61-aec5-8e6143b1';
 describe('resetPasswordPage', () => {
@@ -22,7 +22,7 @@ describe('resetPasswordPage', () => {
     cy.get('[data-cy=reset-password-password-error-message]').should('exist');
   });
 
-  it('should display confirm password error message when it doesnt match password', () => {
+  it("should display confirm password error message when it doesn't match password", () => {
     cy.get('[data-cy=reset-password-password-input]').type('abcDEF123');
     cy.get('[data-cy=reset-password-confirm-password-input]').type('abcDEF321');
     cy.get('[data-cy=reset-password-confirm-password-error-message]').should(
@@ -35,7 +35,7 @@ describe('resetPasswordPage', () => {
     );
   });
 
-  it('should disable reset password button when passwords dont match', () => {
+  it("should disable reset password button when passwords don't match", () => {
     cy.get('[data-cy=reset-password-button]').should('be.disabled');
     cy.get('[data-cy=reset-password-password-input]').type('abcDEF123');
     cy.get('[data-cy=reset-password-button]').should('be.disabled');
