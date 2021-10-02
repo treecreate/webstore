@@ -4,6 +4,7 @@ import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.dto.GetUsersResponse;
+import dk.treecreate.api.user.dto.UpdatePasswordRequest;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -186,5 +187,53 @@ public class UserController
         }
         user.setIsVerified(true);
         userRepository.save(user);
+    }
+
+    @Operation(summary = "Send a reset password email to the user")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Email has been sent"),
+    })
+    @GetMapping("resetPassword/{email}")
+    public void sendResetPasswordEmail(
+        @ApiParam(name = "email", example = "test@test.com") @Valid @PathVariable String email,
+        @Parameter(name = "lang",
+            description = "Language of the email. Defaults to danish (dk)." +
+                "\nValid values: 'en', 'dk'", example = "en") @RequestParam(required = false)
+            String lang)
+    {
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user == null)
+        {
+            return;
+        }
+        try
+        {
+            mailService.sendResetPasswordEmail(email, user.getToken().toString(),
+                mailService.getLocale(lang));
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to process a verification email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to send the email. Try again later");
+        }
+    }
+
+    @Operation(summary = "Update user password via token")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Password has been updated", response = User.class),
+        @ApiResponse(code = 404, message = "User with associated token not found")
+    })
+    @PutMapping("/updatePassword")
+    public User updatePassword(
+        @RequestBody(required = false) @Valid UpdatePasswordRequest updatePasswordRequest)
+        throws MessagingException, UnsupportedEncodingException
+    {
+        User user = userRepository.findByToken(updatePasswordRequest.getToken())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        user.setPassword(authUserService.encodePassword(updatePasswordRequest.getPassword()));
+        return userRepository.save(user);
     }
 }
