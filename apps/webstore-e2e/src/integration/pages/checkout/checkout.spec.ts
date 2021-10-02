@@ -16,6 +16,13 @@ const mockUser: IUser = {
   postcode: '1234',
   country: 'DenDenDen Wait, country? :o',
 };
+
+/* TODO: Add missing tests
+ * - should have correct items in transaction (depends on data)
+ * - should have correct pricing (depends on the data)
+ * - should send the right request when going to payment and possibly others (@Kwandes)
+ */
+
 describe('CheckoutPage', () => {
   describe('Not Authenticated / rejected cookies', () => {
     it('should not allow the user to view the page without accepting cookies', () => {
