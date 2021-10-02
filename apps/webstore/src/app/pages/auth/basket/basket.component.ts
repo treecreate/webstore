@@ -1,12 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TreeDesignEnum } from '@assets';
 import {
-  DesignDimensionEnum,
-  DesignTypeEnum,
   DiscountType,
-  FamilyTreeFontEnum,
   IDiscount,
   IPricing,
   ITransactionItem,
@@ -77,21 +73,14 @@ export class BasketComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-        if (error.error.message !== undefined) {
-          this.alert = {
-            message: error.error.message,
-            type: 'danger',
-            dismissible: false,
-          };
-        } else {
-          this.alert = {
-            message: 'Failed to connect to the backend service',
-            type: 'danger',
-            dismissible: false,
-          };
-        }
+
+        this.alert = {
+          message: 'Failed to get a list of items',
+          type: 'danger',
+          dismissible: false,
+        };
+
         this.isLoading = false;
-        this.alert = undefined;
       }
     );
 

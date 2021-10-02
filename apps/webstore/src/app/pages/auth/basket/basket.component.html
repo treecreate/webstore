@@ -5,6 +5,19 @@
                 <h2 class="desktop-title" i18n="@@basket-upper">BASKET</h2>
                 <div class="basket-items-container">
                     <h2 class="mobile-title" i18n="@@basket-upper">BASKET</h2>
+                    <ngb-alert
+                        *ngIf="alert"
+                        type="danger"
+                        (closed)="alert = undefined"
+                        [dismissible]="alert.dismissible"
+                    >
+                        <h3>
+                            {{
+                                alert.type === 'danger' ? 'Error' : alert.type
+                            }}!
+                        </h3>
+                        {{ alert.message }}</ngb-alert
+                    >
                     <!-- basket items -->
                     <div class="basket-items" *ngIf="!(itemList.length <= 0)">
                         <webstore-basket-item
