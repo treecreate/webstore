@@ -6,6 +6,6 @@ public enum DesignDimension
     // If you don't update the saved designs, they will be returning a wrong (old) design dimensions index
     SMALL,
     MEDIUM,
-    BIG,
+    LARGE,
     ONE_SIZE;
 }
