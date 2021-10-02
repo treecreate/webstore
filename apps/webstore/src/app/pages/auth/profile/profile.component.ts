@@ -49,7 +49,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountInfoForm = new FormGroup({
-      name: new FormControl('', [Validators.maxLength(50)]),
+      name: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.pattern('^[^0-9]+$'),
+      ]),
       phoneNumber: new FormControl('', [
         Validators.minLength(8),
         Validators.maxLength(11),
@@ -67,6 +70,7 @@ export class ProfileComponent implements OnInit {
       city: new FormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
+        Validators.pattern('^[^0-9]+$'),
       ]),
       postcode: new FormControl('', [
         Validators.max(9999),

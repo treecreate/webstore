@@ -35,8 +35,12 @@
                                 (change)="
                                     billingAddressIsTheSame = !billingAddressIsTheSame
                                 "
+                                data-cy="billing-address-is-the-same-checkbox"
                             />
-                            <span class="checkmark"></span>
+                            <span
+                                class="checkmark"
+                                data-cy="billing-address-is-the-same-button"
+                            ></span>
                         </label>
                         <div class="option-title" i18n="@@same-billing-address">
                             Billing address is the same as delivery address
@@ -51,6 +55,7 @@
                             placeholder="Your name"
                             id="name"
                             autocomplete="name"
+                            data-cy="checkout-form-name-input"
                         />
                         <label for="name" class="tc-input-label">
                             <span i18n="@@name">Name</span> *</label
@@ -64,6 +69,7 @@
                             this.checkoutForm.get('name').invalid
                         "
                         i18n="@@invalid-name"
+                        data-cy="checkout-form-name-error-message"
                     >
                         Invalid name.
                     </div>
@@ -77,6 +83,7 @@
                             name="phoneNumber"
                             id="phoneNumber"
                             autocomplete="phoneNumber"
+                            data-cy="checkout-form-phone-number-input"
                         />
                         <label
                             for="phoneNumber"
@@ -93,6 +100,7 @@
                             this.checkoutForm.get('phoneNumber').invalid
                         "
                         i18n="@@invalid-phone-number"
+                        data-cy="checkout-form-phone-number-error-message"
                     >
                         Invalid phone number.
                     </div>
@@ -109,6 +117,7 @@
                             name="email"
                             id="profileEmail"
                             autocomplete="email"
+                            data-cy="checkout-form-email-input"
                             disabled
                         />
                         <label for="email" class="tc-input-label"
@@ -116,16 +125,6 @@
                         >
                     </div>
 
-                    <div
-                        class="error-message"
-                        *ngIf="
-                            this.checkoutForm.get('email').dirty &&
-                            this.checkoutForm.get('email').invalid
-                        "
-                        i18n="@@invalid-email"
-                    >
-                        Invalid e-mail.
-                    </div>
                     <div class="tc-input-group field">
                         <input
                             type="text"
@@ -134,6 +133,7 @@
                             formControlName="streetAddress"
                             placeholder="Your street name"
                             id="streetAddress"
+                            data-cy="checkout-form-street-address-input"
                         />
                         <label for="streetAddress" class="tc-input-label"
                             ><span i18n="@@street-address">
@@ -150,6 +150,7 @@
                             this.checkoutForm.get('streetAddress').invalid
                         "
                         i18n="@@invalid-street-address"
+                        data-cy="checkout-form-street-address-error-message"
                     >
                         The address is too long.
                     </div>
@@ -162,6 +163,7 @@
                             formControlName="streetAddress2"
                             placeholder="Your street name"
                             id="streetAddress2"
+                            data-cy="checkout-form-street-address-2-input"
                         />
                         <label for="streetAddress2" class="tc-input-label">
                             <span i18n="@@street-address"> Street address</span>
@@ -176,6 +178,7 @@
                             this.checkoutForm.get('streetAddress2').invalid
                         "
                         i18n="@@invalid-street-address"
+                        data-cy="checkout-form-street-address-2-error-message"
                     >
                         The address is too long.
                     </div>
@@ -188,6 +191,7 @@
                             formControlName="city"
                             id="city"
                             placeholder="City"
+                            data-cy="checkout-form-city-input"
                         />
                         <label for="city" class="tc-input-label"
                             ><span i18n="@@city">City</span> *
@@ -199,6 +203,7 @@
                                 this.checkoutForm.get('city').invalid
                             "
                             i18n="@@invalid-city"
+                            data-cy="checkout-form-city-error-message"
                         >
                             The city name is too long.
                         </div>
@@ -212,6 +217,7 @@
                             id="postcode"
                             name="postcode"
                             placeholder="1234"
+                            data-cy="checkout-form-postcode-input"
                         />
                         <label for="postcode" class="tc-input-label">
                             <span i18n="@@postcode">Postcode</span> *</label
@@ -223,6 +229,7 @@
                                 this.checkoutForm.get('postcode').invalid
                             "
                             i18n="@@invalid-postcode"
+                            data-cy="checkout-form-postcode-error-message"
                         >
                             Invalid danish postcode.
                         </div>
@@ -235,6 +242,7 @@
                     id="billingAddressDiv"
                     name="billingAddressForm"
                     [formGroup]="billingAddressForm"
+                    data-cy="billing-address-form"
                 >
                     <!-- billing address -->
                     <div class="checkout-section no-strech">
@@ -253,6 +261,7 @@
                                 placeholder="Your name"
                                 id="billingName"
                                 autocomplete="billingName"
+                                data-cy="billing-address-name-input"
                             />
                             <label for="billingName" class="tc-input-label">
                                 <span i18n="@@name"> Name</span> *</label
@@ -268,6 +277,7 @@
                                     .invalid
                             "
                             i18n="@@invalid-name"
+                            data-cy="billing-address-name-error-message"
                         >
                             Invalid name.
                         </div>
@@ -276,67 +286,11 @@
                             <input
                                 type="text"
                                 class="tc-input-field"
-                                formControlName="billingPhoneNumber"
-                                placeholder="12345678"
-                                name="billingPhoneNumber"
-                                id="billingPhoneNumber"
-                                autocomplete="phoneNumber"
-                            />
-                            <label
-                                for="billingPhoneNumber"
-                                class="tc-input-label"
-                                i18n="@@phone-number"
-                                >Phone number</label
-                            >
-                        </div>
-
-                        <div
-                            class="error-message"
-                            *ngIf="
-                                this.billingAddressForm.get(
-                                    'billingPhoneNumber'
-                                ).invalid
-                            "
-                            i18n="@@invalid-phone-number"
-                        >
-                            Invalid phone number.
-                        </div>
-
-                        <div class="tc-input-group field">
-                            <input
-                                type="email"
-                                class="tc-input-field"
-                                placeholder="E-mail"
-                                formControlName="billingEmail"
-                                name="billingEmail"
-                                id="billingEmail"
-                                autocomplete="email"
-                            />
-                            <label for="billingEmail" class="tc-input-label"
-                                >E-mail *</label
-                            >
-                        </div>
-
-                        <div
-                            class="error-message"
-                            *ngIf="
-                                this.billingAddressForm.get('billingEmail')
-                                    .dirty &&
-                                this.billingAddressForm.get('billingEmail')
-                                    .invalid
-                            "
-                            i18n="@@invalid-email"
-                        >
-                            Invalid e-mail.
-                        </div>
-                        <div class="tc-input-group field">
-                            <input
-                                type="text"
-                                class="tc-input-field"
                                 name="billingStreetAddress"
                                 formControlName="billingStreetAddress"
                                 placeholder="Your street name"
                                 id="billingStreetAddress"
+                                data-cy="billing-address-street-address-input"
                             />
                             <label
                                 for="billingStreetAddress"
@@ -360,6 +314,7 @@
                                 ).invalid
                             "
                             i18n="@@invalid-street-address"
+                            data-cy="billing-address-street-address-error-message"
                         >
                             The address is too long.
                         </div>
@@ -372,6 +327,7 @@
                                 formControlName="billingStreetAddress2"
                                 placeholder="Your street name"
                                 id="billingStreetAddress2"
+                                data-cy="billing-address-street-address-2-input"
                             />
                             <label
                                 for="billingStreetAddress2"
@@ -392,6 +348,7 @@
                                 ).invalid
                             "
                             i18n="@@invalid-street-address"
+                            data-cy="billing-address-street-address-2-error-message"
                         >
                             The address is too long.
                         </div>
@@ -401,9 +358,10 @@
                                 type="text"
                                 class="tc-input-field"
                                 name="billingCity"
-                                formControlName="billignCity"
+                                formControlName="billingCity"
                                 id="billingCity"
                                 placeholder="City"
+                                data-cy="billing-address-city-input"
                             />
                             <label for="billingCity" class="tc-input-label">
                                 <span i18n="@@city"> City</span> *
@@ -417,6 +375,7 @@
                                         .invalid
                                 "
                                 i18n="@@invalid-city"
+                                data-cy="billing-address-city-error-message"
                             >
                                 The city name is too long.
                             </div>
@@ -430,6 +389,7 @@
                                 id="billingPostcode"
                                 name="billingPostcode"
                                 placeholder="1234"
+                                data-cy="billing-address-postcode-input"
                             />
                             <label for="billingPostcode" class="tc-input-label">
                                 <span i18n="@@postcode">Postcode </span>
@@ -446,6 +406,7 @@
                                     ).invalid
                                 "
                                 i18n="@@invalid-postcode"
+                                data-cy="billing-address-postcode-error-message"
                             >
                                 Invalid danish postcode.
                             </div>
@@ -469,8 +430,12 @@
                                     type="checkbox"
                                     [checked]="!isHomeDelivery"
                                     (change)="changeDelivery()"
+                                    data-cy="checkout-form-parcelshop-checkbox"
                                 />
-                                <span class="checkmark"></span>
+                                <span
+                                    class="checkmark"
+                                    data-cy="checkout-form-parcelshop-button"
+                                ></span>
                             </label>
                             <div class="option-title">
                                 <div class="type" i18n="@@parcel-shop-delivery">
@@ -534,8 +499,12 @@
                                     type="checkbox"
                                     [checked]="isHomeDelivery"
                                     (change)="changeDelivery()"
+                                    data-cy="checkout-form-home-delivery-checkbox"
                                 />
-                                <span class="checkmark"></span>
+                                <span
+                                    class="checkmark"
+                                    data-cy="checkout-form-home-delivery-button"
+                                ></span>
                             </label>
                             <div class="option-title">
                                 <div class="type" i18n="@@home-delivery">
@@ -629,7 +598,11 @@
                 <!-- Actions -->
                 <div class="actions">
                     <hr />
-                    <div class="option margin-top" *ngIf="!isSubscribed">
+                    <div
+                        class="option margin-top"
+                        *ngIf="!isSubscribed"
+                        data-cy="checkout-form-subscribe-option"
+                    >
                         <label class="checkbox-container rm-margin">
                             <input
                                 type="checkbox"
@@ -652,8 +625,12 @@
                                 (change)="
                                     isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted
                                 "
+                                data-cy="checkout-form-terms-checkbox"
                             />
-                            <span class="checkmark"></span>
+                            <span
+                                class="checkmark"
+                                data-cy="checkout-form-terms-button"
+                            ></span>
                         </label>
                         <div class="option-title">
                             <span i18n="@@accept-terms"
@@ -663,6 +640,7 @@
                                 class="TnC"
                                 (click)="showTermsOfSale()"
                                 i18n="@@read-here"
+                                data-cy="checkout-form-terms-of-sale"
                                 >Read here</a
                             >
                         </div>
@@ -670,9 +648,9 @@
                     <button
                         class="tc-button-100 green margin-top"
                         type="submit"
-                        [disabled]="!isTermsAndConditionsAccepted"
-                        [ngClass]="!isDisabled() ? 'disabled' : ''"
+                        [disabled]="!isDisabled()"
                         i18n="@@go-to-quickpay"
+                        data-cy="checkout-form-go-to-payment-button"
                     >
                         Go to Quickpay
                     </button>
