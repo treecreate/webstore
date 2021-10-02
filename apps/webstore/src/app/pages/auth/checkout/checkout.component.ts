@@ -225,7 +225,7 @@ export class CheckoutComponent implements OnInit {
       .registerNewsletterEmail(this.checkoutForm.get('email').value)
       .subscribe(
         (data: INewsletter) => {
-          //TODO: Add event for them to recieve a 25% off email in 2 weeks
+          //TODO: Add event for them to receive a 25% off email in 2 weeks
           this.toastService.showAlert(
             `Thank you for subscribing: ${data.email}`,
             `Tak for din tilmelding: ${data.email}`,

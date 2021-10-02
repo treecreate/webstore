@@ -50,11 +50,11 @@ export class BasketItemComponent implements OnInit {
 
   increaseSize() {
     switch (this.item.dimension) {
-      case 'small':
+      case DesignDimensionEnum.small:
         this.item.dimension = DesignDimensionEnum.medium;
         this.updatePrice();
         break;
-      case 'medium':
+      case DesignDimensionEnum.medium:
         this.item.dimension = DesignDimensionEnum.large;
         this.updatePrice();
         break;
