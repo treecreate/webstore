@@ -46,9 +46,42 @@ describe('resetPasswordPage', () => {
   });
 
   it('should display failed message after changing password', () => {
+    cy.intercept('PUT', '/users/updatePassword', {
+      statusCode: 404,
+      body: 'Not Found',
+    });
     cy.get('[data-cy=reset-password-password-input]').type('abcDEF123');
     cy.get('[data-cy=reset-password-confirm-password-input]').type('abcDEF123');
     cy.get('[data-cy=reset-password-button]').click();
     cy.get('[data-cy=reset-password-failed]').should('exist');
+    cy.get('[data-cy=reset-password-button').should('exist');
+    cy.get('[data-cy=goto-login-btn').should('not.exist');
+  });
+
+  it('should display success message after changing password', () => {
+    cy.intercept('PUT', '/users/updatePassword', {
+      statusCode: 204,
+    });
+    cy.get('[data-cy=reset-password-password-input]').type('abcDEF123');
+    cy.get('[data-cy=reset-password-confirm-password-input]').type('abcDEF123');
+    cy.get('[data-cy=reset-password-button]').click();
+    cy.get('[data-cy=reset-password-failed]').should('not.exist');
+    cy.get('[data-cy=update-password-success-message]').should('exist');
+    cy.get('[data-cy=reset-password-button').should('not.exist');
+    cy.get('[data-cy=goto-login-btn').should('exist');
+  });
+
+  it('should redirect to login page when "Go to Login page" button is pressed"', () => {
+    cy.intercept('PUT', '/users/updatePassword', {
+      statusCode: 204,
+    });
+    cy.get('[data-cy=reset-password-password-input]').type('abcDEF123');
+    cy.get('[data-cy=reset-password-confirm-password-input]').type('abcDEF123');
+    cy.get('[data-cy=reset-password-button]').click();
+    cy.get('[data-cy=reset-password-failed]').should('not.exist');
+    cy.get('[data-cy=update-password-success-message]').should('exist');
+    cy.get('[data-cy=reset-password-button').should('not.exist');
+    cy.get('[data-cy=goto-login-btn').click();
+    cy.url().should('contain', 'login');
   });
 });
