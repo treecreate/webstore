@@ -212,12 +212,11 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
     this.context = this.designCanvas.nativeElement.getContext('2d');
     console.log('Context', this.context);
 
-    this.draw();
-
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
     this.cdr.detectChanges();
     this.loadDesign();
+    this.draw();
   }
 
   // create a new box
@@ -239,12 +238,12 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
     this.cdr.detectChanges();
 
     this.myBoxes.push(newBox);
+    this.draw();
   }
 
   // Draw the entire canvas with the boxes etc
   draw() {
     try {
-      requestAnimationFrame(this.draw.bind(this));
       this.context.clearRect(
         0,
         0,
@@ -264,6 +263,9 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
           this.designCanvas.nativeElement.width,
           this.designCanvas.nativeElement.height
         );
+      } else {
+        requestAnimationFrame(this.draw.bind(this));
+        return;
       }
       // render the banner
       if (
@@ -291,6 +293,9 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
             this.bannerDimensions.width / 3
           );
         }
+      } else {
+        requestAnimationFrame(this.draw.bind(this));
+        return;
       }
 
       // render the boxes
@@ -343,11 +348,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
 
   loadDesign() {
     try {
-      // clear the existing boxes info
-      this.myBoxes.forEach((box) => {
-        box.inputRef.destroy();
-      });
-      this.myBoxes = [];
       // Load the design
       if (this.design === null || this.design === undefined) {
         // Setup default boxes if there is no saved design
@@ -398,8 +398,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
       };
       this.isDesignValid = false;
     }
-
-    this.draw();
   }
 
   // Util methods
