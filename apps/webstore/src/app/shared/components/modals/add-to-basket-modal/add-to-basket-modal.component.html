@@ -33,6 +33,7 @@
             </div>
             <div class="option add-transition">
                 <button
+                    type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
                     id="decrease-quantity-btn"
@@ -45,6 +46,7 @@
                     {{ this.addToBasketForm.get('quantity').value }}
                 </div>
                 <button
+                    type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseQuantity()"
                     id="increase-quantity-btn"
@@ -65,6 +67,7 @@
             </div>
             <div class="option add-transition">
                 <button
+                    type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
                     id="decrease-size-btn"
@@ -77,6 +80,7 @@
                     {{ this.addToBasketForm.get('dimension').value }}
                 </div>
                 <button
+                    type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseSize()"
                     id="increase-size-btn"
@@ -116,10 +120,15 @@
                     class="tc-button-100 green"
                     type="submit"
                     i18n="@@add-to-basket"
+                    [disabled]="
+                        !this.addToBasketForm.get('title').dirty ||
+                        this.addToBasketForm.get('title').invalid
+                    "
                 >
                     Add to basket
                 </button>
                 <button
+                    type="button"
                     class="tc-button-100"
                     type="button"
                     (click)="activeModal.close()"
