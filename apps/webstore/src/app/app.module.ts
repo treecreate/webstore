@@ -39,6 +39,7 @@ import { DraggableBoxComponent } from './shared/components/products/family-tree/
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
+import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.compo
     CheckoutComponent,
     CheckoutItemComponent,
     FamilyTreeDesignComponent,
+    FamilyTreeMiniatureComponent,
     DraggableBoxComponent,
     ReviewCarouselComponent,
     ChangePasswordModalComponent,
