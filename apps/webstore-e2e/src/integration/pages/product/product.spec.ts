@@ -79,15 +79,18 @@ describe('ProductPage', () => {
     const localStorageDesign = JSON.parse(
       localStorage.getItem(LocalStorageVars.designFamilyTree)
     );
-    cy.wrap(localStorageDesign).its('boxes').should('have.length', 2);
     cy.visit('/product');
+    cy.wrap(localStorageDesign).its('boxes').should('have.length', 2);
+
     cy.get('[data-cy=family-tree-canvas]').click();
     cy.get('[data-cy=save-family-tree-button]').click();
-    //TODO: save the design to localstorage before you call it to check amount of boxes
-    const localStorageDesignAfter = JSON.parse(
-      localStorage.getItem(LocalStorageVars.designFamilyTree)
-    );
-    cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
+    cy.visit('/product').then(() => {
+      const localStorageDesignAfter = JSON.parse(
+        localStorage.getItem(LocalStorageVars.designFamilyTree)
+      );
+      console.warn('After design: ', localStorageDesignAfter);
+      cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
+    });
   });
 
   it.skip('should be able to change the fonts', () => {
