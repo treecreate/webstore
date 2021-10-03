@@ -7,7 +7,7 @@ import {
   DesignTypeEnum,
   IFamilyTree,
   ITransactionItem,
-  IUser
+  IUser,
 } from '@interfaces';
 import { LocalStorageVars, UserRoles } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ export class AddToBasketModalComponent implements OnInit {
     isVerified: true,
   };
 
-  // TODO - sync up the title with the product page
+  design: IFamilyTree;
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
@@ -68,8 +68,13 @@ export class AddToBasketModalComponent implements OnInit {
       ]),
       dimension: new FormControl('', [Validators.required]),
     });
+
+    this.design = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    ).value;
+
     this.addToBasketForm.setValue({
-      title: '',
+      title: this.design.title,
       quantity: 1,
       dimension: DesignDimensionEnum.small,
     });
@@ -185,15 +190,12 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   addDesignToBasket() {
-    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree
-    ).value;
-
+    this.design.title = this.addToBasketForm.get('title').value;
     // Persist the design as a new one, and, if successful, create a transaction item for it
     this.designService
       .createDesign({
         designType: DesignTypeEnum.familyTree,
-        designProperties: design,
+        designProperties: this.design,
       })
       .subscribe(
         (result) => {
