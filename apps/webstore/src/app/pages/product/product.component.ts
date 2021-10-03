@@ -190,7 +190,7 @@ export class ProductComponent implements OnInit {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
-              'TODO: danish',
+              'Det mislykkedes at gemme dit design',
               'danger',
               10000
             );
@@ -208,7 +208,7 @@ export class ProductComponent implements OnInit {
             console.log('Design created and persisted', result);
             this.toastService.showAlert(
               'Your design has been saved',
-              'TODO: danish',
+              'Dit design er bleven gemt',
               'success',
               2500
             );
@@ -222,8 +222,7 @@ export class ProductComponent implements OnInit {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
-              //TODO: Danish translation
-              'TODO: danish',
+              'Det mislykkedes at gemme dit design',
               'danger',
               10000
             );
