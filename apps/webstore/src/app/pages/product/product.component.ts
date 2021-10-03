@@ -1,5 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
@@ -247,6 +253,13 @@ export class ProductComponent implements OnInit {
         queryParams: { designId: null },
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
+    }
+  }
+
+  @HostListener('window:resize')
+  closeOptionsOnScreenResize() {
+    if (window.innerWidth > 1130) {
+      this.isMobileOptionOpen = false;
     }
   }
 
