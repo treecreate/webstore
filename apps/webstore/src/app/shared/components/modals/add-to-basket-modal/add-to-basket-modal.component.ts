@@ -1,11 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { DesignDimensionEnum, ITransactionItem, IUser } from '@interfaces';
-import { UserRoles } from '@models';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  IFamilyTree,
+  ITransactionItem,
+  IUser
+} from '@interfaces';
+import { LocalStorageVars, UserRoles } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { DesignService } from '../../../services/design/design.service';
+import { LocalStorageService } from '../../../services/local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -38,8 +46,11 @@ export class AddToBasketModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private route: ActivatedRoute,
+    private router: Router,
     private toastService: ToastService,
+    private localStorageService: LocalStorageService,
     private calculatePriceService: CalculatePriceService,
+    private designService: DesignService,
     private transactionItemService: TransactionItemService
   ) {}
 
@@ -174,40 +185,71 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   addDesignToBasket() {
-    // TODO - create a new design instance instead of using the current design
-    console.log('design properties', {
-      designId: this.route.snapshot.queryParams.designId,
-      dimension: this.addToBasketForm.get('dimension').value,
-      quantity: this.addToBasketForm.get('quantity').value,
-    });
-    this.transactionItemService
-      .createTransactionItem({
-        designId: this.route.snapshot.queryParams.designId,
-        dimension: this.addToBasketForm.get('dimension').value,
-        quantity: this.addToBasketForm.get('quantity').value,
+    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    ).value;
+
+    // Persist the design as a new one, and, if successful, create a transaction item for it
+    this.designService
+      .createDesign({
+        designType: DesignTypeEnum.familyTree,
+        designProperties: design,
       })
       .subscribe(
-        (newItem: ITransactionItem) => {
-          //TODO: translation missing
-          this.isLoading = false;
-          console.log('added design to basket', newItem);
-          this.toastService.showAlert(
-            'Design added to basket',
-            'TODO - danish',
-            'success',
-            5000
-          );
-          this.activeModal.close();
+        (result) => {
+          console.log('Design created and persisted', result);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { designId: result.designId },
+            queryParamsHandling: 'merge', // remove to replace all query params by provided
+          });
+
+          // Create the transaction item with the newly persisted design
+          console.log('design properties', {
+            designId: result.designId,
+            dimension: this.addToBasketForm.get('dimension').value,
+            quantity: this.addToBasketForm.get('quantity').value,
+          });
+          this.transactionItemService
+            .createTransactionItem({
+              designId: result.designId,
+              dimension: this.addToBasketForm.get('dimension').value,
+              quantity: this.addToBasketForm.get('quantity').value,
+            })
+            .subscribe(
+              (newItem: ITransactionItem) => {
+                //TODO: translation missing
+                this.isLoading = false;
+                console.log('added design to basket', newItem);
+                this.toastService.showAlert(
+                  'Design added to basket',
+                  'TODO - danish',
+                  'success',
+                  5000
+                );
+                this.activeModal.close();
+              },
+              (error: HttpErrorResponse) => {
+                console.error(error);
+                // TODO - make it into a toast message or display as an alert inside the modal. Currently it is only a variable
+                this.alert = {
+                  message: 'Failed to add the design',
+                  type: 'danger',
+                  dismissible: false,
+                };
+                this.isLoading = false;
+              }
+            );
         },
         (error: HttpErrorResponse) => {
-          console.error(error);
-
-          this.alert = {
-            message: 'Failed to add the design',
-            type: 'danger',
-            dismissible: false,
-          };
-          this.isLoading = false;
+          console.error('Failed to save design', error);
+          this.toastService.showAlert(
+            'Failed to save your design',
+            //TODO: Danish translation
+            'TODO: danish',
+            'danger',
+            10000
+          );
         }
       );
   }

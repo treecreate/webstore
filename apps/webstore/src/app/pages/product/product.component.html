@@ -228,7 +228,7 @@
             <div class="option option-actions">
                 <button
                     class="btn-save-design tc-button-50"
-                    (click)="saveDesign()"
+                    (click)="saveDesign({ persists: true })"
                     [disabled]="!isDesignValid"
                 >
                     Save

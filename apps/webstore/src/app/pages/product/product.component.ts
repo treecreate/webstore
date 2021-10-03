@@ -158,10 +158,11 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  saveDesign() {
+  saveDesign(params: { persist?: boolean }) {
+    const persist = { params };
     this.designCanvas.saveDesign();
     // don't persist the design if the user is not logged in
-    if (!this.isLoggedIn) {
+    if (!this.isLoggedIn || !persist) {
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
@@ -337,7 +338,7 @@ export class ProductComponent implements OnInit {
   }
 
   openAddToBasketModal() {
-    this.saveDesign();
+    this.saveDesign({ persist: false });
     this.modalService.open(AddToBasketModalComponent);
   }
 
