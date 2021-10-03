@@ -8,14 +8,30 @@
     {{ alert.message }}</ngb-alert
 >
 <div *ngIf="!alert" class="basket-item-container">
-    <div class="item-title">
+    <!-- <div class="item-title">
         {{ item.design.designProperties.title }}
-    </div>
+    </div> -->
 
     <!-- image -->
     <div class="item-image">
-        <img src="/assets/img/design-ex1-img.png" class="design-image" />
-        <div class="item-type-title" i18n="@@family-tree">Family tree</div>
+        <!-- <div class="item-type-title" i18n="@@family-tree">Family tree</div> -->
+        <div class="item-type-title">
+            {{ item.design.designProperties.title }}
+        </div>
+        <webstore-family-tree-miniature
+            #productDesign
+            [design]="item.design.designProperties"
+            [boxSize]="item.design.designProperties.boxSize"
+            [banner]="item.design.designProperties.banner"
+            [isLargeFont]="item.design.designProperties.isLargeFont"
+            [title]="item.design.designProperties.designTitle"
+            [backgroundTreeDesign]="
+                item.design.designProperties.backgroundTreeDesign
+            "
+            [font]="item.design.designProperties.font"
+            class="item-image"
+        >
+        </webstore-family-tree-miniature>
     </div>
     <div class="item-container">
         <!-- TODO - add spinners to the buttons based on the isLoading property -->

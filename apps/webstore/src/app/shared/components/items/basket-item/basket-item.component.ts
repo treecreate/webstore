@@ -1,8 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
+import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -14,6 +21,9 @@ import { ToastService } from '../../toast/toast-service';
   ],
 })
 export class BasketItemComponent implements OnInit {
+  @ViewChild('productDesign', { static: true })
+  miniature: FamilyTreeMiniatureComponent;
+
   @Input() item: ITransactionItem;
 
   itemPrice: number;
