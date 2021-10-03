@@ -15,4 +15,7 @@ public interface TransactionItemRepository extends JpaRepository<TransactionItem
 
     @Query("SELECT item FROM TransactionItem item WHERE item.design.user.userId = ?1")
     List<TransactionItem> findByUserId(UUID userId);
+
+    @Query("SELECT item FROM TransactionItem item WHERE item.design.designId = ?1")
+    List<TransactionItem> findByDesignId(UUID designId);
 }

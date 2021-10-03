@@ -5,6 +5,8 @@ import dk.treecreate.api.designs.dto.CreateDesignRequest;
 import dk.treecreate.api.designs.dto.GetAllDesignsResponse;
 import dk.treecreate.api.designs.dto.UpdateDesignRequest;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.transactionitem.TransactionItem;
+import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import io.swagger.annotations.Api;
@@ -31,6 +33,9 @@ public class DesignController
 
     @Autowired
     DesignRepository designRepository;
+
+    @Autowired
+    TransactionItemRepository transactionItemRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -186,6 +191,13 @@ public class DesignController
         {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                 "The design belongs to another user");
+        }
+        var items = transactionItemRepository.findByDesignId(design.getDesignId());
+        for (TransactionItem item : items
+        )
+        {
+            item.setDesign(null);
+            transactionItemRepository.save(item);
         }
         designRepository.delete(design);
     }

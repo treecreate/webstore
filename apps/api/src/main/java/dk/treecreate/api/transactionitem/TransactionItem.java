@@ -44,7 +44,7 @@ public class TransactionItem
     private DesignDimension dimension = DesignDimension.ONE_SIZE;
 
     // TODO: eager-load instead
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     private Design design;
 
     public UUID getTransactionItemId()
