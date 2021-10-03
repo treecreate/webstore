@@ -337,6 +337,7 @@ export class ProductComponent implements OnInit {
   }
 
   openAddToBasketModal() {
+    this.saveDesign();
     this.modalService.open(AddToBasketModalComponent);
   }
 

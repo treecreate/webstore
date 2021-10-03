@@ -1,9 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DesignDimensionEnum, IUser } from '@interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { DesignDimensionEnum, ITransactionItem, IUser } from '@interfaces';
 import { UserRoles } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -20,14 +23,24 @@ export class AddToBasketModalComponent implements OnInit {
     isVerified: true,
   };
 
+  // TODO - sync up the title with the product page
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
 
+  isLoading = false;
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
+  };
+
   constructor(
     public activeModal: NgbActiveModal,
+    private route: ActivatedRoute,
     private toastService: ToastService,
-    private calculatePriceService: CalculatePriceService
+    private calculatePriceService: CalculatePriceService,
+    private transactionItemService: TransactionItemService
   ) {}
 
   ngOnInit(): void {
@@ -56,17 +69,9 @@ export class AddToBasketModalComponent implements OnInit {
   submit() {
     if (
       this.addToBasketForm.get('title').dirty &&
-      this.addToBasketForm.get('title').invalid
+      this.addToBasketForm.get('title').valid
     ) {
-      this.toastService.showAlert(
-        'Missing title (min 3 letters, max 50)',
-        'Titel mangler (min 3 bokstaver, max 50)',
-        'danger',
-        4000
-      );
-    } else {
-      // TODO: send the design to basket
-      console.log('perfect');
+      this.addDesignToBasket();
     }
   }
 
@@ -90,12 +95,15 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   increaseQuantity() {
+    console.log('triggered increase quantity');
     this.addToBasketForm.setValue({
       title: this.addToBasketForm.get('title').value,
       quantity: this.addToBasketForm.get('quantity').value + 1,
       dimension: this.addToBasketForm.get('dimension').value,
     });
+    console.log('increase finished');
     this.updatePrice();
+    console.log('update price finished');
   }
 
   decreaseQuantity() {
@@ -163,5 +171,44 @@ export class AddToBasketModalComponent implements OnInit {
         break;
     }
     this.updatePrice();
+  }
+
+  addDesignToBasket() {
+    // TODO - create a new design instance instead of using the current design
+    console.log('design properties', {
+      designId: this.route.snapshot.queryParams.designId,
+      dimension: this.addToBasketForm.get('dimension').value,
+      quantity: this.addToBasketForm.get('quantity').value,
+    });
+    this.transactionItemService
+      .createTransactionItem({
+        designId: this.route.snapshot.queryParams.designId,
+        dimension: this.addToBasketForm.get('dimension').value,
+        quantity: this.addToBasketForm.get('quantity').value,
+      })
+      .subscribe(
+        (newItem: ITransactionItem) => {
+          //TODO: translation missing
+          this.isLoading = false;
+          console.log('added design to basket', newItem);
+          this.toastService.showAlert(
+            'Design added to basket',
+            'TODO - danish',
+            'success',
+            5000
+          );
+          this.activeModal.close();
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+
+          this.alert = {
+            message: 'Failed to add the design',
+            type: 'danger',
+            dismissible: false,
+          };
+          this.isLoading = false;
+        }
+      );
   }
 }
