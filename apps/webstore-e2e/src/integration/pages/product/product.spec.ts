@@ -8,7 +8,7 @@ describe('ProductPage', () => {
     title: 'title',
     font: FamilyTreeFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
-    boxSize: 10,
+    boxSize: 20,
     banner: {
       text: 'my tree',
       style: 'first',
@@ -70,91 +70,116 @@ describe('ProductPage', () => {
     //TODO: try fetching a design based on id with an intercept
   });
 
-  it('should be able to click on the canvas and create a new box', () => {
-    cy.visit('/home');
-    localStorage.setItem(
-      LocalStorageVars.designFamilyTree,
-      JSON.stringify(mockDesign)
-    );
-    const localStorageDesign = JSON.parse(
-      localStorage.getItem(LocalStorageVars.designFamilyTree)
-    );
-    cy.visit('/product');
-    cy.wrap(localStorageDesign).its('boxes').should('have.length', 2);
+  describe('DesignOptions', () => {
+    let localStorageDesign;
 
-    cy.get('[data-cy=family-tree-canvas]').click();
-    cy.get('[data-cy=save-family-tree-button]').click();
-    cy.visit('/product').then(() => {
-      const localStorageDesignAfter = JSON.parse(
+    beforeEach(() => {
+      cy.visit('/home');
+      localStorage.setItem(
+        LocalStorageVars.designFamilyTree,
+        JSON.stringify(mockDesign)
+      );
+      localStorageDesign = JSON.parse(
         localStorage.getItem(LocalStorageVars.designFamilyTree)
       );
-      console.warn('After design: ', localStorageDesignAfter);
-      cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
+      cy.visit('/product');
     });
-  });
 
-  it.skip('should be able to change the fonts', () => {
-    cy.get('[data-cy=font]').should('have.text', 'Times new roman');
-    cy.get('[data-cy=font-next-btn]').click();
-    cy.get('[data-cy=font]').should('have.text', 'Roboto');
-    //TODO: save design
-    //TODO: check saved design to have the right font
-  });
+    it.skip('should be able to click on the canvas and create a new box', () => {
+      cy.wrap(localStorageDesign).its('boxes').should('have.length', 2);
+      cy.get('[data-cy=family-tree-canvas]').click();
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(
+          localStorage.getItem(LocalStorageVars.designFamilyTree)
+        );
+        console.warn('After design: ', localStorageDesignAfter);
+        cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
+      });
+    });
 
-  it.skip('should be able to change the design', () => {
-    //TODO: save design
-    //TODO: check saved design to have the right design
-  });
+    it.skip('should be able to change the fonts', () => {
+      cy.wrap(localStorageDesign).its('font').should('equal', 'Roboto');
+      cy.get('[data-cy=font-next-btn]').click();
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(
+          localStorage.getItem(LocalStorageVars.designFamilyTree)
+        );
+        cy.wrap(localStorageDesignAfter).its('font').should('equal', 'Georgia');
+      });
+    });
 
-  it.skip('should increase box size and saveit.skip', () => {
-    cy.get('[data-cy=box-size-plus]').should('not.be.disabled');
-    cy.get('[data-cy=box-size]')
-      .invoke('text')
-      .then(parseFloat)
-      .should('equal', 10);
-    cy.get('[data-cy=box-size-plus]').click();
-    cy.get('[data-cy=box-size-plus]').click();
-    cy.get('[data-cy=box-size]')
-      .invoke('text')
-      .then(parseFloat)
-      .should('not.be.lt', 12);
-    //TODO: save design
-    //TODO: check saved design has box size 12
-  });
+    it.skip('should be able to change the design', () => {
+      cy.wrap(localStorageDesign)
+        .its('backgroundTreeDesign')
+        .should('equal', TreeDesignEnum.tree1);
+      cy.get('[data-cy=design-arrow-left]').click();
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(
+          localStorage.getItem(LocalStorageVars.designFamilyTree)
+        );
+        cy.wrap(localStorageDesignAfter)
+          .its('backgroundTreeDesign')
+          .should('equal', TreeDesignEnum.tree2);
+      });
+    });
 
-  it.skip('should decrease box size and saveit.skip', () => {
-    cy.get('[data-cy=box-size-plus]').should('not.be.disabled');
-    cy.get('[data-cy=box-size]')
-      .invoke('text')
-      .then(parseFloat)
-      .should('equal', 10);
-    cy.get('[data-cy=box-size-minus]').click();
-    cy.get('[data-cy=box-size-minus]').click();
-    cy.get('[data-cy=box-size]')
-      .invoke('text')
-      .then(parseFloat)
-      .should('not.be.lt', 8);
-    //TODO: save design
-    //TODO: check designs box size to be 8
-  });
+    it.skip('should increase box size and save it', () => {
+      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
+      cy.get('[data-cy=box-size-plus]').click();
+      cy.get('[data-cy=box-size-plus]').click();
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(
+          localStorage.getItem(LocalStorageVars.designFamilyTree)
+        );
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 22);
+      });
+    });
 
-  it.skip('should be able to change the banner', () => {
-    cy.get('[data-cy=banner]').should('have.text', '  ');
-    cy.get('[data-cy=checkbox-banner]').click();
-    cy.get('[data-cy=design-banner-input]').type('test');
-    //TODO: save design
-    //TODO: check design contains banner
-    //TODO: check design banner text
-  });
-  it.skip('should be able to change large font', () => {
-    cy.get('[data-cy=large-font]').should('have.text', 'false');
-    cy.get('[data-cy=checkbox-large-font]').click();
-    cy.get('[data-cy=large-font]').should('have.text', 'true');
-    //TODO: save design
-    //TODO: check design contains banner
-  });
-  it.skip('should be able to load a design via url', () => {
-    //TODO: intercept loading a design with url
+    it.skip('should decrease box size and save it', () => {
+      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
+      cy.get('[data-cy=box-size-minus]').click();
+      cy.get('[data-cy=box-size-minus]').click();
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(
+          localStorage.getItem(LocalStorageVars.designFamilyTree)
+        );
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 18);
+      });
+    });
+
+    it.skip('should be able to change the banner', () => {
+      cy.wrap(localStorageDesign).its('banner.text').should('equal', 'my tree');
+      cy.get('[data-cy=design-banner-input]').clear();
+      cy.get('[data-cy=design-banner-input]').type('test');
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(
+          localStorage.getItem(LocalStorageVars.designFamilyTree)
+        );
+        cy.wrap(localStorageDesignAfter)
+          .its('banner.text')
+          .should('equal', 'test');
+      });
+    });
+    it.skip('should be able to change large font', () => {
+      cy.wrap(localStorageDesign).its('largeFont').should('equal', false);
+      cy.get('[data-cy=checkbox-large-font]').click();
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(
+          localStorage.getItem(LocalStorageVars.designFamilyTree)
+        );
+        cy.wrap(localStorageDesignAfter).its('largeFont').should('equal', true);
+      });
+    });
+    it('should be able to load a design via url', () => {
+      //TODO: intercept loading a design with url
+    });
   });
 
   describe('Authenticated', () => {
