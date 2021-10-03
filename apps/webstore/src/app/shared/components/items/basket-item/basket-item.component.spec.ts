@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TreeDesignEnum } from '@assets';
 import {
@@ -15,6 +16,7 @@ describe('BasketItemComponent', () => {
   let fixture: ComponentFixture<BasketItemComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [BasketItemComponent],
       //   imports: [CalculatePriceService]
     }); // .compileComponents();

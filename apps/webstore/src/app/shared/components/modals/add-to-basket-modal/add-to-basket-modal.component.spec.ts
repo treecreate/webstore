@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -18,6 +19,7 @@ describe('AddToBasketModalComponent', () => {
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule,
       ],
       providers: [NgbActiveModal],
     }).compileComponents();

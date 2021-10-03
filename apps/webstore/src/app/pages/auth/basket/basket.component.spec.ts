@@ -1,7 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BasketItemComponent } from '../../../shared/components/items/basket-item/basket-item.component';
-
 import { BasketComponent } from './basket.component';
 
 describe('BasketComponent', () => {
@@ -10,6 +10,7 @@ describe('BasketComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [BasketComponent, BasketItemComponent],
     }).compileComponents();
   });
