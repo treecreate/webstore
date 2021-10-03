@@ -98,6 +98,8 @@
 
 body {
   min-width: 100%;
+  max-width: 100vw !important;
+  overflow-x: hidden;
   font-family: 'argestadisplay' !important;
 }
 
