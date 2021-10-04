@@ -6,6 +6,7 @@ import {
   DesignTypeEnum,
   FamilyTreeFontEnum,
   IAuthUser,
+  IDesign,
   IFamilyTree,
   IFamilyTreeBanner,
 } from '@interfaces';
@@ -32,6 +33,7 @@ export class ProductComponent implements OnInit {
   designCanvas: FamilyTreeDesignComponent;
 
   isDesignValid = false;
+  isMutable = false;
 
   isMobileOptionOpen = false;
   designTitle = 'Untitled-1';
@@ -43,6 +45,7 @@ export class ProductComponent implements OnInit {
   minSize = 10;
   banner: IFamilyTreeBanner = undefined;
   isLargeFont = false;
+  design: IFamilyTree;
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -80,37 +83,39 @@ export class ProductComponent implements OnInit {
 
   // TODO: properly assign the banner
   loadDesign() {
-    let design: IFamilyTree;
     const queryParams = this.route.snapshot.queryParams;
     console.log('queryParams', queryParams);
     if (queryParams.designId !== undefined) {
       const designId = queryParams.designId;
       console.warn('Fetching design from database', designId);
       this.designService.getDesign(designId).subscribe(
-        (result) => {
+        (result: IDesign) => {
           console.log('Result: ', result);
           if (result.designType !== DesignTypeEnum.familyTree) {
             console.warn('The requested design is not a family tree!');
             return;
           }
-          design = result.designProperties;
-          console.log('Fetched design: ', design);
+          this.design = result.designProperties;
+          console.log('Fetched design: ', this.design);
           if (result.designProperties === undefined) {
             console.warn('Fetched data was invalid!');
           } else {
             this.localStorageService.setItem<IFamilyTree>(
               LocalStorageVars.designFamilyTree,
-              design
+              this.design
             );
             // apply the design
-            this.designTitle = design.title;
-            this.backgroundTreeDesign = design.backgroundTreeDesign;
-            this.font = design.font;
-            this.banner = design.banner;
-            this.boxSize = design.boxSize;
-            this.isLargeFont = design.largeFont;
+            this.designTitle = this.design.title;
+            this.backgroundTreeDesign = this.design.backgroundTreeDesign;
+            this.font = this.design.font;
+            this.banner = this.design.banner;
+            this.boxSize = this.design.boxSize;
+            this.isLargeFont = this.design.largeFont;
+            this.isMutable = result.mutable;
             this.cdr.detectChanges();
-            this.designCanvas.loadDesign();
+            if (this.isMutable) {
+              this.designCanvas.loadDesign();
+            }
           }
         },
         (err: HttpErrorResponse) => {
@@ -131,17 +136,17 @@ export class ProductComponent implements OnInit {
       );
     } else {
       console.log('Loading design from local storage');
-      design = this.localStorageService.getItem<IFamilyTree>(
+      this.design = this.localStorageService.getItem<IFamilyTree>(
         LocalStorageVars.designFamilyTree
       ).value;
-      console.log('loaded design', design);
+      console.log('loaded design', this.design);
       // apply the design
-      if (design !== null && design !== undefined) {
-        this.designTitle = design.title;
-        this.font = design.font;
-        this.banner = design.banner;
-        this.boxSize = design.boxSize;
-        this.isLargeFont = design.largeFont;
+      if (this.design !== null && this.design !== undefined) {
+        this.designTitle = this.design.title;
+        this.font = this.design.font;
+        this.banner = this.design.banner;
+        this.boxSize = this.design.boxSize;
+        this.isLargeFont = this.design.largeFont;
       } else {
         // set the defaults
         this.designTitle = 'Untitled-1';
@@ -159,8 +164,15 @@ export class ProductComponent implements OnInit {
   }
 
   saveDesign(params: { persist?: boolean }) {
+    if (!this.isMutable) {
+      console.warn('This design cannot be updated');
+      return;
+    }
     const persist = { params };
     this.designCanvas.saveDesign();
+    this.design = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    ).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn || !persist) {
       return;

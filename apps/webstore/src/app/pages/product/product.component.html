@@ -17,6 +17,7 @@
         </button>
 
         <webstore-family-tree-design
+            *ngIf="isMutable"
             #familyTreeDesignCanvas
             [boxSize]="boxSize"
             [banner]="banner"
@@ -26,6 +27,19 @@
             [font]="font"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
         ></webstore-family-tree-design>
+        <webstore-family-tree-miniature
+            *ngIf="!isMutable"
+            #productDesign
+            [design]="design"
+            [boxSize]="boxSize"
+            [banner]="banner"
+            [isLargeFont]="isLargeFont"
+            [title]="designTitle"
+            [backgroundTreeDesign]="backgroundTreeDesign"
+            [font]="font"
+            class="item-image"
+        >
+        </webstore-family-tree-miniature>
     </div>
 
     <!-- FOR CY TESTS -->
