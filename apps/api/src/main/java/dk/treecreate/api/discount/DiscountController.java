@@ -39,6 +39,21 @@ public class DiscountController
         return discountRepository.findAll();
     }
 
+    @GetMapping("{discountCode}")
+    @Operation(summary = "Get discount by discount code")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Discount information",
+            response = Discount.class),
+        @ApiResponse(code = 404, message = "Discount not found")})
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Discount getByDiscountCode(
+        @ApiParam(name = "discountCode", example = "ExampleDiscount2021")
+        @PathVariable String discountCode)
+    {
+        return discountRepository.findByDiscountCode(discountCode)
+            .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
+    }
+
     @PostMapping("")
     @Operation(summary = "Create a discount")
     @ApiResponses(value = {

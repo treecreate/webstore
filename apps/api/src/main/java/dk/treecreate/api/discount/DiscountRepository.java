@@ -12,4 +12,6 @@ public interface DiscountRepository extends JpaRepository<Discount, Long>
     Boolean existsByDiscountCode(String discountCode);
 
     Optional<Discount> findByDiscountId(UUID discountId);
+
+    Optional<Discount> findByDiscountCode(String discountCode);
 }
