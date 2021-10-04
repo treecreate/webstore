@@ -67,6 +67,10 @@ describe('ProductPage', () => {
 
   it.skip('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
     //TODO: set unauthenticated user in localstorage
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserInvalid))
+    );
     //TODO: try fetching a design based on id with an intercept
   });
 
@@ -177,7 +181,17 @@ describe('ProductPage', () => {
         cy.wrap(localStorageDesignAfter).its('largeFont').should('equal', true);
       });
     });
-    it('should be able to load a design via url', () => {
+
+    it('should have add to basket button disabled when not logged in', () => {
+      cy.get('[data-cy=save-design-button]').should('be.disabled');
+      localStorage.setItem(
+        LocalStorageVars.authUser,
+        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+      );
+      cy.visit('/product');
+      cy.get('[data-cy=save-design-button]').should('not.be.disabled');
+    });
+    it.skip('should be able to load a design via url', () => {
       //TODO: intercept loading a design with url
     });
   });

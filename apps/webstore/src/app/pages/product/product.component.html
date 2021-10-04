@@ -230,24 +230,24 @@
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign()"
-                    [disabled]="!isDesignValid"
+                    [disabled]="!isDesignValid || !isLoggedIn"
                     data-cy="save-family-tree-button"
                 >
                     Save
                     <img
                         src="/assets/icons/save-icon.svg"
-                        alt=""
                         class="option-icon"
                     />
                 </button>
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
+                    [disabled]="!isLoggedIn"
+                    data-cy="save-design-button"
                 >
                     Add
                     <img
                         src="/assets/icons/basket-white-icon.svg"
-                        alt=""
                         class="option-icon"
                     />
                 </button>
