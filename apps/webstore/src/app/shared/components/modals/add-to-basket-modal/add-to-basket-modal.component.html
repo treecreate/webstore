@@ -36,6 +36,9 @@
                     type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
+                    [disabled]="
+                        this.addToBasketForm.get('quantity').value === 1
+                    "
                     id="decrease-quantity-btn"
                 >
                     <div class="icon">
@@ -70,6 +73,9 @@
                     type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
+                    [disabled]="
+                        this.addToBasketForm.get('dimension').value === 'SMALL'
+                    "
                     id="decrease-size-btn"
                 >
                     <div class="icon">
@@ -83,6 +89,9 @@
                     type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseSize()"
+                    [disabled]="
+                        this.addToBasketForm.get('dimension').value === 'LARGE'
+                    "
                     id="increase-size-btn"
                 >
                     <div class="button-plus"></div>
