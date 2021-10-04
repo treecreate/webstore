@@ -83,6 +83,7 @@
                         placeholder="Untitled-1"
                         data-cy="design-title-input"
                         maxlength="50"
+                        [disabled]="!isMutable"
                     />
                 </div>
             </div>
@@ -100,6 +101,7 @@
                         class="design-arrow-left tc-button-sm-square"
                         data-cy="font-prev-btn"
                         (click)="prevFont()"
+                        [disabled]="!isMutable"
                     >
                         <span class="arrow-left"></span>
                     </button>
@@ -113,6 +115,7 @@
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="font-next-btn"
                         (click)="nextFont()"
+                        [disabled]="!isMutable"
                     >
                         <span class="arrow-right"></span>
                     </button>
@@ -132,6 +135,7 @@
                         class="design-arrow-left tc-button-sm-square"
                         data-cy="design-arrow-left"
                         (click)="nextDesign()"
+                        [disabled]="!isMutable"
                     >
                         <span class="arrow-left"></span>
                     </button>
@@ -142,6 +146,7 @@
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="design-arrow-right"
                         (click)="prevDesign()"
+                        [disabled]="!isMutable"
                     >
                         <span class="arrow-right"></span>
                     </button>
@@ -161,7 +166,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-plus"
                         (click)="this.boxSize = this.boxSize + 1"
-                        [disabled]="this.boxSize >= maxSize"
+                        [disabled]="this.boxSize >= maxSize || !isMutable"
                     >
                         <div class="button-plus"></div>
                     </button>
@@ -169,7 +174,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-minus"
                         (click)="this.boxSize = this.boxSize - 1"
-                        [disabled]="this.boxSize <= minSize"
+                        [disabled]="this.boxSize <= minSize || !isMutable"
                     >
                         <div class="icon">
                             <div class="button-minus"></div>
@@ -193,6 +198,7 @@
                                       })
                                     : (this.banner = undefined)
                             "
+                            [disabled]="!isMutable"
                         />
                         <span
                             class="checkmark"
@@ -216,6 +222,7 @@
                             placeholder="Banner text"
                             data-cy="design-banner-input"
                             maxlength="50"
+                            [disabled]="!isMutable"
                         />
                     </div>
                 </div>
@@ -226,6 +233,7 @@
                             type="checkbox"
                             [checked]="this.isLargeFont"
                             (change)="this.isLargeFont = !this.isLargeFont"
+                            [disabled]="!isMutable"
                         />
                         <span
                             class="checkmark"
@@ -243,7 +251,7 @@
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign({ persists: true })"
-                    [disabled]="!isDesignValid"
+                    [disabled]="!isDesignValid || !isMutable"
                 >
                     Save
                     <img
@@ -255,6 +263,7 @@
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
+                    [disabled]="!isMutable"
                 >
                     Add
                     <img
@@ -266,7 +275,11 @@
             </div>
 
             <div class="option misc-option-actions">
-                <button class="tc-button-33" (click)="clearDesignCanvas()">
+                <button
+                    class="tc-button-33"
+                    (click)="clearDesignCanvas()"
+                    [disabled]="!isMutable"
+                >
                     Reset
                     <img
                         src="/assets/icons/seed-icon.svg"
