@@ -288,6 +288,10 @@
                     />
                 </button>
             </div>
+
+            <ngb-alert *ngIf="!isMutable" type="warning" [dismissible]="false">
+                This design can't be updated</ngb-alert
+            >
         </div>
     </div>
 </section>
