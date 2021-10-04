@@ -523,6 +523,17 @@
                     <span class="title" i18n="@@your-order">Your Order</span>
                     <hr />
                 </div>
+                <ngb-alert
+                    *ngIf="alert"
+                    type="danger"
+                    (closed)="alert = undefined"
+                    [dismissible]="alert.dismissible"
+                >
+                    <h3>
+                        {{ alert.type === 'danger' ? 'Error' : alert.type }}!
+                    </h3>
+                    {{ alert.message }}</ngb-alert
+                >
 
                 <!-- Items in order -->
                 <webstore-checkout-item
@@ -546,6 +557,8 @@
                                 alt=""
                                 class="seed-icon remove-mobile"
                             />
+                            <!-- TODO - fetch/calculate the extra trees properly -->
+                            <!-- TODO - add a space between parts of the message (currently is "Thank you for planting1 extratree(s)!" )! -->
                             <span i18n="@@thank-you-for-planting"
                                 >Thank you for planting</span
                             >
