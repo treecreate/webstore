@@ -15,9 +15,6 @@
     <!-- image -->
     <div class="item-image">
         <!-- <div class="item-type-title" i18n="@@family-tree">Family tree</div> -->
-        <div class="item-type-title">
-            {{ item.design.designProperties.title }}
-        </div>
         <webstore-family-tree-miniature
             #productDesign
             [design]="item.design.designProperties"
@@ -25,6 +22,10 @@
             class="item-image"
         >
         </webstore-family-tree-miniature>
+        <hr class="hr-class">
+        <div class="item-type-title">
+            <b>{{ item.design.designProperties.title }}</b>
+        </div>
     </div>
     <div class="item-container">
         <!-- TODO - add spinners to the buttons based on the isLoading property -->
