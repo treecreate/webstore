@@ -74,7 +74,7 @@ export class AddToBasketModalComponent implements OnInit {
     ).value;
 
     this.addToBasketForm.setValue({
-      title: this.design.title,
+      title: this.design ? this.design.title : '',
       quantity: 1,
       dimension: DesignDimensionEnum.small,
     });
