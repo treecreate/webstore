@@ -63,10 +63,7 @@ export class CalculatePriceService {
     };
   }
 
-  isMoreThan4Items(
-    itemList: ITransactionItem[],
-    item: ITransactionItem
-  ): boolean {
+  isMoreThan4Items(itemList: ITransactionItem[]): boolean {
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
       sum += itemList[i].quantity;

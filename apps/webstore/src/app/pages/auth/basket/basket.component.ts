@@ -6,9 +6,7 @@ import {
   IDiscount,
   IPricing,
   ITransactionItem,
-  IUser,
 } from '@interfaces';
-import { UserRoles } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';

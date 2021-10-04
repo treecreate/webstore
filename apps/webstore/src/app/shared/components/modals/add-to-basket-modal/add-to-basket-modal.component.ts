@@ -7,9 +7,8 @@ import {
   DesignTypeEnum,
   IFamilyTree,
   ITransactionItem,
-  IUser,
 } from '@interfaces';
-import { LocalStorageVars, UserRoles } from '@models';
+import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
@@ -27,7 +26,7 @@ export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
-  itemList: ITransactionItem[] = [];
+  itemsInBasket: number;
 
   isLoading = false;
   alert: {
@@ -45,17 +44,7 @@ export class AddToBasketModalComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
     private transactionItemService: TransactionItemService
-  ) {
-    //Get items already in basket
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        this.itemList = itemList;
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
-    );
-  }
+  ) {}
 
   ngOnInit(): void {
     this.addToBasketForm = new FormGroup({
@@ -82,7 +71,29 @@ export class AddToBasketModalComponent implements OnInit {
       dimension: DesignDimensionEnum.small,
     });
 
-    this.updatePrice();
+    new Promise((resolve, reject) => {
+      //Get items already in basket
+      this.isLoading = true;
+      this.transactionItemService.getTransactionItems().subscribe(
+        (itemList: ITransactionItem[]) => {
+          let sum = 0;
+          for (let i = 0; i < itemList.length; i++) {
+            sum += itemList[i].quantity;
+          }
+          console.log('SuM ', sum);
+          this.itemsInBasket = sum;
+          this.isLoading = false;
+          resolve(1);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+          this.isLoading = false;
+          reject(0);
+        }
+      );
+    }).then(() => {
+      this.updatePrice();
+    });
   }
 
   submit() {
@@ -99,30 +110,17 @@ export class AddToBasketModalComponent implements OnInit {
       this.addToBasketForm.get('quantity').value,
       this.addToBasketForm.get('dimension').value
     );
-    setTimeout(() => {
-      this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items(
-        this.itemList,
-        {
-          transactionItemId: '1',
-          order: null,
-          design: null,
-          dimension: this.addToBasketForm.get('dimension').value,
-          quantity: this.addToBasketForm.get('quantity').value,
-        }
-      );
-    }, 1000);
+    this.isMoreThan4 =
+      this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
 
   increaseQuantity() {
-    console.log('triggered increase quantity');
     this.addToBasketForm.setValue({
       title: this.addToBasketForm.get('title').value,
       quantity: this.addToBasketForm.get('quantity').value + 1,
       dimension: this.addToBasketForm.get('dimension').value,
     });
-    console.log('increase finished');
     this.updatePrice();
-    console.log('update price finished');
   }
 
   decreaseQuantity() {
@@ -152,28 +150,12 @@ export class AddToBasketModalComponent implements OnInit {
           dimension: DesignDimensionEnum.large,
         });
         break;
-      case DesignDimensionEnum.large:
-        this.toastService.showAlert(
-          "We don't sell larger designs. For special requests you can send us an e-mail: info@treecreate.dk",
-          'Vi sælger ikke større designs. For specielle henvendelser kan du sende os en e-mail: info@treecreate.dk',
-          'danger',
-          3000
-        );
-        break;
     }
     this.updatePrice();
   }
 
   decreaseSize() {
     switch (this.addToBasketForm.get('dimension').value) {
-      case DesignDimensionEnum.small:
-        this.toastService.showAlert(
-          "We don't have smaller sizes",
-          'Vi har ikke mindre størrelser',
-          'danger',
-          3000
-        );
-        break;
       case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({
           title: this.addToBasketForm.get('title').value,

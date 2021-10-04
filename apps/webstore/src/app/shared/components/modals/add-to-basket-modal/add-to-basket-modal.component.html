@@ -36,9 +36,6 @@
                     type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
-                    [disabled]="
-                        this.addToBasketForm.get('quantity').value === 1
-                    "
                     id="decrease-quantity-btn"
                 >
                     <div class="icon">
@@ -73,9 +70,6 @@
                     type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
-                    [disabled]="
-                        this.addToBasketForm.get('dimension').value === 'SMALL'
-                    "
                     id="decrease-size-btn"
                 >
                     <div class="icon">
@@ -99,15 +93,27 @@
             </div>
         </div>
 
+        <span
+            *ngIf="isLoading"
+            class="spinner-border spinner-border-sm text-light"
+            style="margin: 5px"
+            role="status"
+            aria-hidden="true"
+        ></span>
         <!-- Price -->
-        <div class="price-container">
+        <div class="price-container" *ngIf="!isLoading">
             <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
                 <span i18n="@@save-25%">Save 25%</span
                 ><span>
                     <span i18n="@@order">order </span>
                     <!-- TODO: Make this display the full amount of items in the basket -->
                     <!-- So it looks like this: 4 - ( addToBasketForm.get('amount') + all basket items )  -->
-                    {{ 4 - addToBasketForm.get('quantity').value }} more</span
+                    {{
+                        4 -
+                            (this.itemsInBasket +
+                                this.addToBasketForm.get('quantity').value)
+                    }}
+                    more</span
                 >
             </div>
             <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
@@ -128,10 +134,7 @@
                 <button
                     class="tc-button-100 green"
                     type="submit"
-                    [disabled]="
-                        !this.addToBasketForm.get('title').dirty ||
-                        this.addToBasketForm.get('title').invalid
-                    "
+                    [disabled]="this.addToBasketForm.get('title').invalid"
                 >
                     <span i18n="@@add-to-basket" *ngIf="!isLoading"
                         >Add to basket</span
