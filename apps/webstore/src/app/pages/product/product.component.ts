@@ -36,7 +36,7 @@ export class ProductComponent implements OnInit {
   isMutable = false;
 
   isMobileOptionOpen = false;
-  designTitle = 'Untitled-1';
+  designTitle = '';
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
   backgroundTreeDesign = TreeDesignEnum.tree1;
@@ -122,7 +122,7 @@ export class ProductComponent implements OnInit {
           console.error('Failed to fetch the', err);
           this.toastService.showAlert(
             'Failed to load your design',
-            'TODO: danish',
+            'Vi kunne ikke loade dit design',
             'danger',
             10000
           );
@@ -149,7 +149,7 @@ export class ProductComponent implements OnInit {
         this.isLargeFont = this.design.largeFont;
       } else {
         // set the defaults
-        this.designTitle = 'Untitled-1';
+        this.designTitle = '';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 20;
@@ -195,16 +195,16 @@ export class ProductComponent implements OnInit {
             console.log('Design persisted', result);
             this.toastService.showAlert(
               'Your design has been saved',
-              'TODO: danish',
+              'Dit design er bleven gemt',
               'success',
-              2500
+              3500
             );
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
-              'TODO: danish',
+              'Der skete en fejl da vi skulle gemme dit design',
               'danger',
               10000
             );
@@ -223,9 +223,9 @@ export class ProductComponent implements OnInit {
             console.log('Design created and persisted', result);
             this.toastService.showAlert(
               'Your design has been saved',
-              'TODO: danish',
+              'Dit design er bleven gemt',
               'success',
-              2500
+              3500
             );
             this.router.navigate([], {
               relativeTo: this.route,
@@ -237,8 +237,7 @@ export class ProductComponent implements OnInit {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
-              //TODO: Danish translation
-              'TODO: danish',
+              'Der skete en fejl da vi skulle gemme dit design',
               'danger',
               10000
             );
