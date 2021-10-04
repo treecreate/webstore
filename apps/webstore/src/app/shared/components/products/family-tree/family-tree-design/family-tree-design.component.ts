@@ -248,7 +248,7 @@ export class FamilyTreeDesignComponent
     clearInterval(this.autosaveInterval);
     this.autosaveInterval = setInterval(() => {
       this.saveDesign();
-    }, 1000 * 60 * this.autosaveFrequencyInMinutes);
+    }, 1000 * 5 * this.autosaveFrequencyInMinutes);
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
   }
@@ -510,7 +510,7 @@ export class FamilyTreeDesignComponent
   }
 
   saveDesign() {
-    console.log('Saving your design...');
+    console.log('Saving your design locally...');
     console.log(this.timeInterval);
     if (
       !this.isDesignValid ||
@@ -548,7 +548,7 @@ export class FamilyTreeDesignComponent
         boxes: boxesCopy,
       }
     );
-    console.log('Design saved');
+    console.log('Design saved to localstorage');
   }
 
   // handle input value updates
