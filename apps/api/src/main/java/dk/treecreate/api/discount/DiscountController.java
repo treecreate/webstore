@@ -64,6 +64,14 @@ public class DiscountController
         @RequestBody() @Valid CreateDiscountRequest createDiscountRequest)
     {
         Discount discount = new Discount();
+        discount.setType(createDiscountRequest.getType());
+        if (discount.getType().equals(DiscountType.PERCENT) && createDiscountRequest.getAmount() > 100)
+        {
+            discount.setAmount(100);
+        } else
+        {
+            discount.setAmount(createDiscountRequest.getAmount());
+        }
         discount.setDiscountCode(createDiscountRequest.getDiscountCode());
         discount.setRemainingUses(createDiscountRequest.getRemainingUses());
         discount.setTotalUses((createDiscountRequest.getTotalUses()));

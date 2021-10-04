@@ -36,11 +36,21 @@ public class Discount
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
     private UUID discountId;
 
-
     @Basic
     @ApiModelProperty(example = "DiscountRelease2021", required = true)
     @Column(name = "discount_code", length = 50, nullable = false)
     private String discountCode;
+
+    @Column(name = "type", nullable = false)
+    @ApiModelProperty(notes = "Discount type", example = "PERCENT", required = true)
+    private DiscountType type = DiscountType.AMOUNT;
+
+    @Basic
+    @Min(0)
+    @ApiModelProperty(name = "The amount the discount provides", example = "0",
+        required = true)
+    @Column(name = "amount", nullable = false)
+    private int amount = 0;
 
     @Basic
     @Min(0)
@@ -84,6 +94,26 @@ public class Discount
     public void setDiscountCode(String discountCode)
     {
         this.discountCode = discountCode;
+    }
+
+    public DiscountType getType()
+    {
+        return type;
+    }
+
+    public void setType(DiscountType type)
+    {
+        this.type = type;
+    }
+
+    public int getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount(int amount)
+    {
+        this.amount = amount;
     }
 
     public int getRemainingUses()
@@ -131,8 +161,9 @@ public class Discount
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Discount discount = (Discount) o;
-        return remainingUses == discount.remainingUses && totalUses == discount.totalUses &&
-            discountId.equals(discount.discountId) && discountCode.equals(discount.discountCode) &&
+        return amount == discount.amount && remainingUses == discount.remainingUses &&
+            totalUses == discount.totalUses && discountId.equals(discount.discountId) &&
+            discountCode.equals(discount.discountCode) && type == discount.type &&
             Objects.equals(expiresAt, discount.expiresAt) &&
             Objects.equals(createdAt, discount.createdAt);
     }
@@ -140,9 +171,10 @@ public class Discount
     @Override
     public int hashCode()
     {
-        return Objects.hash(discountId, discountCode, remainingUses, totalUses, expiresAt,
-            createdAt);
+        return Objects.hash(discountId, discountCode, type, amount, remainingUses, totalUses,
+            expiresAt, createdAt);
     }
+
 
     // TODO - OneToMany relationship to orders
 }
