@@ -18,7 +18,7 @@ import { ToastService } from '../toast/toast-service';
 })
 export class NavbarComponent implements OnInit {
   itemList: ITransactionItem[] = [];
-  itemsInBasket: number; 
+  itemsInBasket: number;
   public isMenuCollapsed = true;
   private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
@@ -66,20 +66,18 @@ export class NavbarComponent implements OnInit {
         this.isVerified = this.verifyService.getIsVerified();
       });
     this.environment = environment;
-    
+
     //Check for items in basket if user is logged in
     this.transactionItemService.getTransactionItems().subscribe(
       (itemList: ITransactionItem[]) => {
         this.itemList = itemList;
-        this.itemsInBasket = itemList.length; 
+        this.itemsInBasket = itemList.length;
         console.log('Fetched transaction items', itemList);
       },
       (error: HttpErrorResponse) => {
         console.error(error);
       }
     );
-
-    
   }
 
   changeLocale(language: string) {
@@ -170,5 +168,5 @@ export class NavbarComponent implements OnInit {
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

@@ -22,7 +22,7 @@
             class="item-image"
         >
         </webstore-family-tree-miniature>
-        <hr class="hr-class">
+        <hr class="hr-class" />
         <div class="item-type-title">
             <b>{{ item.design.designProperties.title }}</b>
         </div>
@@ -105,9 +105,15 @@
             <button
                 class="tc-button-50 margin-top"
                 (click)="deleteTransactionItem()"
-                i18n="@@delete"
             >
-                Delete
+                <span i18n="@@delete" *ngIf="!isLoading">Delete</span>
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm text-light"
+                    style="margin: 5px"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
             </button>
         </div>
     </div>

@@ -132,6 +132,7 @@ export class BasketItemComponent implements OnInit {
   }
 
   deleteTransactionItem() {
+    this.isLoading = true;
     this.transactionItemService
       .deleteTransactionItem(this.item.transactionItemId)
       .subscribe(
