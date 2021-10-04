@@ -242,7 +242,7 @@
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
-                    [disabled]="!isLoggedIn"
+                    [disabled]="!isDesignValid || !isLoggedIn"
                     data-cy="add-to-basket-button"
                 >
                     Add
@@ -254,11 +254,10 @@
             </div>
 
             <div class="option misc-option-actions">
-                <button class="tc-button-33" (click)="clearDesignCanvas()">
+                <button class="tc-button-100" (click)="clearDesignCanvas()">
                     Reset
                     <img
-                        src="/assets/icons/seed-icon.svg"
-                        alt=""
+                        src="/assets/icons/reset-icon.svg"
                         class="option-icon"
                     />
                 </button>
