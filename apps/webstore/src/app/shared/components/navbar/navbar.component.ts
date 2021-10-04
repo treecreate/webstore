@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IAuthUser, ITransactionItem } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
@@ -17,18 +17,18 @@ import { ToastService } from '../toast/toast-service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  itemList: ITransactionItem[] = [];
-  itemsInBasket: number;
-  public isMenuCollapsed = true;
   private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
   public isVerified: boolean;
-
+  public isMenuCollapsed = true;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
+  subscription: Subscription;
   isResendVerificationEmailLoading = false;
+  itemList: ITransactionItem[] = [];
+  itemsInBasket: number;
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
   @ViewChild('languageChange') languageChange: ElementRef;
@@ -62,22 +62,28 @@ export class NavbarComponent implements OnInit {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
-        //TODO: isVerified is null, the verify service returns null
         this.isVerified = this.verifyService.getIsVerified();
       });
     this.environment = environment;
 
-    //Check for items in basket if user is logged in
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        this.itemList = itemList;
-        this.itemsInBasket = itemList.length;
-        console.log('Fetched transaction items', itemList);
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
-    );
+    //Check for items list change in basket so it displays in the navbar
+    const source = interval(5000);
+    this.subscription = source.subscribe(() => {
+      this.transactionItemService.getTransactionItems().subscribe(
+        (itemList: ITransactionItem[]) => {
+          this.itemList = itemList;
+          let sum = 0;
+          for (let i = 0; i < itemList.length; i++) {
+            sum += itemList[i].quantity;
+          }
+          this.itemsInBasket = sum;
+          console.log('Fetched transaction items', itemList);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+        }
+      );
+    });
   }
 
   changeLocale(language: string) {
@@ -168,5 +174,20 @@ export class NavbarComponent implements OnInit {
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        this.itemList = itemList;
+        let sum = 0;
+        for (let i = 0; i < itemList.length; i++) {
+          sum += itemList[i].quantity;
+        }
+        this.itemsInBasket = sum;
+        console.log('Fetched transaction items', itemList);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
 }
