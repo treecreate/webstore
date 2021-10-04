@@ -22,14 +22,6 @@ import { TransactionItemService } from '../../../shared/services/transaction-ite
   ],
 })
 export class BasketComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
   itemList: ITransactionItem[] = [];
   isLoading = false;
   alert: {
