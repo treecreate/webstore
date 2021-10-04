@@ -2,6 +2,7 @@ package dk.treecreate.api.transactionitem;
 
 import dk.treecreate.api.designs.Design;
 import dk.treecreate.api.designs.DesignDimension;
+import dk.treecreate.api.order.Order;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -46,6 +47,9 @@ public class TransactionItem
     // TODO: eager-load instead
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     private Design design;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    private Order order;
 
     public UUID getTransactionItemId()
     {
