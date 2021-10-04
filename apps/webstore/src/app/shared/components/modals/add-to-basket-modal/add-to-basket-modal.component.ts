@@ -27,6 +27,7 @@ export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
+  itemList: ITransactionItem[] = [];
 
   isLoading = false;
   alert: {
@@ -44,7 +45,17 @@ export class AddToBasketModalComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
     private transactionItemService: TransactionItemService
-  ) {}
+  ) {
+    //Get items already in basket
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        this.itemList = itemList;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.addToBasketForm = new FormGroup({
@@ -88,18 +99,18 @@ export class AddToBasketModalComponent implements OnInit {
       this.addToBasketForm.get('quantity').value,
       this.addToBasketForm.get('dimension').value
     );
-
-    // ( addToBasketForm.get('quantity') + all basket items )
-    this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items([
-      {
-        transactionItemId: '',
-        order: null,
-        design: null,
-        dimension: this.addToBasketForm.get('dimension').value,
-        quantity: this.addToBasketForm.get('quantity').value,
-      },
-      // TODO: add the list of items that are already in basket
-    ]);
+    setTimeout(() => {
+      this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items(
+        this.itemList,
+        {
+          transactionItemId: '1',
+          order: null,
+          design: null,
+          dimension: this.addToBasketForm.get('dimension').value,
+          quantity: this.addToBasketForm.get('quantity').value,
+        }
+      );
+    }, 1000);
   }
 
   increaseQuantity() {

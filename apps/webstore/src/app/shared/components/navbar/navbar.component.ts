@@ -77,7 +77,6 @@ export class NavbarComponent implements OnInit {
             sum += itemList[i].quantity;
           }
           this.itemsInBasket = sum;
-          console.log('Fetched transaction items', itemList);
         },
         (error: HttpErrorResponse) => {
           console.error(error);
@@ -183,7 +182,6 @@ export class NavbarComponent implements OnInit {
           sum += itemList[i].quantity;
         }
         this.itemsInBasket = sum;
-        console.log('Fetched transaction items', itemList);
       },
       (error: HttpErrorResponse) => {
         console.error(error);
