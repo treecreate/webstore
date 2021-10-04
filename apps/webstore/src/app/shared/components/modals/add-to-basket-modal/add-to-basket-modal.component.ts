@@ -23,14 +23,6 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
 export class AddToBasketModalComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
   design: IFamilyTree;
   addToBasketForm: FormGroup;
   price: number;
@@ -190,6 +182,7 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   addDesignToBasket() {
+    this.isLoading = true;
     this.design.title = this.addToBasketForm.get('title').value;
     // Persist the design as a new one, and, if successful, create a transaction item for it
     this.designService
@@ -221,12 +214,11 @@ export class AddToBasketModalComponent implements OnInit {
             })
             .subscribe(
               (newItem: ITransactionItem) => {
-                //TODO: translation missing
                 this.isLoading = false;
                 console.log('added design to basket', newItem);
                 this.toastService.showAlert(
                   'Design added to basket',
-                  'TODO - danish',
+                  'Design er lagt i kurven',
                   'success',
                   5000
                 );
@@ -234,12 +226,12 @@ export class AddToBasketModalComponent implements OnInit {
               },
               (error: HttpErrorResponse) => {
                 console.error(error);
-                // TODO - make it into a toast message or display as an alert inside the modal. Currently it is only a variable
-                this.alert = {
-                  message: 'Failed to add the design',
-                  type: 'danger',
-                  dismissible: false,
-                };
+                this.toastService.showAlert(
+                  'Failed to add design to basket, please try again',
+                  'Der skete en fejl, prøv venligst igen',
+                  'danger',
+                  5000
+                );
                 this.isLoading = false;
               }
             );
@@ -248,8 +240,7 @@ export class AddToBasketModalComponent implements OnInit {
           console.error('Failed to save design', error);
           this.toastService.showAlert(
             'Failed to save your design',
-            //TODO: Danish translation
-            'TODO: danish',
+            'Kunne ikke gemme dit design',
             'danger',
             10000
           );

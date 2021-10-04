@@ -119,13 +119,21 @@
                 <button
                     class="tc-button-100 green"
                     type="submit"
-                    i18n="@@add-to-basket"
                     [disabled]="
                         !this.addToBasketForm.get('title').dirty ||
                         this.addToBasketForm.get('title').invalid
                     "
                 >
-                    Add to basket
+                    <span i18n="@@add-to-basket" *ngIf="!isLoading"
+                        >Add to basket</span
+                    >
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
                 </button>
                 <button
                     type="button"
