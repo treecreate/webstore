@@ -1,11 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
@@ -25,7 +19,6 @@ export class BasketItemComponent implements OnInit {
   miniature: FamilyTreeMiniatureComponent;
 
   @Input() item: ITransactionItem;
-
   itemPrice: number;
   isLoading = false;
   alert: {

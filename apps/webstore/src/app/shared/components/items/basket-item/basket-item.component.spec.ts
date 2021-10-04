@@ -48,6 +48,7 @@ describe('BasketItemComponent', () => {
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,
+        mutable: false,
       },
       dimension: DesignDimensionEnum.small,
       quantity: 1,
