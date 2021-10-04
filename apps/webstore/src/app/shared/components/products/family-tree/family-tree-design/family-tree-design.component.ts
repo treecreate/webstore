@@ -17,10 +17,10 @@ import {
 import {
   BannerDesignEnum,
   BoxDesignEnum,
+  CloseBoxDesignEnum,
   Tree1BoxDesignEnum,
   Tree2BoxDesignEnum,
   Tree3BoxDesignEnum,
-  CloseBoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
 import {

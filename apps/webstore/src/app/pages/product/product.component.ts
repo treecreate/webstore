@@ -203,6 +203,7 @@ export class ProductComponent implements OnInit {
         .createDesign({
           designType: DesignTypeEnum.familyTree,
           designProperties: design,
+          mutable: true,
         })
         .subscribe(
           (result) => {

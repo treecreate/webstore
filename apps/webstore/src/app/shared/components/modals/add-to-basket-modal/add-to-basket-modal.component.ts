@@ -196,6 +196,7 @@ export class AddToBasketModalComponent implements OnInit {
       .createDesign({
         designType: DesignTypeEnum.familyTree,
         designProperties: this.design,
+        mutable: false, // the transaction-item related designs are immutable
       })
       .subscribe(
         (result) => {
