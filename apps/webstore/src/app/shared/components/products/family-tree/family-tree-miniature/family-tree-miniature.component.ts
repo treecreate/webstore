@@ -5,8 +5,10 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -36,7 +38,8 @@ import {
     '../../../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
+export class FamilyTreeMiniatureComponent
+  implements AfterViewInit, OnInit, OnChanges {
   // Inputs for design settings
 
   @Input()
@@ -219,6 +222,13 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
     this.draw();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', changes);
+    if (this.design !== undefined && this.context !== undefined) {
+      this.loadDesign();
+    }
+  }
+
   // create a new box
   createBox(
     initialX: number,
@@ -243,6 +253,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
 
   // Draw the entire canvas with the boxes etc
   draw() {
+    console.log('drawing');
     try {
       this.context.clearRect(
         0,
@@ -388,6 +399,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit {
       }
       console.log('Boxes', this.myBoxes);
       console.log('Finished loading design');
+      this.draw();
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Something went wrong while loading the design!', error);

@@ -29,7 +29,7 @@ import { LocalStorageService } from '../../shared/services/local-storage';
   ],
 })
 export class ProductComponent implements OnInit {
-  @ViewChild('familyTreeDesignCanvas', { static: true })
+  @ViewChild('familyTreeDesignCanvas', { static: false })
   designCanvas: FamilyTreeDesignComponent;
 
   isDesignValid = false;
@@ -158,6 +158,7 @@ export class ProductComponent implements OnInit {
         this.banner = undefined;
         this.isLargeFont = false;
       }
+      this.isMutable = true;
       this.cdr.detectChanges();
       this.designCanvas.loadDesign();
     }
