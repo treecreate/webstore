@@ -165,64 +165,65 @@
                 </div>
             </div>
 
-            <div class="option option-checkboxes">
-                <div class="option-banner">
-                    <label class="checkbox-container option-title">
-                        Banner
-                        <input
-                            type="checkbox"
-                            [checked]="this.banner !== undefined"
-                            (change)="
-                                this.banner === undefined
-                                    ? (this.banner = {
-                                          text: '',
-                                          style: 'first'
-                                      })
-                                    : (this.banner = undefined)
-                            "
-                        />
-                        <span
-                            class="checkmark"
-                            data-cy="checkbox-banner"
-                        ></span>
-                        <webstore-info-popover
-                            title="Banner"
-                            text="Add or remove the banner from your design."
-                        ></webstore-info-popover>
-                    </label>
-
-                    <div
-                        *ngIf="this.banner !== undefined"
-                        class="option-design-title"
-                    >
-                        <input
-                            type="text"
-                            class="title-input"
-                            [value]="this.banner ? this.banner.text : ''"
-                            (keyup)="updateBannerText($event)"
-                            placeholder="Banner text"
-                            data-cy="design-banner-input"
-                            maxlength="50"
-                        />
+            <div>
+                <div class="option option-checkboxes">
+                    <div class="option-banner">
+                        <label class="checkbox-container option-title">
+                            Banner
+                            <input
+                                type="checkbox"
+                                [checked]="this.banner !== undefined"
+                                (change)="
+                                    this.banner === undefined
+                                        ? (this.banner = {
+                                              text: '',
+                                              style: 'first'
+                                          })
+                                        : (this.banner = undefined)
+                                "
+                            />
+                            <span
+                                class="checkmark"
+                                data-cy="checkbox-banner"
+                            ></span>
+                            <webstore-info-popover
+                                title="Banner"
+                                text="Add or remove the banner from your design."
+                            ></webstore-info-popover>
+                        </label>
+                    </div>
+                    <div class="option-large-font">
+                        <label class="checkbox-container option-title">
+                            Large font
+                            <input
+                                type="checkbox"
+                                [checked]="this.isLargeFont"
+                                (change)="this.isLargeFont = !this.isLargeFont"
+                            />
+                            <span
+                                class="checkmark"
+                                data-cy="checkbox-large-font"
+                            ></span>
+                            <webstore-info-popover
+                                title="Large font"
+                                text="Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname."
+                            ></webstore-info-popover>
+                        </label>
                     </div>
                 </div>
-                <div class="option-large-font">
-                    <label class="checkbox-container option-title">
-                        Large font
-                        <input
-                            type="checkbox"
-                            [checked]="this.isLargeFont"
-                            (change)="this.isLargeFont = !this.isLargeFont"
-                        />
-                        <span
-                            class="checkmark"
-                            data-cy="checkbox-large-font"
-                        ></span>
-                        <webstore-info-popover
-                            title="Large font"
-                            text="Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname."
-                        ></webstore-info-popover>
-                    </label>
+                <div
+                    *ngIf="this.banner !== undefined"
+                    class="option-design-title banner-input"
+                >
+                    <input
+                        type="text"
+                        class="title-input"
+                        [value]="this.banner ? this.banner.text : ''"
+                        (keyup)="updateBannerText($event)"
+                        placeholder="Banner text"
+                        data-cy="design-banner-input"
+                        maxlength="50"
+                    />
                 </div>
             </div>
 

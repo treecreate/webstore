@@ -54,7 +54,7 @@ describe('ProductPage', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"` 
+      `"${CookieStatus.accepted}"`
     );
     cy.visit('/product');
   });
