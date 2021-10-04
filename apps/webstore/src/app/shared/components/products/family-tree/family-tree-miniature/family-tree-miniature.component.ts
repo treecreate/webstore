@@ -3,11 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
@@ -21,13 +19,7 @@ import {
   Tree3BoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
-import {
-  FamilyTreeFontEnum,
-  IDesign,
-  IDraggableBox,
-  IFamilyTree,
-  IFamilyTreeBanner,
-} from '@interfaces';
+import { IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
 
 @Component({
   selector: 'webstore-family-tree-miniature',
@@ -47,27 +39,6 @@ export class FamilyTreeMiniatureComponent
 
   @Input()
   boxSize = 20;
-
-  @Input()
-  title: string;
-
-  @Input()
-  showBanner: boolean;
-
-  @Input()
-  banner: IFamilyTreeBanner;
-
-  @Input()
-  isLargeFont: boolean;
-
-  @Input()
-  font: FamilyTreeFontEnum;
-
-  @Input()
-  backgroundTreeDesign: TreeDesignEnum;
-
-  @Output()
-  isDesignValidEvent = new EventEmitter<boolean>();
 
   isDesignValid = false;
 
@@ -203,7 +174,6 @@ export class FamilyTreeMiniatureComponent
       dismissible: false,
     };
     this.isDesignValid = false;
-    this.isDesignValidEvent.emit(this.isDesignValid);
   }
 
   ngAfterViewInit(): void {
@@ -216,7 +186,6 @@ export class FamilyTreeMiniatureComponent
     console.log('Context', this.context);
 
     this.isDesignValid = true;
-    this.isDesignValidEvent.emit(this.isDesignValid);
     this.cdr.detectChanges();
     this.loadDesign();
     this.draw();
@@ -253,6 +222,10 @@ export class FamilyTreeMiniatureComponent
 
   // Draw the entire canvas with the boxes etc
   draw() {
+    if (!this.design) {
+      requestAnimationFrame(this.draw.bind(this));
+      return;
+    }
     console.log('drawing');
     try {
       this.context.clearRect(
@@ -264,11 +237,11 @@ export class FamilyTreeMiniatureComponent
 
       // draw the background image
       if (
-        this.treeDesigns.get(this.backgroundTreeDesign) !== undefined &&
-        this.treeDesigns.get(this.backgroundTreeDesign).complete
+        this.treeDesigns.get(this.design.backgroundTreeDesign) !== undefined &&
+        this.treeDesigns.get(this.design.backgroundTreeDesign).complete
       ) {
         this.context.drawImage(
-          this.treeDesigns.get(this.backgroundTreeDesign),
+          this.treeDesigns.get(this.design.backgroundTreeDesign),
           0,
           0,
           this.designCanvas.nativeElement.width,
@@ -283,7 +256,7 @@ export class FamilyTreeMiniatureComponent
         this.bannerDesigns.get(BannerDesignEnum.banner1) !== undefined &&
         this.bannerDesigns.get(BannerDesignEnum.banner1).complete
       ) {
-        if (this.banner !== undefined && this.banner !== null) {
+        if (this.design.banner !== undefined && this.design.banner !== null) {
           // draw the banner at the bottom middle of the tree
           this.context.drawImage(
             this.bannerDesigns.get(BannerDesignEnum.banner1),
@@ -293,11 +266,11 @@ export class FamilyTreeMiniatureComponent
             this.bannerDimensions.height
           );
           const bannerTextFontSize = 6; // in rem
-          this.context.font = `${bannerTextFontSize}rem ${this.font}`;
+          this.context.font = `${bannerTextFontSize}rem ${this.design.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
           this.context.fillText(
-            this.banner.text,
+            this.design.banner.text,
             this.canvasResolution.width / 2,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
             this.canvasResolution.height - this.bannerDimensions.height / 2.2,
@@ -314,7 +287,7 @@ export class FamilyTreeMiniatureComponent
         const box = this.myBoxes[i];
         this.context.drawImage(
           this.getImageElementFromBoxDesign(
-            this.backgroundTreeDesign,
+            this.design.backgroundTreeDesign,
             box.boxDesign
           ),
           box.x,
@@ -332,9 +305,9 @@ export class FamilyTreeMiniatureComponent
         // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
         // times 5 to account for having different scale
         const boxTextFontSize =
-          (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
+          (0.0545 * this.boxSize + 0.05) * (this.design.largeFont ? 7 : 5); // in rem
         // TODO: add multi-line support
-        this.context.font = `${boxTextFontSize}rem ${this.font}`;
+        this.context.font = `${boxTextFontSize}rem ${this.design.font}`;
         this.context.textAlign = 'center';
         this.context.textBaseline = 'middle';
         this.context.fillText(
@@ -353,7 +326,6 @@ export class FamilyTreeMiniatureComponent
         dismissible: false,
       };
       this.isDesignValid = false;
-      this.isDesignValidEvent.emit(this.isDesignValid);
     }
   }
 
@@ -389,10 +361,7 @@ export class FamilyTreeMiniatureComponent
         );
       } else {
         // Setup boxes based on the loaded design
-        this.showBanner = this.design.banner === null;
         this.boxSize = this.design.boxSize;
-        this.backgroundTreeDesign = this.design.backgroundTreeDesign;
-        this.isLargeFont = this.design.largeFont;
         this.design.boxes.forEach((box) => {
           this.createBox(box.x, box.y, box.boxDesign, box.text);
         });
