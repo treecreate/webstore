@@ -919,7 +919,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="rejected-cookies-text" datatype="html">
-        <source> We&apos;ve baked some cookies for you and we are very sad that you don&apos;t like them. This means that you cannot access Treecreate until you do accept them. </source>
+        <source> We've baked some cookies for you and we are very sad that you don't like them. This means that you cannot access Treecreate until you do accept them. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
           <context context-type="linenumber">6,9</context>
@@ -971,7 +971,7 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="payment-succes-text" datatype="html">
+      <trans-unit id="payment-success-text" datatype="html">
         <source> Shortly you should recieve an order confirmation on your email. We thank you for buying at Treecreate.dk, and for planting a tree. Your support is more important now, than it has ever been. If you wish to plant more trees, please visit: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
