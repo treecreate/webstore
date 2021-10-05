@@ -19,7 +19,10 @@
                         {{ alert.message }}</ngb-alert
                     >
                     <!-- basket items -->
-                    <div class="basket-items" *ngIf="!(itemList.length <= 0)">
+                    <div
+                        class="basket-items"
+                        *ngIf="!(itemList.length <= 0) && !isLoading"
+                    >
                         <webstore-basket-item
                             (click)="updatePrices()"
                             *ngFor="let item of itemList"
@@ -27,7 +30,10 @@
                         ></webstore-basket-item>
                     </div>
                     <!-- If there are not items in basket -->
-                    <div class="no-items" *ngIf="itemList.length <= 0">
+                    <div
+                        class="no-items"
+                        *ngIf="itemList.length <= 0 && !isLoading"
+                    >
                         <img
                             src="/assets/icons/no-design-icon.svg"
                             routerLink="/product"
@@ -43,6 +49,15 @@
                         >
                             Start Creating
                         </button>
+                    </div>
+                    <div class="no-items" *ngIf="isLoading">
+                        Loading . . .
+                        <span
+                            class="spinner-border spinner-border-sm"
+                            style="margin: 0 10px"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
                     </div>
                 </div>
             </div>
