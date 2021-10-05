@@ -55,7 +55,11 @@ public class Order
     @ApiModelProperty(notes = "State of the quickpay payment", example = "PENDING")
     private PaymentState state;
 
-    // TODO - add user relation
+    // The userId is not a relation because 1. JPA sucks, and 2. Doesn't need to be
+    @Column(name = "user_id", nullable = false)
+    @ApiModelProperty(notes = "Id of the order's user",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+    private UUID userId;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @ApiModelProperty(notes = "Discount used in the given order")
@@ -128,6 +132,16 @@ public class Order
         this.state = state;
     }
 
+    public UUID getUserId()
+    {
+        return userId;
+    }
+
+    public void setUserId(UUID userId)
+    {
+        this.userId = userId;
+    }
+
     public Discount getDiscount()
     {
         return discount;
@@ -185,7 +199,8 @@ public class Order
         Order order = (Order) o;
         return orderId.equals(order.orderId) && initialPrice.equals(order.initialPrice) &&
             fullPrice.equals(order.fullPrice) && currency == order.currency &&
-            state == order.state && Objects.equals(discount, order.discount) &&
+            state == order.state && userId.equals(order.userId) &&
+            Objects.equals(discount, order.discount) &&
             Objects.equals(contactInfo, order.contactInfo) &&
             Objects.equals(billingInfo, order.billingInfo) &&
             Objects.equals(transactionItems, order.transactionItems) &&
@@ -195,7 +210,7 @@ public class Order
     @Override
     public int hashCode()
     {
-        return Objects.hash(orderId, initialPrice, fullPrice, currency, state, discount,
+        return Objects.hash(orderId, initialPrice, fullPrice, currency, state, userId, discount,
             contactInfo, billingInfo, transactionItems, createdAt);
     }
 }

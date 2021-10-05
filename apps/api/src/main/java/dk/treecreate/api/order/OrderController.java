@@ -73,7 +73,6 @@ public class OrderController
         Order order = new Order();
         // TODO - verify price calculations
         // TODO - Call quickpay
-        // TODO - add user relation
         order.setInitialPrice(createOrderRequest.getInitialPrice());
         order.setFullPrice(createOrderRequest.getFullPrice());
         order.setCurrency(createOrderRequest.getCurrency());
@@ -122,6 +121,7 @@ public class OrderController
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User user = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        order.setUserId(user.getUserId());
         for (UUID itemId : createOrderRequest.getTransactionItemIds())
         {
             TransactionItem transactionItem =
