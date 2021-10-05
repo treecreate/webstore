@@ -63,7 +63,7 @@
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <div class="option option-design-name">
                 <div class="option-title">
-                    Title
+                    <span i18n="@@title">Title</span>
                     <webstore-info-popover
                         title="Title"
                         text="Add a good title so you can keep track of your designs."
@@ -150,7 +150,7 @@
 
             <div class="option option-box-size">
                 <div class="option-title">
-                    Box Size
+                    <span i18n="@@box-size">Box Size</span>
                     <webstore-info-popover
                         title="Box Size"
                         text="You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design."
@@ -223,7 +223,7 @@
                 </div>
                 <div class="option-large-font">
                     <label class="checkbox-container option-title">
-                        Large font
+                        <span i18n="@@large-font">Large font</span>
                         <input
                             type="checkbox"
                             [checked]="this.isLargeFont"
@@ -248,7 +248,7 @@
                     (click)="saveDesign({ persists: true })"
                     [disabled]="!isDesignValid || !isMutable"
                 >
-                    Save
+                    <span i18n="@@save">Save</span>
                     <img
                         src="/assets/icons/save-icon.svg"
                         alt=""
@@ -260,7 +260,7 @@
                     (click)="openAddToBasketModal()"
                     [disabled]="!isMutable"
                 >
-                    Add
+                    <span i18n="@@add">Add</span>
                     <img
                         src="/assets/icons/basket-white-icon.svg"
                         alt=""
@@ -275,7 +275,7 @@
                     (click)="clearDesignCanvas()"
                     [disabled]="!isMutable"
                 >
-                    Reset
+                    <span i18n="@@reset">Reset</span>
                     <img
                         src="/assets/icons/seed-icon.svg"
                         alt=""
@@ -284,7 +284,12 @@
                 </button>
             </div>
 
-            <ngb-alert *ngIf="!isMutable" type="warning" [dismissible]="false">
+            <ngb-alert
+                *ngIf="!isMutable"
+                type="warning"
+                [dismissible]="false"
+                i18n="@@cant-be-updated"
+            >
                 This design can't be updated</ngb-alert
             >
         </div>
