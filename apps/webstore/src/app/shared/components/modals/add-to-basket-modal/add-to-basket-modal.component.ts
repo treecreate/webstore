@@ -4,6 +4,7 @@ import { DesignDimensionEnum, IUser } from '@interfaces';
 import { UserRoles } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { LocalStorageService } from '../../../services/local-storage';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -12,14 +13,6 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
 export class AddToBasketModalComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
@@ -27,7 +20,7 @@ export class AddToBasketModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private toastService: ToastService,
-    private calculatePriceService: CalculatePriceService
+    private calculatePriceService: CalculatePriceService,
   ) {}
 
   ngOnInit(): void {

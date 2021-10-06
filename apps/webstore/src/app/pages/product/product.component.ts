@@ -40,7 +40,7 @@ export class ProductComponent implements OnInit {
   isDesignValid = false;
 
   isMobileOptionOpen = false;
-  designTitle = 'Untitled-1';
+  designTitle = '';
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
   backgroundTreeDesign = TreeDesignEnum.tree1;
