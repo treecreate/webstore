@@ -55,6 +55,10 @@ public class Order
     @ApiModelProperty(notes = "State of the quickpay payment", example = "PENDING")
     private PaymentState state;
 
+    @Column(name = "planted_trees", nullable = false)
+    @ApiModelProperty(notes = "How many planted trees the order has. Default is 1", example = "1")
+    private int plantedTrees = 1;
+
     // The userId is not a relation because 1. JPA sucks, and 2. Doesn't need to be
     @Column(name = "user_id", nullable = false)
     @ApiModelProperty(notes = "Id of the order's user",
@@ -132,6 +136,16 @@ public class Order
         this.state = state;
     }
 
+    public int getPlantedTrees()
+    {
+        return plantedTrees;
+    }
+
+    public void setPlantedTrees(int plantedTrees)
+    {
+        this.plantedTrees = plantedTrees;
+    }
+
     public UUID getUserId()
     {
         return userId;
@@ -197,9 +211,9 @@ public class Order
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return orderId.equals(order.orderId) && initialPrice.equals(order.initialPrice) &&
-            fullPrice.equals(order.fullPrice) && currency == order.currency &&
-            state == order.state && userId.equals(order.userId) &&
+        return plantedTrees == order.plantedTrees && orderId.equals(order.orderId) &&
+            initialPrice.equals(order.initialPrice) && fullPrice.equals(order.fullPrice) &&
+            currency == order.currency && state == order.state && userId.equals(order.userId) &&
             Objects.equals(discount, order.discount) &&
             Objects.equals(contactInfo, order.contactInfo) &&
             Objects.equals(billingInfo, order.billingInfo) &&
@@ -210,7 +224,7 @@ public class Order
     @Override
     public int hashCode()
     {
-        return Objects.hash(orderId, initialPrice, fullPrice, currency, state, userId, discount,
-            contactInfo, billingInfo, transactionItems, createdAt);
+        return Objects.hash(orderId, initialPrice, fullPrice, currency, state, plantedTrees, userId,
+            discount, contactInfo, billingInfo, transactionItems, createdAt);
     }
 }

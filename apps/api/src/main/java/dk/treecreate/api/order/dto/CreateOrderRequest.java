@@ -31,6 +31,10 @@ public class CreateOrderRequest
         required = false)
     private PaymentState state = PaymentState.INITIAL;
 
+    @ApiModelProperty(name = "How many planted trees the order has. Default is 1", example = "1",
+        required = false)
+    private int plantedTrees = 1;
+
     @ApiModelProperty(notes = "ID of the discount used in the given order")
     private UUID discountId;
 
@@ -84,6 +88,16 @@ public class CreateOrderRequest
     public void setState(PaymentState state)
     {
         this.state = state;
+    }
+
+    public int getPlantedTrees()
+    {
+        return plantedTrees;
+    }
+
+    public void setPlantedTrees(int plantedTrees)
+    {
+        this.plantedTrees = plantedTrees;
     }
 
     public UUID getDiscountId()

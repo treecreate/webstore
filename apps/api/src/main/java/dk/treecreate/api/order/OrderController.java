@@ -77,6 +77,7 @@ public class OrderController
         order.setFullPrice(createOrderRequest.getFullPrice());
         order.setCurrency(createOrderRequest.getCurrency());
         order.setState(PaymentState.INITIAL);
+        order.setPlantedTrees(createOrderRequest.getPlantedTrees());
         if (createOrderRequest.getDiscountId() != null)
         {
             Discount discount =
