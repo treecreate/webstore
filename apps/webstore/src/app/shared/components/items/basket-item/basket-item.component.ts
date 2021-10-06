@@ -78,14 +78,6 @@ export class BasketItemComponent implements OnInit {
 
   decreaseSize() {
     switch (this.item.dimension) {
-      case DesignDimensionEnum.small:
-        this.toastService.showAlert(
-          'This is the smallest size that we offer',
-          'Dette er den mindste størrelse du kan bestille',
-          'danger',
-          3000
-        );
-        break;
       case DesignDimensionEnum.medium:
         this.item.dimension = DesignDimensionEnum.small;
         this.updatePrice();

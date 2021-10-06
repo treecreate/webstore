@@ -184,8 +184,9 @@ hr {
   border: none;
   background: none;
 }
-.show-password-btn:focus, .show-password-btn::after {
-  border: none; 
+.show-password-btn:focus,
+.show-password-btn::after {
+  border: none;
   outline: none;
 }
 .password-icon {

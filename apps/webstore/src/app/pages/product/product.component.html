@@ -1,4 +1,7 @@
-<section class="product-section" [ngClass]="!isMutable? 'flex-direction-column' : ''">
+<section
+    class="product-section"
+    [ngClass]="!isMutable ? 'flex-direction-column' : ''"
+>
     <div class="back-container" *ngIf="!isMutable">
         <a href="javascript:history.back()" class="back add-transition">
             < <span i18n="@@back">Back</span>
@@ -272,10 +275,7 @@
             </div>
 
             <div class="option misc-option-actions">
-                <button
-                    class="tc-button-33"
-                    (click)="clearDesignCanvas()"
-                >
+                <button class="tc-button-33" (click)="clearDesignCanvas()">
                     <span i18n="@@reset">Reset</span>
                     <img
                         src="/assets/icons/seed-icon.svg"

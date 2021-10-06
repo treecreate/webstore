@@ -81,6 +81,7 @@
                             id="donate-less-trees-btn"
                             (click)="decreaseDonatingAmount(); updatePrices()"
                             [disabled]="donatedTrees === 1"
+                            data-cy="basket-decrease-donated-trees-button"
                         >
                             <div class="icon">
                                 <div class="button-minus"></div>
@@ -99,6 +100,7 @@
                             (click)="
                                 donatedTrees = donatedTrees + 1; updatePrices()
                             "
+                            data-cy="basket-increase-donated-trees-button"
                         >
                             <div class="button-plus"></div>
                         </button>
@@ -120,6 +122,7 @@
                         class="tc-button-100 margin-top low-dropshadow"
                         type="submit"
                         i18n="@@apply-discount"
+                        data-cy="basket-apply-discount-button"
                     >
                         Apply discount
                     </button>
@@ -185,3 +188,5 @@
         </div>
     </div>
 </div>
+
+<div class="hide" data-cy="basket-donated-trees">{{ donatedTrees }}</div>
