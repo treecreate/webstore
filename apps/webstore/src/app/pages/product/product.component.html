@@ -52,8 +52,9 @@
         [ngClass]="
             isMobileOptionOpen
                 ? 'mobile-options-container'
-                : 'design-options-desktop'
+                : 'desktop-options-container'
         "
+        *ngIf="isMutable"
     >
         <div
             class="blocker"
@@ -78,7 +79,6 @@
                         placeholder="Untitled-1"
                         data-cy="design-title-input"
                         maxlength="50"
-                        [disabled]="!isMutable"
                     />
                 </div>
             </div>
@@ -96,7 +96,6 @@
                         class="design-arrow-left tc-button-sm-square"
                         data-cy="font-prev-btn"
                         (click)="prevFont()"
-                        [disabled]="!isMutable"
                     >
                         <span class="arrow-left"></span>
                     </button>
@@ -110,7 +109,6 @@
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="font-next-btn"
                         (click)="nextFont()"
-                        [disabled]="!isMutable"
                     >
                         <span class="arrow-right"></span>
                     </button>
@@ -130,7 +128,6 @@
                         class="design-arrow-left tc-button-sm-square"
                         data-cy="design-arrow-left"
                         (click)="nextDesign()"
-                        [disabled]="!isMutable"
                     >
                         <span class="arrow-left"></span>
                     </button>
@@ -161,7 +158,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-plus"
                         (click)="this.boxSize = this.boxSize + 1"
-                        [disabled]="this.boxSize >= maxSize || !isMutable"
+                        [disabled]="this.boxSize >= maxSize"
                     >
                         <div class="button-plus"></div>
                     </button>
@@ -169,7 +166,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-minus"
                         (click)="this.boxSize = this.boxSize - 1"
-                        [disabled]="this.boxSize <= minSize || !isMutable"
+                        [disabled]="this.boxSize <= minSize"
                     >
                         <div class="icon">
                             <div class="button-minus"></div>
@@ -193,7 +190,6 @@
                                       })
                                     : (this.banner = undefined)
                             "
-                            [disabled]="!isMutable"
                         />
                         <span
                             class="checkmark"
@@ -217,7 +213,6 @@
                             placeholder="Banner text"
                             data-cy="design-banner-input"
                             maxlength="50"
-                            [disabled]="!isMutable"
                         />
                     </div>
                 </div>
@@ -228,7 +223,6 @@
                             type="checkbox"
                             [checked]="this.isLargeFont"
                             (change)="this.isLargeFont = !this.isLargeFont"
-                            [disabled]="!isMutable"
                         />
                         <span
                             class="checkmark"
@@ -243,10 +237,11 @@
             </div>
 
             <div class="option option-actions">
+                <!-- TODO: have save button save the design locally and redirect to login if user isnt logged in -->
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign({ persists: true })"
-                    [disabled]="!isDesignValid || !isMutable"
+                    [disabled]="!isDesignValid"
                 >
                     <span i18n="@@save">Save</span>
                     <img
@@ -255,10 +250,11 @@
                         class="option-icon"
                     />
                 </button>
+                <!-- TODO: have add-to-basket redirect to login if user isnt logged in -->
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
-                    [disabled]="!isMutable"
+                    [disabled]=""
                 >
                     <span i18n="@@add">Add</span>
                     <img
@@ -273,7 +269,6 @@
                 <button
                     class="tc-button-33"
                     (click)="clearDesignCanvas()"
-                    [disabled]="!isMutable"
                 >
                     <span i18n="@@reset">Reset</span>
                     <img
@@ -283,15 +278,6 @@
                     />
                 </button>
             </div>
-
-            <ngb-alert
-                *ngIf="!isMutable"
-                type="warning"
-                [dismissible]="false"
-                i18n="@@cant-be-updated"
-            >
-                This design can't be updated</ngb-alert
-            >
         </div>
     </div>
 </section>
