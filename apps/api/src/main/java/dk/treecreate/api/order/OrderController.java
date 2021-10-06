@@ -73,8 +73,8 @@ public class OrderController
         Order order = new Order();
         // TODO - verify price calculations
         // TODO - Call quickpay
-        order.setInitialPrice(createOrderRequest.getInitialPrice());
-        order.setFullPrice(createOrderRequest.getFullPrice());
+        order.setSubtotal(createOrderRequest.getSubtotal());
+        order.setTotal(createOrderRequest.getTotal());
         order.setCurrency(createOrderRequest.getCurrency());
         order.setState(PaymentState.INITIAL);
         order.setPlantedTrees(createOrderRequest.getPlantedTrees());

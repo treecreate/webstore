@@ -5,6 +5,7 @@ import dk.treecreate.api.order.Currency;
 import dk.treecreate.api.order.PaymentState;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,12 +16,12 @@ public class CreateOrderRequest
 {
     @NotNull
     @ApiModelProperty(name = "Raw price of the products", example = "1000.00", required = true)
-    private BigDecimal initialPrice;
+    private BigDecimal subtotal;
 
     @NotNull
-    @ApiModelProperty(name = "Price with the discounts applies", example = "750.00",
+    @ApiModelProperty(name = "Price with the discount etc applied", example = "750.00",
         required = true)
-    private BigDecimal fullPrice;
+    private BigDecimal total;
 
     @NotNull
     @ApiModelProperty(notes = "Currency", example = "dkk", required = false)
@@ -31,6 +32,7 @@ public class CreateOrderRequest
         required = false)
     private PaymentState state = PaymentState.INITIAL;
 
+    @Min(1)
     @ApiModelProperty(name = "How many planted trees the order has. Default is 1", example = "1",
         required = false)
     private int plantedTrees = 1;
@@ -50,24 +52,24 @@ public class CreateOrderRequest
     @ApiModelProperty(notes = "List of transaction item IDs", required = true)
     private List<UUID> transactionItemIds;
 
-    public BigDecimal getInitialPrice()
+    public BigDecimal getSubtotal()
     {
-        return initialPrice;
+        return subtotal;
     }
 
-    public void setInitialPrice(BigDecimal initialPrice)
+    public void setSubtotal(BigDecimal subtotal)
     {
-        this.initialPrice = initialPrice;
+        this.subtotal = subtotal;
     }
 
-    public BigDecimal getFullPrice()
+    public BigDecimal getTotal()
     {
-        return fullPrice;
+        return total;
     }
 
-    public void setFullPrice(BigDecimal fullPrice)
+    public void setTotal(BigDecimal total)
     {
-        this.fullPrice = fullPrice;
+        this.total = total;
     }
 
     public Currency getCurrency()

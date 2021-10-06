@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -39,13 +40,13 @@ public class Order
 
     @Basic
     @ApiModelProperty(example = "1000.00", required = true)
-    @Column(name = "initial_price", precision = 16, scale = 2, nullable = false)
-    private BigDecimal initialPrice;
+    @Column(name = "subtotal", precision = 16, scale = 2, nullable = false)
+    private BigDecimal subtotal;
 
     @Basic
     @ApiModelProperty(example = "750.00", required = true)
-    @Column(name = "full_price", precision = 16, scale = 2, nullable = false)
-    private BigDecimal fullPrice;
+    @Column(name = "total", precision = 16, scale = 2, nullable = false)
+    private BigDecimal total;
 
     @Column(name = "currency", nullable = false)
     @ApiModelProperty(notes = "Currency", example = "dkk", required = false)
@@ -55,6 +56,7 @@ public class Order
     @ApiModelProperty(notes = "State of the quickpay payment", example = "PENDING")
     private PaymentState state;
 
+    @Size(min = 1)
     @Column(name = "planted_trees", nullable = false)
     @ApiModelProperty(notes = "How many planted trees the order has. Default is 1", example = "1")
     private int plantedTrees = 1;
@@ -96,24 +98,24 @@ public class Order
         this.orderId = orderId;
     }
 
-    public BigDecimal getInitialPrice()
+    public BigDecimal getSubtotal()
     {
-        return initialPrice;
+        return subtotal;
     }
 
-    public void setInitialPrice(BigDecimal initialPrice)
+    public void setSubtotal(BigDecimal initialPrice)
     {
-        this.initialPrice = initialPrice;
+        this.subtotal = initialPrice;
     }
 
-    public BigDecimal getFullPrice()
+    public BigDecimal getTotal()
     {
-        return fullPrice;
+        return total;
     }
 
-    public void setFullPrice(BigDecimal fullPrice)
+    public void setTotal(BigDecimal fullPrice)
     {
-        this.fullPrice = fullPrice;
+        this.total = fullPrice;
     }
 
     public Currency getCurrency()
@@ -212,7 +214,7 @@ public class Order
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
         return plantedTrees == order.plantedTrees && orderId.equals(order.orderId) &&
-            initialPrice.equals(order.initialPrice) && fullPrice.equals(order.fullPrice) &&
+            subtotal.equals(order.subtotal) && total.equals(order.total) &&
             currency == order.currency && state == order.state && userId.equals(order.userId) &&
             Objects.equals(discount, order.discount) &&
             Objects.equals(contactInfo, order.contactInfo) &&
@@ -224,7 +226,7 @@ public class Order
     @Override
     public int hashCode()
     {
-        return Objects.hash(orderId, initialPrice, fullPrice, currency, state, plantedTrees, userId,
+        return Objects.hash(orderId, subtotal, total, currency, state, plantedTrees, userId,
             discount, contactInfo, billingInfo, transactionItems, createdAt);
     }
 }
