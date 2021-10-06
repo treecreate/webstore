@@ -106,7 +106,7 @@ describe('BasketPage', () => {
     cy.visit('/basket');
   });
 
-  it('should increase / decrease amount of trees donated', () => {
+  it.skip('should increase / decrease amount of trees donated', () => {
     cy.get('[data-cy=basket-decrease-donated-trees-button]').should(
       'be.disabled'
     );
@@ -132,25 +132,33 @@ describe('BasketPage', () => {
     );
   });
 
-  it.skip('should apply discount', () => {});
-
-  it.skip('should go to checkout', () => {});
-
-  describe.skip('AddToBasketModal', () => {
-    it('should save design and direct to login if user is not logged in', () => {});
-
-    it('should have the title written if it is in the product page', () => {});
-
-    it('should be able to change title', () => {});
-
-    it('it should set the title to untitled if there is no title', () => {});
-
-    it('should increase quantity', () => {});
-
-    it('should decrease quantity', () => {});
-
-    it('should increase dimensions', () => {});
-
-    it('should decrease dimensions', () => {});
+  it.skip('should apply discount', () => {
+    cy.intercept('GET', '/discount/testDISCOUNT123', {
+      //TODO: get discount
+    });
+    cy.get('[data-cy=basket-apply-discount-input]').type('testDISCOUNT123');
+    cy.get('[data-cy=basket-apply-discount-button]').click();
+    //TODO: check if discount is applied
   });
+
+    it.skip('should go to checkout', () => {
+        cy.get('[data-cy=basket-checkout-button]').click(); 
+        cy.url().should('contain', '/checkout'); 
+  });
+
+    it.skip('should update price when changing dimention of a product', () => {
+
+    }); 
+
+    it.skip('should update price when changing quantity of a product', () => {
+
+    });
+
+    it.skip('should remove the product from basket when pressing delete', () => {
+
+    }); 
+
+    it.skip('should show a viewOnly version of the design', () => {
+
+    }); 
 });

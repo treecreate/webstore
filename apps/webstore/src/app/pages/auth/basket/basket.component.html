@@ -117,6 +117,7 @@
                         type="text"
                         class="special-input-field"
                         placeholder="Discount code"
+                        data-cy="basket-apply-discount-input"
                     />
                     <button
                         class="tc-button-100 margin-top low-dropshadow"
@@ -180,6 +181,8 @@
                         routerLink="/checkout"
                         (click)="scrollTop()"
                         i18n="@@go-to-checkout"
+                        [disabled]="itemList.length <= 0"
+                        data-cy="basket-checkout-button"
                     >
                         Go to checkout
                     </button>
