@@ -231,7 +231,7 @@
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign()"
-                    [disabled]="!isDesignValid || !isLoggedIn"
+                    [disabled]="!isDesignValid"
                     data-cy="save-family-tree-button"
                 >
                     Save
@@ -243,7 +243,7 @@
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
-                    [disabled]="!isDesignValid || !isLoggedIn"
+                    [disabled]="!isDesignValid"
                     data-cy="add-to-basket-button"
                 >
                     Add

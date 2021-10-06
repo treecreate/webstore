@@ -214,24 +214,24 @@ describe('DesignOptions', () => {
     });
   });
 
-  it('should have add to basket button disabled when not logged in', () => {
+  it('should have add to basket button redirect to login when not logged in', () => {
     cy.get('[data-cy=add-to-basket-button]').should('not.be.disabled');
     localStorage.setItem(
       LocalStorageVars.authUser,
       JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserInvalid))
     );
     cy.visit('/product');
-    cy.get('[data-cy=add-to-basket-button]').should('be.disabled');
+    cy.url().should('contain', '/login');
   });
 
-  it('should have save button disabled when not logged in', () => {
+  it('should have save button redirect to login when not logged in', () => {
     cy.get('[data-cy=save-family-tree-button]').should('not.be.disabled');
     localStorage.setItem(
       LocalStorageVars.authUser,
       JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserInvalid))
     );
     cy.visit('/product');
-    cy.get('[data-cy=save-family-tree-button]').should('be.disabled');
+    cy.url().should('contain', '/login');
   });
   it('should be able to load a design via url', () => {
     //TODO: intercept loading a design with url

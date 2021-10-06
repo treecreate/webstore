@@ -168,6 +168,7 @@ export class ProductComponent implements OnInit {
     this.designCanvas.saveDesign();
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn) {
+      this.router.navigate(['/login']);
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
@@ -349,6 +350,10 @@ export class ProductComponent implements OnInit {
   }
 
   openAddToBasketModal() {
+    if (!this.isLoggedIn) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.modalService.open(AddToBasketModalComponent);
   }
 
