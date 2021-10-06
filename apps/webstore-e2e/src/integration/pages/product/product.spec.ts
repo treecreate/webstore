@@ -77,7 +77,6 @@ describe('ProductPage', () => {
       statusCode: 401,
     });
 
-    //cy.request('/designs/me/c0a80121-7ac0-190b-817a-c08ab0a12345');
     //TODO: try fetching a design based on id with an intercept
   });
 
