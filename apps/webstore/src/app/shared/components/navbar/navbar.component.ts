@@ -67,22 +67,24 @@ export class NavbarComponent implements OnInit {
     this.environment = environment;
 
     //Check for items list change in basket so it displays in the navbar
-    const source = interval(5000);
-    this.subscription = source.subscribe(() => {
-      this.transactionItemService.getTransactionItems().subscribe(
-        (itemList: ITransactionItem[]) => {
-          this.itemList = itemList;
-          let sum = 0;
-          for (let i = 0; i < itemList.length; i++) {
-            sum += itemList[i].quantity;
+    if (this.isLoggedIn) {
+      const source = interval(5000);
+      this.subscription = source.subscribe(() => {
+        this.transactionItemService.getTransactionItems().subscribe(
+          (itemList: ITransactionItem[]) => {
+            this.itemList = itemList;
+            let sum = 0;
+            for (let i = 0; i < itemList.length; i++) {
+              sum += itemList[i].quantity;
+            }
+            this.itemsInBasket = sum;
+          },
+          (error: HttpErrorResponse) => {
+            console.error(error);
           }
-          this.itemsInBasket = sum;
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-        }
-      );
-    });
+        );
+      });
+    }
   }
 
   changeLocale(language: string) {
