@@ -37,7 +37,7 @@ public class OrderService
         subTotal = subTotal.add(new BigDecimal(plantedTreesPrice));
 
         LOGGER.info("verify price | SubTotal: " + subTotal + " | item count: " + totalItems +
-            " | planted trees price: " + order.getPlantedTrees());
+            " | planted trees: " + order.getPlantedTrees());
         if (!subTotal.equals(order.getSubtotal().setScale(2, RoundingMode.HALF_EVEN)))
         {
             LOGGER.warn("verify price | SubTotal (" + subTotal +
