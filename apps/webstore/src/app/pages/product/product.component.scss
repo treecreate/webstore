@@ -7,6 +7,7 @@
   display: flex;
   position: relative;
   justify-content: center;
+  flex-direction: column;
 }
 
 .desktop-options-container,
@@ -200,4 +201,20 @@
   background: white;
   padding: 10px 15px;
   z-index: 100;
+}
+
+.back {
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.back-container {
+  text-align: left;
+  width: 80vh;
+}
+
+.back:hover {
+  text-decoration: none;
+  margin-left: 0;
+  color: var(--second-action-color) !important;
 }

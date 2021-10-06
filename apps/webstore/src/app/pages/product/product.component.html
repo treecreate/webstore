@@ -1,10 +1,16 @@
 <section class="product-section">
+    <div class="back-container">
+        <a href="javascript:history.back()" class="back add-transition">
+            < <span i18n="@@back">Back</span>
+        </a>
+    </div>
     <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
         <button
             class="option-toggler"
             data-cy="mobile-options-toggler"
             type="button"
             (click)="showOptions()"
+            *ngIf="isMutable"
         >
             <div
                 class="option-icon"
