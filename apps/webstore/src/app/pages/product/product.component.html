@@ -1,5 +1,5 @@
 <section class="product-section">
-    <div class="back-container">
+    <div class="back-container" *ngIf="!isMutable">
         <a href="javascript:history.back()" class="back add-transition">
             < <span i18n="@@back">Back</span>
         </a>
