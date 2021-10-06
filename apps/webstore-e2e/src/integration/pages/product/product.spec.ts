@@ -45,7 +45,7 @@ describe('ProductPage', () => {
     cy.visit('/product');
   });
 
-  it.skip('It should display the notSignedIn page when user isnt logged in', () => {
+  it('It should display the notSignedIn page when user isnt logged in', () => {
     cy.visit('/home');
     cy.get('[data-cy=navbar-product-page-button]').click();
     cy.url().should('contain', '/notSignedIn');
@@ -56,7 +56,7 @@ describe('ProductPage', () => {
     cy.get('[data-cy=not-signed-in-login-button]').click();
   });
 
-  it.skip('It should not display notSignedIn page when user is logged in', () => {
+  it('It should not display notSignedIn page when user is logged in', () => {
     localStorage.setItem(
       LocalStorageVars.authUser,
       JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
@@ -66,7 +66,7 @@ describe('ProductPage', () => {
     cy.url().should('contain', '/product');
   });
 
-  it.skip('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
+  it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
     localStorage.setItem(
       LocalStorageVars.authUser,
       JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserInvalid))
@@ -102,7 +102,7 @@ describe('ProductPage', () => {
       });
     });
 
-    it.skip('should be able to click on the canvas and create a new box', () => {
+    it('should be able to click on the canvas and create a new box', () => {
       cy.wrap(localStorageDesign).its('boxes').should('have.length', 2);
       cy.get('[data-cy=family-tree-canvas]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
@@ -115,7 +115,7 @@ describe('ProductPage', () => {
       });
     });
 
-    it.skip('should be able to change the fonts', () => {
+    it('should be able to change the fonts', () => {
       cy.wrap(localStorageDesign).its('font').should('equal', 'Roboto');
       cy.get('[data-cy=font-next-btn]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
@@ -127,7 +127,7 @@ describe('ProductPage', () => {
       });
     });
 
-    it.skip('should be able to change the design', () => {
+    it('should be able to change the design', () => {
       cy.wrap(localStorageDesign)
         .its('backgroundTreeDesign')
         .should('equal', TreeDesignEnum.tree1);
@@ -143,7 +143,7 @@ describe('ProductPage', () => {
       });
     });
 
-    it.skip('should increase box size and save it', () => {
+    it('should increase box size and save it', () => {
       cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
       cy.get('[data-cy=box-size-plus]').click();
       cy.get('[data-cy=box-size-plus]').click();
@@ -156,7 +156,7 @@ describe('ProductPage', () => {
       });
     });
 
-    it.skip('should decrease box size and save it', () => {
+    it('should decrease box size and save it', () => {
       cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
       cy.get('[data-cy=box-size-minus]').click();
       cy.get('[data-cy=box-size-minus]').click();
@@ -169,7 +169,7 @@ describe('ProductPage', () => {
       });
     });
 
-    it.skip('should be able to change the banner', () => {
+    it('should be able to change the banner', () => {
       cy.wrap(localStorageDesign).its('banner.text').should('equal', 'my tree');
       cy.get('[data-cy=design-banner-input]').clear();
       cy.get('[data-cy=design-banner-input]').type('test');
@@ -183,7 +183,7 @@ describe('ProductPage', () => {
           .should('equal', 'test');
       });
     });
-    it.skip('should be able to change large font', () => {
+    it('should be able to change large font', () => {
       cy.wrap(localStorageDesign).its('largeFont').should('equal', false);
       cy.get('[data-cy=checkbox-large-font]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
@@ -195,7 +195,7 @@ describe('ProductPage', () => {
       });
     });
 
-    it.skip('should be able to load a design via url', () => {
+    it('should be able to load a design via url', () => {
       //TODO: intercept loading a design with url
       // cy.intercept('GET', '/designs/me/c0a80121-7ac0-190b-817a-c08ab0a12345', {
       //   body: {
@@ -210,7 +210,7 @@ describe('ProductPage', () => {
       // cy.request('/designs/me/c0a80121-7ac0-190b-817a-c08ab0a12345');
     });
   });
-  describe('AddToBasketModal', () => {
+  describe.skip('AddToBasketModal', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.authUser,
@@ -218,7 +218,7 @@ describe('ProductPage', () => {
       );
       cy.visit('/product');
     });
-    it.skip('should have add-to-basket button redirect to login when not logged in', () => {
+    it('should have add-to-basket button redirect to login when not logged in', () => {
       cy.visit('/home');
       localStorage.setItem(
         LocalStorageVars.authUser,
@@ -231,7 +231,7 @@ describe('ProductPage', () => {
       cy.url().should('contain', '/login');
     });
 
-    it.skip('should open add-to-basket modal when user is logged in', () => {
+    it('should open add-to-basket modal when user is logged in', () => {
       cy.get('[data-cy=add-to-basket-button]').click();
       cy.get('[data-cy=add-to-basket-modal]').should('exist');
     });
@@ -274,7 +274,7 @@ describe('ProductPage', () => {
     it('should decrease dimensions', () => {});
   });
 
-  describe.skip('Unauthorised', () => {
+  describe('Unauthorised', () => {
     // box-size buttons
     it('should contain a navbar and footer', () => {
       cy.get('[data-cy=navbar]').should('exist');
