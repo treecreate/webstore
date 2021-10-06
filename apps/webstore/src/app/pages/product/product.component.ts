@@ -354,6 +354,7 @@ export class ProductComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
+    this.saveDesign();
     this.modalService.open(AddToBasketModalComponent);
   }
 

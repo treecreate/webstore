@@ -4,20 +4,6 @@ import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();
-const mockUser: IUser = {
-  userId: '1',
-  email: 'e2e@test.com',
-  roles: [UserRoles.user],
-  isVerified: true,
-  name: 'teodor jonasson',
-  phoneNumber: '',
-  streetAddress: '',
-  streetAddress2: '',
-  city: '',
-  postcode: '',
-  country: '',
-};
-
 const mockDesign = {
   title: 'title',
   font: FamilyTreeFontEnum.roboto,
@@ -232,7 +218,7 @@ describe('ProductPage', () => {
         JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
       );
       cy.visit('/product');
-    })
+    });
     it.skip('should have add-to-basket button redirect to login when not logged in', () => {
       cy.visit('/home');
       localStorage.setItem(
@@ -252,8 +238,10 @@ describe('ProductPage', () => {
     });
 
     it('should have the title written if it is in the product page', () => {
-      cy.get('[data-cy=design-title-input]').clear({force: true}); 
-      cy.get('[data-cy=design-title-input]').type('family tree', { force: true });
+      cy.get('[data-cy=design-title-input]').clear({ force: true });
+      cy.get('[data-cy=design-title-input]').type('family tree', {
+        force: true,
+      });
       cy.get('[data-cy=add-to-basket-button]').click();
       cy.get('[data-cy=add-to-basket-title-input]').should(
         'conatin',

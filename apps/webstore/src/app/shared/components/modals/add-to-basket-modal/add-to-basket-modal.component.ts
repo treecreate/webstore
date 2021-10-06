@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DesignDimensionEnum, IUser } from '@interfaces';
-import { UserRoles } from '@models';
+import { DesignDimensionEnum, IFamilyTree } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../services/local-storage';
@@ -21,6 +21,7 @@ export class AddToBasketModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private toastService: ToastService,
     private calculatePriceService: CalculatePriceService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -37,12 +38,15 @@ export class AddToBasketModalComponent implements OnInit {
       ]),
       dimension: new FormControl('', [Validators.required]),
     });
+    //Get design title from localstorage
+    const design = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    ).value;
     this.addToBasketForm.setValue({
-      title: '',
+      title: design.title,
       quantity: 1,
       dimension: DesignDimensionEnum.small,
     });
-
     this.updatePrice();
   }
 
