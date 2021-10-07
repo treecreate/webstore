@@ -12,7 +12,14 @@
                     text="Add a good title so you can keep track of your designs."
                 ></webstore-info-popover>
             </div>
-            <div class="option-design-title add-transition">
+            <div
+                class="option-design-title add-transition"
+                [ngClass]="
+                    this.addToBasketForm.get('title').invalid
+                        ? 'title-error'
+                        : 'title-success'
+                "
+            >
                 <input
                     type="text"
                     class="title-input"
@@ -112,8 +119,6 @@
                 <span i18n="@@save-25%">Save 25%</span
                 ><span>
                     <span i18n="@@order">order </span>
-                    <!-- TODO: Make this display the full amount of items in the basket -->
-                    <!-- So it looks like this: 4 - ( addToBasketForm.get('amount') + all basket items )  -->
                     {{
                         4 -
                             (this.itemsInBasket +
