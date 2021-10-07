@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -39,12 +39,13 @@ public class Order
     private UUID orderId;
 
     @Basic
-    @ApiModelProperty(example = "1000.00", required = true)
+    @ApiModelProperty(name = "Raw price of the products", example = "1000.00", required = true)
     @Column(name = "subtotal", precision = 16, scale = 2, nullable = false)
     private BigDecimal subtotal;
 
     @Basic
-    @ApiModelProperty(example = "750.00", required = true)
+    @ApiModelProperty(name = "Price with the discount etc applied", example = "750.00",
+        required = true)
     @Column(name = "total", precision = 16, scale = 2, nullable = false)
     private BigDecimal total;
 
@@ -56,7 +57,7 @@ public class Order
     @ApiModelProperty(notes = "State of the quickpay payment", example = "PENDING")
     private PaymentState state;
 
-    @Size(min = 1)
+    @Min(1)
     @Column(name = "planted_trees", nullable = false)
     @ApiModelProperty(notes = "How many planted trees the order has. Default is 1", example = "1")
     private int plantedTrees = 1;
@@ -103,9 +104,9 @@ public class Order
         return subtotal;
     }
 
-    public void setSubtotal(BigDecimal initialPrice)
+    public void setSubtotal(BigDecimal subtotal)
     {
-        this.subtotal = initialPrice;
+        this.subtotal = subtotal;
     }
 
     public BigDecimal getTotal()
@@ -113,9 +114,9 @@ public class Order
         return total;
     }
 
-    public void setTotal(BigDecimal fullPrice)
+    public void setTotal(BigDecimal total)
     {
-        this.total = fullPrice;
+        this.total = total;
     }
 
     public Currency getCurrency()
