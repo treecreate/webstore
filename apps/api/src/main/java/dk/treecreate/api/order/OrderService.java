@@ -1,22 +1,47 @@
 package dk.treecreate.api.order;
 
+import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.contactinfo.ContactInfo;
+import dk.treecreate.api.designs.ContactInfoService;
 import dk.treecreate.api.designs.DesignDimension;
 import dk.treecreate.api.designs.DesignType;
 import dk.treecreate.api.discount.Discount;
+import dk.treecreate.api.discount.DiscountRepository;
+import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.transactionitem.TransactionItem;
+import dk.treecreate.api.transactionitem.TransactionItemRepository;
+import dk.treecreate.api.user.User;
+import dk.treecreate.api.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrderService
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
+
+    @Autowired
+    DiscountRepository discountRepository;
+    @Autowired
+    TransactionItemRepository transactionItemRepository;
+    @Autowired
+    ContactInfoService contactInfoService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    AuthUserService authUserService;
 
     public boolean verifyPrice(Order order)
     {
@@ -121,5 +146,78 @@ public class OrderService
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Provided design (" + designType + ") type data is not valid");
         }
+    }
+
+    public Order setupOrderFromCreateRequest(CreateOrderRequest createOrderRequest)
+    {
+        Order order = new Order();
+        order.setSubtotal(createOrderRequest.getSubtotal());
+        order.setTotal(createOrderRequest.getTotal());
+        order.setCurrency(createOrderRequest.getCurrency());
+        order.setState(PaymentState.INITIAL);
+        order.setPlantedTrees(createOrderRequest.getPlantedTrees());
+        if (createOrderRequest.getDiscountId() != null)
+        {
+            Discount discount =
+                discountRepository.findByDiscountId(createOrderRequest.getDiscountId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
+            if (discount.getRemainingUses() == 0)
+            {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "This discount has no remaining uses");
+            }
+            if (discount.getExpiresAt() != null && new Date().after(discount.getExpiresAt()))
+            {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This discount is expired");
+            }
+
+            discount.setRemainingUses(discount.getRemainingUses() - 1);
+            discount.setTotalUses(discount.getTotalUses() + 1);
+            order.setDiscount(discount);
+        } else
+        {
+            order.setDiscount(null);
+        }
+
+        // set contact and billing info
+        ContactInfo contactInfo = new ContactInfo();
+        contactInfo = contactInfoService.mapCreateContactInfoRequest(contactInfo,
+            createOrderRequest.getContactInfo());
+        order.setContactInfo(contactInfo);
+        if (createOrderRequest.getBillingInfo() != null)
+        {
+            ContactInfo billingInfo = new ContactInfo();
+            billingInfo = contactInfoService.mapCreateContactInfoRequest(billingInfo,
+                createOrderRequest.getBillingInfo());
+            order.setBillingInfo(billingInfo);
+        } else
+        {
+            order.setBillingInfo(null);
+        }
+        List<TransactionItem> itemList = new ArrayList<>();
+        // set transaction items
+
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        User user = userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        order.setUserId(user.getUserId());
+        for (
+            UUID itemId : createOrderRequest.getTransactionItemIds())
+        {
+            TransactionItem transactionItem =
+                transactionItemRepository.findByTransactionItemId(itemId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Transaction item not found"));
+            // check if the user has access to the transaction item
+            if (transactionItem.getDesign().getUser().getUserId() != user.getUserId())
+            {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "You lack clearance to create an order including this transaction item: '" +
+                        transactionItem.getTransactionItemId() + "'");
+            }
+            itemList.add(transactionItem);
+        }
+        order.setTransactionItems(itemList);
+
+        return order;
     }
 }
