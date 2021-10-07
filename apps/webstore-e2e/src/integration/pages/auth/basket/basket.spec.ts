@@ -1,5 +1,6 @@
 import { TreeDesignEnum, BoxDesignEnum } from '@assets';
 import {
+  CreateTransactionItemRequest,
   DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
@@ -84,6 +85,11 @@ const mockTransactionItem: ITransactionItem = {
   quantity: 1,
   design: mockDesign,
 };
+const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
+  designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  dimension: DesignDimensionEnum.medium,
+  quantity: 1,
+};
 
 describe('BasketPage', () => {
   beforeEach(() => {
@@ -99,11 +105,16 @@ describe('BasketPage', () => {
       body: mockUser,
       statusCode: 200,
     });
+    //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
-      body: mockTransactionItem,
+      body: [mockTransactionItem],
       statusCode: 200,
     });
     cy.visit('/basket');
+  });
+
+  it.skip('should display the transaction items in the basket', () => {
+    cy.get('[data-cy=basket-item]').first().should('exist');
   });
 
   it.skip('should increase / decrease amount of trees donated', () => {
@@ -136,8 +147,10 @@ describe('BasketPage', () => {
     cy.intercept('GET', '/discount/testDISCOUNT123', {
       //TODO: get discount
     });
-    cy.get('[data-cy=basket-apply-discount-input]').type('testDISCOUNT123');
-    cy.get('[data-cy=basket-apply-discount-button]').click();
+    cy.get('[data-cy=basket-apply-discount-input]').type('testDISCOUNT123', {
+      force: true,
+    });
+    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
     //TODO: check if discount is applied
   });
 
@@ -146,11 +159,34 @@ describe('BasketPage', () => {
     cy.url().should('contain', '/checkout');
   });
 
-  it.skip('should update price when changing dimention of a product', () => {});
+  it.skip('should update price when changing dimention of a product', () => {
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[]');
+      })
+      .then(() => {});
+  });
 
   it.skip('should update price when changing quantity of a product', () => {});
 
   it.skip('should remove the product from basket when pressing delete', () => {});
 
   it.skip('should show a viewOnly version of the design', () => {});
+
+  it.skip('should update price when values are changed', () => {
+    //Update the transaction item
+    cy.intercept('PUT', '/transaction-items/me', {
+      body: mockCreateTransactionItemRequest,
+      statusCode: 200,
+    });
+  });
+
+  it.skip('should add an transaction item to basket', () => {
+    //For adding to basket
+    cy.intercept('POST', '/transaction-items/me', {
+      body: mockCreateTransactionItemRequest,
+      statusCode: 200,
+    });
+  });
 });

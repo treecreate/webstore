@@ -7,7 +7,7 @@
     <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
     {{ alert.message }}</ngb-alert
 >
-<div *ngIf="!alert" class="basket-item-container">
+<div *ngIf="!alert" class="basket-item-container" data-cy="basket-item">
     <!-- <div class="item-title">
         {{ item.design.designProperties.title }}
     </div> -->
@@ -23,12 +23,11 @@
         >
         </webstore-family-tree-miniature>
         <hr class="hr-class" />
-        <div class="item-type-title">
+        <div class="item-type-title" data-cy="basket-item-title">
             <b>{{ item.design.designProperties.title }}</b>
         </div>
     </div>
     <div class="item-container">
-        <!-- TODO - add spinners to the buttons based on the isLoading property -->
         <!-- quantity -->
         <div class="option-quantity">
             <div class="text">
@@ -39,6 +38,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
                     [disabled]="item.quantity === 1"
+                    data-cy="basket-item-decrese-quantity-button"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -50,6 +50,7 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseQuantity()"
+                    data-cy="basket-item-increse-quantity-button"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -66,6 +67,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
                     [disabled]="item.dimension === 'SMALL'"
+                    data-cy="basket-item-decrese-size-button"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -78,6 +80,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseSize()"
                     [disabled]="item.dimension === 'LARGE'"
+                    data-cy="basket-item-increase-size-button"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -99,12 +102,14 @@
                 [routerLink]="'/product'"
                 [queryParams]="{ designId: item.design.designId }"
                 i18n="@@view"
+                data-cy="basket-item-view"
             >
                 View
             </button>
             <button
                 class="tc-button-50 margin-top"
                 (click)="deleteTransactionItem()"
+                data-cy="basket-item-delete-button"
             >
                 <span i18n="@@delete" *ngIf="!isLoading">Delete</span>
                 <span
