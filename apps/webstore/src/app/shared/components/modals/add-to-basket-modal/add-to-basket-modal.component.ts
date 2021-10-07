@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
+  IDesign,
   IFamilyTree,
   ITransactionItem,
 } from '@interfaces';
@@ -22,19 +23,11 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
 export class AddToBasketModalComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
   itemsInBasket: number;
-
+  design;
   isLoading = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
