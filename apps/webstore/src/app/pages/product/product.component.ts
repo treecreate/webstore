@@ -194,10 +194,10 @@ export class ProductComponent implements OnInit {
           (result) => {
             console.log('Design persisted', result);
             this.toastService.showAlert(
-              'Your design has been saved',
-              'Dit design er bleven gemt',
+              'Your design has been saved to your collection',
+              'Dit design er bleven gemt i din samling',
               'success',
-              3500
+              5000
             );
           },
           (error: HttpErrorResponse) => {
@@ -222,16 +222,19 @@ export class ProductComponent implements OnInit {
           (result) => {
             console.log('Design created and persisted', result);
             this.toastService.showAlert(
-              'Your design has been saved',
-              'Dit design er bleven gemt',
+              'Your design has been created and saved to your collection',
+              'Dit design er bleven lavet og gemt i din samling',
               'success',
-              3500
+              5000
             );
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { designId: result.designId },
-              queryParamsHandling: 'merge', // remove to replace all query params by provided
-            });
+            //TODO: Discuss this action: Should not direct away from the design. If anything it should direct to basket
+            //But if it redirects to basket, it should still be done in the addToBasketModal and not here.
+
+            // this.router.navigate([], {
+            //   relativeTo: this.route,
+            //   queryParams: { designId: result.designId },
+            //   queryParamsHandling: 'merge', // remove to replace all query params by provided
+            // });
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
@@ -347,7 +350,6 @@ export class ProductComponent implements OnInit {
 
   updateBannerText($event) {
     this.banner.text = $event.target.value;
-    console.log('banner text', this.banner.text);
   }
 
   openAddToBasketModal() {
