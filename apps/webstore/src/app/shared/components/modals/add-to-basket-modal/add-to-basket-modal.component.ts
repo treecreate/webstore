@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DesignDimensionEnum, IUser } from '@interfaces';
-import { UserRoles } from '@models';
+import { DesignDimensionEnum } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { ToastService } from '../../toast/toast-service';
@@ -12,14 +11,6 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
 export class AddToBasketModalComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
@@ -49,7 +40,6 @@ export class AddToBasketModalComponent implements OnInit {
       quantity: 1,
       dimension: DesignDimensionEnum.small,
     });
-
     this.updatePrice();
   }
 

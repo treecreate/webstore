@@ -54,7 +54,6 @@
             class="tc-button-100"
             data-cy="login-btn"
             type="submit"
-            [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
         >
             <span i18n="@@login" *ngIf="!isLoading">Login</span>

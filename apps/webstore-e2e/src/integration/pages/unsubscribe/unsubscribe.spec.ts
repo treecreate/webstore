@@ -1,9 +1,6 @@
 import { CookieStatus, LocalStorageVars } from '@models';
-import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 describe('Signup Page', () => {
-  const authMockService = new AuthenticationService();
-
   const subscribedNewsletterUUID = 'c0a80121-7ac0-190b-817a-c08ab0a12345';
   const notSubscribedNewsletterUUID = '7ac0-c0a80121-190b-817a-c08ab0a12345';
   const invalidNewsletterUUID = '1234';
