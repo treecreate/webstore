@@ -41,7 +41,7 @@ export class CheckoutComponent implements OnInit {
   extraDonatedTrees = 1;
   isSubscribed: boolean;
 
-  subscribeToNewsletter = true;
+  subscribeToNewsletter = false;
   billingAddressIsTheSame = true;
 
   priceInfo: IPricing;
@@ -134,6 +134,7 @@ export class CheckoutComponent implements OnInit {
         },
         (error) => {
           this.isSubscribed = false;
+          this.subscribeToNewsletter = true;
           if (error.error.status !== 404) {
             console.error(error);
           }
@@ -147,22 +148,27 @@ export class CheckoutComponent implements OnInit {
     this.checkoutForm = new FormGroup({
       name: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ]*$"),
+        Validators.minLength(3),
         Validators.required,
+        Validators.pattern('^[^0-9]+$'),
       ]),
       phoneNumber: new FormControl('', [
         Validators.maxLength(11),
+        Validators.minLength(8),
         Validators.pattern('^[0-9+]*$'),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
       streetAddress: new FormControl('', [
         Validators.maxLength(50),
+        Validators.minLength(3),
         Validators.required,
       ]),
       streetAddress2: new FormControl('', [Validators.maxLength(50)]),
       city: new FormControl('', [
         Validators.maxLength(50),
+        Validators.minLength(2),
         Validators.required,
+        Validators.pattern('^[^0-9]+$'),
       ]),
       postcode: new FormControl('', [
         Validators.max(9999),
@@ -175,23 +181,27 @@ export class CheckoutComponent implements OnInit {
     this.billingAddressForm = new FormGroup({
       billingName: new FormControl('', [
         Validators.maxLength(50),
-        Validators.pattern("^[a-zA-Z-' ]*$"),
-      ]),
-      billingPhoneNumber: new FormControl('', [
-        Validators.maxLength(11),
-        Validators.pattern('^[0-9+]*$'),
-      ]),
-      billingEmail: new FormControl('', [
+        Validators.minLength(3),
         Validators.required,
-        Validators.email,
+        Validators.pattern('^[^0-9]+$'),
       ]),
-      billingStreetAddress: new FormControl('', [Validators.maxLength(50)]),
+      billingStreetAddress: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.required,
+      ]),
       billingStreetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      billingCity: new FormControl('', [Validators.maxLength(50)]),
+      billingCity: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.required,
+        Validators.pattern('^[^0-9]+$'),
+      ]),
       billingPostcode: new FormControl('', [
         Validators.max(9999),
         Validators.min(555),
         Validators.pattern('^[0-9]*$'),
+        Validators.required,
       ]),
     });
   }
@@ -212,9 +222,10 @@ export class CheckoutComponent implements OnInit {
 
   subscribeUserToNewsletter() {
     this.newsletterService
-      .registerNewsletterEmail(this.billingAddressForm.get('email').value)
+      .registerNewsletterEmail(this.checkoutForm.get('email').value)
       .subscribe(
         (data: INewsletter) => {
+          //TODO: Add event for them to recieve a 25% off email in 2 weeks
           this.toastService.showAlert(
             `Thank you for subscribing: ${data.email}`,
             `Tak for din tilmelding: ${data.email}`,
@@ -272,16 +283,8 @@ export class CheckoutComponent implements OnInit {
     } else {
       return (
         this.isTermsAndConditionsAccepted &&
-        this.checkoutForm.get('name').valid &&
-        this.checkoutForm.get('email').valid &&
-        this.checkoutForm.get('streetAddress').valid &&
-        this.checkoutForm.get('city').valid &&
-        this.checkoutForm.get('postcode').valid &&
-        this.billingAddressForm.get('billingName').valid &&
-        this.billingAddressForm.get('billingEmail').valid &&
-        this.billingAddressForm.get('billingStreetAddress').valid &&
-        this.billingAddressForm.get('billingCity').valid &&
-        this.billingAddressForm.get('billingPostcode').valid
+        this.checkoutForm.valid &&
+        this.billingAddressForm.valid
       );
     }
   }

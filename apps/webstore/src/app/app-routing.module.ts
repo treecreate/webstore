@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
   { path: 'login', component: LoginComponent, canActivate: [CookieGuard] },
   {
-    path: 'resetPassword',
+    path: 'resetPassword/:token',
     component: ResetPasswordComponent,
     canActivate: [CookieGuard],
   },

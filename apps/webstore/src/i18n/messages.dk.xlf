@@ -742,6 +742,38 @@
           <context context-type="linenumber">78,79</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="password-has-been-updated" datatype="html">
+        <source>Your password has been updated</source>
+        <target>Din kode er bleven opdateret</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password-updated" datatype="html">
+        <source> Updated </source>
+        <target>Opdateret</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">91,92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password-has-been-reset" datatype="html">
+        <source>Your password has been reset!</source>
+        <target>Din kode er bleven ændret!</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="go-to-login" datatype="html">
+        <source> Go to login</source>
+        <target>Gå til login</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">146,147</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="info-password" datatype="html">
         <source> Password must contain: min 9 characters, at least one upper case letter, at least one lower case letter and at least one number. </source>
         <target>Kodeordet skal indeholde: min 9 tegn, mindst et stort bokstav, mindst et lille bokstav og mindst et nummer.</target> 

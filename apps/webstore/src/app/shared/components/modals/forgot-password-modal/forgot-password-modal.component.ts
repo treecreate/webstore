@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../../services/user/user.service';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -17,11 +18,13 @@ export class ForgotPasswordModalComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   @ViewChild('messageSent') messageSent: ElementRef;
   title = 'ForgotPasswordModal';
+  isLoading = false;
 
   constructor(
     public activeModal: NgbActiveModal,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -30,20 +33,32 @@ export class ForgotPasswordModalComponent implements OnInit {
     });
   }
 
-  sendResetPasswordEmail(email: string) {
-    console.log(email);
-    // TODO: send the reset password email (possibly check if the email exists)
-  }
-
-  resetPassword() {
-    this.sendResetPasswordEmail(this.forgotPasswordForm.get('email').value);
-    this.activeModal.close();
-    this.toastService.showAlert(
-      'We have sent you an e-mail with a link to change your password.',
-      'Vi har sendt dig en e-mail med et link til at ændre din kode.',
-      'success',
-      3500
-    );
+  sendResetPasswordEmail() {
+    this.isLoading = true;
+    this.userService
+      .sendResetUserPassword(this.forgotPasswordForm.get('email').value)
+      .subscribe(
+        () => {
+          this.activeModal.close();
+          this.toastService.showAlert(
+            'We have sent you an e-mail with a link to change your password.',
+            'Vi har sendt dig en e-mail med et link til at ændre din kode.',
+            'success',
+            3500
+          );
+          this.isLoading = false;
+        },
+        (err) => {
+          this.toastService.showAlert(
+            'We have failed to send an e-mail. Try again or contact us at info@treecreate.dk.',
+            'Der skete en fejl da vi skulle sende e-mailen. Prøv igen senere eller skriv til os på info@treecreate.dk',
+            'danger',
+            10000
+          );
+          console.log(err.error.message);
+          this.isLoading = false;
+        }
+      );
   }
 
   isDisabled(): boolean {

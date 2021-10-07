@@ -13,6 +13,7 @@ import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.UUID;
 
 @Service
 public class MailService
@@ -41,12 +42,13 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
     }
 
-    public void sendResetPasswordEmail(String to, Locale locale)
+    public void sendResetPasswordEmail(String to, String token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        String subject = "Hello Customer, you forgot your password";
+        context.setVariable("token", token);
+        String subject = "Reset password";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
     }
 
