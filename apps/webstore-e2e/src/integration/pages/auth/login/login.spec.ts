@@ -48,14 +48,49 @@ describe('Login Page', () => {
       cy.url().should('contain', '/login');
     });
 
-    it('should display a modal for forgot password when link is clicked', () => {
-      cy.get('[data-cy=forgot-password-btn]').click();
-      cy.get('[data-cy=forgot-password-modal-close-btn]').click();
-    });
-
     it('should redirect to signup page when signup button is clicked', () => {
       cy.get('[data-cy=login-signup-btn]').click();
       cy.url().should('contain', '/signup');
+    });
+
+    it('should open and close forgot password modal correctly', () => {
+      cy.get('[data-cy=forgot-password-btn]').click();
+      cy.get('[data-cy=forgot-password-modal]').should('exist');
+      cy.get('[data-cy=forgot-password-modal-close-btn]').click();
+      cy.get('[data-cy=forgot-password-modal]').should('not.exist');
+    });
+
+    it('should show error message in forgot password modal correctly', () => {
+      cy.get('[data-cy=forgot-password-btn]').click();
+      cy.get('[data-cy=forgot-password-modal]').should('exist');
+      cy.get('[data-cy=forgot-password-reset-password-button]').should(
+        'be.disabled'
+      );
+
+      cy.get('[data-cy=forgot-password-email-input]').type('test@test.com');
+      cy.get('[data-cy=forgot-password-email-error-message]').should(
+        'not.exist'
+      );
+      cy.get('[data-cy=forgot-password-reset-password-button]').should(
+        'not.be.disabled'
+      );
+
+      cy.get('[data-cy=forgot-password-email-input]').clear();
+      cy.get('[data-cy=forgot-password-email-input]').type('test-test.com');
+      cy.get('[data-cy=forgot-password-email-error-message]').should('exist');
+      cy.get('[data-cy=forgot-password-reset-password-button]').should(
+        'be.disabled'
+      );
+    });
+
+    it('should send the email properly', () => {
+      const emailRequest = 'test@test.com';
+      cy.intercept('GET', `users/resetPassword/${emailRequest}`, {
+        statusCode: 204,
+      });
+      cy.get('[data-cy=forgot-password-btn]').click();
+      cy.get('[data-cy=forgot-password-email-input]').type('test@test.com');
+      cy.get('[data-cy=forgot-password-reset-password-button]').click();
     });
   });
 

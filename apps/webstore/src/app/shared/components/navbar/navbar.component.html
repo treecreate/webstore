@@ -21,7 +21,6 @@
                     data-cy="navbar-logo-img"
                     src="/assets/logos/tc-black-text-logo.svg"
                     class="logo"
-                    width="100"
                 />
             </a>
             <!-- localization -->
@@ -102,6 +101,7 @@
                             isLoggedIn ? '/product' : '/notSignedIn'
                         }}"
                         i18n="@@product"
+                        data-cy="navbar-product-page-button"
                         (click)="autoCollapse()"
                         >Product</a
                     >

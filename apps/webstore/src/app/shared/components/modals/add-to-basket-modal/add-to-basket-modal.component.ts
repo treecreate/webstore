@@ -22,7 +22,14 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
 export class AddToBasketModalComponent implements OnInit {
-  design: IFamilyTree;
+  // TODO: get actual items in basket from API
+  mockUser: IUser = {
+    userId: '1',
+    email: 'mock@hotdeals.dev',
+    roles: [UserRoles.user],
+    isVerified: true,
+  };
+
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
