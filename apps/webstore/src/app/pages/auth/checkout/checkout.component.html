@@ -536,10 +536,21 @@
                 >
 
                 <!-- Items in order -->
-                <webstore-checkout-item
-                    *ngFor="let item of itemList"
-                    [item]="item"
-                ></webstore-checkout-item>
+                <div *ngIf="!isLoading">
+                    <webstore-checkout-item
+                        *ngFor="let item of itemList"
+                        [item]="item"
+                    ></webstore-checkout-item>
+                </div>
+                <div *ngIf="isLoading" class="loading-screen">
+                    <span
+                        class="spinner-border spinner-border-sm"
+                        style="margin: 0 10px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <span>Loading...</span>
+                </div>
 
                 <div
                     class="trees-donated-container"
@@ -558,14 +569,13 @@
                                 class="seed-icon remove-mobile"
                             />
                             <!-- TODO - fetch/calculate the extra trees properly -->
-                            <!-- TODO - add a space between parts of the message (currently is "Thank you for planting1 extratree(s)!" )! -->
                             <span i18n="@@thank-you-for-planting"
                                 >Thank you for planting</span
                             >
 
-                            <strong
-                                >{{ extraDonatedTrees }}
-                                <span i18n="@@extra">extra</span>
+                            <strong>
+                                {{ extraDonatedTrees }}
+                                <span i18n="@@extra">extra </span>
                             </strong>
                             <span i18n="@@tree">tree(s)!</span>
                         </div>

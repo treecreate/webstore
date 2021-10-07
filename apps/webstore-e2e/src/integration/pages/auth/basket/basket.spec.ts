@@ -141,24 +141,16 @@ describe('BasketPage', () => {
     //TODO: check if discount is applied
   });
 
-    it.skip('should go to checkout', () => {
-        cy.get('[data-cy=basket-checkout-button]').click(); 
-        cy.url().should('contain', '/checkout'); 
+  it.skip('should go to checkout', () => {
+    cy.get('[data-cy=basket-checkout-button]').click();
+    cy.url().should('contain', '/checkout');
   });
 
-    it.skip('should update price when changing dimention of a product', () => {
+  it.skip('should update price when changing dimention of a product', () => {});
 
-    }); 
+  it.skip('should update price when changing quantity of a product', () => {});
 
-    it.skip('should update price when changing quantity of a product', () => {
+  it.skip('should remove the product from basket when pressing delete', () => {});
 
-    });
-
-    it.skip('should remove the product from basket when pressing delete', () => {
-
-    }); 
-
-    it.skip('should show a viewOnly version of the design', () => {
-
-    }); 
+  it.skip('should show a viewOnly version of the design', () => {});
 });
