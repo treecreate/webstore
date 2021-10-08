@@ -190,3 +190,67 @@ describe('BasketPage', () => {
     });
   });
 });
+
+describe.skip('AddToBasketModal', () => {
+  beforeEach(() => {
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    cy.visit('/product');
+  });
+  it('should have add-to-basket button redirect to login when not logged in', () => {
+    cy.visit('/home');
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(
+        authMockService.getMockUser(AuthUserEnum.authUserInvalid)
+      )
+    );
+    cy.visit('/product');
+    cy.get('[data-cy=add-to-basket-button]').click();
+    cy.url().should('contain', '/login');
+  });
+
+  it('should open add-to-basket modal when user is logged in', () => {
+    cy.get('[data-cy=add-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-modal]').should('exist');
+  });
+
+  it('should have the title written if it is in the product page', () => {
+    cy.get('[data-cy=design-title-input]').clear({ force: true });
+    cy.get('[data-cy=design-title-input]').type('family tree', {
+      force: true,
+    });
+    cy.get('[data-cy=add-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-title-input]').should(
+      'conatin',
+      'family tree'
+    );
+  });
+
+  it('should be able to change title', () => {
+    cy.get('[data-cy=design-title-input]').type('family tree');
+    cy.get('[data-cy=add-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-title-input]').should(
+      'conatin',
+      'family tree'
+    );
+    cy.get('[data-cy=add-to-basket-title-inpu]').clear();
+    cy.get('[data-cy=add-to-basket-title-inpu]').type('familietræ');
+    cy.get('[data-cy=add-to-basket-title-inpu]').should(
+      'conatin',
+      'familietræ'
+    );
+  });
+
+  it('it should set the title to untitled if there is no title', () => {});
+
+  it('should increase quantity', () => {});
+
+  it('should decrease quantity', () => {});
+
+  it('should increase dimensions', () => {});
+
+  it('should decrease dimensions', () => {});
+});
