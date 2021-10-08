@@ -3,7 +3,11 @@
     [ngClass]="!isMutable ? 'flex-direction-column' : ''"
 >
     <div class="back-container" *ngIf="!isMutable">
-        <a href="javascript:history.back()" class="back add-transition">
+        <a
+            href="javascript:history.back()"
+            class="back add-transition"
+            data-cy="view-only-back-button"
+        >
             < <span i18n="@@back">Back</span>
         </a>
     </div>
@@ -65,6 +69,7 @@
                 : 'desktop-options-container'
         "
         *ngIf="isMutable"
+        data-cy="product-options"
     >
         <div
             class="blocker"
