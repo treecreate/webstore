@@ -50,7 +50,7 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseQuantity()"
-                    data-cy="basket-item-increse-quantity-button"
+                    data-cy="basket-item-increase-quantity-button"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -67,7 +67,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
                     [disabled]="item.dimension === 'SMALL'"
-                    data-cy="basket-item-decrese-size-button"
+                    data-cy="basket-item-decrese-dimension-button"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -80,7 +80,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseSize()"
                     [disabled]="item.dimension === 'LARGE'"
-                    data-cy="basket-item-increase-size-button"
+                    data-cy="basket-item-increase-dimension-button"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -92,7 +92,7 @@
             <div class="text">
                 <span i18n="@@price"> Price </span>
             </div>
-            <div class="option price-text">{{ itemPrice.toFixed(2) }} DKK</div>
+            <div class="option price-text" data-cy="basket-item-price">{{ itemPrice.toFixed(2) }} DKK</div>
         </div>
         <hr class="margin-top" />
         <!-- actions -->

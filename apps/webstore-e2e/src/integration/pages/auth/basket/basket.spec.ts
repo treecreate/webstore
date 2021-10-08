@@ -31,7 +31,7 @@ const mockOrder: IOrder = {
 const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
-  roles: [UserRoles.user],
+  roles: [UserRoles.user, UserRoles.admin, UserRoles.developer],
   isVerified: true,
   name: 'teodor jonasson',
   phoneNumber: '',
@@ -90,6 +90,16 @@ const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
   dimension: DesignDimensionEnum.medium,
   quantity: 1,
 };
+const mockCreateTransactionItemRequestUpdatedQuantity: CreateTransactionItemRequest = {
+  designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  dimension: DesignDimensionEnum.medium,
+  quantity: 2
+}
+const mockCreateTransactionItemRequestUpdatedDimension: CreateTransactionItemRequest = {
+  designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  dimension: DesignDimensionEnum.large,
+  quantity: 1
+}
 
 describe('BasketPage', () => {
   beforeEach(() => {
@@ -152,6 +162,7 @@ describe('BasketPage', () => {
     });
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
     //TODO: check if discount is applied
+    //TODO: check that discount button is disabled
   });
 
   it.skip('should go to checkout', () => {
@@ -160,17 +171,55 @@ describe('BasketPage', () => {
   });
 
   it.skip('should update price when changing dimention of a product', () => {
+    //TODO: check with calli that this is correct 
+    cy.intercept('PUT', '/transaction-items/me' + mockCreateTransactionItemRequest.designId, {
+      body: mockCreateTransactionItemRequestUpdatedDimension,
+      statusCode: 200,
+    });
+    cy.get('[data-cy=basket-final-price]').should('contain', '695'); 
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[]');
+        cy.get('[data-cy=basket-item-decrese-dimension-button]').should('not.be.disabled');
+        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-increase-dimension-button]').click({ force: true});
       })
-      .then(() => {});
+      .then(() => {
+        cy.get('[data-cy=basket-item-price]').should('contain', '995');
+        cy.get('[data-cy=basket-final-price]').should('contain', '995'); 
+      });
   });
 
-  it.skip('should update price when changing quantity of a product', () => {});
+  it.skip('should update price when changing quantity of a product', () => {
+    //TODO: check with calli that this is correct 
+    cy.intercept('PUT', '/transaction-items/me' + mockCreateTransactionItemRequest.designId, {
+      body: mockCreateTransactionItemRequestUpdatedQuantity,
+      statusCode: 200,
+    });
+    cy.get('[data-cy=basket-final-price]').should('contain', '695'); 
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-increase-quantity-button]').click({ force: true });
+      })
+      .then(() => {
+        cy.get('[data-cy=basket-item-price]').should('contain', '1390');
+        cy.get('[data-cy=basket-final-price]').should('contain', '1390'); 
+      });
+  });
 
-  it.skip('should remove the product from basket when pressing delete', () => {});
+  it('should remove the product from basket when pressing delete', () => {
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-increase-quantity-button]').click({ force: true });
+      })
+      .then(() => {
+        cy.get('[data-cy=basket-item-price]').should('contain', '1390');
+        cy.get('[data-cy=basket-final-price]').should('contain', '1390'); 
+      });
+  });
 
   it.skip('should show a viewOnly version of the design', () => {});
 

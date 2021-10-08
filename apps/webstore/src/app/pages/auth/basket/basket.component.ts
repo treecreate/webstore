@@ -30,7 +30,7 @@ export class BasketComponent implements OnInit {
 
   donatedTrees = 1;
   discount: IDiscount = {
-    amount: 100,
+    amount: 0,
     type: DiscountType.amount,
   };
 
