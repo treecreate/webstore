@@ -3,6 +3,9 @@ package dk.treecreate.api.order;
 import dk.treecreate.api.contactinfo.ContactInfo;
 import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.transactionitem.TransactionItem;
+import dk.treecreate.api.utils.model.quickpay.Currency;
+import dk.treecreate.api.utils.model.quickpay.PaymentState;
+import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -67,6 +70,11 @@ public class Order
     @ApiModelProperty(notes = "Id of the order's user",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
     private UUID userId;
+
+    @Column(name = "shipping_method", nullable = false)
+    @ApiModelProperty(notes = "Shipping method by which the customer receives their order",
+        example = "HOME_DELIVERY")
+    private ShippingMethod shippingMethod;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @ApiModelProperty(notes = "Discount used in the given order")
@@ -159,6 +167,16 @@ public class Order
         this.userId = userId;
     }
 
+    public ShippingMethod getShippingMethod()
+    {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(ShippingMethod shippingMethod)
+    {
+        this.shippingMethod = shippingMethod;
+    }
+
     public Discount getDiscount()
     {
         return discount;
@@ -216,7 +234,8 @@ public class Order
         Order order = (Order) o;
         return plantedTrees == order.plantedTrees && orderId.equals(order.orderId) &&
             subtotal.equals(order.subtotal) && total.equals(order.total) &&
-            currency == order.currency && state == order.state && userId.equals(order.userId) &&
+            currency == order.currency && state == order.state &&
+            Objects.equals(userId, order.userId) && shippingMethod == order.shippingMethod &&
             Objects.equals(discount, order.discount) &&
             Objects.equals(contactInfo, order.contactInfo) &&
             Objects.equals(billingInfo, order.billingInfo) &&
@@ -228,6 +247,6 @@ public class Order
     public int hashCode()
     {
         return Objects.hash(orderId, subtotal, total, currency, state, plantedTrees, userId,
-            discount, contactInfo, billingInfo, transactionItems, createdAt);
+            shippingMethod, discount, contactInfo, billingInfo, transactionItems, createdAt);
     }
 }

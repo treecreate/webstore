@@ -156,6 +156,7 @@ public class OrderService
         order.setCurrency(createOrderRequest.getCurrency());
         order.setState(PaymentState.INITIAL);
         order.setPlantedTrees(createOrderRequest.getPlantedTrees());
+        order.setShippingMethod(createOrderRequest.getShippingMethod());
         if (createOrderRequest.getDiscountId() != null)
         {
             Discount discount =

@@ -1,10 +1,12 @@
 package dk.treecreate.api.order.dto;
 
 import dk.treecreate.api.contactinfo.dto.CreateContactInfoRequest;
-import dk.treecreate.api.order.Currency;
-import dk.treecreate.api.order.PaymentState;
+import dk.treecreate.api.utils.model.quickpay.Currency;
+import dk.treecreate.api.utils.model.quickpay.PaymentState;
+import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,6 +38,11 @@ public class CreateOrderRequest
     @ApiModelProperty(name = "How many planted trees the order has. Default is 1", example = "1",
         required = false)
     private int plantedTrees = 1;
+
+    @NotNull
+    @ApiModelProperty(notes = "Shipping method by which the customer receives their order",
+        example = "HOME_DELIVERY", required = true)
+    private ShippingMethod shippingMethod;
 
     @ApiModelProperty(notes = "ID of the discount used in the given order")
     private UUID discountId;
@@ -100,6 +107,16 @@ public class CreateOrderRequest
     public void setPlantedTrees(int plantedTrees)
     {
         this.plantedTrees = plantedTrees;
+    }
+
+    public ShippingMethod getShippingMethod()
+    {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(ShippingMethod shippingMethod)
+    {
+        this.shippingMethod = shippingMethod;
     }
 
     public UUID getDiscountId()
