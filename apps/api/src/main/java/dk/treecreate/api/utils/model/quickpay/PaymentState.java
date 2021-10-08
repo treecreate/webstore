@@ -1,5 +1,8 @@
-package dk.treecreate.api.order;
+package dk.treecreate.api.utils.model.quickpay;
 
+/**
+ * Payment status in Quickpay
+ */
 public enum PaymentState
 {
     INITIAL,
