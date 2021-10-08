@@ -13,6 +13,7 @@ import dk.treecreate.api.transactionitem.TransactionItem;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
+import dk.treecreate.api.utils.model.quickpay.PaymentState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,19 @@ public class OrderService
         // each planted tree adds 10kr to the price, minus the default 1 tree
         int plantedTreesPrice = (order.getPlantedTrees() * 10) - 10;
         subTotal = subTotal.add(new BigDecimal(plantedTreesPrice));
+
+        // add shipping cost
+        switch (order.getShippingMethod())
+        {
+            case PICK_UP_POINT:
+                break; // is free
+            case HOME_DELIVERY:
+                subTotal = subTotal.add(new BigDecimal(29));
+                break; // 29 kr
+            case OWN_DELIVERY:
+                subTotal = subTotal.add(new BigDecimal(100));
+                break; // 100 kr
+        }
 
         LOGGER.info("verify price | SubTotal: " + subTotal + " | item count: " + totalItems +
             " | planted trees: " + order.getPlantedTrees());
