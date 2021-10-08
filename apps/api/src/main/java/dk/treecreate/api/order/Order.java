@@ -66,6 +66,7 @@ public class Order
     private int plantedTrees = 1;
 
     // The userId is not a relation because 1. JPA sucks, and 2. Doesn't need to be
+    @Type(type = "uuid-char")
     @Column(name = "user_id", nullable = false)
     @ApiModelProperty(notes = "Id of the order's user",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
