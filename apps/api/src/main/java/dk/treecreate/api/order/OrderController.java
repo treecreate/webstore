@@ -4,9 +4,11 @@ import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.designs.ContactInfoService;
 import dk.treecreate.api.discount.DiscountRepository;
+import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetOrdersResponse;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
+import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
@@ -64,6 +66,17 @@ public class OrderController
     public Order create(
         @RequestBody() @Valid CreateOrderRequest createOrderRequest)
     {
+        // check if the user is verified
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        User user = userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        if (!user.getIsVerified())
+        {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                "The user had to be verified in order to create an order");
+        }
+
+        // Set up and verify the order object
         Order order = orderService.setupOrderFromCreateRequest(createOrderRequest);
         if (!orderService.verifyPrice(order))
         {
@@ -71,12 +84,16 @@ public class OrderController
                 "The provided order price information did not match the price calculations");
         }
         // TODO - Call quickpay
+        // Call quickpay to obtain the payment link
 
+        // persist the order information
+        // TODO - error-handle failed order persisting. Include usage of transactions
         order = orderRepository.save(order);
         if (order.getDiscount() != null)
         {
             discountRepository.save(order.getDiscount());
         }
+
         return order;
     }
 }
