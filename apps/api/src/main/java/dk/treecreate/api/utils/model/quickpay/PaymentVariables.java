@@ -14,4 +14,14 @@ public class PaymentVariables
     public UUID discountId;
     public int plantedTrees;
     public List<PaymentTransactionItemInfo> items;
+
+    @Override public String toString()
+    {
+        return "PaymentVariables{" +
+            "orderId=" + orderId +
+            ", userId=" + userId +
+            ", discountId=" + discountId +
+            ", plantedTrees=" + plantedTrees +
+            '}';
+    }
 }

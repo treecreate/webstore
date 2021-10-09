@@ -5,16 +5,23 @@ import dk.treecreate.api.contactinfo.ContactInfo;
 import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.order.Order;
 import dk.treecreate.api.transactionitem.TransactionItem;
-import dk.treecreate.api.utils.model.quickpay.*;
 import dk.treecreate.api.utils.model.quickpay.Currency;
+import dk.treecreate.api.utils.model.quickpay.*;
+import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkRequest;
+import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
 
@@ -44,9 +51,82 @@ public class QuickpayService
         payment.order_id =
             createOrderId(order.getContactInfo().getEmail(), Environment.DEVELOPMENT);
 
-        // perform POST https://api.quickpay.net/payments
+        // perform POST https://api.quickpay.net/payments to create a payment object in Quickpay
+        String quickpayApiUrl = "https://api.quickpay.net";
+        String apiKey = customProperties.getQuickpaySecret();
 
-        return "paymentId";
+        WebClient client = WebClient.create();
+
+        // TODO - add proper error handling of the response
+        Payment response = client.post()
+            .uri(new URI(quickpayApiUrl + "/payments"))
+            .headers(headers -> headers.setBasicAuth("", apiKey))
+            .header("Accept-Version", "v10")
+            .body(BodyInserters.fromValue(payment))
+            .retrieve()
+            .bodyToMono(Payment.class)
+            .block();
+
+        if (response == null)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "An error has occurred while creating a payment. Try again later");
+        }
+
+        LOGGER.info(
+            "New payment has been created for order " + order.getOrderId() +
+                ". PaymentID: " + response.id);
+        System.out.println(response);
+
+
+        return response.id;
+    }
+
+    /**
+     * perform PUT https://api.quickpay.net/payments/:paymentId/link to get a payment link
+     *
+     * @param paymentId Quickpay payment ID
+     * @return url that the user can navigate to in order to give us money
+     */
+    public CreatePaymentLinkResponse sendCreatePaymentLinkRequest(String paymentId,
+                                                                  BigDecimal total, Locale locale)
+        throws URISyntaxException
+    {
+        String quickpayApiUrl = "https://api.quickpay.net";
+        String apiKey = customProperties.getQuickpaySecret();
+
+        var createPaymentLinkRequest = new CreatePaymentLinkRequest();
+        // quickpay requires the value as an integer. The remainder is preserved by multiplying by 100
+        createPaymentLinkRequest.amount = total.multiply(new BigDecimal(100)).intValue();
+        // TODO - convert locale to use ISO-639-codes (danish is da not dk)
+        if (locale.getLanguage().equals("dk"))
+        {
+            createPaymentLinkRequest.language = "da";
+        } else
+        {
+            createPaymentLinkRequest.language = locale.getLanguage();
+        }
+
+        // TODO - add proper error handling of the response
+        WebClient client = WebClient.create();
+        CreatePaymentLinkResponse response = client.put()
+            .uri(new URI(quickpayApiUrl + "/payments/" + paymentId + "/link"))
+            .headers(headers -> headers.setBasicAuth("", apiKey))
+            .header("Accept-Version", "v10")
+            .body(BodyInserters.fromValue(createPaymentLinkRequest))
+            .retrieve()
+            .bodyToMono(CreatePaymentLinkResponse.class)
+            .block();
+
+        if (response == null)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "An error has occurred while creating a payment link. Try again later");
+        }
+
+        LOGGER.info("Payment link has been created for payment id " + paymentId + " | " +
+            response.getUrl());
+        return response;
     }
 
     /**
@@ -175,5 +255,18 @@ public class QuickpayService
         }
 
         return prefix + emailPrefix + "-" + randomId;
+    }
+
+    /**
+     * Format a username and password into a basic-auth compatible string
+     *
+     * @param username authentication username
+     * @param password authentication password
+     * @return formatted username and password that can be used as a basic auth param
+     */
+    private static String createBasicAuthToken(String username, String password)
+    {
+        return "Basic " +
+            Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
     }
 }
