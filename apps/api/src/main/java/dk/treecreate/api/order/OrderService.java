@@ -75,11 +75,11 @@ public class OrderService
                 break; // 100 kr
         }
 
-        LOGGER.info("verify price | SubTotal: " + subTotal + " | item count: " + totalItems +
+        LOGGER.info("Verify price | SubTotal: " + subTotal + " | item count: " + totalItems +
             " | planted trees: " + order.getPlantedTrees());
         if (!subTotal.equals(order.getSubtotal().setScale(2, RoundingMode.HALF_EVEN)))
         {
-            LOGGER.warn("verify price | SubTotal (" + subTotal +
+            LOGGER.warn("Verify price | SubTotal (" + subTotal +
                 ") DOES NOT match order.subtotal: " +
                 order.getSubtotal());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -123,14 +123,14 @@ public class OrderService
                             discount.getType() + ")!");
             }
             LOGGER.info(
-                "verify price | Detected discount " + discount.getType() +
+                "Verify price | Detected discount " + discount.getType() +
                     " of amount " + discount.getAmount());
         } else
         {
             if (hasMoreThan3)
             {
                 LOGGER.info(
-                    "verify price | Detected discount via More Than 4 items");
+                    "Verify price | Detected discount via More Than 4 items");
                 total = subTotal.subtract(subTotal.multiply(new BigDecimal("0.25")));
             }
         }

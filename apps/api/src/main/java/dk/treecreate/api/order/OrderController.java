@@ -18,6 +18,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,6 +37,8 @@ import java.util.Locale;
 @Api(tags = {"Orders"})
 public class OrderController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+
     @Autowired
     OrderRepository orderRepository;
     @Autowired
@@ -85,6 +89,7 @@ public class OrderController
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User user = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        LOGGER.info("Order | New order is being made. UserID: " + user.getUserId());
         if (!user.getIsVerified())
         {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
@@ -111,7 +116,7 @@ public class OrderController
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "An error has occurred while creating a payment");
         }
-
+        // TODO - Persists the payment link or id in the order
         // persist the order information
         // TODO - error-handle failed order persisting. Include usage of transactions
         order = orderRepository.save(order);
@@ -120,6 +125,10 @@ public class OrderController
             discountRepository.save(order.getDiscount());
         }
 
+        LOGGER.info(
+            "Order | New order has been made. UserID: " + user.getUserId() + " | Order ID: " +
+                order.getOrderId() + " | Subtotal: " + order.getSubtotal() + " | Total: " +
+                order.getTotal());
         return createPaymentLinkResponse;
     }
 }
