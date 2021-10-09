@@ -6,6 +6,7 @@ import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.dto.GetUsersResponse;
 import dk.treecreate.api.user.dto.UpdatePasswordRequest;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
+import dk.treecreate.api.utils.LocaleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -157,7 +158,7 @@ public class UserController
         try
         {
             mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
-                mailService.getLocale(lang));
+                LocaleService.getLocale(lang));
         } catch (Exception e)
         {
             LOGGER.error("Failed to process a verification email", e);
@@ -210,7 +211,7 @@ public class UserController
         try
         {
             mailService.sendResetPasswordEmail(email, user.getToken().toString(),
-                mailService.getLocale(lang));
+                LocaleService.getLocale(lang));
         } catch (Exception e)
         {
             LOGGER.error("Failed to process a verification email", e);

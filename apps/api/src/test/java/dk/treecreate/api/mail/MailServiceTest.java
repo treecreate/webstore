@@ -1,5 +1,6 @@
 package dk.treecreate.api.mail;
 
+import dk.treecreate.api.utils.LocaleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -92,6 +93,6 @@ class MailServiceTest
     @DisplayName("getLocale() returns correct value")
     void getLocale(String lang, Locale expected)
     {
-        assertEquals(expected, mailService.getLocale(lang));
+        assertEquals(expected, LocaleService.getLocale(lang));
     }
 }

@@ -6,6 +6,7 @@ import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.user.UserService;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
+import dk.treecreate.api.utils.LocaleService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,7 +196,7 @@ class UserServiceTests
         user.setIsVerified(false);
 
         Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
-        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 
@@ -224,7 +225,7 @@ class UserServiceTests
         user.setIsVerified(true);
 
         Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
-        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 

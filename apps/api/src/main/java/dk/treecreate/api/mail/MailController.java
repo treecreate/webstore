@@ -1,7 +1,7 @@
 package dk.treecreate.api.mail;
 
-import dk.treecreate.api.mail.dto.ResetPasswordDto;
 import dk.treecreate.api.mail.dto.SignupDto;
+import dk.treecreate.api.utils.LocaleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -44,7 +44,7 @@ public class MailController
         try
         {
             mailService.sendSignupEmail(signupDto.getEmail(), UUID.randomUUID().toString(),
-                mailService.getLocale(lang));
+                LocaleService.getLocale(lang));
         } catch (Exception e)
         {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,

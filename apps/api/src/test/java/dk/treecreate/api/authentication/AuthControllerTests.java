@@ -9,6 +9,7 @@ import dk.treecreate.api.authentication.repository.RoleRepository;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
+import dk.treecreate.api.utils.LocaleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -174,7 +175,7 @@ class AuthControllerTests
             java.util.Optional.of(user));
         Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_USER)));
-        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendSignupEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 
@@ -227,7 +228,7 @@ class AuthControllerTests
         Mockito.when(roleRepository.findByName(ERole.ROLE_ADMIN)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_ADMIN)));
 
-        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 

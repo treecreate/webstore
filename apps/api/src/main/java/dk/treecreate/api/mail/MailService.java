@@ -94,11 +94,6 @@ public class MailService
         }
     }
 
-    public Locale getLocale(String lang)
-    {
-        return lang == null ? new Locale("dk") : new Locale(lang); // default locale is danish
-    }
-
     private JavaMailSender getMailSender(MailDomain mailDomain)
     {
         if (mailDomain == MailDomain.ORDER)
