@@ -46,6 +46,8 @@ class UserControllerTests
     private UserRepository userRepository;
     @MockBean
     private MailService mailService;
+    @MockBean
+    private LocaleService localeService;
 
     @Nested
     class AuthenticationTests
@@ -360,7 +362,7 @@ class UserControllerTests
             Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
             Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
                 .thenReturn(user);
-            Mockito.when(LocaleService.getLocale(any())).thenReturn(new Locale("dk"));
+            Mockito.when(localeService.getLocale(any())).thenReturn(new Locale("dk"));
             Mockito.doNothing().when(mailService)
                 .sendVerificationEmail(anyString(), anyString(),
                     any(Locale.class));

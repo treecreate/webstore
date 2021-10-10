@@ -43,6 +43,8 @@ public class UserController
     AuthUserService authUserService;
     @Autowired
     MailService mailService;
+    @Autowired
+    private LocaleService localeService;
 
     @GetMapping()
     @Operation(summary = "Get all users")
@@ -158,7 +160,7 @@ public class UserController
         try
         {
             mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
-                LocaleService.getLocale(lang));
+                localeService.getLocale(lang));
         } catch (Exception e)
         {
             LOGGER.error("Failed to process a verification email", e);
@@ -211,7 +213,7 @@ public class UserController
         try
         {
             mailService.sendResetPasswordEmail(email, user.getToken().toString(),
-                LocaleService.getLocale(lang));
+                localeService.getLocale(lang));
         } catch (Exception e)
         {
             LOGGER.error("Failed to process a verification email", e);

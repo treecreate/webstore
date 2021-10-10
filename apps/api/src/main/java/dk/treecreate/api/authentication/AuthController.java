@@ -53,6 +53,8 @@ public class AuthController
     AuthUserService authUserService;
     @Autowired
     MailService mailService;
+    @Autowired
+    private LocaleService localeService;
 
     @PostMapping("/signin")
     @Operation(summary = "Sign in as an existing user")
@@ -128,7 +130,7 @@ public class AuthController
         try
         {
             mailService.sendSignupEmail(user.getEmail(), user.getToken().toString(),
-                LocaleService.getLocale(null));
+                localeService.getLocale(null));
         } catch (Exception e)
         {
             LOGGER.error("Failed to process a verification email", e);

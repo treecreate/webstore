@@ -17,12 +17,12 @@ public class UserService
 {
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     AuthUserService authUserService;
-
     @Autowired
     MailService mailService;
+    @Autowired
+    private LocaleService localeService;
 
     public User updateUser(UpdateUserRequest updateUserRequest, User user)
         throws MessagingException, UnsupportedEncodingException
@@ -64,7 +64,7 @@ public class UserService
         System.out.println("Setting to false");
         user.setIsVerified(false);
         mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
-            LocaleService.getLocale(null));
+            localeService.getLocale(null));
         return user;
     }
 }

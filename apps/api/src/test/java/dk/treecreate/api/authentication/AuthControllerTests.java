@@ -40,14 +40,14 @@ class AuthControllerTests
 {
     @Autowired
     private MockMvc mvc;
-
     @MockBean
     private UserRepository userRepository;
-
     @MockBean
     private RoleRepository roleRepository;
-
-    @MockBean MailService mailService;
+    @MockBean
+    private MailService mailService;
+    @MockBean
+    private LocaleService localeService;
 
     // region Signin
 
@@ -175,7 +175,7 @@ class AuthControllerTests
             java.util.Optional.of(user));
         Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_USER)));
-        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendSignupEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 
@@ -228,7 +228,7 @@ class AuthControllerTests
         Mockito.when(roleRepository.findByName(ERole.ROLE_ADMIN)).thenReturn(
             java.util.Optional.of(new Role(ERole.ROLE_ADMIN)));
 
-        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 

@@ -27,14 +27,14 @@ class UserServiceTests
 {
     @Autowired
     UserService userService;
-
     @MockBean
     AuthUserService authUserService;
-
     @MockBean
     UserRepository userRepository;
     @MockBean
     MailService mailService;
+    @MockBean
+    private LocaleService localeService;
 
     @Test
     void updatesUserCorrectly() throws MessagingException, UnsupportedEncodingException
@@ -196,7 +196,7 @@ class UserServiceTests
         user.setIsVerified(false);
 
         Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
-        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 
@@ -225,7 +225,7 @@ class UserServiceTests
         user.setIsVerified(true);
 
         Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
-        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
             .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
 

@@ -39,18 +39,16 @@ class MailControllerTest
 {
     @Autowired
     private MockMvc mvc;
-
     @MockBean
     private MailService mailService;
-
     @MockBean
     private UserDetailsServiceImpl userDetailsService;
-
     @MockBean
     private AuthEntryPointJwt authEntryPointJwt;
-
     @MockBean
     private JwtUtils jwtUtils;
+    @MockBean
+    private LocaleService localeService;
 
 
     //region /signup endpoint tests
@@ -92,7 +90,7 @@ class MailControllerTest
         params.setEmail(email);
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
-        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 
@@ -140,7 +138,7 @@ class MailControllerTest
         params.setEmail(email);
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
-        Mockito.when(LocaleService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 

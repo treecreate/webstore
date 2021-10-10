@@ -57,6 +57,8 @@ public class OrderController
     UserRepository userRepository;
     @Autowired
     AuthUserService authUserService;
+    @Autowired
+    private LocaleService localeService;
 
     @GetMapping()
     @Operation(summary = "Get all orders")
@@ -83,7 +85,7 @@ public class OrderController
             String lang)
     {
         // Get the language
-        Locale language = LocaleService.getLocale(lang);
+        Locale language = localeService.getLocale(lang);
 
         // check if the user is verified
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();

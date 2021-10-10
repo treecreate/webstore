@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Locale;
 import java.util.stream.Stream;
@@ -18,6 +19,8 @@ class MailServiceTest
 {
     @Autowired
     MailService mailService;
+    @Autowired
+    private LocaleService localeService;
 
     // sendSignupEmail and sendResetPasswordEmail are not tested due to their simplicity
     // Potential test would be validating that sendMail() method gets called correctly but it is private
@@ -82,8 +85,7 @@ class MailServiceTest
     @ParameterizedTest
     @MethodSource("isValidEmailArguments")
     @DisplayName("isValidEmail() returns correct value")
-    void isValidEmail(String email,
-                      boolean expected)
+    void isValidEmail(String email, boolean expected)
     {
         assertEquals(expected, mailService.isValidEmail(email));
     }
@@ -93,6 +95,6 @@ class MailServiceTest
     @DisplayName("getLocale() returns correct value")
     void getLocale(String lang, Locale expected)
     {
-        assertEquals(expected, LocaleService.getLocale(lang));
+        assertEquals(expected, localeService.getLocale(lang));
     }
 }

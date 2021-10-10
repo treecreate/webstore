@@ -21,6 +21,8 @@ public class MailController
 {
     @Autowired
     MailService mailService;
+    @Autowired
+    private LocaleService localeService;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -44,7 +46,7 @@ public class MailController
         try
         {
             mailService.sendSignupEmail(signupDto.getEmail(), UUID.randomUUID().toString(),
-                LocaleService.getLocale(lang));
+                localeService.getLocale(lang));
         } catch (Exception e)
         {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
