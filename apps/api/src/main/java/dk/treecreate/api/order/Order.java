@@ -65,6 +65,11 @@ public class Order
     @ApiModelProperty(notes = "How many planted trees the order has. Default is 1", example = "1")
     private int plantedTrees = 1;
 
+    @Column(name = "payment_id", nullable = false)
+    @ApiModelProperty(notes = "Id of the Quickpay payment",
+        example = "271514001")
+    private String paymentId;
+
     // The userId is not a relation because 1. JPA sucks, and 2. Doesn't need to be
     @Type(type = "uuid-char")
     @Column(name = "user_id", nullable = false)
@@ -156,6 +161,16 @@ public class Order
     public void setPlantedTrees(int plantedTrees)
     {
         this.plantedTrees = plantedTrees;
+    }
+
+    public String getPaymentId()
+    {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId)
+    {
+        this.paymentId = paymentId;
     }
 
     public UUID getUserId()

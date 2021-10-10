@@ -110,6 +110,7 @@ public class OrderController
         try
         {
             String paymentId = quickpayService.sendCreatePaymentRequest(order);
+            order.setPaymentId(paymentId);
             createPaymentLinkResponse =
                 quickpayService.sendCreatePaymentLinkRequest(paymentId, order.getTotal(), language);
         } catch (URISyntaxException e)
@@ -118,7 +119,6 @@ public class OrderController
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "An error has occurred while creating a payment");
         }
-        // TODO - Persists the payment link or id in the order
         // persist the order information
         // TODO - error-handle failed order persisting. Include usage of transactions
         order = orderRepository.save(order);
@@ -129,8 +129,8 @@ public class OrderController
 
         LOGGER.info(
             "Order | New order has been made. UserID: " + user.getUserId() + " | Order ID: " +
-                order.getOrderId() + " | Subtotal: " + order.getSubtotal() + " | Total: " +
-                order.getTotal());
+                order.getOrderId() + " | Payment ID: " + order.getPaymentId() + " | Subtotal: " +
+                order.getSubtotal() + " | Total: " + order.getTotal());
         return createPaymentLinkResponse;
     }
 }
