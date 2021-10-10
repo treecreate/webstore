@@ -42,7 +42,7 @@
             <div class="option add-transition">
                 <button
                     type="button"
-                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    class="box-dimension-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
                     id="decrease-quantity-btn"
                     data-cy="add-to-basket-decrease-quantity-button"
@@ -59,7 +59,7 @@
                 </div>
                 <button
                     type="button"
-                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    class="box-dimension-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseQuantity()"
                     data-cy="add-to-basket-increase-quantity-button"
                     id="increase-quantity-btn"
@@ -69,10 +69,10 @@
             </div>
         </div>
 
-        <!-- size -->
-        <div class="option-size add-transition">
+        <!-- Dimension -->
+        <div class="option-dimension add-transition">
             <div class="text">
-                <span i18n="@@size"> Size </span>
+                <span i18n="@@dimension"> Dimension </span>
                 <webstore-info-popover
                     title="Size"
                     text="The size of your design. You can choose between 20x20cm, 25x25cm and 30x30cm."
@@ -81,9 +81,9 @@
             <div class="option add-transition">
                 <button
                     type="button"
-                    class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="decreaseSize()"
-                    id="decrease-size-btn"
+                    class="box-dimension-plus tc-button-sm-square low-dropshadow"
+                    (click)="decreaseDimension()"
+                    id="decrease-dimension-btn"
                     data-cy="add-to-basket-decrease-dimension-button"
                     [disabled]="
                         this.addToBasketForm.get('dimension').value === 'SMALL'
@@ -98,9 +98,9 @@
                 </div>
                 <button
                     type="button"
-                    class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="increaseSize()"
-                    id="increase-size-btn"
+                    class="box-dimension-plus tc-button-sm-square low-dropshadow"
+                    (click)="increaseDimension()"
+                    id="increase-dimension-btn"
                     data-cy="add-to-basket-increase-dimension-button"
                     [disabled]="
                         this.addToBasketForm.get('dimension').value === 'LARGE'

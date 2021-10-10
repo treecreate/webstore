@@ -131,7 +131,7 @@ export class AddToBasketModalComponent implements OnInit {
     }
   }
 
-  increaseSize() {
+  increaseDimension() {
     switch (this.addToBasketForm.get('dimension').value) {
       case DesignDimensionEnum.small:
         this.addToBasketForm.setValue({
@@ -151,7 +151,7 @@ export class AddToBasketModalComponent implements OnInit {
     this.updatePrice();
   }
 
-  decreaseSize() {
+  decreaseDimension() {
     switch (this.addToBasketForm.get('dimension').value) {
       case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({

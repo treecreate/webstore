@@ -35,7 +35,7 @@ describe('AddToBasketModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should increase and decrease the size', () => {
+  it('should increase and decrease the Dimension', () => {
     component.addToBasketForm.setValue({
       dimension: DesignDimensionEnum.small,
       quantity: 1,
@@ -44,40 +44,40 @@ describe('AddToBasketModalComponent', () => {
     expect(component.addToBasketForm.get('dimension').value).toEqual(
       DesignDimensionEnum.small
     );
-    const increaseSize = fixture.debugElement.query(
-      By.css('#increase-size-btn')
+    const increaseDimension = fixture.debugElement.query(
+      By.css('#increase-dimension-btn')
     );
-    const decreaseSize = fixture.debugElement.query(
-      By.css('#decrease-size-btn')
+    const decreaseDimension = fixture.debugElement.query(
+      By.css('#decrease-dimension-btn')
     );
-    const increaseSizeButton = increaseSize.nativeElement;
-    const decreaseSizeButton = decreaseSize.nativeElement;
+    const increaseDimensionButton = increaseDimension.nativeElement;
+    const decreaseDimensionButton = decreaseDimension.nativeElement;
 
-    component.increaseSize();
+    component.increaseDimension();
     expect(component.addToBasketForm.get('dimension').value).toEqual(
       DesignDimensionEnum.medium
     );
-    component.increaseSize();
+    component.increaseDimension();
     expect(component.addToBasketForm.get('dimension').value).toEqual(
       DesignDimensionEnum.large
     );
     fixture.detectChanges();
-    expect(increaseSizeButton.disabled).toBeTruthy();
+    expect(increaseDimensionButton.disabled).toBeTruthy();
     expect(component.addToBasketForm.get('dimension').value).toEqual(
       DesignDimensionEnum.large
     );
-    component.decreaseSize();
+    component.decreaseDimension();
     expect(component.addToBasketForm.get('dimension').value).toEqual(
       DesignDimensionEnum.medium
     );
-    component.decreaseSize();
+    component.decreaseDimension();
     expect(component.addToBasketForm.get('dimension').value).toEqual(
       DesignDimensionEnum.small
     );
     fixture.detectChanges();
-    expect(increaseSizeButton.disabled).toBeFalsy();
+    expect(increaseDimensionButton.disabled).toBeFalsy();
     fixture.detectChanges();
-    expect(decreaseSizeButton.disabled).toBeTruthy();
+    expect(decreaseDimensionButton.disabled).toBeTruthy();
   });
 
   it('should increase quantity', () => {

@@ -62,7 +62,7 @@ export class BasketItemComponent implements OnInit {
     this.updatePrice();
   }
 
-  increaseSize() {
+  increaseDimension() {
     switch (this.item.dimension) {
       case DesignDimensionEnum.small:
         this.item.dimension = DesignDimensionEnum.medium;
@@ -76,7 +76,7 @@ export class BasketItemComponent implements OnInit {
     this.updateTransactionItem();
   }
 
-  decreaseSize() {
+  decreaseDimension() {
     switch (this.item.dimension) {
       case DesignDimensionEnum.medium:
         this.item.dimension = DesignDimensionEnum.small;
