@@ -129,6 +129,7 @@ export class BasketItemComponent implements OnInit {
           };
           this.item = null;
           console.log('Deleted transaction item');
+          window.location.reload();
           // TODO - self-destruct the component
         },
         (error: HttpErrorResponse) => {

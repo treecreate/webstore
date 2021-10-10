@@ -96,12 +96,6 @@ export class AddToBasketModalComponent implements OnInit {
     });
   }
 
-  submit() {
-    if (this.addToBasketForm.get('title').valid) {
-      this.addDesignToBasket();
-    }
-  }
-
   updatePrice() {
     this.price = this.calculatePriceService.calculateItemPriceAlternative(
       this.addToBasketForm.get('quantity').value,
@@ -213,6 +207,7 @@ export class AddToBasketModalComponent implements OnInit {
                   5000
                 );
                 this.activeModal.close();
+                window.location.reload();
               },
               (error: HttpErrorResponse) => {
                 console.error(error);
