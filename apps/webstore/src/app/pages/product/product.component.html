@@ -1,10 +1,23 @@
-<section class="product-section">
+<section
+    class="product-section"
+    [ngClass]="!isMutable ? 'flex-direction-column' : ''"
+>
+    <div class="back-container" *ngIf="!isMutable">
+        <a
+            href="javascript:history.back()"
+            class="back add-transition"
+            data-cy="view-only-back-button"
+        >
+            < <span i18n="@@back">Back</span>
+        </a>
+    </div>
     <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
         <button
             class="option-toggler"
             data-cy="mobile-options-toggler"
             type="button"
             (click)="showOptions()"
+            *ngIf="isMutable"
         >
             <div
                 class="option-icon"
@@ -26,6 +39,7 @@
             [backgroundTreeDesign]="backgroundTreeDesign"
             [font]="font"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
+            data-cy="family-tree-canvas"
         ></webstore-family-tree-design>
         <webstore-family-tree-miniature
             *ngIf="!isMutable"
@@ -52,8 +66,10 @@
         [ngClass]="
             isMobileOptionOpen
                 ? 'mobile-options-container'
-                : 'design-options-desktop'
+                : 'desktop-options-container'
         "
+        *ngIf="isMutable"
+        data-cy="product-options"
     >
         <div
             class="blocker"
@@ -63,7 +79,7 @@
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <div class="option option-design-name">
                 <div class="option-title">
-                    Title
+                    <span i18n="@@title">Title</span>
                     <webstore-info-popover
                         title="Title"
                         text="Add a good title so you can keep track of your designs."
@@ -78,7 +94,6 @@
                         placeholder="Untitled-1"
                         data-cy="design-title-input"
                         maxlength="50"
-                        [disabled]="!isMutable"
                     />
                 </div>
             </div>
@@ -96,7 +111,6 @@
                         class="design-arrow-left tc-button-sm-square"
                         data-cy="font-prev-btn"
                         (click)="prevFont()"
-                        [disabled]="!isMutable"
                     >
                         <span class="arrow-left"></span>
                     </button>
@@ -110,7 +124,6 @@
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="font-next-btn"
                         (click)="nextFont()"
-                        [disabled]="!isMutable"
                     >
                         <span class="arrow-right"></span>
                     </button>
@@ -130,7 +143,6 @@
                         class="design-arrow-left tc-button-sm-square"
                         data-cy="design-arrow-left"
                         (click)="nextDesign()"
-                        [disabled]="!isMutable"
                     >
                         <span class="arrow-left"></span>
                     </button>
@@ -150,7 +162,7 @@
 
             <div class="option option-box-size">
                 <div class="option-title">
-                    Box Size
+                    <span i18n="@@box-size">Box Size</span>
                     <webstore-info-popover
                         title="Box Size"
                         text="You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design."
@@ -161,7 +173,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-plus"
                         (click)="this.boxSize = this.boxSize + 1"
-                        [disabled]="this.boxSize >= maxSize || !isMutable"
+                        [disabled]="this.boxSize >= maxSize"
                     >
                         <div class="button-plus"></div>
                     </button>
@@ -169,7 +181,7 @@
                         class="box-size-plus tc-button-sm-square"
                         data-cy="box-size-minus"
                         (click)="this.boxSize = this.boxSize - 1"
-                        [disabled]="this.boxSize <= minSize || !isMutable"
+                        [disabled]="this.boxSize <= minSize"
                     >
                         <div class="icon">
                             <div class="button-minus"></div>
@@ -178,67 +190,65 @@
                 </div>
             </div>
 
-            <div class="option option-checkboxes">
-                <div class="option-banner">
-                    <label class="checkbox-container option-title">
-                        Banner
-                        <input
-                            type="checkbox"
-                            [checked]="this.banner !== undefined"
-                            (change)="
-                                this.banner === undefined
-                                    ? (this.banner = {
-                                          text: '',
-                                          style: 'first'
-                                      })
-                                    : (this.banner = undefined)
-                            "
-                            [disabled]="!isMutable"
-                        />
-                        <span
-                            class="checkmark"
-                            data-cy="checkbox-banner"
-                        ></span>
-                        <webstore-info-popover
-                            title="Banner"
-                            text="Add or remove the banner from your design."
-                        ></webstore-info-popover>
-                    </label>
-
-                    <div
-                        *ngIf="this.banner !== undefined"
-                        class="option-design-title"
-                    >
-                        <input
-                            type="text"
-                            class="title-input"
-                            [value]="this.banner ? this.banner.text : ''"
-                            (keyup)="updateBannerText($event)"
-                            placeholder="Banner text"
-                            data-cy="design-banner-input"
-                            maxlength="50"
-                            [disabled]="!isMutable"
-                        />
+            <div>
+                <div class="option option-checkboxes">
+                    <div class="option-banner">
+                        <label class="checkbox-container option-title">
+                            Banner
+                            <input
+                                type="checkbox"
+                                [checked]="this.banner !== undefined"
+                                (change)="
+                                    this.banner === undefined
+                                        ? (this.banner = {
+                                              text: '',
+                                              style: 'first'
+                                          })
+                                        : (this.banner = undefined)
+                                "
+                            />
+                            <span
+                                class="checkmark"
+                                data-cy="checkbox-banner"
+                            ></span>
+                            <webstore-info-popover
+                                title="Banner"
+                                text="Add or remove the banner from your design."
+                            ></webstore-info-popover>
+                        </label>
+                    </div>
+                    <div class="option-large-font">
+                        <label class="checkbox-container option-title">
+                            Large font
+                            <input
+                                type="checkbox"
+                                [checked]="this.isLargeFont"
+                                (change)="this.isLargeFont = !this.isLargeFont"
+                            />
+                            <span
+                                class="checkmark"
+                                data-cy="checkbox-large-font"
+                            ></span>
+                            <webstore-info-popover
+                                title="Large font"
+                                text="Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname."
+                            ></webstore-info-popover>
+                        </label>
                     </div>
                 </div>
-                <div class="option-large-font">
-                    <label class="checkbox-container option-title">
-                        Large font
-                        <input
-                            type="checkbox"
-                            [checked]="this.isLargeFont"
-                            (change)="this.isLargeFont = !this.isLargeFont"
-                            [disabled]="!isMutable"
-                        />
-                        <span
-                            class="checkmark"
-                            data-cy="checkbox-large-font"
-                        ></span>
-                        <webstore-info-popover
-                            title="Large font"
-                            text="Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname."
-                        ></webstore-info-popover>
-                    </label>
+                <div
+                    *ngIf="this.banner !== undefined"
+                    class="option-design-title banner-input"
+                >
+                    <input
+                        type="text"
+                        class="title-input"
+                        [value]="this.banner ? this.banner.text : ''"
+                        (keyup)="updateBannerText($event)"
+                        placeholder="Banner text"
+                        data-cy="design-banner-input"
+                        maxlength="50"
+                    />
                 </div>
             </div>
 
@@ -246,47 +256,37 @@
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign({ persists: true })"
-                    [disabled]="!isDesignValid || !isMutable"
+                    [disabled]="!isDesignValid"
+                    data-cy="save-family-tree-button"
                 >
-                    Save
+                    <span i18n="@@save">Save</span>
                     <img
                         src="/assets/icons/save-icon.svg"
-                        alt=""
                         class="option-icon"
                     />
                 </button>
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
-                    [disabled]="!isMutable"
+                    data-cy="add-family-tree-to-basket-button"
                 >
-                    Add
+                    <span i18n="@@add">Add</span>
                     <img
                         src="/assets/icons/basket-white-icon.svg"
-                        alt=""
                         class="option-icon"
                     />
                 </button>
             </div>
 
             <div class="option misc-option-actions">
-                <button
-                    class="tc-button-33"
-                    (click)="clearDesignCanvas()"
-                    [disabled]="!isMutable"
-                >
+                <button class="tc-button-100" (click)="clearDesignCanvas()">
                     Reset
                     <img
-                        src="/assets/icons/seed-icon.svg"
-                        alt=""
+                        src="/assets/icons/reset-icon.svg"
                         class="option-icon"
                     />
                 </button>
             </div>
-
-            <ngb-alert *ngIf="!isMutable" type="warning" [dismissible]="false">
-                This design can't be updated</ngb-alert
-            >
         </div>
     </div>
 </section>

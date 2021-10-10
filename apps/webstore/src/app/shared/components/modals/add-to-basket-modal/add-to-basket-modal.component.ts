@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
+  IDesign,
   IFamilyTree,
   ITransactionItem,
-  IUser,
 } from '@interfaces';
-import { LocalStorageVars, UserRoles } from '@models';
+import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
@@ -23,19 +23,11 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
 export class AddToBasketModalComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
-  design: IFamilyTree;
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
-
+  itemsInBasket: number;
+  design;
   isLoading = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -79,16 +71,29 @@ export class AddToBasketModalComponent implements OnInit {
       dimension: DesignDimensionEnum.small,
     });
 
-    this.updatePrice();
-  }
-
-  submit() {
-    if (
-      this.addToBasketForm.get('title').dirty &&
-      this.addToBasketForm.get('title').valid
-    ) {
-      this.addDesignToBasket();
-    }
+    new Promise((resolve, reject) => {
+      //Get items already in basket
+      this.isLoading = true;
+      this.transactionItemService.getTransactionItems().subscribe(
+        (itemList: ITransactionItem[]) => {
+          let sum = 0;
+          for (let i = 0; i < itemList.length; i++) {
+            sum += itemList[i].quantity;
+          }
+          console.log('SuM ', sum);
+          this.itemsInBasket = sum;
+          this.isLoading = false;
+          resolve(1);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+          this.isLoading = false;
+          reject(0);
+        }
+      );
+    }).then(() => {
+      this.updatePrice();
+    });
   }
 
   updatePrice() {
@@ -96,30 +101,17 @@ export class AddToBasketModalComponent implements OnInit {
       this.addToBasketForm.get('quantity').value,
       this.addToBasketForm.get('dimension').value
     );
-
-    // ( addToBasketForm.get('quantity') + all basket items )
-    this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items([
-      {
-        transactionItemId: '',
-        order: null,
-        design: null,
-        dimension: this.addToBasketForm.get('dimension').value,
-        quantity: this.addToBasketForm.get('quantity').value,
-      },
-      // TODO: add the list of items that are already in basket
-    ]);
+    this.isMoreThan4 =
+      this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
 
   increaseQuantity() {
-    console.log('triggered increase quantity');
     this.addToBasketForm.setValue({
       title: this.addToBasketForm.get('title').value,
       quantity: this.addToBasketForm.get('quantity').value + 1,
       dimension: this.addToBasketForm.get('dimension').value,
     });
-    console.log('increase finished');
     this.updatePrice();
-    console.log('update price finished');
   }
 
   decreaseQuantity() {
@@ -133,7 +125,7 @@ export class AddToBasketModalComponent implements OnInit {
     }
   }
 
-  increaseSize() {
+  increaseDimension() {
     switch (this.addToBasketForm.get('dimension').value) {
       case DesignDimensionEnum.small:
         this.addToBasketForm.setValue({
@@ -149,28 +141,12 @@ export class AddToBasketModalComponent implements OnInit {
           dimension: DesignDimensionEnum.large,
         });
         break;
-      case DesignDimensionEnum.large:
-        this.toastService.showAlert(
-          "We don't sell larger designs. For special requests you can send us an e-mail: info@treecreate.dk",
-          'Vi sælger ikke større designs. For specielle henvendelser kan du sende os en e-mail: info@treecreate.dk',
-          'danger',
-          3000
-        );
-        break;
     }
     this.updatePrice();
   }
 
-  decreaseSize() {
+  decreaseDimension() {
     switch (this.addToBasketForm.get('dimension').value) {
-      case DesignDimensionEnum.small:
-        this.toastService.showAlert(
-          "We don't have smaller sizes",
-          'Vi har ikke mindre størrelser',
-          'danger',
-          3000
-        );
-        break;
       case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({
           title: this.addToBasketForm.get('title').value,
@@ -190,6 +166,7 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   addDesignToBasket() {
+    this.isLoading = true;
     this.design.title = this.addToBasketForm.get('title').value;
     // Persist the design as a new one, and, if successful, create a transaction item for it
     this.designService
@@ -221,25 +198,25 @@ export class AddToBasketModalComponent implements OnInit {
             })
             .subscribe(
               (newItem: ITransactionItem) => {
-                //TODO: translation missing
                 this.isLoading = false;
                 console.log('added design to basket', newItem);
                 this.toastService.showAlert(
                   'Design added to basket',
-                  'TODO - danish',
+                  'Design er lagt i kurven',
                   'success',
                   5000
                 );
                 this.activeModal.close();
+                window.location.reload();
               },
               (error: HttpErrorResponse) => {
                 console.error(error);
-                // TODO - make it into a toast message or display as an alert inside the modal. Currently it is only a variable
-                this.alert = {
-                  message: 'Failed to add the design',
-                  type: 'danger',
-                  dismissible: false,
-                };
+                this.toastService.showAlert(
+                  'Failed to add design to basket, please try again',
+                  'Der skete en fejl, prøv venligst igen',
+                  'danger',
+                  5000
+                );
                 this.isLoading = false;
               }
             );
@@ -248,8 +225,7 @@ export class AddToBasketModalComponent implements OnInit {
           console.error('Failed to save design', error);
           this.toastService.showAlert(
             'Failed to save your design',
-            //TODO: Danish translation
-            'TODO: danish',
+            'Kunne ikke gemme dit design',
             'danger',
             10000
           );

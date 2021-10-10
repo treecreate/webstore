@@ -170,6 +170,13 @@
   display: none;
 }
 
+.loading-screen {
+  height: 148px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;

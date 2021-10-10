@@ -13,7 +13,7 @@
   opacity: 0.5;
 }
 .nav-section:hover > .navbar-basket-icon {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 .nav-start {
   display: flex;
@@ -21,6 +21,10 @@
 }
 .navbar-brand {
   margin-right: 0 !important;
+}
+.logo {
+  width: 100px;
+  transition: 0.4s;
 }
 .nav-icon {
   width: 1.2rem;
@@ -35,11 +39,8 @@
   transition: 0.4s;
   padding: 0.5rem;
 }
-.navbar-brand {
-  transition-duration: 0.5s;
-}
-.navbar-brand:hover {
-  transform: scale(0.95);
+.navbar-brand:hover > .logo {
+  transform: scale(1.05);
 }
 .waves-light {
   text-align: center;
@@ -122,9 +123,11 @@
 .navbar-basket-icon {
   background-color: transparent;
   border: none;
+  transition: 0.5s;
 }
 .navbar-basket-icon {
   background-color: var(--green-color);
+  transition: 0.4s;
   border-radius: 5px;
   color: white;
   padding: 0 8px 3px 8px;

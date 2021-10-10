@@ -1,12 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IAuthUser } from '@interfaces';
+import { IAuthUser, ITransactionItem } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
 import { LocalStorageService } from '../../services/local-storage';
+import { TransactionItemService } from '../../services/transaction-item/transaction-item.service';
 import { VerifyService } from '../../services/verify/verify.service';
 import { ToastService } from '../toast/toast-service';
 
@@ -16,67 +17,53 @@ import { ToastService } from '../toast/toast-service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  public isMenuCollapsed = true;
   private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
   public isVerified: boolean;
-
+  public isMenuCollapsed = true;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
-  basketItems = [{ number: 1 }, { number: 1 }];
-
+  subscription: Subscription;
   isResendVerificationEmailLoading = false;
+  itemList: ITransactionItem[] = [];
+  itemsInBasket: number;
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
   @ViewChild('languageChange') languageChange: ElementRef;
-
-  basketItemOptions(quantity: number): string {
-    if (quantity === 0) {
-      return 'Basket empty';
-    }
-    return `(${quantity}) products `;
-  }
 
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private verifyService: VerifyService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private transactionItemService: TransactionItemService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
       LocalStorageVars.locale
     );
     this.localeCode = this.locale$.getValue();
-
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
-
-    this.localeCode = this.locale$.getValue();
-
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(
       LocalStorageVars.authUser
     );
-
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
       this.isLoggedIn =
         this.authUser$.getValue() != null &&
         this.authService.isAccessTokenValid();
     });
-
     // Listen to changes to verification status
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
-        //TODO: isVerified is null, the verify service returns null
         this.isVerified = this.verifyService.getIsVerified();
       });
-    console.log(this.isVerified);
     this.environment = environment;
   }
 
@@ -167,6 +154,19 @@ export class NavbarComponent implements OnInit {
     this.profileMenu.nativeElement.classList.remove('show');
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        this.itemList = itemList;
+        let sum = 0;
+        for (let i = 0; i < itemList.length; i++) {
+          sum += itemList[i].quantity;
+        }
+        this.itemsInBasket = sum;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
+  }
 }

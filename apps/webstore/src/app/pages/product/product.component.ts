@@ -1,5 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
@@ -36,7 +42,7 @@ export class ProductComponent implements OnInit {
   isMutable = false;
 
   isMobileOptionOpen = false;
-  designTitle = 'Untitled-1';
+  designTitle = '';
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
   backgroundTreeDesign = TreeDesignEnum.tree1;
@@ -122,7 +128,7 @@ export class ProductComponent implements OnInit {
           console.error('Failed to fetch the', err);
           this.toastService.showAlert(
             'Failed to load your design',
-            'TODO: danish',
+            'Vi kunne ikke loade dit design',
             'danger',
             10000
           );
@@ -149,7 +155,7 @@ export class ProductComponent implements OnInit {
         this.isLargeFont = this.design.largeFont;
       } else {
         // set the defaults
-        this.designTitle = 'Untitled-1';
+        this.designTitle = '';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 20;
@@ -176,6 +182,7 @@ export class ProductComponent implements OnInit {
     ).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn || !persist) {
+      this.router.navigate(['/login']);
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
@@ -194,17 +201,17 @@ export class ProductComponent implements OnInit {
           (result) => {
             console.log('Design persisted', result);
             this.toastService.showAlert(
-              'Your design has been saved',
-              'TODO: danish',
+              'Your design has been saved to your collection',
+              'Dit design er bleven gemt i din samling',
               'success',
-              2500
+              5000
             );
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
-              'TODO: danish',
+              'Der skete en fejl, prøv venligst igen',
               'danger',
               10000
             );
@@ -223,22 +230,24 @@ export class ProductComponent implements OnInit {
             console.log('Design created and persisted', result);
             this.toastService.showAlert(
               'Your design has been saved',
-              'TODO: danish',
+              'Dit design er bleven gemt',
               'success',
-              2500
+              5000
             );
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { designId: result.designId },
-              queryParamsHandling: 'merge', // remove to replace all query params by provided
-            });
+            //TODO: Discuss this action: Should not direct away from the design. If anything it should direct to basket
+            //But if it redirects to basket, it should still be done in the addToBasketModal and not here.
+
+            // this.router.navigate([], {
+            //   relativeTo: this.route,
+            //   queryParams: { designId: result.designId },
+            //   queryParamsHandling: 'merge', // remove to replace all query params by provided
+            // });
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
-              'Failed to save your design',
-              //TODO: Danish translation
-              'TODO: danish',
+              'Failed to save your design, please try again',
+              'Der skete en fejl, prøv venligst igen',
               'danger',
               10000
             );
@@ -263,6 +272,13 @@ export class ProductComponent implements OnInit {
         queryParams: { designId: null },
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
+    }
+  }
+
+  @HostListener('window:resize')
+  closeOptionsOnScreenResize() {
+    if (window.innerWidth > 1130) {
+      this.isMobileOptionOpen = false;
     }
   }
 
@@ -348,11 +364,10 @@ export class ProductComponent implements OnInit {
 
   updateBannerText($event) {
     this.banner.text = $event.target.value;
-    console.log('banner text', this.banner.text);
   }
 
   openAddToBasketModal() {
-    this.saveDesign({ persist: false });
+    this.designCanvas.saveDesign();
     this.modalService.open(AddToBasketModalComponent);
   }
 

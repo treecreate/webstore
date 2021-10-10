@@ -1,6 +1,6 @@
 @media screen and (max-width: 1130px) {
   // TODO: create a slide in / slide out animation for the mobile options menu
-  .design-options-desktop {
+  .desktop-options-container {
     display: none;
   }
   .option-toggler {
@@ -20,11 +20,14 @@
   }
   .mobile-options-items {
     transform: scale(0.7);
-    top: 114px;
-    right: -10px;
+    top: 50px;
+    right: -30px;
   }
   .product-section {
     padding-top: 0;
+  }
+  .back-container {
+    width: 100%;
   }
 }
 
@@ -34,9 +37,7 @@
     height: 100vw;
   }
   .mobile-options-items {
-    transform: scale(0.7);
-    top: 114px;
-    right: -31px;
+    right: -37px;
   }
 }
 

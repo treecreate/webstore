@@ -22,21 +22,41 @@
             <label for="email" class="tc-input-label">E-mail</label>
         </div>
 
-        <div class="tc-input-group field">
-            <input
-                type="password"
-                data-cy="login-password-input"
-                class="tc-input-field"
-                formControlName="password"
-                placeholder="password"
-                name="password"
-                id="password"
-                autocomplete="current-password"
-                required
-            />
-            <label for="password" class="tc-input-label" i18n="@@password"
-                >Password</label
+        <div class="password-input">
+            <div class="tc-input-group field">
+                <input
+                    #password
+                    type="password"
+                    data-cy="login-password-input"
+                    class="tc-input-field"
+                    formControlName="password"
+                    placeholder="password"
+                    name="password"
+                    id="password"
+                    autocomplete="current-password"
+                    required
+                />
+                <label for="password" class="tc-input-label" i18n="@@password"
+                    >Password</label
+                >
+            </div>
+            <button
+                class="show-password-btn"
+                type="button"
+                (click)="
+                    password.type =
+                        password.type == 'password' ? 'text' : 'password'
+                "
             >
+                <img
+                    class="password-icon"
+                    [ngClass]="
+                        password.type == 'text'
+                            ? 'password-show-icon'
+                            : 'password-hide-icon'
+                    "
+                />
+            </button>
         </div>
 
         <div class="forgot-password-container">
@@ -54,7 +74,6 @@
             class="tc-button-100"
             data-cy="login-btn"
             type="submit"
-            [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
         >
             <span i18n="@@login" *ngIf="!isLoading">Login</span>

@@ -33,21 +33,42 @@
             Invalid e-mail
         </div>
 
-        <div class="tc-input-group field">
-            <input
-                type="password"
-                class="tc-input-field"
-                formControlName="password"
-                placeholder="password"
-                name="password"
-                id="password"
-                autocomplete="new-password"
-                required
-                data-cy="signup-password-input"
-            />
-            <label for="password" class="tc-input-label" i18n="@@password"
-                >Password</label
+        <div class="password-input">
+            <div class="tc-input-group field">
+                <input
+                    #signupPassword
+                    type="password"
+                    class="tc-input-field"
+                    formControlName="password"
+                    placeholder="password"
+                    name="password"
+                    id="password"
+                    autocomplete="new-password"
+                    required
+                    data-cy="signup-password-input"
+                />
+                <label for="password" class="tc-input-label" i18n="@@password"
+                    >Password</label
+                >
+            </div>
+            <button
+                class="show-password-btn"
+                type="button"
+                (click)="
+                    signupPassword.type =
+                        signupPassword.type == 'password' ? 'text' : 'password'
+                "
             >
+                <img
+                    src="/assets/icons/error-icon.svg"
+                    class="password-icon"
+                    [ngClass]="
+                        signupPassword.type == 'text'
+                            ? 'password-show-icon'
+                            : 'password-hide-icon'
+                    "
+                />
+            </button>
         </div>
         <div class="info-message" i18n="@@info-password">
             Password must contain: min 8 characters, at least one upper case
@@ -65,24 +86,47 @@
             Invalid password
         </div>
 
-        <div class="tc-input-group field">
-            <input
-                type="password"
-                class="tc-input-field"
-                formControlName="confirmPassword"
-                placeholder="Confirm password"
-                name="confirmPassword"
-                id="confirmPassword"
-                autocomplete="new-password"
-                required
-                data-cy="signup-confirm-password-input"
-            />
-            <label
-                for="confirmPassword"
-                class="tc-input-label"
-                i18n="@@confirm-password"
-                >Confirm password</label
+        <div class="password-input">
+            <div class="tc-input-group field">
+                <input
+                    #signupConfirmPassword
+                    type="password"
+                    class="tc-input-field"
+                    formControlName="confirmPassword"
+                    placeholder="Confirm password"
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    autocomplete="new-password"
+                    required
+                    data-cy="signup-confirm-password-input"
+                />
+                <label
+                    for="confirmPassword"
+                    class="tc-input-label"
+                    i18n="@@confirm-password"
+                    >Confirm password</label
+                >
+            </div>
+            <button
+                class="show-password-btn"
+                type="button"
+                (click)="
+                    signupConfirmPassword.type =
+                        signupConfirmPassword.type == 'password'
+                            ? 'text'
+                            : 'password'
+                "
             >
+                <img
+                    src="/assets/icons/error-icon.svg"
+                    class="password-icon"
+                    [ngClass]="
+                        signupConfirmPassword.type == 'text'
+                            ? 'password-show-icon'
+                            : 'password-hide-icon'
+                    "
+                />
+            </button>
         </div>
 
         <div
@@ -133,7 +177,6 @@
         <button
             class="tc-button-100"
             type="submit"
-            [ngClass]="isDisabled() ? 'disabled' : ''"
             [disabled]="isDisabled()"
             data-cy="signup-btn"
         >

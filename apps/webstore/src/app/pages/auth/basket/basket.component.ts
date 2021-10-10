@@ -6,9 +6,7 @@ import {
   IDiscount,
   IPricing,
   ITransactionItem,
-  IUser,
 } from '@interfaces';
-import { UserRoles } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
@@ -22,14 +20,6 @@ import { TransactionItemService } from '../../../shared/services/transaction-ite
   ],
 })
 export class BasketComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
   itemList: ITransactionItem[] = [];
   isLoading = false;
   alert: {
@@ -40,7 +30,7 @@ export class BasketComponent implements OnInit {
 
   donatedTrees = 1;
   discount: IDiscount = {
-    amount: 100,
+    amount: 0,
     type: DiscountType.amount,
   };
 

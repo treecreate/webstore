@@ -62,7 +62,7 @@ export class BasketItemComponent implements OnInit {
     this.updatePrice();
   }
 
-  increaseSize() {
+  increaseDimension() {
     switch (this.item.dimension) {
       case DesignDimensionEnum.small:
         this.item.dimension = DesignDimensionEnum.medium;
@@ -72,28 +72,12 @@ export class BasketItemComponent implements OnInit {
         this.item.dimension = DesignDimensionEnum.large;
         this.updatePrice();
         break;
-      case DesignDimensionEnum.large:
-        this.toastService.showAlert(
-          'This is the largest size that we offer',
-          'Dette er den største størrelse du kan bestille',
-          'danger',
-          3000
-        );
-        break;
     }
     this.updateTransactionItem();
   }
 
-  decreaseSize() {
+  decreaseDimension() {
     switch (this.item.dimension) {
-      case DesignDimensionEnum.small:
-        this.toastService.showAlert(
-          'This is the smallest size that we offer',
-          'Dette er den mindste størrelse du kan bestille',
-          'danger',
-          3000
-        );
-        break;
       case DesignDimensionEnum.medium:
         this.item.dimension = DesignDimensionEnum.small;
         this.updatePrice();
@@ -132,6 +116,7 @@ export class BasketItemComponent implements OnInit {
   }
 
   deleteTransactionItem() {
+    this.isLoading = true;
     this.transactionItemService
       .deleteTransactionItem(this.item.transactionItemId)
       .subscribe(
@@ -144,6 +129,7 @@ export class BasketItemComponent implements OnInit {
           };
           this.item = null;
           console.log('Deleted transaction item');
+          window.location.reload();
           // TODO - self-destruct the component
         },
         (error: HttpErrorResponse) => {
