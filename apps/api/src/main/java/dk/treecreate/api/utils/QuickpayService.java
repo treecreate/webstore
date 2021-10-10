@@ -130,21 +130,6 @@ public class QuickpayService
     }
 
     /**
-     * send a PUT /payments/{id}/link request to Quickpay, creating a payment link
-     *
-     * @param paymentId id of the quickpay payment object
-     * @param amount    the amount the customer should be charged
-     * @return URL that the user can navigate to in order to give us money
-     */
-    public String sendCreatePaymentLinkRequest(String paymentId, BigDecimal amount)
-    {
-        // create request
-        // perform PUT https://api.quickpay.net/payments/:paymentId/link
-
-        return "https://placeholder";
-    }
-
-    /**
      * Creates a body needed for the quickpay POST /payments request
      *
      * @param orderId          treecreate database entity id.
@@ -255,18 +240,5 @@ public class QuickpayService
         }
 
         return prefix + emailPrefix + "-" + randomId;
-    }
-
-    /**
-     * Format a username and password into a basic-auth compatible string
-     *
-     * @param username authentication username
-     * @param password authentication password
-     * @return formatted username and password that can be used as a basic auth param
-     */
-    private static String createBasicAuthToken(String username, String password)
-    {
-        return "Basic " +
-            Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
     }
 }
