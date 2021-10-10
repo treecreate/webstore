@@ -65,7 +65,7 @@
             <div class="option">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="decreaseSize()"
+                    (click)="decreaseDimension()"
                     [disabled]="item.dimension === 'SMALL'"
                     data-cy="basket-item-decrese-dimension-button"
                 >
@@ -78,7 +78,7 @@
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="increaseSize()"
+                    (click)="increaseDimension()"
                     [disabled]="item.dimension === 'LARGE'"
                     data-cy="basket-item-increase-dimension-button"
                 >
