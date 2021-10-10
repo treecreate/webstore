@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IDesign } from '@interfaces';
+import { IDesign, IFamilyTree } from '@interfaces';
+import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'webstore-design-item',
@@ -7,22 +8,22 @@ import { IDesign } from '@interfaces';
   styleUrls: ['./design-item.component.css'],
 })
 export class DesignItemComponent implements OnInit {
-  @Input() design;
+  @Input() familyTree: IFamilyTree;
 
-  constructor() {}
+  constructor(private toastService: ToastService) {}
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 
-  deleteDesign(design: IDesign) {
-    console.log('Delete design: ', design);
+  deleteDesign() {
+    console.log('Delete design: ', this.familyTree);
   }
 
-  editDesign(design: IDesign) {
-    console.log('Edit design: ', design);
+  editDesign() {
+    console.log('Edit design: ', this.familyTree);
   }
 
-  addDesignToBasket(design: IDesign) {
-    console.log('Add design to basket: ', design);
+  addDesignToBasket() {
+    console.log('Add design to basket: ', this.familyTree);
   }
 }

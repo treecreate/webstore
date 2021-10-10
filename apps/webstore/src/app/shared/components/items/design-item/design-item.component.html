@@ -2,14 +2,31 @@
     <img src="/assets/img/design-ex1-img.png" class="design-image" />
     <hr />
     <div class="title">
-        {{ design.title }}
+        {{ familyTree.title }}
     </div>
-    <button type="button" class="tc-button-100" i18n="@@add-to-basket">
+    <button
+        type="button"
+        class="tc-button-100"
+        i18n="@@add-to-basket"
+        (click)="addDesignToBasket()"
+    >
         Add to basket
     </button>
     <div class="action-container">
-        <button type="button" class="tc-button-50" i18n="@@edit">Edit</button>
-        <button type="button" class="tc-button-50" i18n="@@delete">
+        <button
+            type="button"
+            class="tc-button-50"
+            i18n="@@edit"
+            (click)="editDesign()"
+        >
+            Edit
+        </button>
+        <button
+            type="button"
+            class="tc-button-50"
+            i18n="@@delete"
+            (click)="deleteDesign()"
+        >
             Delete
         </button>
     </div>
