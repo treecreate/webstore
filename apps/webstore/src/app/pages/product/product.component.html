@@ -253,7 +253,6 @@
             </div>
 
             <div class="option option-actions">
-                <!-- TODO: have save button save the design locally and redirect to login if user isnt logged in -->
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign({ persists: true })"
@@ -266,10 +265,10 @@
                         class="option-icon"
                     />
                 </button>
-                <!-- TODO: have add-to-basket redirect to login if user isnt logged in -->
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
+                    data-cy="add-family-tree-to-basket-button"
                 >
                     <span i18n="@@add">Add</span>
                     <img

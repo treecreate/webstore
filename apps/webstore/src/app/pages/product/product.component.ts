@@ -211,7 +211,7 @@ export class ProductComponent implements OnInit {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
-              'TODO: danish',
+              'Der skete en fejl, prøv venligst igen',
               'danger',
               10000
             );
@@ -230,7 +230,7 @@ export class ProductComponent implements OnInit {
             console.log('Design created and persisted', result);
             this.toastService.showAlert(
               'Your design has been saved',
-              'TODO: danish',
+              'Dit design er bleven gemt',
               'success',
               5000
             );
@@ -246,9 +246,8 @@ export class ProductComponent implements OnInit {
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
-              'Failed to save your design',
-              //TODO: Danish translation
-              'TODO: danish',
+              'Failed to save your design, please try again',
+              'Der skete en fejl, prøv venligst igen',
               'danger',
               10000
             );
@@ -368,6 +367,7 @@ export class ProductComponent implements OnInit {
   }
 
   openAddToBasketModal() {
+    this.designCanvas.saveDesign();
     this.modalService.open(AddToBasketModalComponent);
   }
 

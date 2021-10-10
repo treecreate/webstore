@@ -97,10 +97,7 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   submit() {
-    if (
-      this.addToBasketForm.get('title').dirty &&
-      this.addToBasketForm.get('title').valid
-    ) {
+    if (this.addToBasketForm.get('title').valid) {
       this.addDesignToBasket();
     }
   }

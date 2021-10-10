@@ -1,6 +1,6 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, IUser } from '@interfaces';
-import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
+import { FamilyTreeFontEnum } from '@interfaces';
+import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();

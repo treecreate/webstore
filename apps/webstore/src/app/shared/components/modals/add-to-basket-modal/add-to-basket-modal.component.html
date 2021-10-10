@@ -45,6 +45,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
                     id="decrease-quantity-btn"
+                    data-cy="add-to-basket-decrease-quantity-button"
                     [disabled]="
                         this.addToBasketForm.get('quantity').value === 1
                     "
@@ -53,13 +54,14 @@
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="quantity">
+                <div class="quantity" data-cy="add-to-basket-quantity">
                     {{ this.addToBasketForm.get('quantity').value }}
                 </div>
                 <button
                     type="button"
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseQuantity()"
+                    data-cy="add-to-basket-increase-quantity-button"
                     id="increase-quantity-btn"
                 >
                     <div class="button-plus"></div>
@@ -82,6 +84,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseSize()"
                     id="decrease-size-btn"
+                    data-cy="add-to-basket-decrease-dimension-button"
                     [disabled]="
                         this.addToBasketForm.get('dimension').value === 'SMALL'
                     "
@@ -90,7 +93,7 @@
                         <div class="button-minus"></div>
                     </div>
                 </button>
-                <div class="quantity">
+                <div class="quantity" data-cy="add-to-basket-dimension">
                     {{ this.addToBasketForm.get('dimension').value }}
                 </div>
                 <button
@@ -98,6 +101,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseSize()"
                     id="increase-size-btn"
+                    data-cy="add-to-basket-increase-dimension-button"
                     [disabled]="
                         this.addToBasketForm.get('dimension').value === 'LARGE'
                     "
@@ -146,6 +150,7 @@
                 <button
                     class="tc-button-100 green"
                     type="submit"
+                    data-cy="add-to-basket-add-to-basket-button"
                     [disabled]="this.addToBasketForm.get('title').invalid"
                 >
                     <span i18n="@@add-to-basket" *ngIf="!isLoading"

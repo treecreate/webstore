@@ -85,6 +85,13 @@ const mockTransactionItem: ITransactionItem = {
   quantity: 1,
   design: mockDesign,
 };
+const mockTransactionItemTwo: ITransactionItem = {
+  transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a1',
+  order: mockOrder,
+  dimension: DesignDimensionEnum.small,
+  quantity: 3,
+  design: mockDesign,
+};
 const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   dimension: DesignDimensionEnum.medium,
@@ -100,6 +107,40 @@ const mockCreateTransactionItemRequestUpdatedDimension: CreateTransactionItemReq
   dimension: DesignDimensionEnum.large,
   quantity: 1,
 };
+
+it('should add an transaction item to basket', () => {
+  localStorage.setItem(
+    LocalStorageVars.cookiesAccepted,
+    `"${CookieStatus.accepted}"`
+  );
+  localStorage.setItem(
+    LocalStorageVars.authUser,
+    JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+  );
+  cy.intercept('GET', '/transaction-items/me', {
+    body: [mockTransactionItem, mockTransactionItemTwo],
+    statusCode: 200,
+  });
+  //Add new item to basket
+  cy.visit('/product');
+  cy.get('[data-cy=family-tree-canvas]').click();
+  cy.get('[data-cy=add-family-tree-to-basket-button]').click();
+  cy.get('[data-cy=add-to-basket-modal]').should('exist');
+  cy.get('[data-cy=add-to-basket-title-input]').type('TestItem01');
+  cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
+  cy.url().should('contain', '/product');
+
+  //Check that the new item has been added
+  cy.visit('/basket');
+  cy.get('[data-cy=basket-item]').then((items) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(items[0]).exist;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(items[1]).exist;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(items[2]).not.exist;
+  });
+});
 
 describe('BasketPage', () => {
   beforeEach(() => {
@@ -123,11 +164,11 @@ describe('BasketPage', () => {
     cy.visit('/basket');
   });
 
-  it.skip('should display the transaction items in the basket', () => {
+  it('should display the transaction items in the basket', () => {
     cy.get('[data-cy=basket-item]').first().should('exist');
   });
 
-  it.skip('should increase / decrease amount of trees donated', () => {
+  it('should increase / decrease amount of trees donated', () => {
     cy.get('[data-cy=basket-decrease-donated-trees-button]').should(
       'be.disabled'
     );
@@ -153,7 +194,7 @@ describe('BasketPage', () => {
     );
   });
 
-  it.skip('should apply discount', () => {
+  it('should apply discount', () => {
     cy.intercept('GET', '/discount/testDISCOUNT123', {
       //TODO: get discount
     });
@@ -165,16 +206,15 @@ describe('BasketPage', () => {
     //TODO: check that discount button is disabled
   });
 
-  it.skip('should go to checkout', () => {
+  it('should go to checkout', () => {
     cy.get('[data-cy=basket-checkout-button]').click();
     cy.url().should('contain', '/checkout');
   });
 
-  it.skip('should update price when changing dimention of a product', () => {
-    //TODO: check with calli that this is correct
+  it('should update price when changing dimention of a product', () => {
     cy.intercept(
       'PUT',
-      '/transaction-items/me' + mockCreateTransactionItemRequest.designId,
+      '/transaction-items/me/' + mockCreateTransactionItemRequest.designId,
       {
         body: mockCreateTransactionItemRequestUpdatedDimension,
         statusCode: 200,
@@ -198,11 +238,10 @@ describe('BasketPage', () => {
       });
   });
 
-  it.skip('should update price when changing quantity of a product', () => {
-    //TODO: check with calli that this is correct
+  it('should update price when changing quantity of a product', () => {
     cy.intercept(
       'PUT',
-      '/transaction-items/me' + mockCreateTransactionItemRequest.designId,
+      '/transaction-items/me/' + mockCreateTransactionItemRequest.designId,
       {
         body: mockCreateTransactionItemRequestUpdatedQuantity,
         statusCode: 200,
@@ -223,7 +262,7 @@ describe('BasketPage', () => {
       });
   });
 
-  it.skip('should remove the product from basket when pressing delete', () => {
+  it('should remove the product from basket when pressing delete', () => {
     cy.intercept(
       'DELETE',
       '/transaction-items/me/' + mockCreateTransactionItemRequest.designId,
@@ -241,7 +280,7 @@ describe('BasketPage', () => {
       });
   });
 
-  it.skip('should show a viewOnly version of the design', () => {
+  it('should show a viewOnly version of the design', () => {
     cy.intercept('GET', '/designs/me/' + mockDesign.designId, {
       body: mockDesign,
       statusCode: 204,
@@ -259,37 +298,23 @@ describe('BasketPage', () => {
         cy.url().should('contain', '/basket');
       });
   });
-
-  it.skip('should add an transaction item to basket', () => {
-    //For adding to basket
-    cy.intercept('POST', '/transaction-items/me', {
-      body: mockCreateTransactionItemRequest,
-      statusCode: 200,
-    });
-  });
 });
 
-describe.skip('AddToBasketModal', () => {
+describe('AddToBasketModal', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.authUser,
       JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
     );
-    cy.visit('/product');
-  });
-  it('should have add-to-basket button redirect to login when not logged in', () => {
-    cy.visit('/home');
     localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserInvalid))
+      LocalStorageVars.cookiesAccepted,
+      `"${CookieStatus.accepted}"`
     );
     cy.visit('/product');
-    cy.get('[data-cy=add-to-basket-button]').click();
-    cy.url().should('contain', '/login');
   });
 
   it('should open add-to-basket modal when user is logged in', () => {
-    cy.get('[data-cy=add-to-basket-button]').click();
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-modal]').should('exist');
   });
 
@@ -298,35 +323,71 @@ describe.skip('AddToBasketModal', () => {
     cy.get('[data-cy=design-title-input]').type('family tree', {
       force: true,
     });
-    cy.get('[data-cy=add-to-basket-button]').click();
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-title-input]').should(
-      'conatin',
+      'have.value',
       'family tree'
     );
   });
 
   it('should be able to change title', () => {
-    cy.get('[data-cy=design-title-input]').type('family tree');
-    cy.get('[data-cy=add-to-basket-button]').click();
+    cy.get('[data-cy=design-title-input]').type('family tree', { force: true });
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-title-input]').should(
-      'conatin',
+      'have.value',
       'family tree'
     );
-    cy.get('[data-cy=add-to-basket-title-inpu]').clear();
-    cy.get('[data-cy=add-to-basket-title-inpu]').type('familietræ');
-    cy.get('[data-cy=add-to-basket-title-inpu]').should(
-      'conatin',
+    cy.get('[data-cy=add-to-basket-title-input]').clear();
+    cy.get('[data-cy=add-to-basket-title-input]').type('familietræ');
+    cy.get('[data-cy=add-to-basket-title-input]').should(
+      'have.value',
       'familietræ'
     );
   });
 
-  it('it should set the title to untitled if there is no title', () => {});
+  it('it should not be able to add to basket without a title', () => {
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-add-to-basket-button]').should(
+      'be.disabled'
+    );
+  });
 
-  it('should increase quantity', () => {});
+  it('should increase / decrease quantity', () => {
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should(
+      'be.disabled'
+    );
+    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '1');
+    cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
+    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should(
+      'not.be.disabled'
+    );
+    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '2');
+    cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
+    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '3');
+    cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
+    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '4');
+    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').click();
+    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '3');
+  });
 
-  it('should decrease quantity', () => {});
-
-  it('should increase dimensions', () => {});
-
-  it('should decrease dimensions', () => {});
+  it('should increase / decrease dimensions', () => {
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
+      'be.disabled'
+    );
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', 'SMALL');
+    cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
+    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
+      'not.be.disabled'
+    );
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', 'MEDIUM');
+    cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', 'LARGE');
+    cy.get('[data-cy=add-to-basket-increase-dimension-button]').should(
+      'be.disabled'
+    );
+    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').click();
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', 'MEDIUM');
+  });
 });
