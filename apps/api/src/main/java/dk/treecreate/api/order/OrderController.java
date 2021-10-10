@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -77,6 +78,7 @@ public class OrderController
         @ApiResponse(code = 201, message = "URL to quickpay that allows to make a payment",
             response = CreatePaymentLinkResponse.class)})
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    @Transactional()
     public CreatePaymentLinkResponse createPayment(
         @RequestBody() @Valid CreateOrderRequest createOrderRequest,
         @Parameter(name = "lang",
@@ -122,6 +124,7 @@ public class OrderController
         // Persist the order information
         // TODO - error-handle failed order persisting. Include usage of transactions
         order = orderRepository.save(order);
+        
         // Update the transaction items
         Order finalOrder = order;
         order.getTransactionItems().forEach(item -> {
