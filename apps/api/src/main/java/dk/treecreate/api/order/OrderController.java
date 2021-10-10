@@ -119,9 +119,17 @@ public class OrderController
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "An error has occurred while creating a payment");
         }
-        // persist the order information
+        // Persist the order information
         // TODO - error-handle failed order persisting. Include usage of transactions
         order = orderRepository.save(order);
+        // Update the transaction items
+        Order finalOrder = order;
+        order.getTransactionItems().forEach(item -> {
+            System.out.println(finalOrder.getOrderId());
+            item.setOrder(finalOrder);
+            transactionItemRepository.save(item);
+        });
+
         if (order.getDiscount() != null)
         {
             discountRepository.save(order.getDiscount());
@@ -131,6 +139,7 @@ public class OrderController
             "Order | New order has been made. UserID: " + user.getUserId() + " | Order ID: " +
                 order.getOrderId() + " | Payment ID: " + order.getPaymentId() + " | Subtotal: " +
                 order.getSubtotal() + " | Total: " + order.getTotal());
+
         return createPaymentLinkResponse;
     }
 }
