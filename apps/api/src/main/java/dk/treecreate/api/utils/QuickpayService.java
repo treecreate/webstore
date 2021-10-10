@@ -220,7 +220,9 @@ public class QuickpayService
         {
             prefix = "D";
         }
-        String emailPrefix = email.substring(0, Math.min(email.length(), 4));
+        String emailPrefix = email.split("@")[0];
+        System.out.println(emailPrefix);
+        emailPrefix = emailPrefix.substring(0, Math.min(emailPrefix.length(), 4));
         StringBuilder emailBuilder = new StringBuilder(emailPrefix);
         while (emailBuilder.length() < 4)
         {
