@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
-  IDesign,
   IFamilyTree,
   ITransactionItem,
 } from '@interfaces';

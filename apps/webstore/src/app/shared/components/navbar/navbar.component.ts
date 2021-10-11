@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IAuthUser, ITransactionItem } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject, interval, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
