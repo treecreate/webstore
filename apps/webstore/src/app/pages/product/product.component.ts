@@ -182,6 +182,12 @@ export class ProductComponent implements OnInit {
     ).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn || !persist) {
+      this.toastService.showAlert(
+        'You need to be logged in to perform this action.',
+        'Du skal logge ind for at kunne bruge denne denne function',
+        'danger',
+        10000
+      );
       return;
     }
     const queryParams = this.route.snapshot.queryParams;

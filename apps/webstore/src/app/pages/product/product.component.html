@@ -253,31 +253,33 @@
             </div>
 
             <div class="option option-actions">
-                <ng-template #saveDesign i18n="@@save-design-tooltip"
+                <!-- TODO: make the template work as the text for the tooltip -->
+                <!-- <ng-template #saveDesign i18n="@@save-design-tooltip"
                     >You need to login before you can save your design. Dont
                     worry, your design will still be here if you go to the login
                     page and come back.</ng-template
                 >
                 <span
                     ngbTooltip="Tooltip on top"
-                    [ngbTooltip]="saveDesign"
+                    [ngbTooltip]="isLoggedIn ? saveDesign : null"
                     [disableTooltip]="isLoggedIn"
                     style="width: 47%"
+                > -->
+                <button
+                    class="btn-save-design tc-button-50"
+                    (click)="saveDesign({ persists: true })"
+                    [disabled]="!isDesignValid"
+                    data-cy="save-family-tree-button"
                 >
-                    <button
-                        class="btn-save-design tc-button-100"
-                        (click)="saveDesign({ persists: true })"
-                        [disabled]="!isDesignValid || !isLoggedIn"
-                        data-cy="save-family-tree-button"
-                    >
-                        <span i18n="@@save">Save</span>
-                        <img
-                            src="/assets/icons/save-icon.svg"
-                            class="option-icon"
-                        />
-                    </button>
-                </span>
-                <ng-template #addToBasket i18n="@@add-to-basket-tooltip"
+                    <span i18n="@@save">Save</span>
+                    <img
+                        src="/assets/icons/save-icon.svg"
+                        class="option-icon"
+                    />
+                </button>
+                <!-- </span> -->
+                <!-- TODO: make the template work as the text for the tooltip -->
+                <!-- <ng-template #addToBasket i18n="@@add-to-basket-tooltip"
                     >You need to login before adding to basket. Dont worry, your
                     design will still be here if you go to the login page and
                     come back.</ng-template
@@ -287,20 +289,20 @@
                     [ngbTooltip]="addToBasket"
                     [disableTooltip]="isLoggedIn"
                     style="width: 47%"
+                > -->
+                <button
+                    class="btn-add-to-cart tc-button-50"
+                    (click)="openAddToBasketModal()"
+                    data-cy="add-family-tree-to-basket-button"
+                    [disabled]="!isDesignValid"
                 >
-                    <button
-                        class="btn-add-to-cart tc-button-100"
-                        (click)="openAddToBasketModal()"
-                        data-cy="add-family-tree-to-basket-button"
-                        [disabled]="!isLoggedIn"
-                    >
-                        <span i18n="@@add">Add</span>
-                        <img
-                            src="/assets/icons/basket-white-icon.svg"
-                            class="option-icon"
-                        />
-                    </button>
-                </span>
+                    <span i18n="@@add">Add</span>
+                    <img
+                        src="/assets/icons/basket-white-icon.svg"
+                        class="option-icon"
+                    />
+                </button>
+                <!-- </span> -->
             </div>
 
             <div class="option misc-option-actions">

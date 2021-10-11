@@ -20,6 +20,15 @@ describe('BasketComponent', () => {
     component = fixture.componentInstance;
 
     component.donatedTrees = 1;
+    component.priceInfo = {
+      fullPrice: 1000,
+      discountedPrice: 900,
+      finalPrice: 900,
+      discountAmount: 100,
+      deliveryPrice: 0,
+      extraTreesPrice: 0,
+      vat: 900 * 0.2,
+    };
     console.log(component.donatedTrees);
     fixture.detectChanges();
   });
