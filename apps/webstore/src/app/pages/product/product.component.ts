@@ -18,7 +18,7 @@ import {
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval, Subscription } from 'rxjs';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { ToastService } from '../../shared/components/toast/toast-service';
@@ -43,6 +43,7 @@ export class ProductComponent implements OnInit {
 
   isMobileOptionOpen = false;
   designTitle = '';
+  subscription: Subscription;
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
   backgroundTreeDesign = TreeDesignEnum.tree1;
