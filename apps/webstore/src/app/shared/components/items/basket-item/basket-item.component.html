@@ -1,15 +1,33 @@
-<div class="basket-item-container">
+<ngb-alert
+    *ngIf="alert"
+    [type]="alert.type"
+    (closed)="alert = undefined"
+    [dismissible]="alert.dismissible"
+>
+    <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
+    {{ alert.message }}</ngb-alert
+>
+<div *ngIf="!alert" class="basket-item-container" data-cy="basket-item">
+    <!-- <div class="item-title">
+        {{ item.design.designProperties.title }}
+    </div> -->
+
     <!-- image -->
     <div class="item-image">
-        <img src="/assets/img/design-ex1-img.png" class="design-image" />
-        <div class="item-type-title" i18n="@@family-tree">Family tree</div>
-    </div>
-
-    <div class="item-container">
-        <div class="item-title">
-            {{ item.design.designProperties.title }}
+        <!-- <div class="item-type-title" i18n="@@family-tree">Family tree</div> -->
+        <webstore-family-tree-miniature
+            #productDesign
+            [design]="item.design.designProperties"
+            [boxSize]="item.design.designProperties.boxSize"
+            class="item-image"
+        >
+        </webstore-family-tree-miniature>
+        <hr class="hr-class" />
+        <div class="item-type-title" data-cy="basket-item-title">
+            <b>{{ item.design.designProperties.title }}</b>
         </div>
-
+    </div>
+    <div class="item-container">
         <!-- quantity -->
         <div class="option-quantity">
             <div class="text">
@@ -19,10 +37,18 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
-                    [disabled]="item.quantity === 1"
+                    [disabled]="item.quantity === 1 || isLoading"
+                    data-cy="basket-item-decrese-quantity-button"
                 >
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
                     <div class="icon">
-                        <div class="button-minus"></div>
+                        <div class="button-minus" *ngIf="!isLoading"></div>
                     </div>
                 </button>
                 <div class="quantity">
@@ -31,8 +57,17 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseQuantity()"
+                    data-cy="basket-item-increase-quantity-button"
+                    [disabled]="isLoading"
                 >
-                    <div class="button-plus"></div>
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="button-plus" *ngIf="!isLoading"></div>
                 </button>
             </div>
         </div>
@@ -45,10 +80,18 @@
             <div class="option">
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="decreaseSize()"
-                    [disabled]="item.dimension === 'small'"
+                    (click)="decreaseDimension()"
+                    [disabled]="item.dimension === 'SMALL' || isLoading"
+                    data-cy="basket-item-decrese-dimension-button"
                 >
-                    <div class="icon">
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="icon" *ngIf="!isLoading">
                         <div class="button-minus"></div>
                     </div>
                 </button>
@@ -57,10 +100,18 @@
                 </div>
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
-                    (click)="increaseSize()"
-                    [disabled]="item.dimension === 'large'"
+                    (click)="increaseDimension()"
+                    [disabled]="item.dimension === 'LARGE' || isLoading"
+                    data-cy="basket-item-increase-dimension-button"
                 >
-                    <div class="button-plus"></div>
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="button-plus" *ngIf="!isLoading"></div>
                 </button>
             </div>
         </div>
@@ -70,14 +121,35 @@
             <div class="text">
                 <span i18n="@@price"> Price </span>
             </div>
-            <div class="option price-text">{{ itemPrice.toFixed(2) }} DKK</div>
+            <div class="option price-text" data-cy="basket-item-price">
+                {{ itemPrice.toFixed(2) }} DKK
+            </div>
         </div>
         <hr class="margin-top" />
         <!-- actions -->
         <div class="option-actions">
-            <button class="tc-button-50 margin-top" i18n="@@view">View</button>
-            <button class="tc-button-50 margin-top" i18n="@@delete">
-                Delete
+            <button
+                class="tc-button-50 margin-top"
+                [routerLink]="'/product'"
+                [queryParams]="{ designId: item.design.designId }"
+                i18n="@@view"
+                data-cy="basket-item-view-button"
+            >
+                View
+            </button>
+            <button
+                class="tc-button-50 margin-top"
+                (click)="deleteTransactionItem()"
+                data-cy="basket-item-delete-button"
+            >
+                <span i18n="@@delete" *ngIf="!isLoading">Delete</span>
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm text-light"
+                    style="margin: 5px"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
             </button>
         </div>
     </div>

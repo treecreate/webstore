@@ -29,7 +29,7 @@ describe('Login Page', () => {
       cy.get('[data-cy=login-btn]').should('be.enabled').click();
       cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('exist');
-      cy.url().should('contain', '/home');
+      cy.url().should('contain', '/product');
     });
 
     it('should refuse signin for user with incorrect credentials', () => {

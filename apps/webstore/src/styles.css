@@ -169,5 +169,34 @@ hr {
 
 :disabled:hover {
   transform: scale(1);
-  box-shadow: 0px 3px 10px 0 rgb(0 0 0 / 15%);
+  box-shadow: 0px 1px 2px 0px rgb(0 0 0 / 50%);
+}
+
+/* show/hide password option */
+.password-input {
+  display: flex;
+}
+.show-password-btn {
+  position: relative;
+  top: 8px;
+  border: none;
+  background: none;
+}
+.show-password-btn:focus,
+.show-password-btn::after {
+  border: none;
+  outline: none;
+}
+.password-icon {
+  width: 15px;
+  height: 15px;
+}
+.password-show-icon {
+  content: url('/assets/icons/visibility.svg');
+}
+.password-hide-icon {
+  content: url('/assets/icons/visibility-off.svg');
+}
+.tc-input-group {
+  width: 100%;
 }

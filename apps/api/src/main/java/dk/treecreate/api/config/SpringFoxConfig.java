@@ -23,6 +23,7 @@ public class SpringFoxConfig
 
     public static final String AUTHENTICATION_TAG = "Authentication";
     public static final String DESIGNS_TAG = "Designs";
+    public static final String TRANSACTION_ITEMS_TAG = "Transaction Items";
 
     private static ApiInfo apiInfo()
     {
@@ -43,6 +44,8 @@ public class SpringFoxConfig
                 "User authentication and authorization"))
             .tags(new Tag(DESIGNS_TAG,
                 "Product designs like family tree"))
+            .tags(new Tag(TRANSACTION_ITEMS_TAG,
+                "Items shown in the basket and part of orders. Reference Designs"))
             .apiInfo(apiInfo()) // information about the API shown at the top of the page
             .useDefaultResponseMessages(
                 false); // removes redundant codes like 404: Not found from every mapping

@@ -1,11 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TreeDesignEnum } from '@assets';
 import {
-  DesignDimensionEnum,
-  DesignTypeEnum,
   DiscountType,
-  FamilyTreeFontEnum,
   IAuthUser,
   IDiscount,
   INewsletter,
@@ -20,6 +17,7 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
 import { VerifyService } from '../../../shared/services/verify/verify.service';
 
@@ -60,48 +58,16 @@ export class CheckoutComponent implements OnInit {
     roles: [UserRoles.user],
     isVerified: true,
   };
-  itemList: ITransactionItem[] = [
-    {
-      design: {
-        designId: '1',
-        designProperties: {
-          title: 'Mock 1',
-          font: FamilyTreeFontEnum.roboto,
-          backgroundTreeDesign: TreeDesignEnum.tree1,
-          boxSize: 10,
-          banner: undefined,
-          largeFont: true,
-          boxes: [],
-        },
-        user: this.mockUser,
-        designType: DesignTypeEnum.familyTree,
-      },
-      dimension: DesignDimensionEnum.small,
-      quantity: 1,
-      order: null,
-      transactionItemId: '1',
-    },
-    {
-      design: {
-        designId: '2',
-        designProperties: {
-          title: 'Mock 2',
-          font: FamilyTreeFontEnum.roboto,
-          backgroundTreeDesign: TreeDesignEnum.tree1,
-          boxSize: 15,
-          banner: undefined,
-          largeFont: true,
-          boxes: [],
-        },
-        user: this.mockUser,
-        designType: DesignTypeEnum.familyTree,
-      },
-      dimension: DesignDimensionEnum.small,
-      quantity: 5,
-      order: null,
-      transactionItemId: '2',
-    },
-  ];
+
+  itemList: ITransactionItem[] = [];
+  isLoading = false;
+
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
+  };
+
   constructor(
     private localStorageService: LocalStorageService,
     private toastService: ToastService,
@@ -109,7 +75,8 @@ export class CheckoutComponent implements OnInit {
     private verifyService: VerifyService,
     private modalService: NgbModal,
     private calculatePriceService: CalculatePriceService,
-    private newsletterService: NewsletterService
+    private newsletterService: NewsletterService,
+    private transactionItemService: TransactionItemService
   ) {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
@@ -204,6 +171,8 @@ export class CheckoutComponent implements OnInit {
         Validators.required,
       ]),
     });
+
+    this.loadTransactionItems();
   }
 
   changeDelivery() {
@@ -225,7 +194,7 @@ export class CheckoutComponent implements OnInit {
       .registerNewsletterEmail(this.checkoutForm.get('email').value)
       .subscribe(
         (data: INewsletter) => {
-          //TODO: Add event for them to recieve a 25% off email in 2 weeks
+          //TODO: Add event for them to receive a 25% off email in 2 weeks
           this.toastService.showAlert(
             `Thank you for subscribing: ${data.email}`,
             `Tak for din tilmelding: ${data.email}`,
@@ -300,5 +269,28 @@ export class CheckoutComponent implements OnInit {
 
   showTermsOfSale() {
     this.modalService.open(TermsOfSaleModalComponent, { size: 'lg' });
+  }
+
+  loadTransactionItems() {
+    this.isLoading = true;
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        this.isLoading = false;
+        this.itemList = itemList;
+        console.log('Fetched transaction items', itemList);
+        this.updatePrices();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+
+        this.alert = {
+          message: 'Failed to get a list of items',
+          type: 'danger',
+          dismissible: false,
+        };
+
+        this.isLoading = false;
+      }
+    );
   }
 }

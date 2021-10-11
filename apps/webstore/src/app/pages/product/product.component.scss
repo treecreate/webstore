@@ -9,7 +9,11 @@
   justify-content: center;
 }
 
-.design-options-desktop,
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.desktop-options-container,
 .design-container {
   display: inline-block;
 }
@@ -21,12 +25,12 @@
 }
 
 .design-screen {
-  border: 2px solid black;
+  margin: 5px;
   height: 80vh;
   width: 80vh;
 }
 
-.design-options-desktop {
+.desktop-options-container {
   margin: 30px 30px 30px 15px;
   width: 300px;
   height: 450px;
@@ -205,4 +209,20 @@
 
 .banner-input {
   margin-bottom: 10px;
+}
+
+.back {
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.back-container {
+  text-align: left;
+  width: 80vh;
+}
+
+.back:hover {
+  text-decoration: none;
+  margin-left: 0;
+  color: var(--second-action-color) !important;
 }
