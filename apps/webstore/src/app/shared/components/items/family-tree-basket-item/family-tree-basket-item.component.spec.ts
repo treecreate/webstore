@@ -9,7 +9,7 @@ import {
   IUser,
 } from '@interfaces';
 import { UserRoles } from '@models';
-import { BasketItemComponent } from './basket-item.component';
+import { BasketItemComponent } from './family-tree-basket-item.component';
 
 describe('BasketItemComponent', () => {
   let component: BasketItemComponent;
@@ -17,7 +17,7 @@ describe('BasketItemComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      declarations: [BasketItemComponent],
+      declarations: [FamilyTreeBasketItemComponent],
       //   imports: [CalculatePriceService]
     }); // .compileComponents();
   });
