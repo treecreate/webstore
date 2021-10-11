@@ -29,10 +29,7 @@ export class BasketComponent implements OnInit {
   };
 
   donatedTrees = 1;
-  discount: IDiscount = {
-    amount: 0,
-    type: DiscountType.amount,
-  };
+  discount: IDiscount = null;
 
   discountForm: FormGroup;
   priceInfo: IPricing;

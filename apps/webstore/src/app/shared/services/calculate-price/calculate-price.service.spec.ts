@@ -15,8 +15,11 @@ describe('CalculatePriceService', () => {
   let service: CalculatePriceService;
   const itemListInfo = {
     discount: {
-      amount: 0.1,
+      discountCode: '',
       type: DiscountType.percent,
+      amount: 10,
+      remainingUses: 1,
+      totalUses: 0,
     },
     isHomeDelivery: true,
     donatedTrees: 0,
@@ -95,8 +98,11 @@ describe('CalculatePriceService', () => {
 
   const secondItemListInfo = {
     discount: {
-      amount: 495,
+      discountCode: '',
       type: DiscountType.amount,
+      amount: 495,
+      remainingUses: 1,
+      totalUses: 0,
     },
     isHomeDelivery: false,
     donatedTrees: 3,

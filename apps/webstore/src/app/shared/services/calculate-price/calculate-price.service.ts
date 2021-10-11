@@ -28,15 +28,16 @@ export class CalculatePriceService {
     const fullPrice = sum;
 
     // Get discounted price of all items
-    let discountedPrice;
-    if (discount.type === DiscountType.percent) {
-      // Discount in percent
-      discountedPrice = fullPrice * (1 - discount.amount);
-    } else {
-      // Discount in specific amount
-      discountedPrice = fullPrice - discount.amount;
+    let discountedPrice = fullPrice;
+    if (discount !== null) {
+      if (discount.type === DiscountType.percent) {
+        // Discount in percent
+        discountedPrice = fullPrice * (1 - discount.amount / 100);
+      } else {
+        // Discount in specific amount
+        discountedPrice = fullPrice - discount.amount;
+      }
     }
-
     // Get discounted amount / amount saved
     const discountAmount = fullPrice - discountedPrice;
 

@@ -43,10 +43,7 @@ export class CheckoutComponent implements OnInit {
   billingAddressIsTheSame = true;
 
   priceInfo: IPricing;
-  discount: IDiscount = {
-    amount: 0,
-    type: DiscountType.percent,
-  };
+  discount: IDiscount = null;
 
   isTermsAndConditionsAccepted = false;
   public isVerified: boolean;
