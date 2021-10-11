@@ -92,6 +92,7 @@ export class NavbarComponent implements OnInit {
     );
     this.authService.logout();
     window.scroll(0, 0);
+    window.location.reload();
   }
 
   resendVerificationEmail() {

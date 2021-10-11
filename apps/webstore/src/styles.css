@@ -169,7 +169,7 @@ hr {
 
 :disabled:hover {
   transform: scale(1);
-  box-shadow: 0px 3px 10px 0 rgb(0 0 0 / 15%);
+  box-shadow: 0px 1px 2px 0px rgb(0 0 0 / 50%);
 }
 
 /* show/hide password option */
