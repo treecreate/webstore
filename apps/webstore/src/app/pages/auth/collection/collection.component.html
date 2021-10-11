@@ -6,11 +6,11 @@
         <div>
             <div
                 class="collection-content"
-                *ngIf="1 <= designCollection.length"
+                *ngIf="1 <= familyTreeCollection.length"
             >
                 <webstore-design-item
-                    *ngFor="let design of designCollection"
-                    [design]="design"
+                    *ngFor="let familyTree of familyTreeCollection"
+                    [familyTree]="familyTree"
                 ></webstore-design-item>
                 <div class="full-width">
                     <hr class="match-button" />
@@ -33,7 +33,10 @@
                     </div>
                 </div>
             </div>
-            <div class="no-content" *ngIf="designCollection.length === 0">
+            <div
+                class="no-content"
+                *ngIf="familyTreeCollection.length === 0 && !isLoading"
+            >
                 <div class="sub-title" i18n="@@no-designs">
                     You have no designs
                 </div>
@@ -48,6 +51,17 @@
                     >
                         Start designing
                     </button>
+                </div>
+            </div>
+            <div class="no-content" *ngIf="isLoading">
+                <div class="spinner">
+                    <span
+                        class="spinner-border spinner-border-sm"
+                        style="margin: 0 10px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <span>Loading...</span>
                 </div>
             </div>
         </div>

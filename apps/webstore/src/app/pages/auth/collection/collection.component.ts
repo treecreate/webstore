@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IDesign } from '@interfaces';
+import { IDesign, IFamilyTree } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { DesignService } from '../../../shared/services/design/design.service';
 
@@ -12,6 +12,7 @@ import { DesignService } from '../../../shared/services/design/design.service';
 export class CollectionComponent implements OnInit {
   pageTitle = 'collection';
   designCollection: IDesign[] = [];
+  familyTreeCollection: IFamilyTree[] = [];
   isLoading = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -25,11 +26,18 @@ export class CollectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getDesigns();
+  }
+
+  getDesigns(): void {
+    this.isLoading = true;
     this.designService.getDesigns().subscribe(
       (designList: IDesign[]) => {
-        this.isLoading = false;
         this.designCollection = designList;
-        console.log('designs fetched: ', designList);
+        for (let i = 0; i < designList.length; i++) {
+          this.familyTreeCollection.push(designList[i].designProperties);
+        }
+        this.isLoading = false;
       },
       (error: HttpErrorResponse) => {
         console.log(error);
