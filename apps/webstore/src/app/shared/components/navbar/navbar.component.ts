@@ -25,7 +25,6 @@ export class NavbarComponent implements OnInit {
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
-  subscription: Subscription;
   isResendVerificationEmailLoading = false;
   itemList: ITransactionItem[] = [];
   itemsInBasket: number;
