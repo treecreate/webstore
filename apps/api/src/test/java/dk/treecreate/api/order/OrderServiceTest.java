@@ -42,14 +42,14 @@ class OrderServiceTest
             Arguments.of(1, new BigDecimal(990), new BigDecimal(990), 0, null, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(1019), new BigDecimal(1019), 0, null, 2,
+            Arguments.of(1, new BigDecimal(990), new BigDecimal(1019), 0, null, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.HOME_DELIVERY,
                 null),
-            Arguments.of(1, new BigDecimal(1090), new BigDecimal(1090), 0, null, 2,
+            Arguments.of(1, new BigDecimal(990), new BigDecimal(1090), 0, null, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.OWN_DELIVERY,
                 null),
             // no discount, no more than 3, extra 5 planted trees
-            Arguments.of(6, new BigDecimal(1040), new BigDecimal(1040), 0, null, 2,
+            Arguments.of(6, new BigDecimal(990), new BigDecimal(1040), 0, null, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // Discount - Amount, 500. All sizes
@@ -81,12 +81,12 @@ class OrderServiceTest
                 DesignDimension.LARGE, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // Discount - percent. Off number resulting in a complex floating point
-            Arguments.of(69, new BigDecimal(4737875), new BigDecimal("1468741.25"), 69,
+            Arguments.of(69, new BigDecimal(4737195), new BigDecimal("1469210.45"), 69,
                 DiscountType.PERCENT, 69,
                 DesignDimension.LARGE, 69, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // Discount - percent. Shipping - own delivery. Off number resulting in a complex floating point
-            Arguments.of(69, new BigDecimal(4737975), new BigDecimal("1468772.25"), 69,
+            Arguments.of(69, new BigDecimal(4737195), new BigDecimal("1469310.45"), 69,
                 DiscountType.PERCENT, 69,
                 DesignDimension.LARGE, 69, DesignType.FAMILY_TREE, ShippingMethod.OWN_DELIVERY,
                 null),

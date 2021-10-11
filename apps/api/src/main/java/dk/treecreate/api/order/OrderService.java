@@ -58,22 +58,6 @@ public class OrderService
             subTotal = subTotal.add(pricePerItem.multiply(BigDecimal.valueOf(quantity)));
             totalItems += quantity;
         }
-        // each planted tree adds 10kr to the price, minus the default 1 tree
-        int plantedTreesPrice = (order.getPlantedTrees() * 10) - 10;
-        subTotal = subTotal.add(new BigDecimal(plantedTreesPrice));
-
-        // add shipping cost
-        switch (order.getShippingMethod())
-        {
-            case PICK_UP_POINT:
-                break; // is free
-            case HOME_DELIVERY:
-                subTotal = subTotal.add(new BigDecimal(29));
-                break; // 29 kr
-            case OWN_DELIVERY:
-                subTotal = subTotal.add(new BigDecimal(100));
-                break; // 100 kr
-        }
 
         LOGGER.info("Verify price | SubTotal: " + subTotal + " | item count: " + totalItems +
             " | planted trees: " + order.getPlantedTrees());
@@ -87,8 +71,26 @@ public class OrderService
                     ") does not match calculated subtotal (" + subTotal + ")!");
         }
 
-        // Apply the discount etc
+        // Apply the discount and delivery price etc
         BigDecimal total = calculateTotal(subTotal, order.getDiscount(), totalItems > 3);
+
+        // each planted tree adds 10kr to the price, minus the default 1 tree
+        int plantedTreesPrice = (order.getPlantedTrees()-1) * 10;
+        total = total.add(new BigDecimal(plantedTreesPrice));
+
+        // add shipping cost
+        switch (order.getShippingMethod())
+        {
+            case PICK_UP_POINT:
+                break; // is free
+            case HOME_DELIVERY:
+                total = total.add(new BigDecimal(29));
+                break; // 29 kr
+            case OWN_DELIVERY:
+                total = total.add(new BigDecimal(100));
+                break; // 100 kr
+        }
+
         LOGGER.info("Verify price | Calculated Total: " + total);
         if (!total.equals(order.getTotal().setScale(2, RoundingMode.HALF_EVEN)))
         {
