@@ -362,7 +362,7 @@ export class ProductComponent implements OnInit {
     if (this.isLoggedIn) {
       console.log('Is Logged in ', this.isLoggedIn);
       this.modalService.open(AddToBasketModalComponent);
-    } 
+    }
   }
 
   onIsDesignValidEvent($event) {

@@ -1130,12 +1130,12 @@
           <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="large-font" datatype="html">
-        <source>Large font</source>
-        <target>Stor font</target> 
+      <trans-unit id="save-design-tooltip" datatype="html">
+        <source>You need to login before you can save your design. Dont worry, your design will still be here if you go to the login page and come back.</source>
+        <target>Du skal være logget ind før du kan gemme dit design. Frygt ej, dit design vil stadig være her efter du er logget ind. </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">226</context>
+          <context context-type="linenumber">257</context>
         </context-group>
       </trans-unit>
       <trans-unit id="save" datatype="html">
@@ -1143,7 +1143,23 @@
         <target>Gem</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">251</context>
+          <context context-type="linenumber">271</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="add-to-basket-tooltip" datatype="html">
+        <source>You need to login before adding to basket. Dont worry, your design will still be here if you go to the login page and come back.</source>
+        <target>Du skal være logget ind før du kan ligge dit design i kurven. Frygt ej, dit design vil stadig være her efter du er logget ind. </target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
+          <context context-type="linenumber">279</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="large-font" datatype="html">
+        <source>Large font</source>
+        <target>Stor font</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
+          <context context-type="linenumber">226</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add" datatype="html">
