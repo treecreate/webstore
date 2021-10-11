@@ -13,7 +13,7 @@ import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { FamilyTreeCollectionItemComponent } from './shared/components/items/family-tree-collection-item/family-tree-collection-item.component';
-import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
+import { FamilyTreeCheckoutItemComponent } from './shared/components/items/family-tree-checkout-item/family-tree-checkout-item.component';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
@@ -70,7 +70,7 @@ import { FamilyTreeMiniatureComponent } from './shared/components/products/famil
     BasketComponent,
     BasketItemComponent,
     CheckoutComponent,
-    CheckoutItemComponent,
+    FamilyTreeCheckoutItemComponent,
     FamilyTreeDesignComponent,
     FamilyTreeMiniatureComponent,
     DraggableBoxComponent,
