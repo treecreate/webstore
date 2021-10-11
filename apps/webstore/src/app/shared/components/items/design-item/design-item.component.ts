@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IDesign, IFamilyTree } from '@interfaces';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { IFamilyTree } from '@interfaces';
+import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -8,7 +9,10 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./design-item.component.css'],
 })
 export class DesignItemComponent implements OnInit {
+  @ViewChild('productDesign', { static: true })
+  miniature: FamilyTreeMiniatureComponent;
   @Input() familyTree: IFamilyTree;
+  isLoading = false;
 
   constructor(private toastService: ToastService) {}
 
