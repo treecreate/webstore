@@ -344,11 +344,13 @@ export class FamilyTreeDesignComponent
         this.bannerDesigns.get(BannerDesignEnum.banner1).complete
       ) {
         if (this.banner !== undefined && this.banner !== null) {
+          const bannerHeightOffset = 0.96;
           // draw the banner at the bottom middle of the tree
           this.context.drawImage(
             this.bannerDesigns.get(BannerDesignEnum.banner1),
             this.canvasResolution.width / 2 - this.bannerDimensions.width / 2,
-            this.canvasResolution.height - this.bannerDimensions.height,
+            this.canvasResolution.height * bannerHeightOffset -
+              this.bannerDimensions.height,
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
@@ -360,7 +362,8 @@ export class FamilyTreeDesignComponent
             this.banner.text,
             this.canvasResolution.width / 2,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
-            this.canvasResolution.height - this.bannerDimensions.height / 2.2,
+            this.canvasResolution.height * bannerHeightOffset -
+              this.bannerDimensions.height / 2.2,
             this.bannerDimensions.width / 3
           );
         }
