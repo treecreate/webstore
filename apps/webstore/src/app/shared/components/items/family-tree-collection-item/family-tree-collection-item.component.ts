@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IFamilyTree } from '@interfaces';
+import { IDesign, IFamilyTree } from '@interfaces';
+import { DesignService } from '../../../services/design/design.service';
 import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { ToastService } from '../../toast/toast-service';
 
@@ -11,23 +12,22 @@ import { ToastService } from '../../toast/toast-service';
 export class FamilyTreeCollectionItemComponent implements OnInit {
   @ViewChild('productDesign', { static: true })
   miniature: FamilyTreeMiniatureComponent;
-  @Input() familyTree: IFamilyTree;
+  @Input() design: IDesign;
   isLoading = false;
 
-  constructor(private toastService: ToastService) {}
+  constructor(
+    private toastService: ToastService,
+    private designService: DesignService
+  ) {}
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
 
   deleteDesign() {
-    console.log('Delete design: ', this.familyTree);
+    //this.designService.deleteDesign( this.design.designId );
   }
 
-  editDesign() {
-    console.log('Edit design: ', this.familyTree);
-  }
+  editDesign() {}
 
-  addDesignToBasket() {
-    console.log('Add design to basket: ', this.familyTree);
-  }
+  addDesignToBasket() {}
 }

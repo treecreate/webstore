@@ -2,15 +2,15 @@
     <div class="design-image">
         <webstore-family-tree-miniature
             #productDesign
-            [design]="familyTree"
-            [boxSize]="familyTree.boxSize"
+            [design]="design.designProperties"
+            [boxSize]="design.designProperties.boxSize"
             class="item-image"
         >
         </webstore-family-tree-miniature>
     </div>
     <hr />
     <div class="title">
-        {{ familyTree.title }}
+        {{ design.designProperties.title }}
     </div>
     <button
         type="button"

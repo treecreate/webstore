@@ -12,7 +12,6 @@ import { DesignService } from '../../../shared/services/design/design.service';
 export class CollectionComponent implements OnInit {
   pageTitle = 'collection';
   designCollection: IDesign[] = [];
-  familyTreeCollection: IFamilyTree[] = [];
   isLoading = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -34,9 +33,6 @@ export class CollectionComponent implements OnInit {
     this.designService.getDesigns().subscribe(
       (designList: IDesign[]) => {
         this.designCollection = designList;
-        for (let i = 0; i < designList.length; i++) {
-          this.familyTreeCollection.push(designList[i].designProperties);
-        }
         this.isLoading = false;
       },
       (error: HttpErrorResponse) => {

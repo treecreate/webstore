@@ -6,11 +6,11 @@
         <div>
             <div
                 class="collection-content"
-                *ngIf="1 <= familyTreeCollection.length"
+                *ngIf="1 <= designCollection.length"
             >
                 <webstore-family-tree-collection-item
-                    *ngFor="let familyTree of familyTreeCollection"
-                    [familyTree]="familyTree"
+                    *ngFor="let design of designCollection"
+                    [design]="design"
                 ></webstore-family-tree-collection-item>
                 <div class="full-width">
                     <hr class="match-button" />
@@ -35,7 +35,7 @@
             </div>
             <div
                 class="no-content"
-                *ngIf="familyTreeCollection.length === 0 && !isLoading"
+                *ngIf="designCollection.length === 0 && !isLoading"
             >
                 <div class="sub-title" i18n="@@no-designs">
                     You have no designs
