@@ -360,11 +360,11 @@ export class FamilyTreeDesignComponent
           this.context.textBaseline = 'middle';
           this.context.fillText(
             this.banner.text,
-            this.canvasResolution.width / 2,
+            this.canvasResolution.width / 1.97,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
             this.canvasResolution.height * bannerHeightOffset -
-              this.bannerDimensions.height / 2.2,
-            this.bannerDimensions.width / 3
+              this.bannerDimensions.height / 1.32,
+            this.bannerDimensions.width / 2.4
           );
         }
       }
