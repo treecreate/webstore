@@ -1,19 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TreeDesignEnum } from '@assets';
 import {
-  DesignDimensionEnum,
-  DesignTypeEnum,
   DiscountType,
-  FamilyTreeFontEnum,
   IDiscount,
   IPricing,
   ITransactionItem,
-  IUser,
 } from '@interfaces';
-import { UserRoles } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
+import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
   selector: 'webstore-basket',
@@ -24,59 +20,17 @@ import { CalculatePriceService } from '../../../shared/services/calculate-price/
   ],
 })
 export class BasketComponent implements OnInit {
-  // TODO: get actual items in basket from API
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
+  itemList: ITransactionItem[] = [];
+  isLoading = false;
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
   };
-  itemList: ITransactionItem[] = [
-    {
-      design: {
-        designId: '1',
-        designProperties: {
-          title: 'Mock 1',
-          font: FamilyTreeFontEnum.roboto,
-          backgroundTreeDesign: TreeDesignEnum.tree1,
-          boxSize: 10,
-          banner: undefined,
-          largeFont: true,
-          boxes: [],
-        },
-        user: this.mockUser,
-        designType: DesignTypeEnum.familyTree,
-      },
-      dimension: DesignDimensionEnum.small,
-      quantity: 1,
-      order: null,
-      transactionItemId: '1',
-    },
-    {
-      design: {
-        designId: '2',
-        designProperties: {
-          title: 'Mock 2',
-          font: FamilyTreeFontEnum.roboto,
-          backgroundTreeDesign: TreeDesignEnum.tree1,
-          boxSize: 15,
-          banner: undefined,
-          largeFont: true,
-          boxes: [],
-        },
-        user: this.mockUser,
-        designType: DesignTypeEnum.familyTree,
-      },
-      dimension: DesignDimensionEnum.small,
-      quantity: 5,
-      order: null,
-      transactionItemId: '2',
-    },
-  ];
 
   donatedTrees = 1;
   discount: IDiscount = {
-    amount: 100,
+    amount: 0,
     type: DiscountType.amount,
   };
 
@@ -85,7 +39,8 @@ export class BasketComponent implements OnInit {
 
   constructor(
     private toastService: ToastService,
-    private calculatePriceService: CalculatePriceService
+    private calculatePriceService: CalculatePriceService,
+    private transactionItemService: TransactionItemService
   ) {
     this.discountForm = new FormGroup({
       discountCode: new FormControl('', [
@@ -96,11 +51,32 @@ export class BasketComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updatePrices();
-    console.log(this.priceInfo);
+    this.getItemList();
+  }
+
+  getItemList() {
+    this.isLoading = true;
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        this.isLoading = false;
+        this.itemList = itemList;
+        console.log('Fetched transaction items', itemList);
+        this.updatePrices();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.alert = {
+          message: 'Failed to get a list of items',
+          type: 'danger',
+          dismissible: false,
+        };
+        this.isLoading = false;
+      }
+    );
   }
 
   updatePrices() {
+    console.warn('updating price');
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,

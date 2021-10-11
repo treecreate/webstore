@@ -1,8 +1,19 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DesignDimensionEnum } from '@interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  IFamilyTree,
+  ITransactionItem,
+} from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { DesignService } from '../../../services/design/design.service';
+import { LocalStorageService } from '../../../services/local-storage';
+import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -14,11 +25,24 @@ export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
   price: number;
   isMoreThan4: boolean;
+  itemsInBasket: number;
+  design;
+  isLoading = false;
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
+  };
 
   constructor(
     public activeModal: NgbActiveModal,
+    private route: ActivatedRoute,
+    private router: Router,
     private toastService: ToastService,
-    private calculatePriceService: CalculatePriceService
+    private localStorageService: LocalStorageService,
+    private calculatePriceService: CalculatePriceService,
+    private designService: DesignService,
+    private transactionItemService: TransactionItemService
   ) {}
 
   ngOnInit(): void {
@@ -35,29 +59,40 @@ export class AddToBasketModalComponent implements OnInit {
       ]),
       dimension: new FormControl('', [Validators.required]),
     });
+
+    this.design = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    ).value;
+
     this.addToBasketForm.setValue({
-      title: '',
+      title: this.design ? this.design.title : '',
       quantity: 1,
       dimension: DesignDimensionEnum.small,
     });
-    this.updatePrice();
-  }
 
-  submit() {
-    if (
-      this.addToBasketForm.get('title').dirty &&
-      this.addToBasketForm.get('title').invalid
-    ) {
-      this.toastService.showAlert(
-        'Missing title (min 3 letters, max 50)',
-        'Titel mangler (min 3 bokstaver, max 50)',
-        'danger',
-        4000
+    new Promise((resolve, reject) => {
+      //Get items already in basket
+      this.isLoading = true;
+      this.transactionItemService.getTransactionItems().subscribe(
+        (itemList: ITransactionItem[]) => {
+          let sum = 0;
+          for (let i = 0; i < itemList.length; i++) {
+            sum += itemList[i].quantity;
+          }
+          console.log('SuM ', sum);
+          this.itemsInBasket = sum;
+          this.isLoading = false;
+          resolve(1);
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+          this.isLoading = false;
+          reject(0);
+        }
       );
-    } else {
-      // TODO: send the design to basket
-      console.log('perfect');
-    }
+    }).then(() => {
+      this.updatePrice();
+    });
   }
 
   updatePrice() {
@@ -65,18 +100,8 @@ export class AddToBasketModalComponent implements OnInit {
       this.addToBasketForm.get('quantity').value,
       this.addToBasketForm.get('dimension').value
     );
-
-    // ( addToBasketForm.get('quantity') + all basket items )
-    this.isMoreThan4 = this.calculatePriceService.isMoreThan4Items([
-      {
-        transactionItemId: '',
-        order: null,
-        design: null,
-        dimension: this.addToBasketForm.get('dimension').value,
-        quantity: this.addToBasketForm.get('quantity').value,
-      },
-      // TODO: add the list of items that are already in basket
-    ]);
+    this.isMoreThan4 =
+      this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
 
   increaseQuantity() {
@@ -99,7 +124,7 @@ export class AddToBasketModalComponent implements OnInit {
     }
   }
 
-  increaseSize() {
+  increaseDimension() {
     switch (this.addToBasketForm.get('dimension').value) {
       case DesignDimensionEnum.small:
         this.addToBasketForm.setValue({
@@ -115,28 +140,12 @@ export class AddToBasketModalComponent implements OnInit {
           dimension: DesignDimensionEnum.large,
         });
         break;
-      case DesignDimensionEnum.large:
-        this.toastService.showAlert(
-          "We don't sell larger designs. For special requests you can send us an e-mail: info@treecreate.dk",
-          'Vi sælger ikke større designs. For specielle henvendelser kan du sende os en e-mail: info@treecreate.dk',
-          'danger',
-          3000
-        );
-        break;
     }
     this.updatePrice();
   }
 
-  decreaseSize() {
+  decreaseDimension() {
     switch (this.addToBasketForm.get('dimension').value) {
-      case DesignDimensionEnum.small:
-        this.toastService.showAlert(
-          "We don't have smaller sizes",
-          'Vi har ikke mindre størrelser',
-          'danger',
-          3000
-        );
-        break;
       case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({
           title: this.addToBasketForm.get('title').value,
@@ -153,5 +162,73 @@ export class AddToBasketModalComponent implements OnInit {
         break;
     }
     this.updatePrice();
+  }
+
+  addDesignToBasket() {
+    this.isLoading = true;
+    this.design.title = this.addToBasketForm.get('title').value;
+    // Persist the design as a new one, and, if successful, create a transaction item for it
+    this.designService
+      .createDesign({
+        designType: DesignTypeEnum.familyTree,
+        designProperties: this.design,
+        mutable: false, // the transaction-item related designs are immutable
+      })
+      .subscribe(
+        (result) => {
+          console.log('Design created and persisted', result);
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { designId: result.designId },
+            queryParamsHandling: 'merge', // remove to replace all query params by provided
+          });
+
+          // Create the transaction item with the newly persisted design
+          console.log('design properties', {
+            designId: result.designId,
+            dimension: this.addToBasketForm.get('dimension').value,
+            quantity: this.addToBasketForm.get('quantity').value,
+          });
+          this.transactionItemService
+            .createTransactionItem({
+              designId: result.designId,
+              dimension: this.addToBasketForm.get('dimension').value,
+              quantity: this.addToBasketForm.get('quantity').value,
+            })
+            .subscribe(
+              (newItem: ITransactionItem) => {
+                this.isLoading = false;
+                console.log('added design to basket', newItem);
+                this.toastService.showAlert(
+                  'Design added to basket',
+                  'Design er lagt i kurven',
+                  'success',
+                  5000
+                );
+                this.activeModal.close();
+                window.location.reload();
+              },
+              (error: HttpErrorResponse) => {
+                console.error(error);
+                this.toastService.showAlert(
+                  'Failed to add design to basket, please try again',
+                  'Der skete en fejl, prøv venligst igen',
+                  'danger',
+                  5000
+                );
+                this.isLoading = false;
+              }
+            );
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Failed to save design', error);
+          this.toastService.showAlert(
+            'Failed to save your design',
+            'Kunne ikke gemme dit design',
+            'danger',
+            10000
+          );
+        }
+      );
   }
 }

@@ -3,6 +3,7 @@ package dk.treecreate.api.designs.dto;
 import dk.treecreate.api.designs.DesignType;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.UUID;

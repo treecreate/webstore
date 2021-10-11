@@ -10,4 +10,5 @@ export class UpdateDesignRequest {
 export class CreateDesignRequest {
   designProperties: IFamilyTree;
   designType: DesignTypeEnum;
+  mutable: boolean;
 }

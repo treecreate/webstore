@@ -139,6 +139,10 @@ select:-webkit-autofill:focus {
   transform: rotate(45deg);
 }
 
+.checkbox-container input:disabled ~ .checkmark {
+  opacity: 0.5;
+}
+
 .button-plus,
 .button-minus {
   position: relative;

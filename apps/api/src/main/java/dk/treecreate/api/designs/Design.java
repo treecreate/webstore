@@ -54,9 +54,14 @@ public class Design
     @ApiModelProperty(notes = "Design type", example = "FAMILY_TREE")
     private DesignType designType;
 
+    @Column(name = "mutable", columnDefinition = "boolean default true", nullable = false)
+    @ApiModelProperty(notes = "Can the design be changed", example = "true", required = true)
+    private boolean mutable = true;
+
     public Design()
     {
     }
+
 
     public UUID getDesignId()
     {
@@ -98,18 +103,29 @@ public class Design
         this.designType = designType;
     }
 
+    public boolean isMutable()
+    {
+        return mutable;
+    }
+
+    public void setMutable(boolean mutable)
+    {
+        this.mutable = mutable;
+    }
+
     @Override public boolean equals(Object o)
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Design design = (Design) o;
-        return designId.equals(design.designId) && Objects.equals(user, design.user) &&
-            designProperties.equals(design.designProperties) && designType == design.designType;
+        return mutable == design.mutable && designId.equals(design.designId) &&
+            Objects.equals(user, design.user) && designProperties.equals(design.designProperties) &&
+            designType == design.designType;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(designId, user, designProperties, designType);
+        return Objects.hash(designId, user, designProperties, designType, mutable);
     }
 }

@@ -8,6 +8,7 @@ export interface IDesign {
   designProperties: IFamilyTree;
   designType: DesignTypeEnum;
   user: IUser;
+  mutable: boolean;
 }
 export interface IFamilyTree {
   title: string;

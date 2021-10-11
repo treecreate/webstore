@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TreeDesignEnum } from '@assets';
 import {
@@ -15,6 +16,7 @@ describe('BasketItemComponent', () => {
   let fixture: ComponentFixture<BasketItemComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [BasketItemComponent],
       //   imports: [CalculatePriceService]
     }); // .compileComponents();
@@ -46,6 +48,7 @@ describe('BasketItemComponent', () => {
         },
         user: mockUser,
         designType: DesignTypeEnum.familyTree,
+        mutable: false,
       },
       dimension: DesignDimensionEnum.small,
       quantity: 1,
@@ -61,24 +64,24 @@ describe('BasketItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should increase the size', () => {
+  it('should increase the Dimension', () => {
     expect(component.item.dimension).toEqual(DesignDimensionEnum.small);
-    component.increaseSize();
+    component.increaseDimension();
     expect(component.item.dimension).toEqual(DesignDimensionEnum.medium);
-    component.increaseSize();
+    component.increaseDimension();
     expect(component.item.dimension).toEqual(DesignDimensionEnum.large);
-    component.increaseSize();
+    component.increaseDimension();
     expect(component.item.dimension).toEqual(DesignDimensionEnum.large);
   });
 
-  it('should decrease the size', () => {
+  it('should decrease the Dimension', () => {
     component.item.dimension = DesignDimensionEnum.large;
     expect(component.item.dimension).toEqual(DesignDimensionEnum.large);
-    component.decreaseSize();
+    component.decreaseDimension();
     expect(component.item.dimension).toEqual(DesignDimensionEnum.medium);
-    component.decreaseSize();
+    component.decreaseDimension();
     expect(component.item.dimension).toEqual(DesignDimensionEnum.small);
-    component.decreaseSize();
+    component.decreaseDimension();
     expect(component.item.dimension).toEqual(DesignDimensionEnum.small);
   });
 

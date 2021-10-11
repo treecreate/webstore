@@ -1,10 +1,23 @@
-<section class="product-section">
+<section
+    class="product-section"
+    [ngClass]="!isMutable ? 'flex-direction-column' : ''"
+>
+    <div class="back-container" *ngIf="!isMutable">
+        <a
+            href="javascript:history.back()"
+            class="back add-transition"
+            data-cy="view-only-back-button"
+        >
+            < <span i18n="@@back">Back</span>
+        </a>
+    </div>
     <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
         <button
             class="option-toggler"
             data-cy="mobile-options-toggler"
             type="button"
             (click)="showOptions()"
+            *ngIf="isMutable"
         >
             <div
                 class="option-icon"
@@ -17,6 +30,7 @@
         </button>
 
         <webstore-family-tree-design
+            *ngIf="isMutable"
             #familyTreeDesignCanvas
             [boxSize]="boxSize"
             [banner]="banner"
@@ -27,6 +41,14 @@
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
             data-cy="family-tree-canvas"
         ></webstore-family-tree-design>
+        <webstore-family-tree-miniature
+            *ngIf="!isMutable"
+            #productDesign
+            [design]="design"
+            [boxSize]="boxSize"
+            class="item-image"
+        >
+        </webstore-family-tree-miniature>
     </div>
 
     <!-- FOR CY TESTS -->
@@ -44,8 +66,10 @@
         [ngClass]="
             isMobileOptionOpen
                 ? 'mobile-options-container'
-                : 'design-options-desktop'
+                : 'desktop-options-container'
         "
+        *ngIf="isMutable"
+        data-cy="product-options"
     >
         <div
             class="blocker"
@@ -55,7 +79,7 @@
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <div class="option option-design-name">
                 <div class="option-title">
-                    Title
+                    <span i18n="@@title">Title</span>
                     <webstore-info-popover
                         title="Title"
                         text="Add a good title so you can keep track of your designs."
@@ -129,6 +153,7 @@
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="design-arrow-right"
                         (click)="prevDesign()"
+                        [disabled]="!isMutable"
                     >
                         <span class="arrow-right"></span>
                     </button>
@@ -137,7 +162,7 @@
 
             <div class="option option-box-size">
                 <div class="option-title">
-                    Box Size
+                    <span i18n="@@box-size">Box Size</span>
                     <webstore-info-popover
                         title="Box Size"
                         text="You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design."
@@ -228,30 +253,56 @@
             </div>
 
             <div class="option option-actions">
+                <!-- TODO: make the template work as the text for the tooltip -->
+                <!-- <ng-template #saveDesign i18n="@@save-design-tooltip"
+                    >You need to login before you can save your design. Dont
+                    worry, your design will still be here if you go to the login
+                    page and come back.</ng-template
+                >
+                <span
+                    ngbTooltip="Tooltip on top"
+                    [ngbTooltip]="isLoggedIn ? saveDesign : null"
+                    [disableTooltip]="isLoggedIn"
+                    style="width: 47%"
+                > -->
                 <button
                     class="btn-save-design tc-button-50"
-                    (click)="saveDesign()"
+                    (click)="saveDesign({ persists: true })"
                     [disabled]="!isDesignValid"
                     data-cy="save-family-tree-button"
                 >
-                    Save
+                    <span i18n="@@save">Save</span>
                     <img
                         src="/assets/icons/save-icon.svg"
                         class="option-icon"
                     />
                 </button>
+                <!-- </span> -->
+                <!-- TODO: make the template work as the text for the tooltip -->
+                <!-- <ng-template #addToBasket i18n="@@add-to-basket-tooltip"
+                    >You need to login before adding to basket. Dont worry, your
+                    design will still be here if you go to the login page and
+                    come back.</ng-template
+                >
+                <span
+                    ngbTooltip="Tooltip on top"
+                    [ngbTooltip]="addToBasket"
+                    [disableTooltip]="isLoggedIn"
+                    style="width: 47%"
+                > -->
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
+                    data-cy="add-family-tree-to-basket-button"
                     [disabled]="!isDesignValid"
-                    data-cy="add-to-basket-button"
                 >
-                    Add
+                    <span i18n="@@add">Add</span>
                     <img
                         src="/assets/icons/basket-white-icon.svg"
                         class="option-icon"
                     />
                 </button>
+                <!-- </span> -->
             </div>
 
             <div class="option misc-option-actions">

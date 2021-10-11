@@ -16,7 +16,7 @@
 }
 
 .option-quantity,
-.option-size,
+.option-dimension,
 .option-title,
 .option-actions {
   display: flex;
@@ -76,9 +76,18 @@
   justify-content: space-between;
 }
 
-.option-design-title {
+.title-success {
   border-radius: 2px;
   border: 2px solid var(--second-action-color);
+}
+
+.title-error {
+  border-radius: 2px;
+  border: 2px solid red;
+}
+
+.title-error input[type='text']::placeholder {
+  color: red;
 }
 
 .tc-button-100 {
@@ -117,7 +126,7 @@
 .extra-info {
   text-align: center;
   font-weight: 200;
-  font-size: small;
+  font-dimension: small;
 }
 
 .button-plus,

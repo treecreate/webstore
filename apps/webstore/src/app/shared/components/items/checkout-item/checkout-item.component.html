@@ -1,5 +1,11 @@
 <div class="item-container">
-    <img src="/assets/img/design-ex1-img.png" class="item-image" />
+    <webstore-family-tree-miniature
+        #productDesign
+        [design]="item.design.designProperties"
+        [boxSize]="item.design.designProperties.boxSize"
+        class="item-image"
+    >
+    </webstore-family-tree-miniature>
     <div class="item-info">
         <div class="item-title">
             <strong>{{ item.design.designProperties.title }}</strong>

@@ -9,12 +9,20 @@ hr {
   margin: 5px 0;
 }
 
+.hr-class {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -15px;
+}
+
 .design-image {
   width: 200px;
 }
 
 .item-image {
   margin-right: 20px;
+  width: 60%;
 }
 
 .item-container {
@@ -100,5 +108,10 @@ hr {
   }
   .item-image {
     margin: 0 0 10px 0;
+    width: 90%;
+  }
+  .hr-class {
+    margin: 5px 0;
+    top: 0;
   }
 }

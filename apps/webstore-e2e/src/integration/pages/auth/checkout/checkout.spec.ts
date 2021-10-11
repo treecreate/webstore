@@ -17,7 +17,7 @@ const mockUser: IUser = {
   country: 'DenDenDen Wait, country? :o',
 };
 
-/* TODO: Add missing tests
+/* TODO: Add missing tests to checkout
  * - should have correct items in transaction (depends on data)
  * - should have correct pricing (depends on the data)
  * - should send the right request when going to payment and possibly others (@Kwandes)

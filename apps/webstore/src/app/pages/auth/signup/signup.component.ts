@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     // if user is already logged in redirect to profile
     if (this.authService.getAuthUser()) {
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/product']);
     }
 
     this.signupForm = new FormGroup({
@@ -96,7 +96,8 @@ export class SignupComponent implements OnInit {
           this.isSignUpFailed = false;
           this.isLoading = false;
           this.authService.saveAuthUser(data);
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/product']);
+          window.location.reload();
         },
         (err) => {
           this.toastService.showAlert(

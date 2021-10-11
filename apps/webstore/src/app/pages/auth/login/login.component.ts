@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // if user is already logged in redirect to profile
     if (this.authService.getAuthUser()) {
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/product']);
     }
 
     this.loginForm = new FormGroup({
@@ -68,19 +68,20 @@ export class LoginComponent implements OnInit {
             'Welcome back! You are now logged in.',
             'Velkommen tilbage! Du er nu logget ind.',
             'success',
-            3500
+            5000
           );
           this.isLoading = false;
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.router.navigate(['/']);
+          this.router.navigate(['/product']);
+          this.reloadPage();
         },
         (err) => {
           this.toastService.showAlert(
             'Failed to login, please try again.',
             'Fejl ved login, prøv igen.',
             'danger',
-            3500
+            5000
           );
           console.error(err);
           this.errorMessage = err.error.message;

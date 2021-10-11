@@ -22,6 +22,9 @@ public class CreateDesignRequest
     @ApiModelProperty(example = "FAMILY_TREE", required = true)
     private DesignType designType;
 
+    @ApiModelProperty(notes = "Can the design be changed", example = "true", required = true)
+    private boolean mutable = true;
+
     public Map<String, Object> getDesignProperties()
     {
         return designProperties;
@@ -40,5 +43,15 @@ public class CreateDesignRequest
     public void setDesignType(DesignType designType)
     {
         this.designType = designType;
+    }
+
+    public boolean isMutable()
+    {
+        return mutable;
+    }
+
+    public void setMutable(boolean mutable)
+    {
+        this.mutable = mutable;
     }
 }

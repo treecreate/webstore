@@ -9,6 +9,7 @@
 .item-info {
   flex-grow: 2;
   min-width: 200px;
+  margin-left: 20px;
 }
 
 .item-image {
@@ -28,4 +29,10 @@
 
 .info-container {
   line-height: 30px;
+}
+
+@media screen and (max-width: 450px) {
+  .item-info {
+    margin-left: 0;
+  }
 }

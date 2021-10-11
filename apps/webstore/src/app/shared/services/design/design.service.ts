@@ -10,6 +10,10 @@ import { environment as env } from '../../../../environments/environment';
 export class DesignService {
   constructor(private http: HttpClient) {}
 
+  public getDesigns(): Observable<IDesign[]> {
+    return this.http.get<IDesign[]>(`${env.apiUrl}/designs/me`);
+  }
+
   public getDesign(designId: string): Observable<IDesign> {
     return this.http.get<IDesign>(`${env.apiUrl}/designs/me/${designId}`);
   }

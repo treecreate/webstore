@@ -12,6 +12,7 @@ import {
   DesignTypeEnum,
   FamilyTreeFontEnum,
   IAuthUser,
+  IDesign,
   IFamilyTree,
   IFamilyTreeBanner,
 } from '@interfaces';
@@ -34,10 +35,11 @@ import { LocalStorageService } from '../../shared/services/local-storage';
   ],
 })
 export class ProductComponent implements OnInit {
-  @ViewChild('familyTreeDesignCanvas', { static: true })
+  @ViewChild('familyTreeDesignCanvas', { static: false })
   designCanvas: FamilyTreeDesignComponent;
 
   isDesignValid = false;
+  isMutable = false;
 
   isMobileOptionOpen = false;
   designTitle = '';
@@ -49,6 +51,7 @@ export class ProductComponent implements OnInit {
   minSize = 10;
   banner: IFamilyTreeBanner = undefined;
   isLargeFont = false;
+  design: IFamilyTree;
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -86,44 +89,46 @@ export class ProductComponent implements OnInit {
 
   // TODO: properly assign the banner
   loadDesign() {
-    let design: IFamilyTree;
     const queryParams = this.route.snapshot.queryParams;
     console.log('queryParams', queryParams);
     if (queryParams.designId !== undefined) {
       const designId = queryParams.designId;
       console.warn('Fetching design from database', designId);
       this.designService.getDesign(designId).subscribe(
-        (result) => {
+        (result: IDesign) => {
           console.log('Result: ', result);
           if (result.designType !== DesignTypeEnum.familyTree) {
             console.warn('The requested design is not a family tree!');
             return;
           }
-          design = result.designProperties;
-          console.log('Fetched design: ', design);
+          this.design = result.designProperties;
+          console.log('Fetched design: ', this.design);
           if (result.designProperties === undefined) {
             console.warn('Fetched data was invalid!');
           } else {
             this.localStorageService.setItem<IFamilyTree>(
               LocalStorageVars.designFamilyTree,
-              design
+              this.design
             );
             // apply the design
-            this.designTitle = design.title;
-            this.backgroundTreeDesign = design.backgroundTreeDesign;
-            this.font = design.font;
-            this.banner = design.banner;
-            this.boxSize = design.boxSize;
-            this.isLargeFont = design.largeFont;
+            this.designTitle = this.design.title;
+            this.backgroundTreeDesign = this.design.backgroundTreeDesign;
+            this.font = this.design.font;
+            this.banner = this.design.banner;
+            this.boxSize = this.design.boxSize;
+            this.isLargeFont = this.design.largeFont;
+            this.isMutable = result.mutable;
             this.cdr.detectChanges();
-            this.designCanvas.loadDesign();
+            if (this.isMutable) {
+              this.designCanvas.loadDesign();
+            }
           }
         },
         (err: HttpErrorResponse) => {
           console.error('Failed to fetch the', err);
           this.toastService.showAlert(
             'Failed to load your design',
-            'TODO: danish',
+            'Vi kunne ikke loade dit design',
             'danger',
             10000
           );
@@ -137,20 +142,20 @@ export class ProductComponent implements OnInit {
       );
     } else {
       console.log('Loading design from local storage');
-      design = this.localStorageService.getItem<IFamilyTree>(
+      this.design = this.localStorageService.getItem<IFamilyTree>(
         LocalStorageVars.designFamilyTree
       ).value;
-      console.log('loaded design', design);
+      console.log('loaded design', this.design);
       // apply the design
-      if (design !== null && design !== undefined) {
-        this.designTitle = design.title;
-        this.font = design.font;
-        this.banner = design.banner;
-        this.boxSize = design.boxSize;
-        this.isLargeFont = design.largeFont;
+      if (this.design !== null && this.design !== undefined) {
+        this.designTitle = this.design.title;
+        this.font = this.design.font;
+        this.banner = this.design.banner;
+        this.boxSize = this.design.boxSize;
+        this.isLargeFont = this.design.largeFont;
       } else {
         // set the defaults
-        this.designTitle = 'Untitled-1';
+        this.designTitle = '';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 20;
@@ -159,16 +164,30 @@ export class ProductComponent implements OnInit {
         this.banner = undefined;
         this.isLargeFont = false;
       }
+      this.isMutable = true;
       this.cdr.detectChanges();
       this.designCanvas.loadDesign();
     }
   }
 
-  saveDesign() {
+  saveDesign(params: { persist?: boolean }) {
+    if (!this.isMutable) {
+      console.warn('This design cannot be updated');
+      return;
+    }
+    const persist = { params };
     this.designCanvas.saveDesign();
+    this.design = this.localStorageService.getItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree
+    ).value;
     // don't persist the design if the user is not logged in
-    if (!this.isLoggedIn) {
-      this.router.navigate(['/login']);
+    if (!this.isLoggedIn || !persist) {
+      this.toastService.showAlert(
+        'You need to be logged in to perform this action.',
+        'Du skal logge ind for at kunne bruge denne denne function',
+        'danger',
+        10000
+      );
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
@@ -187,17 +206,17 @@ export class ProductComponent implements OnInit {
           (result) => {
             console.log('Design persisted', result);
             this.toastService.showAlert(
-              'Your design has been saved',
-              'TODO: danish',
+              'Your design has been saved to your collection',
+              'Dit design er bleven gemt i din samling',
               'success',
-              2500
+              5000
             );
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
               'Failed to save your design',
-              'Det mislykkedes at gemme dit design',
+              'Der skete en fejl, prøv venligst igen',
               'danger',
               10000
             );
@@ -209,6 +228,7 @@ export class ProductComponent implements OnInit {
         .createDesign({
           designType: DesignTypeEnum.familyTree,
           designProperties: design,
+          mutable: true,
         })
         .subscribe(
           (result) => {
@@ -217,19 +237,14 @@ export class ProductComponent implements OnInit {
               'Your design has been saved',
               'Dit design er bleven gemt',
               'success',
-              2500
+              5000
             );
-            this.router.navigate([], {
-              relativeTo: this.route,
-              queryParams: { designId: result.designId },
-              queryParamsHandling: 'merge', // remove to replace all query params by provided
-            });
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
-              'Failed to save your design',
-              'Det mislykkedes at gemme dit design',
+              'Failed to save your design, please try again',
+              'Der skete en fejl, prøv venligst igen',
               'danger',
               10000
             );
@@ -346,16 +361,14 @@ export class ProductComponent implements OnInit {
 
   updateBannerText($event) {
     this.banner.text = $event.target.value;
-    console.log('banner text', this.banner.text);
   }
 
   openAddToBasketModal() {
-    if (!this.isLoggedIn) {
-      this.router.navigate(['/login']);
-      return;
+    this.saveDesign({ persist: false });
+    if (this.isLoggedIn) {
+      console.log('Is Logged in ', this.isLoggedIn);
+      this.modalService.open(AddToBasketModalComponent);
     }
-    this.saveDesign();
-    this.modalService.open(AddToBasketModalComponent);
   }
 
   onIsDesignValidEvent($event) {

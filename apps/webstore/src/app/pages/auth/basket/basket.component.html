@@ -5,8 +5,24 @@
                 <h2 class="desktop-title" i18n="@@basket-upper">BASKET</h2>
                 <div class="basket-items-container">
                     <h2 class="mobile-title" i18n="@@basket-upper">BASKET</h2>
+                    <ngb-alert
+                        *ngIf="alert"
+                        type="danger"
+                        (closed)="alert = undefined"
+                        [dismissible]="alert.dismissible"
+                    >
+                        <h3>
+                            {{
+                                alert.type === 'danger' ? 'Error' : alert.type
+                            }}!
+                        </h3>
+                        {{ alert.message }}</ngb-alert
+                    >
                     <!-- basket items -->
-                    <div class="basket-items" *ngIf="!(itemList.length <= 0)">
+                    <div
+                        class="basket-items"
+                        *ngIf="!(itemList.length <= 0) && !isLoading"
+                    >
                         <webstore-basket-item
                             (click)="updatePrices()"
                             *ngFor="let item of itemList"
@@ -14,7 +30,10 @@
                         ></webstore-basket-item>
                     </div>
                     <!-- If there are not items in basket -->
-                    <div class="no-items" *ngIf="itemList.length <= 0">
+                    <div
+                        class="no-items"
+                        *ngIf="itemList.length <= 0 && !isLoading"
+                    >
                         <img
                             src="/assets/icons/no-design-icon.svg"
                             routerLink="/product"
@@ -30,6 +49,15 @@
                         >
                             Start Creating
                         </button>
+                    </div>
+                    <div class="no-items" *ngIf="isLoading">
+                        Loading . . .
+                        <span
+                            class="spinner-border spinner-border-sm"
+                            style="margin: 0 10px"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
                     </div>
                 </div>
             </div>
@@ -53,6 +81,7 @@
                             id="donate-less-trees-btn"
                             (click)="decreaseDonatingAmount(); updatePrices()"
                             [disabled]="donatedTrees === 1"
+                            data-cy="basket-decrease-donated-trees-button"
                         >
                             <div class="icon">
                                 <div class="button-minus"></div>
@@ -71,6 +100,7 @@
                             (click)="
                                 donatedTrees = donatedTrees + 1; updatePrices()
                             "
+                            data-cy="basket-increase-donated-trees-button"
                         >
                             <div class="button-plus"></div>
                         </button>
@@ -87,11 +117,13 @@
                         type="text"
                         class="special-input-field"
                         placeholder="Discount code"
+                        data-cy="basket-apply-discount-input"
                     />
                     <button
                         class="tc-button-100 margin-top low-dropshadow"
                         type="submit"
                         i18n="@@apply-discount"
+                        data-cy="basket-apply-discount-button"
                     >
                         Apply discount
                     </button>
@@ -133,7 +165,7 @@
                         <span>
                             <strong i18n="@@total"> Total </strong>
                         </span>
-                        <span>
+                        <span data-cy="basket-final-price">
                             <strong
                                 >{{ priceInfo.finalPrice.toFixed(2) }} DKK
                             </strong>
@@ -149,6 +181,8 @@
                         routerLink="/checkout"
                         (click)="scrollTop()"
                         i18n="@@go-to-checkout"
+                        [disabled]="itemList.length <= 0"
+                        data-cy="basket-checkout-button"
                     >
                         Go to checkout
                     </button>
@@ -157,3 +191,5 @@
         </div>
     </div>
 </div>
+
+<div class="hide" data-cy="basket-donated-trees">{{ donatedTrees }}</div>
