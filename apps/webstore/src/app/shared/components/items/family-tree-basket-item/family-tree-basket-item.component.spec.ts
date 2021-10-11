@@ -9,11 +9,11 @@ import {
   IUser,
 } from '@interfaces';
 import { UserRoles } from '@models';
-import { BasketItemComponent } from './family-tree-basket-item.component';
+import { FamilyTreeBasketItemComponent } from './family-tree-basket-item.component';
 
 describe('BasketItemComponent', () => {
-  let component: BasketItemComponent;
-  let fixture: ComponentFixture<BasketItemComponent>;
+  let component: FamilyTreeBasketItemComponent;
+  let fixture: ComponentFixture<FamilyTreeBasketItemComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule],
@@ -23,7 +23,7 @@ describe('BasketItemComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BasketItemComponent);
+    fixture = TestBed.createComponent(FamilyTreeBasketItemComponent);
     component = fixture.componentInstance;
 
     //mock the transaction item
