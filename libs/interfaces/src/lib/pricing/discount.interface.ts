@@ -1,6 +1,11 @@
 import { DiscountType } from '@interfaces';
 
 export interface IDiscount {
-  amount: number;
+  discountId?: string;
+  discountCode: string;
   type: DiscountType;
+  amount: number;
+  remainingUses: number;
+  totalUses: number;
+  expiresAt?: Date;
 }
