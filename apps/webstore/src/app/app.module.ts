@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
-import { DesignItemComponent } from './shared/components/items/design-item/design-item.component';
+import { FamilyTreeCollectionItemComponent } from './shared/components/items/family-tree-collection-item/family-tree-collection-item.component';
 import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
@@ -62,7 +62,7 @@ import { FamilyTreeMiniatureComponent } from './shared/components/products/famil
     CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
-    DesignItemComponent,
+    FamilyTreeCollectionItemComponent,
     InfoPopoverComponent,
     PaymentSuccessComponent,
     NotSignedInComponent,

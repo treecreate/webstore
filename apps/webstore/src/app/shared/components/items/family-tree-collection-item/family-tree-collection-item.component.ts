@@ -4,11 +4,11 @@ import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
-  selector: 'webstore-design-item',
-  templateUrl: './design-item.component.html',
-  styleUrls: ['./design-item.component.css'],
+  selector: 'webstore-family-tree-collection-item',
+  templateUrl: './family-tree-collection-item.component.html',
+  styleUrls: ['./family-tree-collection-item.component.css'],
 })
-export class DesignItemComponent implements OnInit {
+export class FamilyTreeCollectionItemComponent implements OnInit {
   @ViewChild('productDesign', { static: true })
   miniature: FamilyTreeMiniatureComponent;
   @Input() familyTree: IFamilyTree;

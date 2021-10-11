@@ -8,10 +8,10 @@
                 class="collection-content"
                 *ngIf="1 <= familyTreeCollection.length"
             >
-                <webstore-design-item
+                <webstore-family-tree-collection-item
                     *ngFor="let familyTree of familyTreeCollection"
                     [familyTree]="familyTree"
-                ></webstore-design-item>
+                ></webstore-family-tree-collection-item>
                 <div class="full-width">
                     <hr class="match-button" />
                     <div class="match-section">
