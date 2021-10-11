@@ -1,5 +1,5 @@
 export enum ShippingMethodEnum {
-  HOME_DELIVERY = 'HOME_DELIVERY',
-  PICK_UP_POINT = 'PICK_UP_POINT',
-  OWN_DELIVERY = 'OWN_DELIVERY',
+  homeDelivery = 'HOME_DELIVERY',
+  pickUpPoint = 'PICK_UP_POINT',
+  ownDelivery = 'OWN_DELIVERY',
 }

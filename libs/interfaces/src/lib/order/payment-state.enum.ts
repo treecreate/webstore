@@ -1,7 +1,7 @@
 export enum PaymentStateEnum {
-  INITIAL = 'INITIAL',
-  PENDING = 'PENDING',
-  NEW = 'NEW',
-  REJECTED = 'REJECTED',
-  PROCESSED = 'PROCESSED',
+  initial = 'INITIAL',
+  pending = 'PENDING',
+  new = 'NEW',
+  rejected = 'REJECTED',
+  processed = 'PROCESSED',
 }

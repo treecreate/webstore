@@ -1,3 +1,3 @@
 export enum CurrencyEnum {
-  DKK = 'DKK',
+  dkk = 'DKK',
 }
