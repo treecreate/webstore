@@ -35,7 +35,7 @@ export class CollectionComponent implements OnInit {
     this.isLoading = true;
     this.designService.getDesigns().subscribe(
       (designList: IDesign[]) => {
-        this.designCollection = designList;
+        this.designCollection = designList.filter((design) => design.mutable);
         this.isLoading = false;
       },
       (error: HttpErrorResponse) => {
