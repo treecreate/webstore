@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserRoles } from '@models';
+import { BasketComponent } from './pages/auth/basket/basket.component';
+import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
+import { CollectionComponent } from './pages/auth/collection/collection.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { ProfileComponent } from './pages/auth/profile/profile.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
+import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
+import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
-import { ProfileComponent } from './pages/auth/profile/profile.component';
-import { AuthGuard } from './shared/guards/auth/auth.guard';
-import { ProductComponent } from './pages/product/product.component';
-import { LoginComponent } from './pages/auth/login/login.component';
-import { SignupComponent } from './pages/auth/signup/signup.component';
-import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
-import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
-import { CollectionComponent } from './pages/auth/collection/collection.component';
-import { VerificationComponent } from './pages/auth/verification/verification.component';
-import { BasketComponent } from './pages/auth/basket/basket.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
-import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
-import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
+import { ProductComponent } from './pages/product/product.component';
+import { AuthGuard } from './shared/guards/auth/auth.guard';
+import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
@@ -56,11 +56,6 @@ const routes: Routes = [
     data: { roles: [UserRoles.user] },
   },
   { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
-  {
-    path: 'product/:designId',
-    component: ProductComponent,
-    canActivate: [CookieGuard],
-  },
   {
     path: 'notSignedIn',
     component: NotSignedInComponent,
