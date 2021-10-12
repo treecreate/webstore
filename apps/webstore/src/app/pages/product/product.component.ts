@@ -183,9 +183,9 @@ export class ProductComponent implements OnInit {
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn || !persist) {
       this.toastService.showAlert(
-        'You need to be logged in to perform this action.',
-        'Du skal logge ind for at kunne bruge denne denne function',
-        'danger',
+        'Your design has been saved to your session. If you want to save it permanently, please create an account first.',
+        'Dit design er bleven gemt i din browser. Hvis du vil gemme det permanent skal du oprette en konto først.',
+        'success',
         10000
       );
       return;

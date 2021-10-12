@@ -1,6 +1,5 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
-  DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
   FamilyTreeFontEnum,
@@ -8,7 +7,6 @@ import {
   IDraggableBox,
   IFamilyTreeBanner,
   IOrder,
-  ITransactionItem,
   IUser,
 } from '@interfaces';
 import { LocalStorageVars, CookieStatus, UserRoles } from '@models';
@@ -163,7 +161,7 @@ describe('CollectionPage', () => {
       expect(designs[0]).exist;
       expect(designs[1]).exist;
       expect(designs[2]).exist;
-      expect(designs[3]).not.exist; //The un mutable item
+      expect(designs[3]).not.exist; // The un mutable item
     });
   });
 
