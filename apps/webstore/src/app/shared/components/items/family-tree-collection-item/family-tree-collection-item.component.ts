@@ -62,7 +62,7 @@ export class FamilyTreeCollectionItemComponent implements OnInit {
   }
 
   editDesign() {
-    this.router.navigate(['/designs/' + this.design.designId]);
+    this.router.navigate(['/product/' + this.design.designId]);
   }
 
   addDesignToBasket() {
