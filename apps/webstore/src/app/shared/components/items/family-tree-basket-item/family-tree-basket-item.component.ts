@@ -8,13 +8,13 @@ import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'webstore-basket-item',
-  templateUrl: './basket-item.component.html',
+  templateUrl: './family-tree-basket-item.component.html',
   styleUrls: [
-    './basket-item.component.css',
+    './family-tree-basket-item.component.css',
     '../../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class BasketItemComponent implements OnInit {
+export class FamilyTreeBasketItemComponent implements OnInit {
   @ViewChild('productDesign', { static: true })
   miniature: FamilyTreeMiniatureComponent;
 

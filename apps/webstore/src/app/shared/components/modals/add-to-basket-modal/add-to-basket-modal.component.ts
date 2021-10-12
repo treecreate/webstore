@@ -70,7 +70,7 @@ export class AddToBasketModalComponent implements OnInit {
       dimension: DesignDimensionEnum.small,
     });
 
-    new Promise((resolve, reject) => {
+    new Promise(() => {
       //Get items already in basket
       this.isLoading = true;
       this.transactionItemService.getTransactionItems().subscribe(
@@ -82,16 +82,13 @@ export class AddToBasketModalComponent implements OnInit {
           console.log('SuM ', sum);
           this.itemsInBasket = sum;
           this.isLoading = false;
-          resolve(1);
+          this.updatePrice();
         },
         (error: HttpErrorResponse) => {
           console.error(error);
           this.isLoading = false;
-          reject(0);
         }
       );
-    }).then(() => {
-      this.updatePrice();
     });
   }
 
@@ -168,6 +165,7 @@ export class AddToBasketModalComponent implements OnInit {
     this.isLoading = true;
     this.design.title = this.addToBasketForm.get('title').value;
     // Persist the design as a new one, and, if successful, create a transaction item for it
+    //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design)
     this.designService
       .createDesign({
         designType: DesignTypeEnum.familyTree,

@@ -48,6 +48,12 @@ export class BasketComponent implements OnInit {
         Validators.pattern('^\\S*$'),
       ]),
     });
+    this.priceInfo = this.calculatePriceService.calculatePrices(
+      this.itemList,
+      this.discount,
+      false,
+      this.donatedTrees - 1
+    );
   }
 
   ngOnInit(): void {

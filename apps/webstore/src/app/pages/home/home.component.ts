@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, INewsletter } from '@interfaces';
 import { LocalStorageVars } from '@models';
@@ -12,7 +12,7 @@ import { NewsletterService } from '../../shared/services/newsletter/newsletter.s
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   initialTop: 0;
   showUpArrow = false;
   showStartButton = false;
@@ -97,7 +97,4 @@ export class HomeComponent implements OnInit {
   scrollTop() {
     window.scrollTo(0, 0);
   }
-
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
 }
