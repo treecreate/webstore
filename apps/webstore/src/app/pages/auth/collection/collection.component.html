@@ -20,6 +20,7 @@
                             class="tc-button-50"
                             routerLink="/product"
                             i18n="@@create-new"
+                            data-cy="collection-create-new-button"
                         >
                             Create new
                         </button>
@@ -28,6 +29,7 @@
                             routerLink="/profile"
                             (click)="scrollTop()"
                             i18n="@@profile"
+                            data-cy="collection-profile-button"
                         >
                             Profile
                         </button>
@@ -36,6 +38,7 @@
             </div>
             <div
                 class="no-content"
+                data-cy="collection-no-items"
                 *ngIf="designCollection.length === 0 && !isLoading"
             >
                 <div class="sub-title" i18n="@@no-designs">
@@ -49,6 +52,7 @@
                         class="tc-button-50"
                         routerLink="/product"
                         i18n="@@start-designing"
+                        data-cy="collection-no-items-start-button"
                     >
                         Start designing
                     </button>
