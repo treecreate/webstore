@@ -3,26 +3,25 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDesign, IFamilyTree } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { DesignService } from '../../../services/design/design.service';
+import { LocalStorageService } from '../../../services/local-storage';
 import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { ToastService } from '../../toast/toast-service';
-import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
-import { LocalStorageService } from '../../../services/local-storage';
-import { LocalStorageVars } from '@models';
 
 @Component({
   selector: 'webstore-family-tree-collection-item',
   templateUrl: './family-tree-collection-item.component.html',
   styleUrls: ['./family-tree-collection-item.component.css'],
 })
-export class FamilyTreeCollectionItemComponent implements OnInit {
+export class FamilyTreeCollectionItemComponent {
   @ViewChild('productDesign', { static: true })
   miniature: FamilyTreeMiniatureComponent;
   @Input() design: IDesign;
@@ -36,9 +35,6 @@ export class FamilyTreeCollectionItemComponent implements OnInit {
     private modalService: NgbModal,
     private localStorageService: LocalStorageService
   ) {}
-
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
 
   deleteDesign() {
     console.log('deleting item');

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'webstore-payment-success',
@@ -8,9 +8,6 @@ import { Component, OnInit } from '@angular/core';
     './payment-success.component.sass',
   ],
 })
-export class PaymentSuccessComponent implements OnInit {
+export class PaymentSuccessComponent {
   constructor() {}
-
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
 }
