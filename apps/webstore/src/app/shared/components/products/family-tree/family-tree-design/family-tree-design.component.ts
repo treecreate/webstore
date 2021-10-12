@@ -60,7 +60,7 @@ export class FamilyTreeDesignComponent
   banner: IFamilyTreeBanner;
 
   @Input()
-  isLargeFont: boolean;
+  isLargeFont = false;
 
   @Input()
   font: FamilyTreeFontEnum;
@@ -139,6 +139,15 @@ export class FamilyTreeDesignComponent
       (this.canvasResolution.width / 30) *
       (this.boxSize * this.boxSizeScalingMultiplier),
   };
+
+  // the max chars control how much text can be put into the draggable box
+  // It is propagated to the draggable box input element
+  smallFontMaxChars = 12;
+  largeFontMaxChars = 9;
+  maxCharsPerLine = this.isLargeFont
+    ? this.largeFontMaxChars
+    : this.smallFontMaxChars;
+  maxLines = 2;
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -305,6 +314,8 @@ export class FamilyTreeDesignComponent
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
     draggableBoxRef.instance.boxSize = this.boxSize;
+    draggableBoxRef.instance.isLargeFont = this.isLargeFont;
+    draggableBoxRef.instance.maxCharsPerLine = this.maxCharsPerLine;
     // set the reference to the draggable box component instance
     newBox.inputRef = draggableBoxRef;
     this.cdr.detectChanges();
@@ -415,18 +426,58 @@ export class FamilyTreeDesignComponent
           // Draw the text within the box
           // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
           // times 5 to account for having different scale
+          // NOTE - can cause performance issues since it occurs on every frame
           const boxTextFontSize =
             (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
           // TODO: add multi-line support
           this.context.font = `${boxTextFontSize}rem ${this.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
-          this.context.fillText(
-            this.myBoxes[i].text,
-            this.myBoxes[i].x + this.boxDimensions.width / 2,
-            this.myBoxes[i].y + this.boxDimensions.height / 2,
-            (this.boxDimensions.width / 3) * 2
-          );
+          let line = '';
+          let currentLine = 1;
+          const words = this.myBoxes[i].text
+            .substring(0, this.maxCharsPerLine * this.maxLines)
+            .split(' ');
+          const multiLineText =
+            this.myBoxes[i].text.length > this.maxCharsPerLine;
+          const x = this.myBoxes[i].x + this.boxDimensions.width / 2;
+          let y = this.myBoxes[i].y + this.boxDimensions.height / 2;
+          const lineHeight = (this.boxDimensions.height / 5) * 1;
+          if (multiLineText) {
+            y = this.myBoxes[i].y + (this.boxDimensions.height / 5) * 2;
+          }
+          const formattedWords = [];
+          words.forEach((word) => {
+            do {
+              if (word.length === 0) {
+                break;
+              }
+              if (word.length >= this.maxCharsPerLine) {
+                formattedWords.push(word.substring(0, this.maxCharsPerLine));
+                word = word.substring(this.maxCharsPerLine, word.length);
+              } else {
+                formattedWords.push(word);
+                word = '';
+              }
+            } while (word !== '');
+          });
+          // print out the text
+          for (let j = 0; j < formattedWords.length; j++) {
+            const testLine = line + formattedWords[j] + ' ';
+
+            if (testLine.length - 1 > this.maxCharsPerLine) {
+              currentLine++;
+              if (currentLine > this.maxLines) {
+                break;
+              }
+              this.context.fillText(line, x, y);
+              line = formattedWords[j] + ' ';
+              y += lineHeight;
+            } else {
+              line = testLine;
+            }
+          }
+          this.context.fillText(line, x, y);
         }
       }
     } catch (error) {
@@ -575,6 +626,17 @@ export class FamilyTreeDesignComponent
           (this.canvasResolution.width / 30) *
           (this.boxSize * this.boxSizeScalingMultiplier),
       };
+    }
+
+    if (changes.isLargeFont !== undefined) {
+      this.maxCharsPerLine = this.isLargeFont
+        ? this.largeFontMaxChars
+        : this.smallFontMaxChars;
+      // update the box inputs
+      this.myBoxes.forEach((box) => {
+        box.inputRef.instance.maxCharsPerLine = this.maxCharsPerLine;
+        box.inputRef.instance.largeFont = this.isLargeFont;
+      });
     }
     this.cdr.detectChanges();
   }

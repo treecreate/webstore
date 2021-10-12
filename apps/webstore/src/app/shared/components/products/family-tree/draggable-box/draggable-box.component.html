@@ -15,5 +15,5 @@
         margin: height * 0.3 + 'px ' + width * 0.12 + 'px',
         'font-size': fontSize + 'rem'
     }"
-    maxlength="50"
+    [maxlength]="maxCharsPerLine * maxLines"
 />
