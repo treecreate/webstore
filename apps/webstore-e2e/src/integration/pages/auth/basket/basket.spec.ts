@@ -133,11 +133,9 @@ it('should add an transaction item to basket', () => {
   //Check that the new item has been added
   cy.visit('/basket');
   cy.get('[data-cy=basket-item]').then((items) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    /* eslint-disable  @typescript-eslint/no-unused-expressions */
     expect(items[0]).exist;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(items[1]).exist;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(items[2]).not.exist;
   });
 });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
 import { LocalStorageService } from '../../services/local-storage';
 
@@ -7,7 +7,7 @@ import { LocalStorageService } from '../../services/local-storage';
   templateUrl: './review-carousel.component.html',
   styleUrls: ['./review-carousel.component.css'],
 })
-export class ReviewCarouselComponent implements OnInit {
+export class ReviewCarouselComponent {
   reviewList = [
     {
       text: `“Fantastisk fint og helt unikt produkt, som rammer lige i
@@ -55,7 +55,4 @@ export class ReviewCarouselComponent implements OnInit {
     );
     this.localeCode = this.locale$.getValue();
   }
-
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
 }
