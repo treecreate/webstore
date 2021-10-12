@@ -82,14 +82,13 @@ export class AddToBasketModalComponent implements OnInit {
           console.log('SuM ', sum);
           this.itemsInBasket = sum;
           this.isLoading = false;
+          this.updatePrice();
         },
         (error: HttpErrorResponse) => {
           console.error(error);
           this.isLoading = false;
         }
       );
-    }).then(() => {
-      this.updatePrice();
     });
   }
 
