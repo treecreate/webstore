@@ -107,7 +107,7 @@ export class FamilyTreeDesignComponent
   timeInterval;
   framesPerSecond = 60; // FPS of the render loop
   // autosaving of the design
-  autosaveFrequencyInMinutes = 2;
+  autosaveFrequencyInSeconds = 30;
   autosaveInterval;
 
   // SVGs
@@ -257,7 +257,7 @@ export class FamilyTreeDesignComponent
     clearInterval(this.autosaveInterval);
     this.autosaveInterval = setInterval(() => {
       this.saveDesign();
-    }, 1000 * 60 * this.autosaveFrequencyInMinutes);
+    }, 1000 * this.autosaveFrequencyInSeconds);
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
   }
