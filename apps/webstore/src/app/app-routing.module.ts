@@ -56,7 +56,11 @@ const routes: Routes = [
     data: { roles: [UserRoles.user] },
   },
   { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
-  { path: 'product/:designId', component: ProductComponent, canActivate: [CookieGuard] },
+  {
+    path: 'product/:designId',
+    component: ProductComponent,
+    canActivate: [CookieGuard],
+  },
   {
     path: 'notSignedIn',
     component: NotSignedInComponent,

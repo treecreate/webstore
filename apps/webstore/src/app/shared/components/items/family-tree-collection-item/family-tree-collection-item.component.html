@@ -26,6 +26,8 @@
             class="tc-button-50"
             i18n="@@edit"
             (click)="editDesign()"
+            [routerLink]="'/product'"
+            [queryParams]="{ designId: design.designId }"
         >
             Edit
         </button>
