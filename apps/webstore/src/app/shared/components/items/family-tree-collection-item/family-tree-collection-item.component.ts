@@ -39,7 +39,7 @@ export class FamilyTreeCollectionItemComponent implements OnInit {
       () => {
         console.log('deleting item 2');
         this.toastService.showAlert(
-          'Design deleted',
+          'The design has been deleted',
           'Designet er slettet',
           'danger',
           5000
@@ -53,7 +53,7 @@ export class FamilyTreeCollectionItemComponent implements OnInit {
   }
 
   editDesign() {
-    this.router.navigate(['/designs/me/' + this.design.designId]);
+    this.router.navigate(['/designs/' + this.design.designId]);
   }
 
   addDesignToBasket() {

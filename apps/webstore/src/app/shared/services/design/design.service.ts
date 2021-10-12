@@ -19,7 +19,7 @@ export class DesignService {
   }
 
   public deleteDesign(designId: string): Observable<any> {
-    return this.http.delete(`${env.apiUrl}/designs/me/${designId}`);
+    return this.http.delete(`${env.apiUrl}/designs/${designId}`);
   }
 
   public createDesign(params: CreateDesignRequest): Observable<IDesign> {
