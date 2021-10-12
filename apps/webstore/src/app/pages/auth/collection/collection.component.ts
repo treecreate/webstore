@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IDesign, IFamilyTree } from '@interfaces';
-import { ToastService } from '../../../shared/components/toast/toast-service';
+import { IDesign } from '@interfaces';
 import { DesignService } from '../../../shared/services/design/design.service';
 
 @Component({
@@ -19,13 +18,17 @@ export class CollectionComponent implements OnInit {
     dismissible: boolean;
   };
 
-  constructor(
-    private designService: DesignService,
-    private toastService: ToastService
-  ) {}
+  constructor(private designService: DesignService) {}
 
   ngOnInit(): void {
     this.getDesigns();
+  }
+
+  removeItemFromList(itemId: string) {
+    console.warn('deleting design from collection', itemId);
+    this.designCollection = this.designCollection.filter(
+      (item) => itemId !== item.designId
+    );
   }
 
   getDesigns(): void {

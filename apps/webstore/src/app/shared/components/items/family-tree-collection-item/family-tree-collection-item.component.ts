@@ -1,5 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { IDesign, IFamilyTree } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +27,7 @@ export class FamilyTreeCollectionItemComponent implements OnInit {
   miniature: FamilyTreeMiniatureComponent;
   @Input() design: IDesign;
   isLoading = false;
+  @Output() deleteEvent = new EventEmitter();
 
   constructor(
     private toastService: ToastService,
@@ -45,6 +53,7 @@ export class FamilyTreeCollectionItemComponent implements OnInit {
           5000
         );
         this.isLoading = false;
+        this.deleteEvent.emit(this.design.designId);
       },
       (error: HttpErrorResponse) => {
         console.log(error);

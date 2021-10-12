@@ -11,6 +11,7 @@
                 <webstore-family-tree-collection-item
                     *ngFor="let design of designCollection"
                     [design]="design"
+                    (deleteEvent)="removeItemFromList($event)"
                 ></webstore-family-tree-collection-item>
                 <div class="full-width">
                     <hr class="match-button" />
