@@ -45,11 +45,19 @@ export class BasketComponent implements OnInit {
         Validators.pattern('^\\S*$'),
       ]),
     });
+    this.priceInfo = this.calculatePriceService.calculatePrices(
+      this.itemList,
+      this.discount,
+      false,
+      this.donatedTrees - 1
+    );
   }
 
   ngOnInit(): void {
-    this.updatePrices();
+    this.getItemList();
+  }
 
+  getItemList() {
     this.isLoading = true;
     this.transactionItemService.getTransactionItems().subscribe(
       (itemList: ITransactionItem[]) => {
@@ -60,28 +68,24 @@ export class BasketComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-
         this.alert = {
           message: 'Failed to get a list of items',
           type: 'danger',
           dismissible: false,
         };
-
         this.isLoading = false;
       }
     );
-
-    console.log(this.priceInfo);
   }
 
   updatePrices() {
+    console.warn('updating price');
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
       false,
       this.donatedTrees - 1
     );
-    console.log('Updated price info', this.priceInfo);
   }
 
   decreaseDonatingAmount() {

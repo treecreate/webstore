@@ -8,10 +8,6 @@
     {{ alert.message }}</ngb-alert
 >
 <div *ngIf="!alert" class="basket-item-container" data-cy="basket-item">
-    <!-- <div class="item-title">
-        {{ item.design.designProperties.title }}
-    </div> -->
-
     <!-- image -->
     <div class="item-image">
         <!-- <div class="item-type-title" i18n="@@family-tree">Family tree</div> -->
@@ -37,11 +33,18 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
-                    [disabled]="item.quantity === 1"
+                    [disabled]="item.quantity === 1 || isLoading"
                     data-cy="basket-item-decrese-quantity-button"
                 >
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
                     <div class="icon">
-                        <div class="button-minus"></div>
+                        <div class="button-minus" *ngIf="!isLoading"></div>
                     </div>
                 </button>
                 <div class="quantity">
@@ -51,8 +54,16 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseQuantity()"
                     data-cy="basket-item-increase-quantity-button"
+                    [disabled]="isLoading"
                 >
-                    <div class="button-plus"></div>
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="button-plus" *ngIf="!isLoading"></div>
                 </button>
             </div>
         </div>
@@ -66,10 +77,17 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseDimension()"
-                    [disabled]="item.dimension === 'SMALL'"
+                    [disabled]="item.dimension === 'SMALL' || isLoading"
                     data-cy="basket-item-decrese-dimension-button"
                 >
-                    <div class="icon">
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="icon" *ngIf="!isLoading">
                         <div class="button-minus"></div>
                     </div>
                 </button>
@@ -79,10 +97,17 @@
                 <button
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="increaseDimension()"
-                    [disabled]="item.dimension === 'LARGE'"
+                    [disabled]="item.dimension === 'LARGE' || isLoading"
                     data-cy="basket-item-increase-dimension-button"
                 >
-                    <div class="button-plus"></div>
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="button-plus" *ngIf="!isLoading"></div>
                 </button>
             </div>
         </div>

@@ -23,10 +23,8 @@ import { GoogleAnalyticsService } from '../google-analytics/google-analytics.ser
   templateUrl: './google-button-test.component.html',
   styleUrls: ['./google-button-test.component.css'],
 })
-export class GoogleButtonTestComponent implements OnInit {
+export class GoogleButtonTestComponent {
   constructor(public googleAnalyticsService: GoogleAnalyticsService) {}
-
-  ngOnInit(): void {}
 
   testGoogleEventEmitter() {
     console.log('testing google event emitter');

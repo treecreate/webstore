@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,9 +9,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     '../../../../../assets/styles/terms-and-conditions.css',
   ],
 })
-export class TermsOfUseModalComponent implements OnInit {
+export class TermsOfUseModalComponent {
   constructor(public activeModal: NgbActiveModal) {}
-
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
 }

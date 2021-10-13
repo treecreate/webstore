@@ -182,7 +182,12 @@ export class ProductComponent implements OnInit {
     ).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn || !persist) {
-      this.router.navigate(['/login']);
+      this.toastService.showAlert(
+        'Your design has been saved to your session. If you want to save it permanently, please create an account first.',
+        'Dit design er bleven gemt i din browser. Hvis du vil gemme det permanent skal du oprette en konto først.',
+        'success',
+        10000
+      );
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
@@ -234,14 +239,6 @@ export class ProductComponent implements OnInit {
               'success',
               5000
             );
-            //TODO: Discuss this action: Should not direct away from the design. If anything it should direct to basket
-            //But if it redirects to basket, it should still be done in the addToBasketModal and not here.
-
-            // this.router.navigate([], {
-            //   relativeTo: this.route,
-            //   queryParams: { designId: result.designId },
-            //   queryParamsHandling: 'merge', // remove to replace all query params by provided
-            // });
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
@@ -367,8 +364,11 @@ export class ProductComponent implements OnInit {
   }
 
   openAddToBasketModal() {
-    this.designCanvas.saveDesign();
-    this.modalService.open(AddToBasketModalComponent);
+    this.saveDesign({ persist: false });
+    if (this.isLoggedIn) {
+      console.log('Is Logged in ', this.isLoggedIn);
+      this.modalService.open(AddToBasketModalComponent);
+    }
   }
 
   onIsDesignValidEvent($event) {

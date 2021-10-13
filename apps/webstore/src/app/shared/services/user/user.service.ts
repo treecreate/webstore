@@ -27,12 +27,12 @@ export class UserService {
     return this.http.put<IUser>(`${env.apiUrl}/users`, params);
   }
 
-  public sendResetUserPassword(email: string): Observable<any> {
+  public sendResetUserPassword(email: string): Observable<void> {
     const localeCode = this.localStorageService
       .getItem<LocaleType>(LocalStorageVars.locale)
       .getValue();
     const params = new HttpParams().set('lang', localeCode);
-    return this.http.get(`${env.apiUrl}/users/resetPassword/${email}`, {
+    return this.http.get<void>(`${env.apiUrl}/users/resetPassword/${email}`, {
       params: params,
     });
   }

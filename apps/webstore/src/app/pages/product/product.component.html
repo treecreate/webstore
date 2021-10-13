@@ -253,6 +253,18 @@
             </div>
 
             <div class="option option-actions">
+                <!-- TODO: make the template work as the text for the tooltip -->
+                <!-- <ng-template #saveDesign i18n="@@save-design-tooltip"
+                    >You need to login before you can save your design. Dont
+                    worry, your design will still be here if you go to the login
+                    page and come back.</ng-template
+                >
+                <span
+                    ngbTooltip="Tooltip on top"
+                    [ngbTooltip]="isLoggedIn ? saveDesign : null"
+                    [disableTooltip]="isLoggedIn"
+                    style="width: 47%"
+                > -->
                 <button
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign({ persists: true })"
@@ -265,10 +277,24 @@
                         class="option-icon"
                     />
                 </button>
+                <!-- </span> -->
+                <!-- TODO: make the template work as the text for the tooltip -->
+                <!-- <ng-template #addToBasket i18n="@@add-to-basket-tooltip"
+                    >You need to login before adding to basket. Dont worry, your
+                    design will still be here if you go to the login page and
+                    come back.</ng-template
+                >
+                <span
+                    ngbTooltip="Tooltip on top"
+                    [ngbTooltip]="addToBasket"
+                    [disableTooltip]="isLoggedIn"
+                    style="width: 47%"
+                > -->
                 <button
                     class="btn-add-to-cart tc-button-50"
                     (click)="openAddToBasketModal()"
                     data-cy="add-family-tree-to-basket-button"
+                    [disabled]="!isDesignValid"
                 >
                     <span i18n="@@add">Add</span>
                     <img
@@ -276,6 +302,7 @@
                         class="option-icon"
                     />
                 </button>
+                <!-- </span> -->
             </div>
 
             <div class="option misc-option-actions">
