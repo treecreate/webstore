@@ -43,6 +43,15 @@ export class DraggableBoxComponent implements AfterViewInit {
   @Input()
   text: string;
 
+  @Input()
+  isLargeFont = false;
+
+  @Input()
+  maxCharsPerLine = 12;
+
+  @Input()
+  maxLines = 2;
+
   private _boxSize;
 
   @Output()
