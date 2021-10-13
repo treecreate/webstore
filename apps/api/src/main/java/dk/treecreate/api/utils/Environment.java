@@ -4,6 +4,7 @@ package dk.treecreate.api.utils;
 public enum Environment
 {
     DEVELOPMENT("development"),
+    STAGING("staging"),
     PRODUCTION("production");
 
     public final String label;

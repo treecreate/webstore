@@ -12,7 +12,7 @@ public class CustomPropertiesConfig
 {
     private String quickpaySecret;
 
-    private Environment environmentType;
+    private Environment environment = Environment.DEVELOPMENT;
 
     public String getQuickpaySecret()
     {
@@ -24,22 +24,25 @@ public class CustomPropertiesConfig
         this.quickpaySecret = quickpaySecret;
     }
 
-    public Environment getEnvironmentType()
+    public Environment getEnvironment()
     {
-        return environmentType;
+        return environment;
     }
 
-    public void setEnvironmentType(String environmentType)
+    public void setEnvironment(String environmentType)
     {
-        if ("production".equals(environmentType))
+        if (environmentType.equals("PRODUCTION"))
         {
-            this.environmentType = Environment.PRODUCTION;
+            this.environment = Environment.PRODUCTION;
+        } else if (environmentType.equals("STAGING"))
+        {
+            this.environment = Environment.STAGING;
         } else
         {
-            this.environmentType = Environment.DEVELOPMENT;
+            this.environment = Environment.DEVELOPMENT;
         }
 
-        LOGGER.info("Environment type set to " + environmentType);
+        LOGGER.info("Environment type set to " + environment);
     }
 
 }
