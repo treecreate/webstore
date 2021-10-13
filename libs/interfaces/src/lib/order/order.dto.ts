@@ -10,7 +10,7 @@ export interface CreateOrderRequest {
   discountId: string;
   contactInfo: CreateContactInfoRequest;
   billingInfo: CreateContactInfoRequest;
-  transactionItemIds: String[];
+  transactionItemIds: string[];
 }
 
 export interface CreateContactInfoRequest {
