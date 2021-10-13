@@ -107,6 +107,12 @@ public class QuickpayService
             createPaymentLinkRequest.language = locale.getLanguage();
         }
 
+        // assign the payment redirect urls
+        createPaymentLinkRequest.continue_url =
+            generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, true);
+        createPaymentLinkRequest.cancel_url =
+            generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, false);
+
         // TODO - add proper error handling of the response
         WebClient client = WebClient.create();
         CreatePaymentLinkResponse response = client.put()
@@ -241,5 +247,29 @@ public class QuickpayService
         }
 
         return prefix + emailPrefix + "-" + randomId;
+    }
+
+    /**
+     * Returns url that can be assigned to the payment link as the url it should redirect to after a failed/successful payment
+     *
+     * @param environment what environment the app is running in. Affects the domain
+     * @param locale      what locale the redirected page should be opened in
+     * @param successLink whether the link is for a success of payment cancelled redirect
+     * @return the url for redirect
+     */
+    public String generatePaymentRedirectUrl(Environment environment, Locale locale,
+                                             boolean successLink)
+    {
+        String route = successLink ? "/payment/success" : "/payment/cancelled";
+        String lang = locale.equals(Locale.ENGLISH) ? "/en-US" : "/dk";
+        switch (environment)
+        {
+            case PRODUCTION:
+                return "https://treecreate.dk" + lang + route;
+            case STAGING:
+                return "https://testing.treecreate.dk" + lang + route;
+            default:
+                return "http://localhost:4200" + route;
+        }
     }
 }
