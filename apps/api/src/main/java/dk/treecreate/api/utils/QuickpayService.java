@@ -76,8 +76,6 @@ public class QuickpayService
         LOGGER.info(
             "New payment has been created for user " + order.getUserId() +
                 " | PaymentID: " + response.id + " | Total: " + order.getTotal());
-        System.out.println(response);
-
 
         return response.id;
     }

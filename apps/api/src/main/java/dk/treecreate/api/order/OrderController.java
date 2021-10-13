@@ -124,11 +124,10 @@ public class OrderController
         // Persist the order information
         // TODO - error-handle failed order persisting. Include usage of transactions
         order = orderRepository.save(order);
-        
+
         // Update the transaction items
         Order finalOrder = order;
         order.getTransactionItems().forEach(item -> {
-            System.out.println(finalOrder.getOrderId());
             item.setOrder(finalOrder);
             transactionItemRepository.save(item);
         });
