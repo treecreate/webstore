@@ -1,5 +1,6 @@
 package dk.treecreate.api.healthcheck;
 
+import dk.treecreate.api.utils.Environment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,6 +16,9 @@ class HealthcheckDto
 
     @ApiModelProperty(name = "message", example = "Server is Live")
     private String message;
+
+    @ApiModelProperty(name = "Environment the api is running in", example = "development")
+    private Environment environment;
 
     public String getStatus()
     {
@@ -34,5 +38,15 @@ class HealthcheckDto
     public void setMessage(String message)
     {
         this.message = message;
+    }
+
+    public Environment getEnvironment()
+    {
+        return environment;
+    }
+
+    public void setEnvironment(Environment environment)
+    {
+        this.environment = environment;
     }
 }
