@@ -145,4 +145,7 @@ export class FamilyTreeBasketItemComponent implements OnInit {
         }
       );
   }
+  scrollTop() {
+    window.scrollTo(0, 0);
+  }
 }
