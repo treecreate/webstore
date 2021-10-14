@@ -24,6 +24,8 @@
                         *ngIf="!(itemList.length <= 0) && !isLoading"
                     >
                         <webstore-basket-item
+                            (priceChangeEvent)="itemPriceChange($event)"
+                            (deleteItemEvent)="deleteItemChange($event)"
                             *ngFor="let item of itemList"
                             [item]="item"
                         ></webstore-basket-item>
@@ -78,9 +80,7 @@
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-less-trees-btn"
-                            (click)="
-                                decreaseDonation();
-                            "
+                            (click)="decreaseDonation()"
                             [disabled]="donatedTrees === 1"
                             data-cy="basket-decrease-donated-trees-button"
                         >

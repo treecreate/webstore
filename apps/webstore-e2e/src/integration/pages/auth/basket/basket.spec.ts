@@ -74,9 +74,9 @@ const mockDiscount = {
   discountCode: 'yeet10percent',
   amount: 10,
   type: DiscountType.percent,
-  remainingUses: 2, 
-  totalUses: 1
-}
+  remainingUses: 2,
+  totalUses: 1,
+};
 const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   dimension: DesignDimensionEnum.medium,
@@ -94,13 +94,13 @@ const mockCreateTransactionItemRequestUpdatedDimension: CreateTransactionItemReq
 };
 const mockContact = {
   name: 'teodor jonasson',
-    email: 'test@test.test',
-    phoneNumber: '12341234',
-    streetAddress: 'yeeting anus 69',
-    city: 'lolcity',
-    postcode: '6969',
-    country: 'DisSonBitch',
-}
+  email: 'test@test.test',
+  phoneNumber: '12341234',
+  streetAddress: 'yeeting anus 69',
+  city: 'lolcity',
+  postcode: '6969',
+  country: 'DisSonBitch',
+};
 const mockOrder: IOrder = {
   orderId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   subtotal: 1000,

@@ -48,16 +48,11 @@ export class BasketComponent implements OnInit {
         Validators.pattern('^\\S*$'),
       ]),
     });
-    this.priceInfo = this.calculatePriceService.calculatePrices(
-      this.itemList,
-      this.discount,
-      false,
-      this.donatedTrees - 1
-    );
+    this.updatePrices();
   }
 
   ngOnInit(): void {
-    console.warn("DISCOUNT: ", this.discount);
+    console.warn('DISCOUNT: ', this.discount);
     this.getItemList();
   }
 
@@ -83,6 +78,7 @@ export class BasketComponent implements OnInit {
   }
 
   updatePrices() {
+    console.warn(this.itemList);
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -131,7 +127,19 @@ export class BasketComponent implements OnInit {
 
   decreaseDonation() {
     if (this.donatedTrees > 1) {
-      this.donatedTrees = this.donatedTrees - 1; this.updatePrices()
+      this.donatedTrees = this.donatedTrees - 1;
+      this.updatePrices();
     }
+  }
+
+  itemPriceChange(id) {
+    console.log(id);
+  }
+
+  deleteItemChange(id) {
+    this.itemList = this.itemList.filter(
+      (item) => item.transactionItemId !== id
+    );
+    this.updatePrices();
   }
 }
