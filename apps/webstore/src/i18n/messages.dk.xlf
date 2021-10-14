@@ -51,8 +51,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="apply-discount" datatype="html">
-        <source>Apply discount</source>
-        <target>Aktiver rabatkode</target> 
+        <source>Apply</source>
+        <target>Aktiver</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">109,110</context>

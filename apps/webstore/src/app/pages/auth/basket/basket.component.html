@@ -24,7 +24,6 @@
                         *ngIf="!(itemList.length <= 0) && !isLoading"
                     >
                         <webstore-basket-item
-                            (click)="updatePrices()"
                             *ngFor="let item of itemList"
                             [item]="item"
                         ></webstore-basket-item>
@@ -79,7 +78,9 @@
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-less-trees-btn"
-                            (click)="decreaseDonatingAmount(); updatePrices()"
+                            (click)="
+                                donatedTrees = donatedTrees - 1; updatePrices()
+                            "
                             [disabled]="donatedTrees === 1"
                             data-cy="basket-decrease-donated-trees-button"
                         >
@@ -109,7 +110,7 @@
                 <!-- Discount code -->
                 <form
                     [formGroup]="discountForm"
-                    (ngSubmit)="applyDiscount(); updatePrices()"
+                    (ngSubmit)="applyDiscount();"
                     class="basket-options-item"
                 >
                     <input
@@ -171,7 +172,7 @@
                             </strong>
                         </span>
                     </div>
-                    <div class="line-container margin-bottom">
+                    <div class="line-container margin-bottom vat">
                         <span i18n="@@vat"> VAT </span>
                         <span> {{ priceInfo.vat.toFixed(2) }} DKK </span>
                     </div>
