@@ -19,10 +19,14 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.DatatypeConverter;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Service
@@ -269,5 +273,69 @@ public class QuickpayService
             default:
                 return "http://localhost:4200" + route;
         }
+    }
+
+    public boolean validatePaymentCallbackChecksum(String checksum, String requestBody)
+    {
+        String secret = customProperties.getQuickpaySecret();
+        try
+        {
+            String hashedBody = encode(secret, requestBody);
+            String hashedBody2 = encode2(secret, requestBody);
+            LOGGER.info("Secret: " + secret);
+            LOGGER.info("body: " + requestBody);
+            LOGGER.info("Checksum:    " + checksum);
+            LOGGER.info("Hashed body1: " + hashedBody);
+            LOGGER.info("Hashed body2: " + hashedBody2);
+            return checksum.equals(hashedBody);
+        } catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to calculate the checksum for the request body");
+        }
+    }
+
+    public static String encode(String key, String data) throws Exception
+    {
+        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
+        sha256_HMAC.init(secret_key);
+
+        return DatatypeConverter.printHexBinary(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
+    }
+
+    public String encode2(String key, String data)
+    {
+
+        byte[] hmacSha256 = null;
+        try
+        {
+            Mac mac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKeySpec =
+                new SecretKeySpec(key.getBytes(
+                    StandardCharsets.UTF_8), "HmacSHA256");
+            mac.init(secretKeySpec);
+            hmacSha256 = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to calculate the checksum for the request body");
+        }
+        return bytesToHex(hmacSha256);
+    }
+
+    private static String bytesToHex(byte[] hash)
+    {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (int i = 0; i < hash.length; i++)
+        {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if (hex.length() == 1)
+            {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

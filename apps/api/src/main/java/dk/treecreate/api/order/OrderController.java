@@ -1,5 +1,8 @@
 package dk.treecreate.api.order;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.designs.ContactInfoService;
@@ -26,6 +29,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.net.URISyntaxException;
@@ -143,5 +147,28 @@ public class OrderController
                 order.getSubtotal() + " | Total: " + order.getTotal());
 
         return createPaymentLinkResponse;
+    }
+
+    @ApiIgnore
+    @PostMapping("/paymentCallback")
+    public void paymentCallback(@RequestHeader("quickpay-checksum-sha256") String checksum,
+                                @RequestBody String body)
+    {
+        // validate the checksum
+        quickpayService.validatePaymentCallbackChecksum(checksum, body);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try
+        {
+            JsonNode json = objectMapper.readTree(body);
+            LOGGER.info("A payment callback request has been received");
+            LOGGER.info(json.toString());
+
+        } catch (JsonProcessingException e)
+        {
+            LOGGER.error("An error has occurred while processing a callback");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "An error has occurred while processing a callback", e);
+        }
     }
 }
