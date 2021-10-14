@@ -107,7 +107,7 @@ export class BasketComponent implements OnInit {
             'success',
             4000
           );
-          this.discount = discount; 
+          this.discount = discount;
           console.log(this.discount);
           this.updatePrices();
           this.discountIsLoading = false;

@@ -110,7 +110,7 @@
                 <!-- Discount code -->
                 <form
                     [formGroup]="discountForm"
-                    (ngSubmit)="applyDiscount();"
+                    (ngSubmit)="applyDiscount()"
                     class="basket-options-item"
                 >
                     <input
@@ -131,10 +131,11 @@
                         <span
                             *ngIf="discountIsLoading"
                             class="spinner-border spinner-border-sm text-light"
-                            style="margin: 5px;"
+                            style="margin: 5px"
                             role="status"
                             aria-hidden="true"
-                        > </span>
+                        >
+                        </span>
                     </button>
 
                     <!-- Discount display -->
