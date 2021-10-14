@@ -1,4 +1,3 @@
-import { IOrder } from '@interfaces';
 import { DesignDimensionEnum, IDesign } from '../design';
 
 export interface ITransactionItem {
