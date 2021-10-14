@@ -154,15 +154,18 @@ public class OrderController
     public void paymentCallback(@RequestHeader("quickpay-checksum-sha256") String checksum,
                                 @RequestBody String body)
     {
-        // validate the checksum
-        quickpayService.validatePaymentCallbackChecksum(checksum, body);
-
         ObjectMapper objectMapper = new ObjectMapper();
         try
         {
             JsonNode json = objectMapper.readTree(body);
             LOGGER.info("A payment callback request has been received");
             LOGGER.info(json.toString());
+            // validate the checksum
+            if (!quickpayService.validatePaymentCallbackChecksum(checksum, json.toString()))
+            {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "The request body checksum does not match");
+            }
 
         } catch (JsonProcessingException e)
         {

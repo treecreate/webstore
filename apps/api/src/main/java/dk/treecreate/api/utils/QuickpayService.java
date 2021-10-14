@@ -281,13 +281,9 @@ public class QuickpayService
         try
         {
             String hashedBody = encode(secret, requestBody);
-            String hashedBody2 = encode2(secret, requestBody);
-            LOGGER.info("Secret: " + secret);
-            LOGGER.info("body: " + requestBody);
             LOGGER.info("Checksum:    " + checksum);
-            LOGGER.info("Hashed body1: " + hashedBody);
-            LOGGER.info("Hashed body2: " + hashedBody2);
-            return checksum.equals(hashedBody);
+            LOGGER.info("Hashed body: " + hashedBody);
+            return checksum.equalsIgnoreCase(hashedBody);
         } catch (Exception e)
         {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
@@ -302,40 +298,5 @@ public class QuickpayService
         sha256_HMAC.init(secret_key);
 
         return DatatypeConverter.printHexBinary(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
-    }
-
-    public String encode2(String key, String data)
-    {
-
-        byte[] hmacSha256 = null;
-        try
-        {
-            Mac mac = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secretKeySpec =
-                new SecretKeySpec(key.getBytes(
-                    StandardCharsets.UTF_8), "HmacSHA256");
-            mac.init(secretKeySpec);
-            hmacSha256 = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
-        } catch (Exception e)
-        {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                "Failed to calculate the checksum for the request body");
-        }
-        return bytesToHex(hmacSha256);
-    }
-
-    private static String bytesToHex(byte[] hash)
-    {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (int i = 0; i < hash.length; i++)
-        {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if (hex.length() == 1)
-            {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-        return hexString.toString();
     }
 }
