@@ -78,7 +78,6 @@ export class BasketComponent implements OnInit {
   }
 
   updatePrices() {
-    console.warn(this.itemList);
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -132,8 +131,13 @@ export class BasketComponent implements OnInit {
     }
   }
 
-  itemPriceChange(id) {
-    console.log(id);
+  itemPriceChange(newItem) {
+    const oldItem = this.itemList.find(
+      (item) => item.transactionItemId === newItem.transactionItemId
+    );
+    const itemIndex = this.itemList.indexOf(oldItem);
+    this.itemList[itemIndex] = newItem;
+    this.updatePrices();
   }
 
   deleteItemChange(id) {

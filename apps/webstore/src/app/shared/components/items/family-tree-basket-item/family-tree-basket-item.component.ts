@@ -46,7 +46,7 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   }
 
   updatePrice() {
-    this.priceChangeEvent.emit(this.item.transactionItemId);
+    this.priceChangeEvent.emit(this.item);
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
