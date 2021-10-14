@@ -123,10 +123,18 @@
                     <button
                         class="tc-button-100 margin-top low-dropshadow"
                         type="submit"
-                        i18n="@@apply-discount"
                         data-cy="basket-apply-discount-button"
                     >
-                        Apply discount
+                        <span i18n="@@apply-discount" *ngIf="!discountIsLoading"
+                            >Apply</span
+                        >
+                        <span
+                            *ngIf="discountIsLoading"
+                            class="spinner-border spinner-border-sm text-light"
+                            style="margin: 5px;"
+                            role="status"
+                            aria-hidden="true"
+                        > </span>
                     </button>
 
                     <!-- Discount display -->

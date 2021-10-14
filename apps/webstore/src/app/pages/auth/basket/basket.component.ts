@@ -9,6 +9,7 @@ import {
 } from '@interfaces';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
+import { DiscountService } from '../../../shared/services/discount/discount.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class BasketComponent implements OnInit {
 
   donatedTrees = 1;
   discount: IDiscount = null;
+  discountIsLoading = false;
 
   discountForm: FormGroup;
   priceInfo: IPricing;
@@ -37,7 +39,8 @@ export class BasketComponent implements OnInit {
   constructor(
     private toastService: ToastService,
     private calculatePriceService: CalculatePriceService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private discountService: DiscountService
   ) {
     this.discountForm = new FormGroup({
       discountCode: new FormControl('', [
@@ -54,6 +57,7 @@ export class BasketComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.warn("DISCOUNT: ", this.discount);
     this.getItemList();
   }
 
@@ -79,7 +83,6 @@ export class BasketComponent implements OnInit {
   }
 
   updatePrices() {
-    console.warn('updating price');
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -88,39 +91,38 @@ export class BasketComponent implements OnInit {
     );
   }
 
-  decreaseDonatingAmount() {
-    if (this.donatedTrees > 1) {
-      this.donatedTrees = this.donatedTrees - 1;
-    } else {
-      this.toastService.showAlert(
-        'Planting a tree is included in the price.',
-        'Det er includeret i prisen at du planter 1 træ.',
-        'danger',
-        3000
-      );
-    }
-  }
-
   applyDiscount() {
-    if (this.discountForm.get('discountCode').value === '123') {
-      this.toastService.showAlert(
-        'Your discount code: ' +
-          this.discountForm.get('discountCode').value +
-          ' has been activated!',
-        'Din rabat kode: ' +
-          this.discountForm.get('discountCode').value +
-          ' er aktiveret!',
-        'success',
-        4000
+    this.discountIsLoading = true;
+    this.discountService
+      .getDiscount(this.discountForm.get('discountCode').value)
+      .subscribe(
+        (discount: IDiscount) => {
+          this.toastService.showAlert(
+            'Your discount code: ' +
+              this.discountForm.get('discountCode').value +
+              ' has been activated!',
+            'Din rabat kode: ' +
+              this.discountForm.get('discountCode').value +
+              ' er aktiveret!',
+            'success',
+            4000
+          );
+          this.discount = discount; 
+          console.log(this.discount);
+          this.updatePrices();
+          this.discountIsLoading = false;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.error);
+          this.toastService.showAlert(
+            'Invalid discount code',
+            'Ugyldig rabatkode',
+            'danger',
+            4000
+          );
+          this.discountIsLoading = false;
+        }
       );
-    } else {
-      this.toastService.showAlert(
-        'Invalid discount code',
-        'Ugyldig rabatkode',
-        'danger',
-        4000
-      );
-    }
   }
 
   scrollTop() {
