@@ -128,4 +128,10 @@ export class BasketComponent implements OnInit {
   scrollTop() {
     window.scrollTo(0, 0);
   }
+
+  decreaseDonation() {
+    if (this.donatedTrees > 1) {
+      this.donatedTrees = this.donatedTrees - 1; this.updatePrices()
+    }
+  }
 }
