@@ -504,7 +504,9 @@
                                                             <span
                                                                 th:text="#{order.confirmation.dear}"
                                                             ></span>
-                                                            { customer.name }
+                                                            <span
+                                                                th:text="${order.contactInfo.name}"
+                                                            ></span>
                                                         </p>
                                                         <br />
                                                         <p
@@ -621,7 +623,25 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            { order.date }
+                                                            <!-- TODO: localise text  -->
+                                                            <strong>
+                                                                <span
+                                                                    >Ordrer
+                                                                    tidspunkt:
+                                                                </span></strong
+                                                            >
+                                                            <span
+                                                                th:text="${order.createdAt}"
+                                                            ></span>
+                                                            <br />
+                                                            <strong>
+                                                                <span
+                                                                    >Ordrer id:
+                                                                </span></strong
+                                                            >
+                                                            <span
+                                                                th:text="${order.orderId}"
+                                                            ></span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -743,21 +763,133 @@
                                                             mso-line-height-alt: 17px;
                                                         "
                                                     >
-                                                        <p
+                                                        <!-- TODO: Localise text -->
+                                                        <!-- Order items display -->
+                                                        <div
+                                                            th:each="transactionItem : ${order.transactionItems}"
                                                             style="
-                                                                margin: 0;
-                                                                font-size: 14px;
-                                                                line-height: 1.2;
-                                                                word-break: break-word;
                                                                 text-align: center;
-                                                                mso-line-height-alt: 17px;
-                                                                margin-top: 0;
-                                                                margin-bottom: 0;
                                                             "
                                                         >
-                                                            { order.items
-                                                            }&nbsp;
-                                                        </p>
+                                                            <strong
+                                                                >Titel:
+                                                                <span
+                                                                    th:text="${transactionItem.design.designProperties.title}"
+                                                                ></span
+                                                            ></strong>
+                                                            <br />
+                                                            <span
+                                                                >Størrelse:
+                                                            </span>
+                                                            <span
+                                                                th:text="${transactionItem.dimension}"
+                                                            ></span>
+                                                            <br />
+                                                            <span>Antal: </span>
+                                                            <span
+                                                                th:text="${transactionItem.quantity}"
+                                                            ></span>
+                                                            <br />
+                                                            <br />
+                                                        </div>
+
+                                                        <!-- Price display -->
+                                                        <hr />
+                                                        <div
+                                                            style="margin: 20px"
+                                                        >
+                                                            <span
+                                                                >Subtotal:
+                                                            </span>
+                                                            <span
+                                                                th:text="${order.subtotal}"
+                                                            ></span>
+                                                            <br />
+                                                            <span
+                                                                style="
+                                                                    color: green;
+                                                                "
+                                                                >Sparet:
+                                                            </span>
+                                                            <span
+                                                                style="
+                                                                    color: green;
+                                                                "
+                                                                th:text="${order.subtotal} - ${order.total}"
+                                                            ></span>
+                                                            <br />
+                                                            <strong>
+                                                                <span
+                                                                    >I alt:
+                                                                </span>
+                                                                <span
+                                                                    th:text="${order.total}"
+                                                                ></span
+                                                            ></strong>
+                                                            <span
+                                                                style="
+                                                                    opacity: 0.5;
+                                                                    font-size: xx-small;
+                                                                "
+                                                                >( moms:
+                                                                <span
+                                                                    th:text="${order.total}*0.2"
+                                                                ></span
+                                                                >)
+                                                            </span>
+                                                            <br />
+                                                        </div>
+
+                                                        <!-- Address display -->
+                                                        <hr />
+                                                        <div
+                                                            style="margin: 20px"
+                                                        >
+                                                            <strong>
+                                                                <span
+                                                                    >Leverings
+                                                                    adresse </span
+                                                                ><br
+                                                            /></strong>
+                                                            <span>Navn: </span>
+                                                            <span
+                                                                th:text="${order.contactInfo.name}"
+                                                            ></span>
+                                                            <br />
+                                                            <span
+                                                                >Tlf nr:
+                                                            </span>
+                                                            <span
+                                                                th:text="${order.contactInfo.phoneNumber}"
+                                                            ></span>
+                                                            <br />
+                                                            <span
+                                                                >Adresse:
+                                                            </span>
+                                                            <span
+                                                                th:text="${order.contactInfo.streetAddress}"
+                                                            ></span>
+                                                            <br />
+                                                            <span
+                                                                >Adresse 2:
+                                                            </span>
+                                                            <span
+                                                                th:text="${order.contactInfo.streetAddress2}"
+                                                            ></span>
+                                                            <br />
+                                                            <span>By: </span>
+                                                            <span
+                                                                th:text="${order.contactInfo.city}"
+                                                            ></span>
+                                                            <br />
+                                                            <span
+                                                                >Postnummer:
+                                                            </span>
+                                                            <span
+                                                                th:text="${order.contactInfo.postcode}"
+                                                            ></span>
+                                                            <br />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--[if mso]></td></tr></table><![endif]-->
@@ -892,15 +1024,15 @@
                                                             <span
                                                                 th:text="#{order.confirmation.planted.trees.01}"
                                                             ></span>
-                                                            {
-                                                            customer.treesPlanted
-                                                            }
+                                                            <span
+                                                                th:text="${order.plantedTrees}"
+                                                            ></span>
                                                             <span
                                                                 th:text="#{order.confirmation.planted.trees.02}"
                                                             ></span>
-                                                            {
-                                                            customer.treesPlanted
-                                                            }
+                                                            <span
+                                                                th:text="${order.plantedTrees}"
+                                                            ></span>
                                                             <span
                                                                 th:text="#{order.confirmation.planted.trees.03}"
                                                             ></span>
@@ -973,12 +1105,24 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <strong
-                                                                >E-mail - </strong
+                                                            <strong>
+                                                                <a
+                                                                    href="mailto:info@treecreate.dk"
+                                                                    >E-mail -</a
+                                                                > </strong
                                                             ><strong
-                                                                >Facebook - </strong
-                                                            ><strong
-                                                                >Instagram</strong
+                                                                ><a
+                                                                    href="http://facebook.com/treecreate.dk"
+                                                                    target="_blank"
+                                                                    >Facebook
+                                                                    -</a
+                                                                > </strong
+                                                            ><strong>
+                                                                <a
+                                                                    href="http://instagram.com/treecreate.dk"
+                                                                >
+                                                                    Instagram</a
+                                                                ></strong
                                                             >
                                                         </p>
                                                     </div>

@@ -8,6 +8,7 @@ import dk.treecreate.api.designs.DesignType;
 import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.discount.DiscountRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.transactionitem.TransactionItem;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
@@ -43,6 +44,11 @@ public class OrderService
     UserRepository userRepository;
     @Autowired
     AuthUserService authUserService;
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    MailService mailService;
 
     public boolean verifyPrice(Order order)
     {
@@ -161,6 +167,18 @@ public class OrderService
             default:
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Provided design (" + designType + ") type data is not valid");
+        }
+    }
+
+    public void sendOrderConfirmationEmail(UUID orderId) {
+        Order order = orderRepository.findByOrderId(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+        try {
+            mailService.sendOrderconfirmationEmail(order.getContactInfo().getEmail(), order);
+        } catch (Exception e) {
+            LOGGER.error("Failed to process order confirmation email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to send order confirmation email. Try again later");
         }
     }
 
