@@ -376,6 +376,7 @@ export class FamilyTreeMiniatureComponent
 
   loadDesign() {
     try {
+      this.myBoxes = [];
       // Load the design
       if (this.design === null || this.design === undefined) {
         // Setup default boxes if there is no saved design
