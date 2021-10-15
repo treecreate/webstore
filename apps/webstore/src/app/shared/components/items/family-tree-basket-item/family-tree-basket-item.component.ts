@@ -125,6 +125,17 @@ export class FamilyTreeBasketItemComponent implements OnInit {
       );
   }
 
+  translateDimension(dimension: string): string {
+    switch (dimension) {
+      case 'SMALL':
+        return '20cm x 20cm';
+      case 'MEDIUM':
+        return '25cm x 25cm';
+      case 'LARGE':
+        return '30cm x 30cm';
+    }
+  }
+
   deleteTransactionItem() {
     this.isLoading = true;
     const transactionId = this.item.transactionItemId;

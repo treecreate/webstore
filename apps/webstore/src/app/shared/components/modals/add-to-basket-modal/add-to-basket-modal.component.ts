@@ -101,6 +101,17 @@ export class AddToBasketModalComponent implements OnInit {
       this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
 
+  translateDimension(dimension: string): string {
+    switch (dimension) {
+      case 'SMALL':
+        return '20cm x 20cm';
+      case 'MEDIUM':
+        return '25cm x 25cm';
+      case 'LARGE':
+        return '30cm x 30cm';
+    }
+  }
+
   increaseQuantity() {
     this.addToBasketForm.setValue({
       title: this.addToBasketForm.get('title').value,

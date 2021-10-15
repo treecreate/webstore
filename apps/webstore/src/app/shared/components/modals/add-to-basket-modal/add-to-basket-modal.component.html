@@ -94,7 +94,11 @@
                     </div>
                 </button>
                 <div class="quantity" data-cy="add-to-basket-dimension">
-                    {{ this.addToBasketForm.get('dimension').value }}
+                    {{
+                        translateDimension(
+                            this.addToBasketForm.get('dimension').value
+                        )
+                    }}
                 </div>
                 <button
                     type="button"
