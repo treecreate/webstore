@@ -7,6 +7,7 @@ import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.user.UserService;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
+import dk.treecreate.api.utils.LocaleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,8 @@ class UserControllerTests
     private UserRepository userRepository;
     @MockBean
     private MailService mailService;
+    @MockBean
+    private LocaleService localeService;
 
     @Nested
     class AuthenticationTests
@@ -359,7 +362,7 @@ class UserControllerTests
             Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
             Mockito.when(authUserService.getCurrentlyAuthenticatedUser())
                 .thenReturn(user);
-            Mockito.when(mailService.getLocale(any())).thenReturn(new Locale("dk"));
+            Mockito.when(localeService.getLocale(any())).thenReturn(new Locale("dk"));
             Mockito.doNothing().when(mailService)
                 .sendVerificationEmail(anyString(), anyString(),
                     any(Locale.class));

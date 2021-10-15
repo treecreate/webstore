@@ -2,13 +2,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  ContactInfo,
   DiscountType,
   IAuthUser,
   IDiscount,
   INewsletter,
+  IPaymentLink,
   IPricing,
   ITransactionItem,
   IUser,
+  ShippingMethodEnum,
 } from '@interfaces';
 import { LocalStorageVars, UserRoles } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +20,7 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
 import { VerifyService } from '../../../shared/services/verify/verify.service';
@@ -43,10 +47,7 @@ export class CheckoutComponent implements OnInit {
   billingAddressIsTheSame = true;
 
   priceInfo: IPricing;
-  discount: IDiscount = {
-    amount: 0,
-    type: DiscountType.percent,
-  };
+  discount: IDiscount = null;
 
   isTermsAndConditionsAccepted = false;
   public isVerified: boolean;
@@ -76,13 +77,20 @@ export class CheckoutComponent implements OnInit {
     private modalService: NgbModal,
     private calculatePriceService: CalculatePriceService,
     private newsletterService: NewsletterService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private orderService: OrderService
   ) {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
         this.isVerified = this.verifyService.getIsVerified();
       });
+    this.discount = this.localStorageService.getItem<IDiscount>(
+      LocalStorageVars.discount
+    ).value;
+    this.extraDonatedTrees = this.localStorageService.getItem<number>(
+      LocalStorageVars.extraDonatedTrees
+    ).value;
   }
 
   ngOnInit(): void {
@@ -181,11 +189,25 @@ export class CheckoutComponent implements OnInit {
   }
 
   updatePrices() {
+    let totalItems = 0;
+    for (let i = 0; i < this.itemList.length; i++) {
+      totalItems += this.itemList[i].quantity;
+    }
+    if (4 <= totalItems) {
+      this.discount = {
+        discountCode: 'ismorethan3=true',
+        type: DiscountType.percent,
+        amount: 25,
+        remainingUses: 9999,
+        totalUses: 1,
+      };
+      console.warn('discount changed to: ', this.discount);
+    }
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
       this.isHomeDelivery,
-      this.extraDonatedTrees
+      this.extraDonatedTrees - 1
     );
   }
 
@@ -244,6 +266,8 @@ export class CheckoutComponent implements OnInit {
         ? 'I want home delivery'
         : 'I want parcelshop delivery'
     );
+
+    this.createOrder();
   }
 
   isDisabled() {
@@ -256,6 +280,84 @@ export class CheckoutComponent implements OnInit {
         this.billingAddressForm.valid
       );
     }
+  }
+
+  createOrder() {
+    if (!this.isDisabled()) {
+      console.warn(
+        'You are not able to add an order without valid information'
+      );
+      return;
+    }
+
+    const contactInfo: ContactInfo = {
+      name: this.checkoutForm.get('name').value,
+      phoneNumber: this.checkoutForm.get('phoneNumber').value,
+      email: this.checkoutForm.get('email').value,
+      streetAddress: this.checkoutForm.get('streetAddress').value,
+      streetAddress2: this.checkoutForm.get('streetAddress2').value,
+      city: this.checkoutForm.get('city').value,
+      postcode: this.checkoutForm.get('postcode').value,
+      country: 'DK',
+    };
+
+    let billingInfo: ContactInfo;
+    if (this.billingAddressIsTheSame) {
+      billingInfo = contactInfo;
+    } else {
+      billingInfo = {
+        name: this.billingAddressForm.get('name').value,
+        phoneNumber: this.billingAddressForm.get('phoneNumber').value,
+        email: this.billingAddressForm.get('email').value,
+        streetAddress: this.billingAddressForm.get('streetAddress').value,
+        streetAddress2: this.billingAddressForm.get('streetAddress2').value,
+        city: this.billingAddressForm.get('city').value,
+        postcode: this.billingAddressForm.get('postcode').value,
+        country: 'DK',
+      };
+    }
+
+    const itemIds: string[] = [];
+    this.itemList.forEach((item) => {
+      itemIds.push(item.transactionItemId);
+    });
+
+    if (this.discount != null) {
+      if (this.discount.discountCode === 'ismorethan3=true') {
+        this.discount = null;
+      }
+    }
+
+    this.orderService
+      .createOrder({
+        subtotal: this.priceInfo.fullPrice,
+        total: this.priceInfo.finalPrice,
+        plantedTrees: this.extraDonatedTrees,
+        shippingMethod: this.isHomeDelivery
+          ? ShippingMethodEnum.homeDelivery
+          : ShippingMethodEnum.pickUpPoint,
+        discountId: this.discount !== null ? this.discount.discountId : null,
+        contactInfo: contactInfo,
+        billingInfo: billingInfo,
+        transactionItemIds: itemIds,
+      })
+      .subscribe(
+        (paymentLink: IPaymentLink) => {
+          this.isLoading = false;
+          console.log('Created order and got a payment link', paymentLink);
+          window.open(paymentLink.url, '_blank');
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+          this.alert = {
+            message: 'Failed to create an order. Try again later',
+            type: 'danger',
+            dismissible: false,
+          };
+
+          this.isLoading = false;
+        }
+      );
   }
 
   notAllowedToChangeEmailAlert() {

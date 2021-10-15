@@ -3,6 +3,7 @@ package dk.treecreate.api.user;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
+import dk.treecreate.api.utils.LocaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,12 @@ public class UserService
 {
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     AuthUserService authUserService;
-
     @Autowired
     MailService mailService;
+    @Autowired
+    private LocaleService localeService;
 
     public User updateUser(UpdateUserRequest updateUserRequest, User user)
         throws MessagingException, UnsupportedEncodingException
@@ -63,7 +64,7 @@ public class UserService
         System.out.println("Setting to false");
         user.setIsVerified(false);
         mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
-            mailService.getLocale(null));
+            localeService.getLocale(null));
         return user;
     }
 }

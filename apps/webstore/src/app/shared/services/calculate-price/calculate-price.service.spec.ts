@@ -15,8 +15,11 @@ describe('CalculatePriceService', () => {
   let service: CalculatePriceService;
   const itemListInfo = {
     discount: {
-      amount: 0.1,
+      discountCode: '',
       type: DiscountType.percent,
+      amount: 10,
+      remainingUses: 1,
+      totalUses: 0,
     },
     isHomeDelivery: true,
     donatedTrees: 0,
@@ -46,7 +49,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.small,
       quantity: 2,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
     {
@@ -67,7 +70,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.medium,
       quantity: 1,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
     {
@@ -88,15 +91,18 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.large,
       quantity: 1,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
   ];
 
   const secondItemListInfo = {
     discount: {
-      amount: 495,
+      discountCode: '',
       type: DiscountType.amount,
+      amount: 495,
+      remainingUses: 1,
+      totalUses: 0,
     },
     isHomeDelivery: false,
     donatedTrees: 3,
@@ -120,7 +126,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.medium,
       quantity: 2,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
     {
@@ -141,7 +147,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.large,
       quantity: 1,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
   ];

@@ -1,5 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
@@ -17,7 +24,8 @@ import { ToastService } from '../../toast/toast-service';
 export class FamilyTreeBasketItemComponent implements OnInit {
   @ViewChild('productDesign', { static: true })
   miniature: FamilyTreeMiniatureComponent;
-
+  @Output() priceChangeEvent = new EventEmitter();
+  @Output() deleteItemEvent = new EventEmitter();
   @Input() item: ITransactionItem;
   itemPrice: number;
   isLoading = false;
@@ -38,6 +46,7 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   }
 
   updatePrice() {
+    this.priceChangeEvent.emit(this.item);
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
@@ -116,33 +125,44 @@ export class FamilyTreeBasketItemComponent implements OnInit {
       );
   }
 
+  translateDimension(dimension: string): string {
+    switch (dimension) {
+      case 'SMALL':
+        return '20cm x 20cm';
+      case 'MEDIUM':
+        return '25cm x 25cm';
+      case 'LARGE':
+        return '30cm x 30cm';
+    }
+  }
+
   deleteTransactionItem() {
     this.isLoading = true;
-    this.transactionItemService
-      .deleteTransactionItem(this.item.transactionItemId)
-      .subscribe(
-        () => {
-          this.isLoading = false;
-          this.alert = {
-            message: 'Set item for deletion',
-            type: 'success',
-            dismissible: false,
-          };
-          this.item = null;
-          console.log('Deleted transaction item');
-          window.location.reload();
-          // TODO - self-destruct the component
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
+    const transactionId = this.item.transactionItemId;
+    this.transactionItemService.deleteTransactionItem(transactionId).subscribe(
+      () => {
+        this.isLoading = false;
+        this.alert = {
+          message: 'Set item for deletion',
+          type: 'success',
+          dismissible: false,
+        };
+        this.item = null;
+        this.deleteItemEvent.emit(transactionId);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
 
-          this.alert = {
-            message: 'Failed to fully delete the transaction item',
-            type: 'danger',
-            dismissible: false,
-          };
-          this.isLoading = false;
-        }
-      );
+        this.alert = {
+          message: 'Failed to fully delete the transaction item',
+          type: 'danger',
+          dismissible: false,
+        };
+        this.isLoading = false;
+      }
+    );
+  }
+  scrollTop() {
+    window.scrollTo(0, 0);
   }
 }

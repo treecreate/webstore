@@ -1,10 +1,11 @@
 package dk.treecreate.api.authentication.jwt;
 
 import dk.treecreate.api.authentication.services.UserDetailsImpl;
+import dk.treecreate.api.config.CustomPropertiesConfig;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -15,11 +16,8 @@ public class JwtUtils
 {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${treecreate.app.jwtSecret}")
-    private String jwtSecret;
-
-    @Value("${treecreate.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+    @Autowired
+    CustomPropertiesConfig customProperties;
 
     public String generateJwtToken(Authentication authentication)
     {
@@ -29,21 +27,22 @@ public class JwtUtils
         return Jwts.builder()
             .setSubject((userPrincipal.getUsername()))
             .setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
             .compact();
     }
 
     public String getUserNameFromJwtToken(String token)
     {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(token)
+            .getBody().getSubject();
     }
 
     public boolean validateJwtToken(String authToken)
     {
         try
         {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e)
         {

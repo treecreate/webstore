@@ -69,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .antMatchers("/users/verification/{token}").permitAll()
             .antMatchers("/users/resetPassword/{email}").permitAll()
             .antMatchers("/users/updatePassword").permitAll()
+            .antMatchers("/paymentCallback").permitAll()
             .antMatchers("/newsletter/**").permitAll()
             .antMatchers("/healthcheck").permitAll()
             .antMatchers("/docs", // Swagger docs endpoints

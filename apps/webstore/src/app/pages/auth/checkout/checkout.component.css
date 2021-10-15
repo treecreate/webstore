@@ -170,6 +170,10 @@
   display: none;
 }
 
+.vat {
+  opacity: 0.5;
+}
+
 .loading-screen {
   height: 148px;
   display: flex;

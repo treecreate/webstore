@@ -1,12 +1,10 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignTypeEnum,
-  DiscountType,
   FamilyTreeFontEnum,
   IDesign,
   IDraggableBox,
   IFamilyTreeBanner,
-  IOrder,
   IUser,
 } from '@interfaces';
 import { LocalStorageVars, CookieStatus, UserRoles } from '@models';
@@ -108,18 +106,6 @@ describe('CollectionPage', () => {
     designType: DesignTypeEnum.familyTree,
     user: mockUser,
     mutable: false,
-  };
-  const mockOrder: IOrder = {
-    orderId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
-    purchaseStatus: '',
-    discountCode: {
-      amount: 100,
-      type: DiscountType.amount,
-    },
-    initialPrice: 1000,
-    finalPrice: 900,
-    currency: 'DK',
-    createdAt: 'today',
   };
 
   beforeEach(() => {

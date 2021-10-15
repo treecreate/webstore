@@ -24,7 +24,8 @@
                         *ngIf="!(itemList.length <= 0) && !isLoading"
                     >
                         <webstore-basket-item
-                            (click)="updatePrices()"
+                            (priceChangeEvent)="itemPriceChange($event)"
+                            (deleteItemEvent)="deleteItemChange($event)"
                             *ngFor="let item of itemList"
                             [item]="item"
                         ></webstore-basket-item>
@@ -79,7 +80,7 @@
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-less-trees-btn"
-                            (click)="decreaseDonatingAmount(); updatePrices()"
+                            (click)="decreaseDonation()"
                             [disabled]="donatedTrees === 1"
                             data-cy="basket-decrease-donated-trees-button"
                         >
@@ -97,9 +98,7 @@
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-extra-trees-btn"
-                            (click)="
-                                donatedTrees = donatedTrees + 1; updatePrices()
-                            "
+                            (click)="increaseDonation()"
                             data-cy="basket-increase-donated-trees-button"
                         >
                             <div class="button-plus"></div>
@@ -109,7 +108,7 @@
                 <!-- Discount code -->
                 <form
                     [formGroup]="discountForm"
-                    (ngSubmit)="applyDiscount(); updatePrices()"
+                    (ngSubmit)="applyDiscount()"
                     class="basket-options-item"
                 >
                     <input
@@ -122,10 +121,19 @@
                     <button
                         class="tc-button-100 margin-top low-dropshadow"
                         type="submit"
-                        i18n="@@apply-discount"
                         data-cy="basket-apply-discount-button"
                     >
-                        Apply discount
+                        <span i18n="@@apply-discount" *ngIf="!discountIsLoading"
+                            >Apply</span
+                        >
+                        <span
+                            *ngIf="discountIsLoading"
+                            class="spinner-border spinner-border-sm text-light"
+                            style="margin: 5px"
+                            role="status"
+                            aria-hidden="true"
+                        >
+                        </span>
                     </button>
 
                     <!-- Discount display -->
@@ -145,7 +153,7 @@
                 <!-- Price info -->
                 <div class="basket-options-item">
                     <div class="line-container">
-                        <span i18n="@@subtotal"> Subtotal </span>
+                        <span i18n="@@subtotal">Subtotal</span>
                         <span>
                             {{ priceInfo.fullPrice.toFixed(2) }} DKK <br />
                         </span>
@@ -156,7 +164,7 @@
                             priceInfo.discountAmount > 0 ? 'green-text' : ''
                         "
                     >
-                        <span i18n="@@you-save"> You save </span>
+                        <span i18n="@@you-save">You save</span>
                         <span>
                             - {{ priceInfo.discountAmount.toFixed(2) }} DKK
                         </span>
@@ -171,15 +179,14 @@
                             </strong>
                         </span>
                     </div>
-                    <div class="line-container margin-bottom">
-                        <span i18n="@@vat"> VAT </span>
+                    <div class="line-container margin-bottom vat">
+                        <span i18n="@@vat">VAT</span>
                         <span> {{ priceInfo.vat.toFixed(2) }} DKK </span>
                     </div>
 
                     <button
                         class="tc-button-100 green low-dropshadow"
-                        routerLink="/checkout"
-                        (click)="scrollTop()"
+                        (click)="goToCheckout()"
                         i18n="@@go-to-checkout"
                         [disabled]="itemList.length <= 0"
                         data-cy="basket-checkout-button"

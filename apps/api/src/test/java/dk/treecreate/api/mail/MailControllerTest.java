@@ -4,8 +4,8 @@ import dk.treecreate.api.TestUtilsService;
 import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
-import dk.treecreate.api.mail.dto.ResetPasswordDto;
 import dk.treecreate.api.mail.dto.SignupDto;
+import dk.treecreate.api.utils.LocaleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,18 +39,16 @@ class MailControllerTest
 {
     @Autowired
     private MockMvc mvc;
-
     @MockBean
     private MailService mailService;
-
     @MockBean
     private UserDetailsServiceImpl userDetailsService;
-
     @MockBean
     private AuthEntryPointJwt authEntryPointJwt;
-
     @MockBean
     private JwtUtils jwtUtils;
+    @MockBean
+    private LocaleService localeService;
 
 
     //region /signup endpoint tests
@@ -92,7 +90,7 @@ class MailControllerTest
         params.setEmail(email);
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
-        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 
@@ -140,7 +138,7 @@ class MailControllerTest
         params.setEmail(email);
 
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
-        Mockito.when(mailService.getLocale(null)).thenReturn(new Locale("dk"));
+        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         doThrow(UnsupportedEncodingException.class).when(mailService)
             .sendSignupEmail(anyString(), anyString(), any(Locale.class));
 

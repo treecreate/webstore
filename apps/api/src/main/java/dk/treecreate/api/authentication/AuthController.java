@@ -11,6 +11,7 @@ import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
+import dk.treecreate.api.utils.LocaleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -52,6 +53,8 @@ public class AuthController
     AuthUserService authUserService;
     @Autowired
     MailService mailService;
+    @Autowired
+    private LocaleService localeService;
 
     @PostMapping("/signin")
     @Operation(summary = "Sign in as an existing user")
@@ -127,7 +130,7 @@ public class AuthController
         try
         {
             mailService.sendSignupEmail(user.getEmail(), user.getToken().toString(),
-                mailService.getLocale(null));
+                localeService.getLocale(null));
         } catch (Exception e)
         {
             LOGGER.error("Failed to process a verification email", e);

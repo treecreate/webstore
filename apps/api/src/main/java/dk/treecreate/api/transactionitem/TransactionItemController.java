@@ -63,7 +63,9 @@ public class TransactionItemController
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User user = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return transactionItemRepository.findByUserId(user.getUserId());
+        var items = transactionItemRepository.findByUserId(user.getUserId());
+        items.removeIf(item -> (item.getOrderId() != null));
+        return items;
     }
 
     @GetMapping("{transactionItemId}")

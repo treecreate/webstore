@@ -2,6 +2,7 @@ package dk.treecreate.api.transactionitem;
 
 import dk.treecreate.api.designs.Design;
 import dk.treecreate.api.designs.DesignDimension;
+import dk.treecreate.api.order.Order;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -32,7 +33,6 @@ public class TransactionItem
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
     private UUID transactionItemId;
 
-
     @Basic
     @ApiModelProperty(notes = "The quantity of how many items are included", example = "1")
     @Column(name = "quantity", nullable = false)
@@ -46,6 +46,15 @@ public class TransactionItem
     // TODO: eager-load instead
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     private Design design;
+
+    @Type(type = "uuid-char")
+    @Column(name = "order_id", nullable = true)
+    @ApiModelProperty(notes = "Id of the order",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+    private UUID orderId;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    private Order order;
 
     public UUID getTransactionItemId()
     {
@@ -85,6 +94,22 @@ public class TransactionItem
     public void setDesign(Design design)
     {
         this.design = design;
+    }
+
+    public void setOrder(Order order)
+    {
+        this.order = order;
+        this.orderId = order.getOrderId();
+    }
+
+    public UUID getOrderId()
+    {
+        return orderId;
+    }
+
+    public void setOrderId(UUID orderId)
+    {
+        this.orderId = orderId;
     }
 
     @Override public boolean equals(Object o)
