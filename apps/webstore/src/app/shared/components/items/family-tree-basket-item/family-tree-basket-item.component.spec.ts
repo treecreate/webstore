@@ -52,7 +52,7 @@ describe('BasketItemComponent', () => {
       },
       dimension: DesignDimensionEnum.small,
       quantity: 1,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     };
 

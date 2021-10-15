@@ -215,7 +215,6 @@ describe('ProductPage', () => {
     // box-size buttons
     it('should contain a navbar and footer', () => {
       cy.get('[data-cy=navbar]').should('exist');
-      cy.get('[data-cy=footer]').should('exist');
     });
 
     it('should have a box-size of 20', () => {

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
+  DiscountType,
   IAuthUser,
   IDiscount,
   INewsletter,
@@ -84,6 +85,12 @@ export class CheckoutComponent implements OnInit {
       .subscribe(() => {
         this.isVerified = this.verifyService.getIsVerified();
       });
+    this.discount = this.localStorageService.getItem<IDiscount>(
+      LocalStorageVars.discount
+    ).value;
+    this.extraDonatedTrees = this.localStorageService.getItem<number>(
+      LocalStorageVars.extraDonatedTrees
+    ).value;
   }
 
   ngOnInit(): void {
@@ -182,6 +189,20 @@ export class CheckoutComponent implements OnInit {
   }
 
   updatePrices() {
+    let totalItems = 0;
+    for (let i = 0; i < this.itemList.length; i++) {
+      totalItems += this.itemList[i].quantity;
+    }
+    if (4 <= totalItems) {
+      this.discount = {
+        discountCode: 'ismorethan3=true',
+        type: DiscountType.percent,
+        amount: 25,
+        remainingUses: 9999,
+        totalUses: 1,
+      };
+      console.warn('discount changed to: ', this.discount);
+    }
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -300,6 +321,12 @@ export class CheckoutComponent implements OnInit {
     this.itemList.forEach((item) => {
       itemIds.push(item.transactionItemId);
     });
+
+    if (this.discount != null) {
+      if (this.discount.discountCode === 'ismorethan3=true') {
+        this.discount = null;
+      }
+    }
 
     this.orderService
       .createOrder({

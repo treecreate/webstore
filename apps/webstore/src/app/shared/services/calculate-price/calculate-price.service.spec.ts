@@ -49,7 +49,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.small,
       quantity: 2,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
     {
@@ -70,7 +70,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.medium,
       quantity: 1,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
     {
@@ -91,7 +91,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.large,
       quantity: 1,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
   ];
@@ -126,7 +126,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.medium,
       quantity: 2,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
     {
@@ -147,7 +147,7 @@ describe('CalculatePriceService', () => {
       },
       dimension: DesignDimensionEnum.large,
       quantity: 1,
-      order: null,
+      orderId: '123',
       transactionItemId: '1',
     },
   ];

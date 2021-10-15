@@ -81,8 +81,12 @@
                 <div class="option-title">
                     <span i18n="@@title">Title</span>
                     <webstore-info-popover
-                        title="Title"
-                        text="Add a good title so you can keep track of your designs."
+                        title="{{ isEnglish() ? 'Title' : 'Titel' }}"
+                        text="{{
+                            isEnglish()
+                                ? 'Add a good title so you can keep track of your designs.'
+                                : 'Giv dit design en god titel så den er nemmere at huske.'
+                        }}"
                     ></webstore-info-popover>
                 </div>
                 <div class="option-design-title">
@@ -103,7 +107,11 @@
                     Font
                     <webstore-info-popover
                         title="Font"
-                        text="Choose the font that best suits you."
+                        text="{{
+                            isEnglish()
+                                ? 'Choose the font that best suits you.'
+                                : 'Vælg hvilken font der passer dig bedst. '
+                        }}"
                     ></webstore-info-popover>
                 </div>
                 <div class="option-tree-design-btn">
@@ -135,7 +143,11 @@
                     Design
                     <webstore-info-popover
                         title="Design"
-                        text="Change the design of the tree and find the one you like the most."
+                        text="{{
+                            isEnglish()
+                                ? 'Change the design of the tree and find the one you like the most.'
+                                : 'Vælg det design der passer dig bedst.'
+                        }}"
                     ></webstore-info-popover>
                 </div>
                 <div class="option-tree-design-btn">
@@ -164,8 +176,14 @@
                 <div class="option-title">
                     <span i18n="@@box-size">Box Size</span>
                     <webstore-info-popover
-                        title="Box Size"
-                        text="You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design."
+                        title="{{
+                            isEnglish() ? 'Box size' : 'Boks størrelse'
+                        }}"
+                        text="{{
+                            isEnglish()
+                                ? 'You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design.'
+                                : 'Du kan gøre navne boksene større og mindre. Gør dem større for et mere tydeligt print.'
+                        }}"
                     ></webstore-info-popover>
                 </div>
                 <div>
@@ -213,7 +231,11 @@
                             ></span>
                             <webstore-info-popover
                                 title="Banner"
-                                text="Add or remove the banner from your design."
+                                text="{{
+                                    isEnglish()
+                                        ? 'Add or remove the banner from your design.'
+                                        : 'Tillæg eller fjern banneret fra dit design.'
+                                }}"
                             ></webstore-info-popover>
                         </label>
                     </div>
@@ -230,8 +252,14 @@
                                 data-cy="checkbox-large-font"
                             ></span>
                             <webstore-info-popover
-                                title="Large font"
-                                text="Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname."
+                                title="{{
+                                    isEnglish() ? 'Large font' : 'Stor font'
+                                }}"
+                                text="{{
+                                    isEnglish()
+                                        ? 'Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname.'
+                                        : 'Tillæg eller fjern stor font. Med den store font bliver teksten mere tydeligt, men der er ikke plads til mere end 10 bokstaver i hver navne boks.'
+                                }}"
                             ></webstore-info-popover>
                         </label>
                     </div>
@@ -317,3 +345,14 @@
         </div>
     </div>
 </section>
+
+<div
+    class="use-desktop-container"
+    (click)="removeSuggestion()"
+    [ngClass]="showSuggestion ? '' : 'remove'"
+>
+    <div class="use-desktop-suggestion" i18n="@@suggestion-to-use-pc">
+        User a PC for an optimised user experience. There can still be issues on
+        the mobile verison. We are working as fast as we can to fix them.
+    </div>
+</div>
