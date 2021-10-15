@@ -13,6 +13,13 @@ public class LinkService
     @Autowired
     CustomPropertiesConfig customProperties;
 
+    /**
+     * Returns link that is used for account verification
+     *
+     * @param token  user-specific UUID token
+     * @param locale what locale the redirected page should be opened in
+     * @return the verification  link with a token
+     */
     public String generateVerificationLink(UUID token, Locale locale)
     {
         String route = "/verification/" + token.toString();
@@ -28,6 +35,13 @@ public class LinkService
         }
     }
 
+    /**
+     * Returns link that is included in the reset password email
+     *
+     * @param token  user-specific UUID token
+     * @param locale what locale the redirected page should be opened in
+     * @return the reset password link with a token
+     */
     public String generateResetPasswordLink(UUID token, Locale locale)
     {
         String route = "/resetPassword/" + token.toString();
