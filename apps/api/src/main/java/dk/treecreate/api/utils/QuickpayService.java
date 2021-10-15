@@ -67,8 +67,7 @@ public class QuickpayService
             .uri(new URI(quickpayApiUrl + "/payments"))
             .headers(headers -> headers.setBasicAuth("", apiKey))
             .header("Accept-Version", "v10")
-            .header("QuickPay-Callback-Url",
-                linkService.generateCallbackUrl(customProperties.getEnvironment()))
+            .header("QuickPay-Callback-Url", linkService.generateCallbackUrl())
             .body(BodyInserters.fromValue(payment))
             .retrieve()
             .bodyToMono(Payment.class)
@@ -114,12 +113,10 @@ public class QuickpayService
 
         // assign the payment redirect urls
         createPaymentLinkRequest.continue_url =
-            linkService.generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, true);
+            linkService.generatePaymentRedirectUrl(locale, true);
         createPaymentLinkRequest.cancel_url =
-            linkService.generatePaymentRedirectUrl(customProperties.getEnvironment(), locale,
-                false);
-        createPaymentLinkRequest.callback_url =
-            linkService.generateCallbackUrl(customProperties.getEnvironment());
+            linkService.generatePaymentRedirectUrl(locale, false);
+        createPaymentLinkRequest.callback_url = linkService.generateCallbackUrl();
 
         // TODO - add proper error handling of the response
         WebClient client = WebClient.create();
@@ -127,8 +124,7 @@ public class QuickpayService
             .uri(new URI(quickpayApiUrl + "/payments/" + paymentId + "/link"))
             .headers(headers -> headers.setBasicAuth("", apiKey))
             .header("Accept-Version", "v10")
-            .header("QuickPay-Callback-Url",
-                linkService.generateCallbackUrl(customProperties.getEnvironment()))
+            .header("QuickPay-Callback-Url", linkService.generateCallbackUrl())
             .body(BodyInserters.fromValue(createPaymentLinkRequest))
             .retrieve()
             .bodyToMono(CreatePaymentLinkResponse.class)

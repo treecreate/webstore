@@ -59,7 +59,9 @@ public class LinkServiceTest
     void generatePaymentRedirectUrl(Environment environment, Locale locale,
                                     boolean successLink, String expectedUrl)
     {
-        assertEquals(linkService.generatePaymentRedirectUrl(environment, locale, successLink),
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generatePaymentRedirectUrl(locale, successLink),
             expectedUrl);
     }
 
@@ -79,7 +81,9 @@ public class LinkServiceTest
     @DisplayName("generateCallbackUrl() returns a correctly structured callback url")
     void generateCallbackUrl(Environment environment, String expectedUrl)
     {
-        assertEquals(linkService.generateCallbackUrl(environment), expectedUrl);
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generateCallbackUrl(), expectedUrl);
     }
 
     private static Stream<Arguments> generateVerificationLinkArguments()
