@@ -5,6 +5,7 @@ import dk.treecreate.api.authentication.jwt.AuthEntryPointJwt;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
 import dk.treecreate.api.mail.dto.SignupDto;
+import dk.treecreate.api.utils.LinkService;
 import dk.treecreate.api.utils.LocaleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,6 +51,8 @@ class MailControllerTest
     private JwtUtils jwtUtils;
     @MockBean
     private LocaleService localeService;
+    @MockBean
+    private LinkService linkService;
 
 
     //region /signup endpoint tests
@@ -92,7 +96,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(anyString(), anyString(), any(Locale.class));
+            .sendSignupEmail(anyString(), any(UUID.class), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
@@ -140,7 +144,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(anyString(), anyString(), any(Locale.class));
+            .sendSignupEmail(anyString(), any(UUID.class), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
                 .contentType(MediaType.APPLICATION_JSON))

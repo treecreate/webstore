@@ -45,7 +45,7 @@ public class MailController
 
         try
         {
-            mailService.sendSignupEmail(signupDto.getEmail(), UUID.randomUUID().toString(),
+            mailService.sendSignupEmail(signupDto.getEmail(), UUID.randomUUID(),
                 localeService.getLocale(lang));
         } catch (Exception e)
         {
