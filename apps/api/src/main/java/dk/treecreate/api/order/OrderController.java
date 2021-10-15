@@ -1,9 +1,5 @@
 package dk.treecreate.api.order;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.designs.ContactInfoService;
@@ -16,8 +12,6 @@ import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.LocaleService;
 import dk.treecreate.api.utils.QuickpayService;
-import dk.treecreate.api.utils.model.quickpay.QuickpayOperationType;
-import dk.treecreate.api.utils.model.quickpay.QuickpayStatusCode;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
@@ -32,7 +26,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.net.URISyntaxException;
@@ -150,98 +143,5 @@ public class OrderController
                 order.getSubtotal() + " | Total: " + order.getTotal());
 
         return createPaymentLinkResponse;
-    }
-
-    @ApiIgnore
-    @PostMapping("/paymentCallback")
-    public void paymentCallback(@RequestHeader("quickpay-checksum-sha256") String checksum,
-                                @RequestBody String body)
-    {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try
-        {
-            JsonNode json = objectMapper.readTree(body);
-            LOGGER.info("A payment callback request has been received");
-            LOGGER.info(json.toString());
-            // validate the checksum
-            if (!quickpayService.validatePaymentCallbackChecksum(checksum, json.toString()))
-            {
-                LOGGER.warn("The request body checksum does not match");
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "The request body checksum does not match");
-            }
-
-            LOGGER.info("Processing the operations data");
-            JsonNode operations = json.get("operations");
-            if (operations.isArray())
-            {
-                // get the latest operation
-                ArrayNode arrayNode = (ArrayNode) operations;
-                JsonNode latestOperation = arrayNode.get(arrayNode.size() - 1);
-                JsonNode operationType = latestOperation.get("type");
-                JsonNode operationStatus = latestOperation.get("qp_status_code");
-                if (operationType == null || operationType.isNull())
-                {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "The provided body is missing the necessary field: /operations/[" +
-                            (arrayNode.size() - 1) + "]/type");
-                }
-                if (operationStatus == null || operationStatus.isNull())
-                {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "The provided body is missing the necessary field: /operations/[" +
-                            (arrayNode.size() - 1) + "]/qp_status_code");
-                }
-
-                LOGGER.info("Latest operation type: " + operationType.asText());
-                LOGGER.info("Latest operation status: " + operationStatus.asInt());
-
-                if (operationType.asText().equals(QuickpayOperationType.AUTHORIZE.label))
-                {
-                    LOGGER.info("Received callback is of operation type AUTHORIZE");
-                    if (operationStatus.asInt() != QuickpayStatusCode.APPROVED.label)
-                    {
-                        LOGGER.warn("Operation status is " + operationStatus.asInt() +
-                            ", aka not approved. Aborting");
-                        return;
-                    }
-
-                    LOGGER.info("Operation status is APPROVED, sending out an email");
-
-                    // Send out the email based on the orderId
-                    JsonNode orderId = json.get("variables(orderId");
-                    if (orderId == null || orderId.isNull())
-                    {
-                        // try to send the order based on the paymentID instead
-                        JsonNode paymentId = json.get("id");
-                        LOGGER.warn(
-                            "The provided body does not contain orderId variable, sending email based on the paymentId instead");
-                        if (paymentId == null || paymentId.isNull())
-                        {
-                            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                                "The provided body is missing the necessary field: id");
-                        }
-                        LOGGER.info("Sending order confirmation email to order with paymentID: " +
-                            paymentId.asText());
-                        // TODO - call orderService to send the email
-                    } else
-                    {
-                        LOGGER.info("Sending order confirmation email to: " + orderId.asText());
-                        // TODO - call orderService to send the email
-                    }
-
-                } else
-                {
-                    LOGGER.info("Received callback is of operation type " + operationType.asText() +
-                        ", ignoring (nothing coded for handling this operation)");
-                    return;
-                }
-            }
-            LOGGER.info("Finished processing the callback");
-        } catch (JsonProcessingException e)
-        {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                "An error has occurred while processing the callback", e);
-        }
     }
 }
