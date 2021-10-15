@@ -65,6 +65,7 @@ public class QuickpayService
             .uri(new URI(quickpayApiUrl + "/payments"))
             .headers(headers -> headers.setBasicAuth("", apiKey))
             .header("Accept-Version", "v10")
+            .header("QuickPay-Callback-Url", generateCallbackUrl(customProperties.getEnvironment()))
             .body(BodyInserters.fromValue(payment))
             .retrieve()
             .bodyToMono(Payment.class)
@@ -113,6 +114,8 @@ public class QuickpayService
             generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, true);
         createPaymentLinkRequest.cancel_url =
             generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, false);
+        createPaymentLinkRequest.callback_url =
+            generateCallbackUrl(customProperties.getEnvironment());
 
         // TODO - add proper error handling of the response
         WebClient client = WebClient.create();
@@ -120,6 +123,7 @@ public class QuickpayService
             .uri(new URI(quickpayApiUrl + "/payments/" + paymentId + "/link"))
             .headers(headers -> headers.setBasicAuth("", apiKey))
             .header("Accept-Version", "v10")
+            .header("QuickPay-Callback-Url", generateCallbackUrl(customProperties.getEnvironment()))
             .body(BodyInserters.fromValue(createPaymentLinkRequest))
             .retrieve()
             .bodyToMono(CreatePaymentLinkResponse.class)
@@ -271,6 +275,26 @@ public class QuickpayService
                 return "https://testing.treecreate.dk" + lang + route;
             default:
                 return "http://localhost:4200" + route;
+        }
+    }
+
+    /**
+     * Returns url that can be assigned to the payment and payment link as the callback url
+     *
+     * @param environment what environment the app is running in. Affects the domain
+     * @return the url for redirect
+     */
+    public String generateCallbackUrl(Environment environment)
+    {
+        String route = "/orders/paymentCallback";
+        switch (environment)
+        {
+            case PRODUCTION:
+                return "https://api.treecreate.dk" + route;
+            case STAGING:
+                return "https://api.testing.treecreate.dk" + route;
+            default:
+                return "http://localhost:5000" + route;
         }
     }
 

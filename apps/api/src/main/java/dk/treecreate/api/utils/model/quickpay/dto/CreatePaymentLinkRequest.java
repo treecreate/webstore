@@ -9,4 +9,5 @@ public class CreatePaymentLinkRequest
     public String language;
     public String continue_url;
     public String cancel_url;
+    public String callback_url;
 }
