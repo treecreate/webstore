@@ -61,10 +61,6 @@ export class FamilyTreeMiniatureComponent
   };
 
   myBoxes: IDraggableBox[] = [];
-  mouseCords = {
-    x: 0,
-    y: 0,
-  };
 
   // SVGs
 
