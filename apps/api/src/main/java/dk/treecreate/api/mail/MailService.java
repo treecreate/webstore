@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import dk.treecreate.api.order.Order;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
-import java.util.UUID;
 
 @Service
 public class MailService
@@ -60,6 +61,16 @@ public class MailService
         context.setVariable("verificationToken", token);
         String subject = "Treecreate - verify email";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
+    }
+
+    public void sendOrderconfirmationEmail(String to, Order order, Locale locale)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(locale);
+        context.setVariable("email", to);
+        context.setVariable("order", order);
+        String subject = "Treecreate - Order Confirmation";
+        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.ORDER_CONFIRMATION);
     }
 
     private void sendMail(String to, MailDomain from, String subject, Context context,
