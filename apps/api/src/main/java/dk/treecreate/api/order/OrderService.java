@@ -48,7 +48,7 @@ public class OrderService
     OrderRepository orderRepository;
 
     @Autowired
-    MailService mailService; 
+    MailService mailService;
 
     public boolean verifyPrice(Order order)
     {
@@ -170,14 +170,11 @@ public class OrderService
         }
     }
 
-    public void sendOrderconfirmationEmail(UUID orderId) {
-        Order order = orderRepository.findByOrderId(orderId).orElseThrow( () ->
-                 new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                        "An error has occurred while sending the order cofirmation email"
-                    )
-                    );
+    public void sendOrderConfirmationEmail(UUID orderId) {
+        Order order = orderRepository.findByOrderId(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
         try {
-            mailService.sendOrderconfirmationEmail( order.getContactInfo().getEmail(), order ); 
+            mailService.sendOrderconfirmationEmail(order.getContactInfo().getEmail(), order);
         } catch (Exception e) {
             LOGGER.error("Failed to process order confirmation email", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
