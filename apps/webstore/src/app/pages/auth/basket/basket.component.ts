@@ -1,11 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   DiscountType,
   IDiscount,
   IPricing,
   ITransactionItem,
+  IUser,
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
@@ -30,6 +32,8 @@ export class BasketComponent implements OnInit {
     message: string;
     dismissible: boolean;
   };
+  user: IUser;
+  isVerified = false;
 
   donatedTrees = 1;
   discountInput: IDiscount = null;
@@ -44,7 +48,8 @@ export class BasketComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private transactionItemService: TransactionItemService,
     private discountService: DiscountService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {
     this.discountForm = new FormGroup({
       discountCode: new FormControl('', [
@@ -58,11 +63,29 @@ export class BasketComponent implements OnInit {
     this.donatedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.extraDonatedTrees
     ).value;
+    this.user = this.localStorageService.getItem<IUser>(
+      LocalStorageVars.authUser
+    ).value;
+    this.isVerified = this.user.isVerified;
     this.updatePrices();
   }
 
   ngOnInit(): void {
     this.getItemList();
+  }
+
+  goToCheckout() {
+    this.scrollTop();
+    if (this.isVerified) {
+      this.router.navigate(['/checkout']);
+    } else {
+      this.toastService.showAlert(
+        'You have to verify you email to continue.',
+        'Du skal verificere din email før du kan fortsætte.',
+        'danger',
+        10000
+      );
+    }
   }
 
   getItemList() {

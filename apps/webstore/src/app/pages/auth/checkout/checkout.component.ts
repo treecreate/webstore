@@ -322,8 +322,10 @@ export class CheckoutComponent implements OnInit {
       itemIds.push(item.transactionItemId);
     });
 
-    if (this.discount.discountCode === 'ismorethan3=true') {
-      this.discount = null;
+    if (this.discount != null) {
+      if (this.discount.discountCode === 'ismorethan3=true') {
+        this.discount = null;
+      }
     }
 
     this.orderService

@@ -186,8 +186,7 @@
 
                     <button
                         class="tc-button-100 green low-dropshadow"
-                        routerLink="/checkout"
-                        (click)="scrollTop()"
+                        (click)="goToCheckout()"
                         i18n="@@go-to-checkout"
                         [disabled]="itemList.length <= 0"
                         data-cy="basket-checkout-button"
