@@ -84,6 +84,9 @@ export class CheckoutComponent implements OnInit {
       .subscribe(() => {
         this.isVerified = this.verifyService.getIsVerified();
       });
+    this.discount = this.localStorageService.getItem<IDiscount>(
+      LocalStorageVars.discount
+    ).value;
   }
 
   ngOnInit(): void {
