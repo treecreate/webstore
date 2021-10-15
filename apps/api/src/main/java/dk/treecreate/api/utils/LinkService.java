@@ -101,4 +101,26 @@ public class LinkService
                 return "http://localhost:5000" + route;
         }
     }
+
+    /**
+     * Returns link that is included in the newsletter emails
+     *
+     * @param newsletterId id of the newsletter entry
+     * @param locale       what locale the redirected page should be opened in
+     * @return the newsletter unsubscribe link with a newsletterId
+     */
+    public String generateNewsletterUnsubscribeLink(UUID newsletterId, Locale locale)
+    {
+        String route = "/newsletter/unsubscribe/" + newsletterId.toString();
+        String lang = locale.equals(Locale.ENGLISH) ? "/en-US" : "/dk";
+        switch (customProperties.getEnvironment())
+        {
+            case PRODUCTION:
+                return "https://treecreate.dk" + lang + route;
+            case STAGING:
+                return "https://testing.treecreate.dk" + lang + route;
+            default:
+                return "http://localhost:4200" + route;
+        }
+    }
 }

@@ -139,4 +139,35 @@ public class LinkServiceTest
         assertEquals(linkService.generateResetPasswordLink(token, locale),
             expectedUrl);
     }
+
+    private static Stream<Arguments> generateNewsletterUnsubscribeLinkArguments()
+    {
+        return Stream.of(
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.DEVELOPMENT,
+                "http://localhost:4200/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.STAGING,
+                "https://testing.treecreate.dk/en-US/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.PRODUCTION,
+                "https://treecreate.dk/en-US/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.DEVELOPMENT,
+                "http://localhost:4200/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.STAGING,
+                "https://testing.treecreate.dk/dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.PRODUCTION,
+                "https://treecreate.dk/dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateNewsletterUnsubscribeLinkArguments")
+    @DisplayName(
+        "generateNewsletterUnsubscribeLink() returns a correctly structured newsletter unsubscribe link")
+    void generateNewsletterUnsubscribeLink(UUID newsletterId, Locale locale,
+                                           Environment environment,
+                                           String expectedUrl)
+    {
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generateNewsletterUnsubscribeLink(newsletterId, locale),
+            expectedUrl);
+    }
 }
