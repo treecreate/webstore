@@ -43,7 +43,6 @@ public class MailService
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("verificationToken", token.toString());
         context.setVariable("verificationLink",
             linkService.generateVerificationLink(token, locale));
         String subject = "Welcome to Treecreate";
@@ -60,7 +59,7 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
     }
 
-    public void sendVerificationEmail(String to, String token, Locale locale)
+    public void sendVerificationEmail(String to, UUID token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);

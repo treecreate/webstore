@@ -63,7 +63,7 @@ public class UserService
     {
         System.out.println("Setting to false");
         user.setIsVerified(false);
-        mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
+        mailService.sendVerificationEmail(user.getEmail(), user.getToken(),
             localeService.getLocale(null));
         return user;
     }

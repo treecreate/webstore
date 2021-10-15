@@ -230,7 +230,7 @@ class AuthControllerTests
 
         Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
-            .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
+            .sendVerificationEmail(user.getEmail(), user.getToken(), new Locale("dk"));
 
         mvc.perform(post("/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON)
