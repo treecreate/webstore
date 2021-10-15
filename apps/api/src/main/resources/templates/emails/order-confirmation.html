@@ -504,7 +504,10 @@
                                                             <span
                                                                 th:text="#{order.confirmation.dear}"
                                                             ></span>
-                                                            { customer.name }
+                                                            <!-- TODO: Check that this works -->
+                                                            <span
+                                                                th:text="${order.contactInfo.name}"
+                                                            ></span>
                                                         </p>
                                                         <br />
                                                         <p
@@ -621,7 +624,10 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            { order.date }
+                                                            <!-- TODO: Check that this works -->
+                                                            <span
+                                                                th:text="${order.createdAt}"
+                                                            ></span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -743,21 +749,29 @@
                                                             mso-line-height-alt: 17px;
                                                         "
                                                     >
-                                                        <p
-                                                            style="
-                                                                margin: 0;
-                                                                font-size: 14px;
-                                                                line-height: 1.2;
-                                                                word-break: break-word;
-                                                                text-align: center;
-                                                                mso-line-height-alt: 17px;
-                                                                margin-top: 0;
-                                                                margin-bottom: 0;
-                                                            "
+                                                        <!-- TODO: add order items  -->
+                                                        <!-- TODO: Localise text -->
+                                                        <div
+                                                            th:each="transactionItem : ${order.transactionItems}"
                                                         >
-                                                            { order.items
-                                                            }&nbsp;
-                                                        </p>
+                                                            <span
+                                                                th:text="${transactionItem.design.designProperties.title}"
+                                                            ></span>
+                                                            <br />
+                                                            <span
+                                                                >Størrelse:
+                                                            </span>
+                                                            <span
+                                                                th:text="${transactionItem.dimension}"
+                                                            ></span>
+                                                            <br />
+                                                            <span>Antal: </span>
+                                                            <span
+                                                                th:text="${transactionItem.quantity}"
+                                                            ></span>
+                                                            <br />
+                                                            <hr />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--[if mso]></td></tr></table><![endif]-->
