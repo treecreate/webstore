@@ -212,7 +212,7 @@ public class UserController
         }
         try
         {
-            mailService.sendResetPasswordEmail(email, user.getToken().toString(),
+            mailService.sendResetPasswordEmail(email, user.getToken(),
                 localeService.getLocale(lang));
         } catch (Exception e)
         {

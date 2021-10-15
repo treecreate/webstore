@@ -27,4 +27,19 @@ public class LinkService
                 return "http://localhost:4200" + route;
         }
     }
+
+    public String generateResetPasswordLink(UUID token, Locale locale)
+    {
+        String route = "/resetPassword/" + token.toString();
+        String lang = locale.equals(Locale.ENGLISH) ? "/en-US" : "/dk";
+        switch (customProperties.getEnvironment())
+        {
+            case PRODUCTION:
+                return "https://treecreate.dk" + lang + route;
+            case STAGING:
+                return "https://testing.treecreate.dk" + lang + route;
+            default:
+                return "http://localhost:4200" + route;
+        }
+    }
 }

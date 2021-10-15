@@ -49,12 +49,13 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
     }
 
-    public void sendResetPasswordEmail(String to, String token, Locale locale)
+    public void sendResetPasswordEmail(String to, UUID token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("token", token);
+        context.setVariable("resetPasswordLink",
+            linkService.generateResetPasswordLink(token, locale));
         String subject = "Reset password";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
     }
