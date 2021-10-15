@@ -64,7 +64,8 @@ public class MailService
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("verificationToken", token);
+        context.setVariable("verificationLink",
+            linkService.generateVerificationLink(token, locale));
         String subject = "Treecreate - verify email";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
     }
