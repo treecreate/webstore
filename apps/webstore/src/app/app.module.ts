@@ -40,6 +40,7 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
 import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
+import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { FamilyTreeMiniatureComponent } from './shared/components/products/famil
     ReviewCarouselComponent,
     ChangePasswordModalComponent,
     UnsubscribeComponent,
+    PaymentCancelledComponent,
   ],
   imports: [
     BrowserModule,
