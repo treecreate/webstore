@@ -7,9 +7,11 @@ import {
   IPricing,
   ITransactionItem,
 } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { DiscountService } from '../../../shared/services/discount/discount.service';
+import { LocalStorageService } from '../../../shared/services/local-storage';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
@@ -40,7 +42,8 @@ export class BasketComponent implements OnInit {
     private toastService: ToastService,
     private calculatePriceService: CalculatePriceService,
     private transactionItemService: TransactionItemService,
-    private discountService: DiscountService
+    private discountService: DiscountService,
+    private localStorageService: LocalStorageService
   ) {
     this.discountForm = new FormGroup({
       discountCode: new FormControl('', [
@@ -48,11 +51,13 @@ export class BasketComponent implements OnInit {
         Validators.pattern('^\\S*$'),
       ]),
     });
+    this.discount = this.localStorageService.getItem<IDiscount>(
+      LocalStorageVars.discount
+    ).value;
     this.updatePrices();
   }
 
   ngOnInit(): void {
-    console.warn('DISCOUNT: ', this.discount);
     this.getItemList();
   }
 
@@ -106,6 +111,10 @@ export class BasketComponent implements OnInit {
           console.log(this.discount);
           this.updatePrices();
           this.discountIsLoading = false;
+          this.localStorageService.setItem<IDiscount>(
+            LocalStorageVars.discount,
+            this.discount
+          );
         },
         (error: HttpErrorResponse) => {
           console.log(error.error);
