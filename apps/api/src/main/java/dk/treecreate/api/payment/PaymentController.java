@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.QuickpayOperationType;
 import dk.treecreate.api.utils.model.quickpay.QuickpayStatusCode;
@@ -25,8 +24,6 @@ public class PaymentController
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
-    @Autowired
-    OrderService orderService;
     @Autowired
     QuickpayService quickpayService;
 
