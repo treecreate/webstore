@@ -35,6 +35,8 @@ public class QuickpayService
 
     @Autowired
     CustomPropertiesConfig customProperties;
+    @Autowired
+    LinkService linkService;
 
     /**
      * send a POST /payments request to Quickpay, creating a new payment
@@ -65,7 +67,8 @@ public class QuickpayService
             .uri(new URI(quickpayApiUrl + "/payments"))
             .headers(headers -> headers.setBasicAuth("", apiKey))
             .header("Accept-Version", "v10")
-            .header("QuickPay-Callback-Url", generateCallbackUrl(customProperties.getEnvironment()))
+            .header("QuickPay-Callback-Url",
+                linkService.generateCallbackUrl(customProperties.getEnvironment()))
             .body(BodyInserters.fromValue(payment))
             .retrieve()
             .bodyToMono(Payment.class)
@@ -111,11 +114,12 @@ public class QuickpayService
 
         // assign the payment redirect urls
         createPaymentLinkRequest.continue_url =
-            generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, true);
+            linkService.generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, true);
         createPaymentLinkRequest.cancel_url =
-            generatePaymentRedirectUrl(customProperties.getEnvironment(), locale, false);
+            linkService.generatePaymentRedirectUrl(customProperties.getEnvironment(), locale,
+                false);
         createPaymentLinkRequest.callback_url =
-            generateCallbackUrl(customProperties.getEnvironment());
+            linkService.generateCallbackUrl(customProperties.getEnvironment());
 
         // TODO - add proper error handling of the response
         WebClient client = WebClient.create();
@@ -123,7 +127,8 @@ public class QuickpayService
             .uri(new URI(quickpayApiUrl + "/payments/" + paymentId + "/link"))
             .headers(headers -> headers.setBasicAuth("", apiKey))
             .header("Accept-Version", "v10")
-            .header("QuickPay-Callback-Url", generateCallbackUrl(customProperties.getEnvironment()))
+            .header("QuickPay-Callback-Url",
+                linkService.generateCallbackUrl(customProperties.getEnvironment()))
             .body(BodyInserters.fromValue(createPaymentLinkRequest))
             .retrieve()
             .bodyToMono(CreatePaymentLinkResponse.class)
@@ -252,50 +257,6 @@ public class QuickpayService
         }
 
         return prefix + emailPrefix + "-" + randomId;
-    }
-
-    /**
-     * Returns url that can be assigned to the payment link as the url it should redirect to after a failed/successful payment
-     *
-     * @param environment what environment the app is running in. Affects the domain
-     * @param locale      what locale the redirected page should be opened in
-     * @param successLink whether the link is for a success of payment cancelled redirect
-     * @return the url for redirect
-     */
-    public String generatePaymentRedirectUrl(Environment environment, Locale locale,
-                                             boolean successLink)
-    {
-        String route = successLink ? "/payment/success" : "/payment/cancelled";
-        String lang = locale.equals(Locale.ENGLISH) ? "/en-US" : "/dk";
-        switch (environment)
-        {
-            case PRODUCTION:
-                return "https://treecreate.dk" + lang + route;
-            case STAGING:
-                return "https://testing.treecreate.dk" + lang + route;
-            default:
-                return "http://localhost:4200" + route;
-        }
-    }
-
-    /**
-     * Returns url that can be assigned to the payment and payment link as the callback url
-     *
-     * @param environment what environment the app is running in. Affects the domain
-     * @return the url for redirect
-     */
-    public String generateCallbackUrl(Environment environment)
-    {
-        String route = "/paymentCallback";
-        switch (environment)
-        {
-            case PRODUCTION:
-                return "https://api.treecreate.dk" + route;
-            case STAGING:
-                return "https://api.testing.treecreate.dk" + route;
-            default:
-                return "http://localhost:5000" + route;
-        }
     }
 
     public boolean validatePaymentCallbackChecksum(String checksum, String requestBody)

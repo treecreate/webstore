@@ -18,6 +18,8 @@ class QuickpayServiceTest
 {
     @Autowired
     QuickpayService quickpayService;
+    @Autowired
+    LinkService linkService;
 
     private static Stream<Arguments> createOrderIdArguments()
     {
@@ -72,7 +74,7 @@ class QuickpayServiceTest
     void generatePaymentRedirectUrl(Environment environment, Locale locale,
                                     boolean successLink, String expectedUrl)
     {
-        assertEquals(quickpayService.generatePaymentRedirectUrl(environment, locale, successLink),
+        assertEquals(linkService.generatePaymentRedirectUrl(environment, locale, successLink),
             expectedUrl);
     }
 
