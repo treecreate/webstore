@@ -81,7 +81,7 @@ public class OrderService
         BigDecimal total = calculateTotal(subTotal, order.getDiscount(), totalItems > 3);
 
         // each planted tree adds 10kr to the price, minus the default 1 tree
-        int plantedTreesPrice = (order.getPlantedTrees()-1) * 10;
+        int plantedTreesPrice = (order.getPlantedTrees() - 1) * 10;
         total = total.add(new BigDecimal(plantedTreesPrice));
 
         // add shipping cost
@@ -170,12 +170,28 @@ public class OrderService
         }
     }
 
-    public void sendOrderConfirmationEmail(UUID orderId) {
+    public void sendOrderConfirmationEmail(String paymentId)
+    {
+        Order order = orderRepository.findByPaymentId(paymentId)
+            .orElseThrow(() -> new ResourceNotFoundException(
+                "Order with paymentId " + paymentId + " not found"));
+        sendOrderConfirmationEmail(order);
+    }
+
+    public void sendOrderConfirmationEmail(UUID orderId)
+    {
         Order order = orderRepository.findByOrderId(orderId)
             .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-        try {
+        sendOrderConfirmationEmail(order);
+    }
+
+    public void sendOrderConfirmationEmail(Order order)
+    {
+        try
+        {
             mailService.sendOrderconfirmationEmail(order.getContactInfo().getEmail(), order);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             LOGGER.error("Failed to process order confirmation email", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to send order confirmation email. Try again later");
