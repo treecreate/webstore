@@ -13,6 +13,7 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
+import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 import { ProductComponent } from './pages/product/product.component';
@@ -61,7 +62,13 @@ const routes: Routes = [
     component: NotSignedInComponent,
     canActivate: [CookieGuard],
   },
-  { path: 'paymentSuccess', component: PaymentSuccessComponent },
+  {
+    path: 'payment',
+    children: [
+      { path: 'success', component: PaymentSuccessComponent },
+      { path: 'cancelled', component: PaymentCancelledComponent },
+    ],
+  },
   { path: 'rejectedCookies', component: RejectedCookiesComponent },
   {
     path: 'basket',

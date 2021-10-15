@@ -1,6 +1,6 @@
 <div class="min-width">
     <webstore-navbar
-        *ngIf="router.url != '/paymentSuccess' && router.url != '/checkout'"
+        *ngIf="router.url != '/payment/success' && router.url != '/checkout'"
     ></webstore-navbar>
     <div class="full-page">
         <router-outlet></router-outlet>
@@ -10,9 +10,8 @@
             router.url != '/login' &&
             router.url != '/signup' &&
             router.url != '/resetPassword' &&
-            router.url != '/paymentSuccess' &&
-            router.url != '/checkout' &&
-            router.url != '/product'
+            router.url != '/payment/success' &&
+            router.url != '/checkout'
         "
     ></webstore-footer>
     <webstore-cookie-prompt-modal></webstore-cookie-prompt-modal>
