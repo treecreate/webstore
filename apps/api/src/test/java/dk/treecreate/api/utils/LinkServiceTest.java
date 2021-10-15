@@ -1,13 +1,17 @@
 package dk.treecreate.api.utils;
 
+import dk.treecreate.api.config.CustomPropertiesConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Locale;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +21,8 @@ public class LinkServiceTest
 {
     @Autowired
     LinkService linkService;
+    @MockBean
+    CustomPropertiesConfig customProperties;
 
     private static Stream<Arguments> generatePaymentRedirectUrlArguments()
     {
@@ -54,6 +60,83 @@ public class LinkServiceTest
                                     boolean successLink, String expectedUrl)
     {
         assertEquals(linkService.generatePaymentRedirectUrl(environment, locale, successLink),
+            expectedUrl);
+    }
+
+    private static Stream<Arguments> generateCallbackUrlArguments()
+    {
+        return Stream.of(
+            Arguments.of(Environment.DEVELOPMENT,
+                "http://localhost:5000/paymentCallback"),
+            Arguments.of(Environment.STAGING,
+                "https://api.testing.treecreate.dk/paymentCallback"),
+            Arguments.of(Environment.PRODUCTION,
+                "https://api.treecreate.dk/paymentCallback"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateCallbackUrlArguments")
+    @DisplayName("generateCallbackUrl() returns a correctly structured callback url")
+    void generateCallbackUrl(Environment environment, String expectedUrl)
+    {
+        assertEquals(linkService.generateCallbackUrl(environment), expectedUrl);
+    }
+
+    private static Stream<Arguments> generateVerificationLinkArguments()
+    {
+        return Stream.of(
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.DEVELOPMENT,
+                "http://localhost:4200/verification/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.STAGING,
+                "https://testing.treecreate.dk/en-US/verification/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.PRODUCTION,
+                "https://treecreate.dk/en-US/verification/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.DEVELOPMENT,
+                "http://localhost:4200/verification/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.STAGING,
+                "https://testing.treecreate.dk/dk/verification/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.PRODUCTION,
+                "https://treecreate.dk/dk/verification/00000000-0000-0000-0000-000000000000"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateVerificationLinkArguments")
+    @DisplayName("generateVerificationLink() returns a correctly structured verification link")
+    void generateVerificationLink(UUID token, Locale locale, Environment environment,
+                                  String expectedUrl)
+    {
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generateVerificationLink(token, locale),
+            expectedUrl);
+    }
+
+    private static Stream<Arguments> generateResetPasswordLinkArguments()
+    {
+        return Stream.of(
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.DEVELOPMENT,
+                "http://localhost:4200/resetPassword/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.STAGING,
+                "https://testing.treecreate.dk/en-US/resetPassword/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.PRODUCTION,
+                "https://treecreate.dk/en-US/resetPassword/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.DEVELOPMENT,
+                "http://localhost:4200/resetPassword/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.STAGING,
+                "https://testing.treecreate.dk/dk/resetPassword/00000000-0000-0000-0000-000000000000"),
+            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.PRODUCTION,
+                "https://treecreate.dk/dk/resetPassword/00000000-0000-0000-0000-000000000000"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateResetPasswordLinkArguments")
+    @DisplayName("generateResetPasswordLink() returns a correctly structured reset password link")
+    void generateResetPasswordLink(UUID token, Locale locale, Environment environment,
+                                   String expectedUrl)
+    {
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generateResetPasswordLink(token, locale),
             expectedUrl);
     }
 }
