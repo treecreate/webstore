@@ -26,6 +26,7 @@ export class AddToBasketModalComponent implements OnInit {
   price: number;
   isMoreThan4: boolean;
   itemsInBasket: number;
+  totalPrice: number;
   design;
   isLoading = false;
   alert: {
@@ -75,12 +76,24 @@ export class AddToBasketModalComponent implements OnInit {
       this.isLoading = true;
       this.transactionItemService.getTransactionItems().subscribe(
         (itemList: ITransactionItem[]) => {
-          let sum = 0;
+          let itemSum = 0;
+          let priceSum = 0;
           for (let i = 0; i < itemList.length; i++) {
-            sum += itemList[i].quantity;
+            itemSum += itemList[i].quantity;
+            switch (itemList[i].dimension) {
+              case 'SMALL':
+                priceSum += itemList[i].quantity * 495;
+                break;
+              case 'MEDIUM':
+                priceSum += itemList[i].quantity * 695;
+                break;
+              case 'LARGE':
+                priceSum += itemList[i].quantity * 995;
+                break;
+            }
           }
-          console.log('SuM ', sum);
-          this.itemsInBasket = sum;
+          this.itemsInBasket = itemSum;
+          this.totalPrice = priceSum;
           this.isLoading = false;
           this.updatePrice();
         },
@@ -99,6 +112,10 @@ export class AddToBasketModalComponent implements OnInit {
     );
     this.isMoreThan4 =
       this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
+  }
+
+  amountSaved() {
+    return (this.price + this.totalPrice) * 0.25;
   }
 
   translateDimension(dimension: string): string {
