@@ -102,6 +102,7 @@ export class FamilyTreeDesignComponent
     x: 0,
     y: 0,
   };
+  downEventDelay = false;
 
   // render loop
   timeInterval;
@@ -565,7 +566,6 @@ export class FamilyTreeDesignComponent
 
   saveDesign() {
     console.log('Saving your design...');
-    console.log(this.timeInterval);
     if (
       !this.isDesignValid ||
       this.timeInterval === null ||
@@ -703,6 +703,14 @@ export class FamilyTreeDesignComponent
 
   mouseDownHandler(event) {
     event = event || window.event;
+    // if the mouse down/touchdown event got triggered, don't allow any new down events for 100ms
+    if (this.downEventDelay) {
+      return;
+    } else {
+      this.downEventDelay = true;
+      setTimeout(() => (this.downEventDelay = false), 100);
+    }
+
     this.mouseCords = this.getMousePosition(
       this.designCanvas.nativeElement,
       event
