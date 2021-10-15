@@ -286,7 +286,7 @@ public class QuickpayService
      */
     public String generateCallbackUrl(Environment environment)
     {
-        String route = "/orders/paymentCallback";
+        String route = "/paymentCallback";
         switch (environment)
         {
             case PRODUCTION:
