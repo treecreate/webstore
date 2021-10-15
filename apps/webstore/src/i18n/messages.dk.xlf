@@ -975,7 +975,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home-04-text-02" datatype="html">
-        <source>When we sendt your Treecreate family tree, it is carefully packed in strong FSC-certified re-use paper. In that way we secure that your valuable present is protected on the journey home, and we avoid using unnecessary plastic.</source>
+        <source>When we send your Treecreate family tree it is carefully packed in strong FSC-certified re-use paper. In that way, we secure that your valuable present is protected on the journey home and we avoid using unnecessary plastic.</source>
         <target>Når vi sender dit Treecreate stamtræ, bliver det omhyggeligt pakket ind i holdbart FSC-certificeret genbrugspapir. På den måde sikrer vi, at din værdifulde gave er beskyttet på rejsen hjem til dig, og samtidig undgår vi unødig brug af plastik.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
@@ -1168,6 +1168,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
           <context context-type="linenumber">263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="suggestion-to-use-pc" datatype="html">
+        <source> User a PC for an optimised user experience. There can still be issues on the mobile verison. We are working as fast as we can to fix them.</source>
+        <target> Brug en PC for en bedre bruger oplevelse. Der kan forekomme fejl på den mobile version. Vi arbejder på at optimerer det så hurtigt vi kan. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
+          <context context-type="linenumber">351,352</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reset" datatype="html">

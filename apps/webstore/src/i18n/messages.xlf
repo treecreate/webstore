@@ -60,7 +60,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subtotal" datatype="html">
-        <source> Subtotal </source>
+        <source>Subtotal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">156</context>
@@ -71,7 +71,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="you-save" datatype="html">
-        <source> You save </source>
+        <source>You save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">167</context>
@@ -97,7 +97,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="vat" datatype="html">
-        <source> VAT </source>
+        <source>VAT</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">183</context>
@@ -1004,21 +1004,28 @@
         <source>Box Size</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">165</context>
+          <context context-type="linenumber">177</context>
         </context-group>
       </trans-unit>
       <trans-unit id="save" datatype="html">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">274</context>
+          <context context-type="linenumber">302</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add" datatype="html">
         <source>Add</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">299</context>
+          <context context-type="linenumber">327</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="suggestion-to-use-pc" datatype="html">
+        <source>User a PC for an optimised user experience. There can still be issues on the mobile verison. We are working as fast as we can to fix them.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
+          <context context-type="linenumber">351,352</context>
         </context-group>
       </trans-unit>
       <trans-unit id="product" datatype="html">
@@ -1097,7 +1104,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="size" datatype="html">
@@ -1123,7 +1130,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="view" datatype="html">
@@ -1152,7 +1159,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">170</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit" datatype="html">
@@ -1166,56 +1173,56 @@
         <source> Dimension </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="order" datatype="html">
         <source>Order </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="more-to-save" datatype="html">
         <source>more to save </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">132</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="you-save-25%" datatype="html">
         <source>You save: (-25%)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cancel" datatype="html">
         <source> Cancel </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">173,174</context>
+          <context context-type="linenumber">187,188</context>
         </context-group>
       </trans-unit>
       <trans-unit id="note" datatype="html">
         <source>Note:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">181</context>
+          <context context-type="linenumber">195</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add-to-basket-extra-info" datatype="html">
         <source> For every design you purchase, you are automatically planting a tree. Thereby you support re-floreshing the forrests, which has never been a more vital task. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">183,186</context>
+          <context context-type="linenumber">197,200</context>
         </context-group>
       </trans-unit>
       <trans-unit id="thank-you-message" datatype="html">
         <source>THANK YOU FOR YOUR SUPPORT!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">190</context>
+          <context context-type="linenumber">204</context>
         </context-group>
       </trans-unit>
       <trans-unit id="update-password" datatype="html">

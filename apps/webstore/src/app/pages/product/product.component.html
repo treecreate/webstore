@@ -345,3 +345,14 @@
         </div>
     </div>
 </section>
+
+<div
+    class="use-desktop-container"
+    (click)="removeSuggestion()"
+    [ngClass]="showSuggestion ? '' : 'remove'"
+>
+    <div class="use-desktop-suggestion" i18n="@@suggestion-to-use-pc">
+        User a PC for an optimised user experience. There can still be issues on
+        the mobile verison. We are working as fast as we can to fix them.
+    </div>
+</div>

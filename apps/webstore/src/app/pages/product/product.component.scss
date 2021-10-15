@@ -226,3 +226,29 @@
   margin-left: 0;
   color: var(--second-action-color) !important;
 }
+
+.use-desktop-container {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+  bottom: 3px;
+}
+
+.use-desktop-suggestion {
+  font-size: var(--extra-small-font);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  color: white;
+  background-color: lightpink;
+  width: 99vw;
+  text-align: center;
+  padding: 10px;
+}
+
+.remove {
+  display: none !important;
+}

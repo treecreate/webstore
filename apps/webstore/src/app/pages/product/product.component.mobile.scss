@@ -29,6 +29,9 @@
   .back-container {
     width: 100%;
   }
+  .use-desktop-container {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 400px) {

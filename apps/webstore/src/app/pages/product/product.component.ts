@@ -40,9 +40,9 @@ export class ProductComponent implements OnInit {
 
   isDesignValid = false;
   isMutable = false;
-
   isMobileOptionOpen = false;
   designTitle = '';
+  showSuggestion = true;
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
   backgroundTreeDesign = TreeDesignEnum.tree1;
@@ -99,6 +99,11 @@ export class ProductComponent implements OnInit {
 
   isEnglish(): boolean {
     return this.localeCode === 'en-US';
+  }
+
+  removeSuggestion() {
+    console.log(this.showSuggestion);
+    this.showSuggestion = false;
   }
 
   // TODO: properly assign the banner
