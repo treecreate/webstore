@@ -16,7 +16,7 @@ import {
   IFamilyTree,
   IFamilyTreeBanner,
 } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
@@ -55,6 +55,8 @@ export class ProductComponent implements OnInit {
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
+  public locale$: BehaviorSubject<LocaleType>;
+  public localeCode: LocaleType;
 
   constructor(
     private modalService: NgbModal,
@@ -76,6 +78,14 @@ export class ProductComponent implements OnInit {
         this.authUser$.getValue() != null &&
         this.authService.isAccessTokenValid();
     });
+    // Listen to changes to locale
+    this.locale$ = this.localStorageService.getItem<LocaleType>(
+      LocalStorageVars.locale
+    );
+    this.localeCode = this.locale$.getValue();
+    this.locale$.subscribe(() => {
+      console.log('Locale changed to: ' + this.locale$.getValue());
+    });
   }
 
   ngOnInit() {
@@ -85,6 +95,10 @@ export class ProductComponent implements OnInit {
       this.loadDesign();
     });
     console.log('logged in', this.isLoggedIn);
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
   }
 
   // TODO: properly assign the banner
