@@ -66,7 +66,7 @@ export class BasketComponent implements OnInit {
     this.user = this.localStorageService.getItem<IUser>(
       LocalStorageVars.authUser
     ).value;
-    if (this.user != undefined) {
+    if (this.user !== undefined) {
       this.isVerified = this.user.isVerified;
     }
     this.updatePrices();
