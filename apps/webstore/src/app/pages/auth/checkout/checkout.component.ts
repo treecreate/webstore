@@ -87,6 +87,9 @@ export class CheckoutComponent implements OnInit {
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
+    this.extraDonatedTrees = this.localStorageService.getItem<number>(
+      LocalStorageVars.extraDonatedTrees
+    ).value;
   }
 
   ngOnInit(): void {

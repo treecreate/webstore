@@ -4,4 +4,5 @@ export enum LocalStorageVars {
   authUser = 'authUser',
   designFamilyTree = 'designFamilyTree',
   discount = 'discount',
+  extraDonatedTrees = '0',
 }
