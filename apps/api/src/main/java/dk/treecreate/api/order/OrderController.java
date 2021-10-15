@@ -163,10 +163,10 @@ public class OrderController
             // validate the checksum
             if (!quickpayService.validatePaymentCallbackChecksum(checksum, json.toString()))
             {
+                LOGGER.warn("The request body checksum does not match");
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "The request body checksum does not match");
             }
-
         } catch (JsonProcessingException e)
         {
             LOGGER.error("An error has occurred while processing a callback");
