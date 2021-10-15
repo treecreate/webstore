@@ -16,6 +16,10 @@ public class CustomPropertiesConfig
 
     private Environment environment = Environment.DEVELOPMENT;
 
+    private String jwtSecret;
+
+    private int jwtExpirationMs;
+
     public String getQuickpayApiKey()
     {
         return quickpayApiKey;
@@ -57,4 +61,28 @@ public class CustomPropertiesConfig
         LOGGER.info("Environment type set to " + environment);
     }
 
+    public void setEnvironment(Environment environment)
+    {
+        this.environment = environment;
+    }
+
+    public String getJwtSecret()
+    {
+        return jwtSecret;
+    }
+
+    public void setJwtSecret(String jwtSecret)
+    {
+        this.jwtSecret = jwtSecret;
+    }
+
+    public int getJwtExpirationMs()
+    {
+        return jwtExpirationMs;
+    }
+
+    public void setJwtExpirationMs(int jwtExpirationMs)
+    {
+        this.jwtExpirationMs = jwtExpirationMs;
+    }
 }
