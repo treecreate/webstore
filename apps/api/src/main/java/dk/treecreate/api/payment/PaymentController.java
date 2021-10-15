@@ -89,7 +89,7 @@ public class PaymentController
                     LOGGER.info("Operation status is APPROVED, sending out an email");
 
                     // Send out the email based on the orderId
-                    JsonNode orderId = json.get("variables(orderId");
+                    JsonNode orderId = json.at("/variables/orderId");
                     if (orderId == null || orderId.isNull())
                     {
                         // try to send the order based on the paymentID instead
