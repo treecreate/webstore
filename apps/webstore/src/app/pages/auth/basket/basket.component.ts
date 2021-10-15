@@ -9,7 +9,7 @@ import {
   ITransactionItem,
   IUser,
 } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { LocalStorageVars, UserRoles } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { DiscountService } from '../../../shared/services/discount/discount.service';
@@ -66,7 +66,9 @@ export class BasketComponent implements OnInit {
     this.user = this.localStorageService.getItem<IUser>(
       LocalStorageVars.authUser
     ).value;
-    this.isVerified = this.user.isVerified;
+    if (this.user != undefined) {
+      this.isVerified = this.user.isVerified;
+    }
     this.updatePrices();
   }
 
