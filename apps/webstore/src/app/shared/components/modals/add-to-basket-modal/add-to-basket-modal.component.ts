@@ -8,8 +8,9 @@ import {
   IFamilyTree,
   ITransactionItem,
 } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject } from 'rxjs';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
 import { LocalStorageService } from '../../../services/local-storage';
@@ -27,6 +28,8 @@ export class AddToBasketModalComponent implements OnInit {
   isMoreThan4: boolean;
   itemsInBasket: number;
   totalPrice: number;
+  public locale$: BehaviorSubject<LocaleType>;
+  public localeCode: LocaleType;
   design;
   isLoading = false;
   alert: {
@@ -44,7 +47,16 @@ export class AddToBasketModalComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
     private transactionItemService: TransactionItemService
-  ) {}
+  ) {
+    // Listen to changes to locale
+    this.locale$ = this.localStorageService.getItem<LocaleType>(
+      LocalStorageVars.locale
+    );
+    this.localeCode = this.locale$.getValue();
+    this.locale$.subscribe(() => {
+      console.log('Locale changed to: ' + this.locale$.getValue());
+    });
+  }
 
   ngOnInit(): void {
     this.addToBasketForm = new FormGroup({
@@ -127,6 +139,10 @@ export class AddToBasketModalComponent implements OnInit {
       case 'LARGE':
         return '30cm x 30cm';
     }
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
   }
 
   increaseQuantity() {

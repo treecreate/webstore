@@ -8,8 +8,12 @@
             <div class="title">
                 <span i18n="@@title">Title</span>
                 <webstore-info-popover
-                    title="Title"
-                    text="Add a good title so you can keep track of your designs."
+                    title="{{ isEnglish() ? 'Title' : 'Titel' }}"
+                    text="{{
+                        isEnglish()
+                            ? 'Add a good title so you can keep track of your designs.'
+                            : 'Giv dit design en god titel så den er nemmere at huske.'
+                    }}"
                 ></webstore-info-popover>
             </div>
             <div
@@ -35,8 +39,12 @@
             <div class="text">
                 <span i18n="@@amount"> Amount </span>
                 <webstore-info-popover
-                    title="Quantity"
-                    text="The quantity of designs you wish to purchase."
+                    title="{{ isEnglish() ? 'Quantity' : 'Antal' }}"
+                    text="{{
+                        isEnglish()
+                            ? 'The quantity of designs you wish to purchase.'
+                            : 'Antallet af designs du ønsker at købe.'
+                    }}"
                 ></webstore-info-popover>
             </div>
             <div class="option add-transition">
@@ -74,8 +82,12 @@
             <div class="text">
                 <span i18n="@@dimension"> Dimension </span>
                 <webstore-info-popover
-                    title="Size"
-                    text="The size of your design. You can choose between 20x20cm, 25x25cm and 30x30cm."
+                    title="{{ isEnglish() ? 'Size' : 'Størrelse' }}"
+                    text="{{
+                        isEnglish()
+                            ? 'The size of your design. You can choose between 20x20cm, 25x25cm and 30x30cm.'
+                            : 'Størrelsen på dit design. Du kan vælge imellem 20x20cm, 25x25cm and 30x30cm.'
+                    }}"
                 ></webstore-info-popover>
             </div>
             <div class="option add-transition">
