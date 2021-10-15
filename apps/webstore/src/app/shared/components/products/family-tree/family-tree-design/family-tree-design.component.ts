@@ -8,6 +8,7 @@ import {
   HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -44,7 +45,7 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent
-  implements AfterViewInit, OnInit, OnChanges {
+  implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   // Inputs for design settings
 
   @Input()
@@ -647,6 +648,11 @@ export class FamilyTreeDesignComponent
     }
     this.frameChanged = true;
     this.cdr.detectChanges();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timeInterval);
+    clearInterval(this.autosaveInterval);
   }
 
   // handle canvas events
