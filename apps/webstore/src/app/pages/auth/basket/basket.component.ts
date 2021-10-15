@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  DiscountType,
   IDiscount,
   IPricing,
   ITransactionItem,
@@ -31,6 +32,7 @@ export class BasketComponent implements OnInit {
   };
 
   donatedTrees = 1;
+  discountInput: IDiscount = null;
   discount: IDiscount = null;
   discountIsLoading = false;
 
@@ -84,7 +86,27 @@ export class BasketComponent implements OnInit {
     );
   }
 
+  isMoreThan3() {
+    let totalItems = 0;
+    for (let i = 0; i < this.itemList.length; i++) {
+      totalItems += this.itemList[i].quantity;
+    }
+    if (4 <= totalItems) {
+      this.discount = {
+        discountCode: 'ismorethan3=true',
+        type: DiscountType.percent,
+        amount: 25,
+        remainingUses: 9999,
+        totalUses: 1,
+      };
+      console.warn('discount changed to: ', this.discount);
+    } else {
+      this.discount = this.discountInput;
+    }
+  }
+
   updatePrices() {
+    this.isMoreThan3();
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -110,6 +132,7 @@ export class BasketComponent implements OnInit {
             4000
           );
           this.discount = discount;
+          this.discountInput = discount;
           console.log(this.discount);
           this.updatePrices();
           this.discountIsLoading = false;
