@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.QuickpayOperationType;
 import dk.treecreate.api.utils.model.quickpay.QuickpayStatusCode;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.UUID;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping()
@@ -24,6 +27,8 @@ public class PaymentController
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
+    @Autowired
+    OrderService orderService;
     @Autowired
     QuickpayService quickpayService;
 
@@ -98,11 +103,11 @@ public class PaymentController
                         }
                         LOGGER.info("Sending order confirmation email to order with paymentID: " +
                             paymentId.asText());
-                        // TODO - call orderService to send the email
+                        orderService.sendOrderConfirmationEmail(paymentId.asText());
                     } else
                     {
                         LOGGER.info("Sending order confirmation email to: " + orderId.asText());
-                        // TODO - call orderService to send the email
+                        orderService.sendOrderConfirmationEmail(UUID.fromString(orderId.asText()));
                     }
 
                 } else
