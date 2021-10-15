@@ -466,18 +466,30 @@ describe('AddToBasketModal', () => {
     cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
       'be.disabled'
     );
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '20cm x 20cm');
+    cy.get('[data-cy=add-to-basket-dimension]').should(
+      'contain',
+      '20cm x 20cm'
+    );
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
     cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
       'not.be.disabled'
     );
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
+    cy.get('[data-cy=add-to-basket-dimension]').should(
+      'contain',
+      '25cm x 25cm'
+    );
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '30cm x 30cm');
+    cy.get('[data-cy=add-to-basket-dimension]').should(
+      'contain',
+      '30cm x 30cm'
+    );
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').should(
       'be.disabled'
     );
     cy.get('[data-cy=add-to-basket-decrease-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
+    cy.get('[data-cy=add-to-basket-dimension]').should(
+      'contain',
+      '25cm x 25cm'
+    );
   });
 });
