@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
-  DiscountType,
   IDiscount,
   IPricing,
   ITransactionItem,
@@ -139,7 +138,7 @@ export class BasketComponent implements OnInit {
   decreaseDonation() {
     if (this.donatedTrees > 1) {
       this.donatedTrees = this.donatedTrees - 1;
-      this.localStorageService.setItem<Number>(
+      this.localStorageService.setItem<number>(
         LocalStorageVars.extraDonatedTrees,
         this.donatedTrees
       );
@@ -149,7 +148,7 @@ export class BasketComponent implements OnInit {
 
   increaseDonation() {
     this.donatedTrees = this.donatedTrees + 1;
-    this.localStorageService.setItem<Number>(
+    this.localStorageService.setItem<number>(
       LocalStorageVars.extraDonatedTrees,
       this.donatedTrees
     );

@@ -1,4 +1,7 @@
 @media screen and (max-width: 1130px) {
+  .product-section {
+    overflow: hidden !important;
+  }
   // TODO: create a slide in / slide out animation for the mobile options menu
   .desktop-options-container {
     display: none;

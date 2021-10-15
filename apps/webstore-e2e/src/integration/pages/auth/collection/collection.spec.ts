@@ -1,12 +1,10 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignTypeEnum,
-  DiscountType,
   FamilyTreeFontEnum,
   IDesign,
   IDraggableBox,
   IFamilyTreeBanner,
-  IOrder,
   IUser,
 } from '@interfaces';
 import { LocalStorageVars, CookieStatus, UserRoles } from '@models';
