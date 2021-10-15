@@ -61,11 +61,6 @@ public class CustomPropertiesConfig
         LOGGER.info("Environment type set to " + environment);
     }
 
-    public void setEnvironment(Environment environment)
-    {
-        this.environment = environment;
-    }
-
     public String getJwtSecret()
     {
         return jwtSecret;
