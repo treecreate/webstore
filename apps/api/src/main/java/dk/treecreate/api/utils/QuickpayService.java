@@ -26,7 +26,6 @@ import javax.xml.bind.DatatypeConverter;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Service
@@ -57,7 +56,7 @@ public class QuickpayService
 
         // perform POST https://api.quickpay.net/payments to create a payment object in Quickpay
         String quickpayApiUrl = "https://api.quickpay.net";
-        String apiKey = customProperties.getQuickpaySecret();
+        String apiKey = customProperties.getQuickpayApiKey();
 
         WebClient client = WebClient.create();
 
@@ -95,7 +94,7 @@ public class QuickpayService
         throws URISyntaxException
     {
         String quickpayApiUrl = "https://api.quickpay.net";
-        String apiKey = customProperties.getQuickpaySecret();
+        String apiKey = customProperties.getQuickpayApiKey();
 
         var createPaymentLinkRequest = new CreatePaymentLinkRequest();
         // quickpay requires the value as an integer. The remainder is preserved by multiplying by 100
@@ -277,10 +276,10 @@ public class QuickpayService
 
     public boolean validatePaymentCallbackChecksum(String checksum, String requestBody)
     {
-        String secret = customProperties.getQuickpaySecret();
+        String privateKey = customProperties.getQuickpayPrivateKey();
         try
         {
-            String hashedBody = encode(secret, requestBody);
+            String hashedBody = encode(privateKey, requestBody);
             LOGGER.info("Checksum:    " + checksum);
             LOGGER.info("Hashed body: " + hashedBody);
             return checksum.equalsIgnoreCase(hashedBody);

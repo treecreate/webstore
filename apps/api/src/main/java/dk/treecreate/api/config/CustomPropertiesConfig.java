@@ -10,18 +10,30 @@ import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 @ConfigurationProperties("treecreate.app")
 public class CustomPropertiesConfig
 {
-    private String quickpaySecret;
+    private String quickpayApiKey;
+
+    private String quickpayPrivateKey;
 
     private Environment environment = Environment.DEVELOPMENT;
 
-    public String getQuickpaySecret()
+    public String getQuickpayApiKey()
     {
-        return quickpaySecret;
+        return quickpayApiKey;
     }
 
-    public void setQuickpaySecret(String quickpaySecret)
+    public void setQuickpayApiKey(String quickpayApiKey)
     {
-        this.quickpaySecret = quickpaySecret;
+        this.quickpayApiKey = quickpayApiKey;
+    }
+
+    public String getQuickpayPrivateKey()
+    {
+        return quickpayPrivateKey;
+    }
+
+    public void setQuickpayPrivateKey(String quickpayPrivateKey)
+    {
+        this.quickpayPrivateKey = quickpayPrivateKey;
     }
 
     public Environment getEnvironment()
