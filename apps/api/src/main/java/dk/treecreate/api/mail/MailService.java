@@ -1,5 +1,8 @@
 package dk.treecreate.api.mail;
 
+import dk.treecreate.api.order.Order;
+import dk.treecreate.api.utils.LinkService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -7,14 +10,13 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import dk.treecreate.api.order.Order;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.UUID;
 
 @Service
 public class MailService
@@ -23,6 +25,9 @@ public class MailService
 
     private final JavaMailSender infoMailSender;
     private final JavaMailSender orderMailSender;
+
+    @Autowired
+    LinkService linkService;
 
     public MailService(TemplateEngine templateEngine,
                        @Qualifier("getJavaInfoMailSender") JavaMailSender infoMailSender,
@@ -33,32 +38,35 @@ public class MailService
         this.orderMailSender = orderMailSender;
     }
 
-    public void sendSignupEmail(String to, String token, Locale locale)
+    public void sendSignupEmail(String to, UUID token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("verificationToken", token);
+        context.setVariable("verificationLink",
+            linkService.generateVerificationLink(token, locale));
         String subject = "Welcome to Treecreate";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
     }
 
-    public void sendResetPasswordEmail(String to, String token, Locale locale)
+    public void sendResetPasswordEmail(String to, UUID token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("token", token);
+        context.setVariable("resetPasswordLink",
+            linkService.generateResetPasswordLink(token, locale));
         String subject = "Reset password";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
     }
 
-    public void sendVerificationEmail(String to, String token, Locale locale)
+    public void sendVerificationEmail(String to, UUID token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("verificationToken", token);
+        context.setVariable("verificationLink",
+            linkService.generateVerificationLink(token, locale));
         String subject = "Treecreate - verify email";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
     }

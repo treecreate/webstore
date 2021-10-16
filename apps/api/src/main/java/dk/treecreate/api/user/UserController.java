@@ -159,7 +159,7 @@ public class UserController
         User user = authUserService.getCurrentlyAuthenticatedUser();
         try
         {
-            mailService.sendVerificationEmail(user.getEmail(), user.getToken().toString(),
+            mailService.sendVerificationEmail(user.getEmail(), user.getToken(),
                 localeService.getLocale(lang));
         } catch (Exception e)
         {
@@ -212,7 +212,7 @@ public class UserController
         }
         try
         {
-            mailService.sendResetPasswordEmail(email, user.getToken().toString(),
+            mailService.sendResetPasswordEmail(email, user.getToken(),
                 localeService.getLocale(lang));
         } catch (Exception e)
         {

@@ -129,7 +129,7 @@ public class AuthController
 
         try
         {
-            mailService.sendSignupEmail(user.getEmail(), user.getToken().toString(),
+            mailService.sendSignupEmail(user.getEmail(), user.getToken(),
                 localeService.getLocale(null));
         } catch (Exception e)
         {

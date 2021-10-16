@@ -198,7 +198,7 @@ class UserServiceTests
         Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
         Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
-            .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
+            .sendVerificationEmail(user.getEmail(), user.getToken(), new Locale("dk"));
 
         assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
     }
@@ -227,7 +227,7 @@ class UserServiceTests
         Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
         Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doNothing().when(mailService)
-            .sendVerificationEmail(user.getEmail(), user.getToken().toString(), new Locale("dk"));
+            .sendVerificationEmail(user.getEmail(), user.getToken(), new Locale("dk"));
 
         assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
     }
