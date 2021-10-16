@@ -40,7 +40,7 @@ export class CheckoutComponent implements OnInit {
   currentUser: IUser;
 
   isHomeDelivery = false;
-  extraDonatedTrees = 1;
+  plantedTrees = 1;
   isSubscribed: boolean;
 
   subscribeToNewsletter = false;
@@ -88,9 +88,12 @@ export class CheckoutComponent implements OnInit {
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
-    this.extraDonatedTrees = this.localStorageService.getItem<number>(
+    this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
+    if (this.plantedTrees === null) {
+      this.plantedTrees = 1;
+    }
   }
 
   ngOnInit(): void {
@@ -207,7 +210,7 @@ export class CheckoutComponent implements OnInit {
       this.itemList,
       this.discount,
       this.isHomeDelivery,
-      this.extraDonatedTrees - 1
+      this.plantedTrees
     );
   }
 
@@ -332,7 +335,7 @@ export class CheckoutComponent implements OnInit {
       .createOrder({
         subtotal: this.priceInfo.fullPrice,
         total: this.priceInfo.finalPrice,
-        plantedTrees: this.extraDonatedTrees,
+        plantedTrees: this.plantedTrees,
         shippingMethod: this.isHomeDelivery
           ? ShippingMethodEnum.homeDelivery
           : ShippingMethodEnum.pickUpPoint,
