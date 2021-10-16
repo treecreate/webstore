@@ -22,7 +22,7 @@ describe('CalculatePriceService', () => {
       totalUses: 0,
     },
     isHomeDelivery: true,
-    donatedTrees: 0,
+    plantedTrees: 0,
   };
   const mockUser: IUser = {
     userId: '1',
@@ -105,7 +105,7 @@ describe('CalculatePriceService', () => {
       totalUses: 0,
     },
     isHomeDelivery: false,
-    donatedTrees: 3,
+    plantedTrees: 3,
   };
   const secondItemList: ITransactionItem[] = [
     {
@@ -163,13 +163,13 @@ describe('CalculatePriceService', () => {
       itemList,
       itemListInfo.discount,
       itemListInfo.isHomeDelivery,
-      itemListInfo.donatedTrees
+      itemListInfo.plantedTrees
     );
     secondPriceInfo = service.calculatePrices(
       secondItemList,
       secondItemListInfo.discount,
       secondItemListInfo.isHomeDelivery,
-      secondItemListInfo.donatedTrees
+      secondItemListInfo.plantedTrees
     );
   });
 

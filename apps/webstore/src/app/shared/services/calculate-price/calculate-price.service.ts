@@ -44,7 +44,7 @@ export class CalculatePriceService {
     // Get delivery price
     const deliveryPrice = isHomeDelivery ? 29 : 0;
 
-    // Get donated trees price
+    // Get planted trees price
     const extraTreesPrice = plantedTrees * 10 - 10;
 
     // Get final price with delivery and donation
