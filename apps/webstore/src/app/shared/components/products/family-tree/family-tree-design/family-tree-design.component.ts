@@ -8,6 +8,7 @@ import {
   HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -44,7 +45,7 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent
-  implements AfterViewInit, OnInit, OnChanges {
+  implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   // Inputs for design settings
 
   @Input()
@@ -102,13 +103,15 @@ export class FamilyTreeDesignComponent
     x: 0,
     y: 0,
   };
+  downEventDelay = false;
 
   // render loop
   timeInterval;
-  framesPerSecond = 60; // FPS of the render loop
+  framesPerSecond = 30; // FPS of the render loop
   // autosaving of the design
   autosaveFrequencyInSeconds = 30;
   autosaveInterval;
+  frameChanged = true;
 
   // SVGs
 
@@ -231,7 +234,7 @@ export class FamilyTreeDesignComponent
       dismissible: false,
     };
     // stop the canvas rendering process
-    cancelAnimationFrame(this.timeInterval);
+    clearInterval(this.timeInterval);
     clearInterval(this.autosaveInterval);
     this.autosaveInterval = null;
     this.isDesignValid = false;
@@ -249,8 +252,14 @@ export class FamilyTreeDesignComponent
 
     for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
-    cancelAnimationFrame(this.timeInterval);
-    this.draw();
+    clearInterval(this.timeInterval);
+
+    this.timeInterval = setInterval(() => {
+      console.log(this.frameChanged);
+      if (this.frameChanged) {
+        requestAnimationFrame(this.draw.bind(this));
+      }
+    }, 1000 / this.framesPerSecond);
     console.log('Render loop started');
 
     // start autosave of design
@@ -306,7 +315,7 @@ export class FamilyTreeDesignComponent
     draggableBoxRef.instance.touchendEvent.subscribe((value) => {
       this.mouseUpHandler(value);
     });
-    draggableBoxRef.instance.newTextValue.subscribe((value) => {
+    draggableBoxRef.instance.newTextValue.subscribe(() => {
       // We don't actually use the value yet since we can't directly apply it to the element in myBoxes (indexes change)
       // Instead, we update all of the boxes via their refs whenever there is a value change (efficient af am I rite?)
       this.updateBoxRefText();
@@ -321,14 +330,12 @@ export class FamilyTreeDesignComponent
     this.cdr.detectChanges();
 
     this.myBoxes.push(newBox);
+    this.frameChanged = true;
   }
 
   // Draw the entire canvas with the boxes etc
   draw() {
     try {
-      // https://medium.com/angular-in-depth/how-to-get-started-with-canvas-animations-in-angular-2f797257e5b4
-      this.timeInterval = requestAnimationFrame(this.draw.bind(this));
-
       this.context.clearRect(
         0,
         0,
@@ -480,10 +487,11 @@ export class FamilyTreeDesignComponent
           this.context.fillText(line, x, y);
         }
       }
+      this.frameChanged = false;
     } catch (error) {
       console.error('An error has occurred while drawing the tree', error);
       // disable autosave and the drawing loop
-      cancelAnimationFrame(this.timeInterval);
+      clearInterval(this.timeInterval);
       clearInterval(this.autosaveInterval);
       this.autosaveInterval = null;
       this.alert = {
@@ -548,6 +556,7 @@ export class FamilyTreeDesignComponent
       }
       console.log('Boxes', this.myBoxes);
       console.log('Finished loading design');
+      this.frameChanged = true;
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Something went wrong while loading the design!', error);
@@ -557,7 +566,7 @@ export class FamilyTreeDesignComponent
         dismissible: false,
       };
       console.log('interval', this.timeInterval);
-      cancelAnimationFrame(this.timeInterval);
+      clearInterval(this.timeInterval);
       clearInterval(this.autosaveInterval);
       this.isDesignValid = false;
     }
@@ -565,7 +574,6 @@ export class FamilyTreeDesignComponent
 
   saveDesign() {
     console.log('Saving your design...');
-    console.log(this.timeInterval);
     if (
       !this.isDesignValid ||
       this.timeInterval === null ||
@@ -638,7 +646,13 @@ export class FamilyTreeDesignComponent
         box.inputRef.instance.largeFont = this.isLargeFont;
       });
     }
+    this.frameChanged = true;
     this.cdr.detectChanges();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timeInterval);
+    clearInterval(this.autosaveInterval);
   }
 
   // handle canvas events
@@ -702,142 +716,162 @@ export class FamilyTreeDesignComponent
   }
 
   mouseDownHandler(event) {
-    event = event || window.event;
-    this.mouseCords = this.getMousePosition(
-      this.designCanvas.nativeElement,
-      event
-    );
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      const box = this.myBoxes[i];
-
-      if (
-        this.mouseCords.x > box.x &&
-        this.mouseCords.x < box.x + this.boxDimensions.width &&
-        this.mouseCords.y > box.y &&
-        this.mouseCords.y < box.y + this.boxDimensions.height
-      ) {
-        // check if the Close button got pressed
-        if (
-          this.mouseCords.x > box.x &&
-          this.mouseCords.x < box.x + this.closeButtonDimensions.width &&
-          this.mouseCords.y > box.y &&
-          this.mouseCords.y < box.y + this.closeButtonDimensions.width
-        ) {
-          // remove the box and the input component
-          this.myBoxes[i].inputRef.destroy();
-          this.myBoxes.splice(i, 1);
-          return;
-        }
-
-        this.myBoxes[i].dragging = true;
-        this.mouseClickOffset.x = this.mouseCords.x - box.x;
-        this.mouseClickOffset.y = this.mouseCords.y - box.y;
-        // swap the dragged box to the top of rending order, displaying it on top of the other boxes
-        const temp = this.myBoxes[this.myBoxes.length - 1];
-        this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
-        this.myBoxes[i] = temp;
-        // skip checking the other boxes
+    try {
+      event = event || window.event;
+      // if the mouse down/touchdown event got triggered, don't allow any new down events for 100ms
+      if (this.downEventDelay) {
         return;
+      } else {
+        this.downEventDelay = true;
+        setTimeout(() => (this.downEventDelay = false), 100);
       }
-    }
-    // this will only be reached if none of the boxes was clicked on
-    // create new box
-    this.createBox(
-      this.mouseCords.x - this.boxDimensions.width / 2,
-      this.mouseCords.y - this.boxDimensions.height / 2,
-      Object.values(BoxDesignEnum)[
-        Math.floor(Math.random() * this.tree1BoxDesigns.size)
-      ],
-      ''
-    );
 
-    // auto-focus on the newly created element
-    setTimeout(() => {
-      this.myBoxes[
-        this.myBoxes.length - 1
-      ].inputRef.instance.input.nativeElement.focus();
-    });
-  }
+      this.mouseCords = this.getMousePosition(
+        this.designCanvas.nativeElement,
+        event
+      );
+      for (let i = 0; i < this.myBoxes.length; i++) {
+        const box = this.myBoxes[i];
 
-  // the mousemove event is not available as a angular attribute so it has to be declared explicitly
-  @HostListener('document:mousemove', ['$event'])
-  mouseMoveHandler(event) {
-    event = event || window.event;
-    this.mouseCords = this.getMousePosition(
-      this.designCanvas.nativeElement,
-      event
-    );
-
-    let boxesGotMousedOver = false;
-
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      const box = this.myBoxes[i];
-      if (
-        !this.mouseOutsideBoundaries(
-          this.boxDimensions.width,
-          this.boxDimensions.height
-        )
-      ) {
-        // check if any of the boxes got moused over
         if (
           this.mouseCords.x > box.x &&
           this.mouseCords.x < box.x + this.boxDimensions.width &&
           this.mouseCords.y > box.y &&
           this.mouseCords.y < box.y + this.boxDimensions.height
         ) {
-          boxesGotMousedOver = true;
-          this.showDeleteBoxButtons = true;
-        }
-        if (box.dragging) {
-          {
-            // move the box with the cursor
-            this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-            this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
-            // skip checking the other boxes
+          // check if the Close button got pressed
+          if (
+            this.mouseCords.x > box.x &&
+            this.mouseCords.x < box.x + this.closeButtonDimensions.width &&
+            this.mouseCords.y > box.y &&
+            this.mouseCords.y < box.y + this.closeButtonDimensions.width
+          ) {
+            // remove the box and the input component
+            this.myBoxes[i].inputRef.destroy();
+            this.myBoxes.splice(i, 1);
             return;
           }
+
+          this.myBoxes[i].dragging = true;
+          this.mouseClickOffset.x = this.mouseCords.x - box.x;
+          this.mouseClickOffset.y = this.mouseCords.y - box.y;
+          // swap the dragged box to the top of rending order, displaying it on top of the other boxes
+          const temp = this.myBoxes[this.myBoxes.length - 1];
+          this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
+          this.myBoxes[i] = temp;
+          // skip checking the other boxes
+          return;
         }
       }
-    }
-    // only stop showing the delete button if none of the boxes got moused over
-    if (!boxesGotMousedOver) {
-      this.showDeleteBoxButtons = false;
+      // this will only be reached if none of the boxes was clicked on
+      // create new box
+      this.createBox(
+        this.mouseCords.x - this.boxDimensions.width / 2,
+        this.mouseCords.y - this.boxDimensions.height / 2,
+        Object.values(BoxDesignEnum)[
+          Math.floor(Math.random() * this.tree1BoxDesigns.size)
+        ],
+        ''
+      );
+
+      // auto-focus on the newly created element
+      setTimeout(() => {
+        this.myBoxes[
+          this.myBoxes.length - 1
+        ].inputRef.instance.input.nativeElement.focus();
+      });
+    } finally {
+      this.frameChanged = true;
     }
   }
 
-  mouseUpHandler(event) {
-    event = event || window.event;
-    this.mouseCords = this.getMousePosition(
-      this.designCanvas.nativeElement,
-      event
-    );
+  // the mousemove event is not available as a angular attribute so it has to be declared explicitly
+  @HostListener('document:mousemove', ['$event'])
+  mouseMoveHandler(event) {
+    try {
+      event = event || window.event;
+      this.mouseCords = this.getMousePosition(
+        this.designCanvas.nativeElement,
+        event
+      );
 
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      const box = this.myBoxes[i];
-      if (box.dragging) {
+      let boxesGotMousedOver = false;
+
+      for (let i = 0; i < this.myBoxes.length; i++) {
+        const box = this.myBoxes[i];
         if (
-          this.mouseOutsideBoundaries(
+          !this.mouseOutsideBoundaries(
             this.boxDimensions.width,
             this.boxDimensions.height
           )
         ) {
-          // send back to its last saved position
-          this.myBoxes[i].x = box.previousX;
-          this.myBoxes[i].y = box.previousY;
-          this.myBoxes[i].dragging = false;
-        } else {
-          // save the box in its new position
-          this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-          this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
-          this.myBoxes[i].previousX =
-            this.mouseCords.x - this.mouseClickOffset.x;
-          this.myBoxes[i].previousY =
-            this.mouseCords.y - this.mouseClickOffset.y;
-          this.myBoxes[i].dragging = false;
+          // check if any of the boxes got moused over
+          if (
+            this.mouseCords.x > box.x &&
+            this.mouseCords.x < box.x + this.boxDimensions.width &&
+            this.mouseCords.y > box.y &&
+            this.mouseCords.y < box.y + this.boxDimensions.height
+          ) {
+            boxesGotMousedOver = true;
+            this.showDeleteBoxButtons = true;
+          }
+          if (box.dragging) {
+            {
+              // move the box with the cursor
+              this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
+              this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+              // skip checking the other boxes
+              return;
+            }
+          }
         }
-        // skip checking the other boxes
-        return;
       }
+      // only stop showing the delete button if none of the boxes got moused over
+      if (!boxesGotMousedOver) {
+        this.showDeleteBoxButtons = false;
+      }
+    } finally {
+      this.frameChanged = true;
+    }
+  }
+
+  mouseUpHandler(event) {
+    try {
+      event = event || window.event;
+      this.mouseCords = this.getMousePosition(
+        this.designCanvas.nativeElement,
+        event
+      );
+
+      for (let i = 0; i < this.myBoxes.length; i++) {
+        const box = this.myBoxes[i];
+        if (box.dragging) {
+          if (
+            this.mouseOutsideBoundaries(
+              this.boxDimensions.width,
+              this.boxDimensions.height
+            )
+          ) {
+            // send back to its last saved position
+            this.myBoxes[i].x = box.previousX;
+            this.myBoxes[i].y = box.previousY;
+            this.myBoxes[i].dragging = false;
+          } else {
+            // save the box in its new position
+            this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
+            this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+            this.myBoxes[i].previousX =
+              this.mouseCords.x - this.mouseClickOffset.x;
+            this.myBoxes[i].previousY =
+              this.mouseCords.y - this.mouseClickOffset.y;
+            this.myBoxes[i].dragging = false;
+          }
+          // skip checking the other boxes
+          return;
+        }
+      }
+    } finally {
+      this.frameChanged = true;
     }
   }
 

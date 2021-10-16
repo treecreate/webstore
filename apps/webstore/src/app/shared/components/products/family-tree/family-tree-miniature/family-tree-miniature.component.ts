@@ -35,7 +35,7 @@ export class FamilyTreeMiniatureComponent
   // Inputs for design settings
 
   @Input()
-  design: IFamilyTree;
+  design: IFamilyTree = null;
 
   @Input()
   boxSize = 20;
@@ -91,6 +91,13 @@ export class FamilyTreeMiniatureComponent
       (this.canvasResolution.width / 30) *
       (this.boxSize * this.boxSizeScalingMultiplier),
   };
+
+  // the max chars control how much text can be put into the draggable box
+  // It is propagated to the draggable box input element
+  smallFontMaxChars = 12;
+  largeFontMaxChars = 9;
+  maxCharsPerLine = this.smallFontMaxChars;
+  maxLines = 2;
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -191,6 +198,10 @@ export class FamilyTreeMiniatureComponent
     console.log('changes', changes);
     if (this.design !== undefined && this.context !== undefined) {
       this.loadDesign();
+
+      this.maxCharsPerLine = this.design.largeFont
+        ? this.largeFontMaxChars
+        : this.smallFontMaxChars;
     }
   }
 
@@ -249,15 +260,17 @@ export class FamilyTreeMiniatureComponent
       }
       // render the banner
       if (
-        this.bannerDesigns.get(BannerDesignEnum.banner1) !== undefined &&
+        this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
         this.bannerDesigns.get(BannerDesignEnum.banner1).complete
       ) {
         if (this.design.banner !== undefined && this.design.banner !== null) {
+          const bannerHeightOffset = 0.96;
           // draw the banner at the bottom middle of the tree
           this.context.drawImage(
             this.bannerDesigns.get(BannerDesignEnum.banner1),
             this.canvasResolution.width / 2 - this.bannerDimensions.width / 2,
-            this.canvasResolution.height - this.bannerDimensions.height,
+            this.canvasResolution.height * bannerHeightOffset -
+              this.bannerDimensions.height,
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
@@ -267,10 +280,11 @@ export class FamilyTreeMiniatureComponent
           this.context.textBaseline = 'middle';
           this.context.fillText(
             this.design.banner.text,
-            this.canvasResolution.width / 2,
+            this.canvasResolution.width / 1.97,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
-            this.canvasResolution.height - this.bannerDimensions.height / 2.2,
-            this.bannerDimensions.width / 3
+            this.canvasResolution.height * bannerHeightOffset -
+              this.bannerDimensions.height / 1.32,
+            this.bannerDimensions.width / 2
           );
         }
       } else {
@@ -291,27 +305,62 @@ export class FamilyTreeMiniatureComponent
           this.boxDimensions.width,
           this.boxDimensions.height
         );
-        const cords = this.getRealCords(this.designCanvas.nativeElement, {
-          x: box.x,
-          y: box.y,
-        });
-        // Update position of the input field to match the box
 
         // Draw the text within the box
         // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
         // times 5 to account for having different scale
+        // NOTE - can cause performance issues since it occurs on every frame
         const boxTextFontSize =
           (0.0545 * this.boxSize + 0.05) * (this.design.largeFont ? 7 : 5); // in rem
         // TODO: add multi-line support
         this.context.font = `${boxTextFontSize}rem ${this.design.font}`;
         this.context.textAlign = 'center';
         this.context.textBaseline = 'middle';
-        this.context.fillText(
-          this.myBoxes[i].text,
-          this.myBoxes[i].x + this.boxDimensions.width / 2,
-          this.myBoxes[i].y + this.boxDimensions.height / 2,
-          (this.boxDimensions.width / 3) * 2
-        );
+        let line = '';
+        let currentLine = 1;
+        const words = this.myBoxes[i].text
+          .substring(0, this.maxCharsPerLine * this.maxLines)
+          .split(' ');
+        const multiLineText =
+          this.myBoxes[i].text.length > this.maxCharsPerLine;
+        const x = this.myBoxes[i].x + this.boxDimensions.width / 2;
+        let y = this.myBoxes[i].y + this.boxDimensions.height / 2;
+        const lineHeight = (this.boxDimensions.height / 5) * 1;
+        if (multiLineText) {
+          y = this.myBoxes[i].y + (this.boxDimensions.height / 5) * 2;
+        }
+        const formattedWords = [];
+        words.forEach((word) => {
+          do {
+            if (word.length === 0) {
+              break;
+            }
+            if (word.length >= this.maxCharsPerLine) {
+              formattedWords.push(word.substring(0, this.maxCharsPerLine));
+              word = word.substring(this.maxCharsPerLine, word.length);
+            } else {
+              formattedWords.push(word);
+              word = '';
+            }
+          } while (word !== '');
+        });
+        // print out the text
+        for (let j = 0; j < formattedWords.length; j++) {
+          const testLine = line + formattedWords[j] + ' ';
+
+          if (testLine.length - 1 > this.maxCharsPerLine) {
+            currentLine++;
+            if (currentLine > this.maxLines) {
+              break;
+            }
+            this.context.fillText(line, x, y);
+            line = formattedWords[j] + ' ';
+            y += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        this.context.fillText(line, x, y);
       }
     } catch (error) {
       console.error('An error has occurred while drawing the tree', error);
@@ -327,6 +376,7 @@ export class FamilyTreeMiniatureComponent
 
   loadDesign() {
     try {
+      this.myBoxes = [];
       // Load the design
       if (this.design === null || this.design === undefined) {
         // Setup default boxes if there is no saved design
