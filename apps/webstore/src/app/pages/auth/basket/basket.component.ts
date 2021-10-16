@@ -61,7 +61,7 @@ export class BasketComponent implements OnInit {
       LocalStorageVars.discount
     ).value;
     this.donatedTrees = this.localStorageService.getItem<number>(
-      LocalStorageVars.extraDonatedTrees
+      LocalStorageVars.plantedTrees
     ).value;
     this.user = this.localStorageService.getItem<IUser>(
       LocalStorageVars.authUser
@@ -187,7 +187,7 @@ export class BasketComponent implements OnInit {
     if (this.donatedTrees > 1) {
       this.donatedTrees = this.donatedTrees - 1;
       this.localStorageService.setItem<number>(
-        LocalStorageVars.extraDonatedTrees,
+        LocalStorageVars.plantedTrees,
         this.donatedTrees
       );
       this.updatePrices();
@@ -197,7 +197,7 @@ export class BasketComponent implements OnInit {
   increaseDonation() {
     this.donatedTrees = this.donatedTrees + 1;
     this.localStorageService.setItem<number>(
-      LocalStorageVars.extraDonatedTrees,
+      LocalStorageVars.plantedTrees,
       this.donatedTrees
     );
     this.updatePrices();

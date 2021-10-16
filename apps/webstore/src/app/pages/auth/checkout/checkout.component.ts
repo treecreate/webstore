@@ -89,7 +89,7 @@ export class CheckoutComponent implements OnInit {
       LocalStorageVars.discount
     ).value;
     this.extraDonatedTrees = this.localStorageService.getItem<number>(
-      LocalStorageVars.extraDonatedTrees
+      LocalStorageVars.plantedTrees
     ).value;
   }
 
