@@ -63,6 +63,9 @@ export class BasketComponent implements OnInit {
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
+    if (this.plantedTrees === null) {
+      this.plantedTrees = 1;
+    }
     this.user = this.localStorageService.getItem<IUser>(
       LocalStorageVars.authUser
     ).value;
