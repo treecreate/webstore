@@ -80,8 +80,7 @@
         <div class="nav-section">
             <button
                 class="navbar-basket-icon show-on-mobile"
-                routerLink="/basket"
-                (click)="autoCollapse()"
+                (click)="goToBasket()"
             >
                 <img
                     src="/assets/icons/basket-white-icon.svg"
@@ -203,8 +202,7 @@
                 <div class="nav-section remove-on-mobile">
                     <button
                         class="navbar-basket-icon"
-                        routerLink="/basket"
-                        (click)="autoCollapse()"
+                        (click)="goToBasket()"
                         data-cy="navbar-basket-link"
                     >
                         <img
