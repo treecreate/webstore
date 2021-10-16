@@ -41,7 +41,7 @@ describe('BasketComponent', () => {
   it('should increase planted trees quantity', () => {
     expect(component.plantedTrees).toEqual(1);
     const increaseButton = fixture.debugElement.query(
-      By.css('#plante-extra-trees-btn')
+      By.css('#planted-extra-trees-btn')
     );
     const increaseButtonElement = increaseButton.nativeElement;
     increaseButtonElement.click();
@@ -54,7 +54,7 @@ describe('BasketComponent', () => {
 
   it('should decrease planted trees quantity', () => {
     const decreaseButton = fixture.debugElement.query(
-      By.css('#plante-less-trees-btn')
+      By.css('#planted-less-trees-btn')
     );
     const decreaseButtonElement = decreaseButton.nativeElement;
     component.plantedTrees = 3;

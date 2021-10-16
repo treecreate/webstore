@@ -1108,7 +1108,7 @@
       </trans-unit>
       <trans-unit id="payment-success-text" datatype="html">
         <source>Shortly you should recieve an order confirmation on your e-mail. We thank you for buying at Treecreate.dk, and for planting a tree. Your support is more important now, than it has ever been. If you wish to plant more trees, please visit:</source>
-        <target>Om et øje blik skulle du gerne modtage en ordrerbekræftelse på din e-mail. Vi takker dig for at have købt hos Treecreate.dk, og for at plante et træ. Din støtte har aldrig været vigtigere. Hvis du ønsker at plante flere træer, har du mulighed for at gøre det her: </target> 
+        <target>Om et øje blik skulle du gerne modtage en ordrerbekræftelse på din e-mail. Vi takker dig for at have købt hos Treecreate.dk, og for at planted et træ. Din støtte har aldrig været vigtigere. Hvis du ønsker at planted flere træer, har du mulighed for at gøre det her: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
           <context context-type="linenumber">24,28</context>
