@@ -67,9 +67,11 @@ export class NavbarComponent implements OnInit {
 
     this.transactionItemService.getTransactionItems().subscribe(
       (itemList: ITransactionItem[]) => {
+        let sum = 0;
         for (let i = 0; i < itemList.length; i++) {
-          this.itemsInBasket = itemList[i].quantity;
+          sum = itemList[i].quantity;
         }
+        this.itemsInBasket = sum;
       },
       (error: HttpErrorResponse) => {
         console.log(error.error);
