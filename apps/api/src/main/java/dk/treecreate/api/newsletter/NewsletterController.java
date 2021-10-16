@@ -3,6 +3,7 @@ package dk.treecreate.api.newsletter;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.newsletter.dto.GetNewslettersResponse;
+import io.sentry.Sentry;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -88,7 +89,11 @@ public class NewsletterController
         }
         Newsletter newsletter = new Newsletter();
         newsletter.setEmail(email);
-        return newsletterRepository.save(newsletter);
+        newsletter = newsletterRepository.save(newsletter);
+        Sentry.setExtra("newsletterId", newsletter.getNewsletterId().toString());
+        Sentry.setExtra("email", newsletter.getEmail());
+        Sentry.captureMessage("New newsletter entry");
+        return newsletter;
     }
 
     @DeleteMapping("{newsletterId}")
@@ -104,6 +109,9 @@ public class NewsletterController
 
         Newsletter newsletter = newsletterRepository.findByNewsletterId(newsletterId)
             .orElseThrow(() -> new ResourceNotFoundException("Newsletter not found"));
+        Sentry.setExtra("newsletterId", newsletter.getNewsletterId().toString());
+        Sentry.setExtra("email", newsletter.getEmail());
+        Sentry.captureMessage("Someone has unsubscribed from the newsletter");
         newsletterRepository.delete(newsletter);
     }
 }
