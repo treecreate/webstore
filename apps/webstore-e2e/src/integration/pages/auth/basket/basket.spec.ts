@@ -217,7 +217,7 @@ describe('BasketPage', () => {
     cy.get('[data-cy=basket-item]').first().should('exist');
   });
 
-  it.skip('should increase / decrease amount of trees donated', () => {
+  it.skip('should increase / decrease amount of trees planted', () => {
     // cy.intercept('PUT', '/transaction-items/me/'+ mockTransactionItem.transactionItemId, {
     //   body: [
     //     mockTransactionItem,
@@ -244,19 +244,19 @@ describe('BasketPage', () => {
       body: [mockTransactionItem],
       statusCode: 200,
     });
-    cy.get('[data-cy=basket-decrease-donated-trees-button]').should(
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
       'be.disabled'
     );
-    cy.get('[data-cy=basket-donated-trees]').should('contain', '1');
-    cy.get('[data-cy=basket-increase-donated-trees-button]').click({
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
+    cy.get('[data-cy=basket-increase-planted-trees-button]').click({
       force: true,
     });
-    cy.get('[data-cy=basket-donated-trees]').should('contain', '2');
-    cy.get('[data-cy=basket-increase-donated-trees-button]').click({
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '2');
+    cy.get('[data-cy=basket-increase-planted-trees-button]').click({
       force: true,
     });
-    cy.get('[data-cy=basket-donated-trees]').should('contain', '1');
-    cy.get('[data-cy=basket-decrease-donated-trees-button]').should(
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
       'be.disabled'
     );
   });

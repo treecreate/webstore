@@ -155,12 +155,12 @@
   margin: 0 15px 0 18px;
 }
 
-.trees-donated {
+.trees-planted {
   display: flex;
   justify-content: space-between;
 }
 
-.trees-donated-container {
+.trees-planted-container {
   padding-bottom: 15px;
   margin-bottom: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -198,18 +198,18 @@
     display: none;
   }
 
-  .trees-donated-container {
+  .trees-planted-container {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
   }
 
-  .trees-donated-price {
+  .trees-planted-price {
     min-width: 80px;
   }
 
-  .trees-donated {
+  .trees-planted {
     margin-top: 10px;
     align-self: stretch;
   }

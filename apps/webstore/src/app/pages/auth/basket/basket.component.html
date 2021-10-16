@@ -76,20 +76,20 @@
                         </div>
                     </div>
 
-                    <div class="donate-tree-option">
+                    <div class="planted-tree-option">
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            id="donate-less-trees-btn"
+                            id="planted-less-trees-btn"
                             (click)="decreaseDonation()"
-                            [disabled]="donatedTrees === 1"
-                            data-cy="basket-decrease-donated-trees-button"
+                            [disabled]="plantedTrees === 1"
+                            data-cy="basket-decrease-planted-trees-button"
                         >
                             <div class="icon">
                                 <div class="button-minus"></div>
                             </div>
                         </button>
                         <div class="amount-of-trees">
-                            {{ donatedTrees }} x
+                            {{ plantedTrees }} x
                             <img
                                 src="/assets/icons/seed-icon.svg"
                                 class="seed-icon"
@@ -97,9 +97,9 @@
                         </div>
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
-                            id="donate-extra-trees-btn"
+                            id="planted-extra-trees-btn"
                             (click)="increaseDonation()"
-                            data-cy="basket-increase-donated-trees-button"
+                            data-cy="basket-increase-planted-trees-button"
                         >
                             <div class="button-plus"></div>
                         </button>
@@ -199,4 +199,4 @@
     </div>
 </div>
 
-<div class="hide" data-cy="basket-donated-trees">{{ donatedTrees }}</div>
+<div class="hide" data-cy="basket-planted-trees">{{ plantedTrees }}</div>

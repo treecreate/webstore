@@ -17,7 +17,7 @@ export class CalculatePriceService {
     itemList: ITransactionItem[],
     discount: IDiscount,
     isHomeDelivery: boolean,
-    donatedTrees: number
+    plantedTrees: number
   ): IPricing {
     // Get full price of items in basket
     let sum = 0;
@@ -44,8 +44,8 @@ export class CalculatePriceService {
     // Get delivery price
     const deliveryPrice = isHomeDelivery ? 29 : 0;
 
-    // Get donated trees price
-    const extraTreesPrice = donatedTrees * 10;
+    // Get planted trees price
+    const extraTreesPrice = plantedTrees * 10 - 10;
 
     // Get final price with delivery and donation
     const finalPrice = discountedPrice + extraTreesPrice + deliveryPrice;

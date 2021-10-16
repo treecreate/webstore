@@ -552,16 +552,13 @@
                     <span>Loading...</span>
                 </div>
 
-                <div
-                    class="trees-donated-container"
-                    *ngIf="extraDonatedTrees > 0"
-                >
+                <div class="trees-planted-container" *ngIf="plantedTrees > 0">
                     <img
                         src="../../../../assets/icons/seed-icon.svg"
                         alt=""
                         class="seed-icon show-mobile"
                     />
-                    <div class="trees-donated">
+                    <div class="trees-planted">
                         <div>
                             <img
                                 src="../../../../assets/icons/seed-icon.svg"
@@ -574,11 +571,11 @@
                             >
 
                             <strong>
-                                {{ extraDonatedTrees }}
+                                {{ plantedTrees }}
                             </strong>
                             <span i18n="@@tree">tree(s)!</span>
                         </div>
-                        <div class="trees-donated-price">
+                        <div class="trees-planted-price">
                             {{ priceInfo.extraTreesPrice.toFixed(2) }} DKK
                         </div>
                     </div>
