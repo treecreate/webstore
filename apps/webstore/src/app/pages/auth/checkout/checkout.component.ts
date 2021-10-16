@@ -292,6 +292,7 @@ export class CheckoutComponent implements OnInit {
       );
       return;
     }
+    this.isLoading = true;
 
     const contactInfo: ContactInfo = {
       name: this.checkoutForm.get('name').value,

@@ -111,14 +111,14 @@ export class NavbarComponent implements OnInit {
 
   goToBasket() {
     if (this.isLoggedIn) {
-      this.router.navigate(['/basket']); 
+      this.router.navigate(['/basket']);
     } else {
       this.toastService.showAlert(
         'You must log in first.',
         'Du skal logge ind først.',
         'danger',
         5000
-      )
+      );
     }
     this.autoCollapse();
   }

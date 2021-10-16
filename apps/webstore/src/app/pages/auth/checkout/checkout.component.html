@@ -668,10 +668,18 @@
                         class="tc-button-100 green margin-top"
                         type="submit"
                         [disabled]="!isDisabled()"
-                        i18n="@@go-to-quickpay"
                         data-cy="checkout-form-go-to-payment-button"
                     >
-                        Go to Quickpay
+                        <span i18n="@@go-to-quickpay" *ngIf="!isLoading"
+                            >Go to Quickpay</span
+                        >
+                        <span
+                            *ngIf="isLoading"
+                            class="spinner-border spinner-border-sm text-light"
+                            style="margin: 5px"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
                     </button>
                 </div>
             </div>
