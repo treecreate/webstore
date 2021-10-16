@@ -5,6 +5,7 @@ import {
   DesignTypeEnum,
   DiscountType,
   FamilyTreeFontEnum,
+  IPricing,
   ITransactionItem,
   IUser,
 } from '@interfaces';
@@ -22,7 +23,7 @@ describe('CalculatePriceService', () => {
       totalUses: 0,
     },
     isHomeDelivery: true,
-    donatedTrees: 0,
+    plantedTrees: 1,
   };
   const mockUser: IUser = {
     userId: '1',
@@ -105,7 +106,7 @@ describe('CalculatePriceService', () => {
       totalUses: 0,
     },
     isHomeDelivery: false,
-    donatedTrees: 3,
+    plantedTrees: 3,
   };
   const secondItemList: ITransactionItem[] = [
     {
@@ -152,8 +153,8 @@ describe('CalculatePriceService', () => {
     },
   ];
 
-  let priceInfo;
-  let secondPriceInfo;
+  let priceInfo: IPricing;
+  let secondPriceInfo: IPricing;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
@@ -163,13 +164,13 @@ describe('CalculatePriceService', () => {
       itemList,
       itemListInfo.discount,
       itemListInfo.isHomeDelivery,
-      itemListInfo.donatedTrees
+      itemListInfo.plantedTrees
     );
     secondPriceInfo = service.calculatePrices(
       secondItemList,
       secondItemListInfo.discount,
       secondItemListInfo.isHomeDelivery,
-      secondItemListInfo.donatedTrees
+      secondItemListInfo.plantedTrees
     );
   });
 
@@ -224,7 +225,7 @@ describe('CalculatePriceService', () => {
     // ( 2680 * 0.9 ) + 29 + 0
     expect(priceInfo.finalPrice).toEqual(2441);
     // ( 2385 - 495 ) + 0 + 30
-    expect(secondPriceInfo.finalPrice).toEqual(1920);
+    expect(secondPriceInfo.finalPrice).toEqual(1910);
   });
 
   it('Should calculate the right delivery price', () => {
@@ -235,16 +236,16 @@ describe('CalculatePriceService', () => {
   });
 
   it('Should calculate the right donation price', () => {
-    // 0 extra trees
+    // 1 planted tree
     expect(priceInfo.extraTreesPrice).toEqual(0);
-    // 3 extra trees
-    expect(secondPriceInfo.extraTreesPrice).toEqual(30);
+    // 3 planted trees
+    expect(secondPriceInfo.extraTreesPrice).toEqual(20);
   });
 
   it('Should calculate the right VAT price', () => {
     // 2441 * 0.2
     expect(priceInfo.vat.toFixed(2)).toEqual('488.20');
-    // 1920 * 0.2
-    expect(secondPriceInfo.vat).toEqual(384);
+    // 1910 * 0.2
+    expect(secondPriceInfo.vat).toEqual(382);
   });
 });
