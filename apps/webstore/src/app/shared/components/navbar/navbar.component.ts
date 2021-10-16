@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
 
   isResendVerificationEmailLoading = false;
   itemList: ITransactionItem[] = [];
-  itemsInBasket: number;
+  itemsInBasket = 0;
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
   @ViewChild('languageChange') languageChange: ElementRef;
@@ -64,6 +64,17 @@ export class NavbarComponent implements OnInit {
         this.isVerified = this.verifyService.getIsVerified();
       });
     this.environment = environment;
+
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        for (let i = 0; i < itemList.length; i++) {
+          this.itemsInBasket = itemList[i].quantity;
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.error);
+      }
+    );
   }
 
   changeLocale(language: string) {

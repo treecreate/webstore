@@ -400,10 +400,6 @@ export class ProductComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  test() {
-    console.log('Check device: ', this.iOS());
-  }
-
   iOS() {
     return [
       'iPad Simulator',

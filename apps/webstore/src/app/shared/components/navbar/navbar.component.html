@@ -87,8 +87,7 @@
                     src="/assets/icons/basket-white-icon.svg"
                     class="nav-icon-mobile"
                 />
-                <!-- TODO: add items in basket -->
-                <span class="item-number">{{ 3 }}</span>
+                <span class="item-number">{{ itemsInBasket }}</span>
             </button>
         </div>
 
@@ -204,9 +203,7 @@
                             src="/assets/icons/basket-white-icon.svg"
                             class="nav-icon-mobile"
                         />
-                        <span class="item-number">{{
-                            itemsInBasket > 0 ? itemsInBasket : 0
-                        }}</span>
+                        <span class="item-number">{{ itemsInBasket }}</span>
                     </button>
                 </div>
             </ul>
