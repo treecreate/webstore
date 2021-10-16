@@ -81,7 +81,7 @@
                             class="box-size-plus tc-button-sm-square low-dropshadow"
                             id="donate-less-trees-btn"
                             (click)="decreaseDonation()"
-                            [disabled]="donatedTrees === 1"
+                            [disabled]="plantedTrees === 1"
                             data-cy="basket-decrease-donated-trees-button"
                         >
                             <div class="icon">
@@ -89,7 +89,7 @@
                             </div>
                         </button>
                         <div class="amount-of-trees">
-                            {{ donatedTrees }} x
+                            {{ plantedTrees }} x
                             <img
                                 src="/assets/icons/seed-icon.svg"
                                 class="seed-icon"
@@ -199,4 +199,4 @@
     </div>
 </div>
 
-<div class="hide" data-cy="basket-donated-trees">{{ donatedTrees }}</div>
+<div class="hide" data-cy="basket-donated-trees">{{ plantedTrees }}</div>

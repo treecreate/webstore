@@ -20,7 +20,7 @@ describe('BasketComponent', () => {
     fixture = TestBed.createComponent(BasketComponent);
     component = fixture.componentInstance;
 
-    component.donatedTrees = 1;
+    component.plantedTrees = 1;
     component.priceInfo = {
       fullPrice: 1000,
       discountedPrice: 900,
@@ -30,7 +30,7 @@ describe('BasketComponent', () => {
       extraTreesPrice: 0,
       vat: 900 * 0.2,
     };
-    console.log(component.donatedTrees);
+    console.log(component.plantedTrees);
     fixture.detectChanges();
   });
 
@@ -39,17 +39,17 @@ describe('BasketComponent', () => {
   });
 
   it('should increase donated trees quantity', () => {
-    expect(component.donatedTrees).toEqual(1);
+    expect(component.plantedTrees).toEqual(1);
     const increaseButton = fixture.debugElement.query(
       By.css('#donate-extra-trees-btn')
     );
     const increaseButtonElement = increaseButton.nativeElement;
     increaseButtonElement.click();
-    expect(component.donatedTrees).toEqual(2);
+    expect(component.plantedTrees).toEqual(2);
     increaseButtonElement.click();
-    expect(component.donatedTrees).toEqual(3);
+    expect(component.plantedTrees).toEqual(3);
     increaseButtonElement.click();
-    expect(component.donatedTrees).toEqual(4);
+    expect(component.plantedTrees).toEqual(4);
   });
 
   it('should decrease donated trees quantity', () => {
@@ -57,15 +57,15 @@ describe('BasketComponent', () => {
       By.css('#donate-less-trees-btn')
     );
     const decreaseButtonElement = decreaseButton.nativeElement;
-    component.donatedTrees = 3;
+    component.plantedTrees = 3;
     fixture.detectChanges();
 
-    expect(component.donatedTrees).toEqual(3);
+    expect(component.plantedTrees).toEqual(3);
     decreaseButtonElement.click();
-    expect(component.donatedTrees).toEqual(2);
+    expect(component.plantedTrees).toEqual(2);
     decreaseButtonElement.click();
-    expect(component.donatedTrees).toEqual(1);
+    expect(component.plantedTrees).toEqual(1);
     decreaseButtonElement.click();
-    expect(component.donatedTrees).toEqual(1);
+    expect(component.plantedTrees).toEqual(1);
   });
 });

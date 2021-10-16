@@ -35,7 +35,7 @@ export class BasketComponent implements OnInit {
   user: IUser;
   isVerified = false;
 
-  donatedTrees = 1;
+  plantedTrees = 1;
   discountInput: IDiscount = null;
   discount: IDiscount = null;
   discountIsLoading = false;
@@ -60,7 +60,7 @@ export class BasketComponent implements OnInit {
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
-    this.donatedTrees = this.localStorageService.getItem<number>(
+    this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
     this.user = this.localStorageService.getItem<IUser>(
@@ -136,7 +136,7 @@ export class BasketComponent implements OnInit {
       this.itemList,
       this.discount,
       false,
-      this.donatedTrees - 1
+      this.plantedTrees
     );
   }
 
@@ -184,21 +184,21 @@ export class BasketComponent implements OnInit {
   }
 
   decreaseDonation() {
-    if (this.donatedTrees > 1) {
-      this.donatedTrees = this.donatedTrees - 1;
+    if (this.plantedTrees > 1) {
+      this.plantedTrees--;
       this.localStorageService.setItem<number>(
         LocalStorageVars.plantedTrees,
-        this.donatedTrees
+        this.plantedTrees
       );
       this.updatePrices();
     }
   }
 
   increaseDonation() {
-    this.donatedTrees = this.donatedTrees + 1;
+    this.plantedTrees++;
     this.localStorageService.setItem<number>(
       LocalStorageVars.plantedTrees,
-      this.donatedTrees
+      this.plantedTrees
     );
     this.updatePrices();
   }
