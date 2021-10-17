@@ -189,7 +189,7 @@ public class OrderService
     {
         try
         {
-            mailService.sendOrderconfirmationEmail(order.getContactInfo().getEmail(), order);
+            mailService.sendOrderConfirmationEmail(order.getContactInfo().getEmail(), order);
         } catch (Exception e)
         {
             LOGGER.error("Failed to process order confirmation email", e);

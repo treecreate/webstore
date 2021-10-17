@@ -13,6 +13,7 @@ import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.LocaleService;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
+import io.sentry.Sentry;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -142,6 +143,10 @@ public class OrderController
                 order.getOrderId() + " | Payment ID: " + order.getPaymentId() + " | Subtotal: " +
                 order.getSubtotal() + " | Total: " + order.getTotal());
 
+        Sentry.setExtra("orderId", order.getOrderId().toString());
+        Sentry.setExtra("paymentId", order.getPaymentId());
+        Sentry.setExtra("total", String.valueOf(order.getTotal()));
+        Sentry.captureMessage("New order has been created");
         return createPaymentLinkResponse;
     }
 }

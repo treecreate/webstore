@@ -8,6 +8,10 @@ import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.QuickpayOperationType;
 import dk.treecreate.api.utils.model.quickpay.QuickpayStatusCode;
+import io.sentry.Sentry;
+import io.sentry.SentryEvent;
+import io.sentry.SentryLevel;
+import io.sentry.protocol.Message;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +42,13 @@ public class PaymentController
                                 @RequestBody String body)
     {
         ObjectMapper objectMapper = new ObjectMapper();
+        SentryEvent event = new SentryEvent();
         try
         {
             JsonNode json = objectMapper.readTree(body);
             LOGGER.info("A payment callback request has been received");
             LOGGER.info(json.toString());
+            event.setExtra("Callback", json.textValue());
             // validate the checksum
             if (!quickpayService.validatePaymentCallbackChecksum(checksum, json.toString()))
             {
@@ -79,6 +85,8 @@ public class PaymentController
                 if (operationType.asText().equals(QuickpayOperationType.AUTHORIZE.label))
                 {
                     LOGGER.info("Received callback is of operation type AUTHORIZE");
+                    event.setExtra("operationType", operationType.asText());
+                    event.setExtra("operationType", "APPROVED");
                     if (operationStatus.asInt() != QuickpayStatusCode.APPROVED.label)
                     {
                         LOGGER.warn("Operation status is " + operationStatus.asInt() +
@@ -87,6 +95,7 @@ public class PaymentController
                     }
 
                     LOGGER.info("Operation status is APPROVED, sending out an email");
+                    event.setExtra("operationStatus", operationStatus.asText());
 
                     // Send out the email based on the orderId
                     JsonNode orderId = json.at("/variables/orderId");
@@ -103,10 +112,12 @@ public class PaymentController
                         }
                         LOGGER.info("Sending order confirmation email to order with paymentID: " +
                             paymentId.asText());
+                        event.setExtra("id", paymentId.asText());
                         orderService.sendOrderConfirmationEmail(paymentId.asText());
                     } else
                     {
                         LOGGER.info("Sending order confirmation email to: " + orderId.asText());
+                        event.setExtra("id", orderId.asText());
                         orderService.sendOrderConfirmationEmail(UUID.fromString(orderId.asText()));
                     }
 
@@ -118,6 +129,11 @@ public class PaymentController
                 }
             }
             LOGGER.info("Finished processing the callback");
+            Message message = new Message();
+            message.setMessage("A payment callback has been processed");
+            event.setMessage(message);
+            event.setLevel(SentryLevel.INFO);
+            Sentry.captureEvent(event);
         } catch (JsonProcessingException e)
         {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
