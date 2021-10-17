@@ -66,19 +66,6 @@ export class NavbarComponent implements OnInit {
         this.isVerified = this.verifyService.getIsVerified();
       });
     this.environment = environment;
-
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        let sum = 0;
-        for (let i = 0; i < itemList.length; i++) {
-          sum = itemList[i].quantity;
-        }
-        this.itemsInBasket = sum;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.error);
-      }
-    );
   }
 
   changeLocale(language: string) {
@@ -94,6 +81,24 @@ export class NavbarComponent implements OnInit {
       LocalStorageVars.locale,
       this.localeCode
     );
+    this.getItemsInBasket();
+  }
+
+  getItemsInBasket() {
+    if (this.isLoggedIn) {
+      this.transactionItemService.getTransactionItems().subscribe(
+        (itemList: ITransactionItem[]) => {
+          let sum = 0;
+          for (let i = 0; i < itemList.length; i++) {
+            sum = itemList[i].quantity;
+          }
+          this.itemsInBasket = sum;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.error);
+        }
+      );
+    }
   }
 
   logout() {
