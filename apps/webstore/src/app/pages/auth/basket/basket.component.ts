@@ -90,8 +90,8 @@ export class BasketComponent implements OnInit {
       this.router.navigate(['/checkout']);
     } else {
       this.toastService.showAlert(
-        'You have to verify you email to continue.',
-        'Du skal verificere din email før du kan fortsætte.',
+        'You have to verify your e-mail to continue.',
+        'Du skal verificere din e-mail før du kan fortsætte.',
         'danger',
         10000
       );
