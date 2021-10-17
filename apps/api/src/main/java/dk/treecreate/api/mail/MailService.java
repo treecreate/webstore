@@ -71,7 +71,7 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
     }
 
-    public void sendOrderconfirmationEmail(String to, Order order)
+    public void sendOrderConfirmationEmail(String to, Order order)
         throws UnsupportedEncodingException, MessagingException
     {
         // TODO: Add locale change so it can also be in english
@@ -80,6 +80,8 @@ public class MailService
         context.setVariable("order", order);
         String subject = "Treecreate - Order Confirmation";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.ORDER_CONFIRMATION);
+        sendMail(MailDomain.ORDER.label, MailDomain.INFO, subject, context,
+            MailTemplate.ORDER_CONFIRMATION);
     }
 
     private void sendMail(String to, MailDomain from, String subject, Context context,
