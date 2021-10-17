@@ -231,13 +231,13 @@
   position: fixed;
   display: none;
   justify-content: center;
-  height: 50px;
+  height: 80px;
   width: 100%;
   bottom: 3px;
 }
 
 .use-desktop-suggestion {
-  font-size: var(--extra-small-font);
+  font-size: 0.9rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -251,10 +251,6 @@
 
 .remove {
   display: none !important;
-}
-
-.show-on-iphone {
-  display: flex !important;
 }
 
 .iphone-use-desktop-container {
