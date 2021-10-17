@@ -157,8 +157,8 @@
   margin: 15px 30px;
 }
 .descriptive-img {
-  min-width: 470px;
-  width: 30vw;
+  width: 450px;
+  height: 450px;
   border-radius: 5px;
   filter: drop-shadow(0px 5px 35px rgba(0, 0, 0, 0.2));
 }
@@ -295,10 +295,8 @@
   .text-container,
   .descriptive-img {
     width: 60vw;
+    height: 60vw;
     text-align: center;
-  }
-  .descriptive-img {
-    min-width: 60vw;
   }
   .text-container {
     margin-top: 20px;
@@ -356,6 +354,7 @@
   .text-container,
   .descriptive-img {
     width: 80vw;
+    height: 80vw;
   }
 }
 
