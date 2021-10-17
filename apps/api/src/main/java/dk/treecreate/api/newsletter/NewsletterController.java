@@ -89,11 +89,9 @@ public class NewsletterController
         }
         Newsletter newsletter = new Newsletter();
         newsletter.setEmail(email);
-        newsletter = newsletterRepository.save(newsletter);
-        Sentry.setExtra("newsletterId", newsletter.getNewsletterId().toString());
         Sentry.setExtra("email", newsletter.getEmail());
         Sentry.captureMessage("New newsletter entry");
-        return newsletter;
+        return newsletterRepository.save(newsletter);
     }
 
     @DeleteMapping("{newsletterId}")
