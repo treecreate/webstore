@@ -1198,6 +1198,14 @@
           <context context-type="linenumber">351,352</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="dont-use-iphone-text" datatype="html">
+        <source> SORRY! We don&apos;t support creating designs with iPhone. To create a design, simply open up your laptop or PC and create your designs. Thank you for your understanding. </source>
+        <target> Vi beklager! Vi understøtter desværre ikke at lave designs via Iphone. For at lave et design skal du bare finde din laptop eller pc frem og lave dem der. Tak for din forståelse. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
+          <context context-type="linenumber">369,372</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="reset" datatype="html">
         <source>Reset</source>
         <target>Nulstil</target> 

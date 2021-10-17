@@ -52,6 +52,7 @@ export class ProductComponent implements OnInit {
   banner: IFamilyTreeBanner = undefined;
   isLargeFont = false;
   design: IFamilyTree;
+  isIphone = false;
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -86,6 +87,8 @@ export class ProductComponent implements OnInit {
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
+
+    this.isIphone = this.iOS();
   }
 
   ngOnInit() {
@@ -99,11 +102,6 @@ export class ProductComponent implements OnInit {
 
   isEnglish(): boolean {
     return this.localeCode === 'en-US';
-  }
-
-  removeSuggestion() {
-    console.log(this.showSuggestion);
-    this.showSuggestion = false;
   }
 
   // TODO: properly assign the banner
@@ -385,8 +383,14 @@ export class ProductComponent implements OnInit {
   openAddToBasketModal() {
     this.saveDesign({ persist: false });
     if (this.isLoggedIn) {
-      console.log('Is Logged in ', this.isLoggedIn);
       this.modalService.open(AddToBasketModalComponent);
+    } else {
+      this.toastService.showAlert(
+        'You have to log in to add items to your basket.',
+        'Du skal logge ind for at kunne ligge dit design i kurven.',
+        'danger',
+        10000
+      );
     }
   }
 
@@ -394,5 +398,16 @@ export class ProductComponent implements OnInit {
     console.warn('Design state has changed. Valid:', $event);
     this.isDesignValid = $event;
     this.cdr.detectChanges();
+  }
+
+  iOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod',
+    ].includes(navigator.platform);
   }
 }

@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IAuthUser, ITransactionItem } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
@@ -27,7 +28,7 @@ export class NavbarComponent implements OnInit {
 
   isResendVerificationEmailLoading = false;
   itemList: ITransactionItem[] = [];
-  itemsInBasket: number;
+  itemsInBasket = 0;
 
   @ViewChild('profileMenu') profileMenu: ElementRef;
   @ViewChild('languageChange') languageChange: ElementRef;
@@ -37,7 +38,8 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private verifyService: VerifyService,
     private toastService: ToastService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private router: Router
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -81,6 +83,23 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  getItemsInBasket() {
+    if (this.isLoggedIn) {
+      this.transactionItemService.getTransactionItems().subscribe(
+        (itemList: ITransactionItem[]) => {
+          let sum = 0;
+          for (let i = 0; i < itemList.length; i++) {
+            sum = itemList[i].quantity;
+          }
+          this.itemsInBasket = sum;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.error);
+        }
+      );
+    }
+  }
+
   logout() {
     console.log('logged out');
     this.toastService.showAlert(
@@ -92,6 +111,20 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     window.scroll(0, 0);
     window.location.reload();
+  }
+
+  goToBasket() {
+    if (this.isLoggedIn) {
+      this.router.navigate(['/basket']);
+    } else {
+      this.toastService.showAlert(
+        'You must log in first.',
+        'Du skal logge ind først.',
+        'danger',
+        5000
+      );
+    }
+    this.autoCollapse();
   }
 
   resendVerificationEmail() {
@@ -155,18 +188,6 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        this.itemList = itemList;
-        let sum = 0;
-        for (let i = 0; i < itemList.length; i++) {
-          sum += itemList[i].quantity;
-        }
-        this.itemsInBasket = sum;
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
-    );
+    this.getItemsInBasket();
   }
 }

@@ -80,20 +80,26 @@
         <div class="nav-section">
             <button
                 class="navbar-basket-icon show-on-mobile"
-                routerLink="/basket"
-                (click)="autoCollapse()"
+                (click)="goToBasket()"
             >
                 <img
                     src="/assets/icons/basket-white-icon.svg"
                     class="nav-icon-mobile"
                 />
-                <!-- TODO: add items in basket -->
-                <span class="item-number">{{ 3 }}</span>
+                <span class="item-number">{{ itemsInBasket }}</span>
             </button>
         </div>
 
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/home"
+                        (click)="autoCollapse()"
+                        >Home</a
+                    >
+                </li>
                 <li class="nav-item">
                     <a
                         class="nav-link waves-light"
@@ -196,17 +202,14 @@
                 <div class="nav-section remove-on-mobile">
                     <button
                         class="navbar-basket-icon"
-                        routerLink="/basket"
-                        (click)="autoCollapse()"
+                        (click)="goToBasket()"
                         data-cy="navbar-basket-link"
                     >
                         <img
                             src="/assets/icons/basket-white-icon.svg"
                             class="nav-icon-mobile"
                         />
-                        <span class="item-number">{{
-                            itemsInBasket > 0 ? itemsInBasket : 0
-                        }}</span>
+                        <span class="item-number">{{ itemsInBasket }}</span>
                     </button>
                 </div>
             </ul>

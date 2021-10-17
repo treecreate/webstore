@@ -11,7 +11,11 @@
             < <span i18n="@@back">Back</span>
         </a>
     </div>
-    <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
+    <div
+        class="design-screen"
+        [ngStyle]="{ 'font-family': this.font }"
+        *ngIf="!isIphone"
+    >
         <button
             class="option-toggler"
             data-cy="mobile-options-toggler"
@@ -348,11 +352,19 @@
 
 <div
     class="use-desktop-container"
-    (click)="removeSuggestion()"
-    [ngClass]="showSuggestion ? '' : 'remove'"
+    (click)="showSuggestion = false"
+    *ngIf="showSuggestion && !isIphone"
 >
     <div class="use-desktop-suggestion" i18n="@@suggestion-to-use-pc">
         User a PC for an optimised user experience. There can still be issues on
         the mobile verison. We are working as fast as we can to fix them.
+    </div>
+</div>
+
+<div class="iphone-use-desktop-container" *ngIf="isIphone">
+    <div class="iphone-use-desktop-suggestion" i18n="@@dont-use-iphone-text">
+        SORRY! We don't support creating designs with iPhone. To create a
+        design, simply open up your laptop or PC and create your designs. Thank
+        you for your understanding.
     </div>
 </div>

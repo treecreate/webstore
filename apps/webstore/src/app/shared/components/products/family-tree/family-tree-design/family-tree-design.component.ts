@@ -628,10 +628,10 @@ export class FamilyTreeDesignComponent
 
       this.closeButtonDimensions = {
         height:
-          (this.canvasResolution.height / 30) *
+          (this.canvasResolution.height / 20) *
           (this.boxSize * this.boxSizeScalingMultiplier),
         width:
-          (this.canvasResolution.width / 30) *
+          (this.canvasResolution.width / 20) *
           (this.boxSize * this.boxSizeScalingMultiplier),
       };
     }

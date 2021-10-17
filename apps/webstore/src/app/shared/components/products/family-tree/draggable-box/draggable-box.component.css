@@ -6,6 +6,10 @@
   color: rgba(0, 0, 0, 0); /* the input text doesn't need to actually show */
 }
 
+.draggable-box-input:hover {
+  cursor: pointer;
+}
+
 .draggable-box-input:focus {
   outline: none;
   background: rgba(182, 102, 33, 0.04);
