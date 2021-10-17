@@ -86,6 +86,7 @@ export class BasketComponent implements OnInit {
   goToCheckout() {
     this.scrollTop();
     if (this.isVerified) {
+      this.updatePrices();
       this.router.navigate(['/checkout']);
     } else {
       this.toastService.showAlert(
@@ -127,7 +128,11 @@ export class BasketComponent implements OnInit {
   }
 
   updatePrices() {
-    if (this.discount === null) {
+    // validate the isMoreThan3 rule if there is no other discount applied
+    if (
+      this.discount === null ||
+      this.discount.discountCode === 'ismorethan3=true'
+    ) {
       if (this.isMoreThan3()) {
         this.discount = {
           discountCode: 'ismorethan3=true',
@@ -136,11 +141,14 @@ export class BasketComponent implements OnInit {
           remainingUses: 9999,
           totalUses: 1,
         };
-        console.log('Discount changed to: ', this.discount);
       } else {
         this.discount = null;
       }
       this.discountForm.get('discountCode').setValue(null);
+      this.localStorageService.setItem<IDiscount>(
+        LocalStorageVars.discount,
+        this.discount
+      );
     }
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
@@ -174,12 +182,7 @@ export class BasketComponent implements OnInit {
           );
           this.discount = discount;
           console.log('Discount changed to: ', this.discount);
-          this.updatePrices();
           this.discountIsLoading = false;
-          this.localStorageService.setItem<IDiscount>(
-            LocalStorageVars.discount,
-            this.discount
-          );
         },
         (error: HttpErrorResponse) => {
           console.error(error);
@@ -190,10 +193,18 @@ export class BasketComponent implements OnInit {
             4000
           );
           this.discount = null;
+          this.discountForm.get('discountCode').setValue(null);
           this.discountIsLoading = false;
-          this.updatePrices();
         }
-      );
+      )
+      .add(() => {
+        console.log('Setting disocunt to: ', this.discount);
+        this.localStorageService.setItem<IDiscount>(
+          LocalStorageVars.discount,
+          this.discount
+        );
+        this.updatePrices();
+      });
   }
 
   scrollTop() {

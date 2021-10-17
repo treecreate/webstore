@@ -79,7 +79,9 @@ export class CheckoutComponent implements OnInit {
     private newsletterService: NewsletterService,
     private transactionItemService: TransactionItemService,
     private orderService: OrderService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.localStorageService
       .getItem<IAuthUser>(LocalStorageVars.authUser)
       .subscribe(() => {
@@ -88,15 +90,15 @@ export class CheckoutComponent implements OnInit {
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
+
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
+
     if (this.plantedTrees === null) {
       this.plantedTrees = 1;
     }
-  }
 
-  ngOnInit(): void {
     this.updatePrices();
 
     try {
@@ -123,6 +125,12 @@ export class CheckoutComponent implements OnInit {
       // TODO: handle failed fetching data
     }
 
+    this.initForms();
+
+    this.loadTransactionItems();
+  }
+
+  initForms() {
     this.checkoutForm = new FormGroup({
       name: new FormControl('', [
         Validators.maxLength(50),
@@ -182,8 +190,6 @@ export class CheckoutComponent implements OnInit {
         Validators.required,
       ]),
     });
-
-    this.loadTransactionItems();
   }
 
   changeDelivery() {
@@ -191,21 +197,37 @@ export class CheckoutComponent implements OnInit {
     this.updatePrices();
   }
 
-  updatePrices() {
+  isMoreThan3(): boolean {
     let totalItems = 0;
     for (let i = 0; i < this.itemList.length; i++) {
       totalItems += this.itemList[i].quantity;
     }
-    if (4 <= totalItems) {
-      this.discount = {
-        discountCode: 'ismorethan3=true',
-        type: DiscountType.percent,
-        amount: 25,
-        remainingUses: 9999,
-        totalUses: 1,
-      };
-      console.warn('discount changed to: ', this.discount);
+    return totalItems > 3;
+  }
+
+  updatePrices() {
+    // validate the isMoreThan3 rule if there is no other discount applied
+    if (
+      this.discount === null ||
+      this.discount.discountCode === 'ismorethan3=true'
+    ) {
+      if (this.isMoreThan3()) {
+        this.discount = {
+          discountCode: 'ismorethan3=true',
+          type: DiscountType.percent,
+          amount: 25,
+          remainingUses: 9999,
+          totalUses: 1,
+        };
+      } else {
+        this.discount = null;
+      }
+      this.localStorageService.setItem<IDiscount>(
+        LocalStorageVars.discount,
+        this.discount
+      );
     }
+
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -348,6 +370,7 @@ export class CheckoutComponent implements OnInit {
         (paymentLink: IPaymentLink) => {
           this.isLoading = false;
           console.log('Created order and got a payment link', paymentLink);
+          this.localStorageService.removeItem(LocalStorageVars.discount);
           window.open(paymentLink.url, '_blank');
         },
         (error: HttpErrorResponse) => {
