@@ -36,7 +36,6 @@ export class BasketComponent implements OnInit {
   isVerified = false;
 
   plantedTrees = 1;
-  discountInput: IDiscount = null;
   discount: IDiscount = null;
   discountIsLoading = false;
 
@@ -60,6 +59,11 @@ export class BasketComponent implements OnInit {
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
+    if (this.discount !== null) {
+      this.discountForm
+        .get('discountCode')
+        .setValue(this.discount.discountCode);
+    }
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
@@ -114,27 +118,30 @@ export class BasketComponent implements OnInit {
     );
   }
 
-  isMoreThan3() {
+  isMoreThan3(): boolean {
     let totalItems = 0;
     for (let i = 0; i < this.itemList.length; i++) {
       totalItems += this.itemList[i].quantity;
     }
-    if (4 <= totalItems) {
-      this.discount = {
-        discountCode: 'ismorethan3=true',
-        type: DiscountType.percent,
-        amount: 25,
-        remainingUses: 9999,
-        totalUses: 1,
-      };
-      console.warn('discount changed to: ', this.discount);
-    } else {
-      this.discount = this.discountInput;
-    }
+    return totalItems > 3;
   }
 
   updatePrices() {
-    this.isMoreThan3();
+    if (this.discount === null) {
+      if (this.isMoreThan3()) {
+        this.discount = {
+          discountCode: 'ismorethan3=true',
+          type: DiscountType.percent,
+          amount: 25,
+          remainingUses: 9999,
+          totalUses: 1,
+        };
+        console.log('Discount changed to: ', this.discount);
+      } else {
+        this.discount = null;
+      }
+      this.discountForm.get('discountCode').setValue(null);
+    }
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -144,6 +151,12 @@ export class BasketComponent implements OnInit {
   }
 
   applyDiscount() {
+    // Don't try to fetch a discount if the field is empty
+    if (this.discountForm.get('discountCode').value === '') {
+      this.discount = null;
+      this.updatePrices();
+      return;
+    }
     this.discountIsLoading = true;
     this.discountService
       .getDiscount(this.discountForm.get('discountCode').value)
@@ -160,8 +173,7 @@ export class BasketComponent implements OnInit {
             4000
           );
           this.discount = discount;
-          this.discountInput = discount;
-          console.log(this.discount);
+          console.log('Discount changed to: ', this.discount);
           this.updatePrices();
           this.discountIsLoading = false;
           this.localStorageService.setItem<IDiscount>(
@@ -170,14 +182,16 @@ export class BasketComponent implements OnInit {
           );
         },
         (error: HttpErrorResponse) => {
-          console.log(error.error);
+          console.error(error);
           this.toastService.showAlert(
             'Invalid discount code',
             'Ugyldig rabatkode',
             'danger',
             4000
           );
+          this.discount = null;
           this.discountIsLoading = false;
+          this.updatePrices();
         }
       );
   }
