@@ -27,6 +27,7 @@
 }
 .main-image {
   width: 400px;
+  height: 400px;
   margin-bottom: 30px;
 }
 .actions-container {
@@ -68,6 +69,7 @@
   }
   .main-image {
     width: 60vw;
+    height: 60vw;
   }
   .main-image-container {
     width: 100vw;
