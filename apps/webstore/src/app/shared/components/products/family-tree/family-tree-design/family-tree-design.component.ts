@@ -319,6 +319,7 @@ export class FamilyTreeDesignComponent
       // We don't actually use the value yet since we can't directly apply it to the element in myBoxes (indexes change)
       // Instead, we update all of the boxes via their refs whenever there is a value change (efficient af am I rite?)
       this.updateBoxRefText();
+      this.frameChanged = true;
     });
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;

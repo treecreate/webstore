@@ -198,13 +198,17 @@ export class ProductComponent implements OnInit {
       LocalStorageVars.designFamilyTree
     ).value;
     // don't persist the design if the user is not logged in
-    if (!this.isLoggedIn || !persist) {
+    if (!this.isLoggedIn) {
       this.toastService.showAlert(
-        'Your design has been saved to your session. If you want to save it permanently, please create an account first.',
-        'Dit design er bleven gemt i din browser. Hvis du vil gemme det permanent skal du oprette en konto først.',
+        'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
+        'Dit design er bleven midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
         'success',
         10000
       );
+      return;
+    }
+    // Don't save the tree to the collection/database. Used in combindation with the addToBasketModal
+    if (!persist) {
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
@@ -256,6 +260,11 @@ export class ProductComponent implements OnInit {
               'success',
               5000
             );
+            this.router.navigate([], {
+              relativeTo: this.route,
+              queryParams: { designId: result.designId },
+              queryParamsHandling: 'merge', // remove to replace all query params by provided
+            });
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);

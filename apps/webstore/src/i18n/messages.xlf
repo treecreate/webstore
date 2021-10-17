@@ -215,7 +215,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-street-address" datatype="html">
-        <source> The address is too long. </source>
+        <source> The address is invalid. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">155,156</context>
@@ -621,7 +621,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="info-password" datatype="html">
-        <source> Password must contain: min 8 characters, at least one upper case letter, at least one lower case letter and at least one number. </source>
+        <source> Password must contain: min 8 characters, at least one upper case letter, one lower case letter and one number. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">56,58</context>
@@ -1318,14 +1318,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="engelsk" datatype="html">
-        <source>Engelsk</source>
+        <source>English</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dansk" datatype="html">
-        <source>Dansk</source>
+        <source>Danish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">57</context>
