@@ -818,16 +818,22 @@
                                                                         "
                                                                         >Sparet:
                                                                     </span>
-                                                                    <span th:text="(1 - (${order.discount.amount} / 100)) * ${order.subtotal} "></span>
+                                                                    <span
+                                                                        th:text="(1 - (${order.discount.amount} / 100)) * ${order.subtotal} "
+                                                                    ></span>
                                                                 </span>
-                                                                <span th:case="AMOUNT">
+                                                                <span
+                                                                    th:case="AMOUNT"
+                                                                >
                                                                     <span
                                                                         style="
                                                                             color: green;
                                                                         "
                                                                         >Sparet:
                                                                     </span>
-                                                                    <span th:text="${order.discount.amount}"></span>
+                                                                    <span
+                                                                        th:text="${order.discount.amount}"
+                                                                    ></span>
                                                                 </span>
                                                             </span>
 
