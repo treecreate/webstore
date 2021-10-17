@@ -81,7 +81,6 @@ export class NavbarComponent implements OnInit {
       LocalStorageVars.locale,
       this.localeCode
     );
-    this.getItemsInBasket();
   }
 
   getItemsInBasket() {
@@ -189,18 +188,6 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        this.itemList = itemList;
-        let sum = 0;
-        for (let i = 0; i < itemList.length; i++) {
-          sum += itemList[i].quantity;
-        }
-        this.itemsInBasket = sum;
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
-    );
+    this.getItemsInBasket(); 
   }
 }
