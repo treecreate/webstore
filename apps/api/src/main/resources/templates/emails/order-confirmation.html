@@ -804,19 +804,69 @@
                                                             <span
                                                                 th:text="${order.subtotal}"
                                                             ></span>
+                                                            DKK
                                                             <br />
                                                             <span
-                                                                style="
-                                                                    color: green;
-                                                                "
-                                                                >Sparet:
+                                                                th:switch="${order.discount.discountType}"
+                                                            >
+                                                                <span
+                                                                    th:case="PERCENT"
+                                                                >
+                                                                    <span
+                                                                        style="
+                                                                            color: green;
+                                                                        "
+                                                                        >Sparet:
+                                                                    </span>
+                                                                    <span th:text="(1 - (${order.discount.amount} / 100)) * ${order.subtotal} "></span>
+                                                                </span>
+                                                                <span th:case="AMOUNT">
+                                                                    <span
+                                                                        style="
+                                                                            color: green;
+                                                                        "
+                                                                        >Sparet:
+                                                                    </span>
+                                                                    <span th:text="${order.discount.amount}"></span>
+                                                                </span>
+                                                            </span>
+
+                                                            <br />
+                                                            <span
+                                                                >Plantede træer:
                                                             </span>
                                                             <span
-                                                                style="
-                                                                    color: green;
-                                                                "
-                                                                th:text="${order.subtotal} - ${order.total}"
+                                                                th:text="${order.plantedTrees} * 10"
+                                                            >
+                                                            </span>
+                                                            (
+                                                            <span
+                                                                th:text="${order.plantedTrees}"
                                                             ></span>
+                                                            x 10 DKK )
+                                                            <br />
+                                                            <span
+                                                                th:text="${order.shippingMethod}"
+                                                            ></span>
+                                                            <span
+                                                                th:switch="${order.shippingMethod}"
+                                                            >
+                                                                <p
+                                                                    th:case="HOME_DELIVERY"
+                                                                >
+                                                                    29 DKK
+                                                                </p>
+                                                                <p
+                                                                    th:case="PICK_UP_POINT"
+                                                                >
+                                                                    0 DKK
+                                                                </p>
+                                                                <p
+                                                                    th:case="OWN_DELIVERY"
+                                                                >
+                                                                    0 DKK
+                                                                </p>
+                                                            </span>
                                                             <br />
                                                             <strong>
                                                                 <span
@@ -824,8 +874,9 @@
                                                                 </span>
                                                                 <span
                                                                     th:text="${order.total}"
-                                                                ></span
-                                                            ></strong>
+                                                                ></span>
+                                                                DKK
+                                                            </strong>
                                                             <span
                                                                 style="
                                                                     opacity: 0.5;
@@ -834,8 +885,8 @@
                                                                 >( moms:
                                                                 <span
                                                                     th:text="${order.total}*0.2"
-                                                                ></span
-                                                                >)
+                                                                ></span>
+                                                                DKK )
                                                             </span>
                                                             <br />
                                                         </div>
