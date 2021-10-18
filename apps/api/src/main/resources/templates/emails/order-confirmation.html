@@ -810,38 +810,37 @@
                                                                 th:text="${order.subtotal}"
                                                             ></span>
                                                             DKK
-                                                            <!-- TODO: make it display amount saved -->
-                                                            <!-- <br /> 
-                                                            <span
-                                                                th:switch="${order.discount.discountType}"
+                                                            <br />
+
+                                                            <div
+                                                                th:if="${order.discount.amount} <= 25"
+                                                                style="
+                                                                    color: green;
+                                                                "
                                                             >
                                                                 <span
-                                                                    th:case="PERCENT"
-                                                                >
-                                                                    <span
-                                                                        style="
-                                                                            color: green;
-                                                                        "
-                                                                        >Sparet:
-                                                                    </span>
-                                                                    <span
-                                                                        th:text="(1 - (${order.discount.amount} / 100)) * ${order.subtotal} "
-                                                                    ></span>
+                                                                    th:text="#{order.saved}"
+                                                                    >Sparet:
                                                                 </span>
                                                                 <span
-                                                                    th:case="AMOUNT"
+                                                                    th:text="(${order.discount.amount} / 100) * ${order.subtotal}"
+                                                                ></span>
+                                                            </div>
+
+                                                            <div
+                                                                th:if="${order.discount.amount} > 25"
+                                                                style="
+                                                                    color: green;
+                                                                "
+                                                            >
+                                                                <span
+                                                                    th:text="#{order.saved}"
                                                                 >
-                                                                    <span
-                                                                        style="
-                                                                            color: green;
-                                                                        "
-                                                                        >Sparet:
-                                                                    </span>
-                                                                    <span
-                                                                        th:text="${order.discount.amount}"
-                                                                    ></span>
                                                                 </span>
-                                                            </span> -->
+                                                                <span
+                                                                    th:text="${order.discount.amount}"
+                                                                ></span>
+                                                            </div>
 
                                                             <br />
                                                             <span
@@ -854,41 +853,39 @@
                                                             </span>
                                                             stk
                                                             <span
-                                                                th:text="${order.plantedTrees}  * 10"
+                                                                th:text="(${order.plantedTrees}-1)  * 10"
                                                             ></span>
                                                             DKK
                                                             <br />
-                                                            <span
-                                                                th:text="${order.shippingMethod}"
-                                                            ></span>
-                                                            <span
-                                                                th:switch="${order.shippingMethod}"
-                                                            >
-                                                                <p
-                                                                    th:case="'HOME_DELIVERY'"
+
+                                                            <div>
+                                                                <span
+                                                                    th:text="#{order.delivery.method}"
+                                                                ></span>
+                                                                <span
+                                                                    th:text="${order.shippingMethod}"
+                                                                ></span>
+                                                                <span
+                                                                    th:if="${order.discount.amount} <= 25"
                                                                 >
+                                                                    (
                                                                     <span
-                                                                        th:text="#{order.home.delivery}"
+                                                                        th:text=" ((${order.plantedTrees}-1) + ${order.subtotal} - (${order.discount.amount} / 100) * ${order.subtotal}) - ${order.total}"
                                                                     ></span>
-                                                                    29 DKK
-                                                                </p>
-                                                                <p
-                                                                    th:case="'PICK_UP_POINT'"
+                                                                    DKK )
+                                                                </span>
+                                                                <span
+                                                                    th:if="${order.discount.amount} > 25"
                                                                 >
+                                                                    (
                                                                     <span
-                                                                        th:text="#{order.parcel.shop}"
+                                                                        th:text=" (${order.plantedTrees}-1) + ${order.subtotal} - ${order.discount.amount} - ${order.total}"
                                                                     ></span>
-                                                                    0 DKK
-                                                                </p>
-                                                                <p
-                                                                    th:case="'OWN_DELIVERY'"
-                                                                >
-                                                                    <span
-                                                                        th:text="#{order.own.pickup}"
-                                                                    ></span>
-                                                                    0 DKK
-                                                                </p>
-                                                            </span>
+                                                                    DKK )
+                                                                </span>
+                                                            </div>
+                                                            <br />
+
                                                             <br />
                                                             <strong>
                                                                 <span
