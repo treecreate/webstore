@@ -624,19 +624,21 @@
                                                             "
                                                         >
                                                             <strong>
-                                                                <span th:text="#{order.order.time}"
-                                                                    >
-                                                                </span></strong
-                                                            >
+                                                                <span
+                                                                    th:text="#{order.order.time}"
+                                                                >
+                                                                </span
+                                                            ></strong>
                                                             <span
                                                                 th:text="${order.createdAt}"
                                                             ></span>
                                                             <br />
                                                             <strong>
-                                                                <span th:text="#{order.order.id}"
-                                                                    >
-                                                                </span></strong
-                                                            >
+                                                                <span
+                                                                    th:text="#{order.order.id}"
+                                                                >
+                                                                </span
+                                                            ></strong>
                                                             <span
                                                                 th:text="${order.orderId}"
                                                             ></span>
@@ -768,21 +770,27 @@
                                                                 text-align: center;
                                                             "
                                                         >
-                                                            <strong
-                                                                > <span th:text="#{order.title}"></span>
+                                                            <strong>
+                                                                <span
+                                                                    th:text="#{order.title}"
+                                                                ></span>
                                                                 <span
                                                                     th:text="${transactionItem.design.designProperties.title}"
                                                                 ></span
                                                             ></strong>
                                                             <br />
-                                                            <span th:text="#{order.size}"
-                                                                >
+                                                            <span
+                                                                th:text="#{order.size}"
+                                                            >
                                                             </span>
                                                             <span
                                                                 th:text="${transactionItem.dimension}"
                                                             ></span>
                                                             <br />
-                                                            <span th:text="#{order.amount}"> </span>
+                                                            <span
+                                                                th:text="#{order.amount}"
+                                                            >
+                                                            </span>
                                                             <span
                                                                 th:text="${transactionItem.quantity}"
                                                             ></span>
@@ -836,8 +844,9 @@
                                                             </span> -->
 
                                                             <br />
-                                                            <span th:text="#{order.planted.trees}"
-                                                                >
+                                                            <span
+                                                                th:text="#{order.planted.trees}"
+                                                            >
                                                             </span>
                                                             <span
                                                                 th:text="${order.plantedTrees}"
@@ -884,7 +893,7 @@
                                                             <strong>
                                                                 <span
                                                                     th:text="#{order.total}"
-                                                                    >
+                                                                >
                                                                 </span>
                                                                 <span
                                                                     th:text="${order.total}"
@@ -916,12 +925,13 @@
                                                             <strong>
                                                                 <span
                                                                     th:text="#{order.delivery.address}"
-                                                                    > </span
+                                                                >
+                                                                </span
                                                                 ><br
                                                             /></strong>
                                                             <span
                                                                 th:text="#{order.name}"
-                                                                >
+                                                            >
                                                             </span>
                                                             <span
                                                                 th:text="${order.contactInfo.name}"
@@ -929,7 +939,7 @@
                                                             <br />
                                                             <span
                                                                 th:text="#{order.phone.number}"
-                                                                >
+                                                            >
                                                             </span>
                                                             <span
                                                                 th:text="${order.contactInfo.phoneNumber}"
@@ -937,7 +947,7 @@
                                                             <br />
                                                             <span
                                                                 th:text="#{order.address}"
-                                                                >
+                                                            >
                                                             </span>
                                                             <span
                                                                 th:text="${order.contactInfo.streetAddress}"
@@ -945,20 +955,23 @@
                                                             <br />
                                                             <span
                                                                 th:text="#{order.address.2}"
-                                                                >
+                                                            >
                                                             </span>
                                                             <span
                                                                 th:text="${order.contactInfo.streetAddress2}"
                                                             ></span>
                                                             <br />
-                                                            <span th:text="#{order.city}"
-                                                            > </span>
+                                                            <span
+                                                                th:text="#{order.city}"
+                                                            >
+                                                            </span>
                                                             <span
                                                                 th:text="${order.contactInfo.city}"
                                                             ></span>
                                                             <br />
-                                                            <span th:text="#{order.postcode}"
-                                                                >
+                                                            <span
+                                                                th:text="#{order.postcode}"
+                                                            >
                                                             </span>
                                                             <span
                                                                 th:text="${order.contactInfo.postcode}"
