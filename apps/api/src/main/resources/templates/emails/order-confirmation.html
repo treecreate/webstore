@@ -795,6 +795,27 @@
                                                                 th:text="${transactionItem.quantity}"
                                                             ></span>
                                                             <br />
+                                                            <span
+                                                                th:text="#{order.price}"
+                                                            ></span>
+                                                            <th:block
+                                                                th:switch="${#strings.toString(transactionItem.dimension)}"
+                                                            >
+                                                                <span
+                                                                    th:case="'SMALL'"
+                                                                    th:text="${transactionItem.quantity} * 495"
+                                                                ></span>
+                                                                <span
+                                                                    th:case="'MEDIUM'"
+                                                                    th:text="${transactionItem.quantity} * 695"
+                                                                ></span>
+                                                                <span
+                                                                    th:case="'LARGE'"
+                                                                    th:text="${transactionItem.quantity} * 995"
+                                                                ></span>
+                                                            </th:block>
+                                                            DKK
+                                                            <br />
                                                             <br />
                                                         </div>
 
@@ -862,26 +883,31 @@
                                                                 <span
                                                                     th:text="#{order.delivery.method}"
                                                                 ></span>
+                                                                :
                                                                 <span
-                                                                    th:text="${order.shippingMethod}"
-                                                                ></span>
-                                                                <span
-                                                                    th:if="${order.discount.amount} <= 25"
+                                                                    th:switch="${#strings.toString(order.shippingMethod)}"
                                                                 >
-                                                                    (
                                                                     <span
-                                                                        th:text=" ((${order.plantedTrees}-1) + ${order.subtotal} - (${order.discount.amount} / 100) * ${order.subtotal}) - ${order.total}"
-                                                                    ></span>
-                                                                    DKK )
-                                                                </span>
-                                                                <span
-                                                                    th:if="${order.discount.amount} > 25"
-                                                                >
-                                                                    (
+                                                                        th:case="HOME_DELIVERY"
+                                                                    >
+                                                                        <span
+                                                                            th:text="#{order.home.delivery}"
+                                                                        ></span>
+                                                                    </span>
                                                                     <span
-                                                                        th:text=" (${order.plantedTrees}-1) + ${order.subtotal} - ${order.discount.amount} - ${order.total}"
-                                                                    ></span>
-                                                                    DKK )
+                                                                        th:case="PICK_UP_POINT"
+                                                                    >
+                                                                        <span
+                                                                            th:text="#{order.parcel.shop}"
+                                                                        ></span>
+                                                                    </span>
+                                                                    <span
+                                                                        th:case="OWN_PICKUP"
+                                                                    >
+                                                                        <span
+                                                                            th:text="#{order.own.pickup}"
+                                                                        ></span>
+                                                                    </span>
                                                                 </span>
                                                             </div>
                                                             <br />
