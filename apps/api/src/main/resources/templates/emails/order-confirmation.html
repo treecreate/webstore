@@ -961,13 +961,17 @@
                                                             ></span>
                                                             <br />
                                                             <span
-                                                                th:text="#{order.phone.number}"
+                                                                th:if="${order.contactInfo.phoneNumber != null}"
                                                             >
+                                                                <span
+                                                                    th:text="#{order.phone.number}"
+                                                                >
+                                                                </span>
+                                                                <span
+                                                                    th:text="${order.contactInfo.phoneNumber}"
+                                                                ></span>
+                                                                <br />
                                                             </span>
-                                                            <span
-                                                                th:text="${order.contactInfo.phoneNumber}"
-                                                            ></span>
-                                                            <br />
                                                             <span
                                                                 th:text="#{order.address}"
                                                             >
