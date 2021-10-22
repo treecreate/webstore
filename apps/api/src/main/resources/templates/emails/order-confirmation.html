@@ -981,13 +981,18 @@
                                                             ></span>
                                                             <br />
                                                             <span
-                                                                th:text="#{order.address.2}"
+                                                                th:if="${order.contactInfo.streetAddress2} != null"
                                                             >
+                                                                <span
+                                                                    th:text="#{order.address.2}"
+                                                                >
+                                                                </span>
+                                                                <span
+                                                                    th:text="${order.contactInfo.streetAddress2}"
+                                                                ></span>
+                                                                <br />
                                                             </span>
-                                                            <span
-                                                                th:text="${order.contactInfo.streetAddress2}"
-                                                            ></span>
-                                                            <br />
+
                                                             <span
                                                                 th:text="#{order.city}"
                                                             >
