@@ -4,10 +4,15 @@
         class="check-icon"
         alt="check-icon"
     />
-    <div class="title" i18n="@@go-to-basket-title">The family tree has been added to your basket</div>
+    <div class="title" i18n="@@go-to-basket-title">
+        The family tree has been added to your basket
+    </div>
     <div class="sub-title" *ngIf="!isLoading">
-        <span i18n="@@you-have">You have</span> {{ itemsInBasket }} <span i18n="@@items-in-your-basket">items in your basket</span> ({{ basketPrice }} DKK
-        )
+        <span i18n="@@you-have">You have</span> {{ itemsInBasket }}
+        <span i18n="@@items-in-your-basket">items in your basket</span> ({{
+            basketPrice
+        }}
+        DKK )
     </div>
     <div *ngIf="isLoading" style="text-align: center">
         <span
