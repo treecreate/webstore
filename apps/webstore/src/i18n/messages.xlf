@@ -26,10 +26,6 @@
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">51,52</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
-          <context context-type="linenumber">24,25</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="plant-extra-trees" datatype="html">
         <source>Plant an extra tree - 10kr</source>
@@ -453,10 +449,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
           <context context-type="linenumber">79</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
-          <context context-type="linenumber">32,33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
@@ -991,20 +983,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/payment-success/payment-success.component.html</context>
           <context context-type="linenumber">20,24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="time-to-start-designing" datatype="html">
-        <source> Time to start designing </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
-          <context context-type="linenumber">9,10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="not-signed-in-text" datatype="html">
-        <source> Start creating your first design. We recomment you login or create a user before you start designing. If you want to save designs or load previously created design, you must be logged in. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/not-signed-in/not-signed-in.component.html</context>
-          <context context-type="linenumber">12,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="title" datatype="html">
