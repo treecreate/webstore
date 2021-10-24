@@ -92,8 +92,6 @@ import { GoToBasketModalComponent } from './shared/components/modals/go-to-baske
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [
-    GoToBasketModalComponent
-  ],
+  exports: [GoToBasketModalComponent],
 })
 export class AppModule {}

@@ -83,7 +83,7 @@ export class DraggableBoxComponent implements AfterViewInit {
   }
 
   isEnglish() {
-    return this.localeCode === LocaleType.en
+    return this.localeCode === LocaleType.en;
   }
 
   ngAfterViewInit(): void {

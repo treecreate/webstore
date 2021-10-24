@@ -12,8 +12,7 @@ describe('GoToBasketModalComponent', () => {
       declarations: [GoToBasketModalComponent],
       imports: [NgbModule],
       providers: [NgbActiveModal],
-    })
-    .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
