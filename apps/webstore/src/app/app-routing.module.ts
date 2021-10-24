@@ -15,7 +15,6 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 import { ProductComponent } from './pages/product/product.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
@@ -57,11 +56,6 @@ const routes: Routes = [
     data: { roles: [UserRoles.user] },
   },
   { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
-  {
-    path: 'notSignedIn',
-    component: NotSignedInComponent,
-    canActivate: [CookieGuard],
-  },
   {
     path: 'payment',
     children: [
