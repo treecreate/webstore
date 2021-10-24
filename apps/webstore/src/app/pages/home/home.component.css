@@ -283,7 +283,7 @@
 .delivery-estimate {
   color: white;
   background-color: rgba(175, 121, 73, 0.7);
-  height: 50px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -377,6 +377,9 @@
 }
 
 @media screen and (max-width: 540px) {
+  .remove {
+    display: none;
+  }
   .main-text-container {
     height: 35vh;
     margin-top: 50px;
