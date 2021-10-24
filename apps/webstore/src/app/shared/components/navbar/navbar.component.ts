@@ -89,7 +89,7 @@ export class NavbarComponent implements OnInit {
         (itemList: ITransactionItem[]) => {
           let sum = 0;
           for (let i = 0; i < itemList.length; i++) {
-            sum = itemList[i].quantity;
+            sum += itemList[i].quantity;
           }
           this.itemsInBasket = sum;
         },
