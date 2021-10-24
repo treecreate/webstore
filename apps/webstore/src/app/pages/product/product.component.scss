@@ -254,7 +254,7 @@
 }
 
 .iphone-use-desktop-container {
-  display: none;
+  display: flex;
   position: absolute;
   justify-content: center;
   height: calc(100vh - 60px);
