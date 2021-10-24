@@ -4,9 +4,9 @@
         class="check-icon"
         alt="check-icon"
     />
-    <div class="title">The family tree has been added to your basket</div>
+    <div class="title" i18n="@@go-to-basket-title">The family tree has been added to your basket</div>
     <div class="sub-title" *ngIf="!isLoading">
-        You have {{ itemsInBasket }} items in your basket ({{ basketPrice }} DKK
+        <span i18n="@@you-have">You have</span> {{ itemsInBasket }} <span i18n="@@items-in-your-basket">items in your basket</span> ({{ basketPrice }} DKK
         )
     </div>
     <div *ngIf="isLoading" style="text-align: center">
@@ -17,7 +17,7 @@
             aria-hidden="true"
         ></span>
         <br />
-        <span>Loading items in basket...</span>
+        <span i18n="@@loading-items-in-basket">Loading items in basket...</span>
     </div>
 </div>
 <div class="modal-footer">
@@ -26,6 +26,7 @@
         class="tc-button-33 green"
         routerLink="/basket"
         (click)="activeModal.close()"
+        i18n="@@go-to-basket"
     >
         Go to basket
     </button>
@@ -34,6 +35,7 @@
         class="tc-button-33"
         routerLink="/product"
         (click)="activeModal.close()"
+        i18n="@@create-new"
     >
         Create new
     </button>
