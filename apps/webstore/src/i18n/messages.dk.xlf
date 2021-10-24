@@ -922,6 +922,38 @@
           <context context-type="linenumber">31,33</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="delivery-4-7" datatype="html">
+        <source>4-7 days delivery</source>
+        <target>4-7 dages lev.</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="free-delivery" datatype="html">
+        <source>Free delivery </source>
+        <target>Gratis levering</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="produced-in-denmark" datatype="html">
+        <source>Produced in Denmark </source>
+        <target>Produceret i Danmark</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="plant-a-tree" datatype="html">
+        <source>Plant a tree </source>
+        <target>Plant et træ</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="subscribe" datatype="html">
         <source>Subscribe</source>
         <target>Tilmeld</target> 
