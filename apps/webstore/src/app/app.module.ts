@@ -41,6 +41,7 @@ import { ChangePasswordModalComponent } from './shared/components/modals/change-
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
+import { FamiliTreeIntroComponent } from './famili-tree-intro/famili-tree-intro.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-can
     ChangePasswordModalComponent,
     UnsubscribeComponent,
     PaymentCancelledComponent,
+    FamiliTreeIntroComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,5 +92,8 @@ import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-can
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
+  exports: [
+    FamiliTreeIntroComponent
+  ],
 })
 export class AppModule {}
