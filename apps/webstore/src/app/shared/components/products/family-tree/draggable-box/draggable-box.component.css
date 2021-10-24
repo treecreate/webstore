@@ -15,3 +15,9 @@
   background: rgba(182, 102, 33, 0.04);
   border-radius: 20%;
 }
+
+.draggable-box-input::placeholder {
+  font-size: x-small; 
+  position: relative;
+  top: -5px;
+}

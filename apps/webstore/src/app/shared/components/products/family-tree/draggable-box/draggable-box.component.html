@@ -2,7 +2,7 @@
 <input
     #draggableBoxInput
     type="input"
-    placeholder="..."
+    placeholder="{{isEnglish() ? 'Write name...' : 'Skriv navn...'}}"
     [ngModel]="text"
     class="draggable-box-input"
     (ngModelChange)="onInputChange($event)"

@@ -8,6 +8,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { LocaleType, LocalStorageVars } from '@models';
+import { BehaviorSubject } from 'rxjs';
+import { LocalStorageService } from '../../../../services/local-storage';
 
 @Component({
   selector: 'webstore-draggable-box',
@@ -69,7 +72,19 @@ export class DraggableBoxComponent implements AfterViewInit {
 
   fontSize = 1;
 
-  constructor() {}
+  // get locale to determine what language to display the toast in
+  public locale$: BehaviorSubject<LocaleType>;
+  public localeCode: LocaleType;
+  constructor(private localStorageService: LocalStorageService) {
+    this.locale$ = this.localStorageService.getItem<LocaleType>(
+      LocalStorageVars.locale
+    );
+    this.localeCode = this.locale$.getValue();
+  }
+
+  isEnglish() {
+    return this.localeCode === LocaleType.en
+  }
 
   ngAfterViewInit(): void {
     console.log('box created', this);
