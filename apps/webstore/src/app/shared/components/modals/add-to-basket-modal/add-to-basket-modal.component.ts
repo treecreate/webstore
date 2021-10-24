@@ -9,13 +9,14 @@ import {
   ITransactionItem,
 } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
 import { LocalStorageService } from '../../../services/local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
+import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
 
 @Component({
   selector: 'webstore-add-to-basket-modal',
@@ -42,6 +43,7 @@ export class AddToBasketModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private route: ActivatedRoute,
     private router: Router,
+    private modalService: NgbModal,
     private toastService: ToastService,
     private localStorageService: LocalStorageService,
     private calculatePriceService: CalculatePriceService,
@@ -219,12 +221,12 @@ export class AddToBasketModalComponent implements OnInit {
       .subscribe(
         (result) => {
           console.log('Design created and persisted', result);
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { designId: result.designId },
-            queryParamsHandling: 'merge', // remove to replace all query params by provided
-          });
-
+          // Removed to use the goToBasket modal instead
+          // this.router.navigate([], {
+          //   relativeTo: this.route,
+          //   queryParams: { designId: result.designId },
+          //   queryParamsHandling: 'merge', // remove to replace all query params by provided
+          // });
           // Create the transaction item with the newly persisted design
           console.log('design properties', {
             designId: result.designId,
@@ -248,7 +250,7 @@ export class AddToBasketModalComponent implements OnInit {
                   5000
                 );
                 this.activeModal.close();
-                window.location.reload();
+                this.modalService.open(GoToBasketModalComponent);
               },
               (error: HttpErrorResponse) => {
                 console.error(error);

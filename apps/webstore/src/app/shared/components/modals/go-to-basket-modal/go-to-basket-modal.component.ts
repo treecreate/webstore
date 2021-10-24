@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'webstore-go-to-basket-modal',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./go-to-basket-modal.component.css'],
 })
 export class GoToBasketModalComponent {
-  constructor() {}
+  constructor(public activeModal: NgbActiveModal) {}
 }
