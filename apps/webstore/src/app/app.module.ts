@@ -40,7 +40,8 @@ import { ChangePasswordModalComponent } from './shared/components/modals/change-
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
-import { FamilyTreeIntroComponent } from './shared/components/modals/family-tree-intro/family-tree-intro.component';
+import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
+import { GoToBasketModalComponent } from './go-to-basket-modal/go-to-basket-modal.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { FamilyTreeIntroComponent } from './shared/components/modals/family-tree
     ChangePasswordModalComponent,
     UnsubscribeComponent,
     PaymentCancelledComponent,
-    FamilyTreeIntroComponent,
+    FamilyTreeIntroModalComponent,
+    GoToBasketModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,5 +92,8 @@ import { FamilyTreeIntroComponent } from './shared/components/modals/family-tree
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
+  exports: [
+    GoToBasketModalComponent
+  ],
 })
 export class AppModule {}

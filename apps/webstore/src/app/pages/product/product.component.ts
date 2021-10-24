@@ -20,7 +20,7 @@ import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
-import { FamilyTreeIntroComponent } from '../../shared/components/modals/family-tree-intro/family-tree-intro.component';
+import { FamilyTreeIntroModalComponent } from '../../shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
@@ -100,7 +100,7 @@ export class ProductComponent implements OnInit {
     });
     console.log('logged in', this.isLoggedIn);
     if (!this.isLoggedIn) {
-      this.modalService.open(FamilyTreeIntroComponent);
+      this.modalService.open(FamilyTreeIntroModalComponent);
     }
   }
 
