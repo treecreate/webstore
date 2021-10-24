@@ -87,7 +87,6 @@
   align-items: center;
   flex-direction: column;
   margin: 50px 0;
-  color: var(--second-action-color);
 }
 .subscribe-title {
   font-size: 56px;
