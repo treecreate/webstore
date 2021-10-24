@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FamilyTreeIntroModalComponent } from './family-tree-intro-modal.component';
 
@@ -9,6 +10,8 @@ describe('FamiliTreeIntroComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FamilyTreeIntroModalComponent],
+      imports: [NgbModule],
+      providers: [NgbActiveModal],
     }).compileComponents();
   });
 

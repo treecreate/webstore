@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GoToBasketModalComponent } from './go-to-basket-modal.component';
 
@@ -8,7 +9,9 @@ describe('GoToBasketModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GoToBasketModalComponent ]
+      declarations: [GoToBasketModalComponent],
+      imports: [NgbModule],
+      providers: [NgbActiveModal],
     })
     .compileComponents();
   });

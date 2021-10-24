@@ -41,7 +41,7 @@ import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.compo
 import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
-import { GoToBasketModalComponent } from './go-to-basket-modal/go-to-basket-modal.component';
+import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
 
 @NgModule({
   declarations: [
