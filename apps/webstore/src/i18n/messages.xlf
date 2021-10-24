@@ -1018,7 +1018,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="suggestion-to-use-pc" datatype="html">
-        <source> User a PC for an optimised user experience. There can still be issues on the mobile verison. We are working as fast as we can to fix them. </source>
+        <source> Use a PC for an optimised user experience. There can still be issues on the mobile verison. We are working as fast as we can to fix them. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
           <context context-type="linenumber">359,361</context>
