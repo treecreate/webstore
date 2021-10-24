@@ -40,7 +40,7 @@ import { ChangePasswordModalComponent } from './shared/components/modals/change-
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
-import { FamiliTreeIntroComponent } from './shared/components/modals/famili-tree-intro/famili-tree-intro.component';
+import { FamilyTreeIntroComponent } from './shared/components/modals/family-tree-intro/family-tree-intro.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +78,7 @@ import { FamiliTreeIntroComponent } from './shared/components/modals/famili-tree
     ChangePasswordModalComponent,
     UnsubscribeComponent,
     PaymentCancelledComponent,
-    FamiliTreeIntroComponent,
+    FamilyTreeIntroComponent,
   ],
   imports: [
     BrowserModule,
