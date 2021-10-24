@@ -280,6 +280,24 @@
 }
 /* END Start design button */
 
+.delivery-estimate {
+  color: white;
+  background-color: rgba(175, 121, 73, 0.7);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-text {
+  padding: 0 10px;
+}
+
+.check-icon {
+  width: 20px;
+  margin: 5px;
+}
+
 @media screen and (max-width: 945px) {
   .main-text-container {
     width: 70vw;
