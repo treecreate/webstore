@@ -1435,11 +1435,15 @@
         <target>Tilbage</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/change-password-modal/change-password-modal.component.html</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">157,158</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro/family-tree-intro.component.html</context>
+          <context context-type="linenumber">57,58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
-          <context context-type="linenumber">63,64</context>
+          <context context-type="linenumber">72,73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accept-cookies" datatype="html">
@@ -1472,6 +1476,38 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
           <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro-how-it-works" datatype="html">
+        <source>How it works?</source>
+        <target>Hvordan virker det?</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro/family-tree-intro.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro-click-to-create" datatype="html">
+        <source> Click anywhere on the tree to create a box </source>
+        <target>Tryk på træet for at lave en kasse</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro/family-tree-intro.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro-start-typing" datatype="html">
+        <source>Start typing the name</source>
+        <target>Begynd at skrive dit navn</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro/family-tree-intro.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro-click-and-hold" datatype="html">
+        <source> Click and hold to drag the box around </source>
+        <target>Tryk og hold nede for at flytte kassen rundt</target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro/family-tree-intro.component.html</context>
+          <context context-type="linenumber">44,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="forgotten-password" datatype="html">
