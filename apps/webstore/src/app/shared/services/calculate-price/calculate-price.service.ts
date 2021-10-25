@@ -64,14 +64,6 @@ export class CalculatePriceService {
     };
   }
 
-  getItemsInBasket(itemList: ITransactionItem[]): number {
-    let itemSum = 0;
-    for (let i = 0; i < itemList.length; i++) {
-      itemSum += itemList[i].quantity;
-    }
-    return itemSum;
-  }
-
   getFullPrice(itemList: ITransactionItem[]): number {
     let priceSum = 0;
     for (let i = 0; i < itemList.length; i++) {

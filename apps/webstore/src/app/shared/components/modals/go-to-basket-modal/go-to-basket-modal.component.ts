@@ -27,9 +27,11 @@ export class GoToBasketModalComponent implements OnInit {
     this.isLoading = true;
     this.transactionItemService.getTransactionItems().subscribe(
       (itemList: ITransactionItem[]) => {
-        this.itemsInBasket = this.calculatePriceService.getItemsInBasket(
-          itemList
-        );
+        let itemSum = 0;
+        for (let i = 0; i < itemList.length; i++) {
+          itemSum += itemList[i].quantity;
+        }
+        this.itemsInBasket = itemSum;
         if (this.itemsInBasket >= 4) {
           this.basketPrice =
             this.calculatePriceService.getFullPrice(itemList) * 0.75;
