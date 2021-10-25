@@ -1,0 +1,32 @@
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+}
+
+.modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.title {
+  margin: 25px 0 10px 0;
+  font-weight: 900;
+}
+
+.check-icon {
+  height: 50px;
+}
+
+button {
+  margin: 10px;
+}
+
+@media screen and (max-width: 570px) {
+  .tc-button-33 {
+    width: 100%;
+  }
+}

@@ -32,7 +32,6 @@ import { VerificationComponent } from './pages/auth/verification/verification.co
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { NotSignedInComponent } from './pages/product/not-signed-in/not-signed-in.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
@@ -41,6 +40,8 @@ import { ChangePasswordModalComponent } from './shared/components/modals/change-
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
+import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
+import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,6 @@ import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-can
     FamilyTreeCollectionItemComponent,
     InfoPopoverComponent,
     PaymentSuccessComponent,
-    NotSignedInComponent,
     AddToBasketModalComponent,
     BasketComponent,
     FamilyTreeBasketItemComponent,
@@ -79,6 +79,8 @@ import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-can
     ChangePasswordModalComponent,
     UnsubscribeComponent,
     PaymentCancelledComponent,
+    FamilyTreeIntroModalComponent,
+    GoToBasketModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,5 +92,6 @@ import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-can
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
+  exports: [GoToBasketModalComponent],
 })
 export class AppModule {}

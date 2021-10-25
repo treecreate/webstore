@@ -191,6 +191,9 @@ describe('ProductPage', () => {
   });
 
   describe('Unauthorised', () => {
+    beforeEach(() => {
+      cy.get('[data-cy=family-tree-intro-close-button]').click();
+    });
     // box-size buttons
     it('should contain a navbar and footer', () => {
       cy.get('[data-cy=navbar]').should('exist');
