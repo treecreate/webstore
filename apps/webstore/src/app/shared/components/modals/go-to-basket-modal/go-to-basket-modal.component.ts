@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ITransactionItem } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { LocalStorageService } from '../../../services/local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 
 @Component({
@@ -17,7 +19,8 @@ export class GoToBasketModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private transactionItemService: TransactionItemService,
-    private calculatePriceService: CalculatePriceService
+    private calculatePriceService: CalculatePriceService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +31,8 @@ export class GoToBasketModalComponent implements OnInit {
           itemList
         );
         if (this.itemsInBasket >= 4) {
-          this.basketPrice = this.calculatePriceService.getFullPrice(itemList) * 0.75;
+          this.basketPrice =
+            this.calculatePriceService.getFullPrice(itemList) * 0.75;
         } else {
           this.basketPrice = this.calculatePriceService.getFullPrice(itemList);
         }
@@ -38,5 +42,10 @@ export class GoToBasketModalComponent implements OnInit {
         console.log(error.error);
       }
     );
+  }
+
+  createNew() {
+    this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
+    this.activeModal.close();
   }
 }
