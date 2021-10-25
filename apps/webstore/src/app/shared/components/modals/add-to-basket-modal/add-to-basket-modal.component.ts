@@ -223,14 +223,6 @@ export class AddToBasketModalComponent implements OnInit {
           console.log('Design created and persisted', result);
           //TODO: Doenst save the title when written in the add to basket modal. The design is
           //added to collection with no title even though it is written in the addToBasket modal.
-
-          // Removed to use the goToBasket modal instead
-          // this.router.navigate([], {
-          //   relativeTo: this.route,
-          //   queryParams: { designId: result.designId },
-          //   queryParamsHandling: 'merge', // remove to replace all query params by provided
-          // });
-          // Create the transaction item with the newly persisted design
           console.log('design properties', {
             designId: result.designId,
             dimension: this.addToBasketForm.get('dimension').value,
