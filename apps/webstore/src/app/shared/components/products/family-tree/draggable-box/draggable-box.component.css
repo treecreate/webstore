@@ -17,7 +17,7 @@
 }
 
 .draggable-box-input::placeholder {
-  font-size: x-small;
+  font-size: small;
   position: relative;
   top: -5px;
 }
