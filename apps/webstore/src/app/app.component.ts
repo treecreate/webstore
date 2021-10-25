@@ -17,14 +17,14 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         try {
-          gtag('config', environment.gtag, {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            page_path: event.urlAfterRedirects,
-          });
-        } catch (error) {
           if (environment.production) {
-            console.error('Failed to log to google analytics', error);
+            gtag('config', environment.gtag, {
+              // eslint-disable-next-line @typescript-eslint/naming-convention
+              page_path: event.urlAfterRedirects,
+            });
           }
+        } catch (error) {
+          console.error('Failed to log to google analytics', error);
         }
       }
     });
