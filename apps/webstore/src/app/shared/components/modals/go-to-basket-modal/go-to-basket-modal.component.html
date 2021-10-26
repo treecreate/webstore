@@ -1,4 +1,4 @@
-<div class="modal-body">
+<div class="modal-body" data-cy="go-to-basket-modal">
     <img
         src="/assets/icons/check-green-icon.svg"
         class="check-icon"
@@ -32,6 +32,7 @@
         routerLink="/basket"
         (click)="activeModal.close()"
         i18n="@@go-to-basket"
+        data-cy="go-to-basket-go-to-basket-button"
     >
         Go to basket
     </button>
@@ -41,6 +42,7 @@
         routerLink="/product"
         (click)="createNew()"
         i18n="@@create-new"
+        data-cy="go-to-basket-create-new-button"
     >
         Create new
     </button>
