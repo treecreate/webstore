@@ -1,65 +1,74 @@
-<div class="modal-header">
-    <h4 class="modal-title" i18n="@@intro-how-it-works">How it works</h4>
-</div>
-<div class="modal-body">
-    <ngb-carousel class="carousel-container">
-        <ng-template ngbSlide>
-            <div class="intro-img-section">
-                <div class="intro-img-container">
-                    <img
-                        src="/assets/img/intro-img/intro_1.png"
-                        alt=""
-                        class="intro-img"
-                    />
+<div data-cy="family-tree-intro-modal">
+    <div class="modal-header">
+        <h4 class="modal-title" i18n="@@intro-how-it-works">How it works</h4>
+    </div>
+    <div class="modal-body">
+        <ngb-carousel class="carousel-container">
+            <ng-template ngbSlide>
+                <div class="intro-img-section">
+                    <div class="intro-img-container">
+                        <img
+                            data-cy="intro-img-01"
+                            src="/assets/img/intro-img/intro_1.png"
+                            alt=""
+                            class="intro-img"
+                        />
+                    </div>
+                    <div
+                        class="intro-text-container"
+                        i18n="@@intro-click-to-create"
+                    >
+                        Click anywhere on the tree to create a box
+                    </div>
                 </div>
-                <div
-                    class="intro-text-container"
-                    i18n="@@intro-click-to-create"
-                >
-                    Click anywhere on the tree to create a box
-                </div>
-            </div>
-        </ng-template>
+            </ng-template>
 
-        <ng-template ngbSlide>
-            <div class="intro-img-section">
-                <div class="intro-img-container">
-                    <img
-                        src="/assets/img/intro-img/intro_2.png"
-                        alt=""
-                        class="intro-img"
-                    />
+            <ng-template ngbSlide>
+                <div class="intro-img-section">
+                    <div class="intro-img-container">
+                        <img
+                            src="/assets/img/intro-img/intro_2.png"
+                            alt=""
+                            class="intro-img"
+                        />
+                    </div>
+                    <div
+                        class="intro-text-container"
+                        i18n="@@intro-start-typing"
+                    >
+                        Start typing the name
+                    </div>
                 </div>
-                <div class="intro-text-container" i18n="@@intro-start-typing">
-                    Start typing the name
-                </div>
-            </div>
-        </ng-template>
+            </ng-template>
 
-        <ng-template ngbSlide>
-            <div class="intro-img-section">
-                <div class="intro-img-container">
-                    <img
-                        src="/assets/img/intro-img/intro_3.png"
-                        alt=""
-                        class="intro-img"
-                    />
+            <ng-template ngbSlide>
+                <div class="intro-img-section">
+                    <div class="intro-img-container">
+                        <img
+                            src="/assets/img/intro-img/intro_3.png"
+                            alt=""
+                            class="intro-img"
+                        />
+                    </div>
+                    <div
+                        class="intro-text-container"
+                        i18n="@@intro-click-and-hold"
+                    >
+                        Click and hold to drag the box around
+                    </div>
                 </div>
-                <div class="intro-text-container" i18n="@@intro-click-and-hold">
-                    Click and hold to drag the box around
-                </div>
-            </div>
-        </ng-template>
-    </ngb-carousel>
-</div>
-<div class="modal-footer">
-    <button
-        type="button"
-        class="tc-button-50"
-        (click)="activeModal.close('Close click')"
-        data-cy="family-tree-intro-close-button"
-        i18n="@@close"
-    >
-        Close
-    </button>
+            </ng-template>
+        </ngb-carousel>
+    </div>
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="tc-button-50"
+            (click)="activeModal.close('Close click')"
+            data-cy="family-tree-intro-close-button"
+            i18n="@@close"
+        >
+            Close
+        </button>
+    </div>
 </div>
