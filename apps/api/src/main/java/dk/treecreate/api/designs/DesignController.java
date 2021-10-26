@@ -1,5 +1,7 @@
 package dk.treecreate.api.designs;
 
+import dk.treecreate.api.authentication.models.ERole;
+import dk.treecreate.api.authentication.models.Role;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.designs.dto.CreateDesignRequest;
 import dk.treecreate.api.designs.dto.GetAllDesignsResponse;
@@ -101,19 +103,36 @@ public class DesignController {
                     response = Design.class)})
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Design getDesignOfCurrentUser(
-            @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-            @PathVariable UUID designId) {
+        @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID designId)
+    {
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Design design = designRepository.findByDesignId(designId)
-                .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
 
-        if (design.getUser().getUserId() != currentUser.getUserId()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+        if (design.getUser().getUserId() != currentUser.getUserId())
+        {
+            // Determine whether the user is an admin or not
+            boolean isAdmin = false;
+            var roles = currentUser.getRoles();
+            for (Role role : roles)
+            {
+                if (role.getName().equals(ERole.ROLE_ADMIN))
+                {
+                    isAdmin = true;
+                    break;
+                }
+            }
+            if (!isAdmin)
+            {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                     "The design belongs to another user");
+            }
+            // make sure that the admin doesn't accidentally change the design
+            design.setMutable(false);
         }
-
         return design;
     }
 
