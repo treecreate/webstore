@@ -30,7 +30,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("designs")
 @Api(tags = {"Designs"})
-public class DesignController {
+public class DesignController
+{
 
     @Autowired
     DesignRepository designRepository;
@@ -47,10 +48,11 @@ public class DesignController {
     @GetMapping()
     @Operation(summary = "Get all designs")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "A list of designs",
-                    response = GetAllDesignsResponse.class)})
+        @ApiResponse(code = 200, message = "A list of designs",
+            response = GetAllDesignsResponse.class)})
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
-    public List<Design> getAll() {
+    public List<Design> getAll()
+    {
         return designRepository.findAll();
     }
 
@@ -58,49 +60,52 @@ public class DesignController {
     @GetMapping("me")
     @Operation(summary = "Get all designs of current user")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "A list of designs",
-                    response = GetAllDesignsResponse.class)})
+        @ApiResponse(code = 200, message = "A list of designs",
+            response = GetAllDesignsResponse.class)})
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
-    public List<Design> getAllOfCurrentUser() {
+    public List<Design> getAllOfCurrentUser()
+    {
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         return designRepository.findByUser(currentUser);
     }
 
     @GetMapping("{userId}")
     @Operation(summary = "Get all designs of specified user")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "A list of designs",
-                    response = GetAllDesignsResponse.class)})
+        @ApiResponse(code = 200, message = "A list of designs",
+            response = GetAllDesignsResponse.class)})
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public List<Design> getAllOfSpecificUser(
-            @ApiParam(name = "userID", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-            @PathVariable UUID userId) {
+        @ApiParam(name = "userID", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID userId)
+    {
 
         User user = userRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         return designRepository.findByUser(user);
     }
 
     @PostMapping("{designId}")
     @Operation(summary = "Get a specific design. Developer and Admin only.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Design entity",
-                    response = Design.class)})
+        @ApiResponse(code = 200, message = "Design entity",
+            response = Design.class)})
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Design getDesign(
-            @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-            @PathVariable UUID designId) {
+        @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID designId)
+    {
         return designRepository.findByDesignId(designId)
-                .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
     }
 
     @GetMapping("me/{designId}")
     @Operation(summary = "Get a specific design of currently authenticated user")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Design entity",
-                    response = Design.class)})
+        @ApiResponse(code = 200, message = "Design entity",
+            response = Design.class)})
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Design getDesignOfCurrentUser(
         @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
@@ -139,14 +144,15 @@ public class DesignController {
     @PostMapping()
     @Operation(summary = "Create a new design entity")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Design information",
-                    response = Design.class),})
+        @ApiResponse(code = 200, message = "Design information",
+            response = Design.class),})
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
-    public Design create(@Valid @RequestBody CreateDesignRequest createDesignRequest) {
+    public Design create(@Valid @RequestBody CreateDesignRequest createDesignRequest)
+    {
         // Get currently authenticated user
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         // Create the design, assign the user to it and persist it
         Design newDesign = new Design();
         newDesign.setDesignType(createDesignRequest.getDesignType());
@@ -159,26 +165,29 @@ public class DesignController {
     @PutMapping()
     @Operation(summary = "Update design. Only possible for design owner.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Design entity.",
-                    response = Design.class),
-            @ApiResponse(code = 404, message = "Design not found.")
+        @ApiResponse(code = 200, message = "Design entity.",
+            response = Design.class),
+        @ApiResponse(code = 404, message = "Design not found.")
     })
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Design update(
-            @RequestBody() @Valid UpdateDesignRequest updateDesignRequest) {
+        @RequestBody() @Valid UpdateDesignRequest updateDesignRequest)
+    {
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Design design = designRepository.findByDesignId(updateDesignRequest.getDesignId())
-                .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
-        if (design.getUser().getUserId() != currentUser.getUserId()) {
+            .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
+        if (design.getUser().getUserId() != currentUser.getUserId())
+        {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "The design belongs to another user");
+                "The design belongs to another user");
         }
 
-        if (!design.isMutable()) {
+        if (!design.isMutable())
+        {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "The design can't be updated");
+                "The design can't be updated");
         }
         design.setDesignType(updateDesignRequest.getDesignType());
         design.setDesignProperties(updateDesignRequest.getDesignProperties());
@@ -189,25 +198,28 @@ public class DesignController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete design. Only possible for design owner.")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Design is removed."),
-            @ApiResponse(code = 404, message = "Design not found.")
+        @ApiResponse(code = 204, message = "Design is removed."),
+        @ApiResponse(code = 404, message = "Design not found.")
     })
     @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public void delete(
-            @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-            @PathVariable UUID designId) {
+        @ApiParam(name = "designId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID designId)
+    {
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Design design = designRepository.findByDesignId(designId)
-                .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
-        if (design.getUser().getUserId() != currentUser.getUserId()) {
+            .orElseThrow(() -> new ResourceNotFoundException("Design not found"));
+        if (design.getUser().getUserId() != currentUser.getUserId())
+        {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "The design belongs to another user");
+                "The design belongs to another user");
         }
         var items = transactionItemRepository.findByDesignId(design.getDesignId());
         for (TransactionItem item : items
-        ) {
+        )
+        {
             item.setDesign(null);
             transactionItemRepository.save(item);
         }
