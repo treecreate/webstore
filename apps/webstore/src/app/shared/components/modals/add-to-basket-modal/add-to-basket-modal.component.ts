@@ -94,18 +94,9 @@ export class AddToBasketModalComponent implements OnInit {
           let priceSum = 0;
           for (let i = 0; i < itemList.length; i++) {
             itemSum += itemList[i].quantity;
-            switch (itemList[i].dimension) {
-              case 'SMALL':
-                priceSum += itemList[i].quantity * 495;
-                break;
-              case 'MEDIUM':
-                priceSum += itemList[i].quantity * 695;
-                break;
-              case 'LARGE':
-                priceSum += itemList[i].quantity * 995;
-                break;
-            }
           }
+          this.itemsInBasket = itemSum;
+          priceSum = this.calculatePriceService.getFullPrice(itemList);
           this.itemsInBasket = itemSum;
           this.totalPrice = priceSum;
           this.isLoading = false;
