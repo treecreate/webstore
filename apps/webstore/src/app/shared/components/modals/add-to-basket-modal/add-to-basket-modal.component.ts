@@ -200,7 +200,29 @@ export class AddToBasketModalComponent implements OnInit {
 
   addDesignToBasket() {
     this.isLoading = true;
-    this.design.title = this.addToBasketForm.get('title').value;
+    if (this.design.title !== this.addToBasketForm.get('title').value) {
+      this.design.title = this.addToBasketForm.get('title').value;
+      this.localStorageService.setItem<IFamilyTree>(
+        LocalStorageVars.designFamilyTree,
+        this.design
+      );
+      //Update design title in collection
+      this.designService
+        .updateDesign({
+          designId: this.route.snapshot.queryParams.designId,
+          designType: DesignTypeEnum.familyTree,
+          designProperties: this.design,
+        })
+        .subscribe(
+          (result) => {
+            console.log('Design persisted', result);
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Failed to save design', error);
+          }
+        );
+    }
+
     // Persist the design as a new one, and, if successful, create a transaction item for it
     //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design)
     this.designService
@@ -212,8 +234,6 @@ export class AddToBasketModalComponent implements OnInit {
       .subscribe(
         (result) => {
           console.log('Design created and persisted', result);
-          //TODO: Doenst save the title when written in the add to basket modal. The design is
-          //added to collection with no title even though it is written in the addToBasket modal.
           console.log('design properties', {
             designId: result.designId,
             dimension: this.addToBasketForm.get('dimension').value,
