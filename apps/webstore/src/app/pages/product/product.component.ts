@@ -231,8 +231,8 @@ export class ProductComponent implements OnInit {
           (result) => {
             console.log('Design persisted', result);
             this.toastService.showAlert(
-              'Your design has been saved to your collection',
-              'Dit design er bleven gemt i din samling',
+              'Your design has been updated',
+              'Dit design er bleven opdateret',
               'success',
               5000
             );
@@ -240,8 +240,8 @@ export class ProductComponent implements OnInit {
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.toastService.showAlert(
-              'Failed to save your design',
-              'Der skete en fejl, prøv venligst igen',
+              'Failed to update your design',
+              'Der skete en fejl ved opdateringen af dit design',
               'danger',
               10000
             );
