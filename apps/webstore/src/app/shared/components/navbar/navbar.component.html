@@ -140,6 +140,16 @@
                         >Profile</a
                     >
                 </li>
+                <li class="nav-item show-on-mobile">
+                    <a
+                        class="nav-link waves-light"
+                        *ngIf="isLoggedIn"
+                        routerLink="/orders"
+                        (click)="autoCollapse()"
+                        i18n="@@orders"
+                        >Orders</a
+                    >
+                </li>
 
                 <li class="nav-item show-on-mobile">
                     <a
@@ -187,6 +197,13 @@
                                 (click)="scrollTop()"
                                 i18n="@@collection"
                                 >Collection</a
+                            >
+                            <a
+                                ngbDropdownItem
+                                routerLink="/orders"
+                                (click)="scrollTop()"
+                                i18n="@@orders"
+                                >Orders</a
                             >
                             <a
                                 ngbDropdownItem

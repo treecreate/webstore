@@ -94,6 +94,5 @@ import { OrdersComponent } from './pages/auth/orders/orders.component';
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [GoToBasketModalComponent, OrdersComponent],
 })
 export class AppModule {}
