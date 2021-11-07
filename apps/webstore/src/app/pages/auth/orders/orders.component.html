@@ -4,11 +4,16 @@
             <h2 i18n="@@your-orders">Your orders</h2>
         </div>
         <div>
-            <div class="orders-content" *ngIf="1 <= ordersList.length"></div>
+            <div class="orders-content" *ngIf="1 <= orderCollection.length">
+                <webstore-order-item
+                    *ngFor="let order of orderCollection"
+                    [order]="order"
+                ></webstore-order-item>
+            </div>
             <div
                 class="no-content"
                 data-cy="orders-no-items"
-                *ngIf="ordersList.length === 0 && !isLoading"
+                *ngIf="orderCollection.length === 0 && !isLoading"
             >
                 <div class="sub-title" i18n="@@no-designs">
                     You have no orders
