@@ -164,6 +164,6 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getOrders();
-    this.orderCollection = [this.mockOrder];
+    this.orderCollection = [this.mockOrder, this.mockOrder];
   }
 }
