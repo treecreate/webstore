@@ -61,7 +61,7 @@ export class OrdersComponent implements OnInit {
     style: 'first',
   };
   mockDesign: IDesign = {
-    designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+    designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
     designProperties: {
       title: 'title1',
       font: FamilyTreeFontEnum.roboto,
@@ -74,6 +74,28 @@ export class OrdersComponent implements OnInit {
     designType: DesignTypeEnum.familyTree,
     user: this.mockUser,
     mutable: true,
+  };
+  mockDesign2: IDesign = {
+    designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
+    designProperties: {
+      title: 'title2',
+      font: FamilyTreeFontEnum.georgia,
+      backgroundTreeDesign: TreeDesignEnum.tree2,
+      boxSize: 20,
+      banner: this.mockBanner,
+      largeFont: false,
+      boxes: [this.mockDraggableBoxOne, this.mockDraggableBoxTwo],
+    },
+    designType: DesignTypeEnum.familyTree,
+    user: this.mockUser,
+    mutable: true,
+  };
+  mockTransactionItem: ITransactionItem = {
+    transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+    orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    design: this.mockDesign2,
   };
   mockTransactionItemTwo: ITransactionItem = {
     transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
@@ -111,15 +133,15 @@ export class OrdersComponent implements OnInit {
       remainingUses: 1,
       totalUses: 2,
     },
-    orderId: '1234',
-    paymentId: '4321',
+    orderId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+    paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
     plantedTrees: 1,
     shippingMethod: ShippingMethodEnum.homeDelivery,
     //State    -- not implemented
     subtotal: 1000,
     total: 900,
-    transactionItems: [this.mockTransactionItemTwo],
-    userID: '1423',
+    transactionItems: [this.mockTransactionItemTwo, this.mockTransactionItem],
+    userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   };
 
   isLoading = false;

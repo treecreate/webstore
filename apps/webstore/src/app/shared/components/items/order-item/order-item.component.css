@@ -1,0 +1,86 @@
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0 15px 0;
+}
+.line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+.sub-title {
+  font-weight: 900;
+  font-size: 14px;
+}
+.section-row {
+  flex-grow: 1;
+}
+
+.pad-right {
+  padding-right: 10px;
+}
+.row-2 {
+  flex-grow: 1;
+  min-width: 100px;
+}
+.row-2:first-child {
+  margin-right: 10px;
+}
+.row-2-ed {
+  flex-grow: 1;
+  min-width: 200px;
+}
+.row-2-ed:first-child {
+  margin-right: 10px;
+}
+.item-info-container {
+  display: flex;
+  justify-content: space-between;
+}
+.button-placement {
+  margin: 5px 0;
+}
+.title {
+  font-size: 20px;
+  font-weight: 900;
+}
+hr {
+  margin-top: 0;
+}
+.margin-top {
+  margin-top: 5px;
+}
+span {
+  align-self: flex-end;
+}
+.info-wrap-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.address {
+  background-color: rgb(244, 244, 244);
+  padding: 5px;
+}
+.light {
+  margin: 3px;
+  opacity: 0.4;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+}
+.special-row {
+  margin-left: 10px;
+}
+.tc-button-square {
+  height: 35px;
+}
+.order-items-container .item:last-child > .light {
+  display: none;
+}
+@media screen and (max-width: 709px) {
+  .row-2-ed:first-child {
+    margin: 0;
+  }
+}

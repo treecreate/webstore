@@ -1,1 +1,272 @@
-<p>order-item works!</p>
+<div>
+    <div class="line">
+        <span class="sub-title"> Order id: </span>
+        <span>{{ order.orderId }}</span>
+    </div>
+    <!-- TODO: Possibly not needed. Want confirmation from team.
+        <div class="line">
+        <span class="sub-title"> User id: </span> <span>{{order.userID}}</span>
+    </div> -->
+
+    <div class="info-container">
+        <div class="row-2">
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Order status : </span>
+                    <span> {{ order.paymentState }} </span>
+                </div>
+                <div class="section-row margin-top">
+                    <div class="line">
+                        <span class="sub-title">E-mail : </span>
+                        <span> {{ order.contactInfo.email }} </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-2">
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Created at :</span>
+                    <span>{{ order.createdAt | date }}</span>
+                </div>
+            </div>
+            <div class="section-row margin-top">
+                <div class="line">
+                    <span class="sub-title">Phone nr :</span>
+                    <span>{{ order.contactInfo.phoneNumber }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="title">Items</div>
+    <hr />
+    <div class="order-items-container">
+        <div *ngFor="let item of order.transactionItems" class="item">
+            <div class="item-info-container">
+                <div class="row-2">
+                    <div class="section-row">
+                        <div class="line">
+                            <span class="sub-title">Title : </span>
+                            <span>{{
+                                item.design.designProperties.title
+                            }}</span>
+                        </div>
+                    </div>
+
+                    <div class="section-row">
+                        <div class="line">
+                            <span class="sub-title">Amount :</span>
+                            <span>{{ item.quantity }} stk</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div class="section-row">
+                        <div class="line">
+                            <span class="sub-title">Price :</span>
+                            <span>{{ getPrice(item) }} DKK</span>
+                        </div>
+                    </div>
+                    <div class="section-row">
+                        <div class="line">
+                            <span class="sub-title">Size : </span>
+                            <span>{{ item.dimension }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="special-row">
+                    <button
+                        class="tc-button-square button-placement"
+                        (click)="scrollTop()"
+                        [routerLink]="'/product'"
+                        [queryParams]="{ designId: item.design.designId }"
+                    >
+                        <img
+                            src="/assets/icons/eye-white-icon.svg"
+                            alt=""
+                            class="icon"
+                        />
+                    </button>
+                </div>
+            </div>
+            <hr class="light" />
+        </div>
+    </div>
+
+    <div class="title margin-top">Address</div>
+    <hr />
+    <div class="info-wrap-container">
+        <div class="row-2-ed address">
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Shipping address </span>
+                </div>
+            </div>
+            <hr class="light" />
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Name : </span>
+                    <span>{{ order.billingInfo.name }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">City : </span>
+                    <span>{{ order.billingInfo.city }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Country :</span>
+                    <span>{{ order.billingInfo.country }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Postcode :</span>
+                    <span>{{ order.billingInfo.postcode }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Street :</span>
+                    <span>{{ order.billingInfo.streetAddress }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-2-ed address">
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Billing address </span>
+                </div>
+            </div>
+            <hr class="light" />
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Name : </span>
+                    <span>{{ order.contactInfo.name }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">City : </span>
+                    <span>{{ order.contactInfo.city }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Country :</span>
+                    <span>{{ order.contactInfo.country }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Postcode :</span>
+                    <span>{{ order.contactInfo.postcode }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Street :</span>
+                    <span>{{ order.contactInfo.streetAddress }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="title margin-top">Order info</div>
+    <hr />
+    <div class="line">
+        <span class="sub-title">Payment id : </span>
+        <span>{{ order.paymentId }}</span>
+    </div>
+
+    <div class="info-wrap-container">
+        <div class="row-2-ed">
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Discount code : </span>
+                    <span>{{ order.discount.discountCode }}</span>
+                </div>
+            </div>
+
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Discount amount :</span>
+                    <span *ngIf="order.discount.type === 'AMOUNT'"
+                        >{{ order.discount.amount }} DKK</span
+                    >
+                    <span *ngIf="order.discount.type === 'PERCENT'"
+                        >{{ order.discount.amount }} %</span
+                    >
+                </div>
+            </div>
+
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Subtotal :</span>
+                    <span>{{ order.subtotal }} DKK</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Saved :</span>
+                    <span>{{ order.subtotal - order.total }} DKK</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Total :</span>
+                    <span>{{ order.total }} DKK</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-2-ed">
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Delivery :</span>
+                    <span>{{ order.shippingMethod }}</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Delivery price : </span>
+                    <span
+                        *ngIf="
+                            order.shippingMethod === 'PICK_UP_POINT' ||
+                            order.shippingMethod === 'OWN_DELIVERY'
+                        "
+                        >0 DKK</span
+                    >
+                    <span *ngIf="order.shippingMethod === 'HOME_DELIVERY'"
+                        >29 DKK</span
+                    >
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Trees planted : </span>
+                    <span>{{ order.plantedTrees }} stk</span>
+                </div>
+            </div>
+
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">Tree donation :</span>
+                    <span *ngIf="order.discount.type === 'AMOUNT'"
+                        >{{ (order.plantedTrees - 1) * 10 }} DKK</span
+                    >
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title">VAT :</span>
+                    <span>{{ order.total * 0.2 }} DKK</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
