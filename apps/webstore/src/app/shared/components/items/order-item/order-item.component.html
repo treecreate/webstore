@@ -1,6 +1,6 @@
 <div>
     <div class="line">
-        <span class="sub-title" i18n="@@order-id"> Order id : </span>
+        <span class="sub-title" i18n="@@order-id"> Order idcontactInfo</span>
         <span>{{ order.orderId }}</span>
     </div>
     <!-- TODO: Possibly not needed. Want confirmation from team.
@@ -13,13 +13,13 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@order-status"
-                        >Order status :
+                        >Order status
                     </span>
                     <span> {{ order.paymentState }} </span>
                 </div>
                 <div class="section-row margin-top">
                     <div class="line">
-                        <span class="sub-title">E-mail : </span>
+                        <span class="sub-title">E-mail </span>
                         <span> {{ order.contactInfo.email }} </span>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@created-at"
-                        >Created at :</span
+                        >Created at</span
                     >
                     <span>{{ order.createdAt | date }}</span>
                 </div>
@@ -37,7 +37,7 @@
             <div class="section-row margin-top">
                 <div class="line">
                     <span class="sub-title" i18n="@@phone-number"
-                        >Phone nr :</span
+                        >Phone nr</span
                     >
                     <span>{{ order.contactInfo.phoneNumber }}</span>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="section-row">
                         <div class="line">
                             <span class="sub-title" i18n="@@title"
-                                >Title :
+                                >Title
                             </span>
                             <span>{{
                                 item.design.designProperties.title
@@ -64,7 +64,7 @@
                     <div class="section-row">
                         <div class="line">
                             <span class="sub-title" i18n="@@amount"
-                                >Amount :</span
+                                >Amount</span
                             >
                             <span>{{ item.quantity }} stk</span>
                         </div>
@@ -74,14 +74,14 @@
                     <div class="section-row">
                         <div class="line">
                             <span class="sub-title" i18n="@@price"
-                                >Price :</span
+                                >Price</span
                             >
                             <span>{{ getPrice(item) }} DKK</span>
                         </div>
                     </div>
                     <div class="section-row">
                         <div class="line">
-                            <span class="sub-title" i18n="@@size">Size : </span>
+                            <span class="sub-title" i18n="@@size">SizecontactInfo</span>
                             <span>{{ item.dimension }}</span>
                         </div>
                     </div>
@@ -120,32 +120,32 @@
             <hr class="light" />
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@name">Name : </span>
+                    <span class="sub-title" i18n="@@name">NamecontactInfo</span>
                     <span>{{ order.billingInfo.name }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@city">City : </span>
+                    <span class="sub-title" i18n="@@city">CitycontactInfo</span>
                     <span>{{ order.billingInfo.city }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@country">Country :</span>
+                    <span class="sub-title" i18n="@@country">Country</span>
                     <span>{{ order.billingInfo.country }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@postcode">Postcode :</span>
+                    <span class="sub-title" i18n="@@postcode">Postcode</span>
                     <span>{{ order.billingInfo.postcode }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@street-address"
-                        >Street :</span
+                        >Street</span
                     >
                     <span>{{ order.billingInfo.streetAddress }}</span>
                 </div>
@@ -163,32 +163,32 @@
             <hr class="light" />
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@name">Name : </span>
+                    <span class="sub-title" i18n="@@name">NamecontactInfo</span>
                     <span>{{ order.contactInfo.name }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@city">City : </span>
+                    <span class="sub-title" i18n="@@city">CitycontactInfo</span>
                     <span>{{ order.contactInfo.city }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@country">Country :</span>
+                    <span class="sub-title" i18n="@@country">Country</span>
                     <span>{{ order.contactInfo.country }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@postcode">Postcode :</span>
+                    <span class="sub-title" i18n="@@postcode">Postcode</span>
                     <span>{{ order.contactInfo.postcode }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@street-address"
-                        >Street :</span
+                        >Street</span
                     >
                     <span>{{ order.contactInfo.streetAddress }}</span>
                 </div>
@@ -199,7 +199,7 @@
     <div class="title margin-top" i18n="@@order-info">Order info</div>
     <hr />
     <div class="line">
-        <span class="sub-title" i18n="@@payment-id">Payment id : </span>
+        <span class="sub-title" i18n="@@payment-id">Payment idcontactInfo</span>
         <span>{{ order.paymentId }}</span>
     </div>
 
@@ -208,7 +208,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@discount-code"
-                        >Discount code :
+                        >Discount code
                     </span>
                     <span>{{ order.discount.discountCode }}</span>
                 </div>
@@ -217,7 +217,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@discount-amount"
-                        >Discount amount :</span
+                        >Discount amount</span
                     >
                     <span *ngIf="order.discount.type === 'AMOUNT'"
                         >{{ order.discount.amount }} DKK</span
@@ -230,19 +230,19 @@
 
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@subtotal">Subtotal :</span>
+                    <span class="sub-title" i18n="@@subtotal">Subtotal</span>
                     <span>{{ order.subtotal }} DKK</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@saved">Saved :</span>
+                    <span class="sub-title" i18n="@@saved">Saved</span>
                     <span>{{ order.subtotal - order.total }} DKK</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@total">Total :</span>
+                    <span class="sub-title" i18n="@@total">Total</span>
                     <span>{{ order.total }} DKK</span>
                 </div>
             </div>
@@ -251,14 +251,14 @@
         <div class="row-2-ed">
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@delivery">Delivery :</span>
+                    <span class="sub-title" i18n="@@delivery">Delivery</span>
                     <span>{{ order.shippingMethod }}</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@delivery-price"
-                        >Delivery price :
+                        >Delivery price
                     </span>
                     <span
                         *ngIf="
@@ -275,7 +275,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@trees-planted"
-                        >Trees planted :
+                        >Trees planted
                     </span>
                     <span>{{ order.plantedTrees }} stk</span>
                 </div>
@@ -284,7 +284,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@tree-donation"
-                        >Tree donation :</span
+                        >Tree donation</span
                     >
                     <span *ngIf="order.discount.type === 'AMOUNT'"
                         >{{ (order.plantedTrees - 1) * 10 }} DKK</span
@@ -293,7 +293,7 @@
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@vat">VAT :</span>
+                    <span class="sub-title" i18n="@@vat">VAT</span>
                     <span>{{ order.total * 0.2 }} DKK</span>
                 </div>
             </div>

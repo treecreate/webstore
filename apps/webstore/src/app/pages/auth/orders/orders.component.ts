@@ -138,8 +138,8 @@ export class OrdersComponent implements OnInit {
     plantedTrees: 1,
     shippingMethod: ShippingMethodEnum.homeDelivery,
     //State    -- not implemented
-    subtotal: 1000,
-    total: 900,
+    subtotal: 1914,
+    total: 1814,
     transactionItems: [this.mockTransactionItemTwo, this.mockTransactionItem],
     userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   };
