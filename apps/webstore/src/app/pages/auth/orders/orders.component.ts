@@ -1,22 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import {
-  CurrencyEnum,
-  DesignDimensionEnum,
-  DesignTypeEnum,
-  DiscountType,
-  FamilyTreeFontEnum,
-  IDesign,
-  IDraggableBox,
-  IFamilyTreeBanner,
-  IOrder,
-  ITransactionItem,
-  IUser,
-  PaymentStateEnum,
-  ShippingMethodEnum,
-} from '@interfaces';
-import { UserRoles } from '@models';
+import { IOrder } from '@interfaces';
 import { OrderService } from '../../../shared/services/order/order.service';
 
 @Component({
