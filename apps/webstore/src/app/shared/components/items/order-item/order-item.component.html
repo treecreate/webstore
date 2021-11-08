@@ -1,12 +1,10 @@
-<div>
+<div class="order-container">
+    <div class="title" i18n="@@items">Order number #{{ orderNumber }}</div>
+    <hr />
     <div class="line">
         <span class="sub-title" i18n="@@order-id"> Order id </span>
         <span>{{ order.orderId }}</span>
     </div>
-    <!-- TODO: Possibly not needed. Want confirmation from team.
-        <div class="line">
-        <span class="sub-title"> User id: </span> <span>{{order.userID}}</span>
-    </div> -->
 
     <div class="info-container">
         <div class="row-2">
@@ -77,9 +75,7 @@
                     </div>
                     <div class="section-row">
                         <div class="line">
-                            <span class="sub-title" i18n="@@size"
-                                >Size</span
-                            >
+                            <span class="sub-title" i18n="@@size">Size</span>
                             <span>{{ item.dimension }}</span>
                         </div>
                     </div>
@@ -241,7 +237,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@total">Total</span>
-                    <span>{{ order.total }} DKK</span>
+                    <span class="bold">{{ order.total }} DKK</span>
                 </div>
             </div>
         </div>

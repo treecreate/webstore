@@ -1,6 +1,7 @@
 .orders-page-container {
   display: flex;
   justify-content: center;
+  transition: 0.5s;
 }
 
 .orders-container {
@@ -66,11 +67,12 @@
   width: 100%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .orders-container {
     padding: 10px;
     margin-bottom: 10px;
-    max-width: 80vw;
+    width: 90vw;
+    max-width: none;
   }
   .title {
     margin-top: 25px;

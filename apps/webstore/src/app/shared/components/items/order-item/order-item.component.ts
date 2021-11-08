@@ -9,6 +9,7 @@ import { CalculatePriceService } from '../../../services/calculate-price/calcula
 })
 export class OrderItemComponent implements OnInit {
   @Input() order: IOrder;
+  @Input() orderNumber: number;
   isLoading = false;
 
   constructor(private calculePriceService: CalculatePriceService) {}

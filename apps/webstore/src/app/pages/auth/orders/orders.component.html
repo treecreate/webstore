@@ -6,8 +6,12 @@
         <div>
             <div class="orders-content" *ngIf="1 <= orderCollection.length">
                 <webstore-order-item
-                    *ngFor="let order of orderCollection"
+                    *ngFor="
+                        let order of orderCollection;
+                        let orderIndex = index
+                    "
                     [order]="order"
+                    [orderNumber]="orderIndex + 1"
                 ></webstore-order-item>
             </div>
             <div
