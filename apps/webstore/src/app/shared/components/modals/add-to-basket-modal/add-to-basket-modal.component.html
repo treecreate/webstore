@@ -27,7 +27,11 @@
                 <input
                     type="text"
                     class="title-input"
-                    placeholder="Untitled-1"
+                    placeholder="{{
+                        isEnglish()
+                            ? 'Navngiv dit design...'
+                            : 'Name your design...'
+                    }}"
                     formControlName="title"
                     data-cy="add-to-basket-title-input"
                 />

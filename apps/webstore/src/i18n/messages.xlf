@@ -1475,10 +1475,6 @@
           <context context-type="linenumber">157,158</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component.html</context>
-          <context context-type="linenumber">71,72</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
           <context context-type="linenumber">72,73</context>
         </context-group>
