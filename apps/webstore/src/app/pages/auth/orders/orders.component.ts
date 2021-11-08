@@ -153,7 +153,6 @@ export class OrdersComponent implements OnInit {
     this.isLoading = true;
     this.orderService.getOrders().subscribe(
       (orderCollection: IOrder[]) => {
-        console.log(orderCollection);
         this.orderCollection = orderCollection;
         this.isLoading = false;
       },
