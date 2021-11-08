@@ -276,7 +276,8 @@
 }
 
 @-moz-document url-prefix() {
-  .option-banner, .option-tree-design {
+  .option-banner,
+  .option-tree-design {
     display: none !important;
   }
 }

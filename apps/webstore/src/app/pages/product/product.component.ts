@@ -329,6 +329,7 @@ export class ProductComponent implements OnInit {
       this.backgroundTreeDesign
     );
     const nextDesign = Object.keys(TreeDesignEnum)[currentDesignIndex + 1];
+
     if (nextDesign === undefined) {
       // set the first design in the enum
       this.backgroundTreeDesign =

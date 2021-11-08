@@ -13,7 +13,7 @@
                     <span class="sub-title" i18n="@@order-status"
                         >Order status
                     </span>
-                    <span> {{ order.paymentState }} </span>
+                    <span> {{ order.state }} </span>
                 </div>
                 <div class="section-row margin-top">
                     <div class="line">
@@ -199,7 +199,7 @@
 
     <div class="info-wrap-container">
         <div class="row-2-ed">
-            <div class="section-row">
+            <div class="section-row" *ngIf="order.discount != null">
                 <div class="line">
                     <span class="sub-title" i18n="@@discount-code"
                         >Discount code
@@ -208,7 +208,7 @@
                 </div>
             </div>
 
-            <div class="section-row">
+            <div class="section-row" *ngIf="order.discount != null">
                 <div class="line">
                     <span class="sub-title" i18n="@@discount-amount"
                         >Discount amount</span
@@ -238,6 +238,12 @@
                 <div class="line">
                     <span class="sub-title" i18n="@@total">Total</span>
                     <span class="bold">{{ order.total }} DKK</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="line">
+                    <span class="sub-title" i18n="@@vat">VAT</span>
+                    <span>{{ order.total * 0.2 }} DKK</span>
                 </div>
             </div>
         </div>
@@ -280,15 +286,7 @@
                     <span class="sub-title" i18n="@@tree-donation"
                         >Tree donation</span
                     >
-                    <span *ngIf="order.discount.type === 'AMOUNT'"
-                        >{{ (order.plantedTrees - 1) * 10 }} DKK</span
-                    >
-                </div>
-            </div>
-            <div class="section-row">
-                <div class="line">
-                    <span class="sub-title" i18n="@@vat">VAT</span>
-                    <span>{{ order.total * 0.2 }} DKK</span>
+                    <span>{{ (order.plantedTrees - 1) * 10 }} DKK</span>
                 </div>
             </div>
         </div>

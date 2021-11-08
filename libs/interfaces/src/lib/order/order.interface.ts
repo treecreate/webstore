@@ -21,6 +21,7 @@ export interface IOrder {
   billingInfo: ContactInfo;
   transactionItems: ITransactionItem[];
   createdAt: Date;
+  state?: PaymentStateEnum;
 }
 
 export interface ContactInfo {
