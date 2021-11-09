@@ -24,7 +24,7 @@
     "test:ci": "nx run-many --all --target=test --skip-nx-cache",
     "lint": "nx workspace-lint && nx run-many --target=lint --all=true",
     "e2e": "nx e2e webstore-e2e",
-    "e2e:ci": "nx e2e webstore-e2e --headless",
+    "e2e:ci": "nx run-many --target=e2e --all --headless --maxParallel=5 --browser chrome",
     "e2e:open": "nx e2e webstore-e2e --watch",
     "e2e:open:prod": "nx e2e webstore-e2e --watch --configuration=production",
     "e2e:open:dk": "nx e2e webstore-e2e --watch --configuration=dk",
