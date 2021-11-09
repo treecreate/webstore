@@ -4,7 +4,7 @@
             <h2 i18n="@@your-orders">Your orders</h2>
         </div>
         <div>
-            <div class="orders-content" *ngIf="1 <= orderCollection.length">
+            <div class="orders-content" *ngIf="orderCollection.length >= 1">
                 <webstore-order-item
                     *ngFor="
                         let order of orderCollection;

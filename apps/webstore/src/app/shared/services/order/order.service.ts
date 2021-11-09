@@ -14,7 +14,7 @@ export class OrderService {
     return this.http.post<IPaymentLink>(`${env.apiUrl}/orders`, params);
   }
 
-  getOrders(): Observable<IOrder[]> {
+  public getOrders(): Observable<IOrder[]> {
     return this.http.get<IOrder[]>(`${env.apiUrl}/orders/me`);
   }
 }
