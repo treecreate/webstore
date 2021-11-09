@@ -11,9 +11,7 @@
 }
 
 .draggable-box-input:focus {
-  outline: none;
   background: rgba(182, 102, 33, 0.04);
-  border-radius: 20%;
 }
 
 .draggable-box-input::placeholder {

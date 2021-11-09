@@ -43,12 +43,16 @@ export class SignupComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$'),
+        Validators.pattern(
+          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
+        ),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$'),
+        Validators.pattern(
+          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
+        ),
       ]),
     });
   }
