@@ -9,6 +9,7 @@ import { OrderService } from '../../../shared/services/order/order.service';
   styleUrls: ['./orders.component.css'],
 })
 export class OrdersComponent implements OnInit {
+  // TODO: This is for e2e testing of this component
   // mockUser: IUser = {
   //   userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   //   email: 'e2e@test.com',
