@@ -96,6 +96,5 @@ import { OrderItemComponent } from './shared/components/items/order-item/order-i
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [OrderItemComponent],
 })
 export class AppModule {}
