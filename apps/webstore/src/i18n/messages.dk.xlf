@@ -1005,6 +1005,14 @@
           <context context-type="linenumber">9,13</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="prices-from" datatype="html">
+        <source>Prices from </source>
+        <target>Priser fra </target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-02-title" datatype="html">
         <source>Subscribe to our newsletter</source>
         <target>Tilmeld dig vores nyhedsbrev</target> 
@@ -1503,6 +1511,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/design-item/design-item.component.html</context>
           <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="order-number" datatype="html">
+        <source>Order number </source>
+        <target>Ordrer nummer </target> 
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="order-id" datatype="html">
