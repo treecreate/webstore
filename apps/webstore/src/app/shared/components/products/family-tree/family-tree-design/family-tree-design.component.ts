@@ -255,7 +255,6 @@ export class FamilyTreeDesignComponent
     clearInterval(this.timeInterval);
 
     this.timeInterval = setInterval(() => {
-      console.log(this.frameChanged);
       if (this.frameChanged) {
         requestAnimationFrame(this.draw.bind(this));
       }

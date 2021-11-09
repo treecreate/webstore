@@ -233,7 +233,6 @@ export class FamilyTreeMiniatureComponent
       requestAnimationFrame(this.draw.bind(this));
       return;
     }
-    console.log('drawing');
     try {
       this.context.clearRect(
         0,
