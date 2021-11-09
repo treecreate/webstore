@@ -6,7 +6,6 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChanges,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -180,13 +179,10 @@ export class FamilyTreeMiniatureComponent
   }
 
   ngAfterViewInit(): void {
-    console.log('Setting up design area');
     // Setup canvas
     this.designCanvas.nativeElement.width = this.canvasResolution.width;
     this.designCanvas.nativeElement.height = this.canvasResolution.height;
-    console.log('Canvas', this.designCanvas);
     this.context = this.designCanvas.nativeElement.getContext('2d');
-    console.log('Context', this.context);
 
     this.isDesignValid = true;
     this.cdr.detectChanges();
@@ -194,8 +190,7 @@ export class FamilyTreeMiniatureComponent
     this.draw();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('changes', changes);
+  ngOnChanges() {
     if (this.design !== undefined && this.context !== undefined) {
       this.loadDesign();
 
@@ -233,7 +228,6 @@ export class FamilyTreeMiniatureComponent
       requestAnimationFrame(this.draw.bind(this));
       return;
     }
-    console.log('drawing');
     try {
       this.context.clearRect(
         0,
@@ -380,7 +374,6 @@ export class FamilyTreeMiniatureComponent
       // Load the design
       if (this.design === null || this.design === undefined) {
         // Setup default boxes if there is no saved design
-        console.log('There was no saved design, generating a clean slate');
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
@@ -412,8 +405,6 @@ export class FamilyTreeMiniatureComponent
           this.createBox(box.x, box.y, box.boxDesign, box.text);
         });
       }
-      console.log('Boxes', this.myBoxes);
-      console.log('Finished loading design');
       this.draw();
       this.cdr.detectChanges();
     } catch (error) {
