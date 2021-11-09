@@ -27,6 +27,8 @@
     "models": { "tags": [] },
     "interfaces": { "tags": [] },
     "mocks": { "tags": [] },
-    "assets": { "tags": [] }
+    "assets": { "tags": [] },
+    "admin-page": { "tags": [] },
+    "admin-page-e2e": { "tags": [], "implicitDependencies": ["admin-page"] }
   }
 }

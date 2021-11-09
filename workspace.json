@@ -8,7 +8,8 @@
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "e2eTestRunner": "cypress",
+      "strict": true
     },
     "@nrwl/angular:library": {
       "style": "css",
@@ -150,7 +151,9 @@
                   "with": "apps/webstore/src/environments/environment.dk.ts"
                 }
               ],
-              "localize": ["dk"]
+              "localize": [
+                "dk"
+              ]
             }
           }
         },
@@ -186,7 +189,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/webstore"],
+          "outputs": [
+            "coverage/apps/webstore"
+          ],
           "options": {
             "jestConfig": "apps/webstore/jest.config.js",
             "passWithNoTests": true
@@ -218,7 +223,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/webstore-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/webstore-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -231,12 +238,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/models/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/models/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/models"],
+          "outputs": [
+            "coverage/libs/models"
+          ],
           "options": {
             "jestConfig": "libs/models/jest.config.js",
             "passWithNoTests": true
@@ -252,12 +263,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/interfaces/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/interfaces"],
+          "outputs": [
+            "coverage/libs/interfaces"
+          ],
           "options": {
             "jestConfig": "libs/interfaces/jest.config.js",
             "passWithNoTests": true
@@ -282,7 +297,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/mocks"],
+          "outputs": [
+            "coverage/libs/mocks"
+          ],
           "options": {
             "jestConfig": "libs/mocks/jest.config.js",
             "passWithNoTests": true
@@ -297,14 +314,141 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["libs/assets/**/*.ts"] }
+          "options": {
+            "lintFilePatterns": [
+              "libs/assets/**/*.ts"
+            ]
+          }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/assets"],
+          "outputs": [
+            "coverage/libs/assets"
+          ],
           "options": {
             "jestConfig": "libs/assets/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-page": {
+      "projectType": "application",
+      "root": "apps/admin-page",
+      "sourceRoot": "apps/admin-page/src",
+      "prefix": "webstore",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/admin-page",
+            "index": "apps/admin-page/src/index.html",
+            "main": "apps/admin-page/src/main.ts",
+            "polyfills": "apps/admin-page/src/polyfills.ts",
+            "tsConfig": "apps/admin-page/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/admin-page/src/favicon.ico",
+              "apps/admin-page/src/assets"
+            ],
+            "styles": [
+              "apps/admin-page/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/admin-page/src/environments/environment.ts",
+                  "with": "apps/admin-page/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "admin-page:build",
+            "proxyConfig": "apps/admin-page/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "admin-page:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "admin-page:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/admin-page/src/**/*.ts",
+              "apps/admin-page/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/admin-page"
+          ],
+          "options": {
+            "jestConfig": "apps/admin-page/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-page-e2e": {
+      "root": "apps/admin-page-e2e",
+      "sourceRoot": "apps/admin-page-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/admin-page-e2e/cypress.json",
+            "tsConfig": "apps/admin-page-e2e/tsconfig.e2e.json",
+            "devServerTarget": "admin-page:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "admin-page:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/admin-page-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
