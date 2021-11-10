@@ -5,12 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
+  IAuthUser,
   IFamilyTree,
   ITransactionItem,
 } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
 import { LocalStorageService } from '../../../services/local-storage';
@@ -33,6 +35,8 @@ export class AddToBasketModalComponent implements OnInit {
   public localeCode: LocaleType;
   design;
   isLoading = false;
+  authUser$: BehaviorSubject<IAuthUser>; 
+  isLoggedIn = false; 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -48,7 +52,8 @@ export class AddToBasketModalComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private authService: AuthService,
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -57,6 +62,17 @@ export class AddToBasketModalComponent implements OnInit {
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
+    });
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+    // Check if the user is logged in
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
     });
   }
 
