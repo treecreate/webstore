@@ -8,11 +8,11 @@ import {
   INewsletter,
   IPaymentLink,
   IPricing,
-  ITransactionItem,
+  ITransactionItem,  
   IUser,
   ShippingMethodEnum,
 } from '@interfaces';
-import { LocalStorageVars, UserRoles } from '@models';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';

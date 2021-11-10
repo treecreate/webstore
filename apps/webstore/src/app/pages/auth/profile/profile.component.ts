@@ -1,13 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAuthUser, IUser } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { IUser } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -19,7 +16,7 @@ import { UserService } from '../../../shared/services/user/user.service';
   ],
 })
 export class ProfileComponent implements OnInit {
-  
+
   currentUser: IUser;
   accountInfoForm: FormGroup;
   oldEmail: string;
@@ -32,7 +29,6 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private toastService: ToastService,
-    private localStorageService: LocalStorageService,
     private modalService: NgbModal
   ) { }
 
