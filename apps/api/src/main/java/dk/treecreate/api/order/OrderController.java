@@ -95,11 +95,6 @@ public class OrderController
         User user = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         LOGGER.info("Order | New order is being made. UserID: " + user.getUserId());
-        if (!user.getIsVerified())
-        {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                "The user had to be verified in order to create an order");
-        }
 
         // Set up and verify the order object
         Order order = orderService.setupOrderFromCreateRequest(createOrderRequest);
