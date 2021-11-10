@@ -25,7 +25,7 @@ import { FamilyTreeDesignComponent } from '../../shared/components/products/fami
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { DesignService } from '../../shared/services/design/design.service';
-import { LocalStorageService } from '../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 @Component({
   selector: 'webstore-product',
   templateUrl: './product.component.html',

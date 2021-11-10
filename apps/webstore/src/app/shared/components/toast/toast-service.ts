@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {

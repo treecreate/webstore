@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { LocaleType, LocalStorageVars } from '@models';
 import { environment } from '../environments/environment';
-import { LocalStorageService } from './shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 
 // Google analytics-specific syntax
 // eslint-disable-next-line @typescript-eslint/ban-types

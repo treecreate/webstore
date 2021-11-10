@@ -8,7 +8,7 @@ import {
 import { LocaleType, LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
-import { LocalStorageService } from '../local-storage';
+import { LocalStorageService } from '@local-storage';
 
 @Injectable({
   providedIn: 'root',

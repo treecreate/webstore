@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars, CookieStatus } from '@models';
 
 @Injectable({

@@ -5,7 +5,7 @@ import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';

@@ -12,7 +12,7 @@ import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { DesignService } from '../../../services/design/design.service';
-import { LocalStorageService } from '../../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { ToastService } from '../../toast/toast-service';
 

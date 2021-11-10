@@ -18,7 +18,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';

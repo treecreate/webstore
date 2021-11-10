@@ -10,7 +10,7 @@ import { IAuthUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
 //import { TokenStorageService } from '../_services/token-storage.service';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from '../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 
 const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
 // const TOKEN_HEADER_KEY = 'x-access-token';   // for Node.js Express back-end
