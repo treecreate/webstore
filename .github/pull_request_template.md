@@ -5,7 +5,7 @@
 
 ### Which service does this issue affect:
 
-- [ ] 🛰️ API 
+- [ ] 🛰️ API
 - [ ] 🛒 webstore
 - [ ] 🎓 admin-page
 
