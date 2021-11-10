@@ -3,7 +3,7 @@
 ✔️ Closes: #<!-- Insert issue number here -->
 🏁 Jira Issue: [TC-<!-- Insert issue number here -->](<!-- Insert issue link here -->)
 
-### Which service does this issue affect:
+### Which service(s) does this issue affect:
 
 - [ ] 🛰️ API
 - [ ] 🛒 webstore
@@ -23,7 +23,7 @@
 
 ### Testing checklist
 
-- [ ] 💪 Manually tests
+- [ ] 💪 Manual tests
 - [ ] 🔧 Automatic tests
 
 #### Browser compatibility - _**[**Frontend only**]**_
