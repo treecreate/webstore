@@ -28,7 +28,6 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
-import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
@@ -60,7 +59,6 @@ import { GoToBasketModalComponent } from './shared/components/modals/go-to-baske
     ProductComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
-    VerificationComponent,
     CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,

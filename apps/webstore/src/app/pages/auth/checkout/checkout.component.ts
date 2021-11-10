@@ -4,7 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
   DiscountType,
-  IAuthUser,
   IDiscount,
   INewsletter,
   IPaymentLink,
@@ -23,7 +22,6 @@ import { NewsletterService } from '../../../shared/services/newsletter/newslette
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
-import { VerifyService } from '../../../shared/services/verify/verify.service';
 
 @Component({
   selector: 'webstore-checkout',
@@ -50,15 +48,6 @@ export class CheckoutComponent implements OnInit {
   discount: IDiscount = null;
 
   isTermsAndConditionsAccepted = false;
-  public isVerified: boolean;
-
-  // TODO: get itemList from basket
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
 
   itemList: ITransactionItem[] = [];
   isLoading = false;
@@ -73,7 +62,6 @@ export class CheckoutComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private toastService: ToastService,
     private userService: UserService,
-    private verifyService: VerifyService,
     private modalService: NgbModal,
     private calculatePriceService: CalculatePriceService,
     private newsletterService: NewsletterService,
@@ -82,11 +70,6 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .subscribe(() => {
-        this.isVerified = this.verifyService.getIsVerified();
-      });
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
@@ -385,15 +368,6 @@ export class CheckoutComponent implements OnInit {
           this.isLoading = false;
         }
       );
-  }
-
-  notAllowedToChangeEmailAlert() {
-    this.toastService.showAlert(
-      'Your email must be verified for you to complete a purchase. If you want to change your email, you can do so in Account info.',
-      'Din email skal verifiseres før du kan gennemfører et køb. Hvis du vil ændre din email kan du gøre det på Konto info',
-      'danger',
-      10000
-    );
   }
 
   showTermsOfSale() {

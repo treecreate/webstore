@@ -9,7 +9,6 @@ import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
 import { LocalStorageService } from '../../services/local-storage';
 import { TransactionItemService } from '../../services/transaction-item/transaction-item.service';
-import { VerifyService } from '../../services/verify/verify.service';
 import { ToastService } from '../toast/toast-service';
 
 @Component({
@@ -20,13 +19,11 @@ import { ToastService } from '../toast/toast-service';
 export class NavbarComponent implements OnInit {
   private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
-  public isVerified: boolean;
   public isMenuCollapsed = true;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
-  isResendVerificationEmailLoading = false;
   itemList: ITransactionItem[] = [];
   itemsInBasket = 0;
 
@@ -36,7 +33,6 @@ export class NavbarComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
-    private verifyService: VerifyService,
     private toastService: ToastService,
     private transactionItemService: TransactionItemService,
     private router: Router
@@ -59,12 +55,6 @@ export class NavbarComponent implements OnInit {
         this.authUser$.getValue() != null &&
         this.authService.isAccessTokenValid();
     });
-    // Listen to changes to verification status
-    this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .subscribe(() => {
-        this.isVerified = this.verifyService.getIsVerified();
-      });
     this.environment = environment;
   }
 
@@ -125,31 +115,6 @@ export class NavbarComponent implements OnInit {
       );
     }
     this.autoCollapse();
-  }
-
-  resendVerificationEmail() {
-    this.isResendVerificationEmailLoading = true;
-    this.verifyService.sendVerificationEmail().subscribe(
-      () => {
-        this.toastService.showAlert(
-          'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
-          'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
-          'success',
-          10000
-        );
-        this.isResendVerificationEmailLoading = false;
-      },
-      (err: HttpErrorResponse) => {
-        this.toastService.showAlert(
-          `Failed to send a verification email. try again later`,
-          'Der skete en fejl med din email, prøv venligst igen',
-          'danger',
-          20000
-        );
-        console.log(err);
-        this.isResendVerificationEmailLoading = false;
-      }
-    );
   }
 
   autoCollapse() {

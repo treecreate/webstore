@@ -9,7 +9,6 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
-import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
