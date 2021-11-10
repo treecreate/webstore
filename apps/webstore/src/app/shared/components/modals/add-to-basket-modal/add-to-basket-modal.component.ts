@@ -35,8 +35,8 @@ export class AddToBasketModalComponent implements OnInit {
   public localeCode: LocaleType;
   design;
   isLoading = false;
-  authUser$: BehaviorSubject<IAuthUser>; 
-  isLoggedIn = false; 
+  authUser$: BehaviorSubject<IAuthUser>;
+  isLoggedIn = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -53,7 +53,7 @@ export class AddToBasketModalComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
     private transactionItemService: TransactionItemService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -216,6 +216,28 @@ export class AddToBasketModalComponent implements OnInit {
 
   addDesignToBasket() {
     this.isLoading = true;
+    if (this.isLoggedIn) {
+      // Save design to user collection and create and save transactionItem to DB
+      this.saveToDataBase();
+    } else {
+      // Save transactionItem to local storage
+      this.saveToLocalStorage();
+    }
+  }
+
+  saveToLocalStorage(): void {
+    // design id should be null
+    //TODO: create a transaction item object to save to localstorage
+    this.transactionItemService.saveToLocalStorage({
+      designProperties: this.design,
+      dimension: this.addToBasketForm.get('dimension').value,
+      quantity: this.addToBasketForm.get('quantity').value,
+    });
+  }
+
+  saveToDataBase(): void {
+    // Check if the desig title matches add-to-basket-modal title of design
+    // If not, update the title in the users collection
     if (this.design.title !== this.addToBasketForm.get('title').value) {
       this.design.title = this.addToBasketForm.get('title').value;
       this.localStorageService.setItem<IFamilyTree>(

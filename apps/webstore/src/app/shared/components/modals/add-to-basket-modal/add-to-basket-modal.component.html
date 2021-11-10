@@ -135,7 +135,7 @@
             aria-hidden="true"
         ></span>
         <!-- Price -->
-        <div class="price-container" *ngIf="!isLoading">
+        <div class="price-container" *ngIf="!isLoading && isLoggedIn">
             <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
                 <span i18n="@@order">Order </span
                 >{{

@@ -16,7 +16,6 @@ import { UserService } from '../../../shared/services/user/user.service';
   ],
 })
 export class ProfileComponent implements OnInit {
-
   currentUser: IUser;
   accountInfoForm: FormGroup;
   oldEmail: string;
@@ -30,7 +29,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.accountInfoForm = new FormGroup({

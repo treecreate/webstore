@@ -8,7 +8,7 @@ import {
   INewsletter,
   IPaymentLink,
   IPricing,
-  ITransactionItem,  
+  ITransactionItem,
   IUser,
   ShippingMethodEnum,
 } from '@interfaces';
