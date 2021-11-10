@@ -14,6 +14,8 @@
 - [ ] 🐛 Bug fix (a non-breaking change which fixes an issue)
 - [ ] 🧱 New feature (a non-breaking change which adds functionality)
 - [ ] 💥 Breaking change (fix or feature that would cause existing functionality to change)
+- [ ] 🤖 CI/CD (a change to the CI/CD pipeline)
+- [ ] ⚗️ Refactoring (an update to some already existing code)
 
 ### Documentation Updates
 
