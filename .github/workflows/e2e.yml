@@ -1,5 +1,5 @@
 # Continuous Integration workflow for running end-to-end tests
-name: E2E CI 
+name: E2E CI
 
 on:
   push:
