@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["autosave"]
+  "cSpell.words": ["autosave"],
+  "angular.enable-strict-mode-prompt": false
 }
