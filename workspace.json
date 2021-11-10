@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
+  "cli": { "defaultCollection": "@nrwl/angular" },
   "generators": {
     "@nrwl/angular:application": {
       "style": "css",
@@ -16,9 +14,7 @@
       "linter": "eslint",
       "unitTestRunner": "jest"
     },
-    "@nrwl/angular:component": {
-      "style": "css"
-    }
+    "@nrwl/angular:component": { "style": "css" }
   },
   "projects": {
     "api": {
@@ -28,51 +24,35 @@
       "targets": {
         "run": {
           "executor": "@nxrocks/nx-spring-boot:run",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "serve": {
           "executor": "@nxrocks/nx-spring-boot:serve",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "test": {
           "executor": "@nxrocks/nx-spring-boot:test",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "clean": {
           "executor": "@nxrocks/nx-spring-boot:clean",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildJar": {
           "executor": "@nxrocks/nx-spring-boot:buildJar",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildWar": {
           "executor": "@nxrocks/nx-spring-boot:buildWar",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildImage": {
           "executor": "@nxrocks/nx-spring-boot:buildImage",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         },
         "buildInfo": {
           "executor": "@nxrocks/nx-spring-boot:buildInfo",
-          "options": {
-            "root": "apps/api"
-          }
+          "options": { "root": "apps/api" }
         }
       }
     },
@@ -83,9 +63,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/assets/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["libs/assets/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -104,9 +82,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["libs/interfaces/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -150,9 +126,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/models/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["libs/models/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -171,9 +145,7 @@
       "prefix": "webstore",
       "i18n": {
         "sourceLocale": "en-US",
-        "locales": {
-          "dk": "apps/webstore/src/i18n/messages.dk.xlf"
-        }
+        "locales": { "dk": "apps/webstore/src/i18n/messages.dk.xlf" }
       },
       "targets": {
         "build": {
@@ -245,16 +217,10 @@
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "webstore:build"
-          },
+          "options": { "browserTarget": "webstore:build" },
           "configurations": {
-            "production": {
-              "browserTarget": "webstore:build:production"
-            },
-            "dk": {
-              "browserTarget": "webstore:build:dk"
-            }
+            "production": { "browserTarget": "webstore:build:production" },
+            "dk": { "browserTarget": "webstore:build:dk" }
           }
         },
         "extract-i18n": {
@@ -296,107 +262,13 @@
             "devServerTarget": "webstore:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "webstore:serve:production"
-            },
-            "dk": {
-              "devServerTarget": "webstore:serve:dk"
-            }
+            "production": { "devServerTarget": "webstore:serve:production" },
+            "dk": { "devServerTarget": "webstore:serve:dk" }
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/webstore-e2e/**/*.{js,ts}"]
-          }
-        }
-      }
-    },
-    "models": {
-      "root": "libs/models",
-      "sourceRoot": "libs/models/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/models/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/models"],
-          "options": {
-            "jestConfig": "libs/models/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "interfaces": {
-      "root": "libs/interfaces",
-      "sourceRoot": "libs/interfaces/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/interfaces"],
-          "options": {
-            "jestConfig": "libs/interfaces/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "mocks": {
-      "projectType": "library",
-      "root": "libs/mocks",
-      "sourceRoot": "libs/mocks/src",
-      "prefix": "webstore",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/mocks/src/**/*.ts",
-              "libs/mocks/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/mocks"],
-          "options": {
-            "jestConfig": "libs/mocks/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "assets": {
-      "root": "libs/assets",
-      "sourceRoot": "libs/assets/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/assets/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/assets"],
-          "options": {
-            "jestConfig": "libs/assets/jest.config.js",
-            "passWithNoTests": true
-          }
+          "options": { "lintFilePatterns": ["apps/webstore-e2e/**/*.{js,ts}"] }
         }
       }
     },
@@ -460,16 +332,12 @@
             "port": 4300
           },
           "configurations": {
-            "production": {
-              "browserTarget": "admin-page:build:production"
-            }
+            "production": { "browserTarget": "admin-page:build:production" }
           }
         },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "admin-page:build"
-          }
+          "options": { "browserTarget": "admin-page:build" }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
@@ -503,15 +371,32 @@
             "devServerTarget": "admin-page:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "admin-page:serve:production"
-            }
+            "production": { "devServerTarget": "admin-page:serve:production" }
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/admin-page-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "local-storage": {
+      "root": "libs/local-storage",
+      "sourceRoot": "libs/local-storage/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/local-storage/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/local-storage"],
+          "options": {
+            "jestConfig": "libs/local-storage/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

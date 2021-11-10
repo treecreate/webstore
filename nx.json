@@ -1,18 +1,13 @@
 {
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "npmScope": "webstore",
   "tasksRunnerOptions": {
     "default": {
@@ -34,6 +29,7 @@
     "mocks": { "tags": [] },
     "assets": { "tags": [] },
     "admin-page": { "tags": [] },
-    "admin-page-e2e": { "tags": [], "implicitDependencies": ["admin-page"] }
+    "admin-page-e2e": { "tags": [], "implicitDependencies": ["admin-page"] },
+    "local-storage": { "tags": [] }
   }
 }
