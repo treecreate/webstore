@@ -33,7 +33,6 @@ export class BasketComponent implements OnInit {
     dismissible: boolean;
   };
   user: IUser;
-  isVerified = false;
 
   plantedTrees = 1;
   discount: IDiscount = null;
@@ -73,9 +72,6 @@ export class BasketComponent implements OnInit {
     this.user = this.localStorageService.getItem<IUser>(
       LocalStorageVars.authUser
     ).value;
-    if (this.user !== null) {
-      this.isVerified = this.user.isVerified;
-    }
     this.updatePrices();
   }
 
@@ -85,17 +81,8 @@ export class BasketComponent implements OnInit {
 
   goToCheckout() {
     this.scrollTop();
-    if (this.isVerified) {
-      this.updatePrices();
-      this.router.navigate(['/checkout']);
-    } else {
-      this.toastService.showAlert(
-        'You have to verify your e-mail to continue.',
-        'Du skal verificere din e-mail før du kan fortsætte.',
-        'danger',
-        10000
-      );
-    }
+    this.updatePrices();
+    this.router.navigate(['/checkout']);
   }
 
   getItemList() {

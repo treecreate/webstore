@@ -395,16 +395,7 @@ export class ProductComponent implements OnInit {
 
   openAddToBasketModal() {
     this.saveDesign({ persist: false });
-    if (this.isLoggedIn) {
-      this.modalService.open(AddToBasketModalComponent);
-    } else {
-      this.toastService.showAlert(
-        'You have to log in to add items to your basket.',
-        'Du skal logge ind for at kunne ligge dit design i kurven.',
-        'danger',
-        10000
-      );
-    }
+    this.modalService.open(AddToBasketModalComponent);
   }
 
   onIsDesignValidEvent($event) {
