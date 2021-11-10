@@ -28,11 +28,6 @@ const routes: Routes = [
     canActivate: [CookieGuard],
   },
   {
-    path: 'verification/:token',
-    component: VerificationComponent,
-    canActivate: [CookieGuard],
-  },
-  {
     path: 'newsletter',
     children: [
       {
