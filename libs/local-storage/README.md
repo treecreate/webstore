@@ -1,6 +1,6 @@
 # local-storage
 
-This library was generated with [Nx](https://nx.dev).
+Local storage library contains a service used to manage information saved in the browsers local storage
 
 ## Running unit tests
 
