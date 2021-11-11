@@ -18,9 +18,17 @@
             "aot": true,
             "assets": [
               "apps/admin-page/src/favicon.ico",
-              "apps/admin-page/src/assets"
+              "apps/admin-page/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
-            "styles": ["apps/admin-page/src/styles.css"],
+            "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "apps/admin-page/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
