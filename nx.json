@@ -26,28 +26,14 @@
     }
   },
   "projects": {
-    "api": {
-      "tags": []
-    },
-    "assets": {
-      "tags": []
-    },
-    "interfaces": {
-      "tags": []
-    },
-    "mocks": {
-      "tags": []
-    },
-    "models": {
-      "tags": []
-    },
-    "webstore": {
-      "tags": [],
-      "implicitDependencies": ["assets"]
-    },
-    "webstore-e2e": {
-      "tags": [],
-      "implicitDependencies": ["webstore"]
-    }
+    "api": { "tags": [] },
+    "webstore": { "tags": [], "implicitDependencies": ["assets"] },
+    "webstore-e2e": { "tags": [], "implicitDependencies": ["webstore"] },
+    "models": { "tags": [] },
+    "interfaces": { "tags": [] },
+    "mocks": { "tags": [] },
+    "assets": { "tags": [] },
+    "admin-page": { "tags": [] },
+    "admin-page-e2e": { "tags": [], "implicitDependencies": ["admin-page"] }
   }
 }
