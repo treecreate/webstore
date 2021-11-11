@@ -201,7 +201,7 @@
 
     <div class="info-wrap-container">
         <div class="row-2-ed">
-            <div class="section-row" *ngIf="order.discount != null">
+            <div class="section-row" *ngIf="order.discount !== null">
                 <div class="line">
                     <span class="sub-title" i18n="@@discount-code"
                         >Discount code
@@ -210,7 +210,7 @@
                 </div>
             </div>
 
-            <div class="section-row" *ngIf="order.discount != null">
+            <div class="section-row" *ngIf="order.discount !== null">
                 <div class="line">
                     <span class="sub-title" i18n="@@discount-amount"
                         >Discount amount</span

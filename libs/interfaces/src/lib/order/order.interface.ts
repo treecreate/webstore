@@ -1,10 +1,8 @@
-import {
-  CurrencyEnum,
-  ITransactionItem,
-  PaymentStateEnum,
-  ShippingMethodEnum,
-} from '@interfaces';
 import { IDiscount } from '../pricing';
+import { ITransactionItem } from '../transaction-item/transaction-item.interface';
+import { CurrencyEnum } from './currency.enum';
+import { PaymentStateEnum } from './payment-state.enum';
+import { ShippingMethodEnum } from './shipping-method.enum';
 
 export interface IOrder {
   orderId: string;

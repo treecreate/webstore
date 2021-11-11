@@ -1,4 +1,4 @@
-import { DiscountType } from '@interfaces';
+import { DiscountType } from './discount-type.enum';
 
 export interface IDiscount {
   discountId?: string;

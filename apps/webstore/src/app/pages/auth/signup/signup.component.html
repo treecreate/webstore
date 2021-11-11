@@ -63,7 +63,7 @@
                     src="/assets/icons/error-icon.svg"
                     class="password-icon"
                     [ngClass]="
-                        signupPassword.type == 'text'
+                        signupPassword.type === 'text'
                             ? 'password-show-icon'
                             : 'password-hide-icon'
                     "
@@ -121,7 +121,7 @@
                     src="/assets/icons/error-icon.svg"
                     class="password-icon"
                     [ngClass]="
-                        signupConfirmPassword.type == 'text'
+                        signupConfirmPassword.type === 'text'
                             ? 'password-show-icon'
                             : 'password-hide-icon'
                     "

@@ -51,7 +51,7 @@
                 <img
                     class="password-icon"
                     [ngClass]="
-                        password.type == 'text'
+                        password.type === 'text'
                             ? 'password-show-icon'
                             : 'password-hide-icon'
                     "
