@@ -28,7 +28,7 @@
     "e2e:open": "nx e2e webstore-e2e --watch",
     "e2e:open:prod": "nx e2e webstore-e2e --watch --configuration=production",
     "e2e:open:dk": "nx e2e webstore-e2e --watch --configuration=dk",
-    "e2e:open:admin": "nx e2e admin-e2e --watch",
+    "e2e:open:admin": "nx e2e admin-page-e2e --watch",
     "e2e:open:admin:prod": "nx e2e admin-e2e --watch --configuration=production",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
