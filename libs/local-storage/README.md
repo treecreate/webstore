@@ -1,6 +1,6 @@
-# local-storage
+# Local Storage
 
-Local storage library contains a service used to manage information saved in the browsers local storage
+Local storage library contains a service used to manage information saved in the browser's local storage
 
 ## Running unit tests
 
