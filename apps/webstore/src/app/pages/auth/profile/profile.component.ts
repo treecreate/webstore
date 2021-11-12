@@ -7,7 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
 import { VerifyService } from '../../../shared/services/verify/verify.service';
 

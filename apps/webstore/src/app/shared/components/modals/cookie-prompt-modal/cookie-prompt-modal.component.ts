@@ -3,7 +3,7 @@ import { ViewChild } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '../../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { ToastService } from '../../toast/toast-service';

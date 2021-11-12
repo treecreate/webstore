@@ -4,7 +4,7 @@ import { ITransactionItem } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '../../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 
 @Component({
