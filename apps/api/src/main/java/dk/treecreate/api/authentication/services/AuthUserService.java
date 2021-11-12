@@ -41,13 +41,15 @@ public class AuthUserService
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
+        String jwtRefresh = jwtUtils.generateJwtRefreshToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
 
-        return new JwtResponse(jwt,
+        return new JwtResponse(jwt, 
+            jwtRefresh,
             userDetails.getUsedId(),
             userDetails.getEmail(),
             userDetails.getIsVerified(),

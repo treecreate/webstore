@@ -7,9 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.util.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class JwtUtils
@@ -40,6 +43,24 @@ public class JwtUtils
             .setSubject((userPrincipal.getUsername()))
             .setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+            .compact();
+    }
+
+    /**
+     * Generates and returns a new refresh token for an authenticated user.
+     * 
+     * @param authentication
+     * @return a String representing the refresh token generated for the user.
+     */
+    public String generateJwtRefreshToken(Authentication authentication)
+    {
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+
+        return Jwts.builder()
+            .setSubject(userPrincipal.getUsername())
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
             .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
             .compact();
     }
