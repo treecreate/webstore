@@ -76,9 +76,20 @@ export class TransactionItemService {
       },
     };
 
-    this.localStorageService.setItem(
-      LocalStorageVars.transactionItems,
-      transactionItem
-    );
+    // Get transactionItems from localstorage
+    let currentList = this.localStorageService.getItem<ITransactionItem[]>(
+      LocalStorageVars.transactionItems
+    ).value;
+
+    // Check if there is a list of transactionItems
+    if (currentList !== null) {
+      // Add to the list
+      currentList.push(transactionItem);
+    } else {
+      // Create a list with the transaction item
+      this.localStorageService.setItem(LocalStorageVars.transactionItems, [
+        transactionItem,
+      ]);
+    }
   }
 }
