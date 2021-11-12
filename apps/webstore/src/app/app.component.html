@@ -1,7 +1,5 @@
 <div class="min-width">
-    <webstore-navbar
-        *ngIf="router.url !== '/payment/success' && router.url !== '/checkout'"
-    ></webstore-navbar>
+    <webstore-navbar *ngIf="router.url !== '/payment/success' && router.url !== '/checkout'"></webstore-navbar>
     <div class="full-page">
         <router-outlet></router-outlet>
     </div>

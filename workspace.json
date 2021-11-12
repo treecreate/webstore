@@ -25,10 +25,7 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "apps/admin-page/src/styles.css"
-            ],
+            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "apps/admin-page/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -83,10 +80,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/admin-page/src/**/*.ts",
-              "apps/admin-page/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/admin-page/src/**/*.ts", "apps/admin-page/src/**/*.html"]
           },
           "outputs": ["{options.outputFile}"]
         },
@@ -241,10 +235,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/mocks/src/**/*.ts",
-              "libs/mocks/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/mocks/src/**/*.ts", "libs/mocks/src/**/*.html"]
           },
           "outputs": ["{options.outputFile}"]
         },
@@ -312,10 +303,7 @@
                 "output": "assets"
               }
             ],
-            "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "apps/webstore/src/styles.css"
-            ],
+            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css", "apps/webstore/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -385,10 +373,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/webstore/src/**/*.ts",
-              "apps/webstore/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/webstore/src/**/*.ts", "apps/webstore/src/**/*.html"]
           },
           "outputs": ["{options.outputFile}"]
         },

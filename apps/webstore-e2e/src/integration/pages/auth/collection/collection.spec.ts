@@ -1,12 +1,5 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import {
-  DesignTypeEnum,
-  FamilyTreeFontEnum,
-  IDesign,
-  IDraggableBox,
-  IFamilyTreeBanner,
-  IUser,
-} from '@interfaces';
+import { DesignTypeEnum, FamilyTreeFontEnum, IDesign, IDraggableBox, IFamilyTreeBanner, IUser } from '@interfaces';
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
@@ -109,14 +102,8 @@ describe('CollectionPage', () => {
   };
 
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
       body: mockUser,
       statusCode: 200,
@@ -167,10 +154,7 @@ describe('CollectionPage', () => {
         cy.get('[data-cy=family-tree-collection-item-delete-button]').click();
       })
       .then(() => {
-        cy.get('[data-cy=family-tree-collection-item]').should(
-          'have.length',
-          2
-        );
+        cy.get('[data-cy=family-tree-collection-item]').should('have.length', 2);
       });
   });
 
@@ -206,15 +190,10 @@ describe('CollectionPage', () => {
     cy.get('[data-cy=family-tree-collection-item]')
       .first()
       .within(() => {
-        cy.get(
-          '[data-cy=family-tree-collection-item-add-to-basket-button]'
-        ).click();
+        cy.get('[data-cy=family-tree-collection-item-add-to-basket-button]').click();
       })
       .then(() => {
-        cy.get('[data-cy=add-to-basket-title-input]').should(
-          'have.value',
-          'title1'
-        );
+        cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'title1');
       });
   });
 
