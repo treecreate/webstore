@@ -4,13 +4,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   DiscountType,
+  IAuthUser,
   IDiscount,
   IPricing,
   ITransactionItem,
   IUser,
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
+import { BehaviorSubject } from 'rxjs';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { DiscountService } from '../../../shared/services/discount/discount.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
@@ -26,7 +29,9 @@ import { TransactionItemService } from '../../../shared/services/transaction-ite
 })
 export class BasketComponent implements OnInit {
   itemList: ITransactionItem[] = [];
+  private authUser$: BehaviorSubject<IAuthUser>;
   isLoading = false;
+  isLoggedIn = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -47,36 +52,56 @@ export class BasketComponent implements OnInit {
     private transactionItemService: TransactionItemService,
     private discountService: DiscountService,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
+    // Create discount form
     this.discountForm = new FormGroup({
       discountCode: new FormControl('', [
         Validators.required,
         Validators.pattern('^\\S*$'),
       ]),
     });
+
+    // Get discount from localstorage
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
+
+    // Check if discount in localstorage exists
     if (this.discount !== null) {
       this.discountForm
         .get('discountCode')
         .setValue(this.discount.discountCode);
     }
+
+    // Get planted trees from localstorage
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
     if (this.plantedTrees === null) {
       this.plantedTrees = 1;
     }
+
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
+    });
+
     this.user = this.localStorageService.getItem<IUser>(
       LocalStorageVars.authUser
     ).value;
-    this.updatePrices();
   }
 
   ngOnInit(): void {
     this.getItemList();
+    this.updatePrices();
   }
 
   goToCheckout() {
@@ -87,23 +112,33 @@ export class BasketComponent implements OnInit {
 
   getItemList() {
     this.isLoading = true;
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        this.isLoading = false;
-        this.itemList = itemList;
-        console.log('Fetched transaction items', itemList);
-        this.updatePrices();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-        this.alert = {
-          message: 'Failed to get a list of items',
-          type: 'danger',
-          dismissible: false,
-        };
-        this.isLoading = false;
-      }
-    );
+    // Check if user is logged in
+    if (this.isLoggedIn) {
+      // Get items from database
+      this.transactionItemService.getTransactionItems().subscribe(
+        (itemList: ITransactionItem[]) => {
+          this.isLoading = false;
+          this.itemList = itemList;
+          console.log('Fetched transaction items', itemList);
+          this.updatePrices();
+        },
+        (error: HttpErrorResponse) => {
+          console.error(error);
+          this.alert = {
+            message: 'Failed to get a list of items',
+            type: 'danger',
+            dismissible: false,
+          };
+          this.isLoading = false;
+        }
+      );
+    } else {
+      // Get items from localstorage
+      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
+      this.isLoading = false; 
+    }
   }
 
   isMoreThan3(): boolean {
