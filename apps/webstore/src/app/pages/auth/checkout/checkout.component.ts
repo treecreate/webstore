@@ -18,7 +18,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
@@ -28,10 +28,7 @@ import { VerifyService } from '../../../shared/services/verify/verify.service';
 @Component({
   selector: 'webstore-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: [
-    './checkout.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./checkout.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
@@ -82,18 +79,12 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .subscribe(() => {
-        this.isVerified = this.verifyService.getIsVerified();
-      });
-    this.discount = this.localStorageService.getItem<IDiscount>(
-      LocalStorageVars.discount
-    ).value;
+    this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).subscribe(() => {
+      this.isVerified = this.verifyService.getIsVerified();
+    });
+    this.discount = this.localStorageService.getItem<IDiscount>(LocalStorageVars.discount).value;
 
-    this.plantedTrees = this.localStorageService.getItem<number>(
-      LocalStorageVars.plantedTrees
-    ).value;
+    this.plantedTrees = this.localStorageService.getItem<number>(LocalStorageVars.plantedTrees).value;
 
     if (this.plantedTrees === null) {
       this.plantedTrees = 1;
@@ -144,11 +135,7 @@ export class CheckoutComponent implements OnInit {
         Validators.pattern('^[0-9+]*$'),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.minLength(3),
-        Validators.required,
-      ]),
+      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
       streetAddress2: new FormControl('', [Validators.maxLength(50)]),
       city: new FormControl('', [
         Validators.maxLength(50),
@@ -207,10 +194,7 @@ export class CheckoutComponent implements OnInit {
 
   updatePrices() {
     // validate the isMoreThan3 rule if there is no other discount applied
-    if (
-      this.discount === null ||
-      this.discount.discountCode === 'ismorethan3=true'
-    ) {
+    if (this.discount === null || this.discount.discountCode === 'ismorethan3=true') {
       if (this.isMoreThan3()) {
         this.discount = {
           discountCode: 'ismorethan3=true',
@@ -222,10 +206,7 @@ export class CheckoutComponent implements OnInit {
       } else {
         this.discount = null;
       }
-      this.localStorageService.setItem<IDiscount>(
-        LocalStorageVars.discount,
-        this.discount
-      );
+      this.localStorageService.setItem<IDiscount>(LocalStorageVars.discount, this.discount);
     }
 
     this.priceInfo = this.calculatePriceService.calculatePrices(
@@ -237,28 +218,21 @@ export class CheckoutComponent implements OnInit {
   }
 
   subscribeUserToNewsletter() {
-    this.newsletterService
-      .registerNewsletterEmail(this.checkoutForm.get('email').value)
-      .subscribe(
-        (data: INewsletter) => {
-          //TODO: Add event for them to receive a 25% off email in 2 weeks
-          this.toastService.showAlert(
-            `Thank you for subscribing: ${data.email}`,
-            `Tak for din tilmelding: ${data.email}`,
-            'success',
-            3000
-          );
-        },
-        (error) => {
-          this.toastService.showAlert(
-            error.error.message,
-            error.error.message,
-            'danger',
-            100000
-          );
-          console.error(error);
-        }
-      );
+    this.newsletterService.registerNewsletterEmail(this.checkoutForm.get('email').value).subscribe(
+      (data: INewsletter) => {
+        //TODO: Add event for them to receive a 25% off email in 2 weeks
+        this.toastService.showAlert(
+          `Thank you for subscribing: ${data.email}`,
+          `Tak for din tilmelding: ${data.email}`,
+          'success',
+          3000
+        );
+      },
+      (error) => {
+        this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
+        console.error(error);
+      }
+    );
   }
 
   updateFormValues() {
@@ -287,9 +261,7 @@ export class CheckoutComponent implements OnInit {
       this.checkoutForm.get('city').value,
       this.checkoutForm.get('postcode').value,
       this.subscribeToNewsletter,
-      this.isHomeDelivery
-        ? 'I want home delivery'
-        : 'I want parcelshop delivery'
+      this.isHomeDelivery ? 'I want home delivery' : 'I want parcelshop delivery'
     );
 
     this.createOrder();
@@ -299,19 +271,13 @@ export class CheckoutComponent implements OnInit {
     if (this.billingAddressIsTheSame) {
       return this.isTermsAndConditionsAccepted && this.checkoutForm.valid;
     } else {
-      return (
-        this.isTermsAndConditionsAccepted &&
-        this.checkoutForm.valid &&
-        this.billingAddressForm.valid
-      );
+      return this.isTermsAndConditionsAccepted && this.checkoutForm.valid && this.billingAddressForm.valid;
     }
   }
 
   createOrder() {
     if (!this.isDisabled()) {
-      console.warn(
-        'You are not able to add an order without valid information'
-      );
+      console.warn('You are not able to add an order without valid information');
       return;
     }
     this.isLoading = true;
@@ -359,9 +325,7 @@ export class CheckoutComponent implements OnInit {
         subtotal: this.priceInfo.fullPrice,
         total: this.priceInfo.finalPrice,
         plantedTrees: this.plantedTrees,
-        shippingMethod: this.isHomeDelivery
-          ? ShippingMethodEnum.homeDelivery
-          : ShippingMethodEnum.pickUpPoint,
+        shippingMethod: this.isHomeDelivery ? ShippingMethodEnum.homeDelivery : ShippingMethodEnum.pickUpPoint,
         discountId: this.discount !== null ? this.discount.discountId : null,
         contactInfo: contactInfo,
         billingInfo: billingInfo,

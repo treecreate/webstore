@@ -14,19 +14,14 @@ export class LocalStorageService implements OnDestroy {
 
   constructor() {
     // Initial state
-    const initialLocale =
-      JSON.parse(localStorage.getItem(LocalStorageVars.locale)) ||
-      LocaleType.dk;
+    const initialLocale = JSON.parse(localStorage.getItem(LocalStorageVars.locale)) || LocaleType.dk;
 
     const acceptedCookies =
-      JSON.parse(localStorage.getItem(LocalStorageVars.cookiesAccepted)) ||
-      CookieStatus.undefined;
+      JSON.parse(localStorage.getItem(LocalStorageVars.cookiesAccepted)) || CookieStatus.undefined;
 
     this.cache = {
       [LocalStorageVars.locale]: new BehaviorSubject<LocaleType>(initialLocale),
-      [LocalStorageVars.cookiesAccepted]: new BehaviorSubject<CookieStatus>(
-        acceptedCookies
-      ),
+      [LocalStorageVars.cookiesAccepted]: new BehaviorSubject<CookieStatus>(acceptedCookies),
     };
 
     window.addEventListener('storage', (e) => this.handleStorageUpdate(e));
@@ -66,9 +61,7 @@ export class LocalStorageService implements OnDestroy {
     }
 
     if (this.isLocalStorageSupported) {
-      return (this.cache[key] = new BehaviorSubject(
-        JSON.parse(localStorage.getItem(key))
-      ));
+      return (this.cache[key] = new BehaviorSubject(JSON.parse(localStorage.getItem(key))));
     }
     return null;
   }

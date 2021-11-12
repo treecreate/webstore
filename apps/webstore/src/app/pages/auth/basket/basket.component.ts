@@ -2,27 +2,18 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  DiscountType,
-  IDiscount,
-  IPricing,
-  ITransactionItem,
-  IUser,
-} from '@interfaces';
+import { DiscountType, IDiscount, IPricing, ITransactionItem, IUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { DiscountService } from '../../../shared/services/discount/discount.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
   selector: 'webstore-basket',
   templateUrl: './basket.component.html',
-  styleUrls: [
-    './basket.component.scss',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./basket.component.scss', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class BasketComponent implements OnInit {
   itemList: ITransactionItem[] = [];
@@ -51,28 +42,17 @@ export class BasketComponent implements OnInit {
     private router: Router
   ) {
     this.discountForm = new FormGroup({
-      discountCode: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^\\S*$'),
-      ]),
+      discountCode: new FormControl('', [Validators.required, Validators.pattern('^\\S*$')]),
     });
-    this.discount = this.localStorageService.getItem<IDiscount>(
-      LocalStorageVars.discount
-    ).value;
+    this.discount = this.localStorageService.getItem<IDiscount>(LocalStorageVars.discount).value;
     if (this.discount !== null) {
-      this.discountForm
-        .get('discountCode')
-        .setValue(this.discount.discountCode);
+      this.discountForm.get('discountCode').setValue(this.discount.discountCode);
     }
-    this.plantedTrees = this.localStorageService.getItem<number>(
-      LocalStorageVars.plantedTrees
-    ).value;
+    this.plantedTrees = this.localStorageService.getItem<number>(LocalStorageVars.plantedTrees).value;
     if (this.plantedTrees === null) {
       this.plantedTrees = 1;
     }
-    this.user = this.localStorageService.getItem<IUser>(
-      LocalStorageVars.authUser
-    ).value;
+    this.user = this.localStorageService.getItem<IUser>(LocalStorageVars.authUser).value;
     if (this.user !== null) {
       this.isVerified = this.user.isVerified;
     }
@@ -129,10 +109,7 @@ export class BasketComponent implements OnInit {
 
   updatePrices() {
     // validate the isMoreThan3 rule if there is no other discount applied
-    if (
-      this.discount === null ||
-      this.discount.discountCode === 'ismorethan3=true'
-    ) {
+    if (this.discount === null || this.discount.discountCode === 'ismorethan3=true') {
       if (this.isMoreThan3()) {
         this.discount = {
           discountCode: 'ismorethan3=true',
@@ -145,17 +122,9 @@ export class BasketComponent implements OnInit {
         this.discount = null;
       }
       this.discountForm.get('discountCode').setValue(null);
-      this.localStorageService.setItem<IDiscount>(
-        LocalStorageVars.discount,
-        this.discount
-      );
+      this.localStorageService.setItem<IDiscount>(LocalStorageVars.discount, this.discount);
     }
-    this.priceInfo = this.calculatePriceService.calculatePrices(
-      this.itemList,
-      this.discount,
-      false,
-      this.plantedTrees
-    );
+    this.priceInfo = this.calculatePriceService.calculatePrices(this.itemList, this.discount, false, this.plantedTrees);
   }
 
   applyDiscount() {
@@ -171,12 +140,8 @@ export class BasketComponent implements OnInit {
       .subscribe(
         (discount: IDiscount) => {
           this.toastService.showAlert(
-            'Your discount code: ' +
-              this.discountForm.get('discountCode').value +
-              ' has been activated!',
-            'Din rabat kode: ' +
-              this.discountForm.get('discountCode').value +
-              ' er aktiveret!',
+            'Your discount code: ' + this.discountForm.get('discountCode').value + ' has been activated!',
+            'Din rabat kode: ' + this.discountForm.get('discountCode').value + ' er aktiveret!',
             'success',
             4000
           );
@@ -186,12 +151,7 @@ export class BasketComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           console.error(error);
-          this.toastService.showAlert(
-            'Invalid discount code',
-            'Ugyldig rabatkode',
-            'danger',
-            4000
-          );
+          this.toastService.showAlert('Invalid discount code', 'Ugyldig rabatkode', 'danger', 4000);
           this.discount = null;
           this.discountForm.get('discountCode').setValue(null);
           this.discountIsLoading = false;
@@ -199,10 +159,7 @@ export class BasketComponent implements OnInit {
       )
       .add(() => {
         console.log('Setting disocunt to: ', this.discount);
-        this.localStorageService.setItem<IDiscount>(
-          LocalStorageVars.discount,
-          this.discount
-        );
+        this.localStorageService.setItem<IDiscount>(LocalStorageVars.discount, this.discount);
         this.updatePrices();
       });
   }
@@ -214,36 +171,26 @@ export class BasketComponent implements OnInit {
   decreaseDonation() {
     if (this.plantedTrees > 1) {
       this.plantedTrees--;
-      this.localStorageService.setItem<number>(
-        LocalStorageVars.plantedTrees,
-        this.plantedTrees
-      );
+      this.localStorageService.setItem<number>(LocalStorageVars.plantedTrees, this.plantedTrees);
       this.updatePrices();
     }
   }
 
   increaseDonation() {
     this.plantedTrees++;
-    this.localStorageService.setItem<number>(
-      LocalStorageVars.plantedTrees,
-      this.plantedTrees
-    );
+    this.localStorageService.setItem<number>(LocalStorageVars.plantedTrees, this.plantedTrees);
     this.updatePrices();
   }
 
   itemPriceChange(newItem) {
-    const oldItem = this.itemList.find(
-      (item) => item.transactionItemId === newItem.transactionItemId
-    );
+    const oldItem = this.itemList.find((item) => item.transactionItemId === newItem.transactionItemId);
     const itemIndex = this.itemList.indexOf(oldItem);
     this.itemList[itemIndex] = newItem;
     this.updatePrices();
   }
 
   deleteItemChange(id) {
-    this.itemList = this.itemList.filter(
-      (item) => item.transactionItemId !== id
-    );
+    this.itemList = this.itemList.filter((item) => item.transactionItemId !== id);
     this.updatePrices();
   }
 }

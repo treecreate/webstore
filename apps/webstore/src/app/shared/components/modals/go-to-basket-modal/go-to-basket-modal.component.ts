@@ -4,7 +4,7 @@ import { ITransactionItem } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '../../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 
 @Component({
@@ -33,8 +33,7 @@ export class GoToBasketModalComponent implements OnInit {
         }
         this.itemsInBasket = itemSum;
         if (this.itemsInBasket >= 4) {
-          this.basketPrice =
-            this.calculatePriceService.getFullPrice(itemList) * 0.75;
+          this.basketPrice = this.calculatePriceService.getFullPrice(itemList) * 0.75;
         } else {
           this.basketPrice = this.calculatePriceService.getFullPrice(itemList);
         }
