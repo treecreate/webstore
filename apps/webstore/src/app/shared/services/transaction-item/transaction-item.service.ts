@@ -85,6 +85,10 @@ export class TransactionItemService {
     if (currentList !== null) {
       // Add to the list
       currentList.push(transactionItem);
+      this.localStorageService.setItem(
+        LocalStorageVars.transactionItems,
+        currentList
+      );
     } else {
       // Create a list with the transaction item
       this.localStorageService.setItem(LocalStorageVars.transactionItems, [
