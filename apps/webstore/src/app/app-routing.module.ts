@@ -66,8 +66,7 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [CookieGuard, AuthGuard],
-    data: { roles: [UserRoles.user] },
+    canActivate: [CookieGuard],
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
