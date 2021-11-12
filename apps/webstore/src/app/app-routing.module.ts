@@ -61,8 +61,7 @@ const routes: Routes = [
   {
     path: 'basket',
     component: BasketComponent,
-    canActivate: [CookieGuard, AuthGuard],
-    data: { roles: [UserRoles.user] },
+    canActivate: [CookieGuard],
   },
   {
     path: 'checkout',

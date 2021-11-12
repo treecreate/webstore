@@ -107,20 +107,6 @@ export class NavbarComponent implements OnInit {
     window.location.reload();
   }
 
-  goToBasket() {
-    if (this.isLoggedIn) {
-      this.router.navigate(['/basket']);
-    } else {
-      this.toastService.showAlert(
-        'You must log in first.',
-        'Du skal logge ind først.',
-        'danger',
-        5000
-      );
-    }
-    this.autoCollapse();
-  }
-
   autoCollapse() {
     if (window.innerWidth < 992) {
       this.isMenuCollapsed = true;
