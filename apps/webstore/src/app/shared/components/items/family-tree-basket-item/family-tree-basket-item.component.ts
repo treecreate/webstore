@@ -120,7 +120,15 @@ export class FamilyTreeBasketItemComponent implements OnInit {
       this.updateTransactionItemDB();
     } else {
       // Update localstorage item
+      const currentItemsList = this.localStorageService.getItem<
+        ITransactionItem[]
+      >(LocalStorageVars.transactionItems).value;
+      currentItemsList[this.index] = this.item;
 
+      this.localStorageService.setItem(
+        LocalStorageVars.transactionItems,
+        currentItemsList
+      );
       this.isLoading = false;
     }
   }
