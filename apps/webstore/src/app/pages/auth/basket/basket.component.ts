@@ -118,9 +118,14 @@ export class BasketComponent implements OnInit {
       this.getItemListFromDB();
     } else {
       // Get items from localstorage
-      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
-        LocalStorageVars.transactionItems
-      ).value;
+      const localStorageItemsList = this.localStorageService.getItem<
+        ITransactionItem[]
+      >(LocalStorageVars.transactionItems).value;
+      // Check if the localstorage list contains transactionItems
+      if (localStorageItemsList !== null) {
+        this.itemList = localStorageItemsList;
+      }
+
       this.isLoading = false;
     }
   }
