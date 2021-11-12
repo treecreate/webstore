@@ -115,30 +115,34 @@ export class BasketComponent implements OnInit {
     // Check if user is logged in
     if (this.isLoggedIn) {
       // Get items from database
-      this.transactionItemService.getTransactionItems().subscribe(
-        (itemList: ITransactionItem[]) => {
-          this.isLoading = false;
-          this.itemList = itemList;
-          console.log('Fetched transaction items', itemList);
-          this.updatePrices();
-        },
-        (error: HttpErrorResponse) => {
-          console.error(error);
-          this.alert = {
-            message: 'Failed to get a list of items',
-            type: 'danger',
-            dismissible: false,
-          };
-          this.isLoading = false;
-        }
-      );
+      this.getItemListFromDB();
     } else {
       // Get items from localstorage
       this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
         LocalStorageVars.transactionItems
       ).value;
-      this.isLoading = false; 
+      this.isLoading = false;
     }
+  }
+
+  getItemListFromDB() {
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        this.itemList = itemList;
+        console.log('Fetched transaction items', itemList);
+        this.updatePrices();
+        this.isLoading = false;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        this.alert = {
+          message: 'Failed to get a list of items',
+          type: 'danger',
+          dismissible: false,
+        };
+        this.isLoading = false;
+      }
+    );
   }
 
   isMoreThan3(): boolean {
