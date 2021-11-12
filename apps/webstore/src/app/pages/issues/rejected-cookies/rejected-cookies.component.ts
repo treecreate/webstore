@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
-import { LocalStorageService } from '../../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 
 @Component({
   selector: 'webstore-rejected-cookies',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 
 @Component({
   selector: 'webstore-review-carousel',

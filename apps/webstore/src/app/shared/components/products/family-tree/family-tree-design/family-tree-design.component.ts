@@ -32,7 +32,7 @@ import {
   IFamilyTreeBanner,
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
-import { LocalStorageService } from '../../../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({

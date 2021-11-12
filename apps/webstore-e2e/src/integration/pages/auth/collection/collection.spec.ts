@@ -7,7 +7,7 @@ import {
   IFamilyTreeBanner,
   IUser,
 } from '@interfaces';
-import { LocalStorageVars, CookieStatus, UserRoles } from '@models';
+import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 describe('CollectionPage', () => {
@@ -160,22 +160,17 @@ describe('CollectionPage', () => {
       statusCode: 204,
     });
     cy.visit('/collection');
-    cy.get('[data-cy=family-tree-collection-item]').then((designs) => {
-      expect(designs[0]).exist;
-      expect(designs[1]).exist;
-      expect(designs[2]).exist;
-    });
+    cy.get('[data-cy=family-tree-collection-item]').should('have.length', 3);
     cy.get('[data-cy=family-tree-collection-item]')
       .first()
       .within(() => {
         cy.get('[data-cy=family-tree-collection-item-delete-button]').click();
       })
       .then(() => {
-        cy.get('[data-cy=family-tree-collection-item]').then((designs) => {
-          expect(designs[0]).exist;
-          expect(designs[1]).exist;
-          expect(designs[2]).not.exist;
-        });
+        cy.get('[data-cy=family-tree-collection-item]').should(
+          'have.length',
+          2
+        );
       });
   });
 

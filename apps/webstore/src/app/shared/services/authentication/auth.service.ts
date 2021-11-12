@@ -11,7 +11,7 @@ import {
 import { LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
-import { LocalStorageService } from '../local-storage';
+import { LocalStorageService } from '@local-storage';
 import { UserService } from '../user/user.service';
 
 const httpOptions = {

@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../services/transaction-item/transaction-item.service';
 import { VerifyService } from '../../services/verify/verify.service';
 import { ToastService } from '../toast/toast-service';
