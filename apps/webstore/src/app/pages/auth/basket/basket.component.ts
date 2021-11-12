@@ -257,12 +257,8 @@ export class BasketComponent implements OnInit {
     this.updatePrices();
   }
 
-  itemPriceChange(newItem) {
-    const oldItem = this.itemList.find(
-      (item) => item.transactionItemId === newItem.transactionItemId
-    );
-    const itemIndex = this.itemList.indexOf(oldItem);
-    this.itemList[itemIndex] = newItem;
+  itemPriceChange(data) {
+    this.itemList[data.index] = data.newItem;
     this.updatePrices();
   }
 

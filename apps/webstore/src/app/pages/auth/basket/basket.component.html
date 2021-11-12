@@ -26,8 +26,9 @@
                         <webstore-basket-item
                             (priceChangeEvent)="itemPriceChange($event)"
                             (deleteItemEvent)="deleteItemChange($event)"
-                            *ngFor="let item of itemList"
+                            *ngFor="let item of itemList; let i = index"
                             [item]="item"
+                            [index]="i"
                         ></webstore-basket-item>
                     </div>
                     <!-- If there are not items in basket -->

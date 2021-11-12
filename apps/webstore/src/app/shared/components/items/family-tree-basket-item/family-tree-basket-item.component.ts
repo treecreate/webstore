@@ -7,8 +7,12 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
+import { DesignDimensionEnum, IAuthUser, ITransactionItem } from '@interfaces';
+import { LocalStorageVars } from '@models';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { LocalStorageService } from '../../../services/local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { ToastService } from '../../toast/toast-service';
@@ -27,6 +31,7 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   @Output() priceChangeEvent = new EventEmitter();
   @Output() deleteItemEvent = new EventEmitter();
   @Input() item: ITransactionItem;
+  @Input() index: number;
   itemPrice: number;
   isLoading = false;
   alert: {
@@ -34,19 +39,34 @@ export class FamilyTreeBasketItemComponent implements OnInit {
     message: string;
     dismissible: boolean;
   };
+  public isLoggedIn: boolean;
+  private authUser$: BehaviorSubject<IAuthUser>;
 
   constructor(
-    private toastService: ToastService,
     private calculatePriceService: CalculatePriceService,
-    private transactionItemService: TransactionItemService
-  ) {}
+    private transactionItemService: TransactionItemService,
+    private localStorageService: LocalStorageService,
+    private authService: AuthService
+  ) {
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
+    });
+  }
 
   ngOnInit(): void {
-    this.updatePrice();
+    this.updateTransactionItem();
+    this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
   updatePrice() {
-    this.priceChangeEvent.emit(this.item);
+    this.priceChangeEvent.emit({ newItem: this.item, index: this.index });
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
@@ -56,13 +76,6 @@ export class FamilyTreeBasketItemComponent implements OnInit {
     if (this.item.quantity > 1) {
       this.item.quantity = this.item.quantity - 1;
       this.updatePrice();
-    } else {
-      this.toastService.showAlert(
-        "Press Delete if you don't wish to purchase this design.",
-        'Tryk Delete hvis du ikke ønsker at købe designet.',
-        'danger',
-        3000
-      );
     }
   }
 
@@ -101,6 +114,18 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   }
 
   updateTransactionItem() {
+    // Check if user is logged in
+    if (this.isLoggedIn) {
+      // Update DB transaction item
+      this.updateTransactionItemDB();
+    } else {
+      // Update localstorage item
+
+      this.isLoading = false;
+    }
+  }
+
+  updateTransactionItemDB() {
     this.transactionItemService
       .updateTransactionItem(this.item.transactionItemId, {
         quantity: this.item.quantity,
