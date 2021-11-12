@@ -226,6 +226,29 @@
       },
       "tags": []
     },
+    "local-storage": {
+      "root": "libs/local-storage",
+      "sourceRoot": "libs/local-storage/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/local-storage/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/local-storage"],
+          "options": {
+            "jestConfig": "libs/local-storage/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "mocks": {
       "projectType": "library",
       "root": "libs/mocks",
