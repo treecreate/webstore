@@ -88,9 +88,14 @@ export class NavbarComponent implements OnInit {
         }
       );
     } else {
-      this.itemsInBasket = this.localStorageService.getItem<ITransactionItem[]>(
-        LocalStorageVars.transactionItems
-      ).value.length;
+      const localStorageItemsList = this.localStorageService.getItem<
+        ITransactionItem[]
+      >(LocalStorageVars.transactionItems).value;
+      if (localStorageItemsList !== null) {
+        this.itemsInBasket = localStorageItemsList.length;
+      } else {
+        this.itemsInBasket = 0;
+      }
     }
   }
 
