@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
@@ -8,22 +9,27 @@ import {
   ITransactionItem,
   IUser,
 } from '@interfaces';
-import { UserRoles } from '@models';
+import { LocalStorageVars, UserRoles } from '@models';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LocalStorageService } from '../../../services/local-storage';
 import { FamilyTreeBasketItemComponent } from './family-tree-basket-item.component';
 
 describe('BasketItemComponent', () => {
   let component: FamilyTreeBasketItemComponent;
   let fixture: ComponentFixture<FamilyTreeBasketItemComponent>;
+  let localStorage: LocalStorageService;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, RouterTestingModule],
       declarations: [FamilyTreeBasketItemComponent],
-      //   imports: [CalculatePriceService]
-    }); // .compileComponents();
+      providers: [LocalStorageService]
+    });
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FamilyTreeBasketItemComponent);
+    localStorage = TestBed.inject(LocalStorageService)
     component = fixture.componentInstance;
 
     //mock the transaction item
@@ -55,7 +61,9 @@ describe('BasketItemComponent', () => {
       orderId: '123',
       transactionItemId: '1',
     };
-
+    localStorage.setItem(LocalStorageVars.transactionItems, [
+      mockTransactionItem,
+    ]);
     component.item = mockTransactionItem;
     fixture.detectChanges();
   });
