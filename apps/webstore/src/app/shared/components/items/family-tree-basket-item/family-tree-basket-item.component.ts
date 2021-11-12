@@ -15,7 +15,6 @@ import { CalculatePriceService } from '../../../services/calculate-price/calcula
 import { LocalStorageService } from '../../../services/local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
-import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'webstore-basket-item',
@@ -171,6 +170,30 @@ export class FamilyTreeBasketItemComponent implements OnInit {
 
   deleteTransactionItem() {
     this.isLoading = true;
+    if (this.isLoggedIn) {
+      // Delete transactionItem from DB
+      this.deleteItemFromDB();
+    } else {
+      // Delete transactionItem from localstorage
+      // Get items from localstorage
+      const currentItemsList = this.localStorageService.getItem<
+        ITransactionItem[]
+      >(LocalStorageVars.transactionItems).value;
+
+      // Remove item from list
+      currentItemsList.splice(this.index, 1);
+
+      // Update localstorage
+      this.localStorageService.setItem(
+        LocalStorageVars.transactionItems,
+        currentItemsList
+      );
+      this.deleteItemEvent.emit(this.index);
+      this.isLoading = false;
+    }
+  }
+
+  deleteItemFromDB() {
     const transactionId = this.item.transactionItemId;
     this.transactionItemService.deleteTransactionItem(transactionId).subscribe(
       () => {
@@ -181,7 +204,7 @@ export class FamilyTreeBasketItemComponent implements OnInit {
           dismissible: false,
         };
         this.item = null;
-        this.deleteItemEvent.emit(transactionId);
+        this.deleteItemEvent.emit(this.index);
       },
       (error: HttpErrorResponse) => {
         console.error(error);
