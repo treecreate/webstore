@@ -226,6 +226,7 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   saveToLocalStorage(): void {
+    
     // design id should be null
     if (this.design.title !== this.addToBasketForm.get('title').value) {
       this.design.title = this.addToBasketForm.get('title').value;
@@ -235,6 +236,10 @@ export class AddToBasketModalComponent implements OnInit {
       dimension: this.addToBasketForm.get('dimension').value,
       quantity: this.addToBasketForm.get('quantity').value,
     });
+
+    this.activeModal.close();
+    this.modalService.open(GoToBasketModalComponent);
+    this.isLoading = false;
   }
 
   saveToDataBase(): void {

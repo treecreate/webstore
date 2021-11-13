@@ -185,7 +185,6 @@ describe('BasketPage using localstorage', () => {
    * increase / decrease dimension
    * increase / decreate quantity
    * view design
-   * go to checkout with correct items
    */
 
   it.skip('should increase / decrease amount of trees planted', () => {
@@ -230,6 +229,26 @@ describe('BasketPage using localstorage', () => {
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
     cy.get('[data-cy=discount-price-amount-basket]').should('contain', '169');
     cy.get('[data-cy=total-price-basket]').should('contain', '1521');
+  });
+
+  it.skip('should remove the product from basket when pressing delete', () => {
+    //TODO: create should remove test
+  });
+
+  it('should show a viewOnly version of the design', () => {
+    cy.visit('/basket');
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-view-button]').click({ force: true });
+      })
+      .then(() => {
+        cy.url().should('contain', '/product?designId=' + mockDesign.designId);
+        cy.get('[data-cy=product-options]').should('not.exist');
+        cy.get('[data-cy=view-only-back-button]').should('exist');
+        cy.get('[data-cy=view-only-back-button]').click({ force: true });
+        cy.url().should('contain', '/basket');
+      });
   });
 });
 
@@ -324,25 +343,6 @@ describe.skip('BasketPage with a logged in user', () => {
 
   it.skip('should remove the product from basket when pressing delete', () => {
     //TODO: create should remove test
-  });
-
-  it('should show a viewOnly version of the design', () => {
-    cy.intercept('GET', '/designs/me/' + mockDesign.designId, {
-      body: mockDesign,
-      statusCode: 204,
-    });
-    cy.get('[data-cy=basket-item]')
-      .first()
-      .within(() => {
-        cy.get('[data-cy=basket-item-view-button]').click({ force: true });
-      })
-      .then(() => {
-        cy.url().should('contain', '/product?designId=' + mockDesign.designId);
-        cy.get('[data-cy=product-options]').should('not.exist');
-        cy.get('[data-cy=view-only-back-button]').should('exist');
-        cy.get('[data-cy=view-only-back-button]').click({ force: true });
-        cy.url().should('contain', '/basket');
-      });
   });
 });
 
