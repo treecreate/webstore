@@ -23,13 +23,13 @@ describe('BasketItemComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule, RouterTestingModule],
       declarations: [FamilyTreeBasketItemComponent],
-      providers: [LocalStorageService]
+      providers: [LocalStorageService],
     });
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FamilyTreeBasketItemComponent);
-    localStorage = TestBed.inject(LocalStorageService)
+    localStorage = TestBed.inject(LocalStorageService);
     component = fixture.componentInstance;
 
     //mock the transaction item
