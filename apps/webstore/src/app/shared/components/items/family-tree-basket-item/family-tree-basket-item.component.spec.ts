@@ -36,7 +36,6 @@ describe('BasketItemComponent', () => {
       userId: '1',
       email: 'mock@hotdeals.dev',
       roles: [UserRoles.user],
-      isVerified: true,
     };
 
     const mockTransactionItem: ITransactionItem = {

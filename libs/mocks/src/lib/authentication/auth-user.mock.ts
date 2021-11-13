@@ -6,7 +6,6 @@ export const authUser: IAuthUser = {
   roles: ['ROLE_USER'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
-  isVerified: true,
 };
 
 export const authUserRoleDeveloper: IAuthUser = {
@@ -15,7 +14,6 @@ export const authUserRoleDeveloper: IAuthUser = {
   roles: ['ROLE_USER', 'ROLE_DEVELOPER'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
-  isVerified: true,
 };
 
 export const authUserRoleOwner: IAuthUser = {
@@ -24,7 +22,6 @@ export const authUserRoleOwner: IAuthUser = {
   roles: ['ROLE_USER', 'ROLE_OWNER'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
-  isVerified: true,
 };
 
 export const authUserExpired: IAuthUser = {
@@ -33,7 +30,6 @@ export const authUserExpired: IAuthUser = {
   roles: ['ROLE_USER'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
-  isVerified: true,
 };
 
 export const authUserInvalid: IAuthUser = {
@@ -42,7 +38,6 @@ export const authUserInvalid: IAuthUser = {
   roles: ['ROLE_USER', 'ROLE_DEVELOPER'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
-  isVerified: true,
 };
 
 export const authUserNotVerified: IAuthUser = {
@@ -51,5 +46,4 @@ export const authUserNotVerified: IAuthUser = {
   roles: ['ROLE_USER'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
-  isVerified: false,
 };
