@@ -10,7 +10,6 @@ import {
   IUser,
 } from '@interfaces';
 import { LocalStorageVars, UserRoles } from '@models';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from '../../../services/local-storage';
 import { FamilyTreeBasketItemComponent } from './family-tree-basket-item.component';
 

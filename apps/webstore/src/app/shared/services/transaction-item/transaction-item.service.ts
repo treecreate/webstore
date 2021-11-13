@@ -4,7 +4,6 @@ import {
   CreateLocalStorageTransactionItem,
   CreateTransactionItemRequest,
   DesignTypeEnum,
-  IDesign,
   ITransactionItem,
   UpdateTransactionItemRequest,
 } from '@interfaces';
@@ -77,7 +76,7 @@ export class TransactionItemService {
     };
 
     // Get transactionItems from localstorage
-    let currentList = this.localStorageService.getItem<ITransactionItem[]>(
+    const currentList = this.localStorageService.getItem<ITransactionItem[]>(
       LocalStorageVars.transactionItems
     ).value;
 

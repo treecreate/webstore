@@ -18,19 +18,6 @@ describe('accountPage', () => {
     country: '',
   };
 
-  const updatedMockUser: IUser = {
-    userId: '1',
-    email: 'suckmeoff@test.com',
-    roles: [UserRoles.user],
-    name: '',
-    phoneNumber: '+4512345678',
-    streetAddress: 'Yo mammas house 69, 3rd floor',
-    streetAddress2: 'more details: suck it',
-    city: 'Copenhagen',
-    postcode: '1234',
-    country: '',
-  };
-
   const mockUserNewPassword = {
     password: 'abcDEF123',
   };

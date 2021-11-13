@@ -1,15 +1,15 @@
 import { IUser } from '@interfaces';
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
-import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
+//import { AuthenticationService } from '@webstore/mocks';
 
-const authMockService = new AuthenticationService();
+//const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
   roles: [UserRoles.user],
   name: 'teodor jonasson',
   phoneNumber: '26192327',
-  streetAddress: 'hillerødgade 69, 3 etage',
+  streetAddress: 'hillerødgade 69,  3 etage',
   streetAddress2: 'whackado',
   city: 'Århus',
   postcode: '1234',
