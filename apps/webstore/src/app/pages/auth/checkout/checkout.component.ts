@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
   subscribeToNewsletter = false;
   billingAddressIsTheSame = true;
   isLoading = false;
-  createNewUser = false; 
+  createNewUser = false;
   isTermsAndConditionsAccepted = false;
 
   priceInfo: IPricing;
