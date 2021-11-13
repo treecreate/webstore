@@ -147,7 +147,7 @@ describe('BasketPage using localstorage', () => {
     );
   });
 
-  it.skip('should add an transaction item to basket', () => {
+  it('should add an transaction item to basket', () => {
     cy.visit('/product');
     // Create design
     cy.get('[data-cy=family-tree-intro-close-button').click();
@@ -180,7 +180,7 @@ describe('BasketPage using localstorage', () => {
       });
   });
 
-  it.skip('should increase / decrease amount of trees planted', () => {
+  it('should increase / decrease amount of trees planted', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
       'be.disabled'
@@ -207,7 +207,7 @@ describe('BasketPage using localstorage', () => {
     );
   });
 
-  it.skip('should apply discount', () => {
+  it('should apply discount', () => {
     cy.intercept('GET', '/discounts/yeet10percent', {
       statusCode: 200,
       body: mockDiscount,
@@ -224,7 +224,7 @@ describe('BasketPage using localstorage', () => {
     cy.get('[data-cy=total-price-basket]').should('contain', '1521');
   });
 
-  it.skip('should remove the product from basket when pressing delete', () => {
+  it('should remove the product from basket when pressing delete', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-item]')
       .first()
@@ -257,7 +257,7 @@ describe('BasketPage using localstorage', () => {
       });
   });
 
-  it.skip('should update price when changing dimention of a product', () => {
+  it('should update price when changing dimention of a product', () => {
     cy.visit('/basket');
     cy.get('[data-cy=total-price-basket]').should('contain', '1690');
     cy.get('[data-cy=basket-item]')
@@ -277,7 +277,7 @@ describe('BasketPage using localstorage', () => {
       });
   });
 
-  it.skip('should update price when changing quantity of a product', () => {
+  it('should update price when changing quantity of a product', () => {
     cy.visit('/basket');
     cy.get('[data-cy=total-price-basket]').should('contain', '1690');
     cy.get('[data-cy=basket-item]')
@@ -295,7 +295,7 @@ describe('BasketPage using localstorage', () => {
   });
 });
 
-describe.skip('BasketPage with a logged in user', () => {
+describe('BasketPage with a logged in user', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.cookiesAccepted,
@@ -311,7 +311,7 @@ describe.skip('BasketPage with a logged in user', () => {
     });
   });
 
-  it.skip('should display the transaction items in the basket', () => {
+  it('should display the transaction items in the basket', () => {
     cy.intercept(
       'PUT',
       '/transaction-items/me/' + mockTransactionItem.transactionItemId,
@@ -325,25 +325,36 @@ describe.skip('BasketPage with a logged in user', () => {
       body: [mockTransactionItem],
       statusCode: 200,
     });
+    cy.visit('/basket');
     cy.get('[data-cy=basket-item]').first().should('exist');
   });
 
-  it.skip('should go to checkout', () => {
+  it('should go to checkout', () => {
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
       statusCode: 200,
     });
+    cy.visit('/basket');
     cy.get('[data-cy=basket-checkout-button]').click();
     cy.url().should('contain', '/checkout');
   });
 
+  // TODO: Fix this test intercept
   it.skip('should update price when changing dimention of a product', () => {
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
       statusCode: 200,
     });
+    cy.intercept(
+      'PUT',
+      '/transaction-items/me/' + mockTransactionItem.transactionItemId,
+      {
+        body: [mockTransactionItemLarge],
+        statusCode: 200,
+      }
+    );
     cy.visit('/basket');
     cy.get('[data-cy=total-price-basket]').should('contain', '695');
     cy.get('[data-cy=basket-item]')
@@ -363,6 +374,7 @@ describe.skip('BasketPage with a logged in user', () => {
       });
   });
 
+  // TODO: Fix this test intercept
   it.skip('should update price when changing quantity of a product', () => {
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
@@ -384,12 +396,35 @@ describe.skip('BasketPage with a logged in user', () => {
       });
   });
 
+  // TODO: Fix this basket delete intercept
   it.skip('should remove the product from basket when pressing delete', () => {
-    //TODO: create should remove test
+    cy.intercept('GET', '/transaction-items/me', {
+      body: [mockTransactionItem],
+      statusCode: 200,
+    });
+    cy.intercept(
+      'PUT',
+      '/transaction-items/me/' + mockTransactionItem.transactionItemId,
+      {
+        body: [mockTransactionItem],
+        statusCode: 200,
+      }
+    );
+    cy.visit('/basket');
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-delete-button]').click({
+          force: true,
+        });
+      })
+      .then(() => {
+        cy.get('[data-cy=no-items-in-basket]').should('exist');
+      });
   });
 });
 
-describe.skip('AddToBasketModal', () => {
+describe('AddToBasketModal', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.authUser,
