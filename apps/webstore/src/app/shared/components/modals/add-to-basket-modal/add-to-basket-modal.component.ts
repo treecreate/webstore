@@ -226,7 +226,33 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   saveToLocalStorage(): void {
-    
+    // Save design to database to get id
+    this.designService
+      .createDesign({
+        designType: DesignTypeEnum.familyTree,
+        designProperties: this.design,
+        mutable: false, // the transaction-item related designs are immutable
+      })
+      .subscribe(
+        (result) => {
+          console.log('Design created and persisted', result);
+          console.log('design properties', {
+            designId: result.designId,
+            dimension: this.addToBasketForm.get('dimension').value,
+            quantity: this.addToBasketForm.get('quantity').value,
+          });
+          this.design.designId = result.designId;
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Failed to save design', error);
+          this.toastService.showAlert(
+            'Failed to save your design',
+            'Kunne ikke gemme dit design',
+            'danger',
+            10000
+          );
+        }
+      );
     // design id should be null
     if (this.design.title !== this.addToBasketForm.get('title').value) {
       this.design.title = this.addToBasketForm.get('title').value;
