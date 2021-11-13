@@ -17,13 +17,13 @@ const mockUser: IUser = {
 };
 
 /* TODO: Add missing tests to checkout
- * - should have correct items in transaction (depends on data)
+ * - should have correct items in transaction when logged in (depends on data)
+ * - should have correct items in transaction when getting it from localstorage (depends on data)
  * - should have correct pricing (depends on the data)
  * - should send the right request when going to payment and possibly others (@Kwandes)
  */
 
 describe('CheckoutPage', () => {
-
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.cookiesAccepted,
@@ -56,18 +56,14 @@ describe('CheckoutPage', () => {
   });
 
   it('should have delivery be set to parcelshop delivery', () => {
-    cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should(
-      'be.checked'
-    );
+    cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should('be.checked');
     cy.get('[data-cy=checkout-form-home-delivery-checkbox]').should(
       'not.be.checked'
     );
   });
 
   it('should change to home delivery', () => {
-    cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should(
-      'be.checked'
-    );
+    cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should('be.checked');
     cy.get('[data-cy=checkout-form-home-delivery-checkbox]').should(
       'not.be.checked'
     );
@@ -174,15 +170,15 @@ describe('CheckoutPage', () => {
 
     it('should display error message for billingAddressForm street address 2 input', () => {
       cy.get('[data-cy=billing-address-street-address-2-input]').type('test');
-      cy.get(
-        '[data-cy=billing-address-street-address-2-error-message]'
-      ).should('not.exist');
+      cy.get('[data-cy=billing-address-street-address-2-error-message]').should(
+        'not.exist'
+      );
       cy.get('[data-cy=billing-address-street-address-2-input]').type(
         '123134112341234123412341234 1234 1234 1234 123 41234 123 41234 123 41234 1234 '
       );
-      cy.get(
-        '[data-cy=billing-address-street-address-2-error-message]'
-      ).should('exist');
+      cy.get('[data-cy=billing-address-street-address-2-error-message]').should(
+        'exist'
+      );
     });
 
     it('should display error message for billingAddressForm city input ', () => {
@@ -215,9 +211,7 @@ describe('CheckoutPage', () => {
     it('should display error message for checkoutForm name input', () => {
       cy.get('[data-cy=checkout-form-name-input]').clear();
       cy.get('[data-cy=checkout-form-name-input]').type('test');
-      cy.get('[data-cy=checkout-form-name-error-message]').should(
-        'not.exist'
-      );
+      cy.get('[data-cy=checkout-form-name-error-message]').should('not.exist');
       cy.get('[data-cy=checkout-form-name-input]').type('123');
       cy.get('[data-cy=checkout-form-name-error-message]').should('exist');
     });
@@ -229,9 +223,7 @@ describe('CheckoutPage', () => {
         'not.exist'
       );
       cy.get('[data-cy=checkout-form-phone-number-input]').clear();
-      cy.get('[data-cy=checkout-form-phone-number-input]').type(
-        '+4512345678'
-      );
+      cy.get('[data-cy=checkout-form-phone-number-input]').type('+4512345678');
       cy.get('[data-cy=checkout-form-phone-number-error-message]').should(
         'not.exist'
       );
@@ -240,9 +232,7 @@ describe('CheckoutPage', () => {
         'exist'
       );
       cy.get('[data-cy=checkout-form-phone-number-input]').clear();
-      cy.get('[data-cy=checkout-form-phone-number-input]').type(
-        '+4512oneTwo'
-      );
+      cy.get('[data-cy=checkout-form-phone-number-input]').type('+4512oneTwo');
       cy.get('[data-cy=checkout-form-phone-number-error-message]').should(
         'exist'
       );
@@ -279,9 +269,7 @@ describe('CheckoutPage', () => {
     it('should display error message for checkoutForm city input ', () => {
       cy.get('[data-cy=checkout-form-city-input]').clear();
       cy.get('[data-cy=checkout-form-city-input]').type('CityName');
-      cy.get('[data-cy=checkout-form-city-error-message]').should(
-        'not.exist'
-      );
+      cy.get('[data-cy=checkout-form-city-error-message]').should('not.exist');
       cy.get('[data-cy=checkout-form-city-input]').type('123');
       cy.get('[data-cy=checkout-form-city-error-message]').should('exist');
     });
@@ -293,14 +281,10 @@ describe('CheckoutPage', () => {
         'not.exist'
       );
       cy.get('[data-cy=checkout-form-postcode-input]').type('1');
-      cy.get('[data-cy=checkout-form-postcode-error-message]').should(
-        'exist'
-      );
+      cy.get('[data-cy=checkout-form-postcode-error-message]').should('exist');
       cy.get('[data-cy=checkout-form-postcode-input]').clear();
       cy.get('[data-cy=checkout-form-postcode-input]').type('four');
-      cy.get('[data-cy=checkout-form-postcode-error-message]').should(
-        'exist'
-      );
+      cy.get('[data-cy=checkout-form-postcode-error-message]').should('exist');
     });
   });
 });
