@@ -102,24 +102,26 @@ export class CheckoutComponent implements OnInit {
     this.updatePrices();
 
     try {
-      //Get user and update form
-      this.userService.getUser().subscribe((user: IUser) => {
-        this.currentUser = user;
-        this.updateFormValues();
-      });
-      // Check if user isSubscribed
-      this.newsletterService.isSubscribed().subscribe(
-        () => {
-          this.isSubscribed = true;
-        },
-        (error) => {
-          this.isSubscribed = false;
-          this.subscribeToNewsletter = true;
-          if (error.error.status !== 404) {
-            console.error(error);
+      if (this.isLoggedIn) {
+        //Get user and update form
+        this.userService.getUser().subscribe((user: IUser) => {
+          this.currentUser = user;
+          this.updateFormValues();
+        });
+        // Check if user isSubscribed
+        this.newsletterService.isSubscribed().subscribe(
+          () => {
+            this.isSubscribed = true;
+          },
+          (error) => {
+            this.isSubscribed = false;
+            this.subscribeToNewsletter = true;
+            if (error.error.status !== 404) {
+              console.error(error);
+            }
           }
-        }
-      );
+        );
+      }
     } catch (err) {
       console.log(err);
       // TODO: handle failed fetching data
