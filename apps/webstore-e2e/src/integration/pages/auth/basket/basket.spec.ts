@@ -21,7 +21,6 @@ const mockUser: IUser = {
   userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   email: 'e2e@test.com',
   roles: [UserRoles.user, UserRoles.admin, UserRoles.developer],
-  isVerified: true,
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
@@ -141,32 +140,10 @@ it('should add an transaction item to basket', () => {
     LocalStorageVars.cookiesAccepted,
     `"${CookieStatus.accepted}"`
   );
-  localStorage.setItem(
-    LocalStorageVars.authUser,
-    JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-  );
-  cy.intercept(
-    'PUT',
-    '/transaction-items/me/' + mockTransactionItem.transactionItemId,
-    {
-      body: [mockTransactionItem],
-      statusCode: 200,
-    }
-  );
-  cy.intercept(
-    'PUT',
-    '/transaction-items/me/' + mockTransactionItemLarge.transactionItemId,
-    {
-      body: [mockTransactionItemLarge],
-      statusCode: 200,
-    }
-  );
-  cy.intercept('GET', '/transaction-items/me', {
-    body: [mockTransactionItem, mockTransactionItemLarge],
-    statusCode: 200,
-  });
+
   //Add new item to basket
   cy.visit('/product');
+  cy.get('[data-cy=family-tree-intro-close-button').click();
   cy.get('[data-cy=family-tree-canvas]').click();
   cy.get('[data-cy=add-family-tree-to-basket-button]').click();
   cy.get('[data-cy=add-to-basket-modal]').should('exist');
@@ -176,15 +153,19 @@ it('should add an transaction item to basket', () => {
 
   //Check that the new item has been added
   cy.visit('/basket');
-  cy.get('[data-cy=basket-item]').then((items) => {
-    /* eslint-disable  @typescript-eslint/no-unused-expressions */
-    expect(items[0]).exist;
-    expect(items[1]).exist;
-    expect(items[2]).not.exist;
+  cy.get('[data-cy=basket-item]').should('have.length', 1);
+});
+
+describe('BasketPage using localstorage', () => {
+  beforeEach(() => {
+    localStorage.setItem(
+      LocalStorageVars.transactionItems,
+      JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
+    );
   });
 });
 
-describe('BasketPage', () => {
+describe.skip('BasketPage with a logged in user', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.cookiesAccepted,
@@ -218,27 +199,6 @@ describe('BasketPage', () => {
   });
 
   it.skip('should increase / decrease amount of trees planted', () => {
-    // cy.intercept('PUT', '/transaction-items/me/'+ mockTransactionItem.transactionItemId, {
-    //   body: [
-    //     mockTransactionItem,
-    //   ],
-    //   statusCode: 200,
-    // });
-    // cy.intercept('PUT', '/transaction-items/me/'+ mockTransactionItemTwo.transactionItemId, {
-    //   body: [
-    //     mockTransactionItemTwo,
-    //   ],
-    //   statusCode: 200,
-    // });
-    // cy.intercept('PUT', '/transaction-items/me/'+ mockTransactionItemOne.transactionItemId, {
-    //   body: [
-    //     mockTransactionItemOne,
-    //   ],
-    //   statusCode: 200,
-    // });
-
-    // TODO: For each change made to the transactionItem it requires a new transactionItemUpdated but with the same url so its hard to intercept.
-
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
@@ -289,15 +249,6 @@ describe('BasketPage', () => {
   });
 
   it.skip('should update price when changing dimention of a product', () => {
-    // cy.intercept(
-    //   'PUT',
-    //   '/transaction-items/me/' + mockTransactionItem.transactionItemId,
-    //   {
-    //     body: mockTransactionItemLarge,
-    //     statusCode: 200,
-    //   }
-    // );
-
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
@@ -323,15 +274,6 @@ describe('BasketPage', () => {
   });
 
   it.skip('should update price when changing quantity of a product', () => {
-    // cy.intercept(
-    //   'PUT',
-    //   '/transaction-items/me/' + mockCreateTransactionItemRequest.designId,
-    //   {
-    //     body: mockTransactionItemTwo,
-    //     statusCode: 200,
-    //   }
-    // );
-    //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
       statusCode: 200,
@@ -353,22 +295,7 @@ describe('BasketPage', () => {
   });
 
   it.skip('should remove the product from basket when pressing delete', () => {
-    cy.intercept(
-      'DELETE',
-      '/transaction-items/me/' + mockCreateTransactionItemRequest.designId,
-      {
-        statusCode: 204,
-      }
-    );
-    //TODO: ask calli how to create 2 intercepts that are the same with different values returned
-    // cy.get('[data-cy=basket-item]')
-    //   .first()
-    //   .within(() => {
-    //     cy.get('[data-cy=basket-item-delete-button]').click({ force: true });
-    //   })
-    //   .then(() => {
-    //     cy.get('[data-cy=basket-item]').should('not.exist');
-    //   });
+    //TODO: create should remove test
   });
 
   it('should show a viewOnly version of the design', () => {
