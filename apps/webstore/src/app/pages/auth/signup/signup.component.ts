@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 @Component({
   selector: 'webstore-signup',
   templateUrl: './signup.component.html',

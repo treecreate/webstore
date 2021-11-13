@@ -9,7 +9,6 @@ export interface IUser {
   userId: string;
   email: string;
   roles: string[];
-  isVerified: boolean;
   name?: string;
   phoneNumber?: string;
   streetAddress?: string;

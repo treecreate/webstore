@@ -7,7 +7,6 @@ const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
   roles: [UserRoles.user],
-  isVerified: true,
   name: 'teodor jonasson',
   phoneNumber: '26192327',
   streetAddress: 'hillerødgade 69, 3 etage',

@@ -21,7 +21,7 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
-import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -399,6 +399,7 @@ export class CheckoutComponent implements OnInit {
       this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
         LocalStorageVars.transactionItems
       ).value;
+      this.updatePrices();
       this.isLoading = false;
     }
   }

@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '../../shared/services/local-storage';
-import { NewsletterService } from '../../shared/services/newsletter/newsletter.service';
+import { NewsletterService } from '../../shared/services/order/newsletter/newsletter.service';
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
