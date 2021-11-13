@@ -3,12 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
+  CreateTransactionItemRequest,
   DiscountType,
   IAuthUser,
   IDiscount,
   INewsletter,
   IPaymentLink,
   IPricing,
+  IRegisterResponse,
   ITransactionItem,
   IUser,
   ShippingMethodEnum,
@@ -271,16 +273,63 @@ export class CheckoutComponent implements OnInit {
       this.createOrder();
     } else {
       if (this.createNewUser) {
-        // TODO: create user
-        // TODO: Send reset password email to user
-        // TODO: Update designs to contain userId
-        // TODO: Update transactionItems to contain userId
-        // TODO: update order to contain userId
-        this.createOrder();
+        this.createOrderWithNewUser();
       } else {
         this.createOrderWithoutUser();
       }
     }
+  }
+
+  createOrderWithNewUser() {
+    // generate password
+    let passwordGen = '';
+    const randomChars =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 10; i++) {
+      passwordGen += randomChars.charAt(
+        Math.floor(Math.random() * randomChars.length)
+      );
+    }
+    alert(passwordGen);
+    // create user
+    this.authService
+      .register({
+        email: this.checkoutForm.get('email').value,
+        password: passwordGen,
+      })
+      .subscribe((data: IRegisterResponse) => {
+        this.toastService.showAlert(
+          'Welcome to Treecreate, you have successfully been registered!',
+          'Velkommen til Treecreate, du er nu bleven registreret!',
+          'success',
+          3500
+        );
+        this.authService.saveAuthUser(data);
+
+        // Update transactionItems designs to contain userId
+        // Get user id and email
+        const newUserId = this.authUser$.value.userId;
+        const newUserEmail = this.authUser$.value.email;
+        // Go through list of transactionItems
+        for (let i; i < this.itemList.length; i++) {
+          // Update the transactionItem object
+          this.itemList[i].design.user.email = newUserEmail;
+          this.itemList[i].design.user.userId = newUserId;
+          // Create the transactionItem in the DB
+          const transactionItemRequest: CreateTransactionItemRequest = {
+            designId: this.itemList[i].design.designId,
+            dimension: this.itemList[i].dimension,
+            quantity: this.itemList[i].quantity,
+          };
+        }
+      });
+    // TODO: Send reset password email to user
+    this.userService.sendResetUserPassword(
+      this.checkoutForm.get('email').value
+    );
+
+    // TODO: update order to contain userId
+    //this.createOrder();
   }
 
   createOrderWithoutUser() {

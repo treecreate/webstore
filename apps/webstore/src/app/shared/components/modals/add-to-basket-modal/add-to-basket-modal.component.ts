@@ -33,7 +33,7 @@ export class AddToBasketModalComponent implements OnInit {
   totalPrice: number;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
-  design;
+  design: IFamilyTree;
   isLoading = false;
   authUser$: BehaviorSubject<IAuthUser>;
   isLoggedIn = false;
@@ -226,7 +226,7 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   saveToLocalStorage(): void {
-    // Save design to database to get id
+    // Generate UUID for the design
     this.designService
       .createDesign({
         designType: DesignTypeEnum.familyTree,
@@ -241,7 +241,6 @@ export class AddToBasketModalComponent implements OnInit {
             dimension: this.addToBasketForm.get('dimension').value,
             quantity: this.addToBasketForm.get('quantity').value,
           });
-          this.design.designId = result.designId;
         },
         (error: HttpErrorResponse) => {
           console.error('Failed to save design', error);
