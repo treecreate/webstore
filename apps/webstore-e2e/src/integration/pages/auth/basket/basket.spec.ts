@@ -147,7 +147,7 @@ describe('BasketPage using localstorage', () => {
     );
   });
 
-  it('should add an transaction item to basket', () => {
+  it.skip('should add an transaction item to basket', () => {
     cy.visit('/product');
     // Create design
     cy.get('[data-cy=family-tree-intro-close-button').click();
@@ -179,13 +179,6 @@ describe('BasketPage using localstorage', () => {
         cy.get('[data-cy=basket-item-title]').should('contain', 'TestItem01');
       });
   });
-
-  /*TODO: add localstorage tests to basket
-   * remove item from basket
-   * increase / decrease dimension
-   * increase / decreate quantity
-   * view design
-   */
 
   it.skip('should increase / decrease amount of trees planted', () => {
     cy.visit('/basket');
@@ -232,10 +225,20 @@ describe('BasketPage using localstorage', () => {
   });
 
   it.skip('should remove the product from basket when pressing delete', () => {
-    //TODO: create should remove test
+    cy.visit('/basket');
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-delete-button]').click({ force: true });
+      })
+      .then(() => {
+        cy.get('[data-cy=basket-item]').should('have.length', 1);
+      });
   });
 
-  it('should show a viewOnly version of the design', () => {
+  // TODO: Make design saveable by non logged in users
+  // TODO: Make designs without a user id be accessible by not logged in users
+  it.skip('should show a viewOnly version of the design', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-item]')
       .first()
@@ -243,11 +246,51 @@ describe('BasketPage using localstorage', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
-        cy.url().should('contain', '/product?designId=' + mockDesign.designId);
+        cy.url().should(
+          'contain',
+          '/product?designId=' + mockTransactionItem.design.designId
+        );
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
         cy.get('[data-cy=view-only-back-button]').click({ force: true });
         cy.url().should('contain', '/basket');
+      });
+  });
+
+  it.skip('should update price when changing dimention of a product', () => {
+    cy.visit('/basket');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-decrease-dimension-button]').should(
+          'not.be.disabled'
+        );
+        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-increase-dimension-button]').click({
+          force: true,
+        });
+      })
+      .then(() => {
+        cy.get('[data-cy=basket-item-price]').should('contain', '995');
+        cy.get('[data-cy=total-price-basket]').should('contain', '1990');
+      });
+  });
+
+  it.skip('should update price when changing quantity of a product', () => {
+    cy.visit('/basket');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-increase-quantity-button]').click({
+          force: true,
+        });
+      })
+      .then(() => {
+        cy.get('[data-cy=basket-item-price]').should('contain', '1390');
+        cy.get('[data-cy=total-price-basket]').should('contain', '2385');
       });
   });
 });
@@ -302,11 +345,11 @@ describe.skip('BasketPage with a logged in user', () => {
       statusCode: 200,
     });
     cy.visit('/basket');
-    cy.get('[data-cy=basket-final-price]').should('contain', '695');
+    cy.get('[data-cy=total-price-basket]').should('contain', '695');
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[data-cy=basket-item-decrese-dimension-button]').should(
+        cy.get('[data-cy=basket-item-decrease-dimension-button]').should(
           'not.be.disabled'
         );
         cy.get('[data-cy=basket-item-price]').should('contain', '695');
@@ -316,7 +359,7 @@ describe.skip('BasketPage with a logged in user', () => {
       })
       .then(() => {
         cy.get('[data-cy=basket-item-price]').should('contain', '995');
-        cy.get('[data-cy=basket-final-price]').should('contain', '995');
+        cy.get('[data-cy=total-price-basket]').should('contain', '995');
       });
   });
 
@@ -326,7 +369,7 @@ describe.skip('BasketPage with a logged in user', () => {
       statusCode: 200,
     });
     cy.visit('/basket');
-    cy.get('[data-cy=basket-final-price]').should('contain', '695');
+    cy.get('[data-cy=total-price-basket]').should('contain', '695');
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
@@ -337,7 +380,7 @@ describe.skip('BasketPage with a logged in user', () => {
       })
       .then(() => {
         cy.get('[data-cy=basket-item-price]').should('contain', '1390');
-        cy.get('[data-cy=basket-final-price]').should('contain', '1390');
+        cy.get('[data-cy=total-price-basket]').should('contain', '1390');
       });
   });
 
