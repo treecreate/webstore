@@ -135,33 +135,88 @@ const mockTransactionItemTwo: ITransactionItem = {
   design: mockDesign,
 };
 
-it('should add an transaction item to basket', () => {
-  localStorage.setItem(
-    LocalStorageVars.cookiesAccepted,
-    `"${CookieStatus.accepted}"`
-  );
-
-  //Add new item to basket
-  cy.visit('/product');
-  cy.get('[data-cy=family-tree-intro-close-button').click();
-  cy.get('[data-cy=family-tree-canvas]').click();
-  cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-  cy.get('[data-cy=add-to-basket-modal]').should('exist');
-  cy.get('[data-cy=add-to-basket-title-input]').type('TestItem01');
-  cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
-  cy.url().should('contain', '/product');
-
-  //Check that the new item has been added
-  cy.visit('/basket');
-  cy.get('[data-cy=basket-item]').should('have.length', 1);
-});
-
 describe('BasketPage using localstorage', () => {
   beforeEach(() => {
+    localStorage.setItem(
+      LocalStorageVars.cookiesAccepted,
+      `"${CookieStatus.accepted}"`
+    );
     localStorage.setItem(
       LocalStorageVars.transactionItems,
       JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
     );
+  });
+
+  it('should add an transaction item to basket', () => {
+    cy.visit('/basket');
+    cy.get('[data-cy=no-items-in-basket]').should('exist');
+
+    //Add new item to basket
+    cy.visit('/product');
+    cy.get('[data-cy=family-tree-intro-close-button').click();
+    cy.get('[data-cy=family-tree-canvas]').click();
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-modal]').should('exist');
+    cy.get('[data-cy=add-to-basket-title-input]').type('TestItem01');
+    cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
+    cy.url().should('contain', '/product');
+
+    //Check that the new item has been added
+    cy.visit('/basket');
+    cy.get('[data-cy=basket-item]').should('have.length', 1);
+  });
+
+  /*TODO: add localstorage tests to basket
+   * remove item from basket
+   * increase / decrease dimension
+   * increase / decreate quantity
+   * view design
+   * go to checkout with correct items
+   * should apply discount
+   */
+
+  it('should increase / decrease amount of trees planted', () => {
+    cy.visit('/basket');
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
+      'be.disabled'
+    );
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
+    cy.get('[data-cy=basket-increase-planted-trees-button]').click({
+      force: true,
+    });
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '2');
+    cy.get('[data-cy=basket-increase-planted-trees-button]').click({
+      force: true,
+    });
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '3');
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').click({
+      force: true,
+    });
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '2');
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').click({
+      force: true,
+    });
+    cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
+      'be.disabled'
+    );
+  });
+
+  it('should apply discount', () => {
+    cy.intercept('GET', '/discounts/yeet10percent', {
+      statusCode: 200,
+      body: mockDiscount,
+    });
+    cy.visit('/basket');
+    cy.get('[data-cy=discount-amount-basket]').should('not.exist');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-apply-discount-input]').type('yeet10percent', {
+      force: true,
+    });
+    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
+    cy.get('[data-cy=discount-price-amount-basket]').should('contain', '169');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1521');
   });
 });
 
@@ -196,46 +251,6 @@ describe.skip('BasketPage with a logged in user', () => {
       statusCode: 200,
     });
     cy.get('[data-cy=basket-item]').first().should('exist');
-  });
-
-  it.skip('should increase / decrease amount of trees planted', () => {
-    //Retrieve all transaction items LIST
-    cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem],
-      statusCode: 200,
-    });
-    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
-      'be.disabled'
-    );
-    cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
-    cy.get('[data-cy=basket-increase-planted-trees-button]').click({
-      force: true,
-    });
-    cy.get('[data-cy=basket-planted-trees]').should('contain', '2');
-    cy.get('[data-cy=basket-increase-planted-trees-button]').click({
-      force: true,
-    });
-    cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
-    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
-      'be.disabled'
-    );
-  });
-
-  it.skip('should apply discount', () => {
-    //Retrieve all transaction items LIST
-    cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem],
-      statusCode: 200,
-    });
-    cy.intercept('GET', '/discount/testDISCOUNT123', {
-      //TODO: get discount
-    });
-    cy.get('[data-cy=basket-apply-discount-input]').type('testDISCOUNT123', {
-      force: true,
-    });
-    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
-    //TODO: check if discount is applied
-    //TODO: check that discount button is disabled
   });
 
   it.skip('should go to checkout', () => {
@@ -318,7 +333,7 @@ describe.skip('BasketPage with a logged in user', () => {
   });
 });
 
-describe('AddToBasketModal', () => {
+describe.skip('AddToBasketModal', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.authUser,
