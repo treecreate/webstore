@@ -83,6 +83,10 @@ export class CheckoutComponent implements OnInit {
         this.authUser$.getValue() != null &&
         this.authService.isAccessTokenValid();
     });
+    // Get discount from localstorage
+    this.discount = this.localStorageService.getItem<IDiscount>(
+      LocalStorageVars.discount
+    ).value;
   }
 
   ngOnInit(): void {
@@ -198,37 +202,7 @@ export class CheckoutComponent implements OnInit {
     this.updatePrices();
   }
 
-  isMoreThan3(): boolean {
-    let totalItems = 0;
-    for (let i = 0; i < this.itemList.length; i++) {
-      totalItems += this.itemList[i].quantity;
-    }
-    return totalItems > 3;
-  }
-
   updatePrices() {
-    // validate the isMoreThan3 rule if there is no other discount applied
-    if (
-      this.discount === null ||
-      this.discount.discountCode === 'ismorethan3=true'
-    ) {
-      if (this.isMoreThan3()) {
-        this.discount = {
-          discountCode: 'ismorethan3=true',
-          type: DiscountType.percent,
-          amount: 25,
-          remainingUses: 9999,
-          totalUses: 1,
-        };
-      } else {
-        this.discount = null;
-      }
-      this.localStorageService.setItem<IDiscount>(
-        LocalStorageVars.discount,
-        this.discount
-      );
-    }
-
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
@@ -293,7 +267,24 @@ export class CheckoutComponent implements OnInit {
         : 'I want parcelshop delivery'
     );
 
-    this.createOrder();
+    if (this.isLoggedIn) {
+      this.createOrder();
+    } else {
+      if (this.createNewUser) {
+        // TODO: create user
+        // TODO: Send reset password email to user
+        // TODO: Update designs to contain userId
+        // TODO: Update transactionItems to contain userId
+        // TODO: update order to contain userId
+        this.createOrder();
+      } else {
+        this.createOrderWithoutUser();
+      }
+    }
+  }
+
+  createOrderWithoutUser() {
+    // TODO: Create order with userId = null
   }
 
   isDisabled() {
