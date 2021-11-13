@@ -148,22 +148,36 @@ describe('BasketPage using localstorage', () => {
   });
 
   it('should add an transaction item to basket', () => {
-    cy.visit('/basket');
-    cy.get('[data-cy=no-items-in-basket]').should('exist');
-
-    //Add new item to basket
     cy.visit('/product');
+    // Create design
     cy.get('[data-cy=family-tree-intro-close-button').click();
     cy.get('[data-cy=family-tree-canvas]').click();
+    // Open add to basket modal
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-modal]').should('exist');
+    // Give title
     cy.get('[data-cy=add-to-basket-title-input]').type('TestItem01');
+    // Change attributes
+    cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
+    cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
+    // Add to basket
     cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
     cy.url().should('contain', '/product');
 
     //Check that the new item has been added
     cy.visit('/basket');
-    cy.get('[data-cy=basket-item]').should('have.length', 1);
+    cy.get('[data-cy=basket-item]').should('have.length', 3);
+
+    // Check the new items attributes
+    cy.get('[data-cy=basket-item]')
+      .last()
+      .within(() => {
+        cy.get('[data-cy=basket-item-decrease-dimension-button]').should(
+          'not.be.disabled'
+        );
+        cy.get('[data-cy=basket-item-price]').should('contain', '1390');
+        cy.get('[data-cy=basket-item-title]').should('contain', 'TestItem01');
+      });
   });
 
   /*TODO: add localstorage tests to basket
@@ -172,10 +186,9 @@ describe('BasketPage using localstorage', () => {
    * increase / decreate quantity
    * view design
    * go to checkout with correct items
-   * should apply discount
    */
 
-  it('should increase / decrease amount of trees planted', () => {
+  it.skip('should increase / decrease amount of trees planted', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
       'be.disabled'
@@ -202,7 +215,7 @@ describe('BasketPage using localstorage', () => {
     );
   });
 
-  it('should apply discount', () => {
+  it.skip('should apply discount', () => {
     cy.intercept('GET', '/discounts/yeet10percent', {
       statusCode: 200,
       body: mockDiscount,

@@ -34,7 +34,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
                     [disabled]="item.quantity === 1 || isLoading"
-                    data-cy="basket-item-decrese-quantity-button"
+                    data-cy="basket-item-decrease-quantity-button"
                 >
                     <span
                         *ngIf="isLoading"
@@ -78,7 +78,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseDimension()"
                     [disabled]="item.dimension === 'SMALL' || isLoading"
-                    data-cy="basket-item-decrese-dimension-button"
+                    data-cy="basket-item-decrease-dimension-button"
                 >
                     <span
                         *ngIf="isLoading"

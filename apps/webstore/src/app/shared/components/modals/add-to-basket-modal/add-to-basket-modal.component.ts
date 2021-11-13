@@ -227,7 +227,9 @@ export class AddToBasketModalComponent implements OnInit {
 
   saveToLocalStorage(): void {
     // design id should be null
-    //TODO: create a transaction item object to save to localstorage
+    if (this.design.title !== this.addToBasketForm.get('title').value) {
+      this.design.title = this.addToBasketForm.get('title').value;
+    }
     this.transactionItemService.saveToLocalStorage({
       designProperties: this.design,
       dimension: this.addToBasketForm.get('dimension').value,
