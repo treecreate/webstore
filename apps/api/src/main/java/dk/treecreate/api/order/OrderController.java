@@ -4,11 +4,9 @@ import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.designs.ContactInfoService;
 import dk.treecreate.api.discount.DiscountRepository;
-import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetOrdersResponse;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
-import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.LocaleService;
 import dk.treecreate.api.utils.QuickpayService;
@@ -90,11 +88,8 @@ public class OrderController
         // Get the language
         Locale language = localeService.getLocale(lang);
 
-        // check if the user is verified
-        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
-        User user = userRepository.findByEmail(userDetails.getUsername())
-            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        LOGGER.info("Order | New order is being made. UserID: " + user.getUserId());
+        LOGGER.info("Order | New order is being made. Email: " +
+            createOrderRequest.getContactInfo().getEmail());
 
         // Set up and verify the order object
         Order order = orderService.setupOrderFromCreateRequest(createOrderRequest);
@@ -134,9 +129,9 @@ public class OrderController
         }
 
         LOGGER.info(
-            "Order | New order has been made. UserID: " + user.getUserId() + " | Order ID: " +
-                order.getOrderId() + " | Payment ID: " + order.getPaymentId() + " | Subtotal: " +
-                order.getSubtotal() + " | Total: " + order.getTotal());
+            "Order | New order has been made. UserID: " + order.getContactInfo().getEmail() +
+                " | Order ID: " + order.getOrderId() + " | Payment ID: " + order.getPaymentId() +
+                " | Subtotal: " + order.getSubtotal() + " | Total: " + order.getTotal());
 
         Sentry.setExtra("orderId", order.getOrderId().toString());
         Sentry.setExtra("paymentId", order.getPaymentId());
