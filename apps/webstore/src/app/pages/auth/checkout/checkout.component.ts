@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
   DiscountType,
+  IAuthUser,
   IDiscount,
   INewsletter,
   IPaymentLink,
@@ -14,8 +15,10 @@ import {
 } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
@@ -36,21 +39,21 @@ export class CheckoutComponent implements OnInit {
   billingAddressForm: FormGroup;
 
   currentUser: IUser;
+  authUser$: BehaviorSubject<IAuthUser>;
 
+  isLoggedIn = false;
   isHomeDelivery = false;
   plantedTrees = 1;
-  isSubscribed: boolean;
-
+  isSubscribed = false;
   subscribeToNewsletter = false;
   billingAddressIsTheSame = true;
+  isLoading = false;
+  isTermsAndConditionsAccepted = false;
 
   priceInfo: IPricing;
   discount: IDiscount = null;
 
-  isTermsAndConditionsAccepted = false;
-
   itemList: ITransactionItem[] = [];
-  isLoading = false;
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -66,14 +69,27 @@ export class CheckoutComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private newsletterService: NewsletterService,
     private transactionItemService: TransactionItemService,
+    private authService: AuthService,
     private orderService: OrderService
-  ) {}
+  ) {
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
+    });
+  }
 
   ngOnInit(): void {
+    // Get discount from localstorgae
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
-
+    // Get planted trees from localstorage
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
@@ -109,7 +125,6 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.initForms();
-
     this.loadTransactionItems();
   }
 
@@ -376,6 +391,19 @@ export class CheckoutComponent implements OnInit {
 
   loadTransactionItems() {
     this.isLoading = true;
+    if (this.isLoggedIn) {
+      // Get items from DB
+      this.loadTransactionItemsFromDB();
+    } else {
+      // Get items from local storage
+      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
+      this.isLoading = false;
+    }
+  }
+
+  loadTransactionItemsFromDB() {
     this.transactionItemService.getTransactionItems().subscribe(
       (itemList: ITransactionItem[]) => {
         this.isLoading = false;
