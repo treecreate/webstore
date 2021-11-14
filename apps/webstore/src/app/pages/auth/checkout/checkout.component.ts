@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   ContactInfo,
   IAuthUser,
@@ -71,7 +72,7 @@ export class CheckoutComponent implements OnInit {
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
     private orderService: OrderService,
-    private designService: DesignService
+    private router: Router
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(
@@ -210,15 +211,17 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  loadTransactionItemsFromDB() {
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
+  async loadTransactionItemsFromDB() {
+    await this.transactionItemService
+      .getTransactionItems()
+      .toPromise()
+      .then((itemList) => {
         this.isLoading = false;
         this.itemList = itemList;
         console.log('Fetched transaction items', itemList);
         this.updatePrices();
-      },
-      (error: HttpErrorResponse) => {
+      })
+      .catch((error) => {
         console.error(error);
 
         this.alert = {
@@ -227,8 +230,7 @@ export class CheckoutComponent implements OnInit {
           dismissible: false,
         };
         this.isLoading = false;
-      }
-    );
+      });
   }
 
   changeDelivery() {
@@ -348,6 +350,7 @@ export class CheckoutComponent implements OnInit {
         this.checkoutForm.get('email').value
       );
 
+      await this.loadTransactionItemsFromDB();
       this.createOrder();
     } catch (error) {
       console.error(error);
@@ -445,6 +448,7 @@ export class CheckoutComponent implements OnInit {
           // TODO: Should remove transaction items
           // this.localStorageService.removeItem(LocalStorageVars.transactionItems);
           window.open(paymentLink.url, '_blank');
+          this.router.navigate(['/payment/success']);
         },
         (error: HttpErrorResponse) => {
           console.error(error);
