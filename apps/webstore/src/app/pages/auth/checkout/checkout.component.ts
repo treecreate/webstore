@@ -6,7 +6,6 @@ import {
   ContactInfo,
   IAuthUser,
   IDiscount,
-  INewsletter,
   IPaymentLink,
   IPricing,
   ITransactionItem,
@@ -20,7 +19,6 @@ import { TermsOfSaleModalComponent } from '../../../shared/components/modals/ter
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
-import { DesignService } from '../../../shared/services/design/design.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { OrderService } from '../../../shared/services/order/order.service';
@@ -223,7 +221,6 @@ export class CheckoutComponent implements OnInit {
       })
       .catch((error) => {
         console.error(error);
-
         this.alert = {
           message: 'Failed to get a list of items',
           type: 'danger',
@@ -247,31 +244,6 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  subscribeUserToNewsletter() {
-    this.newsletterService
-      .registerNewsletterEmail(this.checkoutForm.get('email').value)
-      .subscribe(
-        (data: INewsletter) => {
-          //TODO: Add event for them to receive a 25% off email in 2 weeks
-          this.toastService.showAlert(
-            `Thank you for subscribing: ${data.email}`,
-            `Tak for din tilmelding: ${data.email}`,
-            'success',
-            3000
-          );
-        },
-        (error) => {
-          this.toastService.showAlert(
-            error.error.message,
-            error.error.message,
-            'danger',
-            100000
-          );
-          console.error(error);
-        }
-      );
-  }
-
   updateFormValues() {
     this.checkoutForm.setValue({
       name: this.currentUser.name,
@@ -285,24 +257,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
-    if (this.subscribeToNewsletter) {
-      this.subscribeUserToNewsletter();
-    }
-
-    console.log(
-      this.checkoutForm.get('name').value,
-      this.checkoutForm.get('phoneNumber').value,
-      this.checkoutForm.get('email').value,
-      this.checkoutForm.get('streetAddress').value,
-      this.checkoutForm.get('streetAddress2').value,
-      this.checkoutForm.get('city').value,
-      this.checkoutForm.get('postcode').value,
-      this.subscribeToNewsletter,
-      this.isHomeDelivery
-        ? 'I want home delivery'
-        : 'I want parcelshop delivery'
-    );
-
     if (this.isLoggedIn) {
       this.createOrder();
     } else {
@@ -445,8 +399,6 @@ export class CheckoutComponent implements OnInit {
           console.log('Created order and got a payment link', paymentLink);
           this.localStorageService.removeItem(LocalStorageVars.discount);
           this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
-          // TODO: Should remove transaction items
-          // this.localStorageService.removeItem(LocalStorageVars.transactionItems);
           window.open(paymentLink.url, '_blank');
           this.router.navigate(['/payment/success']);
         },
