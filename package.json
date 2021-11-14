@@ -2,6 +2,12 @@
   "name": "webstore",
   "version": "0.0.0",
   "license": "BSD 3-Clause License",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
+      "jiraMode": "true"
+    }
+  },
   "scripts": {
     "nx": "nx",
     "start": "nx serve webstore",
