@@ -7,6 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { DesignDimensionEnum, IAuthUser, ITransactionItem } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
@@ -45,7 +46,8 @@ export class FamilyTreeBasketItemComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private transactionItemService: TransactionItemService,
     private localStorageService: LocalStorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(
@@ -68,6 +70,21 @@ export class FamilyTreeBasketItemComponent implements OnInit {
     this.priceChangeEvent.emit({ newItem: this.item, index: this.index });
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
+  }
+
+  goToDesign() {
+    if (this.isLoggedIn) {
+      // use design.designId for logged in users
+      this.router.navigate(['/product'], {
+        queryParams: { designId: this.item.design.designId },
+      });
+    } else {
+      // Go to design using index => will load from LS transactionItem list
+      this.router.navigate(['/product'], {
+        queryParams: { designId: this.index },
+      });
+    }
+    this.scrollTop();
   }
 
   decreaseQuantity() {

@@ -126,9 +126,7 @@
         <div class="option-actions">
             <button
                 class="tc-button-50 margin-top"
-                (click)="scrollTop()"
-                [routerLink]="'/product'"
-                [queryParams]="{ designId: item.design.designId }"
+                (click)="goToDesign()"
                 i18n="@@view"
                 data-cy="basket-item-view-button"
             >
