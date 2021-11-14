@@ -4,7 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
   CreateTransactionItemRequest,
-  DiscountType,
   IAuthUser,
   IDiscount,
   INewsletter,
@@ -105,8 +104,6 @@ export class CheckoutComponent implements OnInit {
       this.plantedTrees = 1;
     }
 
-    this.updatePrices();
-
     try {
       if (this.isLoggedIn) {
         //Get user and update form
@@ -197,6 +194,43 @@ export class CheckoutComponent implements OnInit {
         Validators.required,
       ]),
     });
+  }
+
+  loadTransactionItems() {
+    this.isLoading = true;
+    if (this.isLoggedIn) {
+      // Get items from DB
+      this.loadTransactionItemsFromDB();
+    } else {
+      // Get items from local storage
+      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
+      this.updatePrices();
+      this.isLoading = false;
+    }
+  }
+
+  loadTransactionItemsFromDB() {
+    this.transactionItemService.getTransactionItems().subscribe(
+      (itemList: ITransactionItem[]) => {
+        this.isLoading = false;
+        this.itemList = itemList;
+        console.log('Fetched transaction items', itemList);
+        this.updatePrices();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+
+        this.alert = {
+          message: 'Failed to get a list of items',
+          type: 'danger',
+          dismissible: false,
+        };
+
+        this.isLoading = false;
+      }
+    );
   }
 
   changeDelivery() {
@@ -455,42 +489,5 @@ export class CheckoutComponent implements OnInit {
 
   showTermsOfSale() {
     this.modalService.open(TermsOfSaleModalComponent, { size: 'lg' });
-  }
-
-  loadTransactionItems() {
-    this.isLoading = true;
-    if (this.isLoggedIn) {
-      // Get items from DB
-      this.loadTransactionItemsFromDB();
-    } else {
-      // Get items from local storage
-      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
-        LocalStorageVars.transactionItems
-      ).value;
-      this.updatePrices();
-      this.isLoading = false;
-    }
-  }
-
-  loadTransactionItemsFromDB() {
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        this.isLoading = false;
-        this.itemList = itemList;
-        console.log('Fetched transaction items', itemList);
-        this.updatePrices();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-
-        this.alert = {
-          message: 'Failed to get a list of items',
-          type: 'danger',
-          dismissible: false,
-        };
-
-        this.isLoading = false;
-      }
-    );
   }
 }
