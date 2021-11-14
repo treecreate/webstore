@@ -272,6 +272,7 @@ export class CheckoutComponent implements OnInit {
     if (this.isLoggedIn) {
       this.createOrder();
     } else {
+      // TODO: check if
       if (this.createNewUser) {
         this.createOrderWithNewUser();
       } else {
@@ -297,32 +298,52 @@ export class CheckoutComponent implements OnInit {
         email: this.checkoutForm.get('email').value,
         password: passwordGen,
       })
-      .subscribe((data: IRegisterResponse) => {
-        this.toastService.showAlert(
-          'Welcome to Treecreate, you have successfully been registered!',
-          'Velkommen til Treecreate, du er nu bleven registreret!',
-          'success',
-          3500
-        );
-        this.authService.saveAuthUser(data);
+      .subscribe(
+        (data: IRegisterResponse) => {
+          this.toastService.showAlert(
+            'Welcome to Treecreate, you have successfully been registered!',
+            'Velkommen til Treecreate, du er nu bleven registreret!',
+            'success',
+            3500
+          );
+          this.authService.saveAuthUser(data);
 
-        // Update transactionItems designs to contain userId
-        // Get user id and email
-        const newUserId = this.authUser$.value.userId;
-        const newUserEmail = this.authUser$.value.email;
-        // Go through list of transactionItems
-        for (let i; i < this.itemList.length; i++) {
-          // Update the transactionItem object
-          this.itemList[i].design.user.email = newUserEmail;
-          this.itemList[i].design.user.userId = newUserId;
-          // Create the transactionItem in the DB
-          const transactionItemRequest: CreateTransactionItemRequest = {
-            designId: this.itemList[i].design.designId,
-            dimension: this.itemList[i].dimension,
-            quantity: this.itemList[i].quantity,
-          };
+          // Update transactionItems designs to contain userId
+          // Get user id and email
+          const newUserId = this.authUser$.value.userId;
+          const newUserEmail = this.authUser$.value.email;
+          // Go through list of transactionItems
+          for (let i; i < this.itemList.length; i++) {
+            // Update the transactionItem object
+            this.itemList[i].design.user.email = newUserEmail;
+            this.itemList[i].design.user.userId = newUserId;
+            // Create the transactionItem in the DB
+            const transactionItemRequest: CreateTransactionItemRequest = {
+              designId: this.itemList[i].design.designId,
+              dimension: this.itemList[i].dimension,
+              quantity: this.itemList[i].quantity,
+            };
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.error);
+          if (error.error.message === 'Error: Email is already in use!') {
+            this.toastService.showAlert(
+              'E-mail is already in use. Please log in to complete your purchase.',
+              'E-mail er allerede i brug. Log ind for at gennemfører dit køb.',
+              'danger',
+              10000
+            );
+          } else {
+            this.toastService.showAlert(
+              'Failed at creating a profile',
+              'Fejl ved profil oprettelse',
+              'danger',
+              10000
+            );
+          }
         }
-      });
+      );
     // TODO: Send reset password email to user
     this.userService.sendResetUserPassword(
       this.checkoutForm.get('email').value
