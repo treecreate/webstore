@@ -1,4 +1,15 @@
-import { IUser } from '@interfaces';
+import { BoxDesignEnum, TreeDesignEnum } from '@assets';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  DiscountType,
+  FamilyTreeFontEnum,
+  IDesign,
+  IDraggableBox,
+  IFamilyTreeBanner,
+  ITransactionItem,
+  IUser,
+} from '@interfaces';
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 //import { AuthenticationService } from '@webstore/mocks';
 
@@ -15,6 +26,58 @@ const mockUser: IUser = {
   postcode: '1234',
   country: 'DenDenDen Wait, country? :o',
 };
+const mockDraggableBoxOne: IDraggableBox = {
+  x: 400,
+  y: 400,
+  previousX: 0,
+  previousY: 0,
+  dragging: false,
+  boxDesign: BoxDesignEnum.box1,
+  text: 'teo',
+};
+const mockDraggableBoxTwo: IDraggableBox = {
+  x: 200,
+  y: 200,
+  previousX: 100,
+  previousY: 100,
+  dragging: false,
+  boxDesign: BoxDesignEnum.box2,
+  text: 'dor',
+};
+const mockBanner: IFamilyTreeBanner = {
+  text: 'my tree 1',
+  style: 'first',
+};
+const mockDesign: IDesign = {
+  designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  designProperties: {
+    title: 'title1',
+    font: FamilyTreeFontEnum.roboto,
+    backgroundTreeDesign: TreeDesignEnum.tree1,
+    boxSize: 20,
+    banner: mockBanner,
+    largeFont: false,
+    boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
+  },
+  designType: DesignTypeEnum.familyTree,
+  user: mockUser,
+  mutable: true,
+};
+const mockDiscount = {
+  discountId: '123',
+  discountCode: 'yeet10percent',
+  amount: 10,
+  type: DiscountType.percent,
+  remainingUses: 2,
+  totalUses: 1,
+};
+const mockTransactionItem: ITransactionItem = {
+  transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  dimension: DesignDimensionEnum.medium,
+  quantity: 1,
+  design: mockDesign,
+};
 
 /* TODO: Add missing tests to checkout
  * - should have correct items in transaction when logged in (depends on data)
@@ -29,6 +92,14 @@ describe('CheckoutPage', () => {
       LocalStorageVars.cookiesAccepted,
       `"${CookieStatus.accepted}"` // localStorage saves the data differently from our LocalStorageService
     );
+    localStorage.setItem(
+      LocalStorageVars.transactionItems,
+      JSON.stringify([mockTransactionItem])
+    );
+    cy.intercept('GET', '/transaction-items/me', {
+      body: [mockTransactionItem],
+      statusCode: 200,
+    });
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -84,62 +155,63 @@ describe('CheckoutPage', () => {
     cy.get('[data-cy=checkout-form-subscribe-option]').should('not.exist');
   });
 
-  it(`should display subscribe option when user isn't subscribed`, () => {
-    cy.intercept('GET', '/newsletter/me', {
-      statusCode: 404,
-    });
-    cy.visit('/checkout');
-    cy.get('[data-cy=checkout-form-subscribe-option]').should('exist');
-  });
-
   it('should have go to payment button disabled with wrong input in checkout form', () => {});
 
-  it('should have go to payment button disabled when terms are not accepted', () => {
-    cy.get('[data-cy=checkout-form-terms-checkbox]').should('not.be.checked');
-    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
-      'be.disabled'
-    );
-    cy.get('[data-cy=checkout-form-terms-button]').click();
-    cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
-    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
-      'not.be.disabled'
-    );
-  });
+  describe('not logged in user', () => {
+    beforeEach(() => {
+      cy.get('[data-cy=checkout-form-name-input]').type('test');
+      cy.get('[data-cy=checkout-form-email-input]').type('test@urMom.com');
+      cy.get('[data-cy=checkout-form-street-address-input]').type('test');
+      cy.get('[data-cy=checkout-form-city-input]').type('CityName');
+      cy.get('[data-cy=checkout-form-postcode-input]').type('1234');
+    });
+    it('should have go to payment button disabled when terms are not accepted', () => {
+      cy.get('[data-cy=checkout-form-terms-checkbox]').should('not.be.checked');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'be.disabled'
+      );
+      cy.get('[data-cy=checkout-form-terms-button]').click();
+      cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'not.be.disabled'
+      );
+    });
 
-  it('should have go to payment button disabled when billing form is not filled', () => {
-    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
-      'be.disabled'
-    );
-    cy.get('[data-cy=checkout-form-terms-button]').click();
-    cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
-    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
-      'not.be.disabled'
-    );
-    cy.get('[data-cy=billing-address-is-the-same-button]').click();
-    cy.get('[data-cy=billing-address-form]').should('exist');
-    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
-      'be.disabled'
-    );
-  });
+    it('should have go to payment button disabled when billing form is not filled', () => {
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'be.disabled'
+      );
+      cy.get('[data-cy=checkout-form-terms-button]').click();
+      cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'not.be.disabled'
+      );
+      cy.get('[data-cy=billing-address-is-the-same-button]').click();
+      cy.get('[data-cy=billing-address-form]').should('exist');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'be.disabled'
+      );
+    });
 
-  it('should have "go to payment" button not be disabled when billing address is filled', () => {
-    cy.get('[data-cy=checkout-form-terms-button]').click();
-    cy.get('[data-cy=billing-address-is-the-same-button]').click();
-    cy.get('[data-cy=billing-address-name-input]').type('test name');
-    cy.get('[data-cy=billing-address-street-address-input]').type(
-      'test address 123'
-    );
-    cy.get('[data-cy=billing-address-city-input]').type('test city');
-    cy.get('[data-cy=billing-address-postcode-input]').type('1234');
-    cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
-      'not.be.disabled'
-    );
-  });
+    it('should have "go to payment" button not be disabled when billing address is filled', () => {
+      cy.get('[data-cy=checkout-form-terms-button]').click();
+      cy.get('[data-cy=billing-address-is-the-same-button]').click();
+      cy.get('[data-cy=billing-address-name-input]').type('test name');
+      cy.get('[data-cy=billing-address-street-address-input]').type(
+        'test address 123'
+      );
+      cy.get('[data-cy=billing-address-city-input]').type('test city');
+      cy.get('[data-cy=billing-address-postcode-input]').type('1234');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'not.be.disabled'
+      );
+    });
 
-  it('should show terms modal when link is clicked', () => {
-    cy.get('[data-cy=checkout-form-terms-of-sale]').click();
-    cy.get('[data-cy=terms-of-sale-modal]').should('exist');
-    cy.get('[data-cy=terms-of-sale-modal-close-btn]').click();
+    it('should show terms modal when link is clicked', () => {
+      cy.get('[data-cy=checkout-form-terms-of-sale]').click();
+      cy.get('[data-cy=terms-of-sale-modal]').should('exist');
+      cy.get('[data-cy=terms-of-sale-modal-close-btn]').click();
+    });
   });
 
   describe('billingAddressForm', () => {
