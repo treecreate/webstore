@@ -49,7 +49,6 @@ export class CheckoutComponent implements OnInit {
   subscribeToNewsletter = false;
   billingAddressIsTheSame = true;
   isLoading = false;
-  createNewUser = false;
   isTermsAndConditionsAccepted = false;
 
   priceInfo: IPricing;
@@ -227,7 +226,6 @@ export class CheckoutComponent implements OnInit {
           type: 'danger',
           dismissible: false,
         };
-
         this.isLoading = false;
       }
     );
@@ -306,12 +304,7 @@ export class CheckoutComponent implements OnInit {
     if (this.isLoggedIn) {
       this.createOrder();
     } else {
-      // TODO: check if
-      if (this.createNewUser) {
-        this.createOrderWithNewUser();
-      } else {
-        this.createOrderWithoutUser();
-      }
+      this.createOrderWithNewUser();
     }
   }
 
@@ -325,7 +318,6 @@ export class CheckoutComponent implements OnInit {
         Math.floor(Math.random() * randomChars.length)
       );
     }
-    alert(passwordGen);
     // create user
     this.authService
       .register({
@@ -352,6 +344,8 @@ export class CheckoutComponent implements OnInit {
             // Update the transactionItem object
             this.itemList[i].design.user.email = newUserEmail;
             this.itemList[i].design.user.userId = newUserId;
+            // TODO: Save design from transaction items
+
             // Create the transactionItem in the DB
             const transactionItemRequest: CreateTransactionItemRequest = {
               designId: this.itemList[i].design.designId,

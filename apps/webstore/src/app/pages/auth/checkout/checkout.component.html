@@ -633,25 +633,6 @@
                         </div>
                     </div> -->
 
-                    <!-- Create new user checkbox -->
-                    <div
-                        class="option margin-top"
-                        *ngIf="!isLoggedIn"
-                        data-cy="checkout-form-create-user-option"
-                    >
-                        <label class="checkbox-container rm-margin">
-                            <input
-                                type="checkbox"
-                                [checked]="createNewUser"
-                                (change)="createNewUser = !createNewUser"
-                            />
-                            <span class="checkmark"></span>
-                        </label>
-                        <div class="option-title" i18n="@@create-new-user">
-                            Create an account to track your order status
-                        </div>
-                    </div>
-
                     <!-- Accept T&C for sale checkbox -->
                     <div class="terms-and-conditions-container">
                         <label class="checkbox-container">
