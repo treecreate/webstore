@@ -27,10 +27,10 @@ import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-mod
 })
 export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
-  price: number;
-  isMoreThan4: boolean;
-  itemsInBasket: number;
-  totalPrice: number;
+  price: number = 0;
+  isMoreThan4: boolean = false;
+  itemsInBasket: number = 0;
+  totalPrice: number = 0;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   design: IFamilyTree;
@@ -112,7 +112,6 @@ export class AddToBasketModalComponent implements OnInit {
           }
           this.itemsInBasket = itemSum;
           priceSum = this.calculatePriceService.getFullPrice(itemList);
-          this.itemsInBasket = itemSum;
           this.totalPrice = priceSum;
           this.isLoading = false;
           this.updatePrice();
@@ -126,15 +125,16 @@ export class AddToBasketModalComponent implements OnInit {
       const itemList = this.localStorageService.getItem<ITransactionItem[]>(
         LocalStorageVars.transactionItems
       ).value;
-      let itemSum = 0;
-      let priceSum = 0;
-      for (let i = 0; i < itemList.length; i++) {
-        itemSum += itemList[i].quantity;
+      if (itemList !== null) {
+        let itemSum = 0;
+        let priceSum = 0;
+        for (let i = 0; i < itemList.length; i++) {
+          itemSum += itemList[i].quantity;
+        }
+        this.itemsInBasket = itemSum;
+        priceSum = this.calculatePriceService.getFullPrice(itemList);
+        this.totalPrice = priceSum;
       }
-      this.itemsInBasket = itemSum;
-      priceSum = this.calculatePriceService.getFullPrice(itemList);
-      this.itemsInBasket = itemSum;
-      this.totalPrice = priceSum;
       this.isLoading = false;
       this.updatePrice();
     }

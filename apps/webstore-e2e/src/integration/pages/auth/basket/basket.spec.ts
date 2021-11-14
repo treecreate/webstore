@@ -18,7 +18,7 @@ import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();
 const mockUser: IUser = {
-  userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+  userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
   email: 'e2e@test.com',
   roles: [UserRoles.user, UserRoles.admin, UserRoles.developer],
   name: 'teodor jonasson',
@@ -235,9 +235,6 @@ describe('BasketPage using localstorage', () => {
         cy.get('[data-cy=basket-item]').should('have.length', 1);
       });
   });
-
-  // TODO: Make design saveable by non logged in users
-  // TODO: Make designs without a user id be accessible by not logged in users
   it.skip('should show a viewOnly version of the design', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-item]')
@@ -246,10 +243,7 @@ describe('BasketPage using localstorage', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
-        cy.url().should(
-          'contain',
-          '/product?designId=' + mockTransactionItem.design.designId
-        );
+        cy.url().should('contain', '/product?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
         cy.get('[data-cy=view-only-back-button]').click({ force: true });
