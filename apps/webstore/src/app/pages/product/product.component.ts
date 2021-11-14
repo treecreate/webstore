@@ -15,6 +15,7 @@ import {
   IDesign,
   IFamilyTree,
   IFamilyTreeBanner,
+  ITransactionItem,
 } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -113,54 +114,13 @@ export class ProductComponent implements OnInit {
     const queryParams = this.route.snapshot.queryParams;
     console.log('queryParams', queryParams);
     if (queryParams.designId !== undefined) {
-      const designId = queryParams.designId;
-      console.warn('Fetching design from database', designId);
-      this.designService.getDesign(designId).subscribe(
-        (result: IDesign) => {
-          console.log('Result: ', result);
-          if (result.designType !== DesignTypeEnum.familyTree) {
-            console.warn('The requested design is not a family tree!');
-            return;
-          }
-          this.design = result.designProperties;
-          console.log('Fetched design: ', this.design);
-          if (result.designProperties === undefined) {
-            console.warn('Fetched data was invalid!');
-          } else {
-            this.localStorageService.setItem<IFamilyTree>(
-              LocalStorageVars.designFamilyTree,
-              this.design
-            );
-            // apply the design
-            this.designTitle = this.design.title;
-            this.backgroundTreeDesign = this.design.backgroundTreeDesign;
-            this.font = this.design.font;
-            this.banner = this.design.banner;
-            this.boxSize = this.design.boxSize;
-            this.isLargeFont = this.design.largeFont;
-            this.isMutable = result.mutable;
-            this.cdr.detectChanges();
-            if (this.isMutable) {
-              this.designCanvas.loadDesign();
-            }
-          }
-        },
-        (err: HttpErrorResponse) => {
-          console.error('Failed to fetch the', err);
-          this.toastService.showAlert(
-            'Failed to load your design',
-            'Vi kunne ikke loade dit design',
-            'danger',
-            10000
-          );
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { designId: null },
-            queryParamsHandling: 'merge', // remove to replace all query params by provided
-          });
-          return;
-        }
-      );
+      if (this.isLoggedIn) {
+        // Load the design from database
+        this.loadDesignFromDB(queryParams);
+      } else {
+        // Load the design from localstorage
+        this.loadDesignFromLocalStorage(queryParams.designId);
+      }
     } else {
       console.log('Loading design from local storage');
       this.design = this.localStorageService.getItem<IFamilyTree>(
@@ -189,6 +149,84 @@ export class ProductComponent implements OnInit {
       this.cdr.detectChanges();
       this.designCanvas.loadDesign();
     }
+  }
+
+  loadDesignFromLocalStorage(designId: string) {
+    // Get transactionItems from localstorage
+    const itemList: ITransactionItem[] = this.localStorageService.getItem<
+      ITransactionItem[]
+    >(LocalStorageVars.transactionItems).value;
+
+    // Check if id is a number and if number is in transactionItems
+    const id = Number(designId);
+    if (id === NaN || id < 0 || id > itemList.length) {
+      this.toastService.showAlert(
+        'Failed to load design',
+        'Kunne ikke loade dit design',
+        'danger',
+        10000
+      );
+      this.router.navigate(['/product']);
+      return;
+    }
+    // Load design
+    this.design = itemList[designId].design.designProperties;
+    this.designTitle = this.design.title;
+    this.font = this.design.font;
+    this.banner = this.design.banner;
+    this.boxSize = this.design.boxSize;
+    this.isLargeFont = this.design.largeFont;
+  }
+
+  loadDesignFromDB(queryParams) {
+    const designId = queryParams.designId;
+    console.warn('Fetching design from database', designId);
+    this.designService.getDesign(designId).subscribe(
+      (result: IDesign) => {
+        console.log('Result: ', result);
+        if (result.designType !== DesignTypeEnum.familyTree) {
+          console.warn('The requested design is not a family tree!');
+          return;
+        }
+        this.design = result.designProperties;
+        console.log('Fetched design: ', this.design);
+        if (result.designProperties === undefined) {
+          console.warn('Fetched data was invalid!');
+        } else {
+          this.localStorageService.setItem<IFamilyTree>(
+            LocalStorageVars.designFamilyTree,
+            this.design
+          );
+          // apply the design
+          this.designTitle = this.design.title;
+          this.backgroundTreeDesign = this.design.backgroundTreeDesign;
+          this.font = this.design.font;
+          this.banner = this.design.banner;
+          this.boxSize = this.design.boxSize;
+          this.isLargeFont = this.design.largeFont;
+          this.isMutable = result.mutable;
+          this.cdr.detectChanges();
+          if (this.isMutable) {
+            this.designCanvas.loadDesign();
+          }
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.error('Failed to fetch the', err);
+        this.toastService.showAlert(
+          'Failed to load your design',
+          'Vi kunne ikke loade dit design',
+          'danger',
+          10000
+        );
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { designId: null },
+          queryParamsHandling: 'merge', // remove to replace all query params by provided
+        });
+        return;
+      }
+    );
   }
 
   saveDesign(params: { persist?: boolean }) {

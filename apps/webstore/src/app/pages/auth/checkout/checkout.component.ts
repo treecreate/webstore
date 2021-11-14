@@ -365,11 +365,10 @@ export class CheckoutComponent implements OnInit {
 
     // TODO: Add bulk order to DB (transactionItemService method needed)
 
-    // TODO: Create special email for new users 
+    // TODO: Create special email for new users
     this.userService.sendResetUserPassword(
       this.checkoutForm.get('email').value
     );
-
   }
 
   createOrderWithoutUser() {
