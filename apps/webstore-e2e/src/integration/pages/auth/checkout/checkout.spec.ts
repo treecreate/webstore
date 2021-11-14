@@ -63,14 +63,6 @@ const mockDesign: IDesign = {
   user: mockUser,
   mutable: true,
 };
-const mockDiscount = {
-  discountId: '123',
-  discountCode: 'yeet10percent',
-  amount: 10,
-  type: DiscountType.percent,
-  remainingUses: 2,
-  totalUses: 1,
-};
 const mockTransactionItem: ITransactionItem = {
   transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',

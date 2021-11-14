@@ -27,10 +27,10 @@ import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-mod
 })
 export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
-  price: number = 0;
-  isMoreThan4: boolean = false;
-  itemsInBasket: number = 0;
-  totalPrice: number = 0;
+  price = 0;
+  isMoreThan4 = false;
+  itemsInBasket = 0;
+  totalPrice = 0;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   design: IFamilyTree;
