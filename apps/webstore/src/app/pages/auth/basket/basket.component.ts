@@ -125,7 +125,6 @@ export class BasketComponent implements OnInit {
       if (localStorageItemsList !== null) {
         this.itemList = localStorageItemsList;
       }
-
       this.isLoading = false;
     }
   }
@@ -271,6 +270,12 @@ export class BasketComponent implements OnInit {
     this.itemList = this.itemList.filter(
       (item) => item.transactionItemId !== id
     );
+    if (!this.isLoggedIn) {
+      // update list from localstorage
+      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
+    }
     this.updatePrices();
   }
 }
