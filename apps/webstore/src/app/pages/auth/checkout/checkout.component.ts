@@ -308,6 +308,7 @@ export class CheckoutComponent implements OnInit {
           );
           this.authService.saveAuthUser(data);
 
+          // TODO: Finish this method
           // Update transactionItems designs to contain userId
           // Get user id and email
           const newUserId = this.authUser$.value.userId;
@@ -434,6 +435,9 @@ export class CheckoutComponent implements OnInit {
           this.isLoading = false;
           console.log('Created order and got a payment link', paymentLink);
           this.localStorageService.removeItem(LocalStorageVars.discount);
+          this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
+          // TODO: Should remove transaction items
+          // this.localStorageService.removeItem(LocalStorageVars.transactionItems);
           window.open(paymentLink.url, '_blank');
         },
         (error: HttpErrorResponse) => {

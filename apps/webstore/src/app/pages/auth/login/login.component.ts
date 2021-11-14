@@ -7,11 +7,14 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILoginResponse } from '@interfaces';
+import { ILoginResponse, ITransactionItem } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { LocalStorageService } from '../../../shared/services/local-storage';
+import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
   selector: 'webstore-login',
@@ -35,7 +38,9 @@ export class LoginComponent implements OnInit {
     private modalService: NgbModal,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private localStorageService: LocalStorageService,
+    private transactionItemService: TransactionItemService
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +75,23 @@ export class LoginComponent implements OnInit {
             'success',
             5000
           );
+          // Check for transaction items in localstorage and add them to user
+          // Dont remove them in case user regrets logging in
+          // Get localStorage items
+          const localStorageItems = this.localStorageService.getItem<
+            ITransactionItem[]
+          >(LocalStorageVars.transactionItems).value;
+          // Create the transaction items in DB / user
+          if (localStorageItems != null) {
+            for (let i = 0; i < localStorageItems.length; i++) {
+              this.transactionItemService.createTransactionItem({
+                designId: localStorageItems[i].design.designId,
+                dimension: localStorageItems[i].dimension,
+                quantity: localStorageItems[i].quantity,
+              });
+            }
+          }
+
           this.isLoading = false;
           this.isLoginFailed = false;
           this.isLoggedIn = true;
