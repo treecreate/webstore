@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  CreateBulkTransactionItemsRequest,
   CreateLocalStorageTransactionItem,
   CreateTransactionItemRequest,
   DesignTypeEnum,
@@ -39,6 +40,20 @@ export class TransactionItemService {
   ): Observable<ITransactionItem> {
     return this.http.post<ITransactionItem>(
       `${env.apiUrl}/transaction-items/me`,
+      params
+    );
+  }
+
+  /**
+   * Create multiple transaction items and their designs with a single request
+   * @param params a list of items and the design information to be created
+   * @returns a persisted list of items
+   */
+  public createBulkTransactionItem(
+    params: CreateBulkTransactionItemsRequest
+  ): Observable<ITransactionItem[]> {
+    return this.http.post<ITransactionItem[]>(
+      `${env.apiUrl}/transaction-items/me/bulk`,
       params
     );
   }

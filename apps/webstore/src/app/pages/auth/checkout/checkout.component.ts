@@ -3,15 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
-  CreateTransactionItemRequest,
-  DesignTypeEnum,
   IAuthUser,
-  IDesign,
   IDiscount,
   INewsletter,
   IPaymentLink,
   IPricing,
-  IRegisterResponse,
   ITransactionItem,
   IUser,
   ShippingMethodEnum,
@@ -313,6 +309,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   async createOrderWithNewUser() {
+    if (!this.isDisabled()) {
+      console.warn(
+        'You are not able to add an order without valid information'
+      );
+      return;
+    }
+    this.isLoading = true;
     // generate password
     let passwordGen = '';
     const randomChars =
@@ -323,56 +326,42 @@ export class CheckoutComponent implements OnInit {
       );
     }
 
-    const user = await this.authService
-      .register({
-        email: this.checkoutForm.get('email').value,
-        password: passwordGen,
-      })
-      .toPromise();
+    // register a new user, upload the items and designs from local storage and create an order
+    try {
+      const user = await this.authService
+        .register({
+          email: this.checkoutForm.get('email').value,
+          password: passwordGen,
+        })
+        .toPromise();
 
-    // set the new user logged in data
-    this.authService.saveAuthUser(user);
+      // set the new user logged in data
+      this.authService.saveAuthUser(user);
+      await this.transactionItemService
+        .createBulkTransactionItem({ transactionItems: this.itemList })
+        .toPromise();
 
-    const createDesignPromiseArray = [];
+      this.localStorageService.removeItem(LocalStorageVars.transactionItems);
 
-    for (let i = 0; i < this.itemList.length; i++) {
-      createDesignPromiseArray.push(
-        this.designService
-          .createDesign({
-            designProperties: this.itemList[i].design.designProperties,
-            designType: this.itemList[i].design.designType,
-            mutable: false,
-          })
-          .toPromise()
-          .then((design) => {
-            console.log('saved design', design);
-            this.itemList[i].design.designId = design.designId;
-          })
+      // TODO: Create special email for new users
+      this.userService.sendResetUserPassword(
+        this.checkoutForm.get('email').value
       );
-    }
 
-    await Promise.all([createDesignPromiseArray]).catch((error) => {
+      this.createOrder();
+    } catch (error) {
       console.error(error);
-      this.isLoading = false;
+      // TODO: Write a proper toast message / alert
       this.toastService.showAlert(
         'Shit went wrong',
         'shit went wrong but in danish',
         'danger',
         10000
       );
-      return;
-    });
-
-    // TODO: Add bulk order to DB (transactionItemService method needed)
-
-    // TODO: Create special email for new users
-    this.userService.sendResetUserPassword(
-      this.checkoutForm.get('email').value
-    );
-  }
-
-  createOrderWithoutUser() {
-    // TODO: Create order with userId = null
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   isDisabled() {
