@@ -4,7 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
   CreateTransactionItemRequest,
+  DesignTypeEnum,
   IAuthUser,
+  IDesign,
   IDiscount,
   INewsletter,
   IPaymentLink,
@@ -21,6 +23,7 @@ import { TermsOfSaleModalComponent } from '../../../shared/components/modals/ter
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
+import { DesignService } from '../../../shared/services/design/design.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { OrderService } from '../../../shared/services/order/order.service';
@@ -71,7 +74,8 @@ export class CheckoutComponent implements OnInit {
     private newsletterService: NewsletterService,
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private designService: DesignService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(
@@ -308,7 +312,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  createOrderWithNewUser() {
+  async createOrderWithNewUser() {
     // generate password
     let passwordGen = '';
     const randomChars =
@@ -318,68 +322,54 @@ export class CheckoutComponent implements OnInit {
         Math.floor(Math.random() * randomChars.length)
       );
     }
-    // create user
-    this.authService
+
+    const user = await this.authService
       .register({
         email: this.checkoutForm.get('email').value,
         password: passwordGen,
       })
-      .subscribe(
-        (data: IRegisterResponse) => {
-          this.toastService.showAlert(
-            'Welcome to Treecreate, you have successfully been registered!',
-            'Velkommen til Treecreate, du er nu bleven registreret!',
-            'success',
-            3500
-          );
-          this.authService.saveAuthUser(data);
+      .toPromise();
 
-          // TODO: Finish this method
-          // Update transactionItems designs to contain userId
-          // Get user id and email
-          const newUserId = this.authUser$.value.userId;
-          const newUserEmail = this.authUser$.value.email;
-          // Go through list of transactionItems
-          for (let i; i < this.itemList.length; i++) {
-            // Update the transactionItem object
-            this.itemList[i].design.user.email = newUserEmail;
-            this.itemList[i].design.user.userId = newUserId;
-            // TODO: Save design from transaction items
+    // set the new user logged in data
+    this.authService.saveAuthUser(user);
 
-            // Create the transactionItem in the DB
-            const transactionItemRequest: CreateTransactionItemRequest = {
-              designId: this.itemList[i].design.designId,
-              dimension: this.itemList[i].dimension,
-              quantity: this.itemList[i].quantity,
-            };
-          }
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.error);
-          if (error.error.message === 'Error: Email is already in use!') {
-            this.toastService.showAlert(
-              'E-mail is already in use. Please log in to complete your purchase.',
-              'E-mail er allerede i brug. Log ind for at gennemfører dit køb.',
-              'danger',
-              10000
-            );
-          } else {
-            this.toastService.showAlert(
-              'Failed at creating a profile',
-              'Fejl ved profil oprettelse',
-              'danger',
-              10000
-            );
-          }
-        }
+    const createDesignPromiseArray = [];
+
+    for (let i = 0; i < this.itemList.length; i++) {
+      createDesignPromiseArray.push(
+        this.designService
+          .createDesign({
+            designProperties: this.itemList[i].design.designProperties,
+            designType: this.itemList[i].design.designType,
+            mutable: false,
+          })
+          .toPromise()
+          .then((design) => {
+            console.log('saved design', design);
+            this.itemList[i].design.designId = design.designId;
+          })
       );
-    // TODO: Send reset password email to user
+    }
+
+    await Promise.all([createDesignPromiseArray]).catch((error) => {
+      console.error(error);
+      this.isLoading = false;
+      this.toastService.showAlert(
+        'Shit went wrong',
+        'shit went wrong but in danish',
+        'danger',
+        10000
+      );
+      return;
+    });
+
+    // TODO: Add bulk order to DB (transactionItemService method needed)
+
+    // TODO: Create special email for new users 
     this.userService.sendResetUserPassword(
       this.checkoutForm.get('email').value
     );
 
-    // TODO: update order to contain userId
-    //this.createOrder();
   }
 
   createOrderWithoutUser() {
