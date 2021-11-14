@@ -50,16 +50,18 @@ export class GoToBasketModalComponent implements OnInit {
     const itemsList = this.localStorageService.getItem<ITransactionItem[]>(
       LocalStorageVars.transactionItems
     ).value;
-    let itemSum = 0;
-    for (let i = 0; i < itemsList.length; i++) {
-      itemSum += itemsList[i].quantity;
-    }
-    this.itemsInBasket = itemSum;
-    if (this.itemsInBasket >= 4) {
-      this.basketPrice =
-        this.calculatePriceService.getFullPrice(itemsList) * 0.75;
-    } else {
-      this.basketPrice = this.calculatePriceService.getFullPrice(itemsList);
+    if (itemsList != null) {
+      let itemSum = 0;
+      for (let i = 0; i < itemsList.length; i++) {
+        itemSum += itemsList[i].quantity;
+      }
+      this.itemsInBasket = itemSum;
+      if (this.itemsInBasket >= 4) {
+        this.basketPrice =
+          this.calculatePriceService.getFullPrice(itemsList) * 0.75;
+      } else {
+        this.basketPrice = this.calculatePriceService.getFullPrice(itemsList);
+      }
     }
     this.isLoading = false;
   }
