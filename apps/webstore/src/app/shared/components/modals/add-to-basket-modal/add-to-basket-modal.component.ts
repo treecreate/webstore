@@ -101,9 +101,8 @@ export class AddToBasketModalComponent implements OnInit {
       dimension: DesignDimensionEnum.small,
     });
 
-    new Promise(() => {
-      //Get items already in basket
-      this.isLoading = true;
+    this.isLoading = true;
+    if (this.isLoggedIn) {
       this.transactionItemService.getTransactionItems().subscribe(
         (itemList: ITransactionItem[]) => {
           let itemSum = 0;
@@ -123,7 +122,22 @@ export class AddToBasketModalComponent implements OnInit {
           this.isLoading = false;
         }
       );
-    });
+    } else {
+      const itemList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
+      let itemSum = 0;
+      let priceSum = 0;
+      for (let i = 0; i < itemList.length; i++) {
+        itemSum += itemList[i].quantity;
+      }
+      this.itemsInBasket = itemSum;
+      priceSum = this.calculatePriceService.getFullPrice(itemList);
+      this.itemsInBasket = itemSum;
+      this.totalPrice = priceSum;
+      this.isLoading = false;
+      this.updatePrice();
+    }
   }
 
   updatePrice() {

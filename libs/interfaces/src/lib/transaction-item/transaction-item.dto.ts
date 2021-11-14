@@ -17,5 +17,5 @@ class CreateBulkTransactionItemRequest {
   quantity: number;
 }
 export class CreateBulkTransactionItemsRequest {
-  transactionItems: CreateBulkTransactionItemRequest[]
+  transactionItems: CreateBulkTransactionItemRequest[];
 }
