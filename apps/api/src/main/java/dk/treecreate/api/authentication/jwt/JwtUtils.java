@@ -3,6 +3,8 @@ package dk.treecreate.api.authentication.jwt;
 import dk.treecreate.api.authentication.services.UserDetailsImpl;
 import dk.treecreate.api.config.CustomPropertiesConfig;
 import io.jsonwebtoken.*;
+import net.jodah.expiringmap.ExpiringMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +25,16 @@ public class JwtUtils
 
     @Autowired
     CustomPropertiesConfig customProperties;
+
+    private ExpiringMap<String, String> blacklist;
+
+    @Autowired
+    public JwtUtils() {
+        this.blacklist = ExpiringMap.builder()
+            .variableExpiration()
+            .maxSize(1000)
+            .build();
+    }
 
     public String parseJwt(HttpServletRequest request)
     {
@@ -76,7 +90,7 @@ public class JwtUtils
         try
         {
             Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(authToken);
-            return true;
+            return !isBlacklisted(authToken);
         } catch (SignatureException e)
         {
             logger.error("Invalid JWT signature: {}", e.getMessage());
@@ -95,5 +109,46 @@ public class JwtUtils
         }
 
         return false;
+    }
+
+    /**
+     * Gets the Time-To-Live of the provided token.
+     * 
+     * @param token a JWT.
+     * @return <code>long</code> amount of seconds left until the token expires; <code>0</code> if the token is already expired.
+     */
+    public long getJwtTTL(String token) {
+        Date expirationDate = Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(token)
+            .getBody().getExpiration();
+        long expirationSecond = expirationDate.toInstant().getEpochSecond();
+        long currentSecond = Instant.now().getEpochSecond();
+
+        return Math.max(0, expirationSecond - currentSecond);
+    }
+
+    /**
+     * Adds the provided JWT to the blacklist until it expires.
+     * The blacklist entry will have the token as its <code>key</code> and the
+     * username as the <code>value</code>.
+     * 
+     * The time unit used is <code>seconds</code>.
+     * 
+     * @param token the JWT to be blacklisted.
+     */
+    public void blacklistJwt(String token) {
+        String username = getUserNameFromJwtToken(token);
+        long ttl = getJwtTTL(token);
+
+        blacklist.put(token, username, ttl, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Checks if the provided token is blacklisted or not.
+     * 
+     * @param token a JWT.
+     * @return <code>true</code> if token is blacklisted and <code>false</code> if it isn't.
+     */
+    public boolean isBlacklisted(String token) {
+        return blacklist.containsKey(token);
     }
 }

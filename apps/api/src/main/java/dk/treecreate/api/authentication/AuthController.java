@@ -174,6 +174,9 @@ public class AuthController
             // Generate a new set of tokens for the user.
             String accessToken = jwtUtils.generateJwtToken(authentication);
             String newRefreshToken = jwtUtils.generateJwtRefreshToken(authentication);
+
+            // Blacklist the old JWT.
+            jwtUtils.blacklistJwt(refreshToken);
             
             return ResponseEntity.ok(new JwtResponse(accessToken, 
                 newRefreshToken,
@@ -186,6 +189,26 @@ public class AuthController
             LOGGER.error("Failed to refresh the authentication token.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to refresh the authentication token. Try again later.");
+        }   
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) 
+    {
+        try
+        {
+            // Extract refresh token from request.
+            String token = jwtUtils.parseJwt(request);
+
+            // Blacklist the old JWT.
+            jwtUtils.blacklistJwt(token);
+            
+            return ResponseEntity.ok("");
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to logout.", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to logout. Try again later.");
         }   
     }
 
