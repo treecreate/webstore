@@ -159,8 +159,8 @@ public class AuthController
         try
         {
             // Extract refresh token from request.
-            String refreshToken = jwtUtils.parseJwt(request);
-            String username = jwtUtils.getUserNameFromJwtToken(refreshToken);
+            String token = jwtUtils.parseJwt(request);
+            String username = jwtUtils.getUserNameFromJwtToken(token);
 
             UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService
                 .loadUserByUsername(username);
@@ -170,16 +170,19 @@ public class AuthController
             List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-            
+
+            // Remove the old pair of tokens from the whitelist.
+            jwtUtils.removeWhitelistJwtPair(token); 
+
             // Generate a new set of tokens for the user.
             String accessToken = jwtUtils.generateJwtToken(authentication);
-            String newRefreshToken = jwtUtils.generateJwtRefreshToken(authentication);
+            String refreshToken = jwtUtils.generateJwtRefreshToken(authentication);
 
-            // Blacklist the old JWT.
-            jwtUtils.blacklistJwt(refreshToken);
+            // Whitelist the new pair of tokens.
+            jwtUtils.whitelistJwtPair(accessToken, refreshToken);
             
             return ResponseEntity.ok(new JwtResponse(accessToken, 
-                newRefreshToken,
+                refreshToken,
                 userDetails.getUsedId(),
                 userDetails.getEmail(),
                 userDetails.getIsVerified(),
@@ -199,9 +202,10 @@ public class AuthController
         {
             // Extract refresh token from request.
             String token = jwtUtils.parseJwt(request);
+            String user = jwtUtils.getUserNameFromJwtToken(token);
 
-            // Blacklist the old JWT.
-            jwtUtils.blacklistJwt(token);
+            // Remove all User's tokens from the whitelist
+            jwtUtils.removeWhitelistUser(user);
             
             return ResponseEntity.ok("");
         } catch (Exception e)

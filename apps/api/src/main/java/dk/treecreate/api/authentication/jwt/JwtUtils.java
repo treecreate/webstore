@@ -26,11 +26,11 @@ public class JwtUtils
     @Autowired
     CustomPropertiesConfig customProperties;
 
-    private ExpiringMap<String, String> blacklist;
+    private ExpiringMap<String, String> whitelist;
 
     @Autowired
     public JwtUtils() {
-        this.blacklist = ExpiringMap.builder()
+        this.whitelist = ExpiringMap.builder()
             .variableExpiration()
             .maxSize(1000)
             .build();
@@ -90,7 +90,7 @@ public class JwtUtils
         try
         {
             Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(authToken);
-            return !isBlacklisted(authToken);
+            return isWhitelisted(authToken);
         } catch (SignatureException e)
         {
             logger.error("Invalid JWT signature: {}", e.getMessage());
@@ -115,7 +115,7 @@ public class JwtUtils
      * Gets the Time-To-Live of the provided token.
      * 
      * @param token a JWT.
-     * @return <code>long</code> amount of seconds left until the token expires; <code>0</code> if the token is already expired.
+     * @return amount of seconds left until the token expires; <code>0</code> if the token is already expired.
      */
     public long getJwtTTL(String token) {
         Date expirationDate = Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(token)
@@ -127,28 +127,52 @@ public class JwtUtils
     }
 
     /**
-     * Adds the provided JWT to the blacklist until it expires.
-     * The blacklist entry will have the token as its <code>key</code> and the
-     * username as the <code>value</code>.
+     * Checks if the provided token is whitelisted or not.
      * 
-     * The time unit used is <code>seconds</code>.
-     * 
-     * @param token the JWT to be blacklisted.
+     * @param token a JWT.
+     * @return <code>true</code> if token is whitelisted and <code>false</code> if it isn't.
      */
-    public void blacklistJwt(String token) {
-        String username = getUserNameFromJwtToken(token);
-        long ttl = getJwtTTL(token);
-
-        blacklist.put(token, username, ttl, TimeUnit.SECONDS);
+    public boolean isWhitelisted(String token) {
+        return whitelist.containsKey(token) || whitelist.containsValue(token);
     }
 
     /**
-     * Checks if the provided token is blacklisted or not.
+     * Adds a token pair to the whitelist, where the key is the <code>refreshToken</code>
+     * and the value is the <code>authToken</code>.
      * 
-     * @param token a JWT.
-     * @return <code>true</code> if token is blacklisted and <code>false</code> if it isn't.
+     * The entry's TTL is equal to the <code>refreshToken</code>'s TTL.
+     * 
+     * @param authToken
+     * @param refreshToken
      */
-    public boolean isBlacklisted(String token) {
-        return blacklist.containsKey(token);
+    public void whitelistJwtPair(String authToken, String refreshToken) {
+        long ttl = getJwtTTL(refreshToken);
+        whitelist.put(refreshToken, authToken, ttl, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Removes a token pair from the whitelist based on the provided token.
+     * Provided token can be wither an <code>authToken</code>(value), or
+     * <code>refreshToken</code>(key).
+     * 
+     * @param token
+     */
+    public void removeWhitelistJwtPair(String token) {
+        if (whitelist.containsKey(token)) {
+            // If the token is the refresh token
+            whitelist.remove(token);
+        } else if (whitelist.containsValue(token)) {
+            // If the token is the auth token
+            whitelist.values().removeIf(value -> value.equals(token));
+        }
+    }
+
+    /**
+     * Removes all the access and refresh tokens for the given user.
+     * 
+     * @param user user's username.
+     */
+    public void removeWhitelistUser(String user) {
+        whitelist.keySet().removeIf(key -> getUserNameFromJwtToken(key).equals(user));
     }
 }

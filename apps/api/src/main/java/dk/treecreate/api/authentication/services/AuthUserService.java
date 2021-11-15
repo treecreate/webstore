@@ -43,6 +43,8 @@ public class AuthUserService
         String jwt = jwtUtils.generateJwtToken(authentication);
         String jwtRefresh = jwtUtils.generateJwtRefreshToken(authentication);
 
+        jwtUtils.whitelistJwtPair(jwt, jwtRefresh);
+
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
