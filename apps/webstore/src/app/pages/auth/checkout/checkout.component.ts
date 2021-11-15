@@ -308,10 +308,9 @@ export class CheckoutComponent implements OnInit {
       this.createOrder();
     } catch (error) {
       console.error(error);
-      // TODO: Write a proper toast message / alert
       this.toastService.showAlert(
-        'Shit went wrong',
-        'shit went wrong but in danish',
+        'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk',
+        'Der skete en fejl ved oprettelsen af din ordrer. Prøv igen og hvis fejlen gentager sig kan du kontakte os på info@treecreate.dk',
         'danger',
         10000
       );

@@ -159,7 +159,7 @@ export class ProductComponent implements OnInit {
 
     // Check if id is a number and if number is in transactionItems
     const id = Number(designId);
-    if ( isNaN(id) || id < 0 || id > itemList.length) {
+    if (isNaN(id) || id < 0 || id > itemList.length) {
       this.toastService.showAlert(
         'Failed to load design',
         'Kunne ikke loade dit design',
