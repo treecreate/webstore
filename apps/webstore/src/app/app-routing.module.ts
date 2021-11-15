@@ -5,6 +5,7 @@ import { BasketComponent } from './pages/auth/basket/basket.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { LoginComponent } from './pages/auth/login/login.component';
+import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
@@ -46,6 +47,12 @@ const routes: Routes = [
   {
     path: 'collection',
     component: CollectionComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.user] },
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateOrderRequest, IPaymentLink } from '@interfaces';
+import { CreateOrderRequest, IOrder, IPaymentLink } from '@interfaces';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 
@@ -12,5 +12,9 @@ export class OrderService {
 
   public createOrder(params: CreateOrderRequest): Observable<IPaymentLink> {
     return this.http.post<IPaymentLink>(`${env.apiUrl}/orders`, params);
+  }
+
+  public getOrders(): Observable<IOrder[]> {
+    return this.http.get<IOrder[]>(`${env.apiUrl}/orders/me`);
   }
 }

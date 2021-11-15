@@ -41,6 +41,8 @@ import { FamilyTreeMiniatureComponent } from './shared/components/products/famil
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
 import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
+import { OrdersComponent } from './pages/auth/orders/orders.component';
+import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { GoToBasketModalComponent } from './shared/components/modals/go-to-baske
     PaymentCancelledComponent,
     FamilyTreeIntroModalComponent,
     GoToBasketModalComponent,
+    OrdersComponent,
+    OrderItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +94,5 @@ import { GoToBasketModalComponent } from './shared/components/modals/go-to-baske
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [GoToBasketModalComponent],
 })
 export class AppModule {}

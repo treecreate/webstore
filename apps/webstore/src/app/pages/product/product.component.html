@@ -99,7 +99,11 @@
                         class="title-input"
                         [value]="designTitle"
                         (keyup)="onKey($event)"
-                        placeholder="Untitled-1"
+                        placeholder="{{
+                            isEnglish()
+                                ? 'Navngiv dit design...'
+                                : 'Name your design...'
+                        }}"
                         data-cy="design-title-input"
                         maxlength="50"
                     />
