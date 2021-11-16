@@ -152,6 +152,13 @@ public class AuthController
             .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
     }
 
+    /**
+     * Refreshes the user's pair of tokens by generating a new set of <code>accessToken</code> and
+     * <code>refreshToken</code>, and invalidating the old pair.
+     * 
+     * @param request an HTTP request.
+     * @return a <code>JwtResponse</code> containing the new user information.
+     */
     @GetMapping("/refresh")
     public ResponseEntity<JwtResponse> refreshToken(
         HttpServletRequest request) 
