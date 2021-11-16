@@ -1,7 +1,7 @@
 # To build this dockerfile use a command similar to this:
 # docker build -t <image-name> -f ./.deploy/admin-page/Dockerfile .
-## Build container START
 
+###### Build container START
 
 # Lightweight environment with node pre-installed
 FROM node:lts-alpine3.14 AS builder
@@ -17,21 +17,28 @@ ARG ENV=prod
 ARG LOG_LEVEL=notice
 
 # Run npm install inside container
-RUN npm install --loglevel ${loglevel} --only=${ENV}
+RUN npm install --loglevel ${LOG_LEVEL} --only=${ENV}
 
 # Copy all files different to local machine to container
 # Uses caching to prevent copying ALL files if only some parts changed
-COPY . .
+COPY ./assets ./assets
+COPY ./libs ./libs
+COPY ./apps ./apps
+COPY nx.json ./nx.json
+COPY tsconfig.base.json ./tsconfig.base.json
+COPY workspace.json ./workspace.json
+
+# Install NX since it is not installed in our repository
+# If we skip this step the prod build fails, as it is not a prod dependecy
+RUN npm install nx
 
 # Execute this command in the docker container
 # BAK CMD ["npm", "run", "build" "webstore:admin:prod"]
-RUN npm run build webstore:admin:prod 
+RUN npm run build:admin:prod 
 
-## Build container END
+###### Build container END
 
-
-
-## runtime environment START
+###### runtime environment START
 
 FROM nginx:alpine
 
@@ -42,10 +49,10 @@ WORKDIR /app
 COPY .deploy/admin-page/nginx.conf /etc/nginx/nginx.conf
 
 # Copy build files to nginx container
-COPY --from=builder /app/dist/apps/admin-page /usr/share/nginx/htm
+COPY --from=builder /app/dist/apps/admin-page /usr/share/nginx/html
 
 # Execute nginx on container to launch application
-CMD ["nginx", "-g", "'daemon off;'"]
+CMD [ "/bin/sh", "-c", "exec nginx -g \"daemon off;\""]
 
-## runtime environment END
+###### runtime environment END
 
