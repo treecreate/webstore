@@ -17,10 +17,12 @@ ARG ENV=dev
 ARG LOG_LEVEL=warn
 
 # Run npm install inside container
-# BAK RUN npm install --loglevel ${LOG_LEVEL} --only=${ENV}
+# --legacy-peer-deps This line is currently required for the dependencies to install
+# Should be tested once in a while and removed when possible, as package mainatainers
+#   upated their dependencies to the new automated system.
 RUN if [[ $ENV == "prod" ]] ; \
-	then npm install --loglevel ${LOG_LEVEL} --only=prod;	\
-	else npm install --loglevel ${LOG_LEVEL};		\
+	then npm install --legacy-peer-deps --loglevel ${LOG_LEVEL} --only=prod;	\
+	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};		\
     fi
 
 # Copy all files different to local machine to container
