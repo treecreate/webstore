@@ -372,7 +372,7 @@ export class FamilyTreeDesignComponent
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
-          const bannerTextFontSize = 6; // in rem
+          const bannerTextFontSize = 1.5; // in rem
           this.context.font = `${bannerTextFontSize}rem ${this.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
@@ -435,7 +435,7 @@ export class FamilyTreeDesignComponent
           // times 5 to account for having different scale
           // NOTE - can cause performance issues since it occurs on every frame
           const boxTextFontSize =
-            (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
+            (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 1.75 : 1.25); // in rem
           // TODO: add multi-line support
           this.context.font = `${boxTextFontSize}rem ${this.font}`;
           this.context.textAlign = 'center';
@@ -449,7 +449,7 @@ export class FamilyTreeDesignComponent
             this.myBoxes[i].text.length > this.maxCharsPerLine;
           const x = this.myBoxes[i].x + this.boxDimensions.width / 2;
           let y = this.myBoxes[i].y + this.boxDimensions.height / 2;
-          const lineHeight = (this.boxDimensions.height / 5) * 1;
+          const lineHeight = (this.boxDimensions.height / 5) * 1.2;
           if (multiLineText) {
             y = this.myBoxes[i].y + (this.boxDimensions.height / 5) * 2;
           }
