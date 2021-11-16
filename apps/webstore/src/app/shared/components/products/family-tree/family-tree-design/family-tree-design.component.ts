@@ -88,8 +88,8 @@ export class FamilyTreeDesignComponent
   public context: CanvasRenderingContext2D;
 
   canvasResolution = {
-    height: 4000,
-    width: 4000,
+    height: 1000,
+    width: 1000,
   };
 
   myBoxes: IDraggableBox[] = [];
