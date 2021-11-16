@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   ElementRef,
@@ -73,23 +74,44 @@ export class LoginComponent implements OnInit {
             5000
           );
           // Check for transaction items in localstorage and add them to user
-          // Dont remove them in case user regrets logging in
           // Get localStorage items
           const localStorageItems = this.localStorageService.getItem<
             ITransactionItem[]
           >(LocalStorageVars.transactionItems).value;
           // Create the transaction items in DB / user
-          if (localStorageItems != null) {
-            this.transactionItemService.createBulkTransactionItem({
-              transactionItems: localStorageItems,
-            });
-          }
+          if (localStorageItems !== null) {
+            this.transactionItemService
+              .createBulkTransactionItem({
+                transactionItems: localStorageItems,
+              })
+              .subscribe(
+                (items) => {
+                  console.log('Uploaded designs', items);
+                  this.localStorageService.removeItem(
+                    LocalStorageVars.transactionItems
+                  );
 
-          this.isLoading = false;
-          this.isLoginFailed = false;
-          this.isLoggedIn = true;
-          this.router.navigate(['/product']);
-          this.reloadPage();
+                  this.isLoading = false;
+                  this.isLoginFailed = false;
+                  this.isLoggedIn = true;
+                  this.router.navigate(['/product']);
+                  this.reloadPage();
+                },
+                (error: HttpErrorResponse) => {
+                  console.log(error.error);
+
+                  this.isLoading = false;
+                  this.isLoginFailed = true;
+                  this.errorMessage = error.error.message;
+                }
+              );
+          } else {
+            this.isLoading = false;
+            this.isLoginFailed = false;
+            this.isLoggedIn = true;
+            this.router.navigate(['/product']);
+            this.reloadPage();
+          }
         },
         (err) => {
           this.toastService.showAlert(
