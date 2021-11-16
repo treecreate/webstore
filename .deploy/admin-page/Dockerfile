@@ -1,8 +1,10 @@
-
+# To build this dockerfile use a command similar to this:
+# docker build -t <image-name> -f ./.deploy/admin-page/Dockerfile .
 ## Build container START
 
+
 # Lightweight environment with node pre-installed
-FROM node:alpine AS builder
+FROM node:lts-alpine3.14 AS builder
 
 # Directory to work in the container
 WORKDIR /app
@@ -11,7 +13,7 @@ WORKDIR /app
 COPY package.json .
 
 # Set required ENVs
-ARG ENV=dev
+ARG ENV=prod
 ARG LOG_LEVEL=notice
 
 # Run npm install inside container
@@ -46,3 +48,4 @@ COPY --from=builder /app/dist/apps/admin-page /usr/share/nginx/htm
 CMD ["nginx", "-g", "'daemon off;'"]
 
 ## runtime environment END
+
