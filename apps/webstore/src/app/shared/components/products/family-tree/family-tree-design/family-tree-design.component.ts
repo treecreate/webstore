@@ -45,7 +45,8 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent
-  implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+  implements AfterViewInit, OnInit, OnChanges, OnDestroy
+{
   // Inputs for design settings
 
   @Input()
@@ -107,7 +108,7 @@ export class FamilyTreeDesignComponent
 
   // render loop
   timeInterval;
-  framesPerSecond = 30; // FPS of the render loop
+  framesPerSecond = 45; // FPS of the render loop
   // autosaving of the design
   autosaveFrequencyInSeconds = 30;
   autosaveInterval;
