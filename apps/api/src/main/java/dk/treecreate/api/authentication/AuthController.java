@@ -195,6 +195,14 @@ public class AuthController
         }   
     }
 
+    /**
+     * Logs out the user by taking the token from the <code>Authorization</code> header, 
+     * extracting the username from its body, and invalidating all of the tokens that 
+     * belong to that user.
+     * 
+     * @param request an HTTP request.
+     * @return a <code>Response Entity</code> with no body.
+     */
     @GetMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request) 
     {
@@ -207,7 +215,7 @@ public class AuthController
             // Remove all User's tokens from the whitelist
             jwtUtils.removeWhitelistUser(user);
             
-            return ResponseEntity.ok("");
+            return ResponseEntity.noContent().build();
         } catch (Exception e)
         {
             LOGGER.error("Failed to logout.", e);
