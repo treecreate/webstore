@@ -10,7 +10,6 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
-import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
@@ -26,11 +25,6 @@ const routes: Routes = [
   {
     path: 'resetPassword/:token',
     component: ResetPasswordComponent,
-    canActivate: [CookieGuard],
-  },
-  {
-    path: 'verification/:token',
-    component: VerificationComponent,
     canActivate: [CookieGuard],
   },
   {
@@ -74,14 +68,12 @@ const routes: Routes = [
   {
     path: 'basket',
     component: BasketComponent,
-    canActivate: [CookieGuard, AuthGuard],
-    data: { roles: [UserRoles.user] },
+    canActivate: [CookieGuard],
   },
   {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [CookieGuard, AuthGuard],
-    data: { roles: [UserRoles.user] },
+    canActivate: [CookieGuard],
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests

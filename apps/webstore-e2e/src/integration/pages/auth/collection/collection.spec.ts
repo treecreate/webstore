@@ -16,7 +16,6 @@ describe('CollectionPage', () => {
     userId: '1c1ca614-6600-4e61-aec5-8e6143b1',
     email: 'suckmeoff@test.com',
     roles: [UserRoles.user],
-    isVerified: true,
     name: 'macSackMyD*ck',
     phoneNumber: '+4512345678',
     streetAddress: 'Yo mammas house 69, 3rd floor',
