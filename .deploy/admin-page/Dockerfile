@@ -13,11 +13,15 @@ WORKDIR /app
 COPY package.json .
 
 # Set required ENVs
-ARG ENV=prod
-ARG LOG_LEVEL=notice
+ARG ENV=dev
+ARG LOG_LEVEL=warn
 
 # Run npm install inside container
-RUN npm install --loglevel ${LOG_LEVEL} --only=${ENV}
+# BAK RUN npm install --loglevel ${LOG_LEVEL} --only=${ENV}
+RUN if [[ $ENV == "prod" ]] ; \
+	then npm install --loglevel ${LOG_LEVEL} --only=prod;	\
+	else npm install --loglevel ${LOG_LEVEL};		\
+    fi
 
 # Copy all files different to local machine to container
 # Uses caching to prevent copying ALL files if only some parts changed
@@ -32,9 +36,12 @@ COPY workspace.json ./workspace.json
 # If we skip this step the prod build fails, as it is not a prod dependecy
 RUN npm install nx
 
+# Update any packages to newer versions to fix vulnerabilities
+RUN npm audit fix --only=prod
+
 # Execute this command in the docker container
 # BAK CMD ["npm", "run", "build" "webstore:admin:prod"]
-RUN npm run build:admin:prod 
+RUN npm run build:admin:${ENV}
 
 ###### Build container END
 
