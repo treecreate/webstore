@@ -1,11 +1,3 @@
-module.exports = {
-  projects: [
-    '<rootDir>/apps/webstore',
-    '<rootDir>/libs/models',
-    '<rootDir>/libs/interfaces',
-    '<rootDir>/libs/mocks',
-    '<rootDir>/libs/assets',
-    '<rootDir>/apps/admin-page',
-    '<rootDir>/libs/local-storage',
-  ],
-};
+const { getJestProjects } = require('@nrwl/jest');
+
+module.exports = { projects: getJestProjects() };

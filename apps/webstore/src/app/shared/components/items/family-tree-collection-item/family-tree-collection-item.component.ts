@@ -1,11 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDesign, IFamilyTree } from '@interfaces';
 import { LocalStorageVars } from '@models';
@@ -42,12 +36,7 @@ export class FamilyTreeCollectionItemComponent {
     this.designService.deleteDesign(this.design.designId).subscribe(
       () => {
         console.log('deleting item 2');
-        this.toastService.showAlert(
-          'The design has been deleted',
-          'Designet er slettet',
-          'danger',
-          5000
-        );
+        this.toastService.showAlert('The design has been deleted', 'Designet er slettet', 'danger', 5000);
         this.isLoading = false;
         this.deleteEvent.emit(this.design.designId);
       },
@@ -62,10 +51,7 @@ export class FamilyTreeCollectionItemComponent {
   }
 
   addDesignToBasket() {
-    this.localStorageService.setItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree,
-      this.design.designProperties
-    );
+    this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design.designProperties);
     this.modalService.open(AddToBasketModalComponent);
   }
 }

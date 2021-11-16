@@ -10,16 +10,10 @@ import { LocalStorageService } from '@local-storage';
   styleUrls: ['./rejected-cookies.component.scss'],
 })
 export class RejectedCookiesComponent {
-  constructor(
-    private modalService: NgbModal,
-    private localStorageService: LocalStorageService
-  ) {}
+  constructor(private modalService: NgbModal, private localStorageService: LocalStorageService) {}
 
   acceptCookies() {
-    this.localStorageService.setItem<CookieStatus>(
-      LocalStorageVars.cookiesAccepted,
-      CookieStatus.accepted
-    );
+    this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.accepted);
   }
 
   showTermsOfUse() {

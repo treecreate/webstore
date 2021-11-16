@@ -1,21 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  ChangeDetectorRef,
-  Component,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
-import {
-  DesignTypeEnum,
-  FamilyTreeFontEnum,
-  IAuthUser,
-  IDesign,
-  IFamilyTree,
-  IFamilyTreeBanner,
-} from '@interfaces';
+import { DesignTypeEnum, FamilyTreeFontEnum, IAuthUser, IDesign, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
@@ -71,19 +58,13 @@ export class ProductComponent implements OnInit {
     private authService: AuthService
   ) {
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
-      LocalStorageVars.authUser
-    );
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
-      this.isLoggedIn =
-        this.authUser$.getValue() != null &&
-        this.authService.isAccessTokenValid();
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
@@ -127,10 +108,7 @@ export class ProductComponent implements OnInit {
           if (result.designProperties === undefined) {
             console.warn('Fetched data was invalid!');
           } else {
-            this.localStorageService.setItem<IFamilyTree>(
-              LocalStorageVars.designFamilyTree,
-              this.design
-            );
+            this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
             // apply the design
             this.designTitle = this.design.title;
             this.backgroundTreeDesign = this.design.backgroundTreeDesign;
@@ -147,12 +125,7 @@ export class ProductComponent implements OnInit {
         },
         (err: HttpErrorResponse) => {
           console.error('Failed to fetch the', err);
-          this.toastService.showAlert(
-            'Failed to load your design',
-            'Vi kunne ikke loade dit design',
-            'danger',
-            10000
-          );
+          this.toastService.showAlert('Failed to load your design', 'Vi kunne ikke loade dit design', 'danger', 10000);
           this.router.navigate([], {
             relativeTo: this.route,
             queryParams: { designId: null },
@@ -163,9 +136,7 @@ export class ProductComponent implements OnInit {
       );
     } else {
       console.log('Loading design from local storage');
-      this.design = this.localStorageService.getItem<IFamilyTree>(
-        LocalStorageVars.designFamilyTree
-      ).value;
+      this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       console.log('loaded design', this.design);
       // apply the design
       if (this.design !== null && this.design !== undefined) {
@@ -198,9 +169,7 @@ export class ProductComponent implements OnInit {
     }
     const persist = { params };
     this.designCanvas.saveDesign();
-    this.design = this.localStorageService.getItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree
-    ).value;
+    this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn) {
       this.toastService.showAlert(
@@ -216,9 +185,7 @@ export class ProductComponent implements OnInit {
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
-    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree
-    ).value;
+    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
     if (queryParams.designId !== undefined) {
       // design exists, save using the designId
       this.designService
@@ -258,12 +225,7 @@ export class ProductComponent implements OnInit {
         .subscribe(
           (result) => {
             console.log('Design created and persisted', result);
-            this.toastService.showAlert(
-              'Your design has been saved',
-              'Dit design er bleven gemt',
-              'success',
-              5000
-            );
+            this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
             this.router.navigate([], {
               relativeTo: this.route,
               queryParams: { designId: result.designId },
@@ -325,40 +287,30 @@ export class ProductComponent implements OnInit {
   }
 
   nextDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(
-      this.backgroundTreeDesign
-    );
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
     const nextDesign = Object.keys(TreeDesignEnum)[currentDesignIndex + 1];
 
     if (nextDesign === undefined) {
       // set the first design in the enum
-      this.backgroundTreeDesign =
-        TreeDesignEnum[Object.keys(TreeDesignEnum)[0]];
+      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[0]];
     } else {
       this.backgroundTreeDesign = TreeDesignEnum[nextDesign];
     }
   }
 
   prevDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(
-      this.backgroundTreeDesign
-    );
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
     const previousDesign = Object.keys(TreeDesignEnum)[currentDesignIndex - 1];
     if (previousDesign === undefined) {
       // set the last design in the enum
-      this.backgroundTreeDesign =
-        TreeDesignEnum[
-          Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]
-        ];
+      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]];
     } else {
       this.backgroundTreeDesign = TreeDesignEnum[previousDesign];
     }
   }
 
   nextFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(
-      this.font
-    );
+    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
     const nextFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex + 1];
     if (nextFont === undefined) {
       // set the first font in the enum
@@ -369,18 +321,11 @@ export class ProductComponent implements OnInit {
   }
 
   prevFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(
-      this.font
-    );
+    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
     const previousFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex - 1];
     if (previousFont === undefined) {
       // set the last font in the enum
-      this.font =
-        FamilyTreeFontEnum[
-          Object.keys(FamilyTreeFontEnum)[
-            Object.values(FamilyTreeFontEnum).length - 1
-          ]
-        ];
+      this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[Object.values(FamilyTreeFontEnum).length - 1]];
     } else {
       this.font = FamilyTreeFontEnum[previousFont];
     }
@@ -415,13 +360,8 @@ export class ProductComponent implements OnInit {
   }
 
   iOS() {
-    return [
-      'iPad Simulator',
-      'iPhone Simulator',
-      'iPod Simulator',
-      'iPad',
-      'iPhone',
-      'iPod',
-    ].includes(navigator.platform);
+    return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(
+      navigator.platform
+    );
   }
 }
