@@ -267,30 +267,6 @@
                         Change password
                     </button>
                 </div>
-                <button
-                    type="button"
-                    class="tc-button-100 loading-spinner-btn"
-                    *ngIf="!isVerified && isResendVerificationEmailLoading"
-                    disabled
-                >
-                    <span
-                        class="spinner-border spinner-border-sm text-light"
-                        style="margin: 5px"
-                        role="status"
-                        aria-hidden="true"
-                    ></span>
-                    <span i18n="@@sending-email">Sending e-mail...</span>
-                </button>
-                <button
-                    type="button"
-                    class="tc-button-100"
-                    *ngIf="!isVerified && !isResendVerificationEmailLoading"
-                    (click)="resendVerificationEmail()"
-                    i18n="@@resend-verification-email"
-                    data-cy="resend-verification-email-button"
-                >
-                    Resend verification e-mail
-                </button>
             </div>
         </div>
     </form>
