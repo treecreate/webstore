@@ -62,15 +62,12 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private toastService: ToastService,
     private userService: UserService,
     private modalService: NgbModal,
     private calculatePriceService: CalculatePriceService,
-    private newsletterService: NewsletterService,
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
-    private orderService: OrderService,
-    private router: Router
+    private orderService: OrderService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(
@@ -86,32 +83,23 @@ export class CheckoutComponent implements OnInit {
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
-  }
-
-  ngOnInit(): void {
-    this.initForms();
-    // Get discount from localstorgae
-    this.discount = this.localStorageService.getItem<IDiscount>(
-      LocalStorageVars.discount
-    ).value;
     // Get planted trees from localstorage
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
+  }
+
+  ngOnInit(): void {
+    this.initForms();
     if (this.plantedTrees === null) {
       this.plantedTrees = 1;
     }
-    try {
-      if (this.isLoggedIn) {
-        //Get user and update form
-        this.userService.getUser().subscribe((user: IUser) => {
-          this.currentUser = user;
-          this.updateFormValues();
-        });
-      }
-    } catch (err) {
-      console.log(err);
-      // TODO: handle failed fetching data
+    if (this.isLoggedIn) {
+      //Get user and update form
+      this.userService.getUser().subscribe((user: IUser) => {
+        this.currentUser = user;
+        this.updateFormValues();
+      });
     }
     this.loadTransactionItems();
   }
@@ -291,14 +279,13 @@ export class CheckoutComponent implements OnInit {
       await this.loadTransactionItemsFromDB();
       this.createOrder();
     } catch (error) {
-      console.error(error);
-      this.toastService.showAlert(
-        'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk',
-        'Der skete en fejl ved oprettelsen af din ordrer. Prøv igen og hvis fejlen gentager sig kan du kontakte os på info@treecreate.dk',
-        'danger',
-        10000
-      );
-      this.isLoading = false;
+      console.warn(error);
+      this.alert = {
+        message:
+          'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk',
+        type: 'danger',
+        dismissible: false,
+      };
     } finally {
       this.isLoading = false;
     }

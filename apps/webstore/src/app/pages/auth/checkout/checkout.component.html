@@ -536,6 +536,7 @@
                     <webstore-checkout-item
                         *ngFor="let item of itemList"
                         [item]="item"
+                        data-cy="checkout-item"
                     ></webstore-checkout-item>
                 </div>
                 <div *ngIf="isLoading" class="loading-screen">

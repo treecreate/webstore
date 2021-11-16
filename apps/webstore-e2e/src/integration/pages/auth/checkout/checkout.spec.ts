@@ -2,7 +2,6 @@ import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
-  DiscountType,
   FamilyTreeFontEnum,
   IDesign,
   IDraggableBox,
@@ -11,16 +10,15 @@ import {
   IUser,
 } from '@interfaces';
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
-//import { AuthenticationService } from '@webstore/mocks';
+import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
-//const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
   roles: [UserRoles.user],
   name: 'teodor jonasson',
   phoneNumber: '26192327',
-  streetAddress: 'hillerødgade 69,  3 etage',
+  streetAddress: 'hillerødgade 69, 3 etage',
   streetAddress2: 'whackado',
   city: 'Århus',
   postcode: '1234',
@@ -66,17 +64,79 @@ const mockDesign: IDesign = {
 const mockTransactionItem: ITransactionItem = {
   transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
-  dimension: DesignDimensionEnum.medium,
+  dimension: DesignDimensionEnum.small,
   quantity: 1,
   design: mockDesign,
 };
+const mockTransactionItemLarge: ITransactionItem = {
+  transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  dimension: DesignDimensionEnum.large,
+  quantity: 2,
+  design: mockDesign,
+};
+const authMockService = new AuthenticationService();
 
-/* TODO: Add missing tests to checkout
- * - should have correct items in transaction when logged in (depends on data)
- * - should have correct items in transaction when getting it from localstorage (depends on data)
- * - should have correct pricing (depends on the data)
- * - should send the right request when going to payment and possibly others (@Kwandes)
- */
+describe('logged in user functionality', () => {
+  beforeEach(() => {
+    localStorage.setItem(
+      LocalStorageVars.cookiesAccepted,
+      `"${CookieStatus.accepted}"`
+    );
+    localStorage.setItem(
+      LocalStorageVars.authUser,
+      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+    );
+    cy.intercept('GET', '/users/me', {
+      body: mockUser,
+      statusCode: 200,
+    });
+    //Retrieve all transaction items LIST
+    cy.intercept('GET', '/transaction-items/me', {
+      body: [mockTransactionItem, mockTransactionItemLarge],
+      statusCode: 200,
+    });
+    cy.visit('/checkout');
+  });
+
+  /* TODO: Add missing tests to checkout
+   * - should send the right request when going to payment and possibly others (@Kwandes)
+   */
+
+  it('should load data from user', () => {
+    cy.get('[data-cy=checkout-form-name-input]').should(
+      'have.value',
+      'teodor jonasson'
+    );
+    cy.get('[data-cy=checkout-form-email-input]').should(
+      'have.value',
+      'e2e@test.com'
+    );
+    cy.get('[data-cy=checkout-form-street-address-input]').should(
+      'have.value',
+      'hillerødgade 69, 3 etage'
+    );
+    cy.get('[data-cy=checkout-form-city-input]').should('have.value', 'Århus');
+    cy.get('[data-cy=checkout-form-postcode-input]').should(
+      'have.value',
+      '1234'
+    );
+  });
+
+  it('should load the transactionItems correctly', () => {
+    cy.get('[data-cy=checkout-item]').should('have.length', 2);
+    cy.get('[data-cy=checkout-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=checkout-item-title]').should('not.contain', 'title2');
+        cy.get('[data-cy=checkout-item-title]').should('contain', 'title1');
+      });
+  });
+
+  it('should have the correct pricing', () => {});
+
+  it('should have the correct discount apply', () => {});
+});
 
 describe('CheckoutPage', () => {
   beforeEach(() => {
@@ -85,7 +145,7 @@ describe('CheckoutPage', () => {
       `"${CookieStatus.accepted}"`
     );
   });
-  describe('general page functionality', () => {
+  describe.skip('general page functionality', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.transactionItems,
@@ -94,24 +154,24 @@ describe('CheckoutPage', () => {
       cy.visit('/checkout');
     });
 
-    it.skip('should not contain a navbar and footer', () => {
+    it('should not contain a navbar and footer', () => {
       cy.get('[data-cy=navbar]').should('not.exist');
       cy.get('[data-cy=footer]').should('not.exist');
     });
 
-    it.skip('should have billing address be the same as delivery address be true', () => {
+    it('should have billing address be the same as delivery address be true', () => {
       cy.get('[data-cy=billing-address-is-the-same-checkbox]').should(
         'be.checked'
       );
       cy.get('[data-cy=billing-address-form]').should('not.exist');
     });
 
-    it.skip('should display billing address form when disabling billing and shipping address being the same', () => {
+    it('should display billing address form when disabling billing and shipping address being the same', () => {
       cy.get('[data-cy=billing-address-is-the-same-button]').click();
       cy.get('[data-cy=billing-address-form]').should('exist');
     });
 
-    it.skip('should have delivery be set to parcelshop delivery', () => {
+    it('should have delivery be set to parcelshop delivery', () => {
       cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should(
         'be.checked'
       );
@@ -120,7 +180,7 @@ describe('CheckoutPage', () => {
       );
     });
 
-    it.skip('should change to home delivery', () => {
+    it('should change to home delivery', () => {
       cy.get('[data-cy=checkout-form-parcelshop-checkbox]').should(
         'be.checked'
       );
@@ -162,26 +222,11 @@ describe('CheckoutPage', () => {
     });
   });
 
-  describe('logged in user functionality', () => {
-    beforeEach(() => {
-      cy.intercept('GET', '/transaction-items/me', {
-        body: [mockTransactionItem],
-        statusCode: 200,
-      });
-      cy.intercept('GET', '/users/me', {
-        body: mockUser,
-        statusCode: 200,
-      }).as('getUserRequest');
-    });
-
-    // TODO: add tests here
-  });
-
-  describe.skip('not a user functionality tests', () => {
+  describe('not a user functionality tests', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.transactionItems,
-        JSON.stringify([mockTransactionItem])
+        JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
       );
       cy.visit('/checkout');
       cy.get('[data-cy=checkout-form-name-input]').type('test');
@@ -189,6 +234,19 @@ describe('CheckoutPage', () => {
       cy.get('[data-cy=checkout-form-street-address-input]').type('test');
       cy.get('[data-cy=checkout-form-city-input]').type('CityName');
       cy.get('[data-cy=checkout-form-postcode-input]').type('1234');
+    });
+
+    it('should display items from localstorage correctly', () => {
+      cy.get('[data-cy=checkout-item]').should('have.length', 2);
+      cy.get('[data-cy=checkout-item]')
+        .first()
+        .within(() => {
+          cy.get('[data-cy=checkout-item-title]').should(
+            'not.contain',
+            'title2'
+          );
+          cy.get('[data-cy=checkout-item-title]').should('contain', 'title1');
+        });
     });
     it('should have go to payment button disabled when terms are not accepted', () => {
       cy.get('[data-cy=checkout-form-terms-checkbox]').should('not.be.checked');
