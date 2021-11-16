@@ -299,7 +299,7 @@ export class CheckoutComponent implements OnInit {
 
       this.localStorageService.removeItem(LocalStorageVars.transactionItems);
 
-      // TODO: Create special email for new users
+      // TODO: Create "welcome to treecreate, set your password to enter your account" email for new users
       this.userService.sendResetUserPassword(
         this.checkoutForm.get('email').value
       );
@@ -398,8 +398,8 @@ export class CheckoutComponent implements OnInit {
           console.log('Created order and got a payment link', paymentLink);
           this.localStorageService.removeItem(LocalStorageVars.discount);
           this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
-          window.open(paymentLink.url, '_blank');
-          this.router.navigate(['/payment/success']);
+          // Go to payment link
+          window.location.href = paymentLink.url;
         },
         (error: HttpErrorResponse) => {
           console.error(error);

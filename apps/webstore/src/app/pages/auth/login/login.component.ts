@@ -80,13 +80,9 @@ export class LoginComponent implements OnInit {
           >(LocalStorageVars.transactionItems).value;
           // Create the transaction items in DB / user
           if (localStorageItems != null) {
-            for (let i = 0; i < localStorageItems.length; i++) {
-              this.transactionItemService.createTransactionItem({
-                designId: localStorageItems[i].design.designId,
-                dimension: localStorageItems[i].dimension,
-                quantity: localStorageItems[i].quantity,
-              });
-            }
+            this.transactionItemService.createBulkTransactionItem({
+              transactionItems: localStorageItems,
+            });
           }
 
           this.isLoading = false;
