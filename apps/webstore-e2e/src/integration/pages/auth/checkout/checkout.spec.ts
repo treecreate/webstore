@@ -175,7 +175,7 @@ describe('CheckoutPage', () => {
       `"${CookieStatus.accepted}"`
     );
   });
-  describe.skip('general page functionality', () => {
+  describe('general page functionality', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.transactionItems,
@@ -252,7 +252,7 @@ describe('CheckoutPage', () => {
     });
   });
 
-  describe.skip('not a user functionality tests', () => {
+  describe('not a user functionality tests', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.transactionItems,
@@ -327,7 +327,7 @@ describe('CheckoutPage', () => {
     });
   });
 
-  describe.skip('billingAddressForm', () => {
+  describe('billingAddressForm', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.transactionItems,
@@ -397,7 +397,7 @@ describe('CheckoutPage', () => {
     });
   });
 
-  describe.skip('checkoutForm', () => {
+  describe('checkoutForm', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.transactionItems,
