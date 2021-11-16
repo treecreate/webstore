@@ -9,7 +9,7 @@ FROM node:lts-alpine3.14 AS builder
 # Directory to work in the container
 WORKDIR /app
 
-# Copy package.json to root of container
+# Copy package.json to the root of container
 COPY package.json .
 
 # Set required ENVs
@@ -18,11 +18,11 @@ ARG LOG_LEVEL=warn
 
 # Run npm install inside container
 # --legacy-peer-deps This line is currently required for the dependencies to install
-# Should be tested once in a while and removed when possible, as package mainatainers
-#   upated their dependencies to the new automated system.
+# Should be tested once in a while and removed when possible, as package maintainers
+#   updated their dependencies to the new automated system.
 RUN if [[ $ENV == "prod" ]] ; \
 	then npm install --legacy-peer-deps --loglevel ${LOG_LEVEL} --only=prod;	\
-	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};		\
+	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};			\
     fi
 
 # Copy all files different to local machine to container
@@ -35,11 +35,10 @@ COPY tsconfig.base.json ./tsconfig.base.json
 COPY workspace.json ./workspace.json
 
 # Install NX since it is not installed in our repository
-# If we skip this step the prod build fails, as it is not a prod dependecy
+# If we skip this step the prod build fails, as it is not a prod dependency
 RUN npm install nx
 
 # Execute this command in the docker container
-# BAK CMD ["npm", "run", "build" "webstore:admin:prod"]
 RUN npm run build:admin:${ENV}
 
 ###### Build container END
