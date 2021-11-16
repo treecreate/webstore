@@ -135,7 +135,7 @@ const mockTransactionItemTwo: ITransactionItem = {
   design: mockDesign,
 };
 
-describe('BasketPage using localstorage', () => {
+describe('BasketPage using localstorage (not logged in)', () => {
   beforeEach(() => {
     localStorage.setItem(
       LocalStorageVars.cookiesAccepted,
@@ -235,7 +235,7 @@ describe('BasketPage using localstorage', () => {
         cy.get('[data-cy=basket-item]').should('have.length', 1);
       });
   });
-  it.skip('should show a viewOnly version of the design', () => {
+  it('should show a viewOnly version of the design', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-item]')
       .first()
@@ -243,6 +243,7 @@ describe('BasketPage using localstorage', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
+        cy.get('[data-cy=family-tree-intro-close-button]').click();
         cy.url().should('contain', '/product?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
