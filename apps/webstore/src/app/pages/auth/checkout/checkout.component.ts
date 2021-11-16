@@ -89,6 +89,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initForms();
     // Get discount from localstorgae
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
@@ -97,11 +98,9 @@ export class CheckoutComponent implements OnInit {
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
-
     if (this.plantedTrees === null) {
       this.plantedTrees = 1;
     }
-
     try {
       if (this.isLoggedIn) {
         //Get user and update form
@@ -109,26 +108,11 @@ export class CheckoutComponent implements OnInit {
           this.currentUser = user;
           this.updateFormValues();
         });
-        // Check if user isSubscribed
-        this.newsletterService.isSubscribed().subscribe(
-          () => {
-            this.isSubscribed = true;
-          },
-          (error) => {
-            this.isSubscribed = false;
-            this.subscribeToNewsletter = true;
-            if (error.error.status !== 404) {
-              console.error(error);
-            }
-          }
-        );
       }
     } catch (err) {
       console.log(err);
       // TODO: handle failed fetching data
     }
-
-    this.initForms();
     this.loadTransactionItems();
   }
 
