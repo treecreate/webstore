@@ -137,7 +137,28 @@ describe('CheckoutPage', () => {
     });
 
     it('should have go to payment button disabled with wrong input in checkout form', () => {
-      // TODO: fix test
+      cy.get('[data-cy=checkout-form-name-input]').type('test');
+      cy.get('[data-cy=checkout-form-email-input]').type('test@urMom.com');
+      cy.get('[data-cy=checkout-form-street-address-input]').type('test');
+      cy.get('[data-cy=checkout-form-city-input]').type('CityName');
+      cy.get('[data-cy=checkout-form-postcode-input]').type('1234');
+      cy.get('[data-cy=checkout-form-terms-button]').click();
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'not.be.disabled'
+      );
+      cy.get('[data-cy=checkout-form-postcode-input]').type('1');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'be.disabled'
+      );
+      cy.get('[data-cy=checkout-form-postcode-input]').clear();
+      cy.get('[data-cy=checkout-form-postcode-input]').type('1234');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'not.be.disabled'
+      );
+      cy.get('[data-cy=checkout-form-city-input]').type('12!');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').should(
+        'be.disabled'
+      );
     });
   });
 
