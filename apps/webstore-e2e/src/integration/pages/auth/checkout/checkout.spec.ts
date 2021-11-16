@@ -2,8 +2,10 @@ import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
+  DiscountType,
   FamilyTreeFontEnum,
   IDesign,
+  IDiscount,
   IDraggableBox,
   IFamilyTreeBanner,
   ITransactionItem,
@@ -75,6 +77,14 @@ const mockTransactionItemLarge: ITransactionItem = {
   quantity: 2,
   design: mockDesign,
 };
+const mockDiscount: IDiscount = {
+  discountId: '123',
+  discountCode: 'yeet10percent',
+  amount: 10,
+  type: DiscountType.percent,
+  remainingUses: 2,
+  totalUses: 1,
+};
 const authMockService = new AuthenticationService();
 
 describe('logged in user functionality', () => {
@@ -93,7 +103,11 @@ describe('logged in user functionality', () => {
     });
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem, mockTransactionItemLarge],
+      body: [
+        mockTransactionItem,
+        mockTransactionItemLarge,
+        mockTransactionItemLarge,
+      ],
       statusCode: 200,
     });
     cy.visit('/checkout');
@@ -124,7 +138,7 @@ describe('logged in user functionality', () => {
   });
 
   it('should load the transactionItems correctly', () => {
-    cy.get('[data-cy=checkout-item]').should('have.length', 2);
+    cy.get('[data-cy=checkout-item]').should('have.length', 3);
     cy.get('[data-cy=checkout-item]')
       .first()
       .within(() => {
@@ -133,9 +147,25 @@ describe('logged in user functionality', () => {
       });
   });
 
-  it('should have the correct pricing', () => {});
+  it('should have the correct pricing', () => {
+    cy.visit('/basket');
+    cy.get('[data-cy=basket-checkout-button]').click();
+    cy.get('[data-cy=checkout-subtotal]').should('contain', '4475.00');
+    cy.get('[data-cy=checkout-save]').should('contain', '1118.75');
+    cy.get('[data-cy=checkout-total]').should('contain', '3356.25');
+  });
 
-  it('should have the correct discount apply', () => {});
+  it('should have the correct discount apply', () => {
+    // Set discount
+    localStorage.setItem(
+      LocalStorageVars.discount,
+      JSON.stringify(mockDiscount)
+    );
+    cy.visit('/checkout');
+    cy.get('[data-cy=checkout-subtotal]').should('contain', '4475.00');
+    cy.get('[data-cy=checkout-save]').should('contain', '447.50');
+    cy.get('[data-cy=checkout-total]').should('contain', '4027.50');
+  });
 });
 
 describe('CheckoutPage', () => {
@@ -222,7 +252,7 @@ describe('CheckoutPage', () => {
     });
   });
 
-  describe('not a user functionality tests', () => {
+  describe.skip('not a user functionality tests', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.transactionItems,

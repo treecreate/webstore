@@ -582,7 +582,9 @@
                 <div class="order-info-section">
                     <div class="info-line">
                         <span i18n="@@subtotal">Subtotal</span
-                        ><span>{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
+                        ><span data-cy="checkout-subtotal"
+                            >{{ priceInfo.fullPrice.toFixed(2) }} DKK</span
+                        >
                     </div>
                     <div
                         class="info-line"
@@ -591,19 +593,21 @@
                         "
                     >
                         <span i18n="@@you-save">You save</span
-                        ><span
+                        ><span data-cy="checkout-save"
                             >{{ priceInfo.discountAmount.toFixed(2) }} DKK</span
                         >
                     </div>
                     <div class="info-line">
                         <span i18n="@@delivery">Delivery</span
-                        ><span
+                        ><span data-cy="checkout-delivery"
                             >{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span
                         >
                     </div>
                     <div class="info-line total">
                         <span i18n="@@total">Total</span
-                        ><span>{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
+                        ><span data-cy="checkout-total"
+                            >{{ priceInfo.finalPrice.toFixed(2) }} DKK</span
+                        >
                     </div>
                     <div class="info-line vat">
                         <span i18n="@@vat">VAT</span
