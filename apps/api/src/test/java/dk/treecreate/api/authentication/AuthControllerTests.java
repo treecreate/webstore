@@ -3,13 +3,18 @@ package dk.treecreate.api.authentication;
 import dk.treecreate.api.TestUtilsService;
 import dk.treecreate.api.authentication.dto.request.LoginRequest;
 import dk.treecreate.api.authentication.dto.request.SignupRequest;
+import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
 import dk.treecreate.api.authentication.repository.RoleRepository;
+import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.LocaleService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +24,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -29,7 +36,11 @@ import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,6 +51,9 @@ class AuthControllerTests
 {
     @Autowired
     private MockMvc mvc;
+    @Autowired
+    private CustomPropertiesConfig customProperties;
+
     @MockBean
     private UserRepository userRepository;
     @MockBean
@@ -48,7 +62,9 @@ class AuthControllerTests
     private MailService mailService;
     @MockBean
     private LocaleService localeService;
-
+    @MockBean
+    private JwtUtils jwtUtils;
+    
     // region Signin
 
     @Test
@@ -241,5 +257,55 @@ class AuthControllerTests
             .andExpect(jsonPath("$.roles", hasSize(3)))
             .andExpect(jsonPath("tokenType", is("Bearer")))
             .andExpect(jsonPath("accessToken", is(notNullValue())));
+    }
+
+    @Test
+    @WithMockUser(username = "test@treecreate.dk")
+    @DisplayName("/auth/refresh endpoint correctly refreshes the user's tokens")
+    void refreshCorrectlyRefreshesTokens() throws Exception
+    {
+        String refreshToken = Jwts.builder()
+            .setSubject("test@treecreate.dk")
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+            .compact();
+
+        String authToken = Jwts.builder()
+            .setSubject("test@treecreate.dk")
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+            .compact();
+
+        String newRefreshToken = Jwts.builder()
+            .setSubject("test@treecreate.dk")
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+            .compact();
+
+        String newAuthToken = Jwts.builder()
+            .setSubject("test@treecreate.dk")
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+            .compact();
+        
+        Mockito.when(jwtUtils.generateJwtToken(any())).thenReturn(newAuthToken);
+        Mockito.when(jwtUtils.generateJwtRefreshToken(any())).thenReturn(newRefreshToken);
+        
+        jwtUtils.whitelistJwtPair(authToken, refreshToken);
+
+        mvc.perform(get("/auth/refresh")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + refreshToken))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("tokenType", is("Bearer")))
+            .andExpect(jsonPath("accessToken", equalTo(newAuthToken)))
+            .andExpect(jsonPath("refreshToken", equalTo(newRefreshToken)));
+
+        // assertFalse(jwtUtils.validateJwtToken(authToken));
+        // assertFalse(jwtUtils.validateJwtToken(refreshToken));
     }
 }
