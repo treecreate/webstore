@@ -38,6 +38,10 @@ COPY workspace.json ./workspace.json
 # If we skip this step the prod build fails, as it is not a prod dependency
 RUN npm install nx
 
+# Not required as such, but there are lots of translation warnings from angular 
+#   to js. This makes those issues go away and I advise we keep it there 
+# RUN npm install @angular/cli
+
 # Execute this command in the docker container
 RUN npm run build:admin:${ENV}
 
