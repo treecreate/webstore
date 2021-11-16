@@ -76,9 +76,7 @@ export class DraggableBoxComponent implements AfterViewInit {
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   constructor(private localStorageService: LocalStorageService) {
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
   }
 

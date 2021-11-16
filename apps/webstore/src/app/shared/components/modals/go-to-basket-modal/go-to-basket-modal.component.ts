@@ -33,8 +33,7 @@ export class GoToBasketModalComponent implements OnInit {
         }
         this.itemsInBasket = itemSum;
         if (this.itemsInBasket >= 4) {
-          this.basketPrice =
-            this.calculatePriceService.getFullPrice(itemList) * 0.75;
+          this.basketPrice = this.calculatePriceService.getFullPrice(itemList) * 0.75;
         } else {
           this.basketPrice = this.calculatePriceService.getFullPrice(itemList);
         }

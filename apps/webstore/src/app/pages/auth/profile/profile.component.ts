@@ -14,10 +14,7 @@ import { VerifyService } from '../../../shared/services/verify/verify.service';
 @Component({
   selector: 'webstore-profile',
   templateUrl: './profile.component.html',
-  styleUrls: [
-    './profile.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./profile.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class ProfileComponent implements OnInit {
   public isVerified: boolean;
@@ -39,44 +36,25 @@ export class ProfileComponent implements OnInit {
     private modalService: NgbModal
   ) {
     // Listen to changes to verification status
-    this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .subscribe(() => {
-        //TODO: isVerified is null, the verify service returns null
-        this.isVerified = this.verifyService.getIsVerified();
-      });
+    this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).subscribe(() => {
+      //TODO: isVerified is null, the verify service returns null
+      this.isVerified = this.verifyService.getIsVerified();
+    });
   }
 
   ngOnInit(): void {
     this.accountInfoForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.pattern('^[^0-9]+$'),
-      ]),
+      name: new FormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
       phoneNumber: new FormControl('', [
         Validators.minLength(8),
         Validators.maxLength(11),
         Validators.pattern('^[0-9+]*$'),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.minLength(7),
-      ]),
-      streetAddress2: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.minLength(3),
-      ]),
-      city: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.minLength(3),
-        Validators.pattern('^[^0-9]+$'),
-      ]),
-      postcode: new FormControl('', [
-        Validators.max(9999),
-        Validators.min(555),
-        Validators.pattern('^[0-9]*$'),
-      ]),
+      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(7)]),
+      streetAddress2: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      city: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[^0-9]+$')]),
+      postcode: new FormControl('', [Validators.max(9999), Validators.min(555), Validators.pattern('^[0-9]*$')]),
     });
     try {
       this.isLoading = true;
@@ -110,13 +88,10 @@ export class ProfileComponent implements OnInit {
   hasChangedValues() {
     return (
       this.accountInfoForm.get('name').value === this.currentUser.name &&
-      this.accountInfoForm.get('phoneNumber').value ===
-        this.currentUser.phoneNumber &&
+      this.accountInfoForm.get('phoneNumber').value === this.currentUser.phoneNumber &&
       this.accountInfoForm.get('email').value === this.currentUser.email &&
-      this.accountInfoForm.get('streetAddress').value ===
-        this.currentUser.streetAddress &&
-      this.accountInfoForm.get('streetAddress2').value ===
-        this.currentUser.streetAddress2 &&
+      this.accountInfoForm.get('streetAddress').value === this.currentUser.streetAddress &&
+      this.accountInfoForm.get('streetAddress2').value === this.currentUser.streetAddress2 &&
       this.accountInfoForm.get('city').value === this.currentUser.city &&
       this.accountInfoForm.get('postcode').value === this.currentUser.postcode
     );

@@ -11,10 +11,7 @@ import { ToastService } from '../../toast/toast-service';
 @Component({
   selector: 'webstore-cookie-prompt-modal',
   templateUrl: './cookie-prompt-modal.component.html',
-  styleUrls: [
-    './cookie-prompt-modal.component.css',
-    '../../../../../assets/styles/modals.css',
-  ],
+  styleUrls: ['./cookie-prompt-modal.component.css', '../../../../../assets/styles/modals.css'],
 })
 export class CookiePromptModalComponent implements OnInit {
   closeResult = '';
@@ -26,9 +23,7 @@ export class CookiePromptModalComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private toastService: ToastService
   ) {
-    this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(
-      LocalStorageVars.cookiesAccepted
-    );
+    this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(LocalStorageVars.cookiesAccepted);
   }
 
   ngOnInit(): void {
@@ -53,10 +48,7 @@ export class CookiePromptModalComponent implements OnInit {
   }
 
   acceptCookies() {
-    this.localStorageService.setItem<CookieStatus>(
-      LocalStorageVars.cookiesAccepted,
-      CookieStatus.accepted
-    );
+    this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.accepted);
     this.toastService.showAlert(
       'Thank you for accepting our cookies!',
       'Tak fordi du siger ja til vores cookies!',
@@ -66,10 +58,7 @@ export class CookiePromptModalComponent implements OnInit {
   }
 
   rejectCookies() {
-    this.localStorageService.setItem<CookieStatus>(
-      LocalStorageVars.cookiesAccepted,
-      CookieStatus.rejected
-    );
+    this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.rejected);
     this.toastService.showAlert(
       'You wont be able to access the page without accepting our cookies. :( ',
       'Du kan desværre ikke bruge siden uden at accepterer vores cookies. :( ',

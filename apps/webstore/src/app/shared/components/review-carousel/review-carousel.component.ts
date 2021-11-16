@@ -50,9 +50,7 @@ export class ReviewCarouselComponent {
 
   constructor(private localStorageService: LocalStorageService) {
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
   }
 }

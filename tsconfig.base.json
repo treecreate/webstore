@@ -17,9 +17,9 @@
     "paths": {
       "@assets": ["libs/assets/src/index.ts"],
       "@interfaces": ["libs/interfaces/src/index.ts"],
+      "@local-storage": ["libs/local-storage/src/index.ts"],
       "@models": ["libs/models/src/index.ts"],
-      "@webstore/mocks": ["libs/mocks/src/index.ts"],
-      "@local-storage": ["libs/local-storage/src/index.ts"]
+      "@webstore/mocks": ["libs/mocks/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
