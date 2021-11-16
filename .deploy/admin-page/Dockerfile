@@ -36,9 +36,6 @@ COPY workspace.json ./workspace.json
 # If we skip this step the prod build fails, as it is not a prod dependecy
 RUN npm install nx
 
-# Update any packages to newer versions to fix vulnerabilities
-RUN npm audit fix --only=prod
-
 # Execute this command in the docker container
 # BAK CMD ["npm", "run", "build" "webstore:admin:prod"]
 RUN npm run build:admin:${ENV}
