@@ -108,6 +108,9 @@ export class NavbarComponent implements OnInit {
       2500
     );
     this.authService.logout();
+    // Clear the local storage;
+    this.localStorageService.removeItem(LocalStorageVars.transactionItems);
+    this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
     window.scroll(0, 0);
     window.location.reload();
   }
