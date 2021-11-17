@@ -9,14 +9,24 @@ import { RouterModule } from '@angular/router';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { AppComponent } from './app.component';
 import { nzModules } from './nz-modules.constant';
+import { LayoutComponent } from './components/layout/layout.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LayoutComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    RouterModule.forRoot([
+      {path: 'dashboard'},
+      {path: 'orders'},
+      {path: 'customers'},
+      {path: 'discounts'},
+      {path: 'activity-log'},
+      {path: 'newsletter'},
+      {path: 'account'},
+      {path: 'logout'},
+    ], { initialNavigation: 'enabled' }),
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -24,5 +34,8 @@ registerLocaleData(en);
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
+  exports: [
+    LayoutComponent
+  ],
 })
 export class AppModule {}

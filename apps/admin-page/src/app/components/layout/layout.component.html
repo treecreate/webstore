@@ -1,0 +1,61 @@
+<nz-layout>
+    <!-- Navbar -->
+    <nz-header class="navbar">
+        <div>TC Management</div>
+        <div class="btn-container">
+            <a class="navbar-btn" routerLink="/account">Account</a>
+            <a class="navbar-btn" routerLink="/logout">Logout</a>
+        </div>
+    </nz-header>
+
+    <!-- Body -->
+    <nz-layout class="body">
+        <!-- Sidebar -->
+        <nz-sider nzCollapsible nzTheme="light" nzWidth="var(--sidebar-width)" class="sidebar">
+            <!-- Header -->
+            <div class="sidebar-header">
+                <div routerLink="/account">
+                    <img src="/assets/icons/person_icon.svg" alt="person_icon.svg" class="user-icon" />
+                </div>
+
+                <h4 nz-typography class="sidebar-collapsible">Admin</h4>
+                <span nz-typography nzType="secondary" class="sidebar-collapsible">{{ username }}</span>
+            </div>
+
+            <nz-divider class="divider sidebar-collapsible"></nz-divider>
+
+            <!-- Item List -->
+            <ul nz-menu nzTheme="light" nzMode="inline">
+                <li nz-menu-item routerLink="/dashboard">
+                    <i nz-icon nzType="qrcode" nzTheme="outline"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li nz-menu-item routerLink="/orders">
+                    <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+                    <span>Orders</span>
+                </li>
+                <li nz-menu-item routerLink="/customers">
+                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                    <span>Customers</span>
+                </li>
+                <li nz-menu-item routerLink="/discounts">
+                    <i nz-icon nzType="credit-card" nzTheme="outline"></i>
+                    <span>Discounts</span>
+                </li>
+                <li nz-menu-item routerLink="/activity-log">
+                    <i nz-icon nzType="line-chart" nzTheme="outline"></i>
+                    <span>Activity Log</span>
+                </li>
+                <li nz-menu-item routerLink="/newsletter">
+                    <i nz-icon nzType="mail" nzTheme="outline"></i>
+                    <span>Newsletter</span>
+                </li>
+            </ul>
+        </nz-sider>
+
+        <!-- Content -->
+        <nz-layout class="inner-layout content">
+            {{ changeRoute() }}
+        </nz-layout>
+    </nz-layout>
+</nz-layout>
