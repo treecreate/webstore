@@ -105,10 +105,7 @@
                         Invalid phone number.
                     </div>
 
-                    <div
-                        class="tc-input-group field"
-                        (click)="notAllowedToChangeEmailAlert()"
-                    >
+                    <div class="tc-input-group field">
                         <input
                             type="email"
                             class="tc-input-field"
@@ -118,7 +115,6 @@
                             id="profileEmail"
                             autocomplete="email"
                             data-cy="checkout-form-email-input"
-                            disabled
                         />
                         <label for="email" class="tc-input-label"
                             >E-mail *</label
@@ -540,6 +536,7 @@
                     <webstore-checkout-item
                         *ngFor="let item of itemList"
                         [item]="item"
+                        data-cy="checkout-item"
                     ></webstore-checkout-item>
                 </div>
                 <div *ngIf="isLoading" class="loading-screen">
@@ -585,7 +582,9 @@
                 <div class="order-info-section">
                     <div class="info-line">
                         <span i18n="@@subtotal">Subtotal</span
-                        ><span>{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
+                        ><span data-cy="checkout-subtotal"
+                            >{{ priceInfo.fullPrice.toFixed(2) }} DKK</span
+                        >
                     </div>
                     <div
                         class="info-line"
@@ -594,19 +593,21 @@
                         "
                     >
                         <span i18n="@@you-save">You save</span
-                        ><span
+                        ><span data-cy="checkout-save"
                             >{{ priceInfo.discountAmount.toFixed(2) }} DKK</span
                         >
                     </div>
                     <div class="info-line">
                         <span i18n="@@delivery">Delivery</span
-                        ><span
+                        ><span data-cy="checkout-delivery"
                             >{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span
                         >
                     </div>
                     <div class="info-line total">
                         <span i18n="@@total">Total</span
-                        ><span>{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
+                        ><span data-cy="checkout-total"
+                            >{{ priceInfo.finalPrice.toFixed(2) }} DKK</span
+                        >
                     </div>
                     <div class="info-line vat">
                         <span i18n="@@vat">VAT</span
@@ -617,25 +618,8 @@
                 <!-- Actions -->
                 <div class="actions">
                     <hr />
-                    <div
-                        class="option margin-top"
-                        *ngIf="!isSubscribed"
-                        data-cy="checkout-form-subscribe-option"
-                    >
-                        <label class="checkbox-container rm-margin">
-                            <input
-                                type="checkbox"
-                                [checked]="subscribeToNewsletter"
-                                (change)="
-                                    subscribeToNewsletter = !subscribeToNewsletter
-                                "
-                            />
-                            <span class="checkmark"></span>
-                        </label>
-                        <div class="option-title" i18n="@@subscribe-to-get-25%">
-                            Subscribe to newsletter - 25% off next purchase
-                        </div>
-                    </div>
+
+                    <!-- Accept T&C for sale checkbox -->
                     <div class="terms-and-conditions-container">
                         <label class="checkbox-container">
                             <input

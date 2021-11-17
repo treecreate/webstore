@@ -2,12 +2,12 @@
 <input
     #draggableBoxInput
     type="input"
-    placeholder="..."
+    placeholder="{{ isEnglish() ? 'Write name...' : 'Skriv navn...' }}"
     [ngModel]="text"
     class="draggable-box-input"
     (ngModelChange)="onInputChange($event)"
     [ngStyle]="{
-        top: y + 'px',
+        top: y - 2 + 'px',
         left: x + 'px',
         'z-index': zIndex,
         'max-width': width * 0.8 + 'px',

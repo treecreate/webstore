@@ -5,17 +5,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
+  IAuthUser,
   IFamilyTree,
   ITransactionItem,
 } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
 import { LocalStorageService } from '../../../services/local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
+import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
 
 @Component({
   selector: 'webstore-add-to-basket-modal',
@@ -24,14 +27,16 @@ import { ToastService } from '../../toast/toast-service';
 })
 export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
-  price: number;
-  isMoreThan4: boolean;
-  itemsInBasket: number;
-  totalPrice: number;
+  price = 0;
+  isMoreThan4 = false;
+  itemsInBasket = 0;
+  totalPrice = 0;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
-  design;
+  design: IFamilyTree;
   isLoading = false;
+  authUser$: BehaviorSubject<IAuthUser>;
+  isLoggedIn = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -42,11 +47,13 @@ export class AddToBasketModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private route: ActivatedRoute,
     private router: Router,
+    private modalService: NgbModal,
     private toastService: ToastService,
     private localStorageService: LocalStorageService,
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private authService: AuthService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(
@@ -55,6 +62,17 @@ export class AddToBasketModalComponent implements OnInit {
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
+    });
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+    // Check if the user is logged in
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
     });
   }
 
@@ -83,28 +101,17 @@ export class AddToBasketModalComponent implements OnInit {
       dimension: DesignDimensionEnum.small,
     });
 
-    new Promise(() => {
-      //Get items already in basket
-      this.isLoading = true;
+    this.isLoading = true;
+    if (this.isLoggedIn) {
       this.transactionItemService.getTransactionItems().subscribe(
         (itemList: ITransactionItem[]) => {
           let itemSum = 0;
           let priceSum = 0;
           for (let i = 0; i < itemList.length; i++) {
             itemSum += itemList[i].quantity;
-            switch (itemList[i].dimension) {
-              case 'SMALL':
-                priceSum += itemList[i].quantity * 495;
-                break;
-              case 'MEDIUM':
-                priceSum += itemList[i].quantity * 695;
-                break;
-              case 'LARGE':
-                priceSum += itemList[i].quantity * 995;
-                break;
-            }
           }
           this.itemsInBasket = itemSum;
+          priceSum = this.calculatePriceService.getFullPrice(itemList);
           this.totalPrice = priceSum;
           this.isLoading = false;
           this.updatePrice();
@@ -114,7 +121,23 @@ export class AddToBasketModalComponent implements OnInit {
           this.isLoading = false;
         }
       );
-    });
+    } else {
+      const itemList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
+      if (itemList !== null) {
+        let itemSum = 0;
+        let priceSum = 0;
+        for (let i = 0; i < itemList.length; i++) {
+          itemSum += itemList[i].quantity;
+        }
+        this.itemsInBasket = itemSum;
+        priceSum = this.calculatePriceService.getFullPrice(itemList);
+        this.totalPrice = priceSum;
+      }
+      this.isLoading = false;
+      this.updatePrice();
+    }
   }
 
   updatePrice() {
@@ -207,7 +230,57 @@ export class AddToBasketModalComponent implements OnInit {
 
   addDesignToBasket() {
     this.isLoading = true;
-    this.design.title = this.addToBasketForm.get('title').value;
+    if (this.isLoggedIn) {
+      // Save design to user collection and create and save transactionItem to DB
+      this.saveToDataBase();
+    } else {
+      // Save transactionItem to local storage
+      this.saveToLocalStorage();
+    }
+  }
+
+  saveToLocalStorage(): void {
+    // design id should be null
+    if (this.design.title !== this.addToBasketForm.get('title').value) {
+      this.design.title = this.addToBasketForm.get('title').value;
+    }
+    this.transactionItemService.saveToLocalStorage({
+      designProperties: this.design,
+      dimension: this.addToBasketForm.get('dimension').value,
+      quantity: this.addToBasketForm.get('quantity').value,
+    });
+
+    this.activeModal.close();
+    this.modalService.open(GoToBasketModalComponent);
+    this.isLoading = false;
+  }
+
+  saveToDataBase(): void {
+    // Check if the desig title matches add-to-basket-modal title of design
+    // If not, update the title in the users collection
+    if (this.design.title !== this.addToBasketForm.get('title').value) {
+      this.design.title = this.addToBasketForm.get('title').value;
+      this.localStorageService.setItem<IFamilyTree>(
+        LocalStorageVars.designFamilyTree,
+        this.design
+      );
+      //Update design title in collection
+      this.designService
+        .updateDesign({
+          designId: this.route.snapshot.queryParams.designId,
+          designType: DesignTypeEnum.familyTree,
+          designProperties: this.design,
+        })
+        .subscribe(
+          (result) => {
+            console.log('Design persisted', result);
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Failed to save design', error);
+          }
+        );
+    }
+
     // Persist the design as a new one, and, if successful, create a transaction item for it
     //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design)
     this.designService
@@ -219,13 +292,6 @@ export class AddToBasketModalComponent implements OnInit {
       .subscribe(
         (result) => {
           console.log('Design created and persisted', result);
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { designId: result.designId },
-            queryParamsHandling: 'merge', // remove to replace all query params by provided
-          });
-
-          // Create the transaction item with the newly persisted design
           console.log('design properties', {
             designId: result.designId,
             dimension: this.addToBasketForm.get('dimension').value,
@@ -248,7 +314,7 @@ export class AddToBasketModalComponent implements OnInit {
                   5000
                 );
                 this.activeModal.close();
-                window.location.reload();
+                this.modalService.open(GoToBasketModalComponent);
               },
               (error: HttpErrorResponse) => {
                 console.error(error);

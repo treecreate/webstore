@@ -1,0 +1,49 @@
+<div class="modal-body" data-cy="go-to-basket-modal">
+    <img
+        src="/assets/icons/check-green-icon.svg"
+        class="check-icon"
+        alt="check-icon"
+    />
+    <div class="title" i18n="@@go-to-basket-title">
+        The family tree has been added to your basket
+    </div>
+    <div class="sub-title" *ngIf="!isLoading">
+        <span i18n="@@you-have">You have</span> {{ itemsInBasket }}
+        <span i18n="@@items-in-your-basket">items in your basket</span> ({{
+            basketPrice
+        }}
+        DKK )
+    </div>
+    <div *ngIf="isLoading" style="text-align: center">
+        <span
+            class="spinner-border spinner-border-sm"
+            style="margin: 0 10px"
+            role="status"
+            aria-hidden="true"
+        ></span>
+        <br />
+        <span i18n="@@loading-items-in-basket">Loading items in basket...</span>
+    </div>
+</div>
+<div class="modal-footer">
+    <button
+        type="button"
+        class="tc-button-33 green"
+        routerLink="/basket"
+        (click)="activeModal.close()"
+        i18n="@@go-to-basket"
+        data-cy="go-to-basket-go-to-basket-button"
+    >
+        Go to basket
+    </button>
+    <button
+        type="button"
+        class="tc-button-33"
+        routerLink="/product"
+        (click)="createNew()"
+        i18n="@@create-new"
+        data-cy="go-to-basket-create-new-button"
+    >
+        Create new
+    </button>
+</div>

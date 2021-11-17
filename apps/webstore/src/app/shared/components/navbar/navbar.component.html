@@ -80,7 +80,8 @@
         <div class="nav-section">
             <button
                 class="navbar-basket-icon show-on-mobile"
-                (click)="goToBasket()"
+                (click)="autoCollapse()"
+                routerLink="/basket"
             >
                 <img
                     src="/assets/icons/basket-white-icon.svg"
@@ -103,9 +104,7 @@
                 <li class="nav-item">
                     <a
                         class="nav-link waves-light"
-                        routerLink="{{
-                            isLoggedIn ? '/product' : '/notSignedIn'
-                        }}"
+                        routerLink="/product"
                         i18n="@@product"
                         data-cy="navbar-product-page-button"
                         (click)="autoCollapse()"
@@ -140,6 +139,16 @@
                         (click)="autoCollapse()"
                         i18n="@@profile"
                         >Profile</a
+                    >
+                </li>
+                <li class="nav-item show-on-mobile">
+                    <a
+                        class="nav-link waves-light"
+                        *ngIf="isLoggedIn"
+                        routerLink="/orders"
+                        (click)="autoCollapse()"
+                        i18n="@@orders"
+                        >Orders</a
                     >
                 </li>
 
@@ -192,6 +201,13 @@
                             >
                             <a
                                 ngbDropdownItem
+                                routerLink="/orders"
+                                (click)="scrollTop()"
+                                i18n="@@orders"
+                                >Orders</a
+                            >
+                            <a
+                                ngbDropdownItem
                                 (click)="logout(); scrollTop()"
                                 i18n="@@logout"
                                 >Log Out</a
@@ -202,7 +218,8 @@
                 <div class="nav-section remove-on-mobile">
                     <button
                         class="navbar-basket-icon"
-                        (click)="goToBasket()"
+                        (click)="autoCollapse()"
+                        routerLink="/basket"
                         data-cy="navbar-basket-link"
                     >
                         <img
@@ -216,29 +233,6 @@
         </div>
     </div>
 </nav>
-<div class="unverified-email" *ngIf="isLoggedIn && !isVerified">
-    <span i18n="@@nav-verify-email">Your e-mail is still not verified:</span>
-    <div
-        *ngIf="isResendVerificationEmailLoading"
-        class="loading-spinner-btn"
-        role="status"
-    >
-        <span i18n="@@sending-email">Sending e-mail...</span>
-        <span
-            class="spinner-border spinner-style spinner-border-sm text-light"
-            role="status"
-            aria-hidden="true"
-        ></span>
-    </div>
-    <button
-        *ngIf="!isResendVerificationEmailLoading"
-        class="verify-email-link"
-        (click)="resendVerificationEmail()"
-        i18n="@@resend-email"
-    >
-        Resend e-mail
-    </button>
-</div>
 <div
     class="backdrop"
     *ngIf="!isMenuCollapsed"

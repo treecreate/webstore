@@ -45,27 +45,6 @@ describe('ProductPage', () => {
     cy.visit('/product');
   });
 
-  it('It should display the notSignedIn page when user isnt logged in', () => {
-    cy.visit('/home');
-    cy.get('[data-cy=navbar-product-page-button]').click();
-    cy.url().should('contain', '/notSignedIn');
-    cy.get('[data-cy=not-signed-in-product-button]').click();
-    cy.url().should('contain', '/product');
-    cy.visit('/home');
-    cy.get('[data-cy=navbar-product-page-button]').click();
-    cy.get('[data-cy=not-signed-in-login-button]').click();
-  });
-
-  it('It should not display notSignedIn page when user is logged in', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
-    cy.visit('/home');
-    cy.get('[data-cy=navbar-product-page-button]').click();
-    cy.url().should('contain', '/product');
-  });
-
   it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
     localStorage.setItem(
       LocalStorageVars.authUser,
@@ -212,6 +191,9 @@ describe('ProductPage', () => {
   });
 
   describe('Unauthorised', () => {
+    beforeEach(() => {
+      cy.get('[data-cy=family-tree-intro-close-button]').click();
+    });
     // box-size buttons
     it('should contain a navbar and footer', () => {
       cy.get('[data-cy=navbar]').should('exist');

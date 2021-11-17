@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 
 @Component({
   selector: 'webstore-unsubscribe',

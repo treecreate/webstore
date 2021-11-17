@@ -1,4 +1,4 @@
-import { DesignDimensionEnum, IDesign } from '../design';
+import { DesignDimensionEnum, IDesign, IFamilyTree } from '../design';
 
 export interface ITransactionItem {
   transactionItemId: string;
@@ -6,4 +6,10 @@ export interface ITransactionItem {
   dimension: DesignDimensionEnum;
   quantity: number;
   design: IDesign;
+}
+
+export class CreateLocalStorageTransactionItem {
+  designProperties: IFamilyTree;
+  dimension: DesignDimensionEnum;
+  quantity: number;
 }

@@ -6,6 +6,7 @@ import dk.treecreate.api.designs.ContactInfoService;
 import dk.treecreate.api.discount.DiscountRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
+import dk.treecreate.api.order.dto.GetAllOrdersResponse;
 import dk.treecreate.api.order.dto.GetOrdersResponse;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
@@ -73,6 +74,20 @@ public class OrderController
         return orderRepository.findAll();
     }
 
+    @GetMapping("me")
+    @Operation(summary = "Get all orders of current user")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "A list of orders",
+            response = GetAllOrdersResponse.class)})
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public List<Order> getAllOrdersOfCurrentUser()
+    {
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        User currentUser = userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return orderRepository.findByUserId(currentUser.getUserId());
+    }
+
     @PostMapping("")
     @Operation(summary = "Create an order and get a payment link")
     @ApiResponses(value = {
@@ -95,11 +110,6 @@ public class OrderController
         User user = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         LOGGER.info("Order | New order is being made. UserID: " + user.getUserId());
-        if (!user.getIsVerified())
-        {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                "The user had to be verified in order to create an order");
-        }
 
         // Set up and verify the order object
         Order order = orderService.setupOrderFromCreateRequest(createOrderRequest);

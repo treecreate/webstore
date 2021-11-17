@@ -1,15 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAuthUser, IUser } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { IUser } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
 import { UserService } from '../../../shared/services/user/user.service';
-import { VerifyService } from '../../../shared/services/verify/verify.service';
 
 @Component({
   selector: 'webstore-profile',
@@ -20,8 +16,6 @@ import { VerifyService } from '../../../shared/services/verify/verify.service';
   ],
 })
 export class ProfileComponent implements OnInit {
-  public isVerified: boolean;
-
   currentUser: IUser;
   accountInfoForm: FormGroup;
   oldEmail: string;
@@ -33,19 +27,9 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private verifyService: VerifyService,
     private toastService: ToastService,
-    private localStorageService: LocalStorageService,
     private modalService: NgbModal
-  ) {
-    // Listen to changes to verification status
-    this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .subscribe(() => {
-        //TODO: isVerified is null, the verify service returns null
-        this.isVerified = this.verifyService.getIsVerified();
-      });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.accountInfoForm = new FormGroup({
@@ -82,9 +66,6 @@ export class ProfileComponent implements OnInit {
       this.isLoading = true;
       this.userService.getUser().subscribe((user: IUser) => {
         this.currentUser = user;
-        if (this.isVerified !== user.isVerified) {
-          this.verifyService.setIsVerified(user.isVerified);
-        }
         this.updateFormValues();
         this.isLoading = false;
       });
@@ -145,7 +126,6 @@ export class ProfileComponent implements OnInit {
           );
           this.currentUser = data;
           if (this.accountInfoForm.get('email').value !== this.oldEmail) {
-            this.resendVerificationEmail();
             this.authService.logout();
             this.toastService.showAlert(
               `You have been logged out because you've updated your email`,
@@ -168,31 +148,6 @@ export class ProfileComponent implements OnInit {
           this.isUpdatingUserInfo = false;
         }
       );
-  }
-
-  resendVerificationEmail() {
-    this.isResendVerificationEmailLoading = true;
-    this.verifyService.sendVerificationEmail().subscribe(
-      () => {
-        this.toastService.showAlert(
-          'A new verification e-mail has been sent. Please go to your inbox and click the verification link.',
-          'Vi har sendt dig en ny e-mail. Den skal godkendes før du kan foretage køb på hjemmesiden.',
-          'success',
-          10000
-        );
-        this.isResendVerificationEmailLoading = false;
-      },
-      (err: HttpErrorResponse) => {
-        this.toastService.showAlert(
-          `Failed to send a verification email. try again later`,
-          'Der skete en fejl med din email, prøv venligst igen',
-          'danger',
-          20000
-        );
-        console.log(err);
-        this.isResendVerificationEmailLoading = false;
-      }
-    );
   }
 
   scrollTop() {

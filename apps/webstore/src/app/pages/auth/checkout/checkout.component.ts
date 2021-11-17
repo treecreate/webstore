@@ -1,29 +1,29 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   ContactInfo,
-  DiscountType,
   IAuthUser,
   IDiscount,
-  INewsletter,
   IPaymentLink,
   IPricing,
   ITransactionItem,
   IUser,
   ShippingMethodEnum,
 } from '@interfaces';
-import { LocalStorageVars, UserRoles } from '@models';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
-import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
-import { VerifyService } from '../../../shared/services/verify/verify.service';
 
 @Component({
   selector: 'webstore-checkout',
@@ -38,30 +38,21 @@ export class CheckoutComponent implements OnInit {
   billingAddressForm: FormGroup;
 
   currentUser: IUser;
+  authUser$: BehaviorSubject<IAuthUser>;
 
+  isLoggedIn = false;
   isHomeDelivery = false;
   plantedTrees = 1;
-  isSubscribed: boolean;
-
+  isSubscribed = false;
   subscribeToNewsletter = false;
   billingAddressIsTheSame = true;
+  isLoading = false;
+  isTermsAndConditionsAccepted = false;
 
   priceInfo: IPricing;
   discount: IDiscount = null;
 
-  isTermsAndConditionsAccepted = false;
-  public isVerified: boolean;
-
-  // TODO: get itemList from basket
-  mockUser: IUser = {
-    userId: '1',
-    email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
-    isVerified: true,
-  };
-
   itemList: ITransactionItem[] = [];
-  isLoading = false;
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -71,62 +62,45 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private toastService: ToastService,
     private userService: UserService,
-    private verifyService: VerifyService,
     private modalService: NgbModal,
     private calculatePriceService: CalculatePriceService,
-    private newsletterService: NewsletterService,
     private transactionItemService: TransactionItemService,
+    private authService: AuthService,
     private orderService: OrderService
-  ) {}
-
-  ngOnInit(): void {
-    this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .subscribe(() => {
-        this.isVerified = this.verifyService.getIsVerified();
-      });
+  ) {
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
+      LocalStorageVars.authUser
+    );
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn =
+        this.authUser$.getValue() != null &&
+        this.authService.isAccessTokenValid();
+    });
+    // Get discount from localstorage
     this.discount = this.localStorageService.getItem<IDiscount>(
       LocalStorageVars.discount
     ).value;
-
+    // Get planted trees from localstorage
     this.plantedTrees = this.localStorageService.getItem<number>(
       LocalStorageVars.plantedTrees
     ).value;
+  }
 
+  ngOnInit(): void {
+    this.initForms();
     if (this.plantedTrees === null) {
       this.plantedTrees = 1;
     }
-
-    this.updatePrices();
-
-    try {
+    if (this.isLoggedIn) {
       //Get user and update form
       this.userService.getUser().subscribe((user: IUser) => {
         this.currentUser = user;
         this.updateFormValues();
       });
-      // Check if user isSubscribed
-      this.newsletterService.isSubscribed().subscribe(
-        () => {
-          this.isSubscribed = true;
-        },
-        (error) => {
-          this.isSubscribed = false;
-          this.subscribeToNewsletter = true;
-          if (error.error.status !== 404) {
-            console.error(error);
-          }
-        }
-      );
-    } catch (err) {
-      console.log(err);
-      // TODO: handle failed fetching data
     }
-
-    this.initForms();
-
     this.loadTransactionItems();
   }
 
@@ -192,73 +166,54 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  loadTransactionItems() {
+    this.isLoading = true;
+    if (this.isLoggedIn) {
+      // Get items from DB
+      this.loadTransactionItemsFromDB();
+    } else {
+      // Get items from local storage
+      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
+      this.updatePrices();
+      this.isLoading = false;
+    }
+  }
+
+  async loadTransactionItemsFromDB() {
+    await this.transactionItemService
+      .getTransactionItems()
+      .toPromise()
+      .then((itemList) => {
+        this.isLoading = false;
+        this.itemList = itemList;
+        console.log('Fetched transaction items', itemList);
+        this.updatePrices();
+      })
+      .catch((error) => {
+        console.error(error);
+        this.alert = {
+          message: 'Failed to get a list of items',
+          type: 'danger',
+          dismissible: false,
+        };
+        this.isLoading = false;
+      });
+  }
+
   changeDelivery() {
     this.isHomeDelivery = !this.isHomeDelivery;
     this.updatePrices();
   }
 
-  isMoreThan3(): boolean {
-    let totalItems = 0;
-    for (let i = 0; i < this.itemList.length; i++) {
-      totalItems += this.itemList[i].quantity;
-    }
-    return totalItems > 3;
-  }
-
   updatePrices() {
-    // validate the isMoreThan3 rule if there is no other discount applied
-    if (
-      this.discount === null ||
-      this.discount.discountCode === 'ismorethan3=true'
-    ) {
-      if (this.isMoreThan3()) {
-        this.discount = {
-          discountCode: 'ismorethan3=true',
-          type: DiscountType.percent,
-          amount: 25,
-          remainingUses: 9999,
-          totalUses: 1,
-        };
-      } else {
-        this.discount = null;
-      }
-      this.localStorageService.setItem<IDiscount>(
-        LocalStorageVars.discount,
-        this.discount
-      );
-    }
-
     this.priceInfo = this.calculatePriceService.calculatePrices(
       this.itemList,
       this.discount,
       this.isHomeDelivery,
       this.plantedTrees
     );
-  }
-
-  subscribeUserToNewsletter() {
-    this.newsletterService
-      .registerNewsletterEmail(this.checkoutForm.get('email').value)
-      .subscribe(
-        (data: INewsletter) => {
-          //TODO: Add event for them to receive a 25% off email in 2 weeks
-          this.toastService.showAlert(
-            `Thank you for subscribing: ${data.email}`,
-            `Tak for din tilmelding: ${data.email}`,
-            'success',
-            3000
-          );
-        },
-        (error) => {
-          this.toastService.showAlert(
-            error.error.message,
-            error.error.message,
-            'danger',
-            100000
-          );
-          console.error(error);
-        }
-      );
   }
 
   updateFormValues() {
@@ -274,25 +229,66 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
-    if (this.subscribeToNewsletter) {
-      this.subscribeUserToNewsletter();
+    if (this.isLoggedIn) {
+      this.createOrder();
+    } else {
+      this.createOrderWithNewUser();
+    }
+  }
+
+  async createOrderWithNewUser() {
+    if (!this.isDisabled()) {
+      console.warn(
+        'You are not able to add an order without valid information'
+      );
+      return;
+    }
+    this.isLoading = true;
+    // generate password
+    let passwordGen = '';
+    const randomChars =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 10; i++) {
+      passwordGen += randomChars.charAt(
+        Math.floor(Math.random() * randomChars.length)
+      );
     }
 
-    console.log(
-      this.checkoutForm.get('name').value,
-      this.checkoutForm.get('phoneNumber').value,
-      this.checkoutForm.get('email').value,
-      this.checkoutForm.get('streetAddress').value,
-      this.checkoutForm.get('streetAddress2').value,
-      this.checkoutForm.get('city').value,
-      this.checkoutForm.get('postcode').value,
-      this.subscribeToNewsletter,
-      this.isHomeDelivery
-        ? 'I want home delivery'
-        : 'I want parcelshop delivery'
-    );
+    // register a new user, upload the items and designs from local storage and create an order
+    try {
+      const user = await this.authService
+        .register({
+          email: this.checkoutForm.get('email').value,
+          password: passwordGen,
+        })
+        .toPromise();
 
-    this.createOrder();
+      // set the new user logged in data
+      this.authService.saveAuthUser(user);
+      await this.transactionItemService
+        .createBulkTransactionItem({ transactionItems: this.itemList })
+        .toPromise();
+
+      this.localStorageService.removeItem(LocalStorageVars.transactionItems);
+
+      // TODO: Create "welcome to treecreate, set your password to enter your account" email for new users
+      this.userService.sendResetUserPassword(
+        this.checkoutForm.get('email').value
+      );
+
+      await this.loadTransactionItemsFromDB();
+      this.createOrder();
+    } catch (error) {
+      console.warn(error);
+      this.alert = {
+        message:
+          'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk',
+        type: 'danger',
+        dismissible: false,
+      };
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   isDisabled() {
@@ -372,7 +368,9 @@ export class CheckoutComponent implements OnInit {
           this.isLoading = false;
           console.log('Created order and got a payment link', paymentLink);
           this.localStorageService.removeItem(LocalStorageVars.discount);
-          window.open(paymentLink.url, '_blank');
+          this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
+          // Go to payment link
+          window.location.href = paymentLink.url;
         },
         (error: HttpErrorResponse) => {
           console.error(error);
@@ -387,39 +385,7 @@ export class CheckoutComponent implements OnInit {
       );
   }
 
-  notAllowedToChangeEmailAlert() {
-    this.toastService.showAlert(
-      'Your email must be verified for you to complete a purchase. If you want to change your email, you can do so in Account info.',
-      'Din email skal verifiseres før du kan gennemfører et køb. Hvis du vil ændre din email kan du gøre det på Konto info',
-      'danger',
-      10000
-    );
-  }
-
   showTermsOfSale() {
     this.modalService.open(TermsOfSaleModalComponent, { size: 'lg' });
-  }
-
-  loadTransactionItems() {
-    this.isLoading = true;
-    this.transactionItemService.getTransactionItems().subscribe(
-      (itemList: ITransactionItem[]) => {
-        this.isLoading = false;
-        this.itemList = itemList;
-        console.log('Fetched transaction items', itemList);
-        this.updatePrices();
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-
-        this.alert = {
-          message: 'Failed to get a list of items',
-          type: 'danger',
-          dismissible: false,
-        };
-
-        this.isLoading = false;
-      }
-    );
   }
 }

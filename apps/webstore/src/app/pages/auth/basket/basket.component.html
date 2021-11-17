@@ -26,14 +26,16 @@
                         <webstore-basket-item
                             (priceChangeEvent)="itemPriceChange($event)"
                             (deleteItemEvent)="deleteItemChange($event)"
-                            *ngFor="let item of itemList"
+                            *ngFor="let item of itemList; let i = index"
                             [item]="item"
+                            [index]="i"
                         ></webstore-basket-item>
                     </div>
                     <!-- If there are not items in basket -->
                     <div
                         class="no-items"
                         *ngIf="itemList.length <= 0 && !isLoading"
+                        data-cy="no-items-in-basket"
                     >
                         <img
                             src="/assets/icons/no-design-icon.svg"
@@ -140,9 +142,10 @@
                     <div
                         *ngIf="priceInfo.discountAmount > 0"
                         class="discount-code-display"
+                        data-cy="discount-amount-basket"
                     >
                         <span i18n="@@amount-discount">Amount dicount:</span>
-                        <span
+                        <span data-cy="discount-price-amount-basket"
                             >-{{
                                 priceInfo.discountAmount.toFixed(2)
                             }}
@@ -154,7 +157,7 @@
                 <div class="basket-options-item">
                     <div class="line-container">
                         <span i18n="@@subtotal">Subtotal</span>
-                        <span>
+                        <span data-cy="subtotal-price-basket">
                             {{ priceInfo.fullPrice.toFixed(2) }} DKK <br />
                         </span>
                     </div>
@@ -173,7 +176,7 @@
                         <span>
                             <strong i18n="@@total"> Total </strong>
                         </span>
-                        <span data-cy="basket-final-price">
+                        <span data-cy="total-price-basket">
                             <strong
                                 >{{ priceInfo.finalPrice.toFixed(2) }} DKK
                             </strong>

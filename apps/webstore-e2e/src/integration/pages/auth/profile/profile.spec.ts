@@ -9,27 +9,12 @@ describe('accountPage', () => {
     userId: '1',
     email: 'e2e@test.com',
     roles: [UserRoles.user],
-    isVerified: true,
     name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',
     streetAddress2: '',
     city: '',
     postcode: '',
-    country: '',
-  };
-
-  const updatedMockUser: IUser = {
-    userId: '1',
-    email: 'suckmeoff@test.com',
-    roles: [UserRoles.user],
-    isVerified: false,
-    name: '',
-    phoneNumber: '+4512345678',
-    streetAddress: 'Yo mammas house 69, 3rd floor',
-    streetAddress2: 'more details: suck it',
-    city: 'Copenhagen',
-    postcode: '1234',
     country: '',
   };
 
@@ -274,24 +259,5 @@ describe('accountPage', () => {
     cy.get('[data-cy=account-invalid-postcode]').should('not.exist');
     cy.get('[data-cy=account-postcode-input]').type('123');
     cy.get('[data-cy=account-invalid-postcode]').should('exist');
-  });
-
-  it('should not show resend-verification-button with a verified user', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(
-        authMockService.getMockUser(AuthUserEnum.authUserNotVerified)
-      )
-    );
-
-    //Mock return not verified user request
-    cy.intercept('GET', '/users/me', {
-      body: updatedMockUser,
-      statusCode: 200,
-    }).as('getUserRequest');
-
-    cy.visit('/profile');
-
-    cy.get('[data-cy=resend-verification-email-button]').should('exist');
   });
 });

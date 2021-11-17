@@ -21,9 +21,11 @@ export class CalculatePriceService {
   ): IPricing {
     // Get full price of items in basket
     let sum = 0;
-    for (let i = 0; i < itemList.length; i++) {
-      const item = itemList[i];
-      sum += this.calculateItemPrice(item);
+    if (itemList != null) {
+      for (let i = 0; i < itemList.length; i++) {
+        const item = itemList[i];
+        sum += this.calculateItemPrice(item);
+      }
     }
     const fullPrice = sum;
 
@@ -62,6 +64,24 @@ export class CalculatePriceService {
       extraTreesPrice,
       vat,
     };
+  }
+
+  getFullPrice(itemList: ITransactionItem[]): number {
+    let priceSum = 0;
+    for (let i = 0; i < itemList.length; i++) {
+      switch (itemList[i].dimension) {
+        case DesignDimensionEnum.large:
+          priceSum += itemList[i].quantity * 995;
+          break;
+        case DesignDimensionEnum.medium:
+          priceSum += itemList[i].quantity * 695;
+          break;
+        case DesignDimensionEnum.small:
+          priceSum += itemList[i].quantity * 495;
+          break;
+      }
+    }
+    return priceSum;
   }
 
   isMoreThan4Items(itemList: ITransactionItem[]): boolean {

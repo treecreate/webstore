@@ -1,7 +1,6 @@
 export interface IAuthUser {
   userId: string;
   email: string;
-  isVerified: boolean;
   roles: string[];
   accessToken: string;
   tokenType: string;
@@ -10,7 +9,6 @@ export interface IUser {
   userId: string;
   email: string;
   roles: string[];
-  isVerified: boolean;
   name?: string;
   phoneNumber?: string;
   streetAddress?: string;

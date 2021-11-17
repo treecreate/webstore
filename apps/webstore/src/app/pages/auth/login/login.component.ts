@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   ElementRef,
@@ -7,11 +8,14 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILoginResponse } from '@interfaces';
+import { ILoginResponse, ITransactionItem } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { LocalStorageService } from '../../../shared/services/local-storage';
+import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
   selector: 'webstore-login',
@@ -35,7 +39,9 @@ export class LoginComponent implements OnInit {
     private modalService: NgbModal,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private localStorageService: LocalStorageService,
+    private transactionItemService: TransactionItemService
   ) {}
 
   ngOnInit(): void {
@@ -46,10 +52,7 @@ export class LoginComponent implements OnInit {
 
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
@@ -70,11 +73,45 @@ export class LoginComponent implements OnInit {
             'success',
             5000
           );
-          this.isLoading = false;
-          this.isLoginFailed = false;
-          this.isLoggedIn = true;
-          this.router.navigate(['/product']);
-          this.reloadPage();
+          // Check for transaction items in localstorage and add them to user
+          // Get localStorage items
+          const localStorageItems = this.localStorageService.getItem<
+            ITransactionItem[]
+          >(LocalStorageVars.transactionItems).value;
+          // Create the transaction items in DB / user
+          if (localStorageItems !== null) {
+            this.transactionItemService
+              .createBulkTransactionItem({
+                transactionItems: localStorageItems,
+              })
+              .subscribe(
+                (items) => {
+                  console.log('Uploaded designs', items);
+                  this.localStorageService.removeItem(
+                    LocalStorageVars.transactionItems
+                  );
+
+                  this.isLoading = false;
+                  this.isLoginFailed = false;
+                  this.isLoggedIn = true;
+                  this.router.navigate(['/product']);
+                  this.reloadPage();
+                },
+                (error: HttpErrorResponse) => {
+                  console.log(error.error);
+
+                  this.isLoading = false;
+                  this.isLoginFailed = true;
+                  this.errorMessage = error.error.message;
+                }
+              );
+          } else {
+            this.isLoading = false;
+            this.isLoginFailed = false;
+            this.isLoggedIn = true;
+            this.router.navigate(['/product']);
+            this.reloadPage();
+          }
         },
         (err) => {
           this.toastService.showAlert(
