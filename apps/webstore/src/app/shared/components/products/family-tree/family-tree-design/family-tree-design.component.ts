@@ -45,8 +45,7 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent
-  implements AfterViewInit, OnInit, OnChanges, OnDestroy
-{
+  implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   // Inputs for design settings
 
   @Input()

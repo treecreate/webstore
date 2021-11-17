@@ -1,5 +1,24 @@
 {
   "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
   "projects": {
     "api": {
       "projectType": "application",
@@ -54,8 +73,7 @@
             "root": "apps/api"
           }
         }
-      },
-      "tags": []
+      }
     },
     "assets": {
       "root": "libs/assets",
@@ -76,8 +94,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "interfaces": {
       "root": "libs/interfaces",
@@ -98,8 +115,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "mocks": {
       "projectType": "library",
@@ -124,8 +140,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "models": {
       "root": "libs/models",
@@ -146,8 +161,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "webstore": {
       "projectType": "application",
@@ -266,9 +280,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": [],
-      "implicitDependencies": ["assets"]
+      }
     },
     "webstore-e2e": {
       "root": "apps/webstore-e2e",
@@ -297,9 +309,7 @@
             "lintFilePatterns": ["apps/webstore-e2e/**/*.{js,ts}"]
           }
         }
-      },
-      "tags": [],
-      "implicitDependencies": ["webstore"]
+      }
     }
   }
 }

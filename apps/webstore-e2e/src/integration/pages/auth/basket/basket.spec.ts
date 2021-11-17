@@ -79,16 +79,14 @@ const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
   dimension: DesignDimensionEnum.medium,
   quantity: 1,
 };
-const mockCreateTransactionItemRequestUpdatedQuantity: UpdateTransactionItemRequest =
-  {
-    dimension: DesignDimensionEnum.medium,
-    quantity: 2,
-  };
-const mockCreateTransactionItemRequestUpdatedDimension: UpdateTransactionItemRequest =
-  {
-    dimension: DesignDimensionEnum.large,
-    quantity: 1,
-  };
+const mockCreateTransactionItemRequestUpdatedQuantity: UpdateTransactionItemRequest = {
+  dimension: DesignDimensionEnum.medium,
+  quantity: 2,
+};
+const mockCreateTransactionItemRequestUpdatedDimension: UpdateTransactionItemRequest = {
+  dimension: DesignDimensionEnum.large,
+  quantity: 1,
+};
 const mockContact = {
   name: 'teodor jonasson',
   email: 'test@test.test',

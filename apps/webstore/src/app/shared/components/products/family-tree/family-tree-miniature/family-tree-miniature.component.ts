@@ -30,8 +30,7 @@ import { IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
   ],
 })
 export class FamilyTreeMiniatureComponent
-  implements AfterViewInit, OnInit, OnChanges
-{
+  implements AfterViewInit, OnInit, OnChanges {
   // Inputs for design settings
 
   @Input()
