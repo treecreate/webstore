@@ -33,7 +33,8 @@
                                 type="checkbox"
                                 [checked]="billingAddressIsTheSame"
                                 (change)="
-                                    billingAddressIsTheSame = !billingAddressIsTheSame
+                                    billingAddressIsTheSame =
+                                        !billingAddressIsTheSame
                                 "
                                 data-cy="billing-address-is-the-same-checkbox"
                             />
@@ -626,7 +627,8 @@
                                 type="checkbox"
                                 [checked]="isTermsAndConditionsAccepted"
                                 (change)="
-                                    isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted
+                                    isTermsAndConditionsAccepted =
+                                        !isTermsAndConditionsAccepted
                                 "
                                 data-cy="checkout-form-terms-checkbox"
                             />
