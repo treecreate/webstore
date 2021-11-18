@@ -1,60 +1,65 @@
 <nz-layout>
     <!-- Navbar -->
-    <nz-header class="navbar">
+    <nz-header class="navbar" data-cy="navbar">
         <div>TC Management</div>
         <div class="btn-container">
-            <a class="navbar-btn" routerLink="/account">Account</a>
-            <a class="navbar-btn" routerLink="/logout">Logout</a>
+            <a class="navbar-btn" routerLink="/account" data-cy="navbar-account-btn">Account</a>
+            <a class="navbar-btn" routerLink="/logout" data-cy="navbar-logout-btn">Logout</a>
         </div>
     </nz-header>
 
     <!-- Body -->
-    <nz-layout class="body">
+    <nz-layout class="body" data-cy="body">
         <!-- Sidebar -->
-        <nz-sider nzCollapsible nzTheme="light" nzWidth="var(--sidebar-width)" class="sidebar">
+        <nz-sider nzCollapsible nzTheme="light" nzWidth="var(--sidebar-width)" class="sidebar" data-cy="sidebar">
             <!-- Header -->
-            <div class="sidebar-header">
-                <div routerLink="/account">
-                    <img src="/assets/icons/person_icon.svg" alt="person_icon.svg" class="user-icon" />
+            <div class="sidebar-header" data-cy="sidebar-header">
+                <div routerLink="/account" data-cy="sidebar-account-btn">
+                    <img
+                        src="/assets/icons/person_icon.svg"
+                        alt="person_icon.svg"
+                        class="user-icon"
+                        data-cy="sidebar-user-icon"
+                    />
                 </div>
 
                 <h4 nz-typography class="sidebar-collapsible">Admin</h4>
-                <span nz-typography nzType="secondary" class="sidebar-collapsible">{{ username }}</span>
+                <span nz-typography nzType="secondary" class="sidebar-collapsible" data-cy="sidebar-username">{{ username }}</span>
             </div>
 
-            <nz-divider class="divider sidebar-collapsible"></nz-divider>
+            <nz-divider class="divider sidebar-collapsible" data-cy="sidebar-divider"></nz-divider>
 
             <!-- Item List -->
-            <ul nz-menu nzTheme="light" nzMode="inline">
-                <li nz-menu-item routerLink="/dashboard">
-                    <i nz-icon nzType="qrcode" nzTheme="outline"></i>
+            <ul nz-menu nzTheme="light" nzMode="inline" class="sidebar-items" data-cy="sidebar-items">
+                <li nz-menu-item routerLink="/dashboard" data-cy="sidebar-dashboard-btn">
+                    <i nz-icon nzType="qrcode" nzTheme="outline" data-cy="icon"></i>
                     <span>Dashboard</span>
                 </li>
-                <li nz-menu-item routerLink="/orders">
-                    <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+                <li nz-menu-item routerLink="/orders" data-cy="sidebar-orders-btn">
+                    <i nz-icon nzType="shopping-cart" nzTheme="outline" data-cy="icon"></i>
                     <span>Orders</span>
                 </li>
-                <li nz-menu-item routerLink="/customers">
-                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                <li nz-menu-item routerLink="/customers" data-cy="sidebar-customers-btn">
+                    <i nz-icon nzType="user" nzTheme="outline" data-cy="icon"></i>
                     <span>Customers</span>
                 </li>
-                <li nz-menu-item routerLink="/discounts">
-                    <i nz-icon nzType="credit-card" nzTheme="outline"></i>
+                <li nz-menu-item routerLink="/discounts" data-cy="sidebar-discounts-btn">
+                    <i nz-icon nzType="credit-card" nzTheme="outline" data-cy="icon"></i>
                     <span>Discounts</span>
                 </li>
-                <li nz-menu-item routerLink="/activity-log">
-                    <i nz-icon nzType="line-chart" nzTheme="outline"></i>
+                <li nz-menu-item routerLink="/activity-log" data-cy="sidebar-activity-log-btn">
+                    <i nz-icon nzType="line-chart" nzTheme="outline" data-cy="icon"></i>
                     <span>Activity Log</span>
                 </li>
-                <li nz-menu-item routerLink="/newsletter">
-                    <i nz-icon nzType="mail" nzTheme="outline"></i>
+                <li nz-menu-item routerLink="/newsletter" data-cy="sidebar-newsletter-btn">
+                    <i nz-icon nzType="mail" nzTheme="outline" data-cy="icon"></i>
                     <span>Newsletter</span>
                 </li>
             </ul>
         </nz-sider>
 
         <!-- Content -->
-        <nz-layout class="inner-layout content">
+        <nz-layout class="inner-layout content" data-cy="content">
             {{ changeRoute() }}
         </nz-layout>
     </nz-layout>
