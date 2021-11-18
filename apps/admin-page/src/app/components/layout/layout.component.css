@@ -49,10 +49,6 @@
     background-color: var(--border-color);
 }
 
-::ng-deep .ant-menu-item {
-    border-right: none !important;
-}
-
 /* On collapsed sidebar */
 ::ng-deep .ant-layout-sider-collapsed .sidebar-header {
     display:flex;
