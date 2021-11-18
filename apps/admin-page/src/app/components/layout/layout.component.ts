@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
-   @Input() username = 'example@looking.good';
+   @Input() username = 'defaultValue@layout.component';
 
   constructor(private router: Router) {
   }

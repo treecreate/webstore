@@ -1,73 +1,7 @@
-.navbar {
-  height: var(--navbar-height);
-  padding-right: 12.8px;
-  padding-left: 12.8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--main-color);
-  color: var(--font-color);
-}
-
-.navbar .navbar-btn {
-  color: var(--font-color);
-  margin-left: 28.4px;
-}
-
-.body {
+.content {
     min-height: calc(100vh - var(--navbar-height));
 }
 
 .content {
     overflow-y: auto;
-}
-
-.sidebar {
-    overflow-y: auto;
-    box-shadow: -7px 0px 24px 8px rgba(0, 0, 0, 0.15);
-    transition: .5s;
-}
-
-.sidebar .sidebar-header {
-    padding: 25px;
-}
-
-.sidebar .sidebar-header h4{
-    margin-bottom: 3px;
-}
-
-.sidebar .sidebar-header i{
-    margin-bottom: 10px;
-}
-
-.user-icon:hover{
-    cursor: pointer;
-}
-
-
-.divider {
-    background-color: var(--border-color);
-}
-
-::ng-deep .ant-menu-item {
-    border-right: none !important;
-}
-
-/* On collapsed sidebar */
-::ng-deep .ant-layout-sider-collapsed .sidebar-header {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 90px;
-    transition: .5s;
-}
-
-::ng-deep .ant-layout-sider-collapsed .sidebar-collapsible {
-    display:none;
-}
-
-::ng-deep .ant-layout-sider-collapsed .user-icon {
-    height: 16px;
-    width: 16px;
-    transition: .5s;
 }

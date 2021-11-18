@@ -1,0 +1,3 @@
+::ng-deep .ant-layout-sider-collapsed .sidebar-collapsible {
+    display:none;
+}

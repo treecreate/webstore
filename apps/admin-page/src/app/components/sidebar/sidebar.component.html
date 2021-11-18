@@ -1,0 +1,49 @@
+<!-- Sidebar -->
+<nz-layout class="sidebar-layout">
+    <nz-sider nzCollapsible nzTheme="light" nzWidth="var(--sidebar-width)" class="sidebar">
+        <!-- Header -->
+        <div class="sidebar-header">
+            <div routerLink="/account">
+                <img src="/assets/icons/person_icon.svg" alt="person_icon.svg" class="user-icon" />
+            </div>
+
+            <h4 nz-typography class="title sidebar-collapsible">Admin</h4>
+            <span nz-typography nzType="secondary" class="username sidebar-collapsible">{{ username }}</span>
+        </div>
+
+        <nz-divider class="divider sidebar-collapsible"></nz-divider>
+
+        <!-- Item List -->
+        <ul nz-menu nzTheme="light" nzMode="inline" *ngFor="let item of items">
+            <!-- <webstore-sidebar-item
+                [route]="item.route"
+                [nzIcon]="item.nzIcon"
+                [itemName]="item.name"
+            ></webstore-sidebar-item> -->
+            <li nz-menu-item routerLink="/dashboard">
+                <i nz-icon nzType="qrcode" nzTheme="outline"></i>
+                <span>Dashboard</span>
+            </li>
+            <li nz-menu-item routerLink="/orders">
+                <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+                <span>Orders</span>
+            </li>
+            <li nz-menu-item routerLink="/customers">
+                <i nz-icon nzType="user" nzTheme="outline"></i>
+                <span>Customers</span>
+            </li>
+            <li nz-menu-item routerLink="/discounts">
+                <i nz-icon nzType="credit-card" nzTheme="outline"></i>
+                <span>Discounts</span>
+            </li>
+            <li nz-menu-item routerLink="/activity-log">
+                <i nz-icon nzType="line-chart" nzTheme="outline"></i>
+                <span>Activity Log</span>
+            </li>
+            <li nz-menu-item routerLink="/newsletter">
+                <i nz-icon nzType="mail" nzTheme="outline"></i>
+                <span>Newsletter</span>
+            </li>
+        </ul>
+    </nz-sider>
+</nz-layout>
