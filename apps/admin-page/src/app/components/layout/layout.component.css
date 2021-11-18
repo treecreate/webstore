@@ -25,7 +25,6 @@
 .sidebar {
     overflow-y: auto;
     box-shadow: -7px 0px 24px 8px rgba(0, 0, 0, 0.15);
-    transition: .5s;
 }
 
 .sidebar .sidebar-header {
