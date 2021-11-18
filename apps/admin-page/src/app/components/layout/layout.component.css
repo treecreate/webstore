@@ -19,10 +19,12 @@
 }
 
 .content {
+    height: calc(100vh - var(--navbar-height));
     overflow-y: auto;
 }
 
 .sidebar {
+    height: calc(100vh - var(--navbar-height) - 48px);
     overflow-y: auto;
     box-shadow: -7px 0px 24px 8px rgba(0, 0, 0, 0.15);
 }
@@ -42,7 +44,6 @@
 .user-icon:hover{
     cursor: pointer;
 }
-
 
 .divider {
     background-color: var(--border-color);
