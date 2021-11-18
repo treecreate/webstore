@@ -51,10 +51,8 @@ public class QuickpayService
                 order.getDiscount(), order.getContactInfo(),
                 order.getBillingInfo() != null ? order.getBillingInfo() : order.getContactInfo(),
                 order.getShippingMethod(), order.getTransactionItems());
-        // TODO - fully setup environment in API (currently is just a custom property.)
-        // The environment should affect urls included in the emails etc
         payment.order_id =
-            createOrderId(order.getContactInfo().getEmail(), Environment.DEVELOPMENT);
+            createOrderId(order.getContactInfo().getEmail(), customProperties.getEnvironment());
 
         // perform POST https://api.quickpay.net/payments to create a payment object in Quickpay
         String quickpayApiUrl = "https://api.quickpay.net";
