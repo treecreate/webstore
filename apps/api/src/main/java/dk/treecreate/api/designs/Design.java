@@ -3,10 +3,13 @@ package dk.treecreate.api.designs;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.utils.HashMapConverter;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -57,6 +60,16 @@ public class Design
     @Column(name = "mutable", columnDefinition = "boolean default true", nullable = false)
     @ApiModelProperty(notes = "Can the design be changed", example = "true", required = true)
     private boolean mutable = true;
+
+    @ApiModelProperty(name = "Date the entity was created at",
+        example = "2021-08-31T19:40:10.000+00:00")
+    @CreationTimestamp
+    private Date createdAt;
+
+    @ApiModelProperty(name = "Date the entity was updated at",
+        example = "2021-08-31T19:40:10.000+00:00")
+    @UpdateTimestamp
+    private Date updatedAt;
 
     public Design()
     {
@@ -111,6 +124,26 @@ public class Design
     public void setMutable(boolean mutable)
     {
         this.mutable = mutable;
+    }
+
+    public Date getCreatedAt()
+    {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt)
+    {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt()
+    {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt)
+    {
+        this.updatedAt = updatedAt;
     }
 
     @Override public boolean equals(Object o)
