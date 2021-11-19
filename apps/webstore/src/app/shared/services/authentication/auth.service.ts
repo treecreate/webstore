@@ -2,11 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAuthUser, ILoginRequestParams, ILoginResponse, IRegisterRequestParams, IRegisterResponse } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
-import { LocalStorageService } from '@local-storage';
-import { UserService } from '../user/user.service';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -17,12 +16,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService,
-    private userService: UserService,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router) {}
 
   login(params: ILoginRequestParams): Observable<ILoginResponse> {
     const { email, password } = params;
@@ -62,26 +56,30 @@ export class AuthService {
   }
 
   // Get user information for authentication. The data comes from local storage. Use getUser() to get full user entity
-  public getAuthUser(): IAuthUser {
-    const user = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).getValue();
+  public getAuthUser(): IAuthUser | null {
+    const user = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     if (user) {
-      return user;
+      return user.getValue();
     }
 
     return null;
   }
 
   public isAccessTokenValid(): boolean {
-    const authUser = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).getValue();
-    if (authUser === null) {
-      return false;
+    const authUser = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
+    if (authUser !== null && authUser.getValue() != null) {
+      const accessToken = authUser.getValue()?.accessToken;
+      if (accessToken === undefined) {
+        return false;
+      }
+      const isExpired = this.isJwtExpired(accessToken);
+      if (isExpired) {
+        console.warn('Your session has expired, logging you out');
+        this.localStorageService.removeItem(LocalStorageVars.authUser);
+      }
+      return !isExpired;
     }
-    const isExpired = this.isJwtExpired(authUser.accessToken);
-    if (isExpired) {
-      console.warn('Your session has expired, logging you out');
-      this.localStorageService.removeItem(LocalStorageVars.authUser);
-    }
-    return !isExpired;
+    return false;
   }
 
   public isJwtExpired(token: string): boolean {

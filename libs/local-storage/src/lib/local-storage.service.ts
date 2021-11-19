@@ -1,9 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { CookieStatus, LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
-import { LocaleType, CookieStatus, LocalStorageVars } from '@models';
 
 interface ICache {
-  [key: string]: BehaviorSubject<unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: BehaviorSubject<any>;
 }
 
 @Injectable({
@@ -14,10 +15,11 @@ export class LocalStorageService implements OnDestroy {
 
   constructor() {
     // Initial state
-    const initialLocale = JSON.parse(localStorage.getItem(LocalStorageVars.locale)) || LocaleType.dk;
+    const initialLocale = JSON.parse(localStorage.getItem(LocalStorageVars.locale) || LocaleType.dk);
 
-    const acceptedCookies =
-      JSON.parse(localStorage.getItem(LocalStorageVars.cookiesAccepted)) || CookieStatus.undefined;
+    const acceptedCookies = JSON.parse(
+      localStorage.getItem(LocalStorageVars.cookiesAccepted) || CookieStatus.undefined
+    );
 
     this.cache = {
       [LocalStorageVars.locale]: new BehaviorSubject<LocaleType>(initialLocale),
@@ -55,13 +57,18 @@ export class LocalStorageService implements OnDestroy {
     return (this.cache[key] = new BehaviorSubject(value));
   }
 
-  getItem<T>(key: string): BehaviorSubject<T> {
+  getItem<T>(key: string): BehaviorSubject<T | null> | null {
     if (this.cache[key]) {
-      return this.cache[key] as BehaviorSubject<T>;
+      return this.cache[key] as BehaviorSubject<T | null>;
     }
 
     if (this.isLocalStorageSupported) {
-      return (this.cache[key] = new BehaviorSubject(JSON.parse(localStorage.getItem(key))));
+      const item = localStorage.getItem(key);
+      if (item !== null) {
+        return (this.cache[key] = new BehaviorSubject<T | null>(JSON.parse(item)));
+      } else {
+        return new BehaviorSubject<T | null>(null);
+      }
     }
     return null;
   }
