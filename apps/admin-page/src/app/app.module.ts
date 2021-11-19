@@ -17,16 +17,19 @@ registerLocaleData(en);
   declarations: [AppComponent, LayoutComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([
-      {path: 'dashboard'},
-      {path: 'orders'},
-      {path: 'customers'},
-      {path: 'discounts'},
-      {path: 'activity-log'},
-      {path: 'newsletter'},
-      {path: 'account'},
-      {path: 'logout'},
-    ], { initialNavigation: 'enabled' }),
+    RouterModule.forRoot(
+      [
+        { path: 'dashboard' },
+        { path: 'orders' },
+        { path: 'customers' },
+        { path: 'discounts' },
+        { path: 'activity-log' },
+        { path: 'newsletter' },
+        { path: 'account' },
+        { path: 'logout' },
+      ],
+      { initialNavigation: 'enabled' }
+    ),
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -34,8 +37,6 @@ registerLocaleData(en);
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
-  exports: [
-    LayoutComponent
-  ],
+  exports: [LayoutComponent],
 })
 export class AppModule {}

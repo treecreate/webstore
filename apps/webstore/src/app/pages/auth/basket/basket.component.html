@@ -11,18 +11,11 @@
                         (closed)="alert = undefined"
                         [dismissible]="alert.dismissible"
                     >
-                        <h3>
-                            {{
-                                alert.type === 'danger' ? 'Error' : alert.type
-                            }}!
-                        </h3>
+                        <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
                         {{ alert.message }}</ngb-alert
                     >
                     <!-- basket items -->
-                    <div
-                        class="basket-items"
-                        *ngIf="!(itemList.length <= 0) && !isLoading"
-                    >
+                    <div class="basket-items" *ngIf="!(itemList.length <= 0) && !isLoading">
                         <webstore-basket-item
                             (priceChangeEvent)="itemPriceChange($event)"
                             (deleteItemEvent)="deleteItemChange($event)"
@@ -31,23 +24,10 @@
                         ></webstore-basket-item>
                     </div>
                     <!-- If there are not items in basket -->
-                    <div
-                        class="no-items"
-                        *ngIf="itemList.length <= 0 && !isLoading"
-                    >
-                        <img
-                            src="/assets/icons/no-design-icon.svg"
-                            routerLink="/product"
-                            class="no-design-icon"
-                        />
-                        <div class="no-items-text" i18n="@@no-items-text">
-                            You have no items in your basket
-                        </div>
-                        <button
-                            class="tc-button-50"
-                            routerLink="/product"
-                            i18n="@@start-creating"
-                        >
+                    <div class="no-items" *ngIf="itemList.length <= 0 && !isLoading">
+                        <img src="/assets/icons/no-design-icon.svg" routerLink="/product" class="no-design-icon" />
+                        <div class="no-items-text" i18n="@@no-items-text">You have no items in your basket</div>
+                        <button class="tc-button-50" routerLink="/product" i18n="@@start-creating">
                             Start Creating
                         </button>
                     </div>
@@ -67,9 +47,7 @@
                 <!-- Tree donation -->
                 <div class="basket-options-item">
                     <div class="tree-title">
-                        <span i18n="@@plant-extra-trees"
-                            >Plant an extra tree - 10kr</span
-                        >
+                        <span i18n="@@plant-extra-trees">Plant an extra tree - 10kr</span>
 
                         <div class="subtext" i18n="@@plant-extra-trees-subtext">
                             (Planting 1 tree is included in the price)
@@ -90,10 +68,7 @@
                         </button>
                         <div class="amount-of-trees">
                             {{ plantedTrees }} x
-                            <img
-                                src="/assets/icons/seed-icon.svg"
-                                class="seed-icon"
-                            />
+                            <img src="/assets/icons/seed-icon.svg" class="seed-icon" />
                         </div>
                         <button
                             class="box-size-plus tc-button-sm-square low-dropshadow"
@@ -106,11 +81,7 @@
                     </div>
                 </div>
                 <!-- Discount code -->
-                <form
-                    [formGroup]="discountForm"
-                    (ngSubmit)="applyDiscount()"
-                    class="basket-options-item"
-                >
+                <form [formGroup]="discountForm" (ngSubmit)="applyDiscount()" class="basket-options-item">
                     <input
                         formControlName="discountCode"
                         type="text"
@@ -123,9 +94,7 @@
                         type="submit"
                         data-cy="basket-apply-discount-button"
                     >
-                        <span i18n="@@apply-discount" *ngIf="!discountIsLoading"
-                            >Apply</span
-                        >
+                        <span i18n="@@apply-discount" *ngIf="!discountIsLoading">Apply</span>
                         <span
                             *ngIf="discountIsLoading"
                             class="spinner-border spinner-border-sm text-light"
@@ -137,46 +106,27 @@
                     </button>
 
                     <!-- Discount display -->
-                    <div
-                        *ngIf="priceInfo.discountAmount > 0"
-                        class="discount-code-display"
-                    >
+                    <div *ngIf="priceInfo.discountAmount > 0" class="discount-code-display">
                         <span i18n="@@amount-discount">Amount dicount:</span>
-                        <span
-                            >-{{
-                                priceInfo.discountAmount.toFixed(2)
-                            }}
-                            DKK</span
-                        >
+                        <span>-{{ priceInfo.discountAmount.toFixed(2) }} DKK</span>
                     </div>
                 </form>
                 <!-- Price info -->
                 <div class="basket-options-item">
                     <div class="line-container">
                         <span i18n="@@subtotal">Subtotal</span>
-                        <span>
-                            {{ priceInfo.fullPrice.toFixed(2) }} DKK <br />
-                        </span>
+                        <span> {{ priceInfo.fullPrice.toFixed(2) }} DKK <br /> </span>
                     </div>
-                    <div
-                        class="line-container"
-                        [ngClass]="
-                            priceInfo.discountAmount > 0 ? 'green-text' : ''
-                        "
-                    >
+                    <div class="line-container" [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''">
                         <span i18n="@@you-save">You save</span>
-                        <span>
-                            - {{ priceInfo.discountAmount.toFixed(2) }} DKK
-                        </span>
+                        <span> - {{ priceInfo.discountAmount.toFixed(2) }} DKK </span>
                     </div>
                     <div class="line-container weight">
                         <span>
                             <strong i18n="@@total"> Total </strong>
                         </span>
                         <span data-cy="basket-final-price">
-                            <strong
-                                >{{ priceInfo.finalPrice.toFixed(2) }} DKK
-                            </strong>
+                            <strong>{{ priceInfo.finalPrice.toFixed(2) }} DKK </strong>
                         </span>
                     </div>
                     <div class="line-container margin-bottom vat">

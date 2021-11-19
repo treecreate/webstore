@@ -6,20 +6,14 @@ import { NewsletterService } from '../../../shared/services/newsletter/newslette
 @Component({
   selector: 'webstore-unsubscribe',
   templateUrl: './unsubscribe.component.html',
-  styleUrls: [
-    './unsubscribe.component.css',
-    '../../../../assets/styles/tc-buttons.css',
-  ],
+  styleUrls: ['./unsubscribe.component.css', '../../../../assets/styles/tc-buttons.css'],
 })
 export class UnsubscribeComponent implements OnInit {
   isLoading = false;
   isUnsubscribeSuccessful = false;
   errorMessage = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private newsletterService: NewsletterService
-  ) {}
+  constructor(private route: ActivatedRoute, private newsletterService: NewsletterService) {}
 
   ngOnInit(): void {
     this.isLoading = true;

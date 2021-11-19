@@ -137,30 +137,16 @@ const mockTransactionItemTwo: ITransactionItem = {
 };
 
 it('should add an transaction item to basket', () => {
-  localStorage.setItem(
-    LocalStorageVars.cookiesAccepted,
-    `"${CookieStatus.accepted}"`
-  );
-  localStorage.setItem(
-    LocalStorageVars.authUser,
-    JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-  );
-  cy.intercept(
-    'PUT',
-    '/transaction-items/me/' + mockTransactionItem.transactionItemId,
-    {
-      body: [mockTransactionItem],
-      statusCode: 200,
-    }
-  );
-  cy.intercept(
-    'PUT',
-    '/transaction-items/me/' + mockTransactionItemLarge.transactionItemId,
-    {
-      body: [mockTransactionItemLarge],
-      statusCode: 200,
-    }
-  );
+  localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+  localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
+  cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
+    body: [mockTransactionItem],
+    statusCode: 200,
+  });
+  cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItemLarge.transactionItemId, {
+    body: [mockTransactionItemLarge],
+    statusCode: 200,
+  });
   cy.intercept('GET', '/transaction-items/me', {
     body: [mockTransactionItem, mockTransactionItemLarge],
     statusCode: 200,
@@ -186,14 +172,8 @@ it('should add an transaction item to basket', () => {
 
 describe('BasketPage', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
       body: mockUser,
       statusCode: 200,
@@ -201,14 +181,10 @@ describe('BasketPage', () => {
   });
 
   it.skip('should display the transaction items in the basket', () => {
-    cy.intercept(
-      'PUT',
-      '/transaction-items/me/' + mockTransactionItem.transactionItemId,
-      {
-        body: [mockTransactionItem],
-        statusCode: 200,
-      }
-    );
+    cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
+      body: [mockTransactionItem],
+      statusCode: 200,
+    });
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
@@ -244,9 +220,7 @@ describe('BasketPage', () => {
       body: [mockTransactionItem],
       statusCode: 200,
     });
-    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should('be.disabled');
     cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
     cy.get('[data-cy=basket-increase-planted-trees-button]').click({
       force: true,
@@ -256,9 +230,7 @@ describe('BasketPage', () => {
       force: true,
     });
     cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
-    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should('be.disabled');
   });
 
   it.skip('should apply discount', () => {
@@ -308,9 +280,7 @@ describe('BasketPage', () => {
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[data-cy=basket-item-decrese-dimension-button]').should(
-          'not.be.disabled'
-        );
+        cy.get('[data-cy=basket-item-decrese-dimension-button]').should('not.be.disabled');
         cy.get('[data-cy=basket-item-price]').should('contain', '695');
         cy.get('[data-cy=basket-item-increase-dimension-button]').click({
           force: true,
@@ -353,13 +323,9 @@ describe('BasketPage', () => {
   });
 
   it.skip('should remove the product from basket when pressing delete', () => {
-    cy.intercept(
-      'DELETE',
-      '/transaction-items/me/' + mockCreateTransactionItemRequest.designId,
-      {
-        statusCode: 204,
-      }
-    );
+    cy.intercept('DELETE', '/transaction-items/me/' + mockCreateTransactionItemRequest.designId, {
+      statusCode: 204,
+    });
     //TODO: ask calli how to create 2 intercepts that are the same with different values returned
     // cy.get('[data-cy=basket-item]')
     //   .first()
@@ -393,14 +359,8 @@ describe('BasketPage', () => {
 
 describe('AddToBasketModal', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     cy.visit('/product');
   });
 
@@ -415,44 +375,29 @@ describe('AddToBasketModal', () => {
       force: true,
     });
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-title-input]').should(
-      'have.value',
-      'family tree'
-    );
+    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'family tree');
   });
 
   it('should be able to change title', () => {
     cy.get('[data-cy=design-title-input]').type('family tree', { force: true });
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-title-input]').should(
-      'have.value',
-      'family tree'
-    );
+    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'family tree');
     cy.get('[data-cy=add-to-basket-title-input]').clear();
     cy.get('[data-cy=add-to-basket-title-input]').type('familietræ');
-    cy.get('[data-cy=add-to-basket-title-input]').should(
-      'have.value',
-      'familietræ'
-    );
+    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'familietræ');
   });
 
   it('it should not be able to add to basket without a title', () => {
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-add-to-basket-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-add-to-basket-button]').should('be.disabled');
   });
 
   it('should increase / decrease quantity', () => {
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should('be.disabled');
     cy.get('[data-cy=add-to-basket-quantity]').should('contain', '1');
     cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should(
-      'not.be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should('not.be.disabled');
     cy.get('[data-cy=add-to-basket-quantity]').should('contain', '2');
     cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
     cy.get('[data-cy=add-to-basket-quantity]').should('contain', '3');
@@ -464,33 +409,15 @@ describe('AddToBasketModal', () => {
 
   it('should increase / decrease dimensions', () => {
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
-      'be.disabled'
-    );
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '20cm x 20cm'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should('be.disabled');
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '20cm x 20cm');
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
-      'not.be.disabled'
-    );
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '25cm x 25cm'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should('not.be.disabled');
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '30cm x 30cm'
-    );
-    cy.get('[data-cy=add-to-basket-increase-dimension-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '30cm x 30cm');
+    cy.get('[data-cy=add-to-basket-increase-dimension-button]').should('be.disabled');
     cy.get('[data-cy=add-to-basket-decrease-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '25cm x 25cm'
-    );
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
   });
 });

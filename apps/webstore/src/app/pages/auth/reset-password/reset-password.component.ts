@@ -7,10 +7,7 @@ import { UserService } from '../../../shared/services/user/user.service';
 @Component({
   selector: 'webstore-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: [
-    './reset-password.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./reset-password.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
@@ -19,26 +16,19 @@ export class ResetPasswordComponent implements OnInit {
   isUpdateSuccessful = false;
   isLoading = false;
 
-  constructor(
-    private userService: UserService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.changePasswordForm = new FormGroup({
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
     });
   }
@@ -52,10 +42,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   matchingPasswords(): boolean {
-    return (
-      this.changePasswordForm.get('password').value ===
-      this.changePasswordForm.get('confirmPassword').value
-    );
+    return this.changePasswordForm.get('password').value === this.changePasswordForm.get('confirmPassword').value;
   }
 
   onChangePassword() {

@@ -15,55 +15,55 @@
 }
 
 .body {
-    min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100vh - var(--navbar-height));
 }
 
 .content {
-    height: calc(100vh - var(--navbar-height));
-    overflow-y: auto;
+  height: calc(100vh - var(--navbar-height));
+  overflow-y: auto;
 }
 
 .sidebar {
-    height: calc(100vh - var(--navbar-height) - 48px);
-    overflow-y: auto;
-    box-shadow: -7px 0px 24px 8px rgba(0, 0, 0, 0.15);
+  height: calc(100vh - var(--navbar-height) - 48px);
+  overflow-y: auto;
+  box-shadow: -7px 0px 24px 8px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar .sidebar-header {
-    padding: 25px;
+  padding: 25px;
 }
 
-.sidebar .sidebar-header h4{
-    margin-bottom: 3px;
+.sidebar .sidebar-header h4 {
+  margin-bottom: 3px;
 }
 
-.sidebar .sidebar-header i{
-    margin-bottom: 10px;
+.sidebar .sidebar-header i {
+  margin-bottom: 10px;
 }
 
-.user-icon:hover{
-    cursor: pointer;
+.user-icon:hover {
+  cursor: pointer;
 }
 
 .divider {
-    background-color: var(--border-color);
+  background-color: var(--border-color);
 }
 
 /* On collapsed sidebar */
 ::ng-deep .ant-layout-sider-collapsed .sidebar-header {
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 90px;
-    transition: .5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 90px;
+  transition: 0.5s;
 }
 
 ::ng-deep .ant-layout-sider-collapsed .sidebar-collapsible {
-    display:none;
+  display: none;
 }
 
 ::ng-deep .ant-layout-sider-collapsed .user-icon {
-    height: 16px;
-    width: 16px;
-    transition: .5s;
+  height: 16px;
+  width: 16px;
+  transition: 0.5s;
 }

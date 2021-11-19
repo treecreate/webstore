@@ -7,10 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
-   @Input() username = 'example@looking.good';
+  @Input() username = 'example@looking.good';
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   changeRoute() {
     if (this.router.url === '/dashboard') {

@@ -1,13 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TreeDesignEnum } from '@assets';
-import {
-  DesignDimensionEnum,
-  DesignTypeEnum,
-  FamilyTreeFontEnum,
-  ITransactionItem,
-  IUser,
-} from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, FamilyTreeFontEnum, ITransactionItem, IUser } from '@interfaces';
 import { UserRoles } from '@models';
 import { FamilyTreeBasketItemComponent } from './family-tree-basket-item.component';
 

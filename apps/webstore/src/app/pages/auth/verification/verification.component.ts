@@ -6,20 +6,14 @@ import { VerifyService } from '../../../shared/services/verify/verify.service';
 @Component({
   selector: 'webstore-verification',
   templateUrl: './verification.component.html',
-  styleUrls: [
-    './verification.component.css',
-    '../../../../assets/styles/tc-buttons.css',
-  ],
+  styleUrls: ['./verification.component.css', '../../../../assets/styles/tc-buttons.css'],
 })
 export class VerificationComponent implements OnInit {
   isLoading: boolean;
   isVerificationSuccessful = false;
   errorMessage = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private verifyService: VerifyService
-  ) {}
+  constructor(private route: ActivatedRoute, private verifyService: VerifyService) {}
 
   ngOnInit(): void {
     this.isLoading = true;

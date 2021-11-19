@@ -10,10 +10,7 @@ import { NewsletterService } from '../../../shared/services/newsletter/newslette
 @Component({
   selector: 'webstore-signup',
   templateUrl: './signup.component.html',
-  styleUrls: [
-    './signup.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./signup.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
@@ -43,16 +40,12 @@ export class SignupComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
     });
   }
@@ -68,27 +61,20 @@ export class SignupComponent implements OnInit {
         (data: IRegisterResponse) => {
           // Subscribe to newsletter
           if (this.signUpForNewletter) {
-            this.newsletterService
-              .registerNewsletterEmail(this.signupForm.get('email').value)
-              .subscribe(
-                (newsletterData: INewsletter) => {
-                  this.toastService.showAlert(
-                    `Thank you for subscribing: ${newsletterData.email}`,
-                    `Tak for din tilmelding: ${newsletterData.email}`,
-                    'success',
-                    3000
-                  );
-                },
-                (error) => {
-                  this.toastService.showAlert(
-                    error.error.message,
-                    error.error.message,
-                    'danger',
-                    100000
-                  );
-                  console.error(error);
-                }
-              );
+            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe(
+              (newsletterData: INewsletter) => {
+                this.toastService.showAlert(
+                  `Thank you for subscribing: ${newsletterData.email}`,
+                  `Tak for din tilmelding: ${newsletterData.email}`,
+                  'success',
+                  3000
+                );
+              },
+              (error) => {
+                this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
+                console.error(error);
+              }
+            );
           }
           this.toastService.showAlert(
             'Welcome to Treecreate, you have successfully been registered!',
@@ -127,10 +113,7 @@ export class SignupComponent implements OnInit {
   }
 
   matchingPasswords(): boolean {
-    return (
-      this.signupForm.get('password').value ===
-      this.signupForm.get('confirmPassword').value
-    );
+    return this.signupForm.get('password').value === this.signupForm.get('confirmPassword').value;
   }
 
   isDisabled(): boolean {

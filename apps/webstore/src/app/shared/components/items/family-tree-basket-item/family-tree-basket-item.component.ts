@@ -1,12 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DesignDimensionEnum, ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
@@ -16,10 +9,7 @@ import { ToastService } from '../../toast/toast-service';
 @Component({
   selector: 'webstore-basket-item',
   templateUrl: './family-tree-basket-item.component.html',
-  styleUrls: [
-    './family-tree-basket-item.component.css',
-    '../../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./family-tree-basket-item.component.css', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class FamilyTreeBasketItemComponent implements OnInit {
   @ViewChild('productDesign', { static: true })

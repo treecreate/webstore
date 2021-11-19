@@ -4,10 +4,7 @@
             <h2 i18n="@@your-collection">Your collection</h2>
         </div>
         <div>
-            <div
-                class="collection-content"
-                *ngIf="1 <= designCollection.length"
-            >
+            <div class="collection-content" *ngIf="1 <= designCollection.length">
                 <webstore-family-tree-collection-item
                     *ngFor="let design of designCollection"
                     [design]="design"
@@ -36,17 +33,9 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="no-content"
-                data-cy="collection-no-items"
-                *ngIf="designCollection.length === 0 && !isLoading"
-            >
-                <div class="sub-title" i18n="@@no-designs">
-                    You have no designs
-                </div>
-                <span i18n="@@no-designs-text">
-                    Go to the product page to start creating your first design!
-                </span>
+            <div class="no-content" data-cy="collection-no-items" *ngIf="designCollection.length === 0 && !isLoading">
+                <div class="sub-title" i18n="@@no-designs">You have no designs</div>
+                <span i18n="@@no-designs-text"> Go to the product page to start creating your first design! </span>
                 <div class="button-section">
                     <button
                         class="tc-button-50"

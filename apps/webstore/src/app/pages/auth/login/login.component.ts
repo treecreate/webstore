@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginResponse } from '@interfaces';
@@ -16,10 +10,7 @@ import { AuthService } from '../../../shared/services/authentication/auth.servic
 @Component({
   selector: 'webstore-login',
   templateUrl: './login.component.html',
-  styleUrls: [
-    './login.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./login.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -99,10 +90,7 @@ export class LoginComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    return (
-      this.loginForm.get('email').invalid ||
-      this.loginForm.get('password').invalid
-    );
+    return this.loginForm.get('email').invalid || this.loginForm.get('password').invalid;
   }
 
   reloadPage(): void {

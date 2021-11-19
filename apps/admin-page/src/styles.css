@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-    --font-color: #FFFFFF;
-    --border-color: #ABABAB;
-    --main-color: #19169C;
+  --font-color: #ffffff;
+  --border-color: #ababab;
+  --main-color: #19169c;
 
-    --navbar-height: 42.7px;
-    --sidebar-width: 214px;
+  --navbar-height: 42.7px;
+  --sidebar-width: 214px;
 
-    overflow-y: hidden;
-  }
+  overflow-y: hidden;
+}
