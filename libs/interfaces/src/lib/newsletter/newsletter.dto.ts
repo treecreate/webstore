@@ -1,3 +1,3 @@
-export class CreateNewsletterRequest {
+export interface CreateNewsletterRequest {
   email: string;
 }
