@@ -15,10 +15,13 @@ export class LocalStorageService implements OnDestroy {
 
   constructor() {
     // Initial state
-    const initialLocale = JSON.parse(localStorage.getItem(LocalStorageVars.locale) || LocaleType.dk);
+    const initialLocale = JSON.parse(
+      localStorage.getItem(LocalStorageVars.locale) || `{"${LocalStorageVars.locale}":"${LocaleType.dk}"}`
+    );
 
     const acceptedCookies = JSON.parse(
-      localStorage.getItem(LocalStorageVars.cookiesAccepted) || CookieStatus.undefined
+      localStorage.getItem(LocalStorageVars.cookiesAccepted) ||
+        `{"${LocalStorageVars.cookiesAccepted}":"${CookieStatus.undefined}"}`
     );
 
     this.cache = {
