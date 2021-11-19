@@ -14,16 +14,14 @@ export class LocalStorageService implements OnDestroy {
   private cache: ICache;
 
   constructor() {
-    // Initial state
-    const initialLocale = JSON.parse(
-      localStorage.getItem(LocalStorageVars.locale) || `{"${LocalStorageVars.locale}":"${LocaleType.dk}"}`
-    );
+    // Get initial state of cookies and locale from previously set values. If nothing is found, set defaults
+    const locale = localStorage.getItem(LocalStorageVars.locale);
+    const initialLocale = locale !== null ? JSON.parse(locale) : LocaleType.dk;
 
-    const acceptedCookies = JSON.parse(
-      localStorage.getItem(LocalStorageVars.cookiesAccepted) ||
-        `{"${LocalStorageVars.cookiesAccepted}":"${CookieStatus.undefined}"}`
-    );
+    const cookies = localStorage.getItem(LocalStorageVars.cookiesAccepted);
+    const acceptedCookies = cookies !== null ? JSON.parse(cookies) : CookieStatus.undefined;
 
+    // set the initial state in the cache
     this.cache = {
       [LocalStorageVars.locale]: new BehaviorSubject<LocaleType>(initialLocale),
       [LocalStorageVars.cookiesAccepted]: new BehaviorSubject<CookieStatus>(acceptedCookies),
