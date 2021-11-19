@@ -44,6 +44,13 @@ export class LocalStorageService implements OnDestroy {
   }
 
   // Methods
+  /**
+   * Save a given object to local storage.
+   * @example this.localStorageService.setItem<IAuthUser>(LocalStorageVars.authUser, user);
+   * @param key name that the object should be saved under
+   * @param value the object
+   * @returns behavior subject that you can subscribe to and listen for changes
+   */
   setItem<T>(key: string, value: T): BehaviorSubject<T> {
     if (this.isLocalStorageSupported) {
       localStorage.setItem(key, JSON.stringify(value));
@@ -57,6 +64,13 @@ export class LocalStorageService implements OnDestroy {
     return (this.cache[key] = new BehaviorSubject(value));
   }
 
+  /**
+   * Get a specific object from local storage cache
+   * @example this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).getValue();
+   * @example const authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).getValue(); authUser$.subscribe();
+   * @param key name of the object
+   * @returns behavior subject that you can subscribe to and listen for changes
+   */
   getItem<T>(key: string): BehaviorSubject<T | null> | null {
     if (this.cache[key]) {
       return this.cache[key] as BehaviorSubject<T | null>;
@@ -73,7 +87,12 @@ export class LocalStorageService implements OnDestroy {
     return null;
   }
 
-  removeItem(key: string) {
+  /**
+   * Remove a specific object from local storage
+   * @example this.localStorageService.removeItem(LocalStorageVars.authUser);
+   * @param key name of the object
+   */
+  removeItem(key: string): void {
     if (this.isLocalStorageSupported) {
       localStorage.removeItem(key);
     }
