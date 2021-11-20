@@ -9,6 +9,7 @@ import dk.treecreate.api.utils.model.quickpay.Currency;
 import dk.treecreate.api.utils.model.quickpay.*;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkRequest;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
+import dk.treecreate.api.utils.model.quickpay.dto.GetPaymentLinkResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,6 +140,39 @@ public class QuickpayService
         LOGGER.info("Payment link has been created for payment id " + paymentId + " | " +
             response.getUrl());
         return response;
+    }
+
+    /**
+     * Perform GET https://api.quickpay.net/payments/:paymentId to get a payment object
+     * The payment object contains a payment link
+     *
+     * @param paymentId Quickpay payment ID
+     * @return url that the user can navigate to in order to give us money
+     */
+    public GetPaymentLinkResponse getPaymentLink(String paymentId) throws URISyntaxException
+    {
+        String quickpayApiUrl = "https://api.quickpay.net";
+        String apiKey = customProperties.getQuickpayApiKey();
+
+        WebClient client = WebClient.create();
+        Payment response = client.get()
+            .uri(new URI(quickpayApiUrl + "/payments/" + paymentId))
+            .headers(headers -> headers.setBasicAuth("", apiKey))
+            .header("Accept-Version", "v10")
+            .retrieve()
+            .bodyToMono(Payment.class)
+            .block();
+
+        if (response == null || response.link == null)
+        {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "An error has occurred while creating a payment link. Try again later");
+        }
+
+
+        var getPaymentLinkResponse = new GetPaymentLinkResponse();
+        getPaymentLinkResponse.setUrl(response.link.url);
+        return getPaymentLinkResponse;
     }
 
     /**
