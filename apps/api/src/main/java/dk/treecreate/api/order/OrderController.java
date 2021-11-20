@@ -1,5 +1,7 @@
 package dk.treecreate.api.order;
 
+import dk.treecreate.api.authentication.models.ERole;
+import dk.treecreate.api.authentication.models.Role;
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.designs.ContactInfoService;
@@ -14,8 +16,10 @@ import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.LocaleService;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
+import dk.treecreate.api.utils.model.quickpay.dto.GetPaymentLinkResponse;
 import io.sentry.Sentry;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +37,7 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -158,5 +163,57 @@ public class OrderController
         Sentry.setExtra("total", String.valueOf(order.getTotal()));
         Sentry.captureMessage("New order has been created");
         return createPaymentLinkResponse;
+    }
+
+
+    @GetMapping("{orderId}/link")
+    @Operation(summary = "Get a link for the given order")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "A quickpay payment link",
+            response = GetPaymentLinkResponse.class)})
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public GetPaymentLinkResponse getPaymentLink(
+        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId)
+    {
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        User currentUser = userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        Order order = orderRepository.findByOrderId(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+
+        if (order.getUserId() != currentUser.getUserId())
+        {
+            // Determine whether the user is an admin or not
+            boolean isAdmin = false;
+            var roles = currentUser.getRoles();
+            for (Role role : roles)
+            {
+                if (role.getName().equals(ERole.ROLE_ADMIN))
+                {
+                    isAdmin = true;
+                    break;
+                }
+            }
+            if (!isAdmin)
+            {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "The order belongs to another user");
+            }
+        }
+
+        try
+        {
+            return this.quickpayService.getPaymentLink(order.getPaymentId());
+        } catch (URISyntaxException e)
+        {
+            LOGGER.error(
+                "An error has occurred while getting a payment with id: " + order.getPaymentId(),
+                e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "An error has occurred while getting a payment");
+        }
+
     }
 }
