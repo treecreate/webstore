@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import {
   ContactInfo,
   IAuthUser,
@@ -12,15 +11,13 @@ import {
   IUser,
   ShippingMethodEnum,
 } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
-import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { LocalStorageService } from '../../../shared/services/local-storage';
-import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -39,6 +36,8 @@ export class CheckoutComponent implements OnInit {
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
+  public locale$: BehaviorSubject<LocaleType>;
+  public localeCode: LocaleType;
 
   isLoggedIn = false;
   isHomeDelivery = false;
@@ -48,6 +47,7 @@ export class CheckoutComponent implements OnInit {
   billingAddressIsTheSame = true;
   isLoading = false;
   isTermsAndConditionsAccepted = false;
+  locale;
 
   priceInfo: IPricing;
   discount: IDiscount = null;
@@ -69,6 +69,11 @@ export class CheckoutComponent implements OnInit {
     private authService: AuthService,
     private orderService: OrderService
   ) {
+    // Listen to changes to locale
+    this.locale$ = this.localStorageService.getItem<LocaleType>(
+      LocalStorageVars.locale
+    );
+    this.localeCode = this.locale$.getValue();
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(
       LocalStorageVars.authUser
@@ -216,6 +221,10 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+  isEnglish() {
+    return this.localeCode === 'en-US';
+  }
+
   updateFormValues() {
     this.checkoutForm.setValue({
       name: this.currentUser.name,
@@ -280,12 +289,23 @@ export class CheckoutComponent implements OnInit {
       this.createOrder();
     } catch (error) {
       console.warn(error);
-      this.alert = {
-        message:
-          'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk',
-        type: 'danger',
-        dismissible: false,
-      };
+      if (error.error.message === 'Error: Email is already in use!') {
+        this.alert = {
+          message: this.isEnglish()
+            ? 'Failed to create your order, email is already in use. Please log in to finish your order.'
+            : 'Fejl ved bestilling. Din email er allerede i brug. Log venligst ind for at gennemføre dit køb.',
+          type: 'danger',
+          dismissible: false,
+        };
+      } else {
+        this.alert = {
+          message: this.isEnglish()
+            ? 'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk'
+            : 'Fejl ved bestilling. Prøv venligst igen. Hvis fejlen fortsætter kan du kontakte os på info@treecreate.dk',
+          type: 'danger',
+          dismissible: false,
+        };
+      }
     } finally {
       this.isLoading = false;
     }
