@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import {
   ContactInfo,
   IAuthUser,
@@ -12,15 +11,13 @@ import {
   IUser,
   ShippingMethodEnum,
 } from '@interfaces';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
-import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
-import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
+import { LocalStorageService } from '@local-storage';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -28,10 +25,7 @@ import { UserService } from '../../../shared/services/user/user.service';
 @Component({
   selector: 'webstore-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: [
-    './checkout.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./checkout.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
@@ -39,6 +33,8 @@ export class CheckoutComponent implements OnInit {
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
+  public locale$: BehaviorSubject<LocaleType>;
+  public localeCode: LocaleType;
 
   isLoggedIn = false;
   isHomeDelivery = false;
@@ -48,6 +44,7 @@ export class CheckoutComponent implements OnInit {
   billingAddressIsTheSame = true;
   isLoading = false;
   isTermsAndConditionsAccepted = false;
+  locale;
 
   priceInfo: IPricing;
   discount: IDiscount = null;
@@ -69,24 +66,19 @@ export class CheckoutComponent implements OnInit {
     private authService: AuthService,
     private orderService: OrderService
   ) {
+    // Listen to changes to locale
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
+    this.localeCode = this.locale$.getValue();
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
-      LocalStorageVars.authUser
-    );
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
-      this.isLoggedIn =
-        this.authUser$.getValue() != null &&
-        this.authService.isAccessTokenValid();
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     // Get discount from localstorage
-    this.discount = this.localStorageService.getItem<IDiscount>(
-      LocalStorageVars.discount
-    ).value;
+    this.discount = this.localStorageService.getItem<IDiscount>(LocalStorageVars.discount).value;
     // Get planted trees from localstorage
-    this.plantedTrees = this.localStorageService.getItem<number>(
-      LocalStorageVars.plantedTrees
-    ).value;
+    this.plantedTrees = this.localStorageService.getItem<number>(LocalStorageVars.plantedTrees).value;
   }
 
   ngOnInit(): void {
@@ -118,11 +110,7 @@ export class CheckoutComponent implements OnInit {
         Validators.pattern('^[0-9+]*$'),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.minLength(3),
-        Validators.required,
-      ]),
+      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
       streetAddress2: new FormControl('', [Validators.maxLength(50)]),
       city: new FormControl('', [
         Validators.maxLength(50),
@@ -173,9 +161,7 @@ export class CheckoutComponent implements OnInit {
       this.loadTransactionItemsFromDB();
     } else {
       // Get items from local storage
-      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(
-        LocalStorageVars.transactionItems
-      ).value;
+      this.itemList = this.localStorageService.getItem<ITransactionItem[]>(LocalStorageVars.transactionItems).value;
       this.updatePrices();
       this.isLoading = false;
     }
@@ -216,6 +202,10 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+  isEnglish() {
+    return this.localeCode === 'en-US';
+  }
+
   updateFormValues() {
     this.checkoutForm.setValue({
       name: this.currentUser.name,
@@ -238,20 +228,15 @@ export class CheckoutComponent implements OnInit {
 
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
-      console.warn(
-        'You are not able to add an order without valid information'
-      );
+      console.warn('You are not able to add an order without valid information');
       return;
     }
     this.isLoading = true;
     // generate password
     let passwordGen = '';
-    const randomChars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 10; i++) {
-      passwordGen += randomChars.charAt(
-        Math.floor(Math.random() * randomChars.length)
-      );
+      passwordGen += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
     }
 
     // register a new user, upload the items and designs from local storage and create an order
@@ -265,27 +250,34 @@ export class CheckoutComponent implements OnInit {
 
       // set the new user logged in data
       this.authService.saveAuthUser(user);
-      await this.transactionItemService
-        .createBulkTransactionItem({ transactionItems: this.itemList })
-        .toPromise();
+      await this.transactionItemService.createBulkTransactionItem({ transactionItems: this.itemList }).toPromise();
 
       this.localStorageService.removeItem(LocalStorageVars.transactionItems);
 
       // TODO: Create "welcome to treecreate, set your password to enter your account" email for new users
-      this.userService.sendResetUserPassword(
-        this.checkoutForm.get('email').value
-      );
+      this.userService.sendResetUserPassword(this.checkoutForm.get('email').value);
 
       await this.loadTransactionItemsFromDB();
       this.createOrder();
     } catch (error) {
       console.warn(error);
-      this.alert = {
-        message:
-          'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk',
-        type: 'danger',
-        dismissible: false,
-      };
+      if (error.error.message === 'Error: Email is already in use!') {
+        this.alert = {
+          message: this.isEnglish()
+            ? 'Failed to create your order, email is already in use. Please log in to finish your order.'
+            : 'Fejl ved bestilling. Din email er allerede i brug. Log venligst ind for at gennemføre dit køb.',
+          type: 'danger',
+          dismissible: false,
+        };
+      } else {
+        this.alert = {
+          message: this.isEnglish()
+            ? 'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk'
+            : 'Fejl ved bestilling. Prøv venligst igen. Hvis fejlen fortsætter kan du kontakte os på info@treecreate.dk',
+          type: 'danger',
+          dismissible: false,
+        };
+      }
     } finally {
       this.isLoading = false;
     }
@@ -295,19 +287,13 @@ export class CheckoutComponent implements OnInit {
     if (this.billingAddressIsTheSame) {
       return this.isTermsAndConditionsAccepted && this.checkoutForm.valid;
     } else {
-      return (
-        this.isTermsAndConditionsAccepted &&
-        this.checkoutForm.valid &&
-        this.billingAddressForm.valid
-      );
+      return this.isTermsAndConditionsAccepted && this.checkoutForm.valid && this.billingAddressForm.valid;
     }
   }
 
   createOrder() {
     if (!this.isDisabled()) {
-      console.warn(
-        'You are not able to add an order without valid information'
-      );
+      console.warn('You are not able to add an order without valid information');
       return;
     }
     this.isLoading = true;
@@ -355,9 +341,7 @@ export class CheckoutComponent implements OnInit {
         subtotal: this.priceInfo.fullPrice,
         total: this.priceInfo.finalPrice,
         plantedTrees: this.plantedTrees,
-        shippingMethod: this.isHomeDelivery
-          ? ShippingMethodEnum.homeDelivery
-          : ShippingMethodEnum.pickUpPoint,
+        shippingMethod: this.isHomeDelivery ? ShippingMethodEnum.homeDelivery : ShippingMethodEnum.pickUpPoint,
         discountId: this.discount !== null ? this.discount.discountId : null,
         contactInfo: contactInfo,
         billingInfo: billingInfo,

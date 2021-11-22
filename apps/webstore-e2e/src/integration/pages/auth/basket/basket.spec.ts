@@ -137,10 +137,7 @@ const mockTransactionItemTwo: ITransactionItem = {
 
 describe('BasketPage using localstorage (not logged in)', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(
       LocalStorageVars.transactionItems,
       JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
@@ -172,9 +169,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.get('[data-cy=basket-item]')
       .last()
       .within(() => {
-        cy.get('[data-cy=basket-item-decrease-dimension-button]').should(
-          'not.be.disabled'
-        );
+        cy.get('[data-cy=basket-item-decrease-dimension-button]').should('not.be.disabled');
         cy.get('[data-cy=basket-item-price]').should('contain', '1390');
         cy.get('[data-cy=basket-item-title]').should('contain', 'TestItem01');
       });
@@ -182,9 +177,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
 
   it('should increase / decrease amount of trees planted', () => {
     cy.visit('/basket');
-    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should('be.disabled');
     cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
     cy.get('[data-cy=basket-increase-planted-trees-button]').click({
       force: true,
@@ -202,9 +195,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
       force: true,
     });
     cy.get('[data-cy=basket-planted-trees]').should('contain', '1');
-    cy.get('[data-cy=basket-decrease-planted-trees-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=basket-decrease-planted-trees-button]').should('be.disabled');
   });
 
   it('should apply discount', () => {
@@ -258,9 +249,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[data-cy=basket-item-decrease-dimension-button]').should(
-          'not.be.disabled'
-        );
+        cy.get('[data-cy=basket-item-decrease-dimension-button]').should('not.be.disabled');
         cy.get('[data-cy=basket-item-price]').should('contain', '695');
         cy.get('[data-cy=basket-item-increase-dimension-button]').click({
           force: true,
@@ -292,14 +281,8 @@ describe('BasketPage using localstorage (not logged in)', () => {
 
 describe('BasketPage with a logged in user', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
       body: mockUser,
       statusCode: 200,
@@ -307,14 +290,10 @@ describe('BasketPage with a logged in user', () => {
   });
 
   it('should display the transaction items in the basket', () => {
-    cy.intercept(
-      'PUT',
-      '/transaction-items/me/' + mockTransactionItem.transactionItemId,
-      {
-        body: [mockTransactionItem],
-        statusCode: 200,
-      }
-    );
+    cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
+      body: [mockTransactionItem],
+      statusCode: 200,
+    });
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
       body: [mockTransactionItem],
@@ -342,22 +321,16 @@ describe('BasketPage with a logged in user', () => {
       body: [mockTransactionItem],
       statusCode: 200,
     });
-    cy.intercept(
-      'PUT',
-      '/transaction-items/me/' + mockTransactionItem.transactionItemId,
-      {
-        body: [mockTransactionItemLarge],
-        statusCode: 200,
-      }
-    );
+    cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
+      body: [mockTransactionItemLarge],
+      statusCode: 200,
+    });
     cy.visit('/basket');
     cy.get('[data-cy=total-price-basket]').should('contain', '695');
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[data-cy=basket-item-decrease-dimension-button]').should(
-          'not.be.disabled'
-        );
+        cy.get('[data-cy=basket-item-decrease-dimension-button]').should('not.be.disabled');
         cy.get('[data-cy=basket-item-price]').should('contain', '695');
         cy.get('[data-cy=basket-item-increase-dimension-button]').click({
           force: true,
@@ -397,14 +370,10 @@ describe('BasketPage with a logged in user', () => {
       body: [mockTransactionItem],
       statusCode: 200,
     });
-    cy.intercept(
-      'PUT',
-      '/transaction-items/me/' + mockTransactionItem.transactionItemId,
-      {
-        body: [mockTransactionItem],
-        statusCode: 200,
-      }
-    );
+    cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
+      body: [mockTransactionItem],
+      statusCode: 200,
+    });
     cy.visit('/basket');
     cy.get('[data-cy=basket-item]')
       .first()
@@ -421,14 +390,8 @@ describe('BasketPage with a logged in user', () => {
 
 describe('AddToBasketModal', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     cy.visit('/product');
   });
 
@@ -443,44 +406,29 @@ describe('AddToBasketModal', () => {
       force: true,
     });
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-title-input]').should(
-      'have.value',
-      'family tree'
-    );
+    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'family tree');
   });
 
   it('should be able to change title', () => {
     cy.get('[data-cy=design-title-input]').type('family tree', { force: true });
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-title-input]').should(
-      'have.value',
-      'family tree'
-    );
+    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'family tree');
     cy.get('[data-cy=add-to-basket-title-input]').clear();
     cy.get('[data-cy=add-to-basket-title-input]').type('familietræ');
-    cy.get('[data-cy=add-to-basket-title-input]').should(
-      'have.value',
-      'familietræ'
-    );
+    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'familietræ');
   });
 
   it('it should not be able to add to basket without a title', () => {
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-add-to-basket-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-add-to-basket-button]').should('be.disabled');
   });
 
   it('should increase / decrease quantity', () => {
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should('be.disabled');
     cy.get('[data-cy=add-to-basket-quantity]').should('contain', '1');
     cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should(
-      'not.be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should('not.be.disabled');
     cy.get('[data-cy=add-to-basket-quantity]').should('contain', '2');
     cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
     cy.get('[data-cy=add-to-basket-quantity]').should('contain', '3');
@@ -492,33 +440,15 @@ describe('AddToBasketModal', () => {
 
   it('should increase / decrease dimensions', () => {
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
-      'be.disabled'
-    );
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '20cm x 20cm'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should('be.disabled');
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '20cm x 20cm');
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should(
-      'not.be.disabled'
-    );
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '25cm x 25cm'
-    );
+    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should('not.be.disabled');
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '30cm x 30cm'
-    );
-    cy.get('[data-cy=add-to-basket-increase-dimension-button]').should(
-      'be.disabled'
-    );
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '30cm x 30cm');
+    cy.get('[data-cy=add-to-basket-increase-dimension-button]').should('be.disabled');
     cy.get('[data-cy=add-to-basket-decrease-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should(
-      'contain',
-      '25cm x 25cm'
-    );
+    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
   });
 });

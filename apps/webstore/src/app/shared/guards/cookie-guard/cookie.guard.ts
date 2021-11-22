@@ -5,29 +5,17 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars, CookieStatus } from '@models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CookieGuard implements CanActivate {
-  constructor(
-    private localStorageService: LocalStorageService,
-    private router: Router
-  ) {}
-  canActivate():
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    const cookieStatus = this.localStorageService
-      .getItem<CookieStatus>(LocalStorageVars.cookiesAccepted)
-      .getValue();
-    if (
-      cookieStatus !== CookieStatus.accepted &&
-      cookieStatus !== CookieStatus.undefined
-    ) {
+  constructor(private localStorageService: LocalStorageService, private router: Router) {}
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    const cookieStatus = this.localStorageService.getItem<CookieStatus>(LocalStorageVars.cookiesAccepted).getValue();
+    if (cookieStatus !== CookieStatus.accepted && cookieStatus !== CookieStatus.undefined) {
       console.warn('You need to accept cookies before you can use our website');
       this.router.navigate(['/rejectedCookies']); // redirect when authorization fails
       return false;

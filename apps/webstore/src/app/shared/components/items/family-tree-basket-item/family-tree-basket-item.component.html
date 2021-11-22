@@ -1,9 +1,4 @@
-<ngb-alert
-    *ngIf="alert"
-    [type]="alert.type"
-    (closed)="alert = undefined"
-    [dismissible]="alert.dismissible"
->
+<ngb-alert *ngIf="alert" [type]="alert.type" (closed)="alert = undefined" [dismissible]="alert.dismissible">
     <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
     {{ alert.message }}</ngb-alert
 >
@@ -117,9 +112,7 @@
             <div class="text">
                 <span i18n="@@price"> Price </span>
             </div>
-            <div class="option price-text" data-cy="basket-item-price">
-                {{ itemPrice.toFixed(2) }} DKK
-            </div>
+            <div class="option price-text" data-cy="basket-item-price">{{ itemPrice.toFixed(2) }} DKK</div>
         </div>
         <hr class="margin-top" />
         <!-- actions -->

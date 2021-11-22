@@ -35,30 +35,28 @@ export class ForgotPasswordModalComponent implements OnInit {
 
   sendResetPasswordEmail() {
     this.isLoading = true;
-    this.userService
-      .sendResetUserPassword(this.forgotPasswordForm.get('email').value)
-      .subscribe(
-        () => {
-          this.activeModal.close();
-          this.toastService.showAlert(
-            'We have sent you an e-mail with a link to change your password.',
-            'Vi har sendt dig en e-mail med et link til at ændre din kode.',
-            'success',
-            3500
-          );
-          this.isLoading = false;
-        },
-        (err) => {
-          this.toastService.showAlert(
-            'We have failed to send an e-mail. Try again or contact us at info@treecreate.dk.',
-            'Der skete en fejl da vi skulle sende e-mailen. Prøv igen senere eller skriv til os på info@treecreate.dk',
-            'danger',
-            10000
-          );
-          console.log(err.error.message);
-          this.isLoading = false;
-        }
-      );
+    this.userService.sendResetUserPassword(this.forgotPasswordForm.get('email').value).subscribe(
+      () => {
+        this.activeModal.close();
+        this.toastService.showAlert(
+          'We have sent you an e-mail with a link to change your password.',
+          'Vi har sendt dig en e-mail med et link til at ændre din kode.',
+          'success',
+          3500
+        );
+        this.isLoading = false;
+      },
+      (err) => {
+        this.toastService.showAlert(
+          'We have failed to send an e-mail. Try again or contact us at info@treecreate.dk.',
+          'Der skete en fejl da vi skulle sende e-mailen. Prøv igen senere eller skriv til os på info@treecreate.dk',
+          'danger',
+          10000
+        );
+        console.log(err.error.message);
+        this.isLoading = false;
+      }
+    );
   }
 
   isDisabled(): boolean {

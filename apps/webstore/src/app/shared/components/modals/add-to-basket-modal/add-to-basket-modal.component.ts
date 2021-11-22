@@ -2,20 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  DesignDimensionEnum,
-  DesignTypeEnum,
-  IAuthUser,
-  IFamilyTree,
-  ITransactionItem,
-} from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, ITransactionItem } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
-import { LocalStorageService } from '../../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
@@ -56,44 +50,28 @@ export class AddToBasketModalComponent implements OnInit {
     private authService: AuthService
   ) {
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
-      LocalStorageVars.authUser
-    );
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     // Check if the user is logged in
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
-      this.isLoggedIn =
-        this.authUser$.getValue() != null &&
-        this.authService.isAccessTokenValid();
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
   }
 
   ngOnInit(): void {
     this.addToBasketForm = new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(50),
-        Validators.minLength(3),
-      ]),
-      quantity: new FormControl('', [
-        Validators.required,
-        Validators.max(99),
-        Validators.min(1),
-      ]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]),
+      quantity: new FormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
       dimension: new FormControl('', [Validators.required]),
     });
 
-    this.design = this.localStorageService.getItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree
-    ).value;
+    this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
 
     this.addToBasketForm.setValue({
       title: this.design ? this.design.title : '',
@@ -122,9 +100,7 @@ export class AddToBasketModalComponent implements OnInit {
         }
       );
     } else {
-      const itemList = this.localStorageService.getItem<ITransactionItem[]>(
-        LocalStorageVars.transactionItems
-      ).value;
+      const itemList = this.localStorageService.getItem<ITransactionItem[]>(LocalStorageVars.transactionItems).value;
       if (itemList !== null) {
         let itemSum = 0;
         let priceSum = 0;
@@ -145,8 +121,7 @@ export class AddToBasketModalComponent implements OnInit {
       this.addToBasketForm.get('quantity').value,
       this.addToBasketForm.get('dimension').value
     );
-    this.isMoreThan4 =
-      this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
+    this.isMoreThan4 = this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
 
   amountSaved() {
@@ -260,10 +235,7 @@ export class AddToBasketModalComponent implements OnInit {
     // If not, update the title in the users collection
     if (this.design.title !== this.addToBasketForm.get('title').value) {
       this.design.title = this.addToBasketForm.get('title').value;
-      this.localStorageService.setItem<IFamilyTree>(
-        LocalStorageVars.designFamilyTree,
-        this.design
-      );
+      this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
       //Update design title in collection
       this.designService
         .updateDesign({
@@ -307,12 +279,7 @@ export class AddToBasketModalComponent implements OnInit {
               (newItem: ITransactionItem) => {
                 this.isLoading = false;
                 console.log('added design to basket', newItem);
-                this.toastService.showAlert(
-                  'Design added to basket',
-                  'Design er lagt i kurven',
-                  'success',
-                  5000
-                );
+                this.toastService.showAlert('Design added to basket', 'Design er lagt i kurven', 'success', 5000);
                 this.activeModal.close();
                 this.modalService.open(GoToBasketModalComponent);
               },
@@ -330,12 +297,7 @@ export class AddToBasketModalComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           console.error('Failed to save design', error);
-          this.toastService.showAlert(
-            'Failed to save your design',
-            'Kunne ikke gemme dit design',
-            'danger',
-            10000
-          );
+          this.toastService.showAlert('Failed to save your design', 'Kunne ikke gemme dit design', 'danger', 10000);
         }
       );
   }

@@ -1,11 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginResponse, ITransactionItem } from '@interfaces';
@@ -14,16 +8,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '../../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
   selector: 'webstore-login',
   templateUrl: './login.component.html',
-  styleUrls: [
-    './login.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./login.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -75,9 +66,9 @@ export class LoginComponent implements OnInit {
           );
           // Check for transaction items in localstorage and add them to user
           // Get localStorage items
-          const localStorageItems = this.localStorageService.getItem<
-            ITransactionItem[]
-          >(LocalStorageVars.transactionItems).value;
+          const localStorageItems = this.localStorageService.getItem<ITransactionItem[]>(
+            LocalStorageVars.transactionItems
+          ).value;
           // Create the transaction items in DB / user
           if (localStorageItems !== null) {
             this.transactionItemService
@@ -87,9 +78,7 @@ export class LoginComponent implements OnInit {
               .subscribe(
                 (items) => {
                   console.log('Uploaded designs', items);
-                  this.localStorageService.removeItem(
-                    LocalStorageVars.transactionItems
-                  );
+                  this.localStorageService.removeItem(LocalStorageVars.transactionItems);
 
                   this.isLoading = false;
                   this.isLoginFailed = false;
@@ -139,10 +128,7 @@ export class LoginComponent implements OnInit {
   }
 
   isDisabled(): boolean {
-    return (
-      this.loginForm.get('email').invalid ||
-      this.loginForm.get('password').invalid
-    );
+    return this.loginForm.get('email').invalid || this.loginForm.get('password').invalid;
   }
 
   reloadPage(): void {

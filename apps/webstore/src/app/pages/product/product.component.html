@@ -1,21 +1,10 @@
-<section
-    class="product-section"
-    [ngClass]="!isMutable ? 'flex-direction-column' : ''"
->
+<section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
     <div class="back-container" *ngIf="!isMutable">
-        <a
-            href="javascript:history.back()"
-            class="back add-transition"
-            data-cy="view-only-back-button"
-        >
+        <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
             < <span i18n="@@back">Back</span>
         </a>
     </div>
-    <div
-        class="design-screen"
-        [ngStyle]="{ 'font-family': this.font }"
-        *ngIf="!isIphone"
-    >
+    <div class="design-screen" [ngStyle]="{ 'font-family': this.font }" *ngIf="!isIphone">
         <button
             class="option-toggler"
             data-cy="mobile-options-toggler"
@@ -23,10 +12,7 @@
             (click)="showOptions()"
             *ngIf="isMutable"
         >
-            <div
-                class="option-icon"
-                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
-            >
+            <div class="option-icon" [ngClass]="!isMobileOptionOpen ? '' : 'active'">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
@@ -67,19 +53,11 @@
     <!-- END CY TESTS -->
 
     <div
-        [ngClass]="
-            isMobileOptionOpen
-                ? 'mobile-options-container'
-                : 'desktop-options-container'
-        "
+        [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'"
         *ngIf="isMutable"
         data-cy="product-options"
     >
-        <div
-            class="blocker"
-            *ngIf="isMobileOptionOpen"
-            (click)="showOptions()"
-        ></div>
+        <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <div class="option option-design-name">
                 <div class="option-title">
@@ -99,11 +77,7 @@
                         class="title-input"
                         [value]="designTitle"
                         (keyup)="onKey($event)"
-                        placeholder="{{
-                            isEnglish()
-                                ? 'Navngiv dit design...'
-                                : 'Name your design...'
-                        }}"
+                        placeholder="{{ isEnglish() ? 'Navngiv dit design...' : 'Name your design...' }}"
                         data-cy="design-title-input"
                         maxlength="50"
                     />
@@ -123,24 +97,13 @@
                     ></webstore-info-popover>
                 </div>
                 <div class="option-tree-design-btn">
-                    <button
-                        class="design-arrow-left tc-button-sm-square"
-                        data-cy="font-prev-btn"
-                        (click)="prevFont()"
-                    >
+                    <button class="design-arrow-left tc-button-sm-square" data-cy="font-prev-btn" (click)="prevFont()">
                         <span class="arrow-left"></span>
                     </button>
-                    <div
-                        class="display display-design"
-                        [ngStyle]="{ 'font-family': this.font }"
-                    >
+                    <div class="display display-design" [ngStyle]="{ 'font-family': this.font }">
                         {{ font }}
                     </div>
-                    <button
-                        class="design-arrow-right tc-button-sm-square"
-                        data-cy="font-next-btn"
-                        (click)="nextFont()"
-                    >
+                    <button class="design-arrow-right tc-button-sm-square" data-cy="font-next-btn" (click)="nextFont()">
                         <span class="arrow-right"></span>
                     </button>
                 </div>
@@ -184,9 +147,7 @@
                 <div class="option-title">
                     <span i18n="@@box-size">Box Size</span>
                     <webstore-info-popover
-                        title="{{
-                            isEnglish() ? 'Box size' : 'Boks størrelse'
-                        }}"
+                        title="{{ isEnglish() ? 'Box size' : 'Boks størrelse' }}"
                         text="{{
                             isEnglish()
                                 ? 'You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design.'
@@ -233,10 +194,7 @@
                                         : (this.banner = undefined)
                                 "
                             />
-                            <span
-                                class="checkmark"
-                                data-cy="checkbox-banner"
-                            ></span>
+                            <span class="checkmark" data-cy="checkbox-banner"></span>
                             <webstore-info-popover
                                 title="Banner"
                                 text="{{
@@ -255,14 +213,9 @@
                                 [checked]="this.isLargeFont"
                                 (change)="this.isLargeFont = !this.isLargeFont"
                             />
-                            <span
-                                class="checkmark"
-                                data-cy="checkbox-large-font"
-                            ></span>
+                            <span class="checkmark" data-cy="checkbox-large-font"></span>
                             <webstore-info-popover
-                                title="{{
-                                    isEnglish() ? 'Large font' : 'Stor font'
-                                }}"
+                                title="{{ isEnglish() ? 'Large font' : 'Stor font' }}"
                                 text="{{
                                     isEnglish()
                                         ? 'Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname.'
@@ -272,10 +225,7 @@
                         </label>
                     </div>
                 </div>
-                <div
-                    *ngIf="this.banner !== undefined"
-                    class="option-design-title banner-input"
-                >
+                <div *ngIf="this.banner !== undefined" class="option-design-title banner-input">
                     <input
                         type="text"
                         class="title-input"
@@ -296,10 +246,7 @@
                     data-cy="save-family-tree-button"
                 >
                     <span i18n="@@save">Save</span>
-                    <img
-                        src="/assets/icons/save-icon.svg"
-                        class="option-icon"
-                    />
+                    <img src="/assets/icons/save-icon.svg" class="option-icon" />
                 </button>
                 <button
                     class="btn-add-to-cart tc-button-50"
@@ -308,41 +255,30 @@
                     [disabled]="!isDesignValid"
                 >
                     <span i18n="@@add">Add</span>
-                    <img
-                        src="/assets/icons/basket-white-icon.svg"
-                        class="option-icon"
-                    />
+                    <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
                 </button>
             </div>
 
             <div class="option misc-option-actions">
                 <button class="tc-button-100" (click)="clearDesignCanvas()">
                     Reset
-                    <img
-                        src="/assets/icons/reset-icon.svg"
-                        class="option-icon"
-                    />
+                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
                 </button>
             </div>
         </div>
     </div>
 </section>
 
-<div
-    class="use-desktop-container"
-    (click)="showSuggestion = false"
-    *ngIf="showSuggestion && !isIphone"
->
+<div class="use-desktop-container" (click)="showSuggestion = false" *ngIf="showSuggestion && !isIphone">
     <div class="use-desktop-suggestion" i18n="@@suggestion-to-use-pc">
-        Use a PC for an optimised user experience. There can still be issues on
-        the mobile verison. We are working as fast as we can to fix them.
+        Use a PC for an optimised user experience. There can still be issues on the mobile verison. We are working as
+        fast as we can to fix them.
     </div>
 </div>
 
 <div class="iphone-use-desktop-container" *ngIf="isIphone">
     <div class="iphone-use-desktop-suggestion" i18n="@@dont-use-iphone-text">
-        SORRY! We don't support creating designs with iPhone. To create a
-        design, simply open up your laptop or PC and create your designs. Thank
-        you for your understanding.
+        SORRY! We don't support creating designs with iPhone. To create a design, simply open up your laptop or PC and
+        create your designs. Thank you for your understanding.
     </div>
 </div>
