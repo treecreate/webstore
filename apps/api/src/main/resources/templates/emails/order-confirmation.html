@@ -707,22 +707,24 @@
                                                             DKK
                                                             <br />
 
-                                                            <div
-                                                                th:if="${order.discount.amount} <= 25"
-                                                                style="color: green"
-                                                            >
-                                                                <span th:text="#{order.saved}">Sparet: </span>
-                                                                <span
-                                                                    th:text="(${order.discount.amount} / 100) * ${order.subtotal}"
-                                                                ></span>
-                                                            </div>
+                                                            <div th:if="${order.discount != null}">
+                                                                <div
+                                                                    th:if="${order.discount.amount} <= 25"
+                                                                    style="color: green"
+                                                                >
+                                                                    <span th:text="#{order.saved}">Sparet: </span>
+                                                                    <span
+                                                                        th:text="(${order.discount.amount} / 100) * ${order.subtotal}"
+                                                                    ></span>% 
+                                                                </div>
 
-                                                            <div
-                                                                th:if="${order.discount.amount} > 25"
-                                                                style="color: green"
-                                                            >
-                                                                <span th:text="#{order.saved}"> </span>
-                                                                <span th:text="${order.discount.amount}"></span>
+                                                                <div
+                                                                    th:if="${order.discount.amount} > 25"
+                                                                    style="color: green"
+                                                                >
+                                                                    <span th:text="#{order.saved}"> </span>
+                                                                    <span th:text="${order.discount.amount}"></span>
+                                                                </div>
                                                             </div>
 
                                                             <br />
