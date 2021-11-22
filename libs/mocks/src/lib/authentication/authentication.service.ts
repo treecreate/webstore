@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAuthUser } from '@interfaces';
 import { AuthUserEnum } from '.';
-import {
-  authUser,
-  authUserExpired,
-  authUserInvalid,
-  authUserNotVerified,
-  authUserRoleDeveloper,
-  authUserRoleOwner,
-} from './auth-user.mock';
+import { authUser, authUserExpired, authUserInvalid, authUserRoleDeveloper, authUserRoleOwner } from './auth-user.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -24,38 +17,19 @@ export class AuthenticationService {
     switch (authUserType) {
       case AuthUserEnum.authUser:
         authUserMock = authUser;
-        authUserMock.accessToken = this.generateAccessToken(
-          true,
-          authUserMock.email
-        );
-        break;
-      case AuthUserEnum.authUserNotVerified:
-        authUserMock = authUserNotVerified;
-        authUserMock.accessToken = this.generateAccessToken(
-          true,
-          authUserMock.email
-        );
+        authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
         break;
       case AuthUserEnum.authUserRoleDeveloper:
         authUserMock = authUserRoleDeveloper;
-        authUserMock.accessToken = this.generateAccessToken(
-          true,
-          authUserMock.email
-        );
+        authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
         break;
       case AuthUserEnum.authUserRoleOwner:
         authUserMock = authUserRoleOwner;
-        authUserMock.accessToken = this.generateAccessToken(
-          true,
-          authUserMock.email
-        );
+        authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
         break;
       case AuthUserEnum.authUserExpired:
         authUserMock = authUserExpired;
-        authUserMock.accessToken = this.generateAccessToken(
-          false,
-          authUserMock.email
-        );
+        authUserMock.accessToken = this.generateAccessToken(false, authUserMock.email);
         break;
       case AuthUserEnum.authUserInvalid:
         authUserMock = authUserInvalid;
@@ -70,26 +44,15 @@ export class AuthenticationService {
     const data = {
       sub: email,
       // Set the issued date to yesterday
-      iat: Math.floor(
-        new Date(currentDate.getTime() - 86400000).getTime() / 1000
-      ),
+      iat: Math.floor(new Date(currentDate.getTime() - 86400000).getTime() / 1000),
       // If the token should be still valid, the exp date is ahead of today. Otherwise, it is before
-      exp: Math.floor(
-        new Date(
-          currentDate.getTime() + (validExpDate ? 86400000 : -86400000)
-        ).getTime() / 1000
-      ),
+      exp: Math.floor(new Date(currentDate.getTime() + (validExpDate ? 86400000 : -86400000)).getTime() / 1000),
     };
     // return the encoded access token
-    return `${this.encodeBase64url(
-      JSON.stringify(this.header)
-    )}.${this.encodeBase64url(JSON.stringify(data))}`;
+    return `${this.encodeBase64url(JSON.stringify(this.header))}.${this.encodeBase64url(JSON.stringify(data))}`;
   }
 
   private encodeBase64url(data: string): string {
-    return btoa(data)
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '');
+    return btoa(data).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
 }

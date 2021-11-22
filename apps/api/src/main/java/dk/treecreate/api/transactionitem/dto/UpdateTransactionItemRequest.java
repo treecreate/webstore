@@ -9,11 +9,13 @@ import javax.validation.constraints.NotNull;
 public class UpdateTransactionItemRequest
 {
     @NotNull
-    @ApiModelProperty(notes = "The quantity of how many items are included", example = "1", required = true)
+    @ApiModelProperty(notes = "The quantity of how many items are included", example = "1",
+        required = true)
     private int quantity;
 
     @NotNull
-    @ApiModelProperty(notes = "The dimension of the referenced design", example = "SMALL", required = true)
+    @ApiModelProperty(notes = "The dimension of the referenced design", example = "SMALL",
+        required = true)
     private DesignDimension dimension;
 
     public int getQuantity()

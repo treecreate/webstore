@@ -38,10 +38,7 @@ const mockDesign = {
 
 describe('ProductPage', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     cy.visit('/product');
   });
 
@@ -67,13 +64,8 @@ describe('ProductPage', () => {
         LocalStorageVars.authUser,
         JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
       );
-      localStorage.setItem(
-        LocalStorageVars.designFamilyTree,
-        JSON.stringify(mockDesign)
-      );
-      localStorageDesign = JSON.parse(
-        localStorage.getItem(LocalStorageVars.designFamilyTree)
-      );
+      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign));
+      localStorageDesign = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
       cy.visit('/product');
 
       cy.intercept('POST', '/designs', {
@@ -86,9 +78,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=family-tree-canvas]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(
-          localStorage.getItem(LocalStorageVars.designFamilyTree)
-        );
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         console.warn('After design: ', localStorageDesignAfter);
         cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
       });
@@ -99,26 +89,18 @@ describe('ProductPage', () => {
       cy.get('[data-cy=font-next-btn]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(
-          localStorage.getItem(LocalStorageVars.designFamilyTree)
-        );
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('font').should('equal', 'Georgia');
       });
     });
 
     it('should be able to change the design', () => {
-      cy.wrap(localStorageDesign)
-        .its('backgroundTreeDesign')
-        .should('equal', TreeDesignEnum.tree1);
+      cy.wrap(localStorageDesign).its('backgroundTreeDesign').should('equal', TreeDesignEnum.tree1);
       cy.get('[data-cy=design-arrow-left]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(
-          localStorage.getItem(LocalStorageVars.designFamilyTree)
-        );
-        cy.wrap(localStorageDesignAfter)
-          .its('backgroundTreeDesign')
-          .should('equal', TreeDesignEnum.tree2);
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('backgroundTreeDesign').should('equal', TreeDesignEnum.tree2);
       });
     });
 
@@ -128,9 +110,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=box-size-plus]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(
-          localStorage.getItem(LocalStorageVars.designFamilyTree)
-        );
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 22);
       });
     });
@@ -141,9 +121,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=box-size-minus]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(
-          localStorage.getItem(LocalStorageVars.designFamilyTree)
-        );
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 18);
       });
     });
@@ -154,12 +132,8 @@ describe('ProductPage', () => {
       cy.get('[data-cy=design-banner-input]').type('test');
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(
-          localStorage.getItem(LocalStorageVars.designFamilyTree)
-        );
-        cy.wrap(localStorageDesignAfter)
-          .its('banner.text')
-          .should('equal', 'test');
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('banner.text').should('equal', 'test');
       });
     });
     it('should be able to change large font', () => {
@@ -167,9 +141,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=checkbox-large-font]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(
-          localStorage.getItem(LocalStorageVars.designFamilyTree)
-        );
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('largeFont').should('equal', true);
       });
     });
@@ -220,10 +192,7 @@ describe('ProductPage', () => {
       for (let i = 0; i < 20; i++) {
         cy.get('[data-cy=box-size-plus]').click();
       }
-      cy.get('[data-cy=box-size]')
-        .invoke('text')
-        .then(parseFloat)
-        .should('not.be.above', 40);
+      cy.get('[data-cy=box-size]').invoke('text').then(parseFloat).should('not.be.above', 40);
       cy.get('[data-cy=box-size-plus]').should('be.disabled');
     });
 
@@ -232,10 +201,7 @@ describe('ProductPage', () => {
       for (let i = 0; i < 10; i++) {
         cy.get('[data-cy=box-size-minus]').click();
       }
-      cy.get('[data-cy=box-size]')
-        .invoke('text')
-        .then(parseFloat)
-        .should('not.be.lt', 10);
+      cy.get('[data-cy=box-size]').invoke('text').then(parseFloat).should('not.be.lt', 10);
       cy.get('[data-cy=box-size-minus]').should('be.disabled');
     });
 

@@ -1,14 +1,7 @@
-<nav
-    data-cy="navbar"
-    class="navbar fixed-top navbar-expand-lg mb-3 add-transition"
->
+<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg mb-3 add-transition">
     <div class="container min-width">
         <div class="nav-start">
-            <button
-                class="navbar-toggler"
-                type="button"
-                (click)="isMenuCollapsed = !isMenuCollapsed"
-            >
+            <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
                 <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
                     <div class="bar1"></div>
                     <div class="bar2"></div>
@@ -17,11 +10,7 @@
             </button>
 
             <a class="navbar-brand" routerLink="/">
-                <img
-                    data-cy="navbar-logo-img"
-                    src="/assets/logos/tc-black-text-logo.svg"
-                    class="logo"
-                />
+                <img data-cy="navbar-logo-img" src="/assets/logos/tc-black-text-logo.svg" class="logo" />
             </a>
             <!-- localization -->
             <div
@@ -78,14 +67,8 @@
         </div>
 
         <div class="nav-section">
-            <button
-                class="navbar-basket-icon show-on-mobile"
-                (click)="goToBasket()"
-            >
-                <img
-                    src="/assets/icons/basket-white-icon.svg"
-                    class="nav-icon-mobile"
-                />
+            <button class="navbar-basket-icon show-on-mobile" (click)="autoCollapse()" routerLink="/basket">
+                <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                 <span class="item-number">{{ itemsInBasket }}</span>
             </button>
         </div>
@@ -93,12 +76,7 @@
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a
-                        class="nav-link waves-light"
-                        routerLink="/home"
-                        (click)="autoCollapse()"
-                        >Home</a
-                    >
+                    <a class="nav-link waves-light" routerLink="/home" (click)="autoCollapse()">Home</a>
                 </li>
                 <li class="nav-item">
                     <a
@@ -111,11 +89,7 @@
                     >
                 </li>
                 <li class="nav-item" *ngIf="!isLoggedIn">
-                    <a
-                        class="nav-link waves-light"
-                        routerLink="/login"
-                        (click)="autoCollapse()"
-                        i18n="@@login"
+                    <a class="nav-link waves-light" routerLink="/login" (click)="autoCollapse()" i18n="@@login"
                         >Log in</a
                     >
                 </li>
@@ -163,12 +137,7 @@
                 </li>
 
                 <div class="remove-on-mobile">
-                    <div
-                        ngbDropdown
-                        class="d-inline-block"
-                        *ngIf="isLoggedIn"
-                        (mouseleave)="hideProfileMenu()"
-                    >
+                    <div ngbDropdown class="d-inline-block" *ngIf="isLoggedIn" (mouseleave)="hideProfileMenu()">
                         <a
                             class="nav-item"
                             ngbDropdownToggle
@@ -184,46 +153,25 @@
                             aria-labelledby="dropdownBasic"
                             #profileMenu
                         >
-                            <a
-                                ngbDropdownItem
-                                routerLink="/profile"
-                                (click)="scrollTop()"
-                                i18n="@@account-info"
+                            <a ngbDropdownItem routerLink="/profile" (click)="scrollTop()" i18n="@@account-info"
                                 >Account info</a
                             >
-                            <a
-                                ngbDropdownItem
-                                routerLink="/collection"
-                                (click)="scrollTop()"
-                                i18n="@@collection"
+                            <a ngbDropdownItem routerLink="/collection" (click)="scrollTop()" i18n="@@collection"
                                 >Collection</a
                             >
-                            <a
-                                ngbDropdownItem
-                                routerLink="/orders"
-                                (click)="scrollTop()"
-                                i18n="@@orders"
-                                >Orders</a
-                            >
-                            <a
-                                ngbDropdownItem
-                                (click)="logout(); scrollTop()"
-                                i18n="@@logout"
-                                >Log Out</a
-                            >
+                            <a ngbDropdownItem routerLink="/orders" (click)="scrollTop()" i18n="@@orders">Orders</a>
+                            <a ngbDropdownItem (click)="logout(); scrollTop()" i18n="@@logout">Log Out</a>
                         </div>
                     </div>
                 </div>
                 <div class="nav-section remove-on-mobile">
                     <button
                         class="navbar-basket-icon"
-                        (click)="goToBasket()"
+                        (click)="autoCollapse()"
+                        routerLink="/basket"
                         data-cy="navbar-basket-link"
                     >
-                        <img
-                            src="/assets/icons/basket-white-icon.svg"
-                            class="nav-icon-mobile"
-                        />
+                        <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                         <span class="item-number">{{ itemsInBasket }}</span>
                     </button>
                 </div>
@@ -231,31 +179,4 @@
         </div>
     </div>
 </nav>
-<div class="unverified-email" *ngIf="isLoggedIn && !isVerified">
-    <span i18n="@@nav-verify-email">Your e-mail is still not verified:</span>
-    <div
-        *ngIf="isResendVerificationEmailLoading"
-        class="loading-spinner-btn"
-        role="status"
-    >
-        <span i18n="@@sending-email">Sending e-mail...</span>
-        <span
-            class="spinner-border spinner-style spinner-border-sm text-light"
-            role="status"
-            aria-hidden="true"
-        ></span>
-    </div>
-    <button
-        *ngIf="!isResendVerificationEmailLoading"
-        class="verify-email-link"
-        (click)="resendVerificationEmail()"
-        i18n="@@resend-email"
-    >
-        Resend e-mail
-    </button>
-</div>
-<div
-    class="backdrop"
-    *ngIf="!isMenuCollapsed"
-    (click)="isMenuCollapsed = !isMenuCollapsed"
-></div>
+<div class="backdrop" *ngIf="!isMenuCollapsed" (click)="isMenuCollapsed = !isMenuCollapsed"></div>

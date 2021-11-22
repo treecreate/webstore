@@ -29,7 +29,6 @@ describe('CalculatePriceService', () => {
     userId: '1',
     email: 'mock@hotdeals.dev',
     roles: [UserRoles.user],
-    isVerified: true,
   };
   const itemList: ITransactionItem[] = [
     {

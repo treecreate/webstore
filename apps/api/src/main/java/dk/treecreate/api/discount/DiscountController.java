@@ -65,7 +65,8 @@ public class DiscountController
     {
         Discount discount = new Discount();
         discount.setType(createDiscountRequest.getType());
-        if (discount.getType().equals(DiscountType.PERCENT) && createDiscountRequest.getAmount() > 100)
+        if (discount.getType().equals(DiscountType.PERCENT) &&
+            createDiscountRequest.getAmount() > 100)
         {
             discount.setAmount(100);
         } else

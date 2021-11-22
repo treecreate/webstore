@@ -1,19 +1,19 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { INewsletter, IRegisterResponse } from '@interfaces';
+import { INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
+import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { LocalStorageService } from '@local-storage';
+import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
+import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 @Component({
   selector: 'webstore-signup',
   templateUrl: './signup.component.html',
-  styleUrls: [
-    './signup.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./signup.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
@@ -29,7 +29,9 @@ export class SignupComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastService: ToastService,
-    private newsletterService: NewsletterService
+    private newsletterService: NewsletterService,
+    private localStorageService: LocalStorageService,
+    private transactionItemService: TransactionItemService
   ) {}
 
   ngOnInit(): void {
@@ -43,16 +45,12 @@ export class SignupComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
     });
   }
@@ -68,28 +66,38 @@ export class SignupComponent implements OnInit {
         (data: IRegisterResponse) => {
           // Subscribe to newsletter
           if (this.signUpForNewletter) {
-            this.newsletterService
-              .registerNewsletterEmail(this.signupForm.get('email').value)
-              .subscribe(
-                (newsletterData: INewsletter) => {
-                  this.toastService.showAlert(
-                    `Thank you for subscribing: ${newsletterData.email}`,
-                    `Tak for din tilmelding: ${newsletterData.email}`,
-                    'success',
-                    3000
-                  );
-                },
-                (error) => {
-                  this.toastService.showAlert(
-                    error.error.message,
-                    error.error.message,
-                    'danger',
-                    100000
-                  );
-                  console.error(error);
-                }
-              );
+            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe(
+              (newsletterData: INewsletter) => {
+                this.toastService.showAlert(
+                  `Thank you for subscribing: ${newsletterData.email}`,
+                  `Tak for din tilmelding: ${newsletterData.email}`,
+                  'success',
+                  3000
+                );
+              },
+              (error) => {
+                this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
+                console.error(error);
+              }
+            );
           }
+          // Check for transaction items in localstorage and add them to user
+          // Dont remove them in case user regrets logging in
+          // Get localStorage items
+          const localStorageItems = this.localStorageService.getItem<ITransactionItem[]>(
+            LocalStorageVars.transactionItems
+          ).value;
+          // Create the transaction items in DB / user
+          if (localStorageItems != null) {
+            for (let i = 0; i < localStorageItems.length; i++) {
+              this.transactionItemService.createTransactionItem({
+                designId: localStorageItems[i].design.designId,
+                dimension: localStorageItems[i].dimension,
+                quantity: localStorageItems[i].quantity,
+              });
+            }
+          }
+
           this.toastService.showAlert(
             'Welcome to Treecreate, you have successfully been registered!',
             'Velkommen til Treecreate, du er nu bleven registreret!',
@@ -127,10 +135,7 @@ export class SignupComponent implements OnInit {
   }
 
   matchingPasswords(): boolean {
-    return (
-      this.signupForm.get('password').value ===
-      this.signupForm.get('confirmPassword').value
-    );
+    return this.signupForm.get('password').value === this.signupForm.get('confirmPassword').value;
   }
 
   isDisabled(): boolean {

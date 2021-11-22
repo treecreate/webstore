@@ -1,10 +1,6 @@
-import { IDiscount } from '../pricing';
-import { ITransactionItem } from '../transaction-item/transaction-item.interface';
-import { CurrencyEnum } from './currency.enum';
-import { PaymentStateEnum } from './payment-state.enum';
-import { ShippingMethodEnum } from './shipping-method.enum';
+import { CurrencyEnum, IBase, IDiscount, ITransactionItem, PaymentStateEnum, ShippingMethodEnum } from '..';
 
-export interface IOrder {
+export interface IOrder extends IBase {
   orderId: string;
   subtotal: number;
   total: number;

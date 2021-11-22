@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
 import { LocalStorageService } from '@local-storage';
-import { NewsletterService } from '../../services/newsletter/newsletter.service';
+import { NewsletterService } from '../../services/order/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
