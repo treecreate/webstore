@@ -282,8 +282,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       }
 
       // render the boxes
-      for (let i = 0; i < this.myBoxes.length; i++) {
-        const box = this.myBoxes[i];
+      for (const box of this.myBoxes) {
         this.context.drawImage(
           this.getImageElementFromBoxDesign(this.design.backgroundTreeDesign, box.boxDesign),
           box.x,
@@ -297,7 +296,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
           this.boxSize,
           this.design.largeFont,
           this.design.font,
-          this.myBoxes[i],
+          box,
           this.boxDimensions
         );
       }

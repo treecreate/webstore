@@ -235,7 +235,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     this.context = this.designCanvas.nativeElement.getContext('2d');
     console.log('Context', this.context);
 
-    for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
     clearInterval(this.timeInterval);
 
@@ -256,8 +255,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   updateBoxRefText() {
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      this.myBoxes[i].text = this.myBoxes[i].inputRef.instance.text;
+    for (const box of this.myBoxes) {
+      box.text = box.inputRef.instance.text;
     }
   }
 
@@ -674,8 +673,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
       let boxesGotMousedOver = false;
 
-      for (let i = 0; i < this.myBoxes.length; i++) {
-        const box = this.myBoxes[i];
+      for (const box of this.myBoxes) {
         if (!this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
           // check if any of the boxes got moused over
           if (
@@ -690,8 +688,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           if (box.dragging) {
             {
               // move the box with the cursor
-              this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-              this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+              box.x = this.mouseCords.x - this.mouseClickOffset.x;
+              box.y = this.mouseCords.y - this.mouseClickOffset.y;
               // skip checking the other boxes
               return;
             }
@@ -712,21 +710,20 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       event = event || window.event;
       this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
 
-      for (let i = 0; i < this.myBoxes.length; i++) {
-        const box = this.myBoxes[i];
+      for (const box of this.myBoxes) {
         if (box.dragging) {
           if (this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
             // send back to its last saved position
-            this.myBoxes[i].x = box.previousX;
-            this.myBoxes[i].y = box.previousY;
-            this.myBoxes[i].dragging = false;
+            box.x = box.previousX;
+            box.y = box.previousY;
+            box.dragging = false;
           } else {
             // save the box in its new position
-            this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-            this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
-            this.myBoxes[i].previousX = this.mouseCords.x - this.mouseClickOffset.x;
-            this.myBoxes[i].previousY = this.mouseCords.y - this.mouseClickOffset.y;
-            this.myBoxes[i].dragging = false;
+            box.x = this.mouseCords.x - this.mouseClickOffset.x;
+            box.y = this.mouseCords.y - this.mouseClickOffset.y;
+            box.previousX = this.mouseCords.x - this.mouseClickOffset.x;
+            box.previousY = this.mouseCords.y - this.mouseClickOffset.y;
+            box.dragging = false;
           }
           // skip checking the other boxes
           return;
@@ -738,7 +735,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   // Util methods
-  // TODO: Extract them into a library
 
   getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
     switch (treeDesign) {

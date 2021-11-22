@@ -63,8 +63,8 @@ export class FamilyTreeDesignService {
       } while (word !== '');
     });
     // print out the text
-    for (let j = 0; j < formattedWords.length; j++) {
-      const testLine = line + formattedWords[j] + ' ';
+    for (const word of formattedWords) {
+      const testLine = line + word + ' ';
 
       if (testLine.length - 1 > maxCharsPerLine) {
         currentLine++;
@@ -72,7 +72,7 @@ export class FamilyTreeDesignService {
           break;
         }
         context.fillText(line, x, y);
-        line = formattedWords[j] + ' ';
+        line = word + ' ';
         y += lineHeight;
       } else {
         line = testLine;
