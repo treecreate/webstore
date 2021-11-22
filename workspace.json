@@ -16,10 +16,7 @@
             "polyfills": "apps/admin-page/src/polyfills.ts",
             "tsConfig": "apps/admin-page/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/admin-page/src/favicon.ico",
-              "apps/admin-page/src/assets"
-            ],
+            "assets": ["apps/admin-page/src/favicon.ico", "apps/admin-page/src/assets"],
             "styles": ["apps/admin-page/src/styles.css"],
             "scripts": []
           },
