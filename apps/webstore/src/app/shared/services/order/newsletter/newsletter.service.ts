@@ -16,10 +16,7 @@ export class NewsletterService {
   }
 
   unsubscribe(newsletterId: string): Observable<void> {
-    return this.http.delete<void>(
-      `${env.apiUrl}/newsletter/${newsletterId}`,
-      {}
-    );
+    return this.http.delete<void>(`${env.apiUrl}/newsletter/${newsletterId}`, {});
   }
 
   isSubscribed(): Observable<INewsletter> {

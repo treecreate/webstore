@@ -45,7 +45,6 @@ public class DiscountController
         @ApiResponse(code = 200, message = "Discount information",
             response = Discount.class),
         @ApiResponse(code = 404, message = "Discount not found")})
-    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Discount getByDiscountCode(
         @ApiParam(name = "discountCode", example = "ExampleDiscount2021")
         @PathVariable String discountCode)
@@ -65,7 +64,8 @@ public class DiscountController
     {
         Discount discount = new Discount();
         discount.setType(createDiscountRequest.getType());
-        if (discount.getType().equals(DiscountType.PERCENT) && createDiscountRequest.getAmount() > 100)
+        if (discount.getType().equals(DiscountType.PERCENT) &&
+            createDiscountRequest.getAmount() > 100)
         {
             discount.setAmount(100);
         } else

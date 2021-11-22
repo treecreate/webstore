@@ -1,12 +1,6 @@
-import {
-  CurrencyEnum,
-  ITransactionItem,
-  PaymentStateEnum,
-  ShippingMethodEnum,
-} from '@interfaces';
-import { IDiscount } from '../pricing';
+import { CurrencyEnum, IBase, IDiscount, ITransactionItem, PaymentStateEnum, ShippingMethodEnum } from '..';
 
-export interface IOrder {
+export interface IOrder extends IBase {
   orderId: string;
   subtotal: number;
   total: number;

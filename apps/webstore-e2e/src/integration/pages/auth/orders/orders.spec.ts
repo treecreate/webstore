@@ -179,14 +179,8 @@ const mockOrderTwo: IOrder = {
 
 describe('ordersPage', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
       body: mockUser,
       statusCode: 200,
@@ -205,22 +199,13 @@ describe('ordersPage', () => {
       .within(() => {
         cy.get('[data-cy=order-item-id]').should('contain', 'MakeMeWantIt');
         cy.get('[data-cy=order-item-status]').should('contain', 'PENDING');
-        cy.get('[data-cy=order-item-email]').should(
-          'contain',
-          'example@hotdeals.dev'
-        );
+        cy.get('[data-cy=order-item-email]').should('contain', 'example@hotdeals.dev');
         cy.get('[data-cy=order-item-design-item]').should('have.length', 2);
         cy.get('[data-cy=order-item-design-item]')
           .first()
           .within(() => {
-            cy.get('[data-cy=order-item-design-item-title]').should(
-              'contain',
-              'title1'
-            );
-            cy.get('[data-cy=order-item-design-item-amount]').should(
-              'contain',
-              '2'
-            );
+            cy.get('[data-cy=order-item-design-item-title]').should('contain', 'title1');
+            cy.get('[data-cy=order-item-design-item-amount]').should('contain', '2');
           });
       });
   });
@@ -237,10 +222,7 @@ describe('ordersPage', () => {
           .first()
           .within(() => {
             cy.get('[data-cy=order-item-view-button]').click({ force: true });
-            cy.url().should(
-              'contain',
-              '/product?designId=' + mockDesign.designId
-            );
+            cy.url().should('contain', '/product?designId=' + mockDesign.designId);
           });
       });
   });

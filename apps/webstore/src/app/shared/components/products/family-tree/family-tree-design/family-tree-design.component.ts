@@ -24,15 +24,10 @@ import {
   Tree3BoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
-import {
-  FamilyTreeFontEnum,
-  IDesign,
-  IDraggableBox,
-  IFamilyTree,
-  IFamilyTreeBanner,
-} from '@interfaces';
+import { FamilyTreeFontEnum, IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
-import { LocalStorageService } from '../../../../services/local-storage';
+import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({
@@ -44,8 +39,7 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
     '../../../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class FamilyTreeDesignComponent
-  implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   // Inputs for design settings
 
   @Input()
@@ -126,30 +120,20 @@ export class FamilyTreeDesignComponent
   tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
-    height:
-      (this.canvasResolution.height / 10) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
-    width:
-      (this.canvasResolution.width / 5) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
+    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
+    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
   closeButton = new Image();
   closeButtonDimensions = {
-    height:
-      (this.canvasResolution.height / 30) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
-    width:
-      (this.canvasResolution.width / 30) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
+    height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
+    width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
 
   // the max chars control how much text can be put into the draggable box
   // It is propagated to the draggable box input element
   smallFontMaxChars = 12;
   largeFontMaxChars = 9;
-  maxCharsPerLine = this.isLargeFont
-    ? this.largeFontMaxChars
-    : this.smallFontMaxChars;
+  maxCharsPerLine = this.isLargeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
   maxLines = 2;
 
   alert: {
@@ -164,7 +148,8 @@ export class FamilyTreeDesignComponent
   constructor(
     private resolver: ComponentFactoryResolver,
     private cdr: ChangeDetectorRef,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private familyTreeDesignService: FamilyTreeDesignService
   ) {}
 
   ngOnInit(): void {
@@ -250,7 +235,6 @@ export class FamilyTreeDesignComponent
     this.context = this.designCanvas.nativeElement.getContext('2d');
     console.log('Context', this.context);
 
-    for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
     clearInterval(this.timeInterval);
 
@@ -271,18 +255,13 @@ export class FamilyTreeDesignComponent
   }
 
   updateBoxRefText() {
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      this.myBoxes[i].text = this.myBoxes[i].inputRef.instance.text;
+    for (const box of this.myBoxes) {
+      box.text = box.inputRef.instance.text;
     }
   }
 
   // create a new box
-  createBox(
-    initialX: number,
-    initialY: number,
-    boxDesign: BoxDesignEnum,
-    text: string
-  ) {
+  createBox(initialX: number, initialY: number, boxDesign: BoxDesignEnum, text: string) {
     const newBox: IDraggableBox = {
       x: initialX,
       y: initialY,
@@ -292,9 +271,7 @@ export class FamilyTreeDesignComponent
       boxDesign: boxDesign,
       text: text,
     };
-    const factory = this.resolver.resolveComponentFactory(
-      DraggableBoxComponent
-    );
+    const factory = this.resolver.resolveComponentFactory(DraggableBoxComponent);
     const draggableBoxRef = this.designWrapper.createComponent(factory);
 
     // set the listeners on the new component
@@ -336,12 +313,7 @@ export class FamilyTreeDesignComponent
   // Draw the entire canvas with the boxes etc
   draw() {
     try {
-      this.context.clearRect(
-        0,
-        0,
-        this.designCanvas.nativeElement.width,
-        this.designCanvas.nativeElement.height
-      );
+      this.context.clearRect(0, 0, this.designCanvas.nativeElement.width, this.designCanvas.nativeElement.height);
 
       // draw the background image
       if (
@@ -367,8 +339,7 @@ export class FamilyTreeDesignComponent
           this.context.drawImage(
             this.bannerDesigns.get(BannerDesignEnum.banner1),
             this.canvasResolution.width / 2 - this.bannerDimensions.width / 2,
-            this.canvasResolution.height * bannerHeightOffset -
-              this.bannerDimensions.height,
+            this.canvasResolution.height * bannerHeightOffset - this.bannerDimensions.height,
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
@@ -380,8 +351,7 @@ export class FamilyTreeDesignComponent
             this.banner.text,
             this.canvasResolution.width / 1.97,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
-            this.canvasResolution.height * bannerHeightOffset -
-              this.bannerDimensions.height / 1.32,
+            this.canvasResolution.height * bannerHeightOffset - this.bannerDimensions.height / 1.32,
             this.bannerDimensions.width / 2
           );
         }
@@ -391,10 +361,7 @@ export class FamilyTreeDesignComponent
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
         this.context.drawImage(
-          this.getImageElementFromBoxDesign(
-            this.backgroundTreeDesign,
-            box.boxDesign
-          ),
+          this.getImageElementFromBoxDesign(this.backgroundTreeDesign, box.boxDesign),
           box.x,
           box.y,
           this.boxDimensions.width,
@@ -410,12 +377,8 @@ export class FamilyTreeDesignComponent
           this.myBoxes[i].inputRef.instance.x = cords.x;
           this.myBoxes[i].inputRef.instance.y = cords.y;
           // set the input dimensions, accounting for the scale between canvas and document
-          this.myBoxes[i].inputRef.instance.width = Math.floor(
-            this.boxDimensions.width / scale.scaleX
-          );
-          this.myBoxes[i].inputRef.instance.height = Math.floor(
-            this.boxDimensions.height / scale.scaleY
-          );
+          this.myBoxes[i].inputRef.instance.width = Math.floor(this.boxDimensions.width / scale.scaleX);
+          this.myBoxes[i].inputRef.instance.height = Math.floor(this.boxDimensions.height / scale.scaleY);
           this.myBoxes[i].inputRef.instance.zIndex = i;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
           this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
@@ -429,62 +392,14 @@ export class FamilyTreeDesignComponent
               this.closeButtonDimensions.height
             );
           }
-
-          // Draw the text within the box
-          // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-          // times 5 to account for having different scale
-          // NOTE - can cause performance issues since it occurs on every frame
-          const boxTextFontSize =
-            (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
-          // TODO: add multi-line support
-          this.context.font = `${boxTextFontSize}rem ${this.font}`;
-          this.context.textAlign = 'center';
-          this.context.textBaseline = 'middle';
-          let line = '';
-          let currentLine = 1;
-          const words = this.myBoxes[i].text
-            .substring(0, this.maxCharsPerLine * this.maxLines)
-            .split(' ');
-          const multiLineText =
-            this.myBoxes[i].text.length > this.maxCharsPerLine;
-          const x = this.myBoxes[i].x + this.boxDimensions.width / 2;
-          let y = this.myBoxes[i].y + this.boxDimensions.height / 2;
-          const lineHeight = (this.boxDimensions.height / 5) * 1;
-          if (multiLineText) {
-            y = this.myBoxes[i].y + (this.boxDimensions.height / 5) * 2;
-          }
-          const formattedWords = [];
-          words.forEach((word) => {
-            do {
-              if (word.length === 0) {
-                break;
-              }
-              if (word.length >= this.maxCharsPerLine) {
-                formattedWords.push(word.substring(0, this.maxCharsPerLine));
-                word = word.substring(this.maxCharsPerLine, word.length);
-              } else {
-                formattedWords.push(word);
-                word = '';
-              }
-            } while (word !== '');
-          });
-          // print out the text
-          for (let j = 0; j < formattedWords.length; j++) {
-            const testLine = line + formattedWords[j] + ' ';
-
-            if (testLine.length - 1 > this.maxCharsPerLine) {
-              currentLine++;
-              if (currentLine > this.maxLines) {
-                break;
-              }
-              this.context.fillText(line, x, y);
-              line = formattedWords[j] + ' ';
-              y += lineHeight;
-            } else {
-              line = testLine;
-            }
-          }
-          this.context.fillText(line, x, y);
+          this.familyTreeDesignService.drawTextInDraggableBox(
+            this.context,
+            this.boxSize,
+            this.isLargeFont,
+            this.font,
+            this.myBoxes[i],
+            this.boxDimensions
+          );
         }
       }
       this.frameChanged = false;
@@ -523,25 +438,19 @@ export class FamilyTreeDesignComponent
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
-          Object.values(BoxDesignEnum)[
-            Math.floor(Math.random() * this.tree1BoxDesigns.size)
-          ],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 6,
           this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[
-            Math.floor(Math.random() * this.tree1BoxDesigns.size)
-          ],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 3,
-          Object.values(BoxDesignEnum)[
-            Math.floor(Math.random() * this.tree1BoxDesigns.size)
-          ],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
           ''
         );
       } else {
@@ -574,11 +483,7 @@ export class FamilyTreeDesignComponent
 
   saveDesign() {
     console.log('Saving your design...');
-    if (
-      !this.isDesignValid ||
-      this.timeInterval === null ||
-      this.timeInterval === undefined
-    ) {
+    if (!this.isDesignValid || this.timeInterval === null || this.timeInterval === undefined) {
       console.warn('The design is not valid, and thus it cannot get saved!');
       return false;
     }
@@ -598,18 +503,15 @@ export class FamilyTreeDesignComponent
       });
     });
 
-    this.localStorageService.setItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree,
-      {
-        title: this.title,
-        font: FamilyTreeFontEnum.georgia,
-        backgroundTreeDesign: this.backgroundTreeDesign,
-        boxSize: this.boxSize,
-        banner: this.banner,
-        largeFont: this.isLargeFont,
-        boxes: boxesCopy,
-      }
-    );
+    this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, {
+      title: this.title,
+      font: FamilyTreeFontEnum.georgia,
+      backgroundTreeDesign: this.backgroundTreeDesign,
+      boxSize: this.boxSize,
+      banner: this.banner,
+      largeFont: this.isLargeFont,
+      boxes: boxesCopy,
+    });
     console.log('Design saved');
   }
 
@@ -618,28 +520,18 @@ export class FamilyTreeDesignComponent
   ngOnChanges(changes: SimpleChanges) {
     if (changes.boxSize !== undefined) {
       this.boxDimensions = {
-        height:
-          (this.canvasResolution.height / 10) *
-          (this.boxSize * this.boxSizeScalingMultiplier),
-        width:
-          (this.canvasResolution.width / 5) *
-          (this.boxSize * this.boxSizeScalingMultiplier),
+        height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
+        width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
 
       this.closeButtonDimensions = {
-        height:
-          (this.canvasResolution.height / 20) *
-          (this.boxSize * this.boxSizeScalingMultiplier),
-        width:
-          (this.canvasResolution.width / 20) *
-          (this.boxSize * this.boxSizeScalingMultiplier),
+        height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
+        width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
     }
 
     if (changes.isLargeFont !== undefined) {
-      this.maxCharsPerLine = this.isLargeFont
-        ? this.largeFontMaxChars
-        : this.smallFontMaxChars;
+      this.maxCharsPerLine = this.isLargeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
       // update the box inputs
       this.myBoxes.forEach((box) => {
         box.inputRef.instance.maxCharsPerLine = this.maxCharsPerLine;
@@ -674,16 +566,12 @@ export class FamilyTreeDesignComponent
     // get coordinates based on whether it is a touch or mouse event
     const clientX =
       window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(
-            event.changedTouches[event.changedTouches.length - 1].clientX
-          )
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
         : event.clientX;
 
     const clientY =
       window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(
-            event.changedTouches[event.changedTouches.length - 1].clientY
-          )
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
         : event.clientY;
 
     // scale mouse coordinates after they have been adjusted to be relative to element
@@ -707,11 +595,9 @@ export class FamilyTreeDesignComponent
   mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
     return (
       this.mouseCords.x - this.mouseClickOffset.x < 0 ||
-      this.mouseCords.x - this.mouseClickOffset.x >
-        this.designCanvas.nativeElement.width - boxWidth ||
+      this.mouseCords.x - this.mouseClickOffset.x > this.designCanvas.nativeElement.width - boxWidth ||
       this.mouseCords.y - this.mouseClickOffset.y < 0 ||
-      this.mouseCords.y - this.mouseClickOffset.y >
-        this.designCanvas.nativeElement.height - boxHeight
+      this.mouseCords.y - this.mouseClickOffset.y > this.designCanvas.nativeElement.height - boxHeight
     );
   }
 
@@ -726,10 +612,7 @@ export class FamilyTreeDesignComponent
         setTimeout(() => (this.downEventDelay = false), 100);
       }
 
-      this.mouseCords = this.getMousePosition(
-        this.designCanvas.nativeElement,
-        event
-      );
+      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
 
@@ -768,17 +651,13 @@ export class FamilyTreeDesignComponent
       this.createBox(
         this.mouseCords.x - this.boxDimensions.width / 2,
         this.mouseCords.y - this.boxDimensions.height / 2,
-        Object.values(BoxDesignEnum)[
-          Math.floor(Math.random() * this.tree1BoxDesigns.size)
-        ],
+        Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
         ''
       );
 
       // auto-focus on the newly created element
       setTimeout(() => {
-        this.myBoxes[
-          this.myBoxes.length - 1
-        ].inputRef.instance.input.nativeElement.focus();
+        this.myBoxes[this.myBoxes.length - 1].inputRef.instance.input.nativeElement.focus();
       });
     } finally {
       this.frameChanged = true;
@@ -790,21 +669,12 @@ export class FamilyTreeDesignComponent
   mouseMoveHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(
-        this.designCanvas.nativeElement,
-        event
-      );
+      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
 
       let boxesGotMousedOver = false;
 
-      for (let i = 0; i < this.myBoxes.length; i++) {
-        const box = this.myBoxes[i];
-        if (
-          !this.mouseOutsideBoundaries(
-            this.boxDimensions.width,
-            this.boxDimensions.height
-          )
-        ) {
+      for (const box of this.myBoxes) {
+        if (!this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
           // check if any of the boxes got moused over
           if (
             this.mouseCords.x > box.x &&
@@ -818,8 +688,8 @@ export class FamilyTreeDesignComponent
           if (box.dragging) {
             {
               // move the box with the cursor
-              this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-              this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+              box.x = this.mouseCords.x - this.mouseClickOffset.x;
+              box.y = this.mouseCords.y - this.mouseClickOffset.y;
               // skip checking the other boxes
               return;
             }
@@ -838,33 +708,22 @@ export class FamilyTreeDesignComponent
   mouseUpHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(
-        this.designCanvas.nativeElement,
-        event
-      );
+      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
 
-      for (let i = 0; i < this.myBoxes.length; i++) {
-        const box = this.myBoxes[i];
+      for (const box of this.myBoxes) {
         if (box.dragging) {
-          if (
-            this.mouseOutsideBoundaries(
-              this.boxDimensions.width,
-              this.boxDimensions.height
-            )
-          ) {
+          if (this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
             // send back to its last saved position
-            this.myBoxes[i].x = box.previousX;
-            this.myBoxes[i].y = box.previousY;
-            this.myBoxes[i].dragging = false;
+            box.x = box.previousX;
+            box.y = box.previousY;
+            box.dragging = false;
           } else {
             // save the box in its new position
-            this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-            this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
-            this.myBoxes[i].previousX =
-              this.mouseCords.x - this.mouseClickOffset.x;
-            this.myBoxes[i].previousY =
-              this.mouseCords.y - this.mouseClickOffset.y;
-            this.myBoxes[i].dragging = false;
+            box.x = this.mouseCords.x - this.mouseClickOffset.x;
+            box.y = this.mouseCords.y - this.mouseClickOffset.y;
+            box.previousX = this.mouseCords.x - this.mouseClickOffset.x;
+            box.previousY = this.mouseCords.y - this.mouseClickOffset.y;
+            box.dragging = false;
           }
           // skip checking the other boxes
           return;
@@ -876,38 +735,22 @@ export class FamilyTreeDesignComponent
   }
 
   // Util methods
-  // TODO: Extract them into a library
 
-  getImageElementFromBoxDesign(
-    treeDesign: TreeDesignEnum,
-    boxDesign: BoxDesignEnum
-  ): HTMLImageElement {
+  getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
     switch (treeDesign) {
       case TreeDesignEnum.tree1: {
         return this.tree1BoxDesigns.get(
-          Tree1BoxDesignEnum[
-            Object.keys(Tree1BoxDesignEnum)[
-              Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)
-            ]
-          ]
+          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
         );
       }
       case TreeDesignEnum.tree2: {
         return this.tree2BoxDesigns.get(
-          Tree2BoxDesignEnum[
-            Object.keys(Tree2BoxDesignEnum)[
-              Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)
-            ]
-          ]
+          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
         );
       }
       case TreeDesignEnum.tree3: {
         return this.tree3BoxDesigns.get(
-          Tree3BoxDesignEnum[
-            Object.keys(Tree3BoxDesignEnum)[
-              Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)
-            ]
-          ]
+          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
         );
       }
     }
