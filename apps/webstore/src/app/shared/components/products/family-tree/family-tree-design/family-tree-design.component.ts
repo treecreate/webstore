@@ -25,8 +25,9 @@ import {
   TreeDesignEnum,
 } from '@assets';
 import { FamilyTreeFontEnum, IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
-import { LocalStorageVars } from '@models';
 import { LocalStorageService } from '@local-storage';
+import { LocalStorageVars } from '@models';
+import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({
@@ -147,7 +148,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   constructor(
     private resolver: ComponentFactoryResolver,
     private cdr: ChangeDetectorRef,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private familyTreeDesignService: FamilyTreeDesignService
   ) {}
 
   ngOnInit(): void {
@@ -233,7 +235,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     this.context = this.designCanvas.nativeElement.getContext('2d');
     console.log('Context', this.context);
 
-    for (let i = 0; i < this.myBoxes.length; i++) {}
     // run the render loop
     clearInterval(this.timeInterval);
 
@@ -254,8 +255,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   updateBoxRefText() {
-    for (let i = 0; i < this.myBoxes.length; i++) {
-      this.myBoxes[i].text = this.myBoxes[i].inputRef.instance.text;
+    for (const box of this.myBoxes) {
+      box.text = box.inputRef.instance.text;
     }
   }
 
@@ -391,58 +392,14 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
               this.closeButtonDimensions.height
             );
           }
-
-          // Draw the text within the box
-          // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-          // times 5 to account for having different scale
-          // NOTE - can cause performance issues since it occurs on every frame
-          const boxTextFontSize = (0.0545 * this.boxSize + 0.05) * (this.isLargeFont ? 7 : 5); // in rem
-          // TODO: add multi-line support
-          this.context.font = `${boxTextFontSize}rem ${this.font}`;
-          this.context.textAlign = 'center';
-          this.context.textBaseline = 'middle';
-          let line = '';
-          let currentLine = 1;
-          const words = this.myBoxes[i].text.substring(0, this.maxCharsPerLine * this.maxLines).split(' ');
-          const multiLineText = this.myBoxes[i].text.length > this.maxCharsPerLine;
-          const x = this.myBoxes[i].x + this.boxDimensions.width / 2;
-          let y = this.myBoxes[i].y + this.boxDimensions.height / 2;
-          const lineHeight = (this.boxDimensions.height / 5) * 1;
-          if (multiLineText) {
-            y = this.myBoxes[i].y + (this.boxDimensions.height / 5) * 2;
-          }
-          const formattedWords = [];
-          words.forEach((word) => {
-            do {
-              if (word.length === 0) {
-                break;
-              }
-              if (word.length >= this.maxCharsPerLine) {
-                formattedWords.push(word.substring(0, this.maxCharsPerLine));
-                word = word.substring(this.maxCharsPerLine, word.length);
-              } else {
-                formattedWords.push(word);
-                word = '';
-              }
-            } while (word !== '');
-          });
-          // print out the text
-          for (let j = 0; j < formattedWords.length; j++) {
-            const testLine = line + formattedWords[j] + ' ';
-
-            if (testLine.length - 1 > this.maxCharsPerLine) {
-              currentLine++;
-              if (currentLine > this.maxLines) {
-                break;
-              }
-              this.context.fillText(line, x, y);
-              line = formattedWords[j] + ' ';
-              y += lineHeight;
-            } else {
-              line = testLine;
-            }
-          }
-          this.context.fillText(line, x, y);
+          this.familyTreeDesignService.drawTextInDraggableBox(
+            this.context,
+            this.boxSize,
+            this.isLargeFont,
+            this.font,
+            this.myBoxes[i],
+            this.boxDimensions
+          );
         }
       }
       this.frameChanged = false;
@@ -716,8 +673,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
       let boxesGotMousedOver = false;
 
-      for (let i = 0; i < this.myBoxes.length; i++) {
-        const box = this.myBoxes[i];
+      for (const box of this.myBoxes) {
         if (!this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
           // check if any of the boxes got moused over
           if (
@@ -732,8 +688,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           if (box.dragging) {
             {
               // move the box with the cursor
-              this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-              this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
+              box.x = this.mouseCords.x - this.mouseClickOffset.x;
+              box.y = this.mouseCords.y - this.mouseClickOffset.y;
               // skip checking the other boxes
               return;
             }
@@ -754,21 +710,20 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       event = event || window.event;
       this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
 
-      for (let i = 0; i < this.myBoxes.length; i++) {
-        const box = this.myBoxes[i];
+      for (const box of this.myBoxes) {
         if (box.dragging) {
           if (this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
             // send back to its last saved position
-            this.myBoxes[i].x = box.previousX;
-            this.myBoxes[i].y = box.previousY;
-            this.myBoxes[i].dragging = false;
+            box.x = box.previousX;
+            box.y = box.previousY;
+            box.dragging = false;
           } else {
             // save the box in its new position
-            this.myBoxes[i].x = this.mouseCords.x - this.mouseClickOffset.x;
-            this.myBoxes[i].y = this.mouseCords.y - this.mouseClickOffset.y;
-            this.myBoxes[i].previousX = this.mouseCords.x - this.mouseClickOffset.x;
-            this.myBoxes[i].previousY = this.mouseCords.y - this.mouseClickOffset.y;
-            this.myBoxes[i].dragging = false;
+            box.x = this.mouseCords.x - this.mouseClickOffset.x;
+            box.y = this.mouseCords.y - this.mouseClickOffset.y;
+            box.previousX = this.mouseCords.x - this.mouseClickOffset.x;
+            box.previousY = this.mouseCords.y - this.mouseClickOffset.y;
+            box.dragging = false;
           }
           // skip checking the other boxes
           return;
@@ -780,7 +735,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   // Util methods
-  // TODO: Extract them into a library
 
   getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
     switch (treeDesign) {
