@@ -29,8 +29,7 @@ import { IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
     '../../../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class FamilyTreeMiniatureComponent
-  implements AfterViewInit, OnInit, OnChanges {
+export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnChanges {
   // Inputs for design settings
 
   @Input()
@@ -74,21 +73,13 @@ export class FamilyTreeMiniatureComponent
   tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
-    height:
-      (this.canvasResolution.height / 10) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
-    width:
-      (this.canvasResolution.width / 5) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
+    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
+    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
   closeButton = new Image();
   closeButtonDimensions = {
-    height:
-      (this.canvasResolution.height / 30) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
-    width:
-      (this.canvasResolution.width / 30) *
-      (this.boxSize * this.boxSizeScalingMultiplier),
+    height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
+    width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
 
   // the max chars control how much text can be put into the draggable box
@@ -194,19 +185,12 @@ export class FamilyTreeMiniatureComponent
     if (this.design !== undefined && this.context !== undefined) {
       this.loadDesign();
 
-      this.maxCharsPerLine = this.design.largeFont
-        ? this.largeFontMaxChars
-        : this.smallFontMaxChars;
+      this.maxCharsPerLine = this.design.largeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
     }
   }
 
   // create a new box
-  createBox(
-    initialX: number,
-    initialY: number,
-    boxDesign: BoxDesignEnum,
-    text: string
-  ) {
+  createBox(initialX: number, initialY: number, boxDesign: BoxDesignEnum, text: string) {
     const newBox: IDraggableBox = {
       x: initialX,
       y: initialY,
@@ -229,12 +213,7 @@ export class FamilyTreeMiniatureComponent
       return;
     }
     try {
-      this.context.clearRect(
-        0,
-        0,
-        this.designCanvas.nativeElement.width,
-        this.designCanvas.nativeElement.height
-      );
+      this.context.clearRect(0, 0, this.designCanvas.nativeElement.width, this.designCanvas.nativeElement.height);
 
       // draw the background image
       if (
@@ -263,8 +242,7 @@ export class FamilyTreeMiniatureComponent
           this.context.drawImage(
             this.bannerDesigns.get(BannerDesignEnum.banner1),
             this.canvasResolution.width / 2 - this.bannerDimensions.width / 2,
-            this.canvasResolution.height * bannerHeightOffset -
-              this.bannerDimensions.height,
+            this.canvasResolution.height * bannerHeightOffset - this.bannerDimensions.height,
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
@@ -276,8 +254,7 @@ export class FamilyTreeMiniatureComponent
             this.design.banner.text,
             this.canvasResolution.width / 1.97,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
-            this.canvasResolution.height * bannerHeightOffset -
-              this.bannerDimensions.height / 1.32,
+            this.canvasResolution.height * bannerHeightOffset - this.bannerDimensions.height / 1.32,
             this.bannerDimensions.width / 2
           );
         }
@@ -290,10 +267,7 @@ export class FamilyTreeMiniatureComponent
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
         this.context.drawImage(
-          this.getImageElementFromBoxDesign(
-            this.design.backgroundTreeDesign,
-            box.boxDesign
-          ),
+          this.getImageElementFromBoxDesign(this.design.backgroundTreeDesign, box.boxDesign),
           box.x,
           box.y,
           this.boxDimensions.width,
@@ -304,19 +278,15 @@ export class FamilyTreeMiniatureComponent
         // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
         // times 5 to account for having different scale
         // NOTE - can cause performance issues since it occurs on every frame
-        const boxTextFontSize =
-          (0.0545 * this.boxSize + 0.05) * (this.design.largeFont ? 7 : 5); // in rem
+        const boxTextFontSize = (0.0545 * this.boxSize + 0.05) * (this.design.largeFont ? 7 : 5); // in rem
         // TODO: add multi-line support
         this.context.font = `${boxTextFontSize}rem ${this.design.font}`;
         this.context.textAlign = 'center';
         this.context.textBaseline = 'middle';
         let line = '';
         let currentLine = 1;
-        const words = this.myBoxes[i].text
-          .substring(0, this.maxCharsPerLine * this.maxLines)
-          .split(' ');
-        const multiLineText =
-          this.myBoxes[i].text.length > this.maxCharsPerLine;
+        const words = this.myBoxes[i].text.substring(0, this.maxCharsPerLine * this.maxLines).split(' ');
+        const multiLineText = this.myBoxes[i].text.length > this.maxCharsPerLine;
         const x = this.myBoxes[i].x + this.boxDimensions.width / 2;
         let y = this.myBoxes[i].y + this.boxDimensions.height / 2;
         const lineHeight = (this.boxDimensions.height / 5) * 1;
@@ -377,25 +347,19 @@ export class FamilyTreeMiniatureComponent
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
-          Object.values(BoxDesignEnum)[
-            Math.floor(Math.random() * this.tree1BoxDesigns.size)
-          ],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 6,
           this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[
-            Math.floor(Math.random() * this.tree1BoxDesigns.size)
-          ],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 3,
-          Object.values(BoxDesignEnum)[
-            Math.floor(Math.random() * this.tree1BoxDesigns.size)
-          ],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
           ''
         );
       } else {
@@ -440,16 +404,12 @@ export class FamilyTreeMiniatureComponent
     // get coordinates based on whether it is a touch or mouse event
     const clientX =
       window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(
-            event.changedTouches[event.changedTouches.length - 1].clientX
-          )
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
         : event.clientX;
 
     const clientY =
       window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(
-            event.changedTouches[event.changedTouches.length - 1].clientY
-          )
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
         : event.clientY;
 
     // scale mouse coordinates after they have been adjusted to be relative to element
@@ -470,36 +430,21 @@ export class FamilyTreeMiniatureComponent
     };
   }
 
-  getImageElementFromBoxDesign(
-    treeDesign: TreeDesignEnum,
-    boxDesign: BoxDesignEnum
-  ): HTMLImageElement {
+  getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
     switch (treeDesign) {
       case TreeDesignEnum.tree1: {
         return this.tree1BoxDesigns.get(
-          Tree1BoxDesignEnum[
-            Object.keys(Tree1BoxDesignEnum)[
-              Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)
-            ]
-          ]
+          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
         );
       }
       case TreeDesignEnum.tree2: {
         return this.tree2BoxDesigns.get(
-          Tree2BoxDesignEnum[
-            Object.keys(Tree2BoxDesignEnum)[
-              Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)
-            ]
-          ]
+          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
         );
       }
       case TreeDesignEnum.tree3: {
         return this.tree3BoxDesigns.get(
-          Tree3BoxDesignEnum[
-            Object.keys(Tree3BoxDesignEnum)[
-              Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)
-            ]
-          ]
+          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
         );
       }
     }

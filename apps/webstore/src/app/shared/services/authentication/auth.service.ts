@@ -1,17 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  IAuthUser,
-  ILoginRequestParams,
-  ILoginResponse,
-  IRegisterRequestParams,
-  IRegisterResponse,
-} from '@interfaces';
+import { IAuthUser, ILoginRequestParams, ILoginResponse, IRegisterRequestParams, IRegisterResponse } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
-import { LocalStorageService } from '../local-storage';
+import { LocalStorageService } from '@local-storage';
 import { UserService } from '../user/user.service';
 
 const httpOptions = {
@@ -64,17 +58,12 @@ export class AuthService {
   // Save auth user information to local storage
   public saveAuthUser(user: IAuthUser): void {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
-    this.localStorageService.setItem<IAuthUser>(
-      LocalStorageVars.authUser,
-      user
-    );
+    this.localStorageService.setItem<IAuthUser>(LocalStorageVars.authUser, user);
   }
 
   // Get user information for authentication. The data comes from local storage. Use getUser() to get full user entity
   public getAuthUser(): IAuthUser {
-    const user = this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .getValue();
+    const user = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).getValue();
     if (user) {
       return user;
     }
@@ -83,9 +72,7 @@ export class AuthService {
   }
 
   public isAccessTokenValid(): boolean {
-    const authUser = this.localStorageService
-      .getItem<IAuthUser>(LocalStorageVars.authUser)
-      .getValue();
+    const authUser = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser).getValue();
     if (authUser === null) {
       return false;
     }

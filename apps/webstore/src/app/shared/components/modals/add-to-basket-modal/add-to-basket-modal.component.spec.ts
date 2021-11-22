@@ -14,13 +14,7 @@ describe('AddToBasketModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AddToBasketModalComponent],
-      imports: [
-        NgbModule,
-        RouterTestingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-      ],
+      imports: [NgbModule, RouterTestingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
       providers: [NgbActiveModal],
     }).compileComponents();
   });
@@ -41,39 +35,23 @@ describe('AddToBasketModalComponent', () => {
       quantity: 1,
       title: '',
     });
-    expect(component.addToBasketForm.get('dimension').value).toEqual(
-      DesignDimensionEnum.small
-    );
-    const increaseDimension = fixture.debugElement.query(
-      By.css('#increase-dimension-btn')
-    );
-    const decreaseDimension = fixture.debugElement.query(
-      By.css('#decrease-dimension-btn')
-    );
+    expect(component.addToBasketForm.get('dimension').value).toEqual(DesignDimensionEnum.small);
+    const increaseDimension = fixture.debugElement.query(By.css('#increase-dimension-btn'));
+    const decreaseDimension = fixture.debugElement.query(By.css('#decrease-dimension-btn'));
     const increaseDimensionButton = increaseDimension.nativeElement;
     const decreaseDimensionButton = decreaseDimension.nativeElement;
 
     component.increaseDimension();
-    expect(component.addToBasketForm.get('dimension').value).toEqual(
-      DesignDimensionEnum.medium
-    );
+    expect(component.addToBasketForm.get('dimension').value).toEqual(DesignDimensionEnum.medium);
     component.increaseDimension();
-    expect(component.addToBasketForm.get('dimension').value).toEqual(
-      DesignDimensionEnum.large
-    );
+    expect(component.addToBasketForm.get('dimension').value).toEqual(DesignDimensionEnum.large);
     fixture.detectChanges();
     expect(increaseDimensionButton.disabled).toBeTruthy();
-    expect(component.addToBasketForm.get('dimension').value).toEqual(
-      DesignDimensionEnum.large
-    );
+    expect(component.addToBasketForm.get('dimension').value).toEqual(DesignDimensionEnum.large);
     component.decreaseDimension();
-    expect(component.addToBasketForm.get('dimension').value).toEqual(
-      DesignDimensionEnum.medium
-    );
+    expect(component.addToBasketForm.get('dimension').value).toEqual(DesignDimensionEnum.medium);
     component.decreaseDimension();
-    expect(component.addToBasketForm.get('dimension').value).toEqual(
-      DesignDimensionEnum.small
-    );
+    expect(component.addToBasketForm.get('dimension').value).toEqual(DesignDimensionEnum.small);
     fixture.detectChanges();
     expect(increaseDimensionButton.disabled).toBeFalsy();
     fixture.detectChanges();
@@ -99,9 +77,7 @@ describe('AddToBasketModalComponent', () => {
     expect(component.addToBasketForm.get('quantity').value).toEqual(2);
     component.decreaseQuantity();
     expect(component.addToBasketForm.get('quantity').value).toEqual(1);
-    const decreaseQuantity = fixture.debugElement.query(
-      By.css('#decrease-quantity-btn')
-    );
+    const decreaseQuantity = fixture.debugElement.query(By.css('#decrease-quantity-btn'));
     const decreaseQuantityButton = decreaseQuantity.nativeElement;
     fixture.detectChanges();
     expect(decreaseQuantityButton.disabled).toBeTruthy();

@@ -28,13 +28,7 @@ export class GoogleButtonTestComponent {
 
   testGoogleEventEmitter() {
     console.log('testing google event emitter');
-    this.googleAnalyticsService.eventEmitter(
-      'add_to_cart',
-      'shop',
-      'cart',
-      'click',
-      1
-    );
+    this.googleAnalyticsService.eventEmitter('add_to_cart', 'shop', 'cart', 'click', 1);
   }
 }
 ```

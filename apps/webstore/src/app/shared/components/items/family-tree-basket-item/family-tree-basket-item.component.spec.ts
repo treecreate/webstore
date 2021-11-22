@@ -2,15 +2,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreeDesignEnum } from '@assets';
-import {
-  DesignDimensionEnum,
-  DesignTypeEnum,
-  FamilyTreeFontEnum,
-  ITransactionItem,
-  IUser,
-} from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, FamilyTreeFontEnum, ITransactionItem, IUser } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars, UserRoles } from '@models';
-import { LocalStorageService } from '../../../services/local-storage';
 import { FamilyTreeBasketItemComponent } from './family-tree-basket-item.component';
 
 describe('BasketItemComponent', () => {
@@ -59,9 +53,7 @@ describe('BasketItemComponent', () => {
       orderId: '123',
       transactionItemId: '1',
     };
-    localStorage.setItem(LocalStorageVars.transactionItems, [
-      mockTransactionItem,
-    ]);
+    localStorage.setItem(LocalStorageVars.transactionItems, [mockTransactionItem]);
     component.item = mockTransactionItem;
     fixture.detectChanges();
   });
