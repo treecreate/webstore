@@ -9,15 +9,18 @@ import java.util.UUID;
 public class CreateTransactionItemRequest
 {
     @NotNull
-    @ApiModelProperty(notes = "The quantity of how many items are included", example = "1", required = true)
+    @ApiModelProperty(notes = "The quantity of how many items are included", example = "1",
+        required = true)
     private int quantity;
 
     @NotNull
-    @ApiModelProperty(notes = "The dimension of the referenced design", example = "SMALL", required = true)
+    @ApiModelProperty(notes = "The dimension of the referenced design", example = "SMALL",
+        required = true)
     private DesignDimension dimension;
 
     @NotNull
-    @ApiModelProperty(notes = "The id of the referenced design", example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = true)
+    @ApiModelProperty(notes = "The id of the referenced design",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = true)
     private UUID designId;
 
     public int getQuantity()
