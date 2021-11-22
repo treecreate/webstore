@@ -20,6 +20,7 @@ import {
   TreeDesignEnum,
 } from '@assets';
 import { IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
+import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
 
 @Component({
   selector: 'webstore-family-tree-miniature',
@@ -99,7 +100,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
   // TODO: show only for one box instead of showing it for all if any of the boxes got moused over
   showDeleteBoxButtons = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private familyTreeDesignService: FamilyTreeDesignService) {}
 
   ngOnInit(): void {
     // Load and validate tree design SVGs
@@ -291,57 +292,14 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
           this.boxDimensions.height
         );
 
-        // Draw the text within the box
-        // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-        // times 5 to account for having different scale
-        // NOTE - can cause performance issues since it occurs on every frame
-        const boxTextFontSize = (0.0545 * this.boxSize + 0.05) * (this.design.largeFont ? 7 : 5); // in rem
-        // TODO: add multi-line support
-        this.context.font = `${boxTextFontSize}rem ${this.design.font}`;
-        this.context.textAlign = 'center';
-        this.context.textBaseline = 'middle';
-        let line = '';
-        let currentLine = 1;
-        const words = this.myBoxes[i].text.substring(0, this.maxCharsPerLine * this.maxLines).split(' ');
-        const multiLineText = this.myBoxes[i].text.length > this.maxCharsPerLine;
-        const x = this.myBoxes[i].x + this.boxDimensions.width / 2;
-        let y = this.myBoxes[i].y + this.boxDimensions.height / 2;
-        const lineHeight = (this.boxDimensions.height / 5) * 1;
-        if (multiLineText) {
-          y = this.myBoxes[i].y + (this.boxDimensions.height / 5) * 2;
-        }
-        const formattedWords = [];
-        words.forEach((word) => {
-          do {
-            if (word.length === 0) {
-              break;
-            }
-            if (word.length >= this.maxCharsPerLine) {
-              formattedWords.push(word.substring(0, this.maxCharsPerLine));
-              word = word.substring(this.maxCharsPerLine, word.length);
-            } else {
-              formattedWords.push(word);
-              word = '';
-            }
-          } while (word !== '');
-        });
-        // print out the text
-        for (let j = 0; j < formattedWords.length; j++) {
-          const testLine = line + formattedWords[j] + ' ';
-
-          if (testLine.length - 1 > this.maxCharsPerLine) {
-            currentLine++;
-            if (currentLine > this.maxLines) {
-              break;
-            }
-            this.context.fillText(line, x, y);
-            line = formattedWords[j] + ' ';
-            y += lineHeight;
-          } else {
-            line = testLine;
-          }
-        }
-        this.context.fillText(line, x, y);
+        this.familyTreeDesignService.drawTextInDraggableBox(
+          this.context,
+          this.boxSize,
+          this.design.largeFont,
+          this.design.font,
+          this.myBoxes[i],
+          this.boxDimensions
+        );
       }
     } catch (error) {
       console.error('An error has occurred while drawing the tree', error);
