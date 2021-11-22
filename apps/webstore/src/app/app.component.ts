@@ -37,9 +37,9 @@ export class AppComponent {
       const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
       // if the website is deployed the url has locale in it and has to be adjusted to match local storage
       if (window.location.href.includes('/en-US/') && locale === LocaleType.dk) {
-        window.location.href = window.location.href.replace('en-US', 'dk');
+        window.location.href = window.location.href.replace('/en-US/', '/dk/');
       } else if (window.location.href.includes('/dk/') && locale === LocaleType.en) {
-        window.location.href = window.location.href.replace('dk', 'en-US');
+        window.location.href = window.location.href.replace('/dk/', '/en-US/');
       }
     });
   }
