@@ -6,6 +6,7 @@ import {
   Input,
   OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -181,12 +182,28 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
     this.draw();
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
+    // handle input value updates
+
+    if (changes.boxSize !== undefined) {
+      this.boxDimensions = {
+        height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
+        width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
+      };
+
+      this.closeButtonDimensions = {
+        height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
+        width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
+      };
+    }
+
     if (this.design !== undefined && this.context !== undefined) {
       this.loadDesign();
 
       this.maxCharsPerLine = this.design.largeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
     }
+
+    this.cdr.detectChanges();
   }
 
   // create a new box
