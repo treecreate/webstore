@@ -2,6 +2,7 @@ package dk.treecreate.api.newsletter;
 
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.newsletter.dto.GetNewslettersResponse;
 import io.sentry.Sentry;
 import io.swagger.annotations.Api;
@@ -9,6 +10,8 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -25,10 +29,14 @@ import java.util.UUID;
 @Api(tags = {"newsletter"})
 public class NewsletterController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewsletterController.class);
+
     @Autowired
     NewsletterRepository newsletterRepository;
     @Autowired
     AuthUserService authUserService;
+    @Autowired
+    MailService mailService;
 
     @GetMapping()
     @Operation(summary = "Get all newsletters")
@@ -91,7 +99,20 @@ public class NewsletterController
         newsletter.setEmail(email);
         Sentry.setExtra("email", newsletter.getEmail());
         Sentry.captureMessage("New newsletter entry");
-        return newsletterRepository.save(newsletter);
+        newsletter = newsletterRepository.save(newsletter);
+
+        try
+        {
+            // TODO: dynamically get the locale from request
+            mailService.sendNewNewsletterSubscriberEmail(email, newsletter.getNewsletterId(), new Locale("dk"));
+        } catch (Exception e)
+        {
+            LOGGER.error("And exception has occurred while sending newsletter email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "And exception has occurred while sending newsletter email");
+        }
+
+        return newsletter;
     }
 
     @DeleteMapping("{newsletterId}")

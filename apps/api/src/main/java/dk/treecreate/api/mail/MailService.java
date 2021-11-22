@@ -84,6 +84,17 @@ public class MailService
             MailTemplate.ORDER_CONFIRMATION);
     }
 
+    public void sendNewNewsletterSubscriberEmail(String to, UUID newsletterId, Locale locale)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(locale);
+        context.setVariable("unsubscribeLink", linkService
+            .generateNewsletterUnsubscribeLink(newsletterId, locale));
+        // TODO: Set a proper subject
+        String subject = "Welcome to Treecreate";
+        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEW_NEWSLETTER_SUBSCRIBER);
+    }
+
     private void sendMail(String to, MailDomain from, String subject, Context context,
                           MailTemplate template)
         throws MessagingException, UnsupportedEncodingException
