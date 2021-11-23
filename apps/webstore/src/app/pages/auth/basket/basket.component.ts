@@ -164,7 +164,30 @@ export class BasketComponent implements OnInit {
       .getDiscount(this.discountForm.get('discountCode').value)
       .subscribe(
         (discount: IDiscount) => {
-          if (discount.remainingUses > 0) {
+          const expires = new Date(discount.expiresAt);
+
+          // Check remaining uses
+          if (discount.remainingUses <= 0) {
+            this.toastService.showAlert(
+              'The discount code: ' + this.discountForm.get('discountCode').value + ' has been used!',
+              'Rabat koden: ' + this.discountForm.get('discountCode').value + ' er brugt!',
+              'danger',
+              4000
+            );
+            this.discountIsLoading = false;
+
+            // Check experation date
+          } else if (expires.getTime() < Date.now()) {
+            this.toastService.showAlert(
+              'The discount code: ' + this.discountForm.get('discountCode').value + ' has expired!',
+              'Rabat koden: ' + this.discountForm.get('discountCode').value + ' er udløbet!',
+              'danger',
+              4000
+            );
+            this.discountIsLoading = false;
+
+            // Activate discount
+          } else {
             this.toastService.showAlert(
               'Your discount code: ' + this.discountForm.get('discountCode').value + ' has been activated!',
               'Din rabat kode: ' + this.discountForm.get('discountCode').value + ' er aktiveret!',
@@ -173,14 +196,6 @@ export class BasketComponent implements OnInit {
             );
             this.discount = discount;
             console.log('Discount changed to: ', this.discount);
-            this.discountIsLoading = false;
-          } else {
-            this.toastService.showAlert(
-              'The discount code: ' + this.discountForm.get('discountCode').value + ' is no longer active!',
-              'Rabat koden: ' + this.discountForm.get('discountCode').value + ' er ikke længere aktiv!',
-              'danger',
-              4000
-            );
             this.discountIsLoading = false;
           }
         },
