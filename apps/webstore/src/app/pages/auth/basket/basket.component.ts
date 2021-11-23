@@ -164,15 +164,25 @@ export class BasketComponent implements OnInit {
       .getDiscount(this.discountForm.get('discountCode').value)
       .subscribe(
         (discount: IDiscount) => {
-          this.toastService.showAlert(
-            'Your discount code: ' + this.discountForm.get('discountCode').value + ' has been activated!',
-            'Din rabat kode: ' + this.discountForm.get('discountCode').value + ' er aktiveret!',
-            'success',
-            4000
-          );
-          this.discount = discount;
-          console.log('Discount changed to: ', this.discount);
-          this.discountIsLoading = false;
+          if (discount.remainingUses > 0) {
+            this.toastService.showAlert(
+              'Your discount code: ' + this.discountForm.get('discountCode').value + ' has been activated!',
+              'Din rabat kode: ' + this.discountForm.get('discountCode').value + ' er aktiveret!',
+              'success',
+              4000
+            );
+            this.discount = discount;
+            console.log('Discount changed to: ', this.discount);
+            this.discountIsLoading = false;
+          } else {
+            this.toastService.showAlert(
+              'The discount code: ' + this.discountForm.get('discountCode').value + ' is no longer active!',
+              'Rabat koden: ' + this.discountForm.get('discountCode').value + ' er ikke længere aktiv!',
+              'danger',
+              4000
+            );
+            this.discountIsLoading = false;
+          }
         },
         (error: HttpErrorResponse) => {
           console.error(error);
