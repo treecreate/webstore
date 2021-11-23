@@ -90,7 +90,7 @@ const mockDiscountExpired: IDiscount = {
   discountCode: 'yeet30percent',
   amount: 30,
   type: DiscountType.percent,
-  remainingUses: 0,
+  remainingUses: 10,
   totalUses: 1,
   expiresAt: new Date('2021-11-20T00:00:00'),
 };
@@ -261,7 +261,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');
     cy.get('[data-cy=subtotal-price-basket]').should('contain', '1690');
     cy.get('[data-cy=total-price-basket]').should('contain', '1690');
-    cy.get('[data-cy=basket-apply-discount-input]').type('yeet20percent', {
+    cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
       force: true,
     });
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });

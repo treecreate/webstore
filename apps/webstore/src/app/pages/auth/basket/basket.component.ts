@@ -108,7 +108,6 @@ export class BasketComponent implements OnInit {
     this.transactionItemService.getTransactionItems().subscribe(
       (itemList: ITransactionItem[]) => {
         this.itemList = itemList;
-        console.log('Fetched transaction items', itemList);
         this.updatePrices();
         this.isLoading = false;
       },
@@ -208,7 +207,6 @@ export class BasketComponent implements OnInit {
         }
       )
       .add(() => {
-        console.log('Setting disocunt to: ', this.discount);
         this.localStorageService.setItem<IDiscount>(LocalStorageVars.discount, this.discount);
         this.updatePrices();
       });
