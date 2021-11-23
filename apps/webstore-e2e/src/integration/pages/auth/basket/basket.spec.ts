@@ -67,7 +67,7 @@ const mockDesign: IDesign = {
   user: mockUser,
   mutable: true,
 };
-const mockDiscount = {
+const mockDiscount: IDiscount = {
   discountId: '123',
   discountCode: 'yeet10percent',
   amount: 10,
@@ -76,7 +76,7 @@ const mockDiscount = {
   totalUses: 1,
   expiresAt: new Date('2029-11-20T00:00:00'),
 };
-const mockDiscountNoUsesLeft = {
+const mockDiscountNoUsesLeft: IDiscount = {
   discountId: '1234',
   discountCode: 'yeet20percent',
   amount: 20,
@@ -86,15 +86,14 @@ const mockDiscountNoUsesLeft = {
   expiresAt: new Date('2029-11-20T00:00:00'),
 };
 const mockDiscountExpired: IDiscount = {
-  discountId: '1234',
-  discountCode: 'yeet20percent',
-  amount: 20,
+  discountId: '12345',
+  discountCode: 'yeet30percent',
+  amount: 30,
   type: DiscountType.percent,
   remainingUses: 0,
   totalUses: 1,
   expiresAt: new Date('2021-11-20T00:00:00'),
 };
-
 const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   dimension: DesignDimensionEnum.medium,
@@ -254,7 +253,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
   });
 
   it('should not apply discount that has expired', () => {
-    cy.intercept('GET', '/discounts/yeet20percent', {
+    cy.intercept('GET', '/discounts/yeet30percent', {
       statusCode: 200,
       body: mockDiscountExpired,
     });
