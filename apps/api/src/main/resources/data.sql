@@ -35,33 +35,33 @@ SELECT  users.*
 FROM
 ( (
 	SELECT  'f12d7bcc-ac5f-48f8-8b74-055622e128f0'                         AS user_id
-	       ,''                                                             AS city
-	       ,''                                                             AS country
+	       ,null                                                           AS city
+	       ,null                                                           AS country
 	       ,null                                                           AS created_at
 	       ,'populated@user.dk'                                            AS email
 	       ,1                                                              AS is_verified
 	       ,'Populated'                                                    AS name
 	       ,'$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62' AS password
-	       ,''                                                             AS phone_number
-	       ,''                                                             AS postcode
-	       ,''                                                             AS street_address
-	       ,''                                                             AS street_address_2
+	       ,null                                                           AS phone_number
+	       ,null                                                           AS postcode
+	       ,null                                                           AS street_address
+	       ,null                                                           AS street_address_2
 	       ,'2cd5372d-b945-48d3-83a2-82696fbb8bcd'                         AS token
 	       ,null                                                           AS updated_at
 	       ,'populated@user.dk'                                            AS username)
 	UNION ALL(
 	SELECT  'ac86995f-60ae-4520-a434-c8abc98980b9'                         AS user_id
-	       ,''                                                             AS city
-	       ,''                                                             AS country
+	       ,null                                                           AS city
+	       ,null                                                           AS country
 	       ,null                                                           AS created_at
 	       ,'populated_two@user.dk'                                        AS email
 	       ,1                                                              AS is_verified
 	       ,'Populatedtwo'                                                 AS name
 	       ,'$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62' AS password
-	       ,''                                                             AS phone_number
-	       ,''                                                             AS postcode
-	       ,''                                                             AS street_address
-	       ,''                                                             AS street_address_2
+	       ,null                                                           AS phone_number
+	       ,null                                                           AS postcode
+	       ,null                                                           AS street_address
+	       ,null                                                           AS street_address_2
 	       ,'3ceb8eda-1b03-4bf7-a85c-9d16a8ffa7ac'                         AS token
 	       ,null                                                           AS updated_at
 	       ,'populated_two@user.dk'                                        AS username)
@@ -77,6 +77,9 @@ FROM
 ( (
 	SELECT  'f12d7bcc-ac5f-48f8-8b74-055622e128f0' AS user_id
 	       ,'358417e5-813b-41b1-baa3-208603253b4c' AS role_id )
+	UNION ALL(
+	SELECT  'f12d7bcc-ac5f-48f8-8b74-055622e128f0'
+	       ,'c9bc7e4d-e1d3-42de-8ac8-2f83eae57dde' )
 	UNION ALL(
 	SELECT  'ac86995f-60ae-4520-a434-c8abc98980b9'
 	       ,'c9bc7e4d-e1d3-42de-8ac8-2f83eae57dde' )
