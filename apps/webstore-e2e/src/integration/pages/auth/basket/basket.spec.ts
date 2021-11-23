@@ -7,6 +7,7 @@ import {
   DiscountType,
   FamilyTreeFontEnum,
   IDesign,
+  IDiscount,
   IDraggableBox,
   IFamilyTreeBanner,
   ITransactionItem,
@@ -73,6 +74,7 @@ const mockDiscount = {
   type: DiscountType.percent,
   remainingUses: 2,
   totalUses: 1,
+  expiresAt: new Date('2029-11-20T00:00:00'),
 };
 const mockDiscountNoUsesLeft = {
   discountId: '1234',
@@ -81,7 +83,18 @@ const mockDiscountNoUsesLeft = {
   type: DiscountType.percent,
   remainingUses: 0,
   totalUses: 1,
+  expiresAt: new Date('2029-11-20T00:00:00'),
 };
+const mockDiscountExpired: IDiscount = {
+  discountId: '1234',
+  discountCode: 'yeet20percent',
+  amount: 20,
+  type: DiscountType.percent,
+  remainingUses: 0,
+  totalUses: 1,
+  expiresAt: new Date('2021-11-20T00:00:00'),
+};
+
 const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   dimension: DesignDimensionEnum.medium,
@@ -227,6 +240,23 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.intercept('GET', '/discounts/yeet20percent', {
       statusCode: 200,
       body: mockDiscountNoUsesLeft,
+    });
+    cy.visit('/basket');
+    cy.get('[data-cy=discount-amount-basket]').should('not.exist');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-apply-discount-input]').type('yeet20percent', {
+      force: true,
+    });
+    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
+    cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+  });
+
+  it('should not apply discount that has expired', () => {
+    cy.intercept('GET', '/discounts/yeet20percent', {
+      statusCode: 200,
+      body: mockDiscountExpired,
     });
     cy.visit('/basket');
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');
