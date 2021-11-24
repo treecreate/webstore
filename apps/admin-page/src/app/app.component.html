@@ -1,5 +1,56 @@
-<webstore-layout></webstore-layout>
-<!-- <div>
-    <span>Angular Material: </span>
-    <mat-slider min="1" max="100" step="1" value="50"></mat-slider>
-</div> -->
+<!-- Navbar -->
+<mat-toolbar color="primary" data-cy="navbar">
+    <mat-toolbar-row>
+        <span>TC management</span>
+        <span class="spacer"></span>
+        <button mat-flat-button color="primary">Account</button>
+        <button mat-flat-button color="primary">Logout</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- Only content unaffected by the sidenav should be placed outside of mat-sidenav-container -->
+<mat-sidenav-container autosize class="body-container">
+    <!-- Sidebar -->
+    <mat-sidenav mode="side" disableClose opened class="sidebar" [ngClass]="{ collapsed: sidebarCollapsed }">
+        <div class="sidebar-header">
+            <mat-icon aria-hidden="false">face</mat-icon>
+            <h2 class="role" [ngClass]="{ collapsible: sidebarCollapsed }">Admin</h2>
+            <h4 class="username" [ngClass]="{ collapsible: sidebarCollapsed }">{{ username }}</h4>
+        </div>
+        <mat-divider [ngClass]="{ collapsible: sidebarCollapsed }"></mat-divider>
+        <div class="sidebar-items">
+            <mat-action-list>
+                <button mat-list-item>
+                    <mat-icon aria-hidden="false">dashboard</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }">Dashboard</span>
+                </button>
+                <button mat-list-item>
+                    <mat-icon aria-hidden="false">shopping_cart</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }">Orders</span>
+                </button>
+                <button mat-list-item>
+                    <mat-icon aria-hidden="false">account_box</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }">Customers</span>
+                </button>
+                <button mat-list-item>
+                    <mat-icon aria-hidden="false">credit_card</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }">Discounts</span>
+                </button>
+                <button mat-list-item>
+                    <mat-icon aria-hidden="false">timeline</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }">Activity Log</span>
+                </button>
+                <button mat-list-item>
+                    <mat-icon aria-hidden="false">markunread</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }">Newsletter</span>
+                </button>
+            </mat-action-list>
+        </div>
+        <button mat-button (click)="toggleCollapsed()" class="toggle-btn">{{ sidebarCollapsed ? '>' : '<' }}</button>
+    </mat-sidenav>
+
+    <!-- Content -->
+    <mat-sidenav-content class="content">
+        {{ content }}
+    </mat-sidenav-content>
+</mat-sidenav-container>
