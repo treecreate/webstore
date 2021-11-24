@@ -1,25 +1,19 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 
 @Component({
   selector: 'webstore-unsubscribe',
   templateUrl: './unsubscribe.component.html',
-  styleUrls: [
-    './unsubscribe.component.css',
-    '../../../../assets/styles/tc-buttons.css',
-  ],
+  styleUrls: ['./unsubscribe.component.css', '../../../../assets/styles/tc-buttons.css'],
 })
 export class UnsubscribeComponent implements OnInit {
   isLoading = false;
   isUnsubscribeSuccessful = false;
   errorMessage = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private newsletterService: NewsletterService
-  ) {}
+  constructor(private route: ActivatedRoute, private newsletterService: NewsletterService) {}
 
   ngOnInit(): void {
     this.isLoading = true;

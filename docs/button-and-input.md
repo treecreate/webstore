@@ -81,14 +81,7 @@ Here's an example of what it could look like when writing it in your HTML file:
 <!-- E-mail -->
 <div class="tc-input-group field">
   <!-- FIRST a wrapper div to contain the input field and the label  Classes: 'tc-input-group' + 'field' -->
-  <input
-    type="email"
-    class="tc-input-field"
-    placeholder="E-mail"
-    name="email"
-    id="email"
-    required
-  />
+  <input type="email" class="tc-input-field" placeholder="E-mail" name="email" id="email" required />
   <!-- SECOND the input field itself  Classes: 'tc-input-field' -->
   <label for="email" class="tc-input-label">E-mail</label>
   <!-- THIRD a label that explains the input fields function like 'email'   Classes: 'tc-input-label' -->

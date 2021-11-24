@@ -63,24 +63,16 @@ describe('Login Page', () => {
     it('should show error message in forgot password modal correctly', () => {
       cy.get('[data-cy=forgot-password-btn]').click();
       cy.get('[data-cy=forgot-password-modal]').should('exist');
-      cy.get('[data-cy=forgot-password-reset-password-button]').should(
-        'be.disabled'
-      );
+      cy.get('[data-cy=forgot-password-reset-password-button]').should('be.disabled');
 
       cy.get('[data-cy=forgot-password-email-input]').type('test@test.com');
-      cy.get('[data-cy=forgot-password-email-error-message]').should(
-        'not.exist'
-      );
-      cy.get('[data-cy=forgot-password-reset-password-button]').should(
-        'not.be.disabled'
-      );
+      cy.get('[data-cy=forgot-password-email-error-message]').should('not.exist');
+      cy.get('[data-cy=forgot-password-reset-password-button]').should('not.be.disabled');
 
       cy.get('[data-cy=forgot-password-email-input]').clear();
       cy.get('[data-cy=forgot-password-email-input]').type('test-test.com');
       cy.get('[data-cy=forgot-password-email-error-message]').should('exist');
-      cy.get('[data-cy=forgot-password-reset-password-button]').should(
-        'be.disabled'
-      );
+      cy.get('[data-cy=forgot-password-reset-password-button]').should('be.disabled');
     });
 
     it('should send the email properly', () => {
@@ -119,9 +111,7 @@ describe('Login Page', () => {
     it('should detect that the access token is expired and log the user out', () => {
       localStorage.setItem(
         LocalStorageVars.authUser,
-        JSON.stringify(
-          authMockService.getMockUser(AuthUserEnum.authUserExpired)
-        )
+        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserExpired))
       );
       cy.visit('/login');
 

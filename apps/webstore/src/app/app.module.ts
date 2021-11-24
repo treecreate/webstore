@@ -28,7 +28,6 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ProductComponent } from './pages/product/product.component';
-import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
@@ -62,7 +61,6 @@ import { OrderItemComponent } from './shared/components/items/order-item/order-i
     ProductComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
-    VerificationComponent,
     CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
@@ -86,14 +84,7 @@ import { OrderItemComponent } from './shared/components/items/order-item/order-i
     OrdersComponent,
     OrderItemComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
 })

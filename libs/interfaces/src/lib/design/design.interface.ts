@@ -1,9 +1,8 @@
-import { IUser } from '../user';
-import { DesignTypeEnum } from './design-type.enum';
 import { ComponentRef } from '@angular/core';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
+import { DesignTypeEnum, IBase, IUser } from '..';
 
-export interface IDesign {
+export interface IDesign extends IBase {
   designId: string;
   designProperties: IFamilyTree;
   designType: DesignTypeEnum;

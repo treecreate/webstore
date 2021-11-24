@@ -2,10 +2,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, IFamilyTree, ITransactionItem } from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, ITransactionItem } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
 import { LocalStorageService } from '@local-storage';
@@ -20,14 +21,16 @@ import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-mod
 })
 export class AddToBasketModalComponent implements OnInit {
   addToBasketForm: FormGroup;
-  price: number;
-  isMoreThan4: boolean;
-  itemsInBasket: number;
-  totalPrice: number;
+  price = 0;
+  isMoreThan4 = false;
+  itemsInBasket = 0;
+  totalPrice = 0;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
-  design;
+  design: IFamilyTree;
   isLoading = false;
+  authUser$: BehaviorSubject<IAuthUser>;
+  isLoggedIn = false;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -43,13 +46,21 @@ export class AddToBasketModalComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private authService: AuthService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
+    });
+    // Listen to changes to login status
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
+    // Check if the user is logged in
+    this.authUser$.subscribe(() => {
+      // Check if the access token is still valid
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
   }
 
@@ -68,9 +79,8 @@ export class AddToBasketModalComponent implements OnInit {
       dimension: DesignDimensionEnum.small,
     });
 
-    new Promise(() => {
-      //Get items already in basket
-      this.isLoading = true;
+    this.isLoading = true;
+    if (this.isLoggedIn) {
       this.transactionItemService.getTransactionItems().subscribe(
         (itemList: ITransactionItem[]) => {
           let itemSum = 0;
@@ -80,7 +90,6 @@ export class AddToBasketModalComponent implements OnInit {
           }
           this.itemsInBasket = itemSum;
           priceSum = this.calculatePriceService.getFullPrice(itemList);
-          this.itemsInBasket = itemSum;
           this.totalPrice = priceSum;
           this.isLoading = false;
           this.updatePrice();
@@ -90,7 +99,21 @@ export class AddToBasketModalComponent implements OnInit {
           this.isLoading = false;
         }
       );
-    });
+    } else {
+      const itemList = this.localStorageService.getItem<ITransactionItem[]>(LocalStorageVars.transactionItems).value;
+      if (itemList !== null) {
+        let itemSum = 0;
+        let priceSum = 0;
+        for (let i = 0; i < itemList.length; i++) {
+          itemSum += itemList[i].quantity;
+        }
+        this.itemsInBasket = itemSum;
+        priceSum = this.calculatePriceService.getFullPrice(itemList);
+        this.totalPrice = priceSum;
+      }
+      this.isLoading = false;
+      this.updatePrice();
+    }
   }
 
   updatePrice() {
@@ -182,6 +205,34 @@ export class AddToBasketModalComponent implements OnInit {
 
   addDesignToBasket() {
     this.isLoading = true;
+    if (this.isLoggedIn) {
+      // Save design to user collection and create and save transactionItem to DB
+      this.saveToDataBase();
+    } else {
+      // Save transactionItem to local storage
+      this.saveToLocalStorage();
+    }
+  }
+
+  saveToLocalStorage(): void {
+    // design id should be null
+    if (this.design.title !== this.addToBasketForm.get('title').value) {
+      this.design.title = this.addToBasketForm.get('title').value;
+    }
+    this.transactionItemService.saveToLocalStorage({
+      designProperties: this.design,
+      dimension: this.addToBasketForm.get('dimension').value,
+      quantity: this.addToBasketForm.get('quantity').value,
+    });
+
+    this.activeModal.close();
+    this.modalService.open(GoToBasketModalComponent);
+    this.isLoading = false;
+  }
+
+  saveToDataBase(): void {
+    // Check if the desig title matches add-to-basket-modal title of design
+    // If not, update the title in the users collection
     if (this.design.title !== this.addToBasketForm.get('title').value) {
       this.design.title = this.addToBasketForm.get('title').value;
       this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);

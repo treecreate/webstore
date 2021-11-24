@@ -19,10 +19,7 @@
             </div>
         </div>
 
-        <div
-            [ngClass]="isLoading ? 'hide-opacity' : 'show-opacity'"
-            class="account-info-input"
-        >
+        <div [ngClass]="isLoading ? 'hide-opacity' : 'show-opacity'" class="account-info-input">
             <div class="sub-title">
                 <p i18n="@@contact">Contact</p>
                 <hr />
@@ -38,17 +35,12 @@
                     autocomplete="name"
                     data-cy="account-name-input"
                 />
-                <label for="name" class="tc-input-label" i18n="@@name"
-                    >Name</label
-                >
+                <label for="name" class="tc-input-label" i18n="@@name">Name</label>
             </div>
 
             <div
                 class="error-message"
-                *ngIf="
-                    this.accountInfoForm.get('name').dirty &&
-                    this.accountInfoForm.get('name').invalid
-                "
+                *ngIf="this.accountInfoForm.get('name').dirty && this.accountInfoForm.get('name').invalid"
                 i18n="@@invalid-name"
                 data-cy="account-invalid-name"
             >
@@ -66,20 +58,12 @@
                     autocomplete="phoneNumber"
                     data-cy="account-phone-number-input"
                 />
-                <label
-                    for="phoneNumber"
-                    class="tc-input-label"
-                    i18n="@@phone-number"
-                    >Phone number</label
-                >
+                <label for="phoneNumber" class="tc-input-label" i18n="@@phone-number">Phone number</label>
             </div>
 
             <div
                 class="error-message"
-                *ngIf="
-                    this.accountInfoForm.get('phoneNumber').dirty &&
-                    this.accountInfoForm.get('phoneNumber').invalid
-                "
+                *ngIf="this.accountInfoForm.get('phoneNumber').dirty && this.accountInfoForm.get('phoneNumber').invalid"
                 i18n="@@invalid-phone-number"
                 data-cy="account-invalid-phone-number"
             >
@@ -102,10 +86,7 @@
 
             <div
                 class="error-message"
-                *ngIf="
-                    this.accountInfoForm.get('email').dirty &&
-                    this.accountInfoForm.get('email').invalid
-                "
+                *ngIf="this.accountInfoForm.get('email').dirty && this.accountInfoForm.get('email').invalid"
                 i18n="@@invalid-email"
                 data-cy="account-invalid-email"
             >
@@ -127,19 +108,13 @@
                     id="streetAddress"
                     data-cy="account-address-input"
                 />
-                <label
-                    for="streetAddress"
-                    class="tc-input-label"
-                    i18n="@@street-address"
-                    >Street address</label
-                >
+                <label for="streetAddress" class="tc-input-label" i18n="@@street-address">Street address</label>
             </div>
 
             <div
                 class="error-message"
                 *ngIf="
-                    this.accountInfoForm.get('streetAddress').dirty &&
-                    this.accountInfoForm.get('streetAddress').invalid
+                    this.accountInfoForm.get('streetAddress').dirty && this.accountInfoForm.get('streetAddress').invalid
                 "
                 i18n="@@invalid-street-address"
                 data-cy="account-invalid-address"
@@ -185,15 +160,10 @@
                         placeholder="City"
                         data-cy="account-city-input"
                     />
-                    <label for="city" class="tc-input-label" i18n="@@city"
-                        >City</label
-                    >
+                    <label for="city" class="tc-input-label" i18n="@@city">City</label>
                     <div
                         class="error-message offset"
-                        *ngIf="
-                            this.accountInfoForm.get('city').dirty &&
-                            this.accountInfoForm.get('city').invalid
-                        "
+                        *ngIf="this.accountInfoForm.get('city').dirty && this.accountInfoForm.get('city').invalid"
                         i18n="@@invalid-city"
                         data-cy="account-invalid-city"
                     >
@@ -211,17 +181,11 @@
                         placeholder="1234"
                         data-cy="account-postcode-input"
                     />
-                    <label
-                        for="postcode"
-                        class="tc-input-label"
-                        i18n="@@postcode"
-                        >Postcode</label
-                    >
+                    <label for="postcode" class="tc-input-label" i18n="@@postcode">Postcode</label>
                     <div
                         class="error-message offset"
                         *ngIf="
-                            this.accountInfoForm.get('postcode').dirty &&
-                            this.accountInfoForm.get('postcode').invalid
+                            this.accountInfoForm.get('postcode').dirty && this.accountInfoForm.get('postcode').invalid
                         "
                         i18n="@@invalid-postcode"
                         data-cy="account-invalid-postcode"
@@ -233,12 +197,7 @@
 
             <div class="actions">
                 <div class="button-section">
-                    <button
-                        type="button"
-                        class="tc-button-50 loading-spinner-btn"
-                        *ngIf="isUpdatingUserInfo"
-                        disabled
-                    >
+                    <button type="button" class="tc-button-50 loading-spinner-btn" *ngIf="isUpdatingUserInfo" disabled>
                         <span
                             class="spinner-border spinner-border-sm text-light"
                             style="margin: 5px"
@@ -267,30 +226,6 @@
                         Change password
                     </button>
                 </div>
-                <button
-                    type="button"
-                    class="tc-button-100 loading-spinner-btn"
-                    *ngIf="!isVerified && isResendVerificationEmailLoading"
-                    disabled
-                >
-                    <span
-                        class="spinner-border spinner-border-sm text-light"
-                        style="margin: 5px"
-                        role="status"
-                        aria-hidden="true"
-                    ></span>
-                    <span i18n="@@sending-email">Sending e-mail...</span>
-                </button>
-                <button
-                    type="button"
-                    class="tc-button-100"
-                    *ngIf="!isVerified && !isResendVerificationEmailLoading"
-                    (click)="resendVerificationEmail()"
-                    i18n="@@resend-verification-email"
-                    data-cy="resend-verification-email-button"
-                >
-                    Resend verification e-mail
-                </button>
             </div>
         </div>
     </form>
