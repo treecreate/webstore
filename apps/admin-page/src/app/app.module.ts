@@ -8,12 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { materialModules } from './material.constant';
-import { LayoutComponent } from './components/layout/layout.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot([], { initialNavigation: 'enabled' }),
@@ -24,8 +23,6 @@ registerLocaleData(en);
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [
-    LayoutComponent
-  ],
+  exports: [],
 })
 export class AppModule {}
