@@ -9,27 +9,12 @@ describe('accountPage', () => {
     userId: '1',
     email: 'e2e@test.com',
     roles: [UserRoles.user],
-    isVerified: true,
     name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',
     streetAddress2: '',
     city: '',
     postcode: '',
-    country: '',
-  };
-
-  const updatedMockUser: IUser = {
-    userId: '1',
-    email: 'suckmeoff@test.com',
-    roles: [UserRoles.user],
-    isVerified: false,
-    name: '',
-    phoneNumber: '+4512345678',
-    streetAddress: 'Yo mammas house 69, 3rd floor',
-    streetAddress2: 'more details: suck it',
-    city: 'Copenhagen',
-    postcode: '1234',
     country: '',
   };
 
@@ -45,10 +30,7 @@ describe('accountPage', () => {
   });
 
   it('should update user', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -62,9 +44,7 @@ describe('accountPage', () => {
 
     //Change values in form
     cy.get('[data-cy=account-phone-number-input]').type('+4512345678');
-    cy.get('[data-cy=account-address-input]').type(
-      'Yo mammas house 69, 3rd floor'
-    );
+    cy.get('[data-cy=account-address-input]').type('Yo mammas house 69, 3rd floor');
     cy.get('[data-cy=account-address-2-input]').type('more details: suck it');
     cy.get('[data-cy=account-city-input]').type('Copenhagen');
     cy.get('[data-cy=account-postcode-input]').type('1234');
@@ -74,10 +54,7 @@ describe('accountPage', () => {
   });
 
   it('should open change password modal', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -91,10 +68,7 @@ describe('accountPage', () => {
   });
 
   it('should update password', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -114,9 +88,7 @@ describe('accountPage', () => {
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
 
     cy.get('[data-cy=change-password-password-input]').type('abcDEF123');
-    cy.get('[data-cy=change-password-confirm-password-input]').type(
-      'abcDEF123'
-    );
+    cy.get('[data-cy=change-password-confirm-password-input]').type('abcDEF123');
 
     cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
     cy.get('[data-cy=update-password-btn]').click();
@@ -126,10 +98,7 @@ describe('accountPage', () => {
   });
 
   it('should not be able to update password with non matching password', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -149,31 +118,19 @@ describe('accountPage', () => {
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
 
     cy.get('[data-cy=change-password-password-input]').type('abcDEF123');
-    cy.get('[data-cy=change-password-confirm-password-input]').type(
-      'abcDEF321'
-    );
+    cy.get('[data-cy=change-password-confirm-password-input]').type('abcDEF321');
 
-    cy.get('[data-cy=change-password-not-matching-message]').should(
-      'contain',
-      'Passwords must match'
-    );
+    cy.get('[data-cy=change-password-not-matching-message]').should('contain', 'Passwords must match');
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
 
     cy.get('[data-cy=change-password-confirm-password-input]').clear();
-    cy.get('[data-cy=change-password-confirm-password-input]').type(
-      'abcDEF123'
-    );
+    cy.get('[data-cy=change-password-confirm-password-input]').type('abcDEF123');
 
-    cy.get('[data-cy=change-password-not-matching-message]').should(
-      'not.exist'
-    );
+    cy.get('[data-cy=change-password-not-matching-message]').should('not.exist');
   });
 
   it('should detect that the access token is expired and log the user out after change password', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -190,9 +147,7 @@ describe('accountPage', () => {
     cy.get('[data-cy=account-change-password-button]').click();
 
     cy.get('[data-cy=change-password-password-input]').type('abcDEF123');
-    cy.get('[data-cy=change-password-confirm-password-input]').type(
-      'abcDEF123'
-    );
+    cy.get('[data-cy=change-password-confirm-password-input]').type('abcDEF123');
     cy.get('[data-cy=update-password-btn]').click();
 
     cy.visit('/login');
@@ -203,10 +158,7 @@ describe('accountPage', () => {
   });
 
   it('should not update when no inputfields have been changed', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -218,10 +170,7 @@ describe('accountPage', () => {
   });
 
   it('should see if inputs fields are disabled when wrong', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     //Mock return user request
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -274,24 +223,5 @@ describe('accountPage', () => {
     cy.get('[data-cy=account-invalid-postcode]').should('not.exist');
     cy.get('[data-cy=account-postcode-input]').type('123');
     cy.get('[data-cy=account-invalid-postcode]').should('exist');
-  });
-
-  it('should not show resend-verification-button with a verified user', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(
-        authMockService.getMockUser(AuthUserEnum.authUserNotVerified)
-      )
-    );
-
-    //Mock return not verified user request
-    cy.intercept('GET', '/users/me', {
-      body: updatedMockUser,
-      statusCode: 200,
-    }).as('getUserRequest');
-
-    cy.visit('/profile');
-
-    cy.get('[data-cy=resend-verification-email-button]').should('exist');
   });
 });

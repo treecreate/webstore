@@ -56,7 +56,7 @@ class AuthControllerTests
     void signinReturnsBadRequestOnInvalidBody() throws Exception
     {
         mvc.perform(post("/auth/signin")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
     }
 
@@ -83,8 +83,8 @@ class AuthControllerTests
             java.util.Optional.of(user));
 
         mvc.perform(post("/auth/signin")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtilsService.asJsonString(loginRequest)))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtilsService.asJsonString(loginRequest)))
             .andExpect(status().isUnauthorized());
     }
 
@@ -115,8 +115,8 @@ class AuthControllerTests
             java.util.Optional.of(user));
 
         mvc.perform(post("/auth/signin")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtilsService.asJsonString(loginRequest)))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtilsService.asJsonString(loginRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
@@ -131,7 +131,7 @@ class AuthControllerTests
     void signupReturnsBadRequestOnInvalidBody() throws Exception
     {
         mvc.perform(post("/auth/signup")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest());
     }
 
@@ -146,8 +146,8 @@ class AuthControllerTests
         Mockito.when(userRepository.existsByEmail(signupRequest.getEmail())).thenReturn(true);
 
         mvc.perform(post("/auth/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtilsService.asJsonString(signupRequest)))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isBadRequest());
     }
 
@@ -180,8 +180,8 @@ class AuthControllerTests
             .sendSignupEmail(user.getEmail(), user.getToken(), new Locale("dk"));
 
         mvc.perform(post("/auth/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtilsService.asJsonString(signupRequest)))
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtilsService.asJsonString(signupRequest)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("userId", is(user.getUserId().toString())))
             .andExpect(jsonPath("email", is(user.getEmail())))
@@ -190,56 +190,4 @@ class AuthControllerTests
             .andExpect(jsonPath("accessToken", is(notNullValue())));
     }
     //endregion
-
-    @Test
-    @DisplayName("/auth/signup endpoint correctly creates a new user with specified roles")
-    void signupCorrectlyCreatesNewUserWithSpecifiedRoles() throws Exception
-    {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(ERole.ROLE_USER));
-        roles.add(new Role(ERole.ROLE_DEVELOPER));
-        roles.add(new Role(ERole.ROLE_ADMIN));
-
-        Set<String> strRoles = new HashSet<>();
-        strRoles.add("ROLE_USER");
-        strRoles.add("ROLE_DEVELOPER");
-        strRoles.add("ROLE_ADMIN");
-
-        SignupRequest signupRequest = new SignupRequest();
-        signupRequest.setEmail("test@treecreate.dk");
-        signupRequest.setPassword("abcDEF123");
-        signupRequest.setRoles(strRoles);
-
-        User user = new User();
-        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
-        user.setEmail(signupRequest.getEmail());
-        user.setUsername(signupRequest.getEmail());
-        user.setPassword(
-            "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
-        user.setRoles(roles);
-
-        Mockito.when(userRepository.save(user)).thenReturn(user);
-        Mockito.when(userRepository.findByEmail(signupRequest.getEmail())).thenReturn(
-            java.util.Optional.of(user));
-        Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
-            java.util.Optional.of(new Role(ERole.ROLE_USER)));
-        Mockito.when(roleRepository.findByName(ERole.ROLE_DEVELOPER)).thenReturn(
-            java.util.Optional.of(new Role(ERole.ROLE_DEVELOPER)));
-        Mockito.when(roleRepository.findByName(ERole.ROLE_ADMIN)).thenReturn(
-            java.util.Optional.of(new Role(ERole.ROLE_ADMIN)));
-
-        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
-        Mockito.doNothing().when(mailService)
-            .sendVerificationEmail(user.getEmail(), user.getToken(), new Locale("dk"));
-
-        mvc.perform(post("/auth/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtilsService.asJsonString(signupRequest)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("userId", is(user.getUserId().toString())))
-            .andExpect(jsonPath("email", is(user.getEmail())))
-            .andExpect(jsonPath("$.roles", hasSize(3)))
-            .andExpect(jsonPath("tokenType", is("Bearer")))
-            .andExpect(jsonPath("accessToken", is(notNullValue())));
-    }
 }

@@ -5,4 +5,5 @@ export enum LocalStorageVars {
   designFamilyTree = 'designFamilyTree',
   discount = 'discount',
   plantedTrees = 'plantedTrees',
+  transactionItems = 'transactionItems',
 }

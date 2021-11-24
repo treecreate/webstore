@@ -1,29 +1,19 @@
 <div class="checkout-container">
     <div class="checkout-content-container">
         <div class="checkout-title">
-            <img
-                src="/assets/logos/tc-black-text-logo.svg"
-                class="checkout-logo add-transition"
-            />
+            <img src="/assets/logos/tc-black-text-logo.svg" class="checkout-logo add-transition" />
         </div>
         <div class="back-to-basket-container">
             <a routerLink="/basket" class="back-to-basket add-transition">
                 < <strong i18n="@@back-to-basket"> Back to basket </strong>
             </a>
         </div>
-        <form
-            class="checkout-content"
-            name="checkoutForm"
-            [formGroup]="checkoutForm"
-            (ngSubmit)="submitCheckout()"
-        >
+        <form class="checkout-content" name="checkoutForm" [formGroup]="checkoutForm" (ngSubmit)="submitCheckout()">
             <div class="section-container">
                 <!-- delivery address -->
                 <div class="checkout-section no-strech">
                     <div class="title-container" style="margin-bottom: 5px">
-                        <span class="title" i18n="@@shipping-address"
-                            >Shipping address
-                        </span>
+                        <span class="title" i18n="@@shipping-address">Shipping address </span>
                         <hr />
                     </div>
 
@@ -32,15 +22,10 @@
                             <input
                                 type="checkbox"
                                 [checked]="billingAddressIsTheSame"
-                                (change)="
-                                    billingAddressIsTheSame = !billingAddressIsTheSame
-                                "
+                                (change)="billingAddressIsTheSame = !billingAddressIsTheSame"
                                 data-cy="billing-address-is-the-same-checkbox"
                             />
-                            <span
-                                class="checkmark"
-                                data-cy="billing-address-is-the-same-button"
-                            ></span>
+                            <span class="checkmark" data-cy="billing-address-is-the-same-button"></span>
                         </label>
                         <div class="option-title" i18n="@@same-billing-address">
                             Billing address is the same as delivery address
@@ -57,17 +42,12 @@
                             autocomplete="name"
                             data-cy="checkout-form-name-input"
                         />
-                        <label for="name" class="tc-input-label">
-                            <span i18n="@@name">Name</span> *</label
-                        >
+                        <label for="name" class="tc-input-label"> <span i18n="@@name">Name</span> *</label>
                     </div>
 
                     <div
                         class="error-message"
-                        *ngIf="
-                            this.checkoutForm.get('name').dirty &&
-                            this.checkoutForm.get('name').invalid
-                        "
+                        *ngIf="this.checkoutForm.get('name').dirty && this.checkoutForm.get('name').invalid"
                         i18n="@@invalid-name"
                         data-cy="checkout-form-name-error-message"
                     >
@@ -85,19 +65,13 @@
                             autocomplete="phoneNumber"
                             data-cy="checkout-form-phone-number-input"
                         />
-                        <label
-                            for="phoneNumber"
-                            class="tc-input-label"
-                            i18n="@@phone-number"
-                            >Phone number</label
-                        >
+                        <label for="phoneNumber" class="tc-input-label" i18n="@@phone-number">Phone number</label>
                     </div>
 
                     <div
                         class="error-message"
                         *ngIf="
-                            this.checkoutForm.get('phoneNumber').dirty &&
-                            this.checkoutForm.get('phoneNumber').invalid
+                            this.checkoutForm.get('phoneNumber').dirty && this.checkoutForm.get('phoneNumber').invalid
                         "
                         i18n="@@invalid-phone-number"
                         data-cy="checkout-form-phone-number-error-message"
@@ -105,10 +79,7 @@
                         Invalid phone number.
                     </div>
 
-                    <div
-                        class="tc-input-group field"
-                        (click)="notAllowedToChangeEmailAlert()"
-                    >
+                    <div class="tc-input-group field">
                         <input
                             type="email"
                             class="tc-input-field"
@@ -118,11 +89,8 @@
                             id="profileEmail"
                             autocomplete="email"
                             data-cy="checkout-form-email-input"
-                            disabled
                         />
-                        <label for="email" class="tc-input-label"
-                            >E-mail *</label
-                        >
+                        <label for="email" class="tc-input-label">E-mail *</label>
                     </div>
 
                     <div class="tc-input-group field">
@@ -136,10 +104,7 @@
                             data-cy="checkout-form-street-address-input"
                         />
                         <label for="streetAddress" class="tc-input-label"
-                            ><span i18n="@@street-address">
-                                Street address</span
-                            >
-                            *</label
+                            ><span i18n="@@street-address"> Street address</span> *</label
                         >
                     </div>
 
@@ -193,15 +158,10 @@
                             placeholder="City"
                             data-cy="checkout-form-city-input"
                         />
-                        <label for="city" class="tc-input-label"
-                            ><span i18n="@@city">City</span> *
-                        </label>
+                        <label for="city" class="tc-input-label"><span i18n="@@city">City</span> * </label>
                         <div
                             class="error-message offset"
-                            *ngIf="
-                                this.checkoutForm.get('city').dirty &&
-                                this.checkoutForm.get('city').invalid
-                            "
+                            *ngIf="this.checkoutForm.get('city').dirty && this.checkoutForm.get('city').invalid"
                             i18n="@@invalid-city"
                             data-cy="checkout-form-city-error-message"
                         >
@@ -219,15 +179,10 @@
                             placeholder="1234"
                             data-cy="checkout-form-postcode-input"
                         />
-                        <label for="postcode" class="tc-input-label">
-                            <span i18n="@@postcode">Postcode</span> *</label
-                        >
+                        <label for="postcode" class="tc-input-label"> <span i18n="@@postcode">Postcode</span> *</label>
                         <div
                             class="error-message offset"
-                            *ngIf="
-                                this.checkoutForm.get('postcode').dirty &&
-                                this.checkoutForm.get('postcode').invalid
-                            "
+                            *ngIf="this.checkoutForm.get('postcode').dirty && this.checkoutForm.get('postcode').invalid"
                             i18n="@@invalid-postcode"
                             data-cy="checkout-form-postcode-error-message"
                         >
@@ -247,9 +202,7 @@
                     <!-- billing address -->
                     <div class="checkout-section no-strech">
                         <div class="title-container">
-                            <span class="title" i18n="@@billing-address"
-                                >Billing address
-                            </span>
+                            <span class="title" i18n="@@billing-address">Billing address </span>
                             <hr />
                         </div>
 
@@ -263,18 +216,14 @@
                                 autocomplete="billingName"
                                 data-cy="billing-address-name-input"
                             />
-                            <label for="billingName" class="tc-input-label">
-                                <span i18n="@@name"> Name</span> *</label
-                            >
+                            <label for="billingName" class="tc-input-label"> <span i18n="@@name"> Name</span> *</label>
                         </div>
 
                         <div
                             class="error-message"
                             *ngIf="
-                                this.billingAddressForm.get('billingName')
-                                    .dirty &&
-                                this.billingAddressForm.get('billingName')
-                                    .invalid
+                                this.billingAddressForm.get('billingName').dirty &&
+                                this.billingAddressForm.get('billingName').invalid
                             "
                             i18n="@@invalid-name"
                             data-cy="billing-address-name-error-message"
@@ -292,13 +241,8 @@
                                 id="billingStreetAddress"
                                 data-cy="billing-address-street-address-input"
                             />
-                            <label
-                                for="billingStreetAddress"
-                                class="tc-input-label"
-                            >
-                                <span i18n="@@street-address"
-                                    >Street address
-                                </span>
+                            <label for="billingStreetAddress" class="tc-input-label">
+                                <span i18n="@@street-address">Street address </span>
                                 *</label
                             >
                         </div>
@@ -306,12 +250,8 @@
                         <div
                             class="error-message"
                             *ngIf="
-                                this.billingAddressForm.get(
-                                    'billingStreetAddress'
-                                ).dirty &&
-                                this.billingAddressForm.get(
-                                    'billingStreetAddress'
-                                ).invalid
+                                this.billingAddressForm.get('billingStreetAddress').dirty &&
+                                this.billingAddressForm.get('billingStreetAddress').invalid
                             "
                             i18n="@@invalid-street-address"
                             data-cy="billing-address-street-address-error-message"
@@ -329,24 +269,15 @@
                                 id="billingStreetAddress2"
                                 data-cy="billing-address-street-address-2-input"
                             />
-                            <label
-                                for="billingStreetAddress2"
-                                class="tc-input-label"
-                            >
-                                <span i18n="@@street-address"
-                                    >Street address</span
-                                >
+                            <label for="billingStreetAddress2" class="tc-input-label">
+                                <span i18n="@@street-address">Street address</span>
                                 2</label
                             >
                         </div>
 
                         <div
                             class="error-message"
-                            *ngIf="
-                                this.billingAddressForm.get(
-                                    'billingStreetAddress2'
-                                ).invalid
-                            "
+                            *ngIf="this.billingAddressForm.get('billingStreetAddress2').invalid"
                             i18n="@@invalid-street-address"
                             data-cy="billing-address-street-address-2-error-message"
                         >
@@ -363,16 +294,12 @@
                                 placeholder="City"
                                 data-cy="billing-address-city-input"
                             />
-                            <label for="billingCity" class="tc-input-label">
-                                <span i18n="@@city"> City</span> *
-                            </label>
+                            <label for="billingCity" class="tc-input-label"> <span i18n="@@city"> City</span> * </label>
                             <div
                                 class="error-message offset"
                                 *ngIf="
-                                    this.billingAddressForm.get('billingCity')
-                                        .dirty &&
-                                    this.billingAddressForm.get('billingCity')
-                                        .invalid
+                                    this.billingAddressForm.get('billingCity').dirty &&
+                                    this.billingAddressForm.get('billingCity').invalid
                                 "
                                 i18n="@@invalid-city"
                                 data-cy="billing-address-city-error-message"
@@ -398,12 +325,8 @@
                             <div
                                 class="error-message offset"
                                 *ngIf="
-                                    this.billingAddressForm.get(
-                                        'billingPostcode'
-                                    ).dirty &&
-                                    this.billingAddressForm.get(
-                                        'billingPostcode'
-                                    ).invalid
+                                    this.billingAddressForm.get('billingPostcode').dirty &&
+                                    this.billingAddressForm.get('billingPostcode').invalid
                                 "
                                 i18n="@@invalid-postcode"
                                 data-cy="billing-address-postcode-error-message"
@@ -419,9 +342,7 @@
                     <div class="delivery-payment-section">
                         <!-- delivery method -->
                         <div class="title-container">
-                            <span class="title" i18n="@@delivery"
-                                >Delivery</span
-                            >
+                            <span class="title" i18n="@@delivery">Delivery</span>
                             <hr />
                         </div>
                         <div class="option">
@@ -432,15 +353,10 @@
                                     (change)="changeDelivery()"
                                     data-cy="checkout-form-parcelshop-checkbox"
                                 />
-                                <span
-                                    class="checkmark"
-                                    data-cy="checkout-form-parcelshop-button"
-                                ></span>
+                                <span class="checkmark" data-cy="checkout-form-parcelshop-button"></span>
                             </label>
                             <div class="option-title">
-                                <div class="type" i18n="@@parcel-shop-delivery">
-                                    Parcelshop delivery
-                                </div>
+                                <div class="type" i18n="@@parcel-shop-delivery">Parcelshop delivery</div>
                                 <div class="price">00,00 DKK</div>
                             </div>
                         </div>
@@ -501,15 +417,10 @@
                                     (change)="changeDelivery()"
                                     data-cy="checkout-form-home-delivery-checkbox"
                                 />
-                                <span
-                                    class="checkmark"
-                                    data-cy="checkout-form-home-delivery-button"
-                                ></span>
+                                <span class="checkmark" data-cy="checkout-form-home-delivery-button"></span>
                             </label>
                             <div class="option-title">
-                                <div class="type" i18n="@@home-delivery">
-                                    Home delivery
-                                </div>
+                                <div class="type" i18n="@@home-delivery">Home delivery</div>
                                 <div class="price">29,00 DKK</div>
                             </div>
                         </div>
@@ -523,15 +434,8 @@
                     <span class="title" i18n="@@your-order">Your Order</span>
                     <hr />
                 </div>
-                <ngb-alert
-                    *ngIf="alert"
-                    type="danger"
-                    (closed)="alert = undefined"
-                    [dismissible]="alert.dismissible"
-                >
-                    <h3>
-                        {{ alert.type === 'danger' ? 'Error' : alert.type }}!
-                    </h3>
+                <ngb-alert *ngIf="alert" type="danger" (closed)="alert = undefined" [dismissible]="alert.dismissible">
+                    <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
                     {{ alert.message }}</ngb-alert
                 >
 
@@ -540,6 +444,7 @@
                     <webstore-checkout-item
                         *ngFor="let item of itemList"
                         [item]="item"
+                        data-cy="checkout-item"
                     ></webstore-checkout-item>
                 </div>
                 <div *ngIf="isLoading" class="loading-screen">
@@ -553,31 +458,19 @@
                 </div>
 
                 <div class="trees-planted-container" *ngIf="plantedTrees > 0">
-                    <img
-                        src="../../../../assets/icons/seed-icon.svg"
-                        alt=""
-                        class="seed-icon show-mobile"
-                    />
+                    <img src="../../../../assets/icons/seed-icon.svg" alt="" class="seed-icon show-mobile" />
                     <div class="trees-planted">
                         <div>
-                            <img
-                                src="../../../../assets/icons/seed-icon.svg"
-                                alt=""
-                                class="seed-icon remove-mobile"
-                            />
+                            <img src="../../../../assets/icons/seed-icon.svg" alt="" class="seed-icon remove-mobile" />
                             <!-- TODO - fetch/calculate the extra trees properly -->
-                            <span i18n="@@thank-you-for-planting"
-                                >Thank you for planting</span
-                            >
+                            <span i18n="@@thank-you-for-planting">Thank you for planting</span>
 
                             <strong>
                                 {{ plantedTrees }}
                             </strong>
                             <span i18n="@@tree">tree(s)!</span>
                         </div>
-                        <div class="trees-planted-price">
-                            {{ priceInfo.extraTreesPrice.toFixed(2) }} DKK
-                        </div>
+                        <div class="trees-planted-price">{{ priceInfo.extraTreesPrice.toFixed(2) }} DKK</div>
                     </div>
                 </div>
 
@@ -585,76 +478,42 @@
                 <div class="order-info-section">
                     <div class="info-line">
                         <span i18n="@@subtotal">Subtotal</span
-                        ><span>{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
+                        ><span data-cy="checkout-subtotal">{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
                     </div>
-                    <div
-                        class="info-line"
-                        [ngClass]="
-                            priceInfo.discountAmount > 0 ? 'green-text' : ''
-                        "
-                    >
+                    <div class="info-line" [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''">
                         <span i18n="@@you-save">You save</span
-                        ><span
-                            >{{ priceInfo.discountAmount.toFixed(2) }} DKK</span
-                        >
+                        ><span data-cy="checkout-save">{{ priceInfo.discountAmount.toFixed(2) }} DKK</span>
                     </div>
                     <div class="info-line">
                         <span i18n="@@delivery">Delivery</span
-                        ><span
-                            >{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span
-                        >
+                        ><span data-cy="checkout-delivery">{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span>
                     </div>
                     <div class="info-line total">
                         <span i18n="@@total">Total</span
-                        ><span>{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
+                        ><span data-cy="checkout-total">{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
                     </div>
                     <div class="info-line vat">
-                        <span i18n="@@vat">VAT</span
-                        ><span>{{ priceInfo.vat.toFixed(2) }} DKK</span>
+                        <span i18n="@@vat">VAT</span><span>{{ priceInfo.vat.toFixed(2) }} DKK</span>
                     </div>
                 </div>
 
                 <!-- Actions -->
                 <div class="actions">
                     <hr />
-                    <div
-                        class="option margin-top"
-                        *ngIf="!isSubscribed"
-                        data-cy="checkout-form-subscribe-option"
-                    >
-                        <label class="checkbox-container rm-margin">
-                            <input
-                                type="checkbox"
-                                [checked]="subscribeToNewsletter"
-                                (change)="
-                                    subscribeToNewsletter = !subscribeToNewsletter
-                                "
-                            />
-                            <span class="checkmark"></span>
-                        </label>
-                        <div class="option-title" i18n="@@subscribe-to-get-25%">
-                            Subscribe to newsletter - 25% off next purchase
-                        </div>
-                    </div>
+
+                    <!-- Accept T&C for sale checkbox -->
                     <div class="terms-and-conditions-container">
                         <label class="checkbox-container">
                             <input
                                 type="checkbox"
                                 [checked]="isTermsAndConditionsAccepted"
-                                (change)="
-                                    isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted
-                                "
+                                (change)="isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted"
                                 data-cy="checkout-form-terms-checkbox"
                             />
-                            <span
-                                class="checkmark"
-                                data-cy="checkout-form-terms-button"
-                            ></span>
+                            <span class="checkmark" data-cy="checkout-form-terms-button"></span>
                         </label>
                         <div class="option-title">
-                            <span i18n="@@accept-terms"
-                                >I accept terms and conditions</span
-                            >
+                            <span i18n="@@accept-terms">I accept terms and conditions</span>
                             <a
                                 class="TnC"
                                 (click)="showTermsOfSale()"
@@ -670,9 +529,7 @@
                         [disabled]="!isDisabled()"
                         data-cy="checkout-form-go-to-payment-button"
                     >
-                        <span i18n="@@go-to-quickpay" *ngIf="!isLoading"
-                            >Go to Quickpay</span
-                        >
+                        <span i18n="@@go-to-quickpay" *ngIf="!isLoading">Go to Quickpay</span>
                         <span
                             *ngIf="isLoading"
                             class="spinner-border spinner-border-sm text-light"

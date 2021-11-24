@@ -26,9 +26,7 @@ export class CollectionComponent implements OnInit {
 
   removeItemFromList(itemId: string) {
     console.warn('deleting design from collection', itemId);
-    this.designCollection = this.designCollection.filter(
-      (item) => itemId !== item.designId
-    );
+    this.designCollection = this.designCollection.filter((item) => itemId !== item.designId);
   }
 
   getDesigns(): void {

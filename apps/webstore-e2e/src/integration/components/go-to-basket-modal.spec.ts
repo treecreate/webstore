@@ -49,14 +49,8 @@ describe('go to basket modal', () => {
   };
 
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('POST', '/designs', {
       body: mockCreateDesignRequest,
       statusCode: 200,
@@ -89,9 +83,7 @@ describe('go to basket modal', () => {
     cy.url().should('contain', '/product');
     cy.url().should('not.contain', '?designId=');
     //Check the localstorage to be cleared
-    const localStorageDesignAfter = JSON.parse(
-      localStorage.getItem(LocalStorageVars.designFamilyTree)
-    );
+    const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
     cy.wrap(localStorageDesignAfter).its('title').should('contain', '');
   });
 });

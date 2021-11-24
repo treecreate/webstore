@@ -1,6 +1,6 @@
-import { DiscountType } from './discount-type.enum';
+import { DiscountType, IBase } from '..';
 
-export interface IDiscount {
+export interface IDiscount extends IBase {
   discountId?: string;
   discountCode: string;
   type: DiscountType;

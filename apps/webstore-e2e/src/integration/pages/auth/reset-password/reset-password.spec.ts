@@ -14,9 +14,7 @@ describe('resetPasswordPage', () => {
     cy.get('[data-cy=reset-password-password-input]').type('abcDEFabcDEF');
     cy.get('[data-cy=reset-password-password-error-message]').should('exist');
     cy.get('[data-cy=reset-password-password-input]').type('123');
-    cy.get('[data-cy=reset-password-password-error-message]').should(
-      'not.exist'
-    );
+    cy.get('[data-cy=reset-password-password-error-message]').should('not.exist');
     cy.get('[data-cy=reset-password-password-input]').clear();
     cy.get('[data-cy=reset-password-password-input]').type('abCD12');
     cy.get('[data-cy=reset-password-password-error-message]').should('exist');
@@ -25,14 +23,10 @@ describe('resetPasswordPage', () => {
   it("should display confirm password error message when it doesn't match password", () => {
     cy.get('[data-cy=reset-password-password-input]').type('abcDEF123');
     cy.get('[data-cy=reset-password-confirm-password-input]').type('abcDEF321');
-    cy.get('[data-cy=reset-password-confirm-password-error-message]').should(
-      'exist'
-    );
+    cy.get('[data-cy=reset-password-confirm-password-error-message]').should('exist');
     cy.get('[data-cy=reset-password-confirm-password-input]').clear();
     cy.get('[data-cy=reset-password-confirm-password-input]').type('abcDEF123');
-    cy.get('[data-cy=reset-password-confirm-password-error-message]').should(
-      'not.exist'
-    );
+    cy.get('[data-cy=reset-password-confirm-password-error-message]').should('not.exist');
   });
 
   it("should disable reset password button when passwords don't match", () => {

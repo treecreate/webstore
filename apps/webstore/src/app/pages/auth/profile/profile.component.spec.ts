@@ -13,7 +13,6 @@ describe('ProfileComponent', () => {
     userId: '1',
     email: 'e2e@test.com',
     roles: [UserRoles.user],
-    isVerified: true,
     name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',

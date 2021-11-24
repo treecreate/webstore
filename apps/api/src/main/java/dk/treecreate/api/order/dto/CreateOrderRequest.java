@@ -6,7 +6,6 @@ import dk.treecreate.api.utils.model.quickpay.PaymentState;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

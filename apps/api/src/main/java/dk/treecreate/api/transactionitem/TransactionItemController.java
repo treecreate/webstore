@@ -5,6 +5,7 @@ import dk.treecreate.api.designs.Design;
 import dk.treecreate.api.designs.DesignDimension;
 import dk.treecreate.api.designs.DesignRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.transactionitem.dto.CreateBulkTransactionItemsRequest;
 import dk.treecreate.api.transactionitem.dto.CreateTransactionItemRequest;
 import dk.treecreate.api.transactionitem.dto.GetTransactionItemsResponse;
 import dk.treecreate.api.transactionitem.dto.UpdateTransactionItemRequest;
@@ -18,10 +19,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -151,6 +154,57 @@ public class TransactionItemController
         transactionItem.setQuantity(createTransactionItemRequest.getQuantity());
         return transactionItemRepository.save(transactionItem);
     }
+
+    @PostMapping("me/bulk")
+    @Operation(
+        summary = "Create multiple transaction items and their designs with a single request")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "List of transaction items and their designs",
+            response = GetTransactionItemsResponse.class)})
+    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    @Transactional()
+    public List<TransactionItem> createBulk(
+        @RequestBody() @Valid CreateBulkTransactionItemsRequest createTransactionItemRequest)
+    {
+        var userDetails = authUserService.getCurrentlyAuthenticatedUser();
+        User user = userRepository.findByEmail(userDetails.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        var createdItems = new ArrayList<TransactionItem>();
+        for (var item : createTransactionItemRequest.getTransactionItems())
+        {
+            TransactionItem transactionItem = new TransactionItem();
+
+            // check if the design type allows the given dimension
+            switch (item.getDesign().getDesignType())
+            {
+                case FAMILY_TREE:
+                    if (item.getDimension().equals(DesignDimension.ONE_SIZE))
+                    {
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                            "Design of type 'FAMILY_TREE' can't be saved with dimension 'ONE_SIZE'");
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            // save the design
+            Design design = new Design();
+            design.setDesignType(item.getDesign().getDesignType());
+            design.setDesignProperties(item.getDesign().getDesignProperties());
+            design.setMutable(false);
+            design.setUser(user);
+            design = this.designRepository.save(design);
+
+            transactionItem.setDesign(design);
+            transactionItem.setDimension(item.getDimension());
+            transactionItem.setQuantity(item.getQuantity());
+
+            createdItems.add(transactionItemRepository.save(transactionItem));
+        }
+        return createdItems;
+    }
+
 
     @PutMapping("me/{transactionItemId}")
     @Operation(summary = "Update a transaction item")

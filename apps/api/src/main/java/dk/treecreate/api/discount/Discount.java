@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -71,10 +72,15 @@ public class Discount
     @Column(name = "expires_at", nullable = true)
     private Date expiresAt;
 
-    @ApiModelProperty(name = "Date the discount entry was created at",
+    @ApiModelProperty(name = "Date the entity was created at",
         example = "2021-08-31T19:40:10.000+00:00")
     @CreationTimestamp
     private Date createdAt;
+
+    @ApiModelProperty(name = "Date the entity was updated at",
+        example = "2021-08-31T19:40:10.000+00:00")
+    @UpdateTimestamp
+    private Date updatedAt;
 
     public UUID getDiscountId()
     {
@@ -154,6 +160,16 @@ public class Discount
     public void setCreatedAt(Date createdAt)
     {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt()
+    {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt)
+    {
+        this.updatedAt = updatedAt;
     }
 
     @Override public boolean equals(Object o)
