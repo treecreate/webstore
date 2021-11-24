@@ -2,15 +2,20 @@ FROM node:lts-alpine3.14 AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
 
 ARG LOG_LEVEL=notice
 ARG ENV=dev
 
-RUN if [[ $ENV == "prod" ]] ; \
+RUN if [[ $ENV == "prod" ]] ;													\
 	then npm install --legacy-peer-deps --loglevel ${LOG_LEVEL} --only=prod;	\
 	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};				\
     fi
+
+# Needed to build production
+RUN if [[ $ENV == "prod" ]] ;	\
+	then npm install nx; 		\
+	fi
 
 COPY ./assets ./assets
 COPY ./libs ./libs
@@ -22,7 +27,9 @@ COPY workspace.json ./workspace.json
 RUN npm run build:webstore:${ENV}
 
 FROM nginx:alpine
+
 WORKDIR /app
+
 COPY .deploy/webstore/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/apps/webstore /usr/share/nginx/html
 
