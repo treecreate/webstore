@@ -23,7 +23,7 @@
     }
   },
   "exclude": ["node_modules", "tmp"],
-  "angularCompilerOtions" : {
+  "angularCompilerOptions" : {
     "enableIvy": false
   }
 }
