@@ -9,8 +9,8 @@ FROM node:lts-alpine3.14 AS builder
 # Directory to work in the container
 WORKDIR /app
 
-# Copy package.json to the root of container
-COPY package.json .
+# Copy package.json to the root of the WORKDIR
+COPY package.json ./
 
 # Set required ENVs
 ARG ENV=dev
@@ -34,14 +34,6 @@ COPY nx.json ./nx.json
 COPY tsconfig.base.json ./tsconfig.base.json
 COPY workspace.json ./workspace.json
 
-# Install NX since it is not installed in our repository
-# If we skip this step the prod build fails, as it is not a prod dependency
-RUN npm install nx
-
-# Not required as such, but there are lots of translation warnings from angular 
-#   to js. This makes those issues go away and I advise we keep it there 
-# RUN npm install @angular/cli
-
 # Execute this command in the docker container
 RUN npm run build:admin:${ENV}
 
@@ -64,4 +56,3 @@ COPY --from=builder /app/dist/apps/admin-page /usr/share/nginx/html
 CMD [ "/bin/sh", "-c", "exec nginx -g \"daemon off;\""]
 
 ###### runtime environment END
-
