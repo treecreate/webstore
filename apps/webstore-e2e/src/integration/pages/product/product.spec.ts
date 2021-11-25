@@ -212,7 +212,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=font]').should('have.text', 'argestadisplay-italic');
       cy.get('[data-cy=font-prev-btn]').click();
       cy.get('[data-cy=font-prev-btn]').click();
-      cy.get('[data-cy=font]').should('have.text', 'bairol-bold-italic');
+      cy.get('[data-cy=font]').should('have.text', 'knile');
     });
 
     // Banner
