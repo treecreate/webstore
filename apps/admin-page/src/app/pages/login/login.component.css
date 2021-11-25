@@ -1,0 +1,33 @@
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-width: 400px;
+}
+
+.password-input,
+.email-input,
+.login-btn {
+  width: 100%;
+}
+
+.password-input::placeholder,
+.email-input::placeholder,
+.input-label {
+  color: gray !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: rgb(246, 246, 246);
+}
+
+::ng-deep input.mat-input-element::placeholder {
+  color: gray !important;
+}
