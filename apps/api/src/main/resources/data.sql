@@ -228,22 +228,42 @@ SELECT  discounts.*
 FROM
 ( (
 	SELECT  '2f61a7a1-499d-45bb-8229-53f70a4475c4' AS discount_id
-	       ,60                                     AS amount
+	       ,100                                     AS amount
 	       ,null                                   AS created_at
 	       ,'populated_discount'                   AS discount_code
-	       ,null                                   AS expires_at
-	       ,10                                     AS remaining_uses
+	       ,'2026-06-06 06:06:06'                  AS expires_at
+	       ,100                                    AS remaining_uses
 	       ,0                                      AS total_uses
 	       ,0                                      AS type
 	       ,null                                   AS updated_at )
 	UNION ALL(
 	SELECT  '35c90960-1da4-4ff0-93df-622fb5718e55' AS discount_id
-	       ,50                                     AS amount
+	       ,10                                    AS amount
 	       ,null                                   AS created_at
 	       ,'populated_discount2'                  AS discount_code
-	       ,null                                   AS expires_at
-	       ,10                                     AS remaining_uses
+	       ,'2026-06-06 06:06:06'                  AS expires_at
+	       ,100                                     AS remaining_uses
 	       ,0                                      AS total_uses
+	       ,1                                      AS type
+	       ,null                                   AS updated_at )
+	UNION ALL(
+	SELECT  '4de4d970-b863-47af-9733-ea5cd3a131ba' AS discount_id
+	       ,50                                     AS amount
+	       ,null                                   AS created_at
+	       ,'populated_discount_expired'           AS discount_code
+	       ,'2006-06-06 06:06:06'                  AS expires_at
+	       ,100                                     AS remaining_uses
+	       ,0                                      AS total_uses
+	       ,0                                      AS type
+	       ,null                                   AS updated_at )
+	UNION ALL(
+	SELECT  '6ac1230f-0f21-438c-9453-ec1edc95f6c6' AS discount_id
+	       ,50                                     AS amount
+	       ,null                                   AS created_at
+	       ,'populated_discount_no_uses'           AS discount_code
+	       ,'2026-06-06 06:06:06'                  AS expires_at
+	       ,0                                      AS remaining_uses
+	       ,1                                      AS total_uses
 	       ,1                                      AS type
 	       ,null                                   AS updated_at )
 ) discounts
