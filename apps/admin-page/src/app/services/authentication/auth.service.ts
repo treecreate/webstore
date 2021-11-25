@@ -5,7 +5,7 @@ import { IAuthUser, ILoginRequestParams, ILoginResponse, IRegisterRequestParams,
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
-import { environment as env } from '../../../../environments/environment';
+import { environment as env } from '../../../environments/environment';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
