@@ -39,7 +39,7 @@ FROM
 	       ,null                                                           AS city
 	       ,null                                                           AS country
 	       ,null                                                           AS created_at
-	       ,'admin@not.real'                                               AS email
+	       ,'admin@example.com'                                            AS email
 	       ,1                                                              AS is_verified
 	       ,'Populated'                                                    AS name
 	       ,'$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62' AS password
@@ -49,13 +49,13 @@ FROM
 	       ,null                                                           AS street_address_2
 	       ,'2cd5372d-b945-48d3-83a2-82696fbb8bcd'                         AS token
 	       ,null                                                           AS updated_at
-	       ,'admin@not.real'                                               AS username)
+	       ,'admin@example.com'                                            AS username)
 	UNION ALL(
 	SELECT  'ac86995f-60ae-4520-a434-c8abc98980b9'                         AS user_id
 	       ,null                                                           AS city
 	       ,null                                                           AS country
 	       ,null                                                           AS created_at
-	       ,'regular@not.real'                                             AS email
+	       ,'user@example.com'                                             AS email
 	       ,1                                                              AS is_verified
 	       ,'Populatedtwo'                                                 AS name
 	       ,'$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62' AS password
@@ -65,7 +65,7 @@ FROM
 	       ,null                                                           AS street_address_2
 	       ,'3ceb8eda-1b03-4bf7-a85c-9d16a8ffa7ac'                         AS token
 	       ,null                                                           AS updated_at
-	       ,'regular@not.real'                                             AS username)
+	       ,'user@example.com'                                             AS username)
 ) users
 WHERE NOT EXISTS (
 SELECT  *
@@ -279,17 +279,17 @@ FROM
 ( (
 	SELECT  '099eb1f4-f62b-4583-9b4f-dfd97b5cf01f' AS newsletter_id
 	       ,null                                   AS created_at
-	       ,'regular@not.real'                     AS email
+	       ,'user@example.com'                     AS email
 	       ,null                                   AS updated_at )
 	UNION ALL(
 	SELECT  '689bac72-21bf-4269-b283-6517e7a40289' AS newsletter_id
 	       ,null                                   AS created_at
-	       ,'customer@not.real'                    AS email
+	       ,'customer@example.com'                    AS email
 	       ,null                                   AS updated_at )
 	UNION ALL(
 	SELECT  'd5dfe873-3e58-4a01-ac6e-7dfcded60354' AS newsletter_id
 	       ,null                                   AS created_at
-	       ,'user@not.real'                        AS email
+	       ,'random@example.com'                        AS email
 	       ,null                                   AS updated_at )
 ) newsletter
 WHERE NOT EXISTS (
