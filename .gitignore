@@ -35,6 +35,7 @@ yarn-error.log
 testem.log
 /typings
 .angular
+package-lock.json
 
 # System Files
 .DS_Store
