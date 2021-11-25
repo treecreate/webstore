@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'webstore-temp',
   templateUrl: './temp.component.html',
   styleUrls: ['./temp.component.css'],
 })
-export class TempComponent implements OnInit {
+export class TempComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 }
