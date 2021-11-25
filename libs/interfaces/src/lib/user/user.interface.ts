@@ -1,16 +1,16 @@
+import { IBase } from '..';
+
 export interface IAuthUser {
   userId: string;
   email: string;
-  isVerified: boolean;
   roles: string[];
   accessToken: string;
   tokenType: string;
 }
-export interface IUser {
+export interface IUser extends IBase {
   userId: string;
   email: string;
   roles: string[];
-  isVerified: boolean;
   name?: string;
   phoneNumber?: string;
   streetAddress?: string;

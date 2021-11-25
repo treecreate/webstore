@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -9,9 +9,7 @@ export class ToastService {
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   constructor(private localStorageService: LocalStorageService) {
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
   }
 

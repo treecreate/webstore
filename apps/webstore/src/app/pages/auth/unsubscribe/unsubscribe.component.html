@@ -1,10 +1,7 @@
 <div class="newsletter-unsubscribe-container">
     <div class="newsletter-unsubscribe-section">
         <div class="header">
-            <img
-                src="../../../assets/icons/send-email-brown-icon.svg"
-                class="header-icon"
-            />
+            <img src="../../../assets/icons/send-email-brown-icon.svg" class="header-icon" />
         </div>
         <br />
         <div>
@@ -12,9 +9,7 @@
         </div>
         <br />
         <div *ngIf="isLoading" class="newsletter-unsubscribe-status-container">
-            <p i18n="@@unsubscribe-please-wait-while-we-verify">
-                Please wait while we unsubscribe you from newsletter
-            </p>
+            <p i18n="@@unsubscribe-please-wait-while-we-verify">Please wait while we unsubscribe you from newsletter</p>
             <span
                 class="spinner-border spinner-border-sm"
                 style="margin: 0 10px"
@@ -34,50 +29,25 @@
                         height="30"
                         data-cy="unsubscribe-success-icon"
                     />
-                    <p
-                        class="remove-margin"
-                        i18n="@@unsubscribe-success"
-                        data-cy="unsubscribe-success-message"
-                    >
+                    <p class="remove-margin" i18n="@@unsubscribe-success" data-cy="unsubscribe-success-message">
                         Unsubscribed!
                     </p>
                 </div>
             </div>
             <div *ngIf="!isUnsubscribeSuccessful">
-                <p i18n="@@unsubscribing-failed-subtitle">
-                    We have failed to unsubscribe you from the newsletter
-                </p>
+                <p i18n="@@unsubscribing-failed-subtitle">We have failed to unsubscribe you from the newsletter</p>
 
-                <span
-                    class="glyphicon glyphicon-exclamation-sign"
-                    aria-hidden="true"
-                ></span>
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 
-                <div
-                    class="message-container newsletter-unsubscribe-failed-message"
-                >
-                    <img
-                        src="/assets/icons/error-icon.svg"
-                        width="30"
-                        height="30"
-                        data-cy="unsubscribe-failed-icon"
-                    />
-                    <p
-                        class="remove-margin"
-                        data-cy="unsubscribe-error-message"
-                    >
+                <div class="message-container newsletter-unsubscribe-failed-message">
+                    <img src="/assets/icons/error-icon.svg" width="30" height="30" data-cy="unsubscribe-failed-icon" />
+                    <p class="remove-margin" data-cy="unsubscribe-error-message">
                         {{ errorMessage }}
                     </p>
                 </div>
             </div>
             <div class="actions">
-                <button
-                    data-cy="unsubscribe-home-btn"
-                    routerLink="/"
-                    class="tc-button-25 home-button"
-                >
-                    Home
-                </button>
+                <button data-cy="unsubscribe-home-btn" routerLink="/" class="tc-button-25 home-button">Home</button>
             </div>
         </div>
     </div>

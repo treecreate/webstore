@@ -4,10 +4,7 @@ import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 describe('introduction modal', () => {
   const authMockService = new AuthenticationService();
   beforeEach(() => {
-    localStorage.setItem(
-      LocalStorageVars.cookiesAccepted,
-      `"${CookieStatus.accepted}"`
-    );
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
   });
 
   it('should display the intro modal when user not logged in', () => {
@@ -21,10 +18,7 @@ describe('introduction modal', () => {
   });
 
   it('should not display intro if user is logged in', () => {
-    localStorage.setItem(
-      LocalStorageVars.authUser,
-      JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
-    );
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.visit('/product');
     cy.get('[data-cy=family-tree-intro-modal]').should('not.exist');
   });

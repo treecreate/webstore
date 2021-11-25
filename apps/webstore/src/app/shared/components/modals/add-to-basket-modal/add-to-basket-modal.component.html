@@ -1,9 +1,5 @@
 <div class="modal-container add-transition" data-cy="add-to-basket-modal">
-    <form
-        [formGroup]="addToBasketForm"
-        (ngSubmit)="addDesignToBasket()"
-        class="modal-content"
-    >
+    <form [formGroup]="addToBasketForm" (ngSubmit)="addDesignToBasket()" class="modal-content">
         <div class="option-title">
             <div class="title">
                 <span i18n="@@title">Title</span>
@@ -18,20 +14,12 @@
             </div>
             <div
                 class="option-design-title add-transition"
-                [ngClass]="
-                    this.addToBasketForm.get('title').invalid
-                        ? 'title-error'
-                        : 'title-success'
-                "
+                [ngClass]="this.addToBasketForm.get('title').invalid ? 'title-error' : 'title-success'"
             >
                 <input
                     type="text"
                     class="title-input"
-                    placeholder="{{
-                        isEnglish()
-                            ? 'Navngiv dit design...'
-                            : 'Name your design...'
-                    }}"
+                    placeholder="{{ isEnglish() ? 'Navngiv dit design...' : 'Name your design...' }}"
                     formControlName="title"
                     data-cy="add-to-basket-title-input"
                 />
@@ -58,9 +46,7 @@
                     (click)="decreaseQuantity()"
                     id="decrease-quantity-btn"
                     data-cy="add-to-basket-decrease-quantity-button"
-                    [disabled]="
-                        this.addToBasketForm.get('quantity').value === 1
-                    "
+                    [disabled]="this.addToBasketForm.get('quantity').value === 1"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
@@ -101,20 +87,14 @@
                     (click)="decreaseDimension()"
                     id="decrease-dimension-btn"
                     data-cy="add-to-basket-decrease-dimension-button"
-                    [disabled]="
-                        this.addToBasketForm.get('dimension').value === 'SMALL'
-                    "
+                    [disabled]="this.addToBasketForm.get('dimension').value === 'SMALL'"
                 >
                     <div class="icon">
                         <div class="button-minus"></div>
                     </div>
                 </button>
                 <div class="quantity" data-cy="add-to-basket-dimension">
-                    {{
-                        translateDimension(
-                            this.addToBasketForm.get('dimension').value
-                        )
-                    }}
+                    {{ translateDimension(this.addToBasketForm.get('dimension').value) }}
                 </div>
                 <button
                     type="button"
@@ -122,9 +102,7 @@
                     (click)="increaseDimension()"
                     id="increase-dimension-btn"
                     data-cy="add-to-basket-increase-dimension-button"
-                    [disabled]="
-                        this.addToBasketForm.get('dimension').value === 'LARGE'
-                    "
+                    [disabled]="this.addToBasketForm.get('dimension').value === 'LARGE'"
                 >
                     <div class="button-plus"></div>
                 </button>
@@ -142,22 +120,15 @@
         <div class="price-container" *ngIf="!isLoading">
             <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
                 <span i18n="@@order">Order </span
-                >{{
-                    4 -
-                        (this.itemsInBasket +
-                            this.addToBasketForm.get('quantity').value)
-                }}<span i18n="@@more-to-save">more to save </span>
-                {{ amountSaved().toFixed(2) }} DKK
+                >{{ 4 - (this.itemsInBasket + this.addToBasketForm.get('quantity').value)
+                }}<span i18n="@@more-to-save">more to save </span> {{ amountSaved().toFixed(2) }} DKK
             </div>
             <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
-                <span i18n="@@you-save-25%">You save: (-25%)</span
-                ><span>{{ amountSaved().toFixed(2) }}</span>
+                <span i18n="@@you-save-25%">You save: (-25%)</span><span>{{ amountSaved().toFixed(2) }}</span>
             </div>
             <div class="price add-transition">
                 <span i18n="@@price">Price:</span
-                ><span>{{
-                    isMoreThan4 ? (price * 0.75).toFixed(2) : price.toFixed(2)
-                }}</span>
+                ><span>{{ isMoreThan4 ? (price * 0.75).toFixed(2) : price.toFixed(2) }}</span>
             </div>
         </div>
 
@@ -170,9 +141,7 @@
                     data-cy="add-to-basket-add-to-basket-button"
                     [disabled]="this.addToBasketForm.get('title').invalid"
                 >
-                    <span i18n="@@add-to-basket" *ngIf="!isLoading"
-                        >Add to basket</span
-                    >
+                    <span i18n="@@add-to-basket" *ngIf="!isLoading">Add to basket</span>
                     <span
                         *ngIf="isLoading"
                         class="spinner-border spinner-border-sm text-light"
@@ -181,13 +150,7 @@
                         aria-hidden="true"
                     ></span>
                 </button>
-                <button
-                    type="button"
-                    class="tc-button-100"
-                    type="button"
-                    (click)="activeModal.close()"
-                    i18n="@@cancel"
-                >
+                <button type="button" class="tc-button-100" type="button" (click)="activeModal.close()" i18n="@@cancel">
                     Cancel
                 </button>
             </div>
@@ -198,16 +161,11 @@
             <div class="extra-info add-transition">
                 <strong i18n="@@note">Note:</strong><br />
                 <span i18n="@@add-to-basket-extra-info">
-                    For every design you purchase, you are automatically
-                    planting a tree. Thereby you support re-floreshing the
-                    forrests, which has never been a more vital task.
+                    For every design you purchase, you are automatically planting a tree. Thereby you support
+                    re-floreshing the forrests, which has never been a more vital task.
                 </span>
                 <br />
-                <strong>
-                    <span i18n="@@thank-you-message"
-                        >THANK YOU FOR YOUR SUPPORT!</span
-                    ></strong
-                >
+                <strong> <span i18n="@@thank-you-message">THANK YOU FOR YOUR SUPPORT!</span></strong>
             </div>
         </div>
     </form>

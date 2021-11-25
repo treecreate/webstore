@@ -98,12 +98,7 @@
 ```html
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file
-    source-language="en-US"
-    datatype="plaintext"
-    original="ng2.template"
-    target-language="dk"
-  >
+  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="dk">
     <!-- <--------- -->
     <!-- ... -->
   </file>
@@ -141,10 +136,7 @@
 - **_Pluralization_**
 
 ```html
-<span i18n
-  >Updated {minutes, plural, =0 {just now} =1 {one minute ago} other
-  {{{minutes}} minutes ago}}</span
->
+<span i18n>Updated {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago}}</span>
 ```
 
 ```ts
@@ -181,10 +173,7 @@ export class AppComponent {
 - **_Alternate options_**
 
 ```html
-<span i18n
-  >The author is {gender, select, male {male} female {female} other
-  {other}}</span
->
+<span i18n>The author is {gender, select, male {male} female {female} other {other}}</span>
 ```
 
 ```ts
@@ -202,9 +191,8 @@ export class AppComponent {
 
 ```html
 <span i18n
-  >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other
-  {{{minutes}} minutes ago by {gender, select, male {male} female {female} other
-  {other}}}}
+  >Updated: {minutes, plural, =0 {just now} =1 {one minute ago} other {{{minutes}} minutes ago by {gender, select, male
+  {male} female {female} other {other}}}}
 </span>
 ```
 

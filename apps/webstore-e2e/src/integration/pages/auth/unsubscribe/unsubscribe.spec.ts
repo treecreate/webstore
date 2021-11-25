@@ -24,10 +24,7 @@ describe('Signup Page', () => {
     cy.get('[data-cy=unsubscribe-success-icon]').should('exist');
     cy.get('[data-cy=unsubscribe-failed-icon]').should('not.exist');
     cy.get('[data-cy=unsubscribe-error-message]').should('not.exist');
-    cy.get('[data-cy=unsubscribe-success-message]').should(
-      'contain',
-      'Unsubscribed!'
-    );
+    cy.get('[data-cy=unsubscribe-success-message]').should('contain', 'Unsubscribed!');
   });
 
   it('should display a failed message 404', () => {

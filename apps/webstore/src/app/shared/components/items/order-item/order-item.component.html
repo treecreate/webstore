@@ -1,26 +1,24 @@
 <div class="order-container">
-    <div class="title">
-        <span i18n="@@order-number">Order number </span>#{{ orderNumber }}
-    </div>
+    <div class="title"><span i18n="@@order-number">Order number </span>#{{ orderNumber }}</div>
     <hr />
     <div class="line">
         <span class="sub-title" i18n="@@order-id"> Order id </span>
-        <span>{{ order.orderId }}</span>
+        <span data-cy="order-item-id">{{ order.orderId }}</span>
     </div>
 
     <div class="info-container">
         <div class="row-2">
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@order-status"
-                        >Order status
-                    </span>
-                    <span> {{ order.state }} </span>
+                    <span class="sub-title" i18n="@@order-status">Order status </span>
+                    <span data-cy="order-item-status"> {{ order.state }} </span>
                 </div>
                 <div class="section-row margin-top">
                     <div class="line">
                         <span class="sub-title">E-mail </span>
-                        <span> {{ order.contactInfo.email }} </span>
+                        <span data-cy="order-item-email">
+                            {{ order.contactInfo.email }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -28,17 +26,13 @@
         <div class="row-2">
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@created-at"
-                        >Created at</span
-                    >
+                    <span class="sub-title" i18n="@@created-at">Created at</span>
                     <span>{{ order.createdAt | date }}</span>
                 </div>
             </div>
             <div class="section-row margin-top">
                 <div class="line">
-                    <span class="sub-title" i18n="@@phone-number"
-                        >Phone nr</span
-                    >
+                    <span class="sub-title" i18n="@@phone-number">Phone nr</span>
                     <span>{{ order.contactInfo.phoneNumber }}</span>
                 </div>
             </div>
@@ -47,24 +41,20 @@
     <div class="title" i18n="@@items">Items</div>
     <hr />
     <div class="order-items-container">
-        <div *ngFor="let item of order.transactionItems" class="item">
+        <div *ngFor="let item of order.transactionItems" class="item" data-cy="order-item-design-item">
             <div class="item-info-container">
                 <div class="row-2">
                     <div class="section-row">
                         <div class="line">
                             <span class="sub-title" i18n="@@title">Title </span>
-                            <span>{{
-                                item.design.designProperties.title
-                            }}</span>
+                            <span data-cy="order-item-design-item-title">{{ item.design.designProperties.title }}</span>
                         </div>
                     </div>
 
                     <div class="section-row">
                         <div class="line">
-                            <span class="sub-title" i18n="@@amount"
-                                >Amount</span
-                            >
-                            <span>{{ item.quantity }} stk</span>
+                            <span class="sub-title" i18n="@@amount">Amount</span>
+                            <span data-cy="order-item-design-item-amount">{{ item.quantity }} stk</span>
                         </div>
                     </div>
                 </div>
@@ -89,12 +79,9 @@
                         (click)="scrollTop()"
                         [routerLink]="'/product'"
                         [queryParams]="{ designId: item.design.designId }"
+                        data-cy="order-item-view-button"
                     >
-                        <img
-                            src="/assets/icons/eye-white-icon.svg"
-                            alt=""
-                            class="icon"
-                        />
+                        <img src="/assets/icons/eye-white-icon.svg" alt="" class="icon" />
                     </button>
                 </div>
             </div>
@@ -108,9 +95,7 @@
         <div class="row-2-ed address">
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@shipping-address"
-                        >Shipping address
-                    </span>
+                    <span class="sub-title" i18n="@@shipping-address">Shipping address </span>
                 </div>
             </div>
             <hr class="light" />
@@ -140,9 +125,7 @@
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@street-address"
-                        >Street</span
-                    >
+                    <span class="sub-title" i18n="@@street-address">Street</span>
                     <span>{{ order.billingInfo.streetAddress }}</span>
                 </div>
             </div>
@@ -151,9 +134,7 @@
         <div class="row-2-ed address">
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@billing-address"
-                        >Billing address
-                    </span>
+                    <span class="sub-title" i18n="@@billing-address">Billing address </span>
                 </div>
             </div>
             <hr class="light" />
@@ -183,9 +164,7 @@
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@street-address"
-                        >Street</span
-                    >
+                    <span class="sub-title" i18n="@@street-address">Street</span>
                     <span>{{ order.contactInfo.streetAddress }}</span>
                 </div>
             </div>
@@ -201,26 +180,18 @@
 
     <div class="info-wrap-container">
         <div class="row-2-ed">
-            <div class="section-row" *ngIf="order.discount != null">
+            <div class="section-row" *ngIf="order.discount !== null">
                 <div class="line">
-                    <span class="sub-title" i18n="@@discount-code"
-                        >Discount code
-                    </span>
+                    <span class="sub-title" i18n="@@discount-code">Discount code </span>
                     <span>{{ order.discount.discountCode }}</span>
                 </div>
             </div>
 
-            <div class="section-row" *ngIf="order.discount != null">
+            <div class="section-row" *ngIf="order.discount !== null">
                 <div class="line">
-                    <span class="sub-title" i18n="@@discount-amount"
-                        >Discount amount</span
-                    >
-                    <span *ngIf="order.discount.type === 'AMOUNT'"
-                        >{{ order.discount.amount }} DKK</span
-                    >
-                    <span *ngIf="order.discount.type === 'PERCENT'"
-                        >{{ order.discount.amount }} %</span
-                    >
+                    <span class="sub-title" i18n="@@discount-amount">Discount amount</span>
+                    <span *ngIf="order.discount.type === 'AMOUNT'">{{ order.discount.amount }} DKK</span>
+                    <span *ngIf="order.discount.type === 'PERCENT'">{{ order.discount.amount }} %</span>
                 </div>
             </div>
 
@@ -259,35 +230,23 @@
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@delivery-price"
-                        >Delivery price
-                    </span>
-                    <span
-                        *ngIf="
-                            order.shippingMethod === 'PICK_UP_POINT' ||
-                            order.shippingMethod === 'OWN_DELIVERY'
-                        "
+                    <span class="sub-title" i18n="@@delivery-price">Delivery price </span>
+                    <span *ngIf="order.shippingMethod === 'PICK_UP_POINT' || order.shippingMethod === 'OWN_DELIVERY'"
                         >0 DKK</span
                     >
-                    <span *ngIf="order.shippingMethod === 'HOME_DELIVERY'"
-                        >29 DKK</span
-                    >
+                    <span *ngIf="order.shippingMethod === 'HOME_DELIVERY'">29 DKK</span>
                 </div>
             </div>
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@trees-planted"
-                        >Trees planted
-                    </span>
+                    <span class="sub-title" i18n="@@trees-planted">Trees planted </span>
                     <span>{{ order.plantedTrees }} stk</span>
                 </div>
             </div>
 
             <div class="section-row">
                 <div class="line">
-                    <span class="sub-title" i18n="@@tree-donation"
-                        >Tree donation</span
-                    >
+                    <span class="sub-title" i18n="@@tree-donation">Tree donation</span>
                     <span>{{ (order.plantedTrees - 1) * 10 }} DKK</span>
                 </div>
             </div>

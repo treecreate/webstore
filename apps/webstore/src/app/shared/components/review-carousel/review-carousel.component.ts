@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 
 @Component({
   selector: 'webstore-review-carousel',
@@ -50,9 +50,7 @@ export class ReviewCarouselComponent {
 
   constructor(private localStorageService: LocalStorageService) {
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
   }
 }

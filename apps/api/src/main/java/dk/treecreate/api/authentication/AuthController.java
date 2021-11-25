@@ -80,7 +80,6 @@ public class AuthController
             .authenticateUser(loginRequest.getEmail(), loginRequest.getPassword()));
     }
 
-    // TODO: remove ability for any user to register as any role.
     @PostMapping("/signup")
     @Operation(summary = "Register a new user")
     @ApiResponses(value = {
@@ -102,38 +101,12 @@ public class AuthController
             signUpRequest.getEmail(),
             encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles == null)
-        {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR_MESSAGE));
-            roles.add(userRole);
-        } else
-        {
-            strRoles.forEach(role -> {
-                switch (role)
-                {
-                    case "ROLE_ADMIN":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR_MESSAGE));
-                        roles.add(adminRole);
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+            .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR_MESSAGE));
+        roles.add(userRole);
 
-                        break;
-                    case "ROLE_DEVELOPER":
-                        Role developerRole = roleRepository.findByName(ERole.ROLE_DEVELOPER)
-                            .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR_MESSAGE));
-                        roles.add(developerRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR_MESSAGE));
-                        roles.add(userRole);
-                }
-            });
-        }
         user.setRoles(roles);
         userRepository.save(user);
 

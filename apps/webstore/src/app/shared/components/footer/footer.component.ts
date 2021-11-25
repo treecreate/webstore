@@ -5,8 +5,8 @@ import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
-import { LocalStorageService } from '../../services/local-storage';
-import { NewsletterService } from '../../services/newsletter/newsletter.service';
+import { LocalStorageService } from '@local-storage';
+import { NewsletterService } from '../../services/order/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
@@ -15,10 +15,7 @@ import { ToastService } from '../toast/toast-service';
 @Component({
   selector: 'webstore-footer',
   templateUrl: './footer.component.html',
-  styleUrls: [
-    './footer.component.css',
-    '../../../../assets/styles/tc-input-field.scss',
-  ],
+  styleUrls: ['./footer.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class FooterComponent implements OnInit {
   public isLoggedIn: boolean;
@@ -35,14 +32,10 @@ export class FooterComponent implements OnInit {
     private toastService: ToastService
   ) {
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
-      LocalStorageVars.authUser
-    );
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
-      this.isLoggedIn =
-        this.authUser$.getValue() != null &&
-        this.authService.isAccessTokenValid();
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
   }
 
@@ -54,29 +47,22 @@ export class FooterComponent implements OnInit {
 
   submit() {
     this.isLoading = true;
-    this.newsletterService
-      .registerNewsletterEmail(this.signupNewsletterForm.get('email').value)
-      .subscribe(
-        (newsletterData: INewsletter) => {
-          this.toastService.showAlert(
-            `Thank you for subscribing: ${newsletterData.email}`,
-            `Tak for din tilmelding: ${newsletterData.email}`,
-            'success',
-            3000
-          );
-          this.isLoading = false;
-        },
-        (error) => {
-          this.toastService.showAlert(
-            error.error.message,
-            error.error.message,
-            'danger',
-            100000
-          );
-          console.error(error);
-          this.isLoading = false;
-        }
-      );
+    this.newsletterService.registerNewsletterEmail(this.signupNewsletterForm.get('email').value).subscribe(
+      (newsletterData: INewsletter) => {
+        this.toastService.showAlert(
+          `Thank you for subscribing: ${newsletterData.email}`,
+          `Tak for din tilmelding: ${newsletterData.email}`,
+          'success',
+          3000
+        );
+        this.isLoading = false;
+      },
+      (error) => {
+        this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
+        console.error(error);
+        this.isLoading = false;
+      }
+    );
   }
 
   showTermsOfUse() {

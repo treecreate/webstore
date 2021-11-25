@@ -1,11 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  ChangeDetectorRef,
-  Component,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
@@ -15,6 +9,7 @@ import {
   IDesign,
   IFamilyTree,
   IFamilyTreeBanner,
+  ITransactionItem,
 } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +20,7 @@ import { FamilyTreeDesignComponent } from '../../shared/components/products/fami
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { DesignService } from '../../shared/services/design/design.service';
-import { LocalStorageService } from '../../shared/services/local-storage';
+import { LocalStorageService } from '@local-storage';
 @Component({
   selector: 'webstore-product',
   templateUrl: './product.component.html',
@@ -71,19 +66,13 @@ export class ProductComponent implements OnInit {
     private authService: AuthService
   ) {
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
-      LocalStorageVars.authUser
-    );
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
-      this.isLoggedIn =
-        this.authUser$.getValue() != null &&
-        this.authService.isAccessTokenValid();
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
@@ -113,59 +102,16 @@ export class ProductComponent implements OnInit {
     const queryParams = this.route.snapshot.queryParams;
     console.log('queryParams', queryParams);
     if (queryParams.designId !== undefined) {
-      const designId = queryParams.designId;
-      console.warn('Fetching design from database', designId);
-      this.designService.getDesign(designId).subscribe(
-        (result: IDesign) => {
-          console.log('Result: ', result);
-          if (result.designType !== DesignTypeEnum.familyTree) {
-            console.warn('The requested design is not a family tree!');
-            return;
-          }
-          this.design = result.designProperties;
-          console.log('Fetched design: ', this.design);
-          if (result.designProperties === undefined) {
-            console.warn('Fetched data was invalid!');
-          } else {
-            this.localStorageService.setItem<IFamilyTree>(
-              LocalStorageVars.designFamilyTree,
-              this.design
-            );
-            // apply the design
-            this.designTitle = this.design.title;
-            this.backgroundTreeDesign = this.design.backgroundTreeDesign;
-            this.font = this.design.font;
-            this.banner = this.design.banner;
-            this.boxSize = this.design.boxSize;
-            this.isLargeFont = this.design.largeFont;
-            this.isMutable = result.mutable;
-            this.cdr.detectChanges();
-            if (this.isMutable) {
-              this.designCanvas.loadDesign();
-            }
-          }
-        },
-        (err: HttpErrorResponse) => {
-          console.error('Failed to fetch the', err);
-          this.toastService.showAlert(
-            'Failed to load your design',
-            'Vi kunne ikke loade dit design',
-            'danger',
-            10000
-          );
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: { designId: null },
-            queryParamsHandling: 'merge', // remove to replace all query params by provided
-          });
-          return;
-        }
-      );
+      if (this.isLoggedIn) {
+        // Load the design from database
+        this.loadDesignFromDB(queryParams);
+      } else {
+        // Load the design from localstorage
+        this.loadDesignFromLocalStorage(queryParams.designId);
+      }
     } else {
       console.log('Loading design from local storage');
-      this.design = this.localStorageService.getItem<IFamilyTree>(
-        LocalStorageVars.designFamilyTree
-      ).value;
+      this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       console.log('loaded design', this.design);
       // apply the design
       if (this.design !== null && this.design !== undefined) {
@@ -191,6 +137,71 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  loadDesignFromLocalStorage(designId: string) {
+    // Get transactionItems from localstorage
+    const itemList: ITransactionItem[] = this.localStorageService.getItem<ITransactionItem[]>(
+      LocalStorageVars.transactionItems
+    ).value;
+
+    // Check if id is a number and if number is in transactionItems
+    const id = Number(designId);
+    if (isNaN(id) || id < 0 || id > itemList.length) {
+      this.toastService.showAlert('Failed to load design', 'Kunne ikke loade dit design', 'danger', 10000);
+      this.router.navigate(['/product']);
+      return;
+    }
+    // Load design
+    this.design = itemList[designId].design.designProperties;
+    this.designTitle = this.design.title;
+    this.font = this.design.font;
+    this.banner = this.design.banner;
+    this.boxSize = this.design.boxSize;
+    this.isLargeFont = this.design.largeFont;
+  }
+
+  loadDesignFromDB(queryParams) {
+    const designId = queryParams.designId;
+    console.warn('Fetching design from database', designId);
+    this.designService.getDesign(designId).subscribe(
+      (result: IDesign) => {
+        console.log('Result: ', result);
+        if (result.designType !== DesignTypeEnum.familyTree) {
+          console.warn('The requested design is not a family tree!');
+          return;
+        }
+        this.design = result.designProperties;
+        console.log('Fetched design: ', this.design);
+        if (result.designProperties === undefined) {
+          console.warn('Fetched data was invalid!');
+        } else {
+          this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
+          // apply the design
+          this.designTitle = this.design.title;
+          this.backgroundTreeDesign = this.design.backgroundTreeDesign;
+          this.font = this.design.font;
+          this.banner = this.design.banner;
+          this.boxSize = this.design.boxSize;
+          this.isLargeFont = this.design.largeFont;
+          this.isMutable = result.mutable;
+          this.cdr.detectChanges();
+          if (this.isMutable) {
+            this.designCanvas.loadDesign();
+          }
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.error('Failed to fetch the', err);
+        this.toastService.showAlert('Failed to load your design', 'Vi kunne ikke loade dit design', 'danger', 10000);
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { designId: null },
+          queryParamsHandling: 'merge', // remove to replace all query params by provided
+        });
+        return;
+      }
+    );
+  }
+
   saveDesign(params: { persist?: boolean }) {
     if (!this.isMutable) {
       console.warn('This design cannot be updated');
@@ -198,9 +209,7 @@ export class ProductComponent implements OnInit {
     }
     const persist = { params };
     this.designCanvas.saveDesign();
-    this.design = this.localStorageService.getItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree
-    ).value;
+    this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn) {
       this.toastService.showAlert(
@@ -216,9 +225,7 @@ export class ProductComponent implements OnInit {
       return;
     }
     const queryParams = this.route.snapshot.queryParams;
-    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree
-    ).value;
+    const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
     if (queryParams.designId !== undefined) {
       // design exists, save using the designId
       this.designService
@@ -258,12 +265,7 @@ export class ProductComponent implements OnInit {
         .subscribe(
           (result) => {
             console.log('Design created and persisted', result);
-            this.toastService.showAlert(
-              'Your design has been saved',
-              'Dit design er bleven gemt',
-              'success',
-              5000
-            );
+            this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
             this.router.navigate([], {
               relativeTo: this.route,
               queryParams: { designId: result.designId },
@@ -325,40 +327,30 @@ export class ProductComponent implements OnInit {
   }
 
   nextDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(
-      this.backgroundTreeDesign
-    );
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
     const nextDesign = Object.keys(TreeDesignEnum)[currentDesignIndex + 1];
 
     if (nextDesign === undefined) {
       // set the first design in the enum
-      this.backgroundTreeDesign =
-        TreeDesignEnum[Object.keys(TreeDesignEnum)[0]];
+      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[0]];
     } else {
       this.backgroundTreeDesign = TreeDesignEnum[nextDesign];
     }
   }
 
   prevDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(
-      this.backgroundTreeDesign
-    );
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
     const previousDesign = Object.keys(TreeDesignEnum)[currentDesignIndex - 1];
     if (previousDesign === undefined) {
       // set the last design in the enum
-      this.backgroundTreeDesign =
-        TreeDesignEnum[
-          Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]
-        ];
+      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]];
     } else {
       this.backgroundTreeDesign = TreeDesignEnum[previousDesign];
     }
   }
 
   nextFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(
-      this.font
-    );
+    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
     const nextFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex + 1];
     if (nextFont === undefined) {
       // set the first font in the enum
@@ -369,18 +361,11 @@ export class ProductComponent implements OnInit {
   }
 
   prevFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(
-      this.font
-    );
+    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
     const previousFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex - 1];
     if (previousFont === undefined) {
       // set the last font in the enum
-      this.font =
-        FamilyTreeFontEnum[
-          Object.keys(FamilyTreeFontEnum)[
-            Object.values(FamilyTreeFontEnum).length - 1
-          ]
-        ];
+      this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[Object.values(FamilyTreeFontEnum).length - 1]];
     } else {
       this.font = FamilyTreeFontEnum[previousFont];
     }
@@ -396,16 +381,7 @@ export class ProductComponent implements OnInit {
 
   openAddToBasketModal() {
     this.saveDesign({ persist: false });
-    if (this.isLoggedIn) {
-      this.modalService.open(AddToBasketModalComponent);
-    } else {
-      this.toastService.showAlert(
-        'You have to log in to add items to your basket.',
-        'Du skal logge ind for at kunne ligge dit design i kurven.',
-        'danger',
-        10000
-      );
-    }
+    this.modalService.open(AddToBasketModalComponent);
   }
 
   onIsDesignValidEvent($event) {
@@ -415,13 +391,8 @@ export class ProductComponent implements OnInit {
   }
 
   iOS() {
-    return [
-      'iPad Simulator',
-      'iPhone Simulator',
-      'iPod Simulator',
-      'iPad',
-      'iPhone',
-      'iPod',
-    ].includes(navigator.platform);
+    return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(
+      navigator.platform
+    );
   }
 }
