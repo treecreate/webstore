@@ -5,6 +5,7 @@
 -- * designs -> Add sample designs.
 -- * transaction_items -> Add sample items.
 -- * discounts -> Add some sample discounts.
+-- * newsletter -> Add sample newsletters.
 -- --> Roles TABLE <--
 INSERT INTO `roles`
 SELECT  roles.*
@@ -271,3 +272,27 @@ WHERE NOT EXISTS (
 SELECT  *
 FROM `discounts` );
 -- --> End Discounts TABLE <-- --
+-- --> Newsletter TABLE <-- --
+INSERT INTO `newsletter`
+SELECT  newsletter.*
+FROM
+( (
+	SELECT  '099eb1f4-f62b-4583-9b4f-dfd97b5cf01f' AS newsletter_id
+	       ,null                                   AS created_at
+	       ,'regular@not.real'                     AS email
+	       ,null                                   AS updated_at )
+	UNION ALL(
+	SELECT  '689bac72-21bf-4269-b283-6517e7a40289' AS newsletter_id
+	       ,null                                   AS created_at
+	       ,'customer@not.real'                    AS email
+	       ,null                                   AS updated_at )
+	UNION ALL(
+	SELECT  'd5dfe873-3e58-4a01-ac6e-7dfcded60354' AS newsletter_id
+	       ,null                                   AS created_at
+	       ,'user@not.real'                        AS email
+	       ,null                                   AS updated_at )
+) newsletter
+WHERE NOT EXISTS (
+SELECT  *
+FROM `newsletter` );
+-- --> End Newsletter TABLE <-- --
