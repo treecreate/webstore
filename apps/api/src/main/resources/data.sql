@@ -38,7 +38,7 @@ FROM
 	       ,null                                                           AS city
 	       ,null                                                           AS country
 	       ,null                                                           AS created_at
-	       ,'populated@user.dk'                                            AS email
+	       ,'admin@not.real'                                               AS email
 	       ,1                                                              AS is_verified
 	       ,'Populated'                                                    AS name
 	       ,'$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62' AS password
@@ -48,13 +48,13 @@ FROM
 	       ,null                                                           AS street_address_2
 	       ,'2cd5372d-b945-48d3-83a2-82696fbb8bcd'                         AS token
 	       ,null                                                           AS updated_at
-	       ,'populated@user.dk'                                            AS username)
+	       ,'admin@not.real'                                               AS username)
 	UNION ALL(
 	SELECT  'ac86995f-60ae-4520-a434-c8abc98980b9'                         AS user_id
 	       ,null                                                           AS city
 	       ,null                                                           AS country
 	       ,null                                                           AS created_at
-	       ,'populated_two@user.dk'                                        AS email
+	       ,'regular@not.real'                                             AS email
 	       ,1                                                              AS is_verified
 	       ,'Populatedtwo'                                                 AS name
 	       ,'$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62' AS password
@@ -64,7 +64,7 @@ FROM
 	       ,null                                                           AS street_address_2
 	       ,'3ceb8eda-1b03-4bf7-a85c-9d16a8ffa7ac'                         AS token
 	       ,null                                                           AS updated_at
-	       ,'populated_two@user.dk'                                        AS username)
+	       ,'regular@not.real'                                             AS username)
 ) users
 WHERE NOT EXISTS (
 SELECT  *
@@ -228,7 +228,7 @@ SELECT  discounts.*
 FROM
 ( (
 	SELECT  '2f61a7a1-499d-45bb-8229-53f70a4475c4' AS discount_id
-	       ,100                                     AS amount
+	       ,100                                    AS amount
 	       ,null                                   AS created_at
 	       ,'populated_discount'                   AS discount_code
 	       ,'2026-06-06 06:06:06'                  AS expires_at
@@ -238,11 +238,11 @@ FROM
 	       ,null                                   AS updated_at )
 	UNION ALL(
 	SELECT  '35c90960-1da4-4ff0-93df-622fb5718e55' AS discount_id
-	       ,10                                    AS amount
+	       ,10                                     AS amount
 	       ,null                                   AS created_at
 	       ,'populated_discount2'                  AS discount_code
 	       ,'2026-06-06 06:06:06'                  AS expires_at
-	       ,100                                     AS remaining_uses
+	       ,100                                    AS remaining_uses
 	       ,0                                      AS total_uses
 	       ,1                                      AS type
 	       ,null                                   AS updated_at )
@@ -252,7 +252,7 @@ FROM
 	       ,null                                   AS created_at
 	       ,'populated_discount_expired'           AS discount_code
 	       ,'2006-06-06 06:06:06'                  AS expires_at
-	       ,100                                     AS remaining_uses
+	       ,100                                    AS remaining_uses
 	       ,0                                      AS total_uses
 	       ,0                                      AS type
 	       ,null                                   AS updated_at )
