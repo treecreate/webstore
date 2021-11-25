@@ -166,7 +166,7 @@ FROM
 	       ,null                                   AS updated_at
 	       ,'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_user_id)
 	UNION ALL(
-	SELECT  '1ce37a779-36b8-4675-93e2-a74bcd7025c4' AS design_id
+	SELECT  '0ae8abd4-fc3a-4e55-8129-4638aadf574c' AS design_id
 	       ,null                                    AS created_at
 	       ,'{"title":"Example Design Trii","font":"Georgia","backgroundTreeDesign":"assets/family-tree/tree-design/tree2.svg","boxSize":17,"banner":{"text":"Empty Boxes","style":"first"},"largeFont":false,"boxes":[{"x":2000,"y":1333.3333333333333,"previousX":0,"previousY":0,"dragging":false,"boxDesign":"box5","text":""},{"x":473.572829565397,"y":1338.2677815629193,"previousX":0,"previousY":0,"dragging":false,"boxDesign":"box2","text":""},{"x":1216.3518117064107,"y":1328.7498709610818,"previousX":0,"previousY":0,"dragging":false,"boxDesign":"box5","text":""},{"x":2728.481470011355,"y":1324.3522246309485,"previousX":0,"previousY":0,"dragging":false,"boxDesign":"box6","text":""}]}' AS design_properties
 	       ,0                                       AS design_type
