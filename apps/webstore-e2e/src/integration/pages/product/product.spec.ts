@@ -85,12 +85,12 @@ describe('ProductPage', () => {
     });
 
     it('should be able to change the fonts', () => {
-      cy.wrap(localStorageDesign).its('font').should('equal', 'Roboto');
+      cy.wrap(localStorageDesign).its('font').should('equal', 'roboto');
       cy.get('[data-cy=font-next-btn]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('font').should('equal', 'Georgia');
+        cy.wrap(localStorageDesignAfter).its('font').should('equal', 'georgia');
       });
     });
 
@@ -207,12 +207,12 @@ describe('ProductPage', () => {
 
     // Font change
     it('should change the font', () => {
-      cy.get('[data-cy=font]').should('have.text', 'argestadisplay');
+      cy.get('[data-cy=font]').should('have.text', 'bairol-bold-italic');
       cy.get('[data-cy=font-next-btn]').click();
-      cy.get('[data-cy=font]').should('have.text', 'argestadisplay-italic');
+      cy.get('[data-cy=font]').should('not.have.text', 'bairol-bold-italic');
       cy.get('[data-cy=font-prev-btn]').click();
       cy.get('[data-cy=font-prev-btn]').click();
-      cy.get('[data-cy=font]').should('have.text', 'knile');
+      cy.get('[data-cy=font]').should('not.have.text', 'bairol-bold-italic');
     });
 
     // Banner
