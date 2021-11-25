@@ -22,8 +22,5 @@
       "@webstore/mocks": ["libs/mocks/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"],
-  "angularCompilerOptions" : {
-    "enableIvy": false
-  }
+  "exclude": ["node_modules", "tmp"]
 }

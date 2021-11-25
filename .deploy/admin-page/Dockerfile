@@ -1,7 +1,7 @@
 # To build this dockerfile use a command similar to this:
 # docker build -t <image-name> -f ./.deploy/admin-page/Dockerfile .
 
-###### Build container START
+###### Build container admin-page START
 
 # Lightweight environment with node pre-installed
 FROM node:lts-alpine3.14 AS builder
@@ -9,12 +9,12 @@ FROM node:lts-alpine3.14 AS builder
 # Directory to work in the container
 WORKDIR /app
 
-# Copy package.json to the root of the WORKDIR
-COPY package.json ./
-
-# Set required ENVs
+# Set required ENVs. If they are bassed as --build-args these will be overwritten
 ARG ENV=dev
 ARG LOG_LEVEL=warn
+
+# Copy package.json to the root of the WORKDIR
+COPY package.json ./
 
 # Run npm install inside container
 # --legacy-peer-deps This line is currently required for the dependencies to install
@@ -24,11 +24,6 @@ RUN if [[ $ENV == "prod" ]] ;	\
 	then npm install --legacy-peer-deps --loglevel ${LOG_LEVEL} --only=prod;	\
 	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};				\
     fi
-
-# Needed to build production
-RUN if [[ $ENV == "prod" ]] ;	\
-	then npm install nx;		\
-	fi
 
 # Copy all files different to local machine to container
 # Uses caching to prevent copying ALL files if only some parts changed

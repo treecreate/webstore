@@ -50,7 +50,8 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -65,28 +66,29 @@
     "@angular/platform-browser": "13.0.2",
     "@angular/platform-browser-dynamic": "13.0.2",
     "@angular/router": "13.0.2",
-    "@ng-bootstrap/ng-bootstrap": "^9.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@ngrx/component-store": "13.0.1",
     "bootstrap": "^4.5.0",
     "rxjs": "^7.4.0",
     "tslib": "^2.0.0",
-    "zone.js": "0.11.4"
+    "zone.js": "0.11.4",
+    "@angular/compiler-cli": "13.0.2",
+    "@nrwl/cli": "13.2.1",
+    "@nrwl/nx-cloud": "12.5.4",
+    "typescript": "4.4.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "13.0.3",
     "@angular-eslint/eslint-plugin": "12.6.1",
     "@angular-eslint/eslint-plugin-template": "12.6.1",
     "@angular-eslint/template-parser": "12.6.1",
-    "@angular/compiler-cli": "13.0.2",
     "@angular/language-service": "13.0.2",
     "@digitalroute/cz-conventional-changelog-for-jira": "^6.7.0",
     "@nrwl/angular": "13.2.1",
-    "@nrwl/cli": "13.2.1",
     "@nrwl/cypress": "13.2.1",
     "@nrwl/eslint-plugin-nx": "13.2.1",
     "@nrwl/jest": "13.2.1",
     "@nrwl/linter": "13.2.1",
-    "@nrwl/nx-cloud": "12.5.4",
     "@nrwl/tao": "13.2.1",
     "@nrwl/workspace": "13.2.1",
     "@nxrocks/nx-spring-boot": "^2.0.1",
@@ -96,6 +98,7 @@
     "@typescript-eslint/parser": "4.33.0",
     "commitizen": "^4.2.4",
     "cypress": "^6.5.0",
+    "@cypress/request": "2.88.7",
     "dotenv": "10.0.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.1.0",
@@ -105,7 +108,6 @@
     "jest-preset-angular": "11.0.0",
     "prettier": "2.4.1",
     "ts-jest": "27.0.5",
-    "ts-node": "~9.1.1",
-    "typescript": "4.4.4"
+    "ts-node": "~9.1.1"
   }
 }
