@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'admin-page';
-  public sidebarCollapsed = false;
-  public username = 'username@example.com';
+   sidebarCollapsed = false;
+   username = 'username@example.com';
 
   toggleCollapsed() {
     this.sidebarCollapsed = !this.sidebarCollapsed;
