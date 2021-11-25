@@ -10,7 +10,7 @@ export class AppComponent {
    sidebarCollapsed = false;
    username = 'username@example.com';
 
-  toggleCollapsed() {
+  toggleCollapsed(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
 }
