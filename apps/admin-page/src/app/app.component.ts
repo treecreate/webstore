@@ -7,9 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'admin-page';
-   sidebarCollapsed = false;
-   username = 'username@example.com';
+  sidebarCollapsed = false;
+  username = 'username@example.com';
 
+  /**
+   * Toggles the `sidebarCollapsed` boolean.
+   */
   toggleCollapsed(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
