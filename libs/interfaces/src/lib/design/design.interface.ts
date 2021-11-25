@@ -33,12 +33,19 @@ export interface IDraggableBox {
 }
 
 export enum FamilyTreeFontEnum {
-  timesNewRoam = 'Times new roman',
+  argestadisplay = 'argestadisplay',
+  argestadisplayItalic = 'argestadisplay-italic',
+  bairolBold = 'bairol-bold',
+  bairolBoldItalic = 'bairol-bold-italic',
+  calendasItalic = 'calendas-italic',
+  sansita = 'Sansita',
   roboto = 'Roboto',
   georgia = 'Georgia',
-  shareTech = 'Share Tech',
   spectral = 'Spectral',
-  sansita = 'Sansita',
+  archaLight = 'archia-light',
+  archaMedium = 'archia-medium',
+  calendas = 'calendas',
+  knile = 'knile',
 }
 
 export interface IFamilyTreeBanner {

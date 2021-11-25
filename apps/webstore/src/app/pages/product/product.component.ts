@@ -40,7 +40,7 @@ export class ProductComponent implements OnInit {
   designTitle = '';
   showSuggestion = true;
   // set the default font
-  font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
+  font = FamilyTreeFontEnum.bairolBoldItalic;
   backgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 20;
   maxSize = 40;
