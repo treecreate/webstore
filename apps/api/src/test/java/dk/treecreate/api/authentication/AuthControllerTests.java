@@ -14,7 +14,6 @@ import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.LocaleService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,19 +27,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -64,7 +57,7 @@ class AuthControllerTests
     private LocaleService localeService;
     @MockBean
     private JwtUtils jwtUtils;
-    
+
     // region Signin
 
     @Test
@@ -208,58 +201,6 @@ class AuthControllerTests
     //endregion
 
     @Test
-    @DisplayName("/auth/signup endpoint correctly creates a new user with specified roles")
-    void signupCorrectlyCreatesNewUserWithSpecifiedRoles() throws Exception
-    {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(ERole.ROLE_USER));
-        roles.add(new Role(ERole.ROLE_DEVELOPER));
-        roles.add(new Role(ERole.ROLE_ADMIN));
-
-        Set<String> strRoles = new HashSet<>();
-        strRoles.add("ROLE_USER");
-        strRoles.add("ROLE_DEVELOPER");
-        strRoles.add("ROLE_ADMIN");
-
-        SignupRequest signupRequest = new SignupRequest();
-        signupRequest.setEmail("test@treecreate.dk");
-        signupRequest.setPassword("abcDEF123");
-        signupRequest.setRoles(strRoles);
-
-        User user = new User();
-        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
-        user.setEmail(signupRequest.getEmail());
-        user.setUsername(signupRequest.getEmail());
-        user.setPassword(
-            "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
-        user.setRoles(roles);
-
-        Mockito.when(userRepository.save(user)).thenReturn(user);
-        Mockito.when(userRepository.findByEmail(signupRequest.getEmail())).thenReturn(
-            java.util.Optional.of(user));
-        Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
-            java.util.Optional.of(new Role(ERole.ROLE_USER)));
-        Mockito.when(roleRepository.findByName(ERole.ROLE_DEVELOPER)).thenReturn(
-            java.util.Optional.of(new Role(ERole.ROLE_DEVELOPER)));
-        Mockito.when(roleRepository.findByName(ERole.ROLE_ADMIN)).thenReturn(
-            java.util.Optional.of(new Role(ERole.ROLE_ADMIN)));
-
-        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
-        Mockito.doNothing().when(mailService)
-            .sendVerificationEmail(user.getEmail(), user.getToken(), new Locale("dk"));
-
-        mvc.perform(post("/auth/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(TestUtilsService.asJsonString(signupRequest)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("userId", is(user.getUserId().toString())))
-            .andExpect(jsonPath("email", is(user.getEmail())))
-            .andExpect(jsonPath("$.roles", hasSize(3)))
-            .andExpect(jsonPath("tokenType", is("Bearer")))
-            .andExpect(jsonPath("accessToken", is(notNullValue())));
-    }
-
-    @Test
     @WithMockUser(username = "test@treecreate.dk")
     @DisplayName("/auth/refresh endpoint correctly refreshes the user's tokens")
     void refreshCorrectlyRefreshesTokens() throws Exception
@@ -267,7 +208,8 @@ class AuthControllerTests
         String refreshToken = Jwts.builder()
             .setSubject("test@treecreate.dk")
             .setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+            .setExpiration(
+                new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
             .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
             .compact();
 
@@ -281,7 +223,8 @@ class AuthControllerTests
         String newRefreshToken = Jwts.builder()
             .setSubject("test@treecreate.dk")
             .setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+            .setExpiration(
+                new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
             .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
             .compact();
 
@@ -291,15 +234,15 @@ class AuthControllerTests
             .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
             .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
             .compact();
-        
+
         Mockito.when(jwtUtils.generateJwtToken(any())).thenReturn(newAuthToken);
         Mockito.when(jwtUtils.generateJwtRefreshToken(any())).thenReturn(newRefreshToken);
-        
+
         jwtUtils.whitelistJwtPair(authToken, refreshToken);
 
         mvc.perform(get("/auth/refresh")
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + refreshToken))
+            .contentType(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bearer " + refreshToken))
             .andExpect(status().isOk())
             .andExpect(jsonPath("tokenType", is("Bearer")))
             .andExpect(jsonPath("accessToken", equalTo(newAuthToken)))
