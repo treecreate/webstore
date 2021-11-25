@@ -31,3 +31,8 @@
 ::ng-deep input.mat-input-element::placeholder {
   color: gray !important;
 }
+
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: white;
+}
