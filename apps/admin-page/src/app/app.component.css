@@ -40,7 +40,6 @@ mat-toolbar .spacer {
 
 .sidebar-header mat-icon {
   font-size: 40px;
-  cursor: pointer;
 }
 
 .collapsed .sidebar-header mat-icon {
