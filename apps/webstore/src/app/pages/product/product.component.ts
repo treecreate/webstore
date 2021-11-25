@@ -390,6 +390,18 @@ export class ProductComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  /**
+   * Format a font name into a more readable format without dashes
+   * @param font a font to format
+   * @returns formatted font name
+   */
+  formatFontTextForDisplay(font: FamilyTreeFontEnum): string {
+    let formattedFont = font.replace('-', ' ');
+    formattedFont = formattedFont.replace('-', ' '); // double replacement because I am lazy and some fonts have multiple dashes
+    formattedFont = formattedFont.replace('display', ' display');
+    return formattedFont;
+  }
+
   iOS() {
     return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(
       navigator.platform
