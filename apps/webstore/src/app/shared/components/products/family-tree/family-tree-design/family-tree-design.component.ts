@@ -505,7 +505,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, {
       title: this.title,
-      font: FamilyTreeFontEnum.georgia,
+      font: this.font,
       backgroundTreeDesign: this.backgroundTreeDesign,
       boxSize: this.boxSize,
       banner: this.banner,
