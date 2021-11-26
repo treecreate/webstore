@@ -18,7 +18,7 @@
             "aot": true,
             "assets": ["apps/admin-page/src/favicon.ico", "apps/admin-page/src/assets"],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/admin-page/src/styles.css"
             ],
             "scripts": []
