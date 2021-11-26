@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { TempComponent } from './components/temp/temp.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: AppComponent,
+    component: TempComponent,
     // canActivate: [AuthGuard],
     // data: { roles: [UserRoles.developer, UserRoles.admin] },
   }, // AuthGuard ensures that only authorized users can view this route
