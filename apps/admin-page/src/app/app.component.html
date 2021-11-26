@@ -3,8 +3,12 @@
     <mat-toolbar-row>
         <span>TC management</span>
         <span class="spacer"></span>
-        <button mat-flat-button color="primary" data-cy="navbar-account-btn">Account</button>
-        <button mat-flat-button color="primary" data-cy="navbar-logout-btn">Logout</button>
+        <button mat-flat-button color="primary" data-cy="navbar-account-btn" *ngIf="router.url !== '/login'">
+            Account
+        </button>
+        <button mat-flat-button color="primary" data-cy="navbar-logout-btn" *ngIf="router.url !== '/login'">
+            Logout
+        </button>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -12,6 +16,7 @@
 <mat-sidenav-container autosize class="body-container" data-cy="body-container">
     <!-- Sidebar -->
     <mat-sidenav
+        *ngIf="router.url !== '/login'"
         mode="side"
         disableClose
         opened
