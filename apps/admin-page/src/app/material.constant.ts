@@ -3,6 +3,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export const materialModules = [
   MatSliderModule,
@@ -10,4 +11,5 @@ export const materialModules = [
   MatInputModule,
   MatProgressSpinnerModule,
   MatIconModule,
+  MatFormFieldModule,
 ];

@@ -9,13 +9,15 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  min-width: 400px;
+  width: 400px;
+  max-width: 90vw;
 }
 
 .password-input,
 .email-input,
 .login-btn {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .password-input::placeholder,
@@ -35,4 +37,8 @@
 ::ng-deep .mat-progress-spinner circle,
 .mat-spinner circle {
   stroke: white;
+}
+
+::ng-deep .mat-hint {
+  color: gray;
 }

@@ -7,10 +7,12 @@
             <input type="email" matInput placeholder="Your email . . . " />
         </mat-form-field>
 
-        <mat-form-field class="password-input" appearance="fill">
+        <mat-form-field hintLabel="Min 8 characters" class="password-input" appearance="fill">
             <mat-label class="input-label">Password</mat-label>
-            <input type="password" matInput placeholder="Your password . . . " />
+            <input #password type="password" matInput placeholder="Your password . . . " />
+            <mat-hint align="end">{{ password.value?.length || 0 }}/8</mat-hint>
         </mat-form-field>
+
         <button mat-raised-button class="login-btn" color="primary" type="submit">
             <span *ngIf="!isLoading">Login</span>
             <mat-icon *ngIf="isLoading"><mat-spinner diameter="20"></mat-spinner></mat-icon>
