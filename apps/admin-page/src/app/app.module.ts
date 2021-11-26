@@ -10,14 +10,18 @@ import { AppComponent } from './app.component';
 import { materialModules } from './material.constant';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { TempComponent } from './components/temp/temp.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { ItemCardComponent } from './components/item-card/item-card.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, TempComponent],
+  declarations: [AppComponent, PageNotFoundComponent, TempComponent, OrdersComponent, ItemCardComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, materialModules],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [
+    OrdersComponent
+  ],
 })
 export class AppModule {}
