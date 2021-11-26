@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .login-form-content {
@@ -20,25 +20,7 @@
   margin-bottom: 10px;
 }
 
-.password-input::placeholder,
-.email-input::placeholder,
-.input-label {
-  color: gray !important;
-}
-
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-  background-color: rgb(246, 246, 246);
-}
-
-::ng-deep input.mat-input-element::placeholder {
-  color: gray !important;
-}
-
 ::ng-deep .mat-progress-spinner circle,
 .mat-spinner circle {
   stroke: white;
-}
-
-::ng-deep .mat-hint {
-  color: gray;
 }
