@@ -1,9 +1,4 @@
-<ngb-alert
-    *ngIf="alert"
-    [type]="alert.type"
-    (closed)="alert = undefined"
-    [dismissible]="alert.dismissible"
->
+<ngb-alert *ngIf="alert" [type]="alert.type" (closed)="alert = undefined" [dismissible]="alert.dismissible">
     <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
     {{ alert.message }}</ngb-alert
 >
@@ -34,7 +29,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseQuantity()"
                     [disabled]="item.quantity === 1 || isLoading"
-                    data-cy="basket-item-decrese-quantity-button"
+                    data-cy="basket-item-decrease-quantity-button"
                 >
                     <span
                         *ngIf="isLoading"
@@ -78,7 +73,7 @@
                     class="box-size-plus tc-button-sm-square low-dropshadow"
                     (click)="decreaseDimension()"
                     [disabled]="item.dimension === 'SMALL' || isLoading"
-                    data-cy="basket-item-decrese-dimension-button"
+                    data-cy="basket-item-decrease-dimension-button"
                 >
                     <span
                         *ngIf="isLoading"
@@ -117,18 +112,14 @@
             <div class="text">
                 <span i18n="@@price"> Price </span>
             </div>
-            <div class="option price-text" data-cy="basket-item-price">
-                {{ itemPrice.toFixed(2) }} DKK
-            </div>
+            <div class="option price-text" data-cy="basket-item-price">{{ itemPrice.toFixed(2) }} DKK</div>
         </div>
         <hr class="margin-top" />
         <!-- actions -->
         <div class="option-actions">
             <button
                 class="tc-button-50 margin-top"
-                (click)="scrollTop()"
-                [routerLink]="'/product'"
-                [queryParams]="{ designId: item.design.designId }"
+                (click)="goToDesign()"
                 i18n="@@view"
                 data-cy="basket-item-view-button"
             >

@@ -1,8 +1,4 @@
-<footer
-    data-cy="footer"
-    class="page-footer font-small bottom add-transition"
-    id="footer"
->
+<footer data-cy="footer" class="page-footer font-small bottom add-transition" id="footer">
     <div class="container">
         <div class="row container-footer">
             <div class="col-main col-md-3 border-right">
@@ -16,11 +12,7 @@
                                 <a routerLink="/home">Home</a>
                             </li>
                             <li>
-                                <a
-                                    routerLink="{{
-                                        isLoggedIn ? '/product' : '/notSignedIn'
-                                    }}"
-                                    i18n="@@product"
+                                <a routerLink="{{ isLoggedIn ? '/product' : '/notSignedIn' }}" i18n="@@product"
                                     >Product</a
                                 >
                             </li>
@@ -28,19 +20,13 @@
                                 <a routerLink="/login" i18n="@@login">Log in</a>
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/profile" i18n="@@profile"
-                                    >Profile</a
-                                >
+                                <a routerLink="/profile" i18n="@@profile">Profile</a>
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/collection" i18n="@@collection"
-                                    >Collection</a
-                                >
+                                <a routerLink="/collection" i18n="@@collection">Collection</a>
                             </li>
                             <li>
-                                <a routerLink="/basket" i18n="@@basket"
-                                    >Basket</a
-                                >
+                                <a routerLink="/basket" i18n="@@basket">Basket</a>
                             </li>
                         </ul>
                     </div>
@@ -52,36 +38,18 @@
             <div class="col-main col-md-3 border-right">
                 <div class="row">
                     <div class="col">
-                        <h5
-                            class="font-weight-bold mt-3 contact-mobile-margin"
-                            i18n="@@contact"
-                        >
-                            Contact
-                        </h5>
+                        <h5 class="font-weight-bold mt-3 contact-mobile-margin" i18n="@@contact">Contact</h5>
                     </div>
                     <div class="col">
                         <ul class="list-unstyled">
                             <li>
-                                <a
-                                    id="mailto"
-                                    href="mailto:info@treecreate.dk"
-                                    target="_blank"
-                                    >E-mail</a
-                                >
+                                <a id="mailto" href="mailto:info@treecreate.dk" target="_blank">E-mail</a>
                             </li>
                             <li>
-                                <a
-                                    href="https://www.facebook.com/TreeCreate.dk"
-                                    target="_blank"
-                                    >Facebook</a
-                                >
+                                <a href="https://www.facebook.com/TreeCreate.dk" target="_blank">Facebook</a>
                             </li>
                             <li>
-                                <a
-                                    href="https://www.instagram.com/treecreate.dk/"
-                                    target="_blank"
-                                    >Instagram</a
-                                >
+                                <a href="https://www.instagram.com/treecreate.dk/" target="_blank">Instagram</a>
                             </li>
                         </ul>
                     </div>
@@ -90,20 +58,11 @@
 
             <hr class="remove-margin clearfix w-100 d-md-none" />
 
-            <form
-                class="col-main col-md-3 final-col"
-                [formGroup]="signupNewsletterForm"
-                (ngSubmit)="submit()"
-            >
-                <h5
-                    class="font-weight-bold mt-3"
-                    i18n="@@subscribe-to-newsletter-title"
-                >
+            <form class="col-main col-md-3 final-col" [formGroup]="signupNewsletterForm" (ngSubmit)="submit()">
+                <h5 class="font-weight-bold mt-3" i18n="@@subscribe-to-newsletter-title">
                     Subscribe to our newsletter
                 </h5>
-                <p i18n="@@subscribe-to-newsletter-subtitle">
-                    Get 10% off your first purchase.
-                </p>
+                <p i18n="@@subscribe-to-newsletter-subtitle">Get 10% off your first purchase.</p>
                 <div class="tc-input-group field">
                     <input
                         type="email"
@@ -136,9 +95,7 @@
     <div class="footer-copyright text-center py-3">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    © {{ this.currentYear }} Copyright Treecreate
-                </div>
+                <div class="col">© {{ this.currentYear }} Copyright Treecreate</div>
                 <hr class="remove-mobile clearfix w-100 d-md-none" />
                 <div class="col">
                     <a
@@ -167,22 +124,10 @@
                 </div>
                 <hr class="remove-mobile clearfix w-100 d-md-none" />
                 <div class="col">
-                    <img
-                        src="/assets/logos/payment/dankortLogo.svg"
-                        class="payment-icon"
-                    />
-                    <img
-                        src="/assets/logos/payment/mastercardLogo.svg"
-                        class="payment-icon"
-                    />
-                    <img
-                        src="/assets/logos/payment/mobilePay.svg"
-                        class="payment-icon"
-                    />
-                    <img
-                        src="/assets/logos/payment/visaLogo.svg"
-                        class="payment-icon"
-                    />
+                    <img src="/assets/logos/payment/dankortLogo.svg" class="payment-icon" />
+                    <img src="/assets/logos/payment/mastercardLogo.svg" class="payment-icon" />
+                    <img src="/assets/logos/payment/mobilePay.svg" class="payment-icon" />
+                    <img src="/assets/logos/payment/visaLogo.svg" class="payment-icon" />
                 </div>
             </div>
         </div>

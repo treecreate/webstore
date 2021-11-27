@@ -5,24 +5,19 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { nzModules } from './nz-modules.constant';
+import { materialModules } from './material.constant';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { TempComponent } from './components/temp/temp.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    nzModules,
-  ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  declarations: [AppComponent, PageNotFoundComponent, TempComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, materialModules],
+  providers: [],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

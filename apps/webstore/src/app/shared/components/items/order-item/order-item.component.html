@@ -3,7 +3,7 @@
     <hr />
     <div class="line">
         <span class="sub-title" i18n="@@order-id"> Order id </span>
-        <span>{{ order.orderId }}</span>
+        <span data-cy="order-item-id">{{ order.orderId }}</span>
     </div>
 
     <div class="info-container">
@@ -11,12 +11,14 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@order-status">Order status </span>
-                    <span> {{ order.state }} </span>
+                    <span data-cy="order-item-status"> {{ order.state }} </span>
                 </div>
                 <div class="section-row margin-top">
                     <div class="line">
                         <span class="sub-title">E-mail </span>
-                        <span> {{ order.contactInfo.email }} </span>
+                        <span data-cy="order-item-email">
+                            {{ order.contactInfo.email }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -39,20 +41,20 @@
     <div class="title" i18n="@@items">Items</div>
     <hr />
     <div class="order-items-container">
-        <div *ngFor="let item of order.transactionItems" class="item">
+        <div *ngFor="let item of order.transactionItems" class="item" data-cy="order-item-design-item">
             <div class="item-info-container">
                 <div class="row-2">
                     <div class="section-row">
                         <div class="line">
                             <span class="sub-title" i18n="@@title">Title </span>
-                            <span>{{ item.design.designProperties.title }}</span>
+                            <span data-cy="order-item-design-item-title">{{ item.design.designProperties.title }}</span>
                         </div>
                     </div>
 
                     <div class="section-row">
                         <div class="line">
                             <span class="sub-title" i18n="@@amount">Amount</span>
-                            <span>{{ item.quantity }} stk</span>
+                            <span data-cy="order-item-design-item-amount">{{ item.quantity }} stk</span>
                         </div>
                     </div>
                 </div>
@@ -77,6 +79,7 @@
                         (click)="scrollTop()"
                         [routerLink]="'/product'"
                         [queryParams]="{ designId: item.design.designId }"
+                        data-cy="order-item-view-button"
                     >
                         <img src="/assets/icons/eye-white-icon.svg" alt="" class="icon" />
                     </button>

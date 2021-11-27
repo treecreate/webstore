@@ -1,26 +1,13 @@
 <div class="modal-body" data-cy="go-to-basket-modal">
-    <img
-        src="/assets/icons/check-green-icon.svg"
-        class="check-icon"
-        alt="check-icon"
-    />
-    <div class="title" i18n="@@go-to-basket-title">
-        The family tree has been added to your basket
-    </div>
+    <img src="/assets/icons/check-green-icon.svg" class="check-icon" alt="check-icon" />
+    <div class="title" i18n="@@go-to-basket-title">The family tree has been added to your basket</div>
     <div class="sub-title" *ngIf="!isLoading">
         <span i18n="@@you-have">You have</span> {{ itemsInBasket }}
-        <span i18n="@@items-in-your-basket">items in your basket</span> ({{
-            basketPrice
-        }}
+        <span i18n="@@items-in-your-basket">items in your basket</span> ({{ basketPrice }}
         DKK )
     </div>
     <div *ngIf="isLoading" style="text-align: center">
-        <span
-            class="spinner-border spinner-border-sm"
-            style="margin: 0 10px"
-            role="status"
-            aria-hidden="true"
-        ></span>
+        <span class="spinner-border spinner-border-sm" style="margin: 0 10px" role="status" aria-hidden="true"></span>
         <br />
         <span i18n="@@loading-items-in-basket">Loading items in basket...</span>
     </div>

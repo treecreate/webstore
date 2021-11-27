@@ -31,16 +31,12 @@ export class ChangePasswordModalComponent implements OnInit {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'
-        ),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
     });
   }
@@ -50,10 +46,7 @@ export class ChangePasswordModalComponent implements OnInit {
   }
 
   passwordsMatch() {
-    return (
-      this.changePasswordForm.get('password').value ===
-      this.changePasswordForm.get('confirmPassword').value
-    );
+    return this.changePasswordForm.get('password').value === this.changePasswordForm.get('confirmPassword').value;
   }
 
   changePassword() {
@@ -65,12 +58,7 @@ export class ChangePasswordModalComponent implements OnInit {
       .subscribe(
         (data: IUser) => {
           console.log('password updated for user: ', data);
-          this.toastService.showAlert(
-            'Your password has been updated!',
-            'Din kode er ændret!',
-            'success',
-            2500
-          );
+          this.toastService.showAlert('Your password has been updated!', 'Din kode er ændret!', 'success', 2500);
           this.authService.logout();
           this.activeModal.close();
           this.isLoading = false;

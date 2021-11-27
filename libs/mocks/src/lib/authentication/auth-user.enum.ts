@@ -4,5 +4,4 @@ export enum AuthUserEnum {
   authUserRoleOwner,
   authUserExpired,
   authUserInvalid,
-  authUserNotVerified,
 }

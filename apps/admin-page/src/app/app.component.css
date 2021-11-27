@@ -1,0 +1,63 @@
+.body-container {
+  height: calc(100vh - var(--navbar-height));
+  width: 100%;
+}
+
+mat-toolbar .spacer {
+  flex: 1 1 auto;
+}
+
+.sidebar {
+  width: 225px;
+  box-shadow: -7px 0px 24px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar mat-icon {
+  color: #616060;
+}
+
+.sidebar .toggle-btn {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.collapsed {
+  width: 70px;
+}
+
+.collapsible {
+  display: none;
+}
+
+.sidebar-header {
+  padding: 16px 16px 0 16px;
+}
+
+.sidebar-header .role {
+  margin-bottom: 0;
+}
+
+.sidebar-header mat-icon {
+  font-size: 40px;
+}
+
+.collapsed .sidebar-header mat-icon {
+  font-size: 24px;
+}
+
+::ng-deep .collapsed .sidebar-header {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+::ng-deep .collapsed .sidebar-items .mat-list-item-content {
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-items .item-desc {
+  margin-left: 20px;
+}

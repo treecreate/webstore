@@ -32,9 +32,7 @@ describe('PageNotFoundPage', () => {
 
   it('should point to the correct email', () => {
     const treecreateMail = 'info@treecreate.dk';
-    cy.get('[data-cy=page-not-found-mail-treecreate-link]').contains(
-      treecreateMail
-    );
+    cy.get('[data-cy=page-not-found-mail-treecreate-link]').contains(treecreateMail);
     cy.get('[data-cy=page-not-found-mail-treecreate-link]')
       .should('have.attr', 'href')
       .and('include', `mailto:${treecreateMail}`);

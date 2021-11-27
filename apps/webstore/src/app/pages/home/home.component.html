@@ -4,15 +4,12 @@
         <div class="darkener"></div>
         <div class="main-text-container add-transition">
             <h1 class="title title-font">
-                <strong i18n="@@home-01-title"
-                    >More than just a family tree</strong
-                >
+                <strong i18n="@@home-01-title">More than just a family tree</strong>
             </h1>
             <h5 class="main-subtext" i18n="@@home-01-text">
-                A tree, that binds the whole family together. In just a few
-                minutes, you can order a very special present to someone you
-                care about. Treecreate, a personal present of high quality and
-                with special care for the environment.
+                A tree, that binds the whole family together. In just a few minutes, you can order a very special
+                present to someone you care about. Treecreate, a personal present of high quality and with special care
+                for the environment.
             </h5>
             <h5><span i18n="@@prices-from">Prices from </span> 495 DKK</h5>
         </div>
@@ -44,32 +41,20 @@
 
     <div>
         <div class="subscribe-section add-transition" id="subscribe">
-            <h1
-                class="subscribe-title title title-font add-transition"
-                i18n="@@home-02-title"
-            >
+            <h1 class="subscribe-title title title-font add-transition" i18n="@@home-02-title">
                 Subscribe to our newsletter
             </h1>
             <h5 class="subscribe-subtitle add-transition" i18n="@@home-02-text">
-                get 10% discount on your first purchase, and have a chance to
-                win a family tree!
+                get 10% discount on your first purchase, and have a chance to win a family tree!
             </h5>
             <form
                 [formGroup]="subscribeForm"
                 class="action-container add-transition"
                 (ngSubmit)="submitNewsletterEmail()"
             >
-                <input
-                    type="text"
-                    placeholder="E-mail"
-                    class="email-input-field"
-                    formControlName="email"
-                />
+                <input type="text" placeholder="E-mail" class="email-input-field" formControlName="email" />
                 <button class="subscribe-button title-font" type="submit">
-                    <img
-                        src="/assets/icons/white-send-email-icon.svg"
-                        class="send-email-icon"
-                    />
+                    <img src="/assets/icons/white-send-email-icon.svg" class="send-email-icon" />
                     <div class="button-text" i18n="@@subscribe">Subscribe</div>
                 </button>
             </form>
@@ -79,26 +64,18 @@
     <div class="descriptive-content-container">
         <img src="/assets/img/description1.jpg" class="descriptive-img" />
         <div class="text-container">
-            <h1
-                class="discriptive-title title title-font"
-                i18n="@@home-03-title"
-            >
-                The most personal present
-            </h1>
+            <h1 class="discriptive-title title title-font" i18n="@@home-03-title">The most personal present</h1>
             <div class="descriptive-text">
                 <span i18n="@@home-03-text-01"
-                    >When you give a Treecreate family tree, you can be sure to
-                    surprise your nearest every time. Your gift is completely
-                    unique to the person you give it to, and it does not get
-                    more personal.</span
+                    >When you give a Treecreate family tree, you can be sure to surprise your nearest every time. Your
+                    gift is completely unique to the person you give it to, and it does not get more personal.</span
                 >
                 <br />
                 <br />
                 <span i18n="@@home-03-text-02"
-                    >Your Treecreate family tree is carefully carved in
-                    beautiful fragant oak wood with bark on top. it gives a
-                    natural expression as your thoughts are easily led to a
-                    lovely summerday with the family.</span
+                    >Your Treecreate family tree is carefully carved in beautiful fragant oak wood with bark on top. it
+                    gives a natural expression as your thoughts are easily led to a lovely summerday with the
+                    family.</span
                 >
             </div>
         </div>
@@ -107,25 +84,18 @@
     <div class="descriptive-content-container reverse">
         <img src="/assets/img/description2.jpg" class="descriptive-img" />
         <div class="text-container">
-            <h1
-                class="discriptive-title title title-font align-right"
-                i18n="@@home-04-title"
-            >
-                A present with care
-            </h1>
+            <h1 class="discriptive-title title title-font align-right" i18n="@@home-04-title">A present with care</h1>
             <div class="descriptive-text align-right">
                 <span i18n="@@home-04-text-01"
-                    >For each family tree you order from Treecreate, we plant a
-                    tree. That way we can help each other protect our nature and
-                    thereby make the world a greener place.</span
+                    >For each family tree you order from Treecreate, we plant a tree. That way we can help each other
+                    protect our nature and thereby make the world a greener place.</span
                 >
                 <br />
                 <br />
                 <span i18n="@@home-04-text-02"
-                    >When we sendt your Treecreate family tree, it is carefully
-                    packed in strong FSC-certified re-use paper. In that way we
-                    secure that your valuable present is protected on the
-                    journey home, and we avoid using unnecessary plastic.</span
+                    >When we sendt your Treecreate family tree, it is carefully packed in strong FSC-certified re-use
+                    paper. In that way we secure that your valuable present is protected on the journey home, and we
+                    avoid using unnecessary plastic.</span
                 >
             </div>
         </div>
@@ -142,22 +112,10 @@
         </div>
     </div>
 
-    <div
-        class="start-creating-button-container"
-        [ngClass]="showStartButton ? 'show' : 'hide'"
-    >
-        <button
-            class="start-creating-button title-font"
-            routerLink="/product"
-            (click)="scrollTop()"
-        >
-            <img
-                src="/assets/icons/arrow-white-right.svg"
-                class="start-creating-icon"
-            />
-            <div class="start-button-text" i18n="@@start-creating">
-                Start creating
-            </div>
+    <div class="start-creating-button-container" [ngClass]="showStartButton ? 'show' : 'hide'">
+        <button class="start-creating-button title-font" routerLink="/product" (click)="scrollTop()">
+            <img src="/assets/icons/arrow-white-right.svg" class="start-creating-icon" />
+            <div class="start-button-text" i18n="@@start-creating">Start creating</div>
         </button>
     </div>
 </div>
