@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  api:
+    restart: always
+    build:
+      dockerfile: ./.deploy/api/Dockerfile
+      context: .
+    env_file:
+      - .env
+    environment:
+      - TREECREATE_V2_TEST_JDBC_URL
+      - TREECREATE_V2_PROD_JDBC_URL
+      - TREECREATE_QUICKPAY_SECRET
+      - TREECREATE_MAIL_PASS
+      - TREECREATE_SENTRY_DSN
+      - TREECREATE_JDBC_URL
+      
+    ports:
+      - 5000:5000
+
+  webstore:
+    restart: always
+    
+    build:
+      dockerfile: ./.deploy/webstore/Dockerfile
+      context: .
+    
+    ports:
+      - 4200:80
+
+  admin_page:
+    restart: always
+    build:
+      dockerfile: ./.deploy/admin-page/Dockerfile
+      context: .
+
+    ports:
+      - 4300:80
