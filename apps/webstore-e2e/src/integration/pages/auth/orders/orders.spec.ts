@@ -9,7 +9,7 @@ import {
   ITransactionItem,
   DesignDimensionEnum,
   IOrder,
-  PaymentStateEnum,
+  OrderStatusEnum,
   CurrencyEnum,
   DiscountType,
   ShippingMethodEnum,
@@ -98,8 +98,7 @@ const mockTransactionItemTwo: ITransactionItem = {
   design: mockDesign,
 };
 const mockOrder: IOrder = {
-  paymentState: PaymentStateEnum.pending,
-  state: PaymentStateEnum.pending,
+  status: OrderStatusEnum.pending,
   billingInfo: {
     city: 'cph',
     country: 'Denmark',
@@ -138,8 +137,7 @@ const mockOrder: IOrder = {
   userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
 };
 const mockOrderTwo: IOrder = {
-  paymentState: PaymentStateEnum.pending,
-  state: PaymentStateEnum.new,
+  status: OrderStatusEnum.new,
   billingInfo: {
     city: 'LULS',
     country: 'Denmark',

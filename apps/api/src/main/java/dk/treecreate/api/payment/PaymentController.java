@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import dk.treecreate.api.order.Order;
 import dk.treecreate.api.order.OrderRepository;
 import dk.treecreate.api.order.OrderService;
+import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.QuickpayService;
-import dk.treecreate.api.utils.model.quickpay.PaymentState;
 import dk.treecreate.api.utils.model.quickpay.QuickpayOperationType;
 import dk.treecreate.api.utils.model.quickpay.QuickpayStatusCode;
 import io.sentry.Sentry;
@@ -153,9 +153,9 @@ public class PaymentController
                     event.setExtra("Updated state (bool)", false);
                 } else
                 {
-                    order.setState(PaymentState.valueOf(state.asText().toUpperCase()));
+                    order.setStatus(OrderStatus.valueOf(state.asText().toUpperCase()));
                     orderRepository.save(order);
-                    System.out.println(order.getState());
+                    System.out.println(order.getStatus());
                     event.setExtra("Updated state (bool)", true);
                 }
             } catch (Exception e)
