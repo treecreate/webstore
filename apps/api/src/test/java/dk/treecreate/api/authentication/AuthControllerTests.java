@@ -15,6 +15,7 @@ import dk.treecreate.api.utils.LocaleService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -55,200 +56,229 @@ class AuthControllerTests
     private MailService mailService;
     @MockBean
     private LocaleService localeService;
-    @MockBean
-    private JwtUtils jwtUtils;
 
-    // region Signin
-
-    @Test
-    @DisplayName("/auth/signin endpoint return 400 when the request body is incorrect")
-    void signinReturnsBadRequestOnInvalidBody() throws Exception
+    @Nested
+    class SigninTests
     {
-        mvc.perform(post("/auth/signin")
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest());
+        @Autowired
+        private JwtUtils jwtUtils;
+
+        @Test
+        @DisplayName("/auth/signin endpoint return 400 when the request body is incorrect")
+        void signinReturnsBadRequestOnInvalidBody() throws Exception
+        {
+            mvc.perform(post("/auth/signin")
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("/auth/signin endpoint return 401 when user credentials are invalid")
+        void signinReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.setEmail("test@treecreate.dk");
+            loginRequest.setPassword("abcDEF1234");
+
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail(loginRequest.getEmail());
+            user.setUsername(loginRequest.getEmail());
+            // hashed version of "abcDEF123", which is different from the user password in this test
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+            user.setRoles(roles);
+
+            Mockito.when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+
+            mvc.perform(post("/auth/signin")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtilsService.asJsonString(loginRequest)))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName("/auth/signin endpoint correctly authenticates the user")
+        void signinCorrectlySignsInUser() throws Exception
+        {
+            LoginRequest loginRequest = new LoginRequest();
+            loginRequest.setEmail("test@treecreate.dk");
+            loginRequest.setPassword("abcDEF123");
+
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail(loginRequest.getEmail());
+            user.setUsername(loginRequest.getEmail());
+            user.setIsVerified(true);
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+            user.setRoles(roles);
+
+            Mockito.when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+
+            mvc.perform(post("/auth/signin")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtilsService.asJsonString(loginRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("userId", is(user.getUserId().toString())))
+                .andExpect(jsonPath("email", is(user.getEmail())))
+                .andExpect(jsonPath("isVerified", is(user.getIsVerified())))
+                .andExpect(jsonPath("roles", hasItem(ERole.ROLE_USER.toString())))
+                .andExpect(jsonPath("tokenType", is("Bearer")))
+                .andExpect(jsonPath("accessToken", is(notNullValue())));
+        }
     }
 
-    @Test
-    @DisplayName("/auth/signin endpoint return 401 when user credentials are invalid")
-    void signinReturnsUnauthorizedOnInvalidCredentials() throws Exception
+    @Nested
+    class SignupTests
     {
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail("test@treecreate.dk");
-        loginRequest.setPassword("abcDEF1234");
+        @Autowired
+        private JwtUtils jwtUtils;
 
-        User user = new User();
-        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
-        user.setEmail(loginRequest.getEmail());
-        user.setUsername(loginRequest.getEmail());
-        // hashed version of "abcDEF123", which is different from the user password in this test
-        user.setPassword(
-            "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(ERole.ROLE_USER));
-        user.setRoles(roles);
+        @Test
+        @DisplayName("/auth/signup endpoint return 400 when the request body is incorrect")
+        void signupReturnsBadRequestOnInvalidBody() throws Exception
+        {
+            mvc.perform(post("/auth/signup")
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+        }
 
-        Mockito.when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(
-            java.util.Optional.of(user));
+        @Test
+        @DisplayName("/auth/signup endpoint return 400 when user email ios already taken")
+        void signupReturnsBadRequestWhenUserEmailIsTaken() throws Exception
+        {
+            SignupRequest signupRequest = new SignupRequest();
+            signupRequest.setEmail("test@treecreate.dk");
+            signupRequest.setPassword("abcDEF123");
 
-        mvc.perform(post("/auth/signin")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(loginRequest)))
-            .andExpect(status().isUnauthorized());
+            Mockito.when(userRepository.existsByEmail(signupRequest.getEmail())).thenReturn(true);
+
+            mvc.perform(post("/auth/signup")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtilsService.asJsonString(signupRequest)))
+                .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("/auth/signup endpoint correctly creates a new user")
+        void signupCorrectlyCreatesNewUser() throws Exception
+        {
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+
+            SignupRequest signupRequest = new SignupRequest();
+            signupRequest.setEmail("test@treecreate.dk");
+            signupRequest.setPassword("abcDEF123");
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail(signupRequest.getEmail());
+            user.setUsername(signupRequest.getEmail());
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
+            user.setRoles(roles);
+
+            Mockito.when(userRepository.save(user)).thenReturn(user);
+            Mockito.when(userRepository.findByEmail(signupRequest.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+            Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
+                java.util.Optional.of(new Role(ERole.ROLE_USER)));
+            Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
+            Mockito.doNothing().when(mailService)
+                .sendSignupEmail(user.getEmail(), user.getToken(), new Locale("dk"));
+
+            mvc.perform(post("/auth/signup")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtilsService.asJsonString(signupRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("userId", is(user.getUserId().toString())))
+                .andExpect(jsonPath("email", is(user.getEmail())))
+                .andExpect(jsonPath("$.roles", hasSize(1)))
+                .andExpect(jsonPath("tokenType", is("Bearer")))
+                .andExpect(jsonPath("accessToken", is(notNullValue())));
+        }
+
     }
 
-    //endregion
-
-    //region Sign Up
-
-    @Test
-    @DisplayName("/auth/signin endpoint correctly authenticates the user")
-    void signinCorrectlySignsInUser() throws Exception
+    @Nested
+    class RefreshTokenTests
     {
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail("test@treecreate.dk");
-        loginRequest.setPassword("abcDEF123");
 
-        User user = new User();
-        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
-        user.setEmail(loginRequest.getEmail());
-        user.setUsername(loginRequest.getEmail());
-        user.setIsVerified(true);
-        user.setPassword(
-            "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(ERole.ROLE_USER));
-        user.setRoles(roles);
+        @MockBean
+        private JwtUtils jwtUtils;
 
-        Mockito.when(userRepository.findByEmail(loginRequest.getEmail())).thenReturn(
-            java.util.Optional.of(user));
+        @Test
+        @WithMockUser(username = "test@treecreate.dk")
+        @DisplayName("/auth/refresh endpoint correctly refreshes the user's tokens")
+        void refreshCorrectlyRefreshesTokens() throws Exception
+        {
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail("test@treecreate.dk");
+            user.setUsername(user.getEmail());
+            // hashed version of "abcDEF123", which is different from the user password in this test
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+            user.setRoles(roles);
 
-        mvc.perform(post("/auth/signin")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(loginRequest)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("userId", is(user.getUserId().toString())))
-            .andExpect(jsonPath("email", is(user.getEmail())))
-            .andExpect(jsonPath("isVerified", is(user.getIsVerified())))
-            .andExpect(jsonPath("roles", hasItem(ERole.ROLE_USER.toString())))
-            .andExpect(jsonPath("tokenType", is("Bearer")))
-            .andExpect(jsonPath("accessToken", is(notNullValue())));
-    }
+            String refreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
 
-    @Test
-    @DisplayName("/auth/signup endpoint return 400 when the request body is incorrect")
-    void signupReturnsBadRequestOnInvalidBody() throws Exception
-    {
-        mvc.perform(post("/auth/signup")
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest());
-    }
+            String authToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
 
-    @Test
-    @DisplayName("/auth/signup endpoint return 400 when user email ios already taken")
-    void signupReturnsBadRequestWhenUserEmailIsTaken() throws Exception
-    {
-        SignupRequest signupRequest = new SignupRequest();
-        signupRequest.setEmail("test@treecreate.dk");
-        signupRequest.setPassword("abcDEF123");
+            String newRefreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
 
-        Mockito.when(userRepository.existsByEmail(signupRequest.getEmail())).thenReturn(true);
+            String newAuthToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
 
-        mvc.perform(post("/auth/signup")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(signupRequest)))
-            .andExpect(status().isBadRequest());
-    }
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+            Mockito.when(jwtUtils.generateJwtToken(any())).thenReturn(newAuthToken);
+            Mockito.when(jwtUtils.generateJwtRefreshToken(any())).thenReturn(newRefreshToken);
 
-    @Test
-    @DisplayName("/auth/signup endpoint correctly creates a new user")
-    void signupCorrectlyCreatesNewUser() throws Exception
-    {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(ERole.ROLE_USER));
+            jwtUtils.whitelistJwtPair(authToken, refreshToken);
 
-        SignupRequest signupRequest = new SignupRequest();
-        signupRequest.setEmail("test@treecreate.dk");
-        signupRequest.setPassword("abcDEF123");
-        User user = new User();
-        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
-        user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
-        user.setEmail(signupRequest.getEmail());
-        user.setUsername(signupRequest.getEmail());
-        user.setPassword(
-            "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62"); // hashed version of "abcDEF123"
-        user.setRoles(roles);
+            mvc.perform(get("/auth/refresh")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + refreshToken))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("tokenType", is("Bearer")))
+                .andExpect(jsonPath("accessToken", equalTo(newAuthToken)))
+                .andExpect(jsonPath("refreshToken", equalTo(newRefreshToken)));
 
-        Mockito.when(userRepository.save(user)).thenReturn(user);
-        Mockito.when(userRepository.findByEmail(signupRequest.getEmail())).thenReturn(
-            java.util.Optional.of(user));
-        Mockito.when(roleRepository.findByName(ERole.ROLE_USER)).thenReturn(
-            java.util.Optional.of(new Role(ERole.ROLE_USER)));
-        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
-        Mockito.doNothing().when(mailService)
-            .sendSignupEmail(user.getEmail(), user.getToken(), new Locale("dk"));
-
-        mvc.perform(post("/auth/signup")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtilsService.asJsonString(signupRequest)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("userId", is(user.getUserId().toString())))
-            .andExpect(jsonPath("email", is(user.getEmail())))
-            .andExpect(jsonPath("$.roles", hasSize(1)))
-            .andExpect(jsonPath("tokenType", is("Bearer")))
-            .andExpect(jsonPath("accessToken", is(notNullValue())));
-    }
-    //endregion
-
-    @Test
-    @WithMockUser(username = "test@treecreate.dk")
-    @DisplayName("/auth/refresh endpoint correctly refreshes the user's tokens")
-    void refreshCorrectlyRefreshesTokens() throws Exception
-    {
-        String refreshToken = Jwts.builder()
-            .setSubject("test@treecreate.dk")
-            .setIssuedAt(new Date())
-            .setExpiration(
-                new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
-            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
-            .compact();
-
-        String authToken = Jwts.builder()
-            .setSubject("test@treecreate.dk")
-            .setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
-            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
-            .compact();
-
-        String newRefreshToken = Jwts.builder()
-            .setSubject("test@treecreate.dk")
-            .setIssuedAt(new Date())
-            .setExpiration(
-                new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
-            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
-            .compact();
-
-        String newAuthToken = Jwts.builder()
-            .setSubject("test@treecreate.dk")
-            .setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
-            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
-            .compact();
-
-        Mockito.when(jwtUtils.generateJwtToken(any())).thenReturn(newAuthToken);
-        Mockito.when(jwtUtils.generateJwtRefreshToken(any())).thenReturn(newRefreshToken);
-
-        jwtUtils.whitelistJwtPair(authToken, refreshToken);
-
-        mvc.perform(get("/auth/refresh")
-            .contentType(MediaType.APPLICATION_JSON)
-            .header("Authorization", "Bearer " + refreshToken))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("tokenType", is("Bearer")))
-            .andExpect(jsonPath("accessToken", equalTo(newAuthToken)))
-            .andExpect(jsonPath("refreshToken", equalTo(newRefreshToken)));
-
-        // assertFalse(jwtUtils.validateJwtToken(authToken));
-        // assertFalse(jwtUtils.validateJwtToken(refreshToken));
+            // assertFalse(jwtUtils.validateJwtToken(authToken));
+            // assertFalse(jwtUtils.validateJwtToken(refreshToken));
+        }
     }
 }
