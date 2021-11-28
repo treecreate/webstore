@@ -21,10 +21,11 @@ export class OrderItemComponent implements OnInit {
     return this.calculePriceService.calculateItemPrice(transactionItem);
   }
 
-  scrollTop() {
-    window.scrollTo(0, 0);
-  }
-
+  /**
+   * Returns corresponding order status display text
+   * @param status order status
+   * @returns user-friendly order status text
+   */
   getStatusDisplayName(status: OrderStatusEnum): OrderStatusDisplayNameEnum {
     switch (status) {
       case OrderStatusEnum.initial:
@@ -44,5 +45,9 @@ export class OrderItemComponent implements OnInit {
       case OrderStatusEnum.delivered:
         return OrderStatusDisplayNameEnum.delivered;
     }
+  }
+
+  scrollTop() {
+    window.scrollTo(0, 0);
   }
 }
