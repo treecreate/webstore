@@ -32,7 +32,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -128,13 +127,13 @@ public class AuthController
     /**
      * Refreshes the user's pair of tokens by generating a new set of <code>accessToken</code> and
      * <code>refreshToken</code>, and invalidating the old pair.
-     * 
+     *
      * @param request an HTTP request.
      * @return a <code>JwtResponse</code> containing the new user information.
      */
     @GetMapping("/refresh")
     public ResponseEntity<JwtResponse> refreshToken(
-        HttpServletRequest request) 
+        HttpServletRequest request)
     {
         try
         {
@@ -152,7 +151,7 @@ public class AuthController
                 .collect(Collectors.toList());
 
             // Remove the old pair of tokens from the whitelist.
-            jwtUtils.removeWhitelistJwtPair(token); 
+            jwtUtils.removeWhitelistJwtPair(token);
 
             // Generate a new set of tokens for the user.
             String accessToken = jwtUtils.generateJwtToken(authentication);
@@ -160,8 +159,8 @@ public class AuthController
 
             // Whitelist the new pair of tokens.
             jwtUtils.whitelistJwtPair(accessToken, refreshToken);
-            
-            return ResponseEntity.ok(new JwtResponse(accessToken, 
+
+            return ResponseEntity.ok(new JwtResponse(accessToken,
                 refreshToken,
                 userDetails.getUsedId(),
                 userDetails.getEmail(),
@@ -172,19 +171,19 @@ public class AuthController
             LOGGER.error("Failed to refresh the authentication token.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to refresh the authentication token. Try again later.");
-        }   
+        }
     }
 
     /**
-     * Logs out the user by taking the token from the <code>Authorization</code> header, 
-     * extracting the username from its body, and invalidating all of the tokens that 
+     * Logs out the user by taking the token from the <code>Authorization</code> header,
+     * extracting the username from its body, and invalidating all of the tokens that
      * belong to that user.
-     * 
+     *
      * @param request an HTTP request.
      * @return a <code>Response Entity</code> with no body.
      */
     @GetMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) 
+    public ResponseEntity<String> logout(HttpServletRequest request)
     {
         try
         {
@@ -194,14 +193,14 @@ public class AuthController
 
             // Remove all User's tokens from the whitelist
             jwtUtils.removeWhitelistUser(user);
-            
+
             return ResponseEntity.noContent().build();
         } catch (Exception e)
         {
             LOGGER.error("Failed to logout.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to logout. Try again later.");
-        }   
+        }
     }
 
 }

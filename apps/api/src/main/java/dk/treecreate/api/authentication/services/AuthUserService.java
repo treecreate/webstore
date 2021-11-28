@@ -50,7 +50,7 @@ public class AuthUserService
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
 
-        return new JwtResponse(jwt, 
+        return new JwtResponse(jwt,
             jwtRefresh,
             userDetails.getUsedId(),
             userDetails.getEmail(),
