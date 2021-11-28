@@ -216,6 +216,47 @@ class AuthControllerTests
         private JwtUtils jwtUtils;
 
         @Test
+        @DisplayName("/auth/refresh endpoint returns 401 when user is not authenticated")
+        void refreshReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            mvc.perform(get("/auth/refresh"))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @DisplayName(
+            "/auth/refresh endpoint returns 401 when user tries to authenticate with blacklisted tokens")
+        void refreshReturnsUnauthorizedOnBlacklistedTokens() throws Exception
+        {
+
+            String refreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            String authToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            Mockito.when(jwtUtils.isWhitelisted(any())).thenReturn(false);
+
+            mvc.perform(get("/auth/refresh")
+                    .header("Authorization", "Bearer " + refreshToken))
+                .andExpect(status().isUnauthorized());
+
+            mvc.perform(get("/auth/refresh")
+                    .header("Authorization", "Bearer " + authToken))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
         @WithMockUser(username = "test@treecreate.dk")
         @DisplayName("/auth/refresh endpoint correctly refreshes the user's tokens")
         void refreshCorrectlyRefreshesTokens() throws Exception
