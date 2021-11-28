@@ -36,8 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -382,6 +381,160 @@ class AuthControllerTests
 
             assertFalse(jwtUtils.validateJwtToken(authToken));
             assertFalse(jwtUtils.validateJwtToken(refreshToken));
+        }
+    }
+
+    @Nested
+    class LogoutTests
+    {
+        @Autowired
+        private JwtUtils jwtUtils;
+
+        @Test
+        @DisplayName("/auth/logout endpoint returns 401 when user is not authenticated")
+        void logoutReturnsUnauthorizedOnInvalidCredentials() throws Exception
+        {
+            mvc.perform(get("/auth/logout"))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        @WithMockUser(username = "test@treecreate.dk")
+        @DisplayName("/auth/logout endpoint correctly invalidates all user tokens")
+        void logoutCorrectlyInvalidatesUserTokens() throws Exception
+        {
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail("test@treecreate.dk");
+            user.setUsername(user.getEmail());
+            // hashed version of "abcDEF123", which is different from the user password in this test
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+            user.setRoles(roles);
+
+            String refreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            String authToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+
+            jwtUtils.whitelistJwtPair(authToken, refreshToken);
+
+            mvc.perform(get("/auth/logout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + refreshToken));
+
+            assertFalse(jwtUtils.validateJwtToken(authToken));
+            assertFalse(jwtUtils.validateJwtToken(refreshToken));
+        }
+
+        @Test
+        @WithMockUser(username = "test@treecreate.dk")
+        @DisplayName("/auth/logout endpoint returns NO CONTENT after successful logout")
+        void logoutReturnsNoContent() throws Exception
+        {
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail("test@treecreate.dk");
+            user.setUsername(user.getEmail());
+            // hashed version of "abcDEF123", which is different from the user password in this test
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+            user.setRoles(roles);
+
+            String refreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            String authToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+
+            jwtUtils.whitelistJwtPair(authToken, refreshToken);
+
+            mvc.perform(get("/auth/logout")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + refreshToken))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(""));
+
+        }
+
+        @Test
+        @DisplayName(
+            "/auth/logout endpoint makes it not possible to authenticate with old credentials")
+        void logoutPreventsAuthWithOldTokens() throws Exception
+        {
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail("test@treecreate.dk");
+            user.setUsername(user.getEmail());
+            // hashed version of "abcDEF123", which is different from the user password in this test
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+            user.setRoles(roles);
+
+            String refreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            String authToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+
+            jwtUtils.whitelistJwtPair(authToken, refreshToken);
+
+            mvc.perform(get("/auth/logout")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + refreshToken))
+                .andExpect(status().isNoContent());
+
+            mvc.perform(get("/auth/logout")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + refreshToken))
+                .andExpect(status().isUnauthorized());
+
         }
     }
 }
