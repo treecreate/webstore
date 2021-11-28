@@ -134,11 +134,9 @@ public class PaymentController
                 }
             }
 
-
-            LOGGER.info("Updating the order state");
+            LOGGER.info("Updating the order status (quickpay payment state)");
             try
             {
-
                 JsonNode state = json.get("state");
                 LOGGER.info("Payment state: " + state.asText());
                 JsonNode paymentId = json.get("id");
@@ -149,19 +147,19 @@ public class PaymentController
                         ". No entity updated");
                     event.setLevel(SentryLevel.WARNING);
                     event.setExtra("paymentId", paymentId.asText());
-                    event.setExtra("state", state.asText());
-                    event.setExtra("Updated state (bool)", false);
+                    event.setExtra("status", state.asText());
+                    event.setExtra("Updated status (bool)", false);
                 } else
                 {
                     order.setStatus(OrderStatus.valueOf(state.asText().toUpperCase()));
                     orderRepository.save(order);
                     System.out.println(order.getStatus());
-                    event.setExtra("Updated state (bool)", true);
+                    event.setExtra("Updated status (bool)", true);
                 }
             } catch (Exception e)
             {
                 LOGGER.error(
-                    "Failed to update the order payment state. Continuing to process the payment callback",
+                    "Failed to update the order status. Continuing to process the payment callback",
                     e);
             }
 
