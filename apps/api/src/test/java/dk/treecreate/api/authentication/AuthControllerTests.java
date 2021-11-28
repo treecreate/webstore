@@ -32,6 +32,7 @@ import java.util.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -276,9 +277,70 @@ class AuthControllerTests
                 .andExpect(jsonPath("tokenType", is("Bearer")))
                 .andExpect(jsonPath("accessToken", equalTo(newAuthToken)))
                 .andExpect(jsonPath("refreshToken", equalTo(newRefreshToken)));
+        }
 
-            // assertFalse(jwtUtils.validateJwtToken(authToken));
-            // assertFalse(jwtUtils.validateJwtToken(refreshToken));
+        @Test
+        @WithMockUser(username = "test@treecreate.dk")
+        @DisplayName("/auth/refresh endpoint correctly invalidates old tokens")
+        void refreshCorrectlyInvalidatesOldTokens() throws Exception
+        {
+            User user = new User();
+            user.setUserId(UUID.fromString("c0a80121-7ab6-1787-817a-b69966240000"));
+            user.setEmail("test@treecreate.dk");
+            user.setUsername(user.getEmail());
+            // hashed version of "abcDEF123", which is different from the user password in this test
+            user.setPassword(
+                "$2a$10$ZPr0bH6kt2EnjkkRk1TEH.Mnyo/GRlfjBj/60gFuLI/BnauOx2p62");
+            Set<Role> roles = new HashSet<>();
+            roles.add(new Role(ERole.ROLE_USER));
+            user.setRoles(roles);
+
+            String refreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            String authToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            String newRefreshToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            String newAuthToken = Jwts.builder()
+                .setSubject("test@treecreate.dk")
+                .setIssuedAt(new Date())
+                .setExpiration(
+                    new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
+                .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
+                .compact();
+
+            Mockito.when(userRepository.findByEmail(user.getEmail())).thenReturn(
+                java.util.Optional.of(user));
+            Mockito.when(jwtUtils.generateJwtToken(any())).thenReturn(newAuthToken);
+            Mockito.when(jwtUtils.generateJwtRefreshToken(any())).thenReturn(newRefreshToken);
+
+            jwtUtils.whitelistJwtPair(authToken, refreshToken);
+
+            mvc.perform(get("/auth/refresh")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + refreshToken))
+                .andExpect(status().isOk());
+
+            assertFalse(jwtUtils.validateJwtToken(authToken));
+            assertFalse(jwtUtils.validateJwtToken(refreshToken));
         }
     }
 }
