@@ -94,7 +94,6 @@
   width: 40vw;
   text-align: center;
   margin-bottom: 25px;
-  line-height: 36px;
 }
 .action-container {
   display: flex;
@@ -318,11 +317,13 @@
   .subscribe-title {
     width: 80vw;
   }
-  .text-container,
+  .text-container {
+    width: 60vw;
+    text-align: center;
+  }
   .descriptive-img {
     width: 60vw;
     height: 60vw;
-    text-align: center;
   }
   .text-container {
     margin-top: 20px;
@@ -377,10 +378,12 @@
   .subscribe-button {
     font-size: 18px;
   }
-  .text-container,
   .descriptive-img {
     width: 80vw;
     height: 80vw;
+  }
+  .text-container {
+    width: 80vw;
   }
 }
 
