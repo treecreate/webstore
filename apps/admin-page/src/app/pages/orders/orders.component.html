@@ -1,56 +1,67 @@
-<webstore-item-card title="Orders" [content]=content [isLoading]="isLoading">
+<webstore-item-card title="Orders" [content]="content" [isLoading]="isLoading">
     <ng-template #content>
-    
         <table mat-table [dataSource]="orders" class="mat-elevation-z8">
             <!-- Payment ID Column -->
             <ng-container matColumnDef="paymentId">
                 <th mat-header-cell *matHeaderCellDef>Payment ID</th>
-                <td mat-cell *matCellDef="let element">{{ element.paymentId }}</td>
+                <td mat-cell *matCellDef="let order">{{ order.paymentId }}</td>
             </ng-container>
-    
+
             <!-- Payment Total Column -->
             <ng-container matColumnDef="paymentTotal">
                 <th mat-header-cell *matHeaderCellDef>Payment Total</th>
-                <td mat-cell *matCellDef="let element">{{ element.total }}</td>
+                <td mat-cell *matCellDef="let order">{{ order.total }}</td>
             </ng-container>
-    
+
             <!-- Contact Email Column -->
             <ng-container matColumnDef="contactEmail">
                 <th mat-header-cell *matHeaderCellDef>Contact Email</th>
-                <td mat-cell *matCellDef="let element">{{ element.contactInfo.email }}</td>
+                <td mat-cell *matCellDef="let order">{{ order.contactInfo.email }}</td>
             </ng-container>
-    
+
             <!-- Date Column -->
             <ng-container matColumnDef="date">
                 <th mat-header-cell *matHeaderCellDef>Date</th>
-                <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+                <td mat-cell *matCellDef="let order">{{ order.createdAt | date }}</td>
             </ng-container>
-    
+
             <!-- Days Left Column -->
             <ng-container matColumnDef="daysLeft">
                 <th mat-header-cell *matHeaderCellDef>Days Left</th>
-                <!-- TODO: Parse date to display days left -->
-                <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+                <td mat-cell *matCellDef="let order">
+                    <div
+                        class="label"
+                        [ngStyle]="{ 'background-color': getDaysLeftColor(getDaysLeft(order.createdAt), order.status) }"
+                    >
+                        {{ getDaysLeft(order.createdAt) }}
+                    </div>
+                </td>
             </ng-container>
-    
+
             <!-- Items Column -->
             <ng-container matColumnDef="items">
                 <th mat-header-cell *matHeaderCellDef>Items</th>
-                <td mat-cell *matCellDef="let element">{{ element.transactionItems.length }}</td>
+                <td mat-cell *matCellDef="let order">{{ order.transactionItems.length }}</td>
             </ng-container>
-    
+
             <!-- Status Column -->
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>Status</th>
-                <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+                <td mat-cell *matCellDef="let order">
+                    <div class="label" [ngStyle]="{ 'background-color': getOrderStatusColor(order.status) }">
+                        {{ order.status }}
+                    </div>
+                </td>
             </ng-container>
-    
-            <!-- Actions Column
+
+            <!-- Actions Column -->
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
-                <td mat-cell><Button (click)="view(element.id)">ghj</Button></td>
-            </ng-container> -->
-    
+                <td mat-cell *matCellDef="let order">
+                    <button mat-flat-button color="primary" routerLink="/orders/{{ order.orderId }}">View</button>
+                </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>

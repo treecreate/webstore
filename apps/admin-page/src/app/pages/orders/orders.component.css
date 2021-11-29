@@ -1,0 +1,35 @@
+table {
+  box-shadow: none;
+  text-overflow: clip;
+  width: 100%;
+}
+
+.mat-header-cell {
+  padding: 0 5px;
+}
+
+.mat-cell {
+  padding: 0 5px;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8.1vw;
+  height: 2.3vh;
+  min-width: fit-content;
+  min-height: 15px;
+}
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: fit-content;
+  height: 2.3vh;
+  min-height: 15px;
+  padding: 0 6px;
+  border-radius: 2px;
+}
