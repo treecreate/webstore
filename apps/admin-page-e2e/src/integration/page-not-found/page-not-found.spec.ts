@@ -7,7 +7,7 @@ describe('PageNotFoundPage', () => {
     cy.visit('/pageNotFound');
   });
 
-  describe.skip('Not logged in actions', () => {
+  describe('Not logged in actions', () => {
     it('should be opened when invalid page is opened', () => {
       cy.visit('/veryInvalidPageMuchWrongSuchError');
       cy.contains('Page not found');
