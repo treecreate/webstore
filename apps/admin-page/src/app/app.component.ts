@@ -23,7 +23,7 @@ export class AppComponent {
   }
 
   logout() {
-    this.snackBar.open('You have logged out', 'Wauw')
-    this.authService.logout(); 
+    this.snackBar.open('You have logged out', 'Wauw');
+    this.authService.logout();
   }
 }

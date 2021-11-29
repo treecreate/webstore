@@ -16,7 +16,7 @@ const routes: Routes = [
   }, // AuthGuard ensures that only authorized users can view this route
   { path: '404', component: PageNotFoundComponent }, // PageNotFound for all other page requests
   { path: '', pathMatch: 'full', redirectTo: 'login' }, // Redirect to home page
-  { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
+  { path: '**', redirectTo: '404' }, // PageNotFound for all other page requests
 ];
 
 @NgModule({

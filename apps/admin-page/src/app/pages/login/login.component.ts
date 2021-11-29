@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
           (data: ILoginResponse) => {
             console.log('logged in');
             this.authService.saveAuthUser(data);
-            this.snackBar.open('Welcome back to Treecreate!', 'Thanks', {duration: 2500});
+            this.snackBar.open('Welcome back to Treecreate!', 'Thanks', { duration: 2500 });
             this.router.navigate(['/dashboard']);
             this.isLoading = false;
           },
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           }
         );
     } else {
-      this.snackBar.open('Invalid form', 'Try again', {duration: 2500});
+      this.snackBar.open('Invalid form', 'Try again', { duration: 2500 });
       this.isLoading = false;
     }
   }
