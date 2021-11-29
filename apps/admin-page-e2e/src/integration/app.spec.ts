@@ -5,7 +5,7 @@ describe('admin-page', () => {
     // ___ Layout Structure ___
     describe('layout_structure', () => {
       it('should contain a navbar', () => {
-        cy.get('[data-cy=navbar]').should('exist');
+        cy.get('[data-cy=admin-navbar]').should('exist');
       });
 
       it('should contain a body container', () => {
@@ -24,10 +24,10 @@ describe('admin-page', () => {
     // ___ Navbar ___
     describe('navbar', () => {
       it('should contain a title, "Account", and "Logout" buttons', () => {
-        cy.get('[data-cy=navbar]').should('not.contain.text', 'TC Management');
-        cy.get('[data-cy=navbar]').contains('Account').should('exist');
+        cy.get('[data-cy=admin-navbar]').should('not.contain.text', 'TC Management');
+        cy.get('[data-cy=admin-navbar]').contains('Account').should('exist');
         cy.get('[data-cy=navbar-account-btn]').should('exist');
-        cy.get('[data-cy=navbar]').contains('Logout').should('exist');
+        cy.get('[data-cy=admin-navbar]').contains('Logout').should('exist');
         cy.get('[data-cy=navbar-logout-btn]').should('exist');
       });
     });

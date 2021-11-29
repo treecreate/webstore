@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
     });
+    // if user is already logged in redirect to profile
+    if (this.authService.getAuthUser()) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   ngOnInit(): void {}
