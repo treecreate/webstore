@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginResponse } from '@interfaces';
@@ -11,7 +11,7 @@ import { UserRoles } from '@models';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   isLoading = false;
   loginForm: FormGroup;
 
@@ -25,8 +25,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     }
   }
-
-  ngOnInit(): void {}
 
   submitLogin() {
     this.isLoading = true;
