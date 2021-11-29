@@ -108,7 +108,6 @@ export class BasketComponent implements OnInit {
     this.transactionItemService.getTransactionItems().subscribe(
       (itemList: ITransactionItem[]) => {
         this.itemList = itemList;
-        console.log('Fetched transaction items', itemList);
         this.updatePrices();
         this.isLoading = false;
       },
@@ -164,15 +163,40 @@ export class BasketComponent implements OnInit {
       .getDiscount(this.discountForm.get('discountCode').value)
       .subscribe(
         (discount: IDiscount) => {
-          this.toastService.showAlert(
-            'Your discount code: ' + this.discountForm.get('discountCode').value + ' has been activated!',
-            'Din rabat kode: ' + this.discountForm.get('discountCode').value + ' er aktiveret!',
-            'success',
-            4000
-          );
-          this.discount = discount;
-          console.log('Discount changed to: ', this.discount);
-          this.discountIsLoading = false;
+          const expires = new Date(discount.expiresAt);
+
+          // Check remaining uses
+          if (discount.remainingUses <= 0) {
+            this.toastService.showAlert(
+              'The discount code: ' + this.discountForm.get('discountCode').value + ' has been used!',
+              'Rabat koden: ' + this.discountForm.get('discountCode').value + ' er brugt!',
+              'danger',
+              4000
+            );
+            this.discountIsLoading = false;
+
+            // Check experation date
+          } else if (expires.getTime() < Date.now()) {
+            this.toastService.showAlert(
+              'The discount code: ' + this.discountForm.get('discountCode').value + ' has expired!',
+              'Rabat koden: ' + this.discountForm.get('discountCode').value + ' er udløbet!',
+              'danger',
+              4000
+            );
+            this.discountIsLoading = false;
+
+            // Activate discount
+          } else {
+            this.toastService.showAlert(
+              'Your discount code: ' + this.discountForm.get('discountCode').value + ' has been activated!',
+              'Din rabat kode: ' + this.discountForm.get('discountCode').value + ' er aktiveret!',
+              'success',
+              4000
+            );
+            this.discount = discount;
+            console.log('Discount changed to: ', this.discount);
+            this.discountIsLoading = false;
+          }
         },
         (error: HttpErrorResponse) => {
           console.error(error);
@@ -183,7 +207,6 @@ export class BasketComponent implements OnInit {
         }
       )
       .add(() => {
-        console.log('Setting disocunt to: ', this.discount);
         this.localStorageService.setItem<IDiscount>(LocalStorageVars.discount, this.discount);
         this.updatePrices();
       });
