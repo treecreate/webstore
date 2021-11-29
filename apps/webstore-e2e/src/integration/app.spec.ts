@@ -3,6 +3,6 @@ describe('webstore', () => {
 
   it('have Treecreate as a title', () => {
     // Custom command example, see `../support/commands.ts` file
-    cy.title().should('eq', 'Treecreate');
+    cy.title().should('contain', 'Treecreate');
   });
 });

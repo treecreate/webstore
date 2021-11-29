@@ -707,22 +707,22 @@
                                                             DKK
                                                             <br />
 
-                                                            <div
-                                                                th:if="${order.discount.amount} <= 25"
-                                                                style="color: green"
-                                                            >
-                                                                <span th:text="#{order.saved}">Sparet: </span>
-                                                                <span
-                                                                    th:text="(${order.discount.amount} / 100) * ${order.subtotal}"
-                                                                ></span>
-                                                            </div>
-
-                                                            <div
-                                                                th:if="${order.discount.amount} > 25"
-                                                                style="color: green"
-                                                            >
+                                                            <div th:if="${order.discount != null}">
                                                                 <span th:text="#{order.saved}"> </span>
-                                                                <span th:text="${order.discount.amount}"></span>
+                                                                <span
+                                                                    th:switch="${#strings.toString(order.discount.type)}"
+                                                                >
+                                                                    <span th:case="PERCENT">
+                                                                        <span
+                                                                            th:text="(${order.discount.amount})"
+                                                                        ></span
+                                                                        >%
+                                                                    </span>
+                                                                    <span th:case="AMOUNT">
+                                                                        <span th:text="${order.discount.amount}"></span>
+                                                                        DKK
+                                                                    </span>
+                                                                </span>
                                                             </div>
 
                                                             <br />

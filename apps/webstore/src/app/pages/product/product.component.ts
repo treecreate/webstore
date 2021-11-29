@@ -11,6 +11,7 @@ import {
   IFamilyTreeBanner,
   ITransactionItem,
 } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
@@ -20,7 +21,6 @@ import { FamilyTreeDesignComponent } from '../../shared/components/products/fami
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { DesignService } from '../../shared/services/design/design.service';
-import { LocalStorageService } from '@local-storage';
 @Component({
   selector: 'webstore-product',
   templateUrl: './product.component.html',
@@ -40,7 +40,7 @@ export class ProductComponent implements OnInit {
   designTitle = '';
   showSuggestion = true;
   // set the default font
-  font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
+  font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
   backgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 20;
   maxSize = 40;
@@ -123,7 +123,7 @@ export class ProductComponent implements OnInit {
       } else {
         // set the defaults
         this.designTitle = '';
-        this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
+        this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 20;
         this.maxSize = 40;
@@ -388,6 +388,18 @@ export class ProductComponent implements OnInit {
     console.warn('Design state has changed. Valid:', $event);
     this.isDesignValid = $event;
     this.cdr.detectChanges();
+  }
+
+  /**
+   * Format a font name into a more readable format without dashes
+   * @param font a font to format
+   * @returns formatted font name
+   */
+  formatFontTextForDisplay(font: FamilyTreeFontEnum): string {
+    let formattedFont = font.replace('-', ' ');
+    formattedFont = formattedFont.replace('-', ' '); // double replacement because I am lazy and some fonts have multiple dashes
+    formattedFont = formattedFont.replace('display', ' display');
+    return formattedFont;
   }
 
   iOS() {
