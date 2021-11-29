@@ -1,3 +1,7 @@
+import { LocalStorageVars } from '@models';
+import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
+
+const authMockService = new AuthenticationService();
 describe('admin-page', () => {
   beforeEach(() => cy.visit('/'));
 
@@ -24,6 +28,11 @@ describe('admin-page', () => {
     // ___ Navbar ___
     describe('navbar', () => {
       it('should contain a title, "Account", and "Logout" buttons', () => {
+        localStorage.setItem(
+          LocalStorageVars.authUser,
+          JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserRoleAdmin))
+        );
+        cy.visit('/dashboard');
         cy.get('[data-cy=admin-navbar]').should('not.contain.text', 'TC Management');
         cy.get('[data-cy=admin-navbar]').contains('Account').should('exist');
         cy.get('[data-cy=navbar-account-btn]').should('exist');
@@ -34,6 +43,13 @@ describe('admin-page', () => {
 
     // ___ Sidebar ___
     describe('sidebar', () => {
+      beforeEach(() => {
+        localStorage.setItem(
+          LocalStorageVars.authUser,
+          JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserRoleAdmin))
+        );
+        cy.visit('/dashboard');
+      });
       it('should contain a header', () => {
         cy.get('[data-cy=sidebar-header]').should('exist');
       });
@@ -55,37 +71,37 @@ describe('admin-page', () => {
       it('should contain a dashboard item', () => {
         cy.get('[data-cy=sidebar-dashboard-btn]').should('exist');
         cy.get('[data-cy=sidebar-dashboard-btn]').contains('Dashboard').should('exist');
-        cy.get('[data-cy=sidebar-dashboard-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-dashboard-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain an orders item', () => {
         cy.get('[data-cy=sidebar-orders-btn]').should('exist');
         cy.get('[data-cy=sidebar-orders-btn]').contains('Orders').should('exist');
-        cy.get('[data-cy=sidebar-orders-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-orders-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a customers item', () => {
         cy.get('[data-cy=sidebar-customers-btn]').should('exist');
         cy.get('[data-cy=sidebar-customers-btn]').contains('Customers').should('exist');
-        cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a discounts item', () => {
         cy.get('[data-cy=sidebar-discounts-btn]').should('exist');
         cy.get('[data-cy=sidebar-discounts-btn]').contains('Discounts').should('exist');
-        cy.get('[data-cy=sidebar-discounts-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-discounts-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain an activity-log item', () => {
         cy.get('[data-cy=sidebar-activity-log-btn]').should('exist');
         cy.get('[data-cy=sidebar-activity-log-btn]').contains('Activity Log').should('exist');
-        cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a newsletter item', () => {
         cy.get('[data-cy=sidebar-newsletter-btn]').should('exist');
         cy.get('[data-cy=sidebar-newsletter-btn]').contains('Newsletter').should('exist');
-        cy.get('[data-cy=sidebar-newsletter-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-newsletter-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapse button', () => {
@@ -95,6 +111,14 @@ describe('admin-page', () => {
 
     // ___ Sidebar Collapse ___
     describe('sidebar_colapse', () => {
+      beforeEach(() => {
+        localStorage.setItem(
+          LocalStorageVars.authUser,
+          JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserRoleAdmin))
+        );
+        cy.visit('/dashboard');
+      });
+
       it('should collapse the sidebar', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
         cy.get('[data-cy=sidebar]').should('exist');
@@ -119,42 +143,42 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
         cy.get('[data-cy=sidebar-dashboard-btn]').should('exist');
         cy.get('[data-cy=sidebar-dashboard-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-dashboard-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-dashboard-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed orders item', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
         cy.get('[data-cy=sidebar-orders-btn]').should('exist');
         cy.get('[data-cy=sidebar-orders-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-orders-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-orders-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed customers item', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
         cy.get('[data-cy=sidebar-customers-btn]').should('exist');
         cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed discounts item', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
         cy.get('[data-cy=sidebar-discounts-btn]').should('exist');
         cy.get('[data-cy=sidebar-discounts-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-discounts-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-discounts-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed activity-log item', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
         cy.get('[data-cy=sidebar-activity-log-btn]').should('exist');
         cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed newsletter item', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
         cy.get('[data-cy=sidebar-newsletter-btn]').should('exist');
         cy.get('[data-cy=sidebar-newsletter-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-newsletter-btn]').get('[data-cy=icon').should('be.visible');
+        cy.get('[data-cy=sidebar-newsletter-btn]').get('[data-cy=icon]').should('be.visible');
       });
     });
   });
