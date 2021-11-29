@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginResponse } from '@interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/authentication/auth.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -35,16 +36,19 @@ export class LoginComponent implements OnInit {
           (data: ILoginResponse) => {
             console.log('logged in');
             this.authService.saveAuthUser(data);
-            //TODO: add login alert
+            this.snackBar.open('Welcome back to Treecreate!', 'Thanks');
             this.router.navigate(['/dashboard']);
             this.isLoading = false;
           },
           (err) => {
             console.error(err.error);
-            //TODO: add login failed alert
+            this.snackBar.open('Login failed! ' + err.error.message, 'Fuck');
             this.isLoading = false;
           }
         );
+    } else {
+      this.snackBar.open('Invalid form', 'Try again');
+      this.isLoading = false;
     }
   }
 }

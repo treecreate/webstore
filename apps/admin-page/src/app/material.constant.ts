@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export const materialModules = [
   MatCommonModule,
@@ -20,4 +21,5 @@ export const materialModules = [
   MatInputModule,
   MatProgressSpinnerModule,
   MatFormFieldModule,
+  MatSnackBarModule,
 ];
