@@ -19,4 +19,8 @@ export class AppComponent {
   toggleCollapsed(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
+
+  logout() {
+    
+  }
 }
