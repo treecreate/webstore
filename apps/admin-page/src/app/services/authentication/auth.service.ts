@@ -57,7 +57,6 @@ export class AuthService {
    */
   public logout(): void {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
-    // the tree design should no longer be accessible
     this.router.navigate(['/home']);
   }
 

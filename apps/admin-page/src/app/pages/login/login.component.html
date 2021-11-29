@@ -26,9 +26,9 @@
             <mat-hint align="end">{{ password.value?.length || 0 }}/8</mat-hint>
         </mat-form-field>
 
-        <button mat-raised-button class="login-btn" data-cy="login-btn" color="primary" type="submit">
+        <button mat-raised-button class="login-btn" data-cy="login-btn" color="primary" type="submit" [disabled]="isDisabled()">
             <span *ngIf="!isLoading">Login</span>
-            <mat-icon *ngIf="isLoading"><mat-spinner diameter="20"></mat-spinner></mat-icon>
+            <mat-icon *ngIf="isLoading"><mat-spinner diameter="21"></mat-spinner></mat-icon>
         </button>
     </div>
 </form>

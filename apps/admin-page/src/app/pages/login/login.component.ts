@@ -18,13 +18,18 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.minLength(8), Validators.required]),
     });
     // if user is already logged in redirect to profile
     if (this.authService.getAuthUser()) {
       this.router.navigate(['/dashboard']);
     }
   }
+
+  isDisabled() {
+    return !this.loginForm.valid;  
+  }
+
 
   submitLogin() {
     this.isLoading = true;
@@ -47,12 +52,12 @@ export class LoginComponent {
           },
           (err) => {
             console.error(err.error);
-            this.snackBar.open('Login failed! ' + err.error.message, 'Fuck');
+            this.snackBar.open('Login failed! ' + err.error.message, 'WooptiDo');
             this.isLoading = false;
           }
         );
     } else {
-      this.snackBar.open('Invalid form', 'Try again', { duration: 2500 });
+      this.snackBar.open('Invalid Credentials', 'Damn', { duration: 2500 });
       this.isLoading = false;
     }
   }
