@@ -1,4 +1,7 @@
 {
-  "cSpell.words": ["autosave"],
+  "cSpell.words": [
+    "autosave",
+    "TREECREATE"
+  ],
   "angular.enable-strict-mode-prompt": false
 }

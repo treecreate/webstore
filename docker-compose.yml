@@ -1,39 +1,42 @@
 version: '3'
 
 services:
-  api:
-    restart: always
+  api-dev:
+    env_file:
+      - .env.dev
     build:
       dockerfile: ./.deploy/api/Dockerfile
-      context: .
-    env_file:
-      - .env
+      context: .    
     environment:
-      - TREECREATE_V2_TEST_JDBC_URL
-      - TREECREATE_V2_PROD_JDBC_URL
-      - TREECREATE_QUICKPAY_SECRET
+      - TREECREATE_JDBC_URL
+      - TREECREATE_QUICKPAY_API_KEY
+      - TREECREATE_QUICKPAY_PRIVATE_KEY
       - TREECREATE_MAIL_PASS
       - TREECREATE_SENTRY_DSN
-      - TREECREATE_JDBC_URL
       
     ports:
       - 5000:5000
 
-  webstore:
-    restart: always
-    
+  webstore-dev:
+    env_file:
+      - .env.dev 
     build:
       dockerfile: ./.deploy/webstore/Dockerfile
       context: .
-    
+    environment:
+      - API_URL
+      - GTAG
+
     ports:
       - 4200:80
 
-  admin_page:
-    restart: always
+  admin_page-dev:
+    env_file:
+      - .env.dev 
     build:
       dockerfile: ./.deploy/admin-page/Dockerfile
       context: .
-
+    environment:
+      - API_URL
     ports:
       - 4300:80
