@@ -64,8 +64,9 @@
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
+          "defaultConfiguration": "",
           "options": {
-            "browserTarget": "admin-page:build",
+            "browserTarget": "admin-page:build:development",
             "proxyConfig": "apps/admin-page/proxy.conf.json",
             "port": 4300
           },
@@ -334,6 +335,14 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -374,12 +383,14 @@
               ],
               "localize": ["dk"]
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
+          "defaultConfiguration": "",
           "options": {
-            "browserTarget": "webstore:build"
+            "browserTarget": "webstore:build:development"
           },
           "configurations": {
             "production": {
