@@ -27,9 +27,8 @@ export class LoginComponent {
   }
 
   isDisabled() {
-    return !this.loginForm.valid;  
+    return !this.loginForm.valid;
   }
-
 
   submitLogin() {
     this.isLoading = true;
