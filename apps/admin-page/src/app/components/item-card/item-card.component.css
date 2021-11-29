@@ -1,13 +1,22 @@
 mat-card {
-    display:flex;
-    flex-direction: column;
-    width: 71.25vw;
-    height: 60.7vh;
-    padding: 20px;
-    box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.15) !important;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: 71.25vw;
+  height: 60.7vh;
+  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 10px;
 }
 
 mat-card mat-divider {
-    margin: 10px 0;
+  position: relative;
+  margin: 0;
+}
+
+mat-card mat-card-title {
+  padding: 15px  25px;
+}
+
+mat-card mat-card-content {
+  padding: 20px  25px;
 }

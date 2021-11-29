@@ -11,11 +11,11 @@ export interface CreateTransactionItemRequest {
   quantity: number;
 }
 
-class CreateBulkTransactionItemRequest {
+interface CreateBulkTransactionItemRequest {
   design: CreateDesignRequest;
   dimension: DesignDimensionEnum;
   quantity: number;
 }
-export class CreateBulkTransactionItemsRequest {
+export interface CreateBulkTransactionItemsRequest {
   transactionItems: CreateBulkTransactionItemRequest[];
 }

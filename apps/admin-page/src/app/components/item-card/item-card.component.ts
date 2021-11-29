@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'webstore-item-card',
@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class ItemCardComponent {
   @Input()
   title!: string;
+
+  @Input()
+  isLoading!: boolean;
+
+  @Input()
+  content!: TemplateRef<unknown>;
 }
