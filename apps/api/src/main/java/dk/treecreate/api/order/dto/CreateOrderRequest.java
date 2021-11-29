@@ -1,8 +1,8 @@
 package dk.treecreate.api.order.dto;
 
 import dk.treecreate.api.contactinfo.dto.CreateContactInfoRequest;
+import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.model.quickpay.Currency;
-import dk.treecreate.api.utils.model.quickpay.PaymentState;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -29,9 +29,9 @@ public class CreateOrderRequest
     private Currency currency = Currency.DKK;
 
     @NotNull
-    @ApiModelProperty(notes = "State of the quickpay payment", example = "PENDING",
+    @ApiModelProperty(notes = "Status of the order", example = "PENDING",
         required = false)
-    private PaymentState state = PaymentState.INITIAL;
+    private OrderStatus status = OrderStatus.INITIAL;
 
     @Min(1)
     @ApiModelProperty(name = "How many planted trees the order has. Default is 1", example = "1",
@@ -88,14 +88,14 @@ public class CreateOrderRequest
         this.currency = currency;
     }
 
-    public PaymentState getState()
+    public OrderStatus getStatus()
     {
-        return state;
+        return status;
     }
 
-    public void setState(PaymentState state)
+    public void setStatus(OrderStatus status)
     {
-        this.state = state;
+        this.status = status;
     }
 
     public int getPlantedTrees()
