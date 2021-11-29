@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from './services/authentication/auth.service';
 
@@ -12,7 +13,7 @@ export class AppComponent {
   sidebarCollapsed = false;
   username = 'username@example.com';
 
-  constructor(public router: Router, private authService: AuthService) {}
+  constructor(public router: Router, private authService: AuthService, private snackBar: MatSnackBar) {}
 
   /**
    * Toggles the `sidebarCollapsed` boolean.
@@ -22,6 +23,7 @@ export class AppComponent {
   }
 
   logout() {
+    this.snackBar.open('You have logged out', 'Wauw')
     this.authService.logout(); 
   }
 }
