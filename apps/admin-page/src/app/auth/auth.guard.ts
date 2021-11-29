@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
 
     // Check if the authentication data is correct
     if (!this.authService.isAccessTokenValid()) {
-      this.router.navigate(['/PageNotFound'], { skipLocationChange: true });
+      this.router.navigate(['/login'], { skipLocationChange: true });
       return false;
     }
 
