@@ -6,7 +6,7 @@
         <button mat-flat-button color="primary" data-cy="navbar-account-btn" *ngIf="router.url !== '/login'">
             Account
         </button>
-        <button mat-flat-button color="primary" data-cy="navbar-logout-btn" *ngIf="router.url !== '/login'">
+        <button mat-flat-button color="primary" data-cy="navbar-logout-btn" (click)="logout()" *ngIf="router.url !== '/login'">
             Logout
         </button>
     </mat-toolbar-row>

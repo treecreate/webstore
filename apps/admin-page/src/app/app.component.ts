@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './services/authentication/auth.service';
 
 @Component({
   selector: 'webstore-root',
@@ -11,7 +12,7 @@ export class AppComponent {
   sidebarCollapsed = false;
   username = 'username@example.com';
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, private authService: AuthService) {}
 
   /**
    * Toggles the `sidebarCollapsed` boolean.
@@ -21,6 +22,6 @@ export class AppComponent {
   }
 
   logout() {
-    
+    this.authService.logout(); 
   }
 }
