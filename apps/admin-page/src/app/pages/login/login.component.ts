@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ILoginResponse } from '@interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/authentication/auth.service';
+import { UserRoles } from '@models';
 
 @Component({
   selector: 'webstore-login',
@@ -26,7 +27,6 @@ export class LoginComponent implements OnInit {
   submitLogin() {
     this.isLoading = true;
     if (this.loginForm.valid) {
-      console.log(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value);
       this.authService
         .login({
           email: this.loginForm.get('email')?.value,
@@ -34,10 +34,13 @@ export class LoginComponent implements OnInit {
         })
         .subscribe(
           (data: ILoginResponse) => {
-            console.log('logged in');
-            this.authService.saveAuthUser(data);
-            this.snackBar.open('Welcome back to Treecreate!', 'Thanks', { duration: 2500 });
-            this.router.navigate(['/dashboard']);
+            if (data.roles.includes(UserRoles.admin) || data.roles.includes(UserRoles.developer)) {
+              this.authService.saveAuthUser(data);
+              this.snackBar.open('Welcome back to Treecreate!', 'Thanks', { duration: 2500 });
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.snackBar.open('You dont have authorisation to enter this page', 'Great', { duration: 3500 });
+            }
             this.isLoading = false;
           },
           (err) => {
