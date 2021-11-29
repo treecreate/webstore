@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   submitLogin() {
     this.isLoading = true;
+    // TODO: add login functionality
     if (this.loginForm.valid) {
       this.authService
         .login({
