@@ -1,6 +1,6 @@
 <webstore-item-card title="Orders" [content]="content" [isLoading]="isLoading">
     <ng-template #content>
-        <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+        <table mat-table [dataSource]="orders" class="mat-elevation-z8 orders-table">
             <!-- Payment ID Column -->
             <ng-container matColumnDef="paymentId">
                 <th mat-header-cell *matHeaderCellDef>Payment ID</th>
