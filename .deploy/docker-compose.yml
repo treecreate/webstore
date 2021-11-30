@@ -14,42 +14,55 @@ services:
   #### DEV START ####
   
   api-dev:
-    env_file:
-      - ../.env.dev
+    profiles: [dev]
+    env_file: .env-files/.env.dev.api
     build:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
-    environment:
-      - TREECREATE_JDBC_URL=${TREECREATE_JDBC_URL:?}
-      - TREECREATE_QUICKPAY_API_KEY=${TREECREATE_QUICKPAY_API_KEY:?}
-      - TREECREATE_QUICKPAY_PRIVATE_KEY=${TREECREATE_QUICKPAY_PRIVATE_KEY:?}
-      - TREECREATE_MAIL_PASS=${TREECREATE_MAIL_PASS:?}
-      - TREECREATE_SENTRY_DSN=${TREECREATE_SENTRY_DSN?}
-    ports:
-      - 5000:5000
+    ports: [5000:5000]
 
   webstore-dev:
+    profiles: [dev]
+    env_file: .env-files/.env.dev.frontend
     build:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
-    environment:
-      - API_URL=${API_URL:?}
-      - GTAG=${GTAG?}
-    ports:
-      - 4200:80
+    ports: [4200:80]
 
   admin_page-dev:
+    profiles: [dev]
+    env_file: .env-files/.env.dev.frontend
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.
-    environment:
-      - API_URL=${API_URL:?}
-    ports:
-      - 4300:80
+    ports: [4300:80]
   #### DEV END ####
+
 
   #### PROD START ####
 
+  api-prod:
+    profiles: [prod]
+    env_file: .env-files/.env.prod.api
+    build:
+      dockerfile: .deploy/api/Dockerfile
+      context: ../.
+    ports: [5000:5000]
 
+  webstore-prod:
+    profiles: [prod]
+    env_file: .env-files/.env.prod.frontend
+    build:
+      dockerfile: .deploy/webstore/Dockerfile
+      context: ../.
+    ports: [4200:80]
+
+  admin_page-prod:
+    profiles: [prod]
+    env_file: .env-files/.env.prod.frontend
+    build:
+      dockerfile: .deploy/admin-page/Dockerfile
+      context: ../.
+    ports:  [4300:80]
 
   #### PROD END ####
