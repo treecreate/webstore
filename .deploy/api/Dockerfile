@@ -13,7 +13,7 @@ ENV TREECREATE_MAIL_PASS=${TREECREATE_MAIL_PASS}
 # --quiet means only print out errors, -skipTests because they are all passing if merged
 RUN mvn clean package --quiet -DskipTests
 
-FROM openjdk:11-jre
+FROM openjdk:11-jre-slim
 
 COPY --from=MAVEN_BUILD docker/api*.jar /treecreate-api.jar
 
