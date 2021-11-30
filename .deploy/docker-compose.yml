@@ -5,22 +5,21 @@ services:
     env_file:
       - ../.env.dev
     build:
-      dockerfile: ./.deploy/api/Dockerfile
-      context: .    
+      dockerfile: .deploy/api/Dockerfile
+      context: ../.
     environment:
       - TREECREATE_JDBC_URL=${TREECREATE_JDBC_URL:?}
       - TREECREATE_QUICKPAY_API_KEY=${TREECREATE_QUICKPAY_API_KEY:?}
       - TREECREATE_QUICKPAY_PRIVATE_KEY=${TREECREATE_QUICKPAY_PRIVATE_KEY:?}
       - TREECREATE_MAIL_PASS=${TREECREATE_MAIL_PASS:?}
-      - TREECREATE_SENTRY_DSN=${TREECREATE_SENTRY_DSN:?}
-      
+      - TREECREATE_SENTRY_DSN=${TREECREATE_SENTRY_DSN?}
     ports:
       - 5000:5000
 
   webstore-dev:
     build:
-      dockerfile: ./.deploy/webstore/Dockerfile
-      context: .
+      dockerfile: .deploy/webstore/Dockerfile
+      context: ../.
     environment:
       - API_URL=${API_URL:?}
       - GTAG=${GTAG:?}
@@ -30,8 +29,8 @@ services:
 
   admin_page-dev:
     build:
-      dockerfile: ./.deploy/admin-page/Dockerfile
-      context: .
+      dockerfile: .deploy/admin-page/Dockerfile
+      context: ../.
     environment:
       - API_URL=${API_URL:?}
 
