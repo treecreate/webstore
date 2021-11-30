@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { IOrder, CurrencyEnum, ShippingMethodEnum, DiscountType, OrderStatusEnum } from '@interfaces';
-
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { IOrder, OrderStatusEnum } from '@interfaces';
+import { OrdersService } from '../../services/orders/orders.service';
 @Component({
   selector: 'webstore-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
   isLoading = false;
   displayedColumns: string[] = [
     'paymentId',
@@ -18,48 +19,34 @@ export class OrdersComponent {
     'status',
     'actions',
   ];
+  orders!: IOrder[];
 
-  orders: IOrder[] = [
-    {
-      status: OrderStatusEnum.pending,
-      billingInfo: {
-        city: 'cph',
-        country: 'Denmark',
-        email: 'example@hotdeals.dev',
-        name: 'John Doe',
-        phoneNumber: '+4512345678',
-        postcode: '9999',
-        streetAddress: 'StreetGade 123',
+  constructor(private ordersService: OrdersService) {}
+
+  ngOnInit(): void {
+    this.fetchOrders();
+  }
+
+  /**
+   * Fetches the orders from the API.\
+   * \
+   * Will toggle `isLoading` to `true` while the orders are being fetched
+   * and revert it to `false` when they have been fetched.\
+   * \
+   * **Uses**: `ordersService` -> to call the API.
+   */
+  fetchOrders(): void {
+    this.isLoading = true;
+    this.ordersService.getOrders().subscribe({
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
       },
-      contactInfo: {
-        city: 'cph',
-        country: 'Denmark',
-        email: 'example@hotdeals.dev',
-        name: 'John Doe',
-        phoneNumber: '+4512345678',
-        postcode: '9999',
-        streetAddress: 'StreetGade 123',
-      },
-      createdAt: new Date(),
-      currency: CurrencyEnum.dkk,
-      discount: {
-        discountCode: 'suck it',
-        type: DiscountType.amount,
-        amount: 100,
-        remainingUses: 1,
-        totalUses: 2,
-      },
-      orderId: 'MakeMeWantIt',
-      paymentId: 'c0a80121',
-      plantedTrees: 1,
-      shippingMethod: ShippingMethodEnum.homeDelivery,
-      //State    -- not implemented
-      subtotal: 1914,
-      total: 1814,
-      transactionItems: [],
-      userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
-    },
-  ];
+      next: (orders: IOrder[]) => {
+        this.isLoading = false;
+        this.orders = orders;
+      }
+    });
+  }
 
   /**
    * Calculates how many days there are left until the delivery date.
@@ -104,7 +91,7 @@ export class OrdersComponent {
 
   /**
    * Gets the Label color of the Order Status based on the status.
-   * 
+   *
    * @param orderStatus the status of the order.
    * @returns the color of the label.
    */

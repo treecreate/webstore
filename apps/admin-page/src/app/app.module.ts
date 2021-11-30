@@ -12,13 +12,14 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { TempComponent } from './components/temp/temp.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
+import { authInterceptorProviders } from './helpers/auth.interceptor';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, TempComponent, OrdersComponent, ItemCardComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, materialModules],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
   exports: [
     OrdersComponent
