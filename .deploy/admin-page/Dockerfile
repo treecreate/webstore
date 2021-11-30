@@ -27,12 +27,12 @@ RUN if [[ $ENV == "prod" ]] ;	\
 
 # Copy all files different to local machine to container
 # Uses caching to prevent copying ALL files if only some parts changed
-COPY ./assets ./assets
-COPY ./libs ./libs
-COPY ./apps ./apps
 COPY nx.json ./nx.json
 COPY tsconfig.base.json ./tsconfig.base.json
 COPY workspace.json ./workspace.json
+COPY ./assets ./assets
+COPY ./libs ./libs
+COPY ./apps ./apps
 
 # Execute this command in the docker container
 RUN npm run build:admin:${ENV}

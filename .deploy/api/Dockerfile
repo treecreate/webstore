@@ -1,6 +1,6 @@
 # Dockerfile for creation of images on the x64 platform (windows 10 etc)
 # The images are not compatible with raspberry pi and ARM architecture! For that use the Dockerfile-arm one
-FROM maven:11-jdk-slim AS MAVEN_BUILD
+FROM maven:3.8.4-jdk-11-slim AS MAVEN_BUILD
 
 COPY ./apps/api ./
 ARG TREECREATE_JDBC_URL=url
