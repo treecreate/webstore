@@ -1,42 +1,39 @@
-version: '3'
+version: '3.8'
 
 services:
   api-dev:
     env_file:
-      - .env.dev
+      - ../.env.dev
     build:
       dockerfile: ./.deploy/api/Dockerfile
       context: .    
     environment:
-      - TREECREATE_JDBC_URL=${TREECREATE_JDBC_URL}
-      - TREECREATE_QUICKPAY_API_KEY=${TREECREATE_QUICKPAY_API_KEY}
-      - TREECREATE_QUICKPAY_PRIVATE_KEY=${TREECREATE_QUICKPAY_PRIVATE_KEY}
-      - TREECREATE_MAIL_PASS=${TREECREATE_MAIL_PASS}
-      - TREECREATE_SENTRY_DSN=${TREECREATE_SENTRY_DSN}
+      - TREECREATE_JDBC_URL=${TREECREATE_JDBC_URL:?}
+      - TREECREATE_QUICKPAY_API_KEY=${TREECREATE_QUICKPAY_API_KEY:?}
+      - TREECREATE_QUICKPAY_PRIVATE_KEY=${TREECREATE_QUICKPAY_PRIVATE_KEY:?}
+      - TREECREATE_MAIL_PASS=${TREECREATE_MAIL_PASS:?}
+      - TREECREATE_SENTRY_DSN=${TREECREATE_SENTRY_DSN:?}
       
     ports:
       - 5000:5000
 
   webstore-dev:
-    env_file:
-      - .env.dev 
     build:
       dockerfile: ./.deploy/webstore/Dockerfile
       context: .
     environment:
-      - API_URL
-      - GTAG
+      - API_URL=${API_URL:?}
+      - GTAG=${GTAG:?}
 
     ports:
       - 4200:80
 
   admin_page-dev:
-    env_file:
-      - .env.dev 
     build:
       dockerfile: ./.deploy/admin-page/Dockerfile
       context: .
     environment:
-      - API_URL
+      - API_URL=${API_URL:?}
+
     ports:
       - 4300:80
