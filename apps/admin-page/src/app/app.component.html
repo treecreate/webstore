@@ -1,10 +1,25 @@
 <!-- Navbar -->
-<mat-toolbar color="primary" data-cy="navbar">
+<mat-toolbar color="primary" data-cy="admin-navbar">
     <mat-toolbar-row>
         <span>TC management</span>
         <span class="spacer"></span>
-        <button mat-flat-button color="primary" data-cy="navbar-account-btn">Account</button>
-        <button mat-flat-button color="primary" data-cy="navbar-logout-btn">Logout</button>
+        <button
+            mat-flat-button
+            color="primary"
+            data-cy="navbar-account-btn"
+            *ngIf="router.url !== '/login' && router.url !== '/404'"
+        >
+            Account
+        </button>
+        <button
+            mat-flat-button
+            color="primary"
+            data-cy="navbar-logout-btn"
+            (click)="logout()"
+            *ngIf="router.url !== '/login' && router.url !== '/404'"
+        >
+            Logout
+        </button>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -12,6 +27,7 @@
 <mat-sidenav-container autosize class="body-container" data-cy="body-container">
     <!-- Sidebar -->
     <mat-sidenav
+        *ngIf="router.url !== '/login' && router.url !== '/404'"
         mode="side"
         disableClose
         opened

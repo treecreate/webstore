@@ -2,22 +2,31 @@ import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { materialModules } from './material.constant';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { TempComponent } from './components/temp/temp.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, TempComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, materialModules],
+  declarations: [AppComponent, PageNotFoundComponent, LoginComponent, DashboardComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    materialModules,
+  ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [LoginComponent, DashboardComponent],
 })
 export class AppModule {}
