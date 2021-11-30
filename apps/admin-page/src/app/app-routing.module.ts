@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'account',
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.developer, UserRoles.admin] },
-    component: AccountComponent
+    component: AccountComponent,
   },
   { path: '404', component: PageNotFoundComponent }, // PageNotFound for all other page requests
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' }, // Redirect to dashboard page
