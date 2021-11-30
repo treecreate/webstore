@@ -9,7 +9,9 @@
         </ng-container>
 
         <ng-template #loading>
-            <span>Loading</span>
+            <div class="loading-container"> 
+                <mat-spinner [diameter]="40"></mat-spinner>
+            </div>
         </ng-template>
     </mat-card-content>
 </mat-card>
