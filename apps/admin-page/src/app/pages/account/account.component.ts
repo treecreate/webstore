@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
+  userId = '123jnj-123kf123-1f13fc-1244';
+
   constructor() {}
 
   ngOnInit(): void {}
