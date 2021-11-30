@@ -1,9 +1,9 @@
-<mat-card>
-    <mat-card-title>
+<mat-card data-cy="card">
+    <mat-card-title data-cy="card-title">
         <span>{{ title }}</span>
     </mat-card-title>
-    <mat-divider></mat-divider>
-    <mat-card-content>
+    <mat-divider data-cy="card-divider"></mat-divider>
+    <mat-card-content data-cy="card-content">
         <ng-container *ngIf="!isLoading; else loading">
             <ng-container *ngTemplateOutlet="content"></ng-container>
         </ng-container>
