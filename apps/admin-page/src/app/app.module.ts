@@ -10,11 +10,12 @@ import { AppComponent } from './app.component';
 import { materialModules } from './material.constant';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, LoginComponent],
+  declarations: [AppComponent, PageNotFoundComponent, LoginComponent, DashboardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,6 +27,6 @@ registerLocaleData(en);
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [LoginComponent],
+  exports: [LoginComponent, DashboardComponent],
 })
 export class AppModule {}
