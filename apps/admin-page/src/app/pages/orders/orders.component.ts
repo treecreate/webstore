@@ -8,7 +8,7 @@ import { OrdersService } from '../../services/orders/orders.service';
   styleUrls: ['./orders.component.css'],
 })
 export class OrdersComponent implements OnInit {
-  isLoading = false;
+  isLoading = true;
   displayedColumns: string[] = [
     'paymentId',
     'paymentTotal',
