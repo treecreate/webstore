@@ -4,7 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import dk.treecreate.api.order.Order;
+import dk.treecreate.api.order.OrderRepository;
 import dk.treecreate.api.order.OrderService;
+import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.QuickpayOperationType;
 import dk.treecreate.api.utils.model.quickpay.QuickpayStatusCode;
@@ -35,6 +38,8 @@ public class PaymentController
     OrderService orderService;
     @Autowired
     QuickpayService quickpayService;
+    @Autowired
+    OrderRepository orderRepository;
 
     @ApiIgnore
     @PostMapping("/paymentCallback")
@@ -128,6 +133,36 @@ public class PaymentController
                     return;
                 }
             }
+
+            LOGGER.info("Updating the order status (quickpay payment state)");
+            try
+            {
+                JsonNode state = json.get("state");
+                LOGGER.info("Payment state: " + state.asText());
+                JsonNode paymentId = json.get("id");
+                Order order = orderRepository.findByPaymentId(paymentId.asText()).orElse(null);
+                if (order == null)
+                {
+                    LOGGER.warn("Failed to find an order with paymentId " + paymentId.asText() +
+                        ". No entity updated");
+                    event.setLevel(SentryLevel.WARNING);
+                    event.setExtra("paymentId", paymentId.asText());
+                    event.setExtra("status", state.asText());
+                    event.setExtra("Updated status (bool)", false);
+                } else
+                {
+                    order.setStatus(OrderStatus.valueOf(state.asText().toUpperCase()));
+                    orderRepository.save(order);
+                    System.out.println(order.getStatus());
+                    event.setExtra("Updated status (bool)", true);
+                }
+            } catch (Exception e)
+            {
+                LOGGER.error(
+                    "Failed to update the order status. Continuing to process the payment callback",
+                    e);
+            }
+
             LOGGER.info("Finished processing the callback");
             Message message = new Message();
             message.setMessage("A payment callback has been processed");

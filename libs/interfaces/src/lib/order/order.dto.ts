@@ -1,10 +1,10 @@
-import { CurrencyEnum, PaymentStateEnum, ShippingMethodEnum } from '.';
+import { CurrencyEnum, OrderStatusEnum, ShippingMethodEnum } from '.';
 
 export interface CreateOrderRequest {
   subtotal: number;
   total: number;
   currency?: CurrencyEnum;
-  paymentState?: PaymentStateEnum;
+  status?: OrderStatusEnum;
   plantedTrees: number;
   shippingMethod: ShippingMethodEnum;
   discountId: string;

@@ -100,8 +100,12 @@
                     <button class="design-arrow-left tc-button-sm-square" data-cy="font-prev-btn" (click)="prevFont()">
                         <span class="arrow-left"></span>
                     </button>
-                    <div class="display display-design" [ngStyle]="{ 'font-family': this.font }">
-                        {{ font }}
+                    <div
+                        class="display display-design"
+                        style="text-transform: capitalize"
+                        [ngStyle]="{ 'font-family': this.font }"
+                    >
+                        {{ formatFontTextForDisplay(font) }}
                     </div>
                     <button class="design-arrow-right tc-button-sm-square" data-cy="font-next-btn" (click)="nextFont()">
                         <span class="arrow-right"></span>

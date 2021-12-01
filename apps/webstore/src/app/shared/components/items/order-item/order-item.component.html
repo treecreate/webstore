@@ -11,7 +11,9 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@order-status">Order status </span>
-                    <span data-cy="order-item-status"> {{ order.state }} </span>
+                    <span data-cy="order-item-status" style="text-transform: capitalize">
+                        {{ getStatusDisplayName(order.status) }}
+                    </span>
                 </div>
                 <div class="section-row margin-top">
                     <div class="line">
