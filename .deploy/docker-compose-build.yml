@@ -17,7 +17,6 @@ services:
   
   api-dev:
     profiles: [dev]
-    env_file: .env-files/.env.dev.api
     build:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
@@ -25,7 +24,6 @@ services:
 
   webstore-dev:
     profiles: [dev]
-    env_file: .env-files/.env.dev.frontend
     build:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
@@ -33,7 +31,6 @@ services:
 
   admin-page-dev:
     profiles: [dev]
-    env_file: .env-files/.env.dev.frontend
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.
@@ -45,7 +42,8 @@ services:
 
   api-prod:
     profiles: [prod]
-    env_file: .env-files/.env.prod.api
+    environment:
+      - ENV=prod
     build:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
@@ -53,7 +51,8 @@ services:
 
   webstore-prod:
     profiles: [prod]
-    env_file: .env-files/.env.prod.frontend
+    environment:
+      - ENV=prod
     build:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
@@ -61,7 +60,8 @@ services:
 
   admin-page-prod:
     profiles: [prod]
-    env_file: .env-files/.env.prod.frontend
+    environment:
+      - ENV=prod
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.

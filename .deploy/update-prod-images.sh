@@ -6,7 +6,7 @@
 cat .deploy/.env-files/.env.dockerhub | docker login --username kwandes --password-stdin;
 
 # Builds the dev images
-docker-compose -f .deploy/docker-compose-build.yml --profile dev build --parallel
+docker-compose -f .deploy/docker-compose-build.yml --profile prod build --parallel
 
 # Publishes dev images
-docker-compose -f .deploy/docker-compose-build.yml --profile dev push
+docker-compose -f .deploy/docker-compose-build.yml --profile prod push

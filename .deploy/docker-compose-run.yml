@@ -45,7 +45,7 @@ services:
     ports: [5000:5000]
     deploy:
       restart_policy: 
-          condition: on-faliure
+          condition: on-failure
           # How long to wait between restarts
           delay: 30s
           max_attempts: 3
@@ -59,7 +59,7 @@ services:
     ports: [4200:80]
     deploy:
       restart_policy: 
-          condition: on-faliure
+          condition: on-failure
           delay: 10s
           max_attempts: 3
           window: 10s
@@ -73,7 +73,7 @@ services:
     ports:  [4300:80]
     deploy:
       restart_policy: 
-          condition: on-faliure
+          condition: on-failure
           delay: 10s
           max_attempts: 3
           window: 10s
