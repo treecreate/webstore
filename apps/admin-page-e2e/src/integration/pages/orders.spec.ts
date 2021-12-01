@@ -191,7 +191,7 @@ describe('ordersPage', () => {
     cy.get('[data-cy=orders-table]').should('exist');
     cy.get('[data-cy=orders-table]').get('[data-cy=orders-table-header]').should('exist');
     cy.get('[data-cy=orders-table]').get('[data-cy=orders-table-row]').should('exist');
-    cy.get('[data-cy=orders-table-row]').should('have.length', 8);
+    cy.get('[data-cy=orders-table-row]').should('have.length', mockOrders.length);
   });
 
   it('should display the correct headers', () => {
@@ -206,17 +206,17 @@ describe('ordersPage', () => {
   });
 
   it('should display the correct order information', () => {
-    cy.get('[data-cy=orders-table-row]').first().contains('c0a80121-7ac0-190b-812a1-c08ab0a12345').should('exist');
-    cy.get('[data-cy=orders-table-row]').first().contains('1814').should('exist');
-    cy.get('[data-cy=orders-table-row]').first().contains('example@hotdeals.dev').should('exist');
+    cy.get('[data-cy=orders-table-row]').first().contains(mockOrders[0].paymentId).should('exist');
+    cy.get('[data-cy=orders-table-row]').first().contains(mockOrders[0].total).should('exist');
+    cy.get('[data-cy=orders-table-row]').first().contains(mockOrders[0].contactInfo.email).should('exist');
     cy.get('[data-cy=orders-table-row]').first().contains('14').should('exist');
-    cy.get('[data-cy=orders-table-row]').first().contains('0').should('exist');
-    cy.get('[data-cy=orders-table-row]').first().contains('INITIAL').should('exist');
+    cy.get('[data-cy=orders-table-row]').first().contains(mockOrders[0].transactionItems.length).should('exist');
+    cy.get('[data-cy=orders-table-row]').first().contains(mockOrders[0].status).should('exist');
     cy.get('[data-cy=orders-table-row]').first().contains('View').should('exist');
   });
 
   it('should contain a view button for each entry', () => {
-    cy.get('[data-cy=order-view-btn]').should('have.length', 8);
+    cy.get('[data-cy=order-view-btn]').should('have.length', mockOrders.length);
   });
 
   it('should have the corresponding color for each status', () => {
