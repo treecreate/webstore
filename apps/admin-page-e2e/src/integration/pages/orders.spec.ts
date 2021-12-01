@@ -12,6 +12,91 @@ enum LabelColorsEnum {
 }
 
 /**
+ * Validates if `k` is a key of object T;
+ */
+function isKeyof<T>(k: keyof any, obj: T): k is keyof T {
+  return k in obj;
+}
+
+/**
+ * Converts a hex color to an rgb color.
+ *
+ * @param hex the hex color.
+ * @returns an object with the rgb color.
+ */
+function hexToRgb(hex: string) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function (r, g, b) {
+    return r + r + g + g + b + b;
+  });
+
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+
+/**
+ * Gets the Label color of the Order Status based on the status.
+ *
+ * @param orderStatus the status of the order.
+ * @returns the color of the label.
+ */
+function getOrderStatusColor(orderStatus: OrderStatusEnum): LabelColorsEnum {
+  switch (orderStatus) {
+    case OrderStatusEnum.initial:
+      return LabelColorsEnum.blue;
+    case OrderStatusEnum.pending:
+      return LabelColorsEnum.blue;
+    case OrderStatusEnum.new:
+      return LabelColorsEnum.red;
+    case OrderStatusEnum.rejected:
+      return LabelColorsEnum.grey;
+    case OrderStatusEnum.processed:
+      return LabelColorsEnum.red;
+    case OrderStatusEnum.assembling:
+      return LabelColorsEnum.yellow;
+    case OrderStatusEnum.shipped:
+      return LabelColorsEnum.blue;
+    case OrderStatusEnum.delivered:
+      return LabelColorsEnum.green;
+    default:
+      return LabelColorsEnum.lightGrey;
+  }
+}
+
+/**
+ * Gets the Label color for the 'Days Left' column in the table based on the days left until
+ * delivery and the status of the order.
+ *
+ * @param daysLeft days left until delivery.
+ * @param orderStatus the status of the order.
+ * @returns the color of the label.
+ */
+function getDaysLeftColor(daysLeft: number, orderStatus: OrderStatusEnum): LabelColorsEnum {
+  // Order status is NOT: Delivered, Shipped or Rejected.
+  if (
+    orderStatus !== OrderStatusEnum.delivered &&
+    orderStatus !== OrderStatusEnum.shipped &&
+    orderStatus !== OrderStatusEnum.rejected
+  ) {
+    if (daysLeft >= 9) {
+      return LabelColorsEnum.green;
+    }
+    if (daysLeft >= 5) {
+      return LabelColorsEnum.yellow;
+    }
+    return LabelColorsEnum.red;
+  }
+  return LabelColorsEnum.lightGrey;
+}
+
+/**
  * Generates a date when the order would have to be created to match the given amount
  * of days left until the delivery date.
  *
@@ -76,20 +161,22 @@ function mockOrder(status: OrderStatusEnum, daysLeft: number): IOrder {
 
 const authMockService = new AuthenticationService();
 
+const mockOrders = [
+  mockOrder(OrderStatusEnum.initial, 14),
+  mockOrder(OrderStatusEnum.assembling, 9),
+  mockOrder(OrderStatusEnum.delivered, 8),
+  mockOrder(OrderStatusEnum.new, 5),
+  mockOrder(OrderStatusEnum.pending, 4),
+  mockOrder(OrderStatusEnum.processed, 1),
+  mockOrder(OrderStatusEnum.rejected, 0),
+  mockOrder(OrderStatusEnum.shipped, -1),
+];
+
 describe('ordersPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
-    cy.intercept('GET', '/orders', {
-      body: [
-        mockOrder(OrderStatusEnum.initial, 14),
-        mockOrder(OrderStatusEnum.assembling, 9),
-        mockOrder(OrderStatusEnum.delivered, 8),
-        mockOrder(OrderStatusEnum.new, 5),
-        mockOrder(OrderStatusEnum.pending, 4),
-        mockOrder(OrderStatusEnum.processed, 1),
-        mockOrder(OrderStatusEnum.rejected, 0),
-        mockOrder(OrderStatusEnum.shipped, -1),
-      ],
+    cy.intercept('GET', 'localhost:5000/orders', {
+      body: mockOrders,
       statusCode: 200,
     });
     cy.visit('/orders');
@@ -128,6 +215,35 @@ describe('ordersPage', () => {
   });
 
   it('should contain a view button for each entry', () => {
-    cy.get('[data-cy=orders-view-btn]').should('have.length', 8);
+    cy.get('[data-cy=order-view-btn]').should('have.length', 8);
+  });
+
+  it('should have the corresponding color for each status', () => {
+    cy.get('[data-cy=order-status]').each(($label) => {
+      const status = $label.contents().text().trim().toLowerCase();
+      if (isKeyof(status, OrderStatusEnum)) {
+        const statusEnum = OrderStatusEnum[status];
+        const expectedColor = hexToRgb(getOrderStatusColor(statusEnum));
+        const colorInRgb = `rgb(${expectedColor?.r}, ${expectedColor?.g}, ${expectedColor?.b})`;
+        expect($label.css('background-color')).to.contain(colorInRgb);
+      }
+    });
+  });
+
+  it('should have the corresponding color for each amount of days left', () => {
+    cy.get('[data-cy=order-days-left]').each(($label, index) => {
+      cy.get('[data-cy=order-status]')
+        .eq(index)
+        .then((statusLabel) => {
+          const daysLeft = $label.contents().text().trim();
+          const status = statusLabel.text().toLowerCase();
+          if (isKeyof(status, OrderStatusEnum)) {
+            const statusEnum = OrderStatusEnum[status];
+            const expectedColor = hexToRgb(getDaysLeftColor(Number(daysLeft), statusEnum));
+            const colorInRgb = `rgb(${expectedColor?.r}, ${expectedColor?.g}, ${expectedColor?.b})`;
+            expect($label.css('background-color')).to.contain(colorInRgb);
+          }
+        });
+    });
   });
 });
