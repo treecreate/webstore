@@ -21,7 +21,6 @@ services:
     build:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
-    ports: [5000:5000]   # TODO - Set this to the correct value 
     image: kwandes/treecreate-v2:api-dev
 
   webstore-dev:
@@ -30,7 +29,6 @@ services:
     build:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
-    ports: [4200:80]    # TODO - Set this to the correct value 
     image: kwandes/treecreate-v2:webstore-dev
 
   admin-page-dev:
@@ -39,7 +37,6 @@ services:
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.
-    ports: [4300:80]    # TODO - Set this to the correct value
     image: kwandes/treecreate-v2:admin-page-dev
   #### DEV END ####
 
@@ -52,7 +49,6 @@ services:
     build:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
-    ports: [5000:5000]
     image: kwandes/treecreate-v2:api-prod
 
   webstore-prod:
@@ -61,7 +57,6 @@ services:
     build:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
-    ports: [4200:80]
     image: kwandes/treecreate-v2:webstore-prod
 
   admin-page-prod:
@@ -70,7 +65,6 @@ services:
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.
-    ports:  [4300:80]
     image: kwandes/treecreate-v2:admin-page-prod
 
   #### PROD END ####
