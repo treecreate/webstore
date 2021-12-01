@@ -1,5 +1,4 @@
-import { IUser } from '@interfaces';
-import { LocalStorageVars, UserRoles } from '@models';
+import { LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();
