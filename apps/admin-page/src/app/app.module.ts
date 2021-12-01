@@ -37,6 +37,6 @@ registerLocaleData(en);
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [OrdersComponent, LoginComponent, DashboardComponent],
+  exports: [],
 })
 export class AppModule {}
