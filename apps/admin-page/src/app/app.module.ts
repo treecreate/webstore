@@ -18,7 +18,14 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, LoginComponent, DashboardComponent, OrdersComponent, ItemCardComponent],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent,
+    LoginComponent,
+    DashboardComponent,
+    OrdersComponent,
+    ItemCardComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
