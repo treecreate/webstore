@@ -11,11 +11,21 @@ import { materialModules } from './material.constant';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { ItemCardComponent } from './components/item-card/item-card.component';
+import { authInterceptorProviders } from './helpers/auth.interceptor';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent, LoginComponent, DashboardComponent],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent,
+    LoginComponent,
+    DashboardComponent,
+    OrdersComponent,
+    ItemCardComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,8 +35,8 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     materialModules,
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [LoginComponent, DashboardComponent],
+  exports: [],
 })
 export class AppModule {}
