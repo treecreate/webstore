@@ -14,6 +14,7 @@ enum LabelColorsEnum {
 /**
  * Validates if `k` is a key of object T;
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isKeyof<T>(k: keyof any, obj: T): k is keyof T {
   return k in obj;
 }
