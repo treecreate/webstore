@@ -1,0 +1,30 @@
+# Workflow name
+name: Deploy admin-page-dev
+
+# Env for name of container
+env:
+  DATE_TIME: ${date +%s}
+
+# Triggers
+on:
+  push:
+    workflow_dispatch:
+    branches:
+      # Push events on admin-page branch
+      - admin-page
+
+# Actions
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build Dockerfile
+        run: docker build -t development:${DATE_TIME} -f ./.deploy/admin-page/Dockerfile .
+        shell: bash
+
+        # This needs to occur on the AWS instance, not here.
+        # PLACEHOLDER
+      - name: Run Dockerfile
+        run: docker run --name treecreate-admin-page-dev -ti -e API_URL=https://localhost:5000 --restart unless-stopped -dp 8080:80 development:${DATE_TIME}
+        shell: bash
