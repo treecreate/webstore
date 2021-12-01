@@ -7,11 +7,17 @@
 }
 
 .mat-header-cell {
+  color: black;
+  font-weight: bold;
   padding: 0 5px;
+  border-bottom-style: none;
 }
 
 .mat-cell {
+  max-width: 30%;
+  text-overflow: ellipsis;
   padding: 0 5px;
+  border-bottom-style: none;
 }
 
 button {
