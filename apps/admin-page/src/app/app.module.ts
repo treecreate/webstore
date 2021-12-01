@@ -21,8 +21,6 @@ registerLocaleData(en);
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, materialModules],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
-  exports: [
-    OrdersComponent
-  ],
+  exports: [OrdersComponent],
 })
 export class AppModule {}

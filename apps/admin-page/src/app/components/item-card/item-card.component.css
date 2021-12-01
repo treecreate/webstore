@@ -15,11 +15,11 @@ mat-card mat-divider {
 }
 
 mat-card mat-card-title {
-  padding: 15px  25px;
+  padding: 15px 25px;
 }
 
 mat-card mat-card-content {
-  padding: 20px  25px;
+  padding: 20px 25px;
 }
 
 .loading-container {

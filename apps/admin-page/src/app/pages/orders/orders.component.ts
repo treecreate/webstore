@@ -44,7 +44,7 @@ export class OrdersComponent implements OnInit {
       next: (orders: IOrder[]) => {
         this.isLoading = false;
         this.orders = orders;
-      }
+      },
     });
   }
 
