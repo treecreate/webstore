@@ -1,0 +1,83 @@
+# ENV syntax explanation:
+# :? means that the ENV has to be set & not be blank
+# ?  means that the ENV must be set but may be blank
+# In both cases, due to the '?' it will give an error if the ENV is not set
+
+# env_file tag is currently not working. Its in the file anyhow in hopes that 
+#  in the future it will work. 
+# Currently you need to call the docker-compose with '--env-file' and point it 
+#  to the correct file. 
+
+# This file has to be executed with docker-compose up
+
+version: '3.8'
+
+services:
+  #### DEV START ####
+  
+  api-dev:
+    profiles: [dev]
+    image: kwandes/treecreate-v2:api-dev
+    env_file: .env-files/.env.dev.api
+    ports: [5000:5000]  # TODO - Set this to the correct value
+
+  webstore-dev:
+    profiles: [dev]
+    image: kwandes/treecreate-v2:webstore-dev
+    env_file: .env-files/.env.dev.frontend
+    ports: [4200:80]    # TODO - Set this to the correct value
+
+  admin-page-dev:
+    profiles: [dev]
+    image: kwandes/treecreate-v2:admin-page-dev
+    env_file: .env-files/.env.dev.frontend
+    ports: [4300:80]    # TODO - Set this to the correct value
+
+  #### DEV END ####
+
+
+  #### PROD START ####
+
+  api-prod:
+    profiles: [prod]
+    image: kwandes/treecreate-v2:api-prod
+    env_file: .env-files/.env.prod.api
+    ports: [5000:5000]
+    deploy:
+      restart_policy: 
+          condition: on-faliure
+          # How long to wait between restarts
+          delay: 30s
+          max_attempts: 3
+          # How long to wait to decide if restart was successful
+          window: 30s
+
+  webstore-prod:
+    profiles: [prod]
+    image: kwandes/treecreate-v2:webstore-prod
+    env_file: .env-files/.env.prod.frontend
+    ports: [4200:80]
+    deploy:
+      restart_policy: 
+          condition: on-faliure
+          delay: 10s
+          max_attempts: 3
+          window: 10s
+    depends_on:
+      - api-prod
+
+  admin-page-prod:
+    profiles: [prod]
+    image: kwandes/treecreate-v2:admin-page-prod
+    env_file: .env-files/.env.prod.frontend
+    ports:  [4300:80]
+    deploy:
+      restart_policy: 
+          condition: on-faliure
+          delay: 10s
+          max_attempts: 3
+          window: 10s
+    depends_on:
+      - api-prod
+
+  #### PROD END ####

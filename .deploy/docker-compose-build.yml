@@ -8,6 +8,8 @@
 # Currently you need to call the docker-compose with '--env-file' and point it 
 #  to the correct file. 
 
+# This file has to be executed with docker-compose push
+
 version: '3.8'
 
 services:
@@ -19,7 +21,8 @@ services:
     build:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
-    ports: [5000:5000]
+    ports: [5000:5000]   # TODO - Set this to the correct value 
+    image: kwandes/treecreate-v2:api-dev
 
   webstore-dev:
     profiles: [dev]
@@ -27,15 +30,17 @@ services:
     build:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
-    ports: [4200:80]
+    ports: [4200:80]    # TODO - Set this to the correct value 
+    image: kwandes/treecreate-v2:webstore-dev
 
-  admin_page-dev:
+  admin-page-dev:
     profiles: [dev]
     env_file: .env-files/.env.dev.frontend
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.
-    ports: [4300:80]
+    ports: [4300:80]    # TODO - Set this to the correct value
+    image: kwandes/treecreate-v2:admin-page-dev
   #### DEV END ####
 
 
@@ -48,6 +53,7 @@ services:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
     ports: [5000:5000]
+    image: kwandes/treecreate-v2:api-prod
 
   webstore-prod:
     profiles: [prod]
@@ -56,13 +62,15 @@ services:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
     ports: [4200:80]
+    image: kwandes/treecreate-v2:webstore-prod
 
-  admin_page-prod:
+  admin-page-prod:
     profiles: [prod]
     env_file: .env-files/.env.prod.frontend
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.
     ports:  [4300:80]
+    image: kwandes/treecreate-v2:admin-page-prod
 
   #### PROD END ####

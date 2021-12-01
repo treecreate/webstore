@@ -29,7 +29,7 @@ COPY tsconfig.base.json ./tsconfig.base.json
 COPY workspace.json ./workspace.json
 COPY ./assets ./assets
 COPY ./libs ./libs
-COPY ./apps ./apps
+COPY ./apps/webstore ./apps/webstore
 
 # Execute this command in the docker container
 RUN npm run build:webstore:${ENV}

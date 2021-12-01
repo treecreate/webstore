@@ -46,3 +46,4 @@ Thumbs.db
 .env.dev.frontend
 .env.prod.api
 .env.prod.frontend
+.env.dockerhub
