@@ -68,3 +68,7 @@ mat-option {
 ::ng-deep .mat-select-panel {
   min-width: 10vw !important;
 }
+
+::ng-deep table .mat-select-arrow {
+  color: white !important;
+}
