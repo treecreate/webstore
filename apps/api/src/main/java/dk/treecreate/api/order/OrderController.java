@@ -8,6 +8,7 @@ import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetAllOrdersResponse;
 import dk.treecreate.api.order.dto.GetOrdersResponse;
+import dk.treecreate.api.order.dto.UpdateOrderStatusRequest;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -16,6 +17,7 @@ import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
 import io.sentry.Sentry;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +35,7 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -159,4 +162,34 @@ public class OrderController
         Sentry.captureMessage("New order has been created");
         return createPaymentLinkResponse;
     }
+
+    /**
+     * Attempts to update the order with the ID received as a path parameter 
+     * with the new status received in the body.
+     * Will return a response with the full order if it is successful or 404 - Not Found 
+     * if there is no order with specified id.
+     * 
+     * @param updateOrderStatusRequest DTO for the request.
+     * @param orderId the ID of the order.
+     * @return the updated order.
+     */
+    @PatchMapping("/status/{orderId}")
+    @Operation(summary = "Update an order's status")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Updated the orders's status",
+            response = Order.class)
+    })
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Order updateOrderStatus(
+        @RequestBody() @Valid UpdateOrderStatusRequest updateOrderStatusRequest, @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId) {
+        try {
+            return orderService.updateOrderStatus(orderId, updateOrderStatusRequest.getStatus());
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "Order not found");
+        }
+    }
+
 }

@@ -38,6 +38,22 @@ export class OrdersComponent implements OnInit {
   }
 
   /**
+   * Gets triggered when the status of an order has been changed.\
+   * It will call the API to update the order with its new status.\
+   * In case an error is encountered, the orders will be reloaded from the database.
+   * 
+   * @param order - the order containing the new status.
+   */
+  onStatusChange(order: IOrder): void {
+    this.ordersService.updateOrder(order).subscribe({
+      error: (error: HttpErrorResponse) => {
+        this.fetchOrders();
+        console.error(error);
+      },
+    });
+  }
+
+  /**
    * Fetches the orders from the API.\
    * \
    * Will toggle `isLoading` to `true` while the orders are being fetched

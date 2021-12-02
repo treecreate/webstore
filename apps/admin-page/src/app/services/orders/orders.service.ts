@@ -13,4 +13,8 @@ export class OrdersService {
   public getOrders(): Observable<IOrder[]> {
     return this.http.get<IOrder[]>(`${env.apiUrl}/orders`);
   }
+
+  public updateOrder(order: IOrder): Observable<IOrder> {
+    return this.http.patch<IOrder>(`${env.apiUrl}/orders/status/${order.orderId}`, { status: order.status });
+  }
 }
