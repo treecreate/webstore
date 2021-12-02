@@ -19,6 +19,16 @@ export class OrdersComponent implements OnInit {
     'status',
     'actions',
   ];
+  orderStatusOptions: OrderStatusEnum[] = [
+    OrderStatusEnum.delivered,
+    OrderStatusEnum.assembling,
+    OrderStatusEnum.shipped,
+    OrderStatusEnum.pending,
+    OrderStatusEnum.initial,
+    OrderStatusEnum.processed,
+    OrderStatusEnum.new,
+    OrderStatusEnum.rejected,
+  ];
   orders!: IOrder[];
 
   constructor(private ordersService: OrdersService) {}

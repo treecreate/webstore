@@ -41,3 +41,30 @@ button {
   padding: 0 6px;
   border-radius: 2px;
 }
+
+.order-status-select {
+  width: 10vw;
+  height: 2.3vh;
+  min-width: 8.1vw;
+  min-height: 15px;
+  padding: 0 6px;
+  border-radius: 3px;
+}
+
+::ng-deep table .mat-select-value {
+  color: white;
+}
+
+::ng-deep .mat-option-text {
+  color: white;
+}
+
+mat-option {
+  width: 10vw;
+  min-width: 8.1vw;
+  padding: 0 6px;
+}
+
+::ng-deep .mat-select-panel {
+  min-width: 10vw !important;
+}
