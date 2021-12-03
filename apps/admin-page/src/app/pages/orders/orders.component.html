@@ -60,6 +60,7 @@
                             [value]="status"
                             *ngFor="let status of orderStatusOptions"
                             [ngStyle]="{ 'background-color': getOrderStatusColor(status) }"
+                            data-cy="order-status-option"
                             >{{ status }}</mat-option
                         >
                     </mat-select>

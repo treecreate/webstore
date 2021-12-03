@@ -1,6 +1,7 @@
 import { CurrencyEnum, DiscountType, IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
+import { curryRight } from 'cypress/types/lodash';
 
 enum LabelColorsEnum {
   red = '#FF0000',
@@ -176,10 +177,17 @@ const mockOrders = [
 describe('ordersPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
+
     cy.intercept('GET', 'localhost:5000/orders', {
       body: mockOrders,
       statusCode: 200,
     });
+
+    cy.intercept('PATCH', 'localhost:5000/orders/status/MakeMeWantIt', {
+      body: mockOrder(OrderStatusEnum.delivered, 14),
+      statusCode: 200,
+    }).as('updateOrderStatus');
+
     cy.visit('/orders');
   });
 
@@ -246,5 +254,22 @@ describe('ordersPage', () => {
           }
         });
     });
+  });
+
+  it('should display a list of options', () => {
+    cy.get('.mat-select-panel').should('not.be.visible');
+    cy.get('[data-cy=order-status]').first().click();
+    cy.get('.mat-select-panel').should('be.visible');
+    cy.get('[data-cy=order-status-option]').should('have.length', 8);
+  });
+
+  it('should correctly change the status', () => {
+    cy.get('[data-cy=order-status]').contains('INITIAL');
+    cy.get('[data-cy=order-status]').first().click();
+    cy.get('[data-cy=order-status-option]').first().click();
+    cy.get('[data-cy=order-status]').contains('DELIVERED');
+    cy.wait('@updateOrderStatus').its('request.body').should('include', 'INITIAL');
+    cy.wait('@updateOrderStatus').its('response.statusCode').should('eq', 200);
+    cy.wait('@updateOrderStatus').its('response.body').should('include', 'DELIVERED')
   });
 });
