@@ -54,6 +54,6 @@ COPY .deploy/admin-page/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/apps/admin-page /usr/share/nginx/html
 
 # Execute nginx on container to launch application
-CMD [ "/bin/sh", "-c", "exec nginx -g \"daemon off;\""]
+CMD [ "/bin/sh", "-c", "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g \"daemon off;\""]
 
 ###### runtime environment END
