@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '@interfaces';
 import { UserRoles } from '@models';
 import { UserService } from '../../services/user/user.service';
@@ -13,8 +15,9 @@ export class AccountComponent {
   public user?: IUser;
   public accountForm: FormGroup;
   public isLoading: boolean = false;
+  public isUpdatingInfo: boolean = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private snackBar: MatSnackBar) {
     this.isLoading = true;
     this.userService.getUser().subscribe(
       (user: IUser) => {
@@ -22,7 +25,7 @@ export class AccountComponent {
         this.updateForm();
         this.isLoading = false;
       },
-      (err: Error) => {
+      (err: HttpErrorResponse) => {
         console.log(err.message);
         this.isLoading = false;
       }
@@ -65,5 +68,29 @@ export class AccountComponent {
       city: this.user?.city,
       postcode: this.user?.postcode,
     });
+  }
+
+  updateAccount(): void {
+    this.isUpdatingInfo = true;
+    this.userService
+      .updateUser({
+        name: this.accountForm.get('name')?.value,
+        phoneNumber: this.accountForm.get('phoneNumber')?.value,
+        email: this.accountForm.get('email')?.value,
+        streetAddress: this.accountForm.get('streetAddress')?.value,
+        streetAddress2: this.accountForm.get('streetAddress2')?.value,
+        city: this.accountForm.get('city')?.value,
+        postcode: this.accountForm.get('postcode')?.value,
+      })
+      .subscribe(
+        (data: IUser) => {
+          this.snackBar.open('Your account has been updated!', `I'm the best`, { duration: 5000 });
+          this.isUpdatingInfo = false;
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err.message);
+          this.isUpdatingInfo = false;
+        }
+      );
   }
 }
