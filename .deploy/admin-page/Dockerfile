@@ -1,7 +1,7 @@
 # To build this dockerfile use a command similar to this:
 # docker build -t <image-name> -f ./.deploy/admin-page/Dockerfile .
 
-###### Build container START
+###### Build container admin-page START
 
 # Lightweight environment with node pre-installed
 FROM node:lts-alpine3.14 AS builder
@@ -9,34 +9,30 @@ FROM node:lts-alpine3.14 AS builder
 # Directory to work in the container
 WORKDIR /app
 
-# Copy package.json to the root of container
-COPY package.json .
-
-# Set required ENVs
+# Set required ENVs. If they are bassed as --build-args these will be overwritten
 ARG ENV=dev
 ARG LOG_LEVEL=warn
+
+# Copy package.json to the root of the WORKDIR
+COPY package.json ./
 
 # Run npm install inside container
 # --legacy-peer-deps This line is currently required for the dependencies to install
 # Should be tested once in a while and removed when possible, as package maintainers
 #   updated their dependencies to the new automated system.
-RUN if [[ $ENV == "prod" ]] ; \
+RUN if [[ $ENV == "prod" ]] ;	\
 	then npm install --legacy-peer-deps --loglevel ${LOG_LEVEL} --only=prod;	\
-	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};			\
+	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};				\
     fi
 
 # Copy all files different to local machine to container
 # Uses caching to prevent copying ALL files if only some parts changed
-COPY ./assets ./assets
-COPY ./libs ./libs
-COPY ./apps ./apps
 COPY nx.json ./nx.json
 COPY tsconfig.base.json ./tsconfig.base.json
 COPY workspace.json ./workspace.json
-
-# Install NX since it is not installed in our repository
-# If we skip this step the prod build fails, as it is not a prod dependency
-RUN npm install nx
+COPY ./assets ./assets
+COPY ./libs ./libs
+COPY ./apps/admin-page ./apps/admin-page
 
 # Execute this command in the docker container
 RUN npm run build:admin:${ENV}
@@ -60,4 +56,3 @@ COPY --from=builder /app/dist/apps/admin-page /usr/share/nginx/html
 CMD [ "/bin/sh", "-c", "exec nginx -g \"daemon off;\""]
 
 ###### runtime environment END
-

@@ -16,10 +16,10 @@ export const authUserRoleDeveloper: IAuthUser = {
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
 };
 
-export const authUserRoleOwner: IAuthUser = {
+export const authUserRoleAdmin: IAuthUser = {
   email: 'e2e-owner@test.com',
   accessToken: '',
-  roles: ['ROLE_USER', 'ROLE_OWNER'],
+  roles: ['ROLE_USER', 'ROLE_ADMIN'],
   tokenType: 'Bearer',
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
 };

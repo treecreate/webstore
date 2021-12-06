@@ -2,27 +2,41 @@ import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { nzModules } from './nz-modules.constant';
+import { materialModules } from './material.constant';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { ItemCardComponent } from './components/item-card/item-card.component';
+import { authInterceptorProviders } from './helpers/auth.interceptor';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent,
+    LoginComponent,
+    DashboardComponent,
+    OrdersComponent,
+    ItemCardComponent,
+  ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    nzModules,
+    materialModules,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

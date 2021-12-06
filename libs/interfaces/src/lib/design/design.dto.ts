@@ -1,13 +1,13 @@
 import { DesignTypeEnum } from './design-type.enum';
 import { IFamilyTree } from './design.interface';
 
-export class UpdateDesignRequest {
+export interface UpdateDesignRequest {
   designId: string;
   designProperties: IFamilyTree;
   designType: DesignTypeEnum;
 }
 
-export class CreateDesignRequest {
+export interface CreateDesignRequest {
   designProperties: IFamilyTree;
   designType: DesignTypeEnum;
   mutable: boolean;

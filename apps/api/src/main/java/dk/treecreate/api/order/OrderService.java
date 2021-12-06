@@ -14,7 +14,7 @@ import dk.treecreate.api.transactionitem.TransactionItem;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
-import dk.treecreate.api.utils.model.quickpay.PaymentState;
+import dk.treecreate.api.utils.OrderStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,7 +204,7 @@ public class OrderService
         order.setSubtotal(createOrderRequest.getSubtotal());
         order.setTotal(createOrderRequest.getTotal());
         order.setCurrency(createOrderRequest.getCurrency());
-        order.setState(PaymentState.INITIAL);
+        order.setStatus(OrderStatus.INITIAL);
         order.setPlantedTrees(createOrderRequest.getPlantedTrees());
         order.setShippingMethod(createOrderRequest.getShippingMethod());
         if (createOrderRequest.getDiscountId() != null)
