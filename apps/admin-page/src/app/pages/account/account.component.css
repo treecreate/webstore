@@ -39,14 +39,32 @@ hr {
 .input-section-right {
   display: flex;
   flex-direction: column;
-  width: 47%;
-  padding: 0 5px;
+  width: 49.5%;
 }
 
 .account-input-fields {
+  margin-top: 20px;
   display: flex;
+  justify-content: space-between;
 }
 
 .small-input {
   width: 47%;
+}
+
+.roles-section {
+  display: flex;
+  align-items: baseline;
+}
+
+.roles-section h4 {
+  margin-right: 10px; 
+}
+
+.roles-section button {
+  margin: 0 10px; 
+}
+
+.actions-section {
+  margin: 20px 0; 
 }
