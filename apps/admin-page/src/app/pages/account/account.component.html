@@ -1,9 +1,13 @@
 <form class="account-page" [formGroup]="accountForm">
     <div class="title-section">
         <h1 class="title">Account</h1>
-        <h3>User id: {{ user?.userId }}</h3>
+        <h3 *ngIf="!isLoading">User id: {{ user?.userId }}</h3>
+        <div class="loading-container" *ngIf="isLoading">
+            <mat-spinner [diameter]="20"></mat-spinner>
+        </div>
     </div>
     <hr />
+
     <div class="account-page-content">
         <div class="account-input-fields">
             <div class="input-section-left">
@@ -93,18 +97,20 @@
             </div>
         </div>
 
-        <div class="roles-section">
-            <h4>Roles : </h4>
-            <button mat-raised-button color="basic">User</button>
-            <button mat-raised-button color="primary">Operation</button>
-            <button mat-raised-button color="primary">Developer</button>
-            <button mat-raised-button color="accent">Admin</button>
-        </div>
-        <div class="actions-section">
-            <button mat-raised-button color="primary">Update info</button>
-            <button mat-raised-button color="primary">Change password</button>
-            <button mat-raised-button color="primary" *ngIf="!isCustomer()">Reset password</button>
-            <button mat-raised-button color="primary" *ngIf="!isCustomer()">Send email</button>
+        <div class="column-section">
+            <div class="roles-section">
+                <h4>Roles :</h4>
+                <button mat-raised-button type="button" color="basic">User</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="false">Operation</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="isDeveloper">Developer</button>
+                <button mat-raised-button type="button" color="accent" *ngIf="isAdmin">Admin</button>
+            </div>
+            <div class="actions-section">
+                <button mat-raised-button type="submit" color="primary">Update info</button>
+                <button mat-raised-button type="button" color="primary">Change password</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="!isCustomer()">Reset password</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="!isCustomer()">Send email</button>
+            </div>
         </div>
         <hr />
         <div class="account-orders"></div>

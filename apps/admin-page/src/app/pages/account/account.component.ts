@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '@interfaces';
 import { UserRoles } from '@models';
@@ -9,17 +9,22 @@ import { UserService } from '../../services/user/user.service';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent {
   public user?: IUser;
   public accountForm: FormGroup;
+  public isLoading: boolean = false;
 
   constructor(private userService: UserService) {
+    this.isLoading = true;
     this.userService.getUser().subscribe(
       (user: IUser) => {
         this.user = user;
+        this.updateForm();
+        this.isLoading = false;
       },
       (err: Error) => {
         console.log(err.message);
+        this.isLoading = false;
       }
     );
 
@@ -42,7 +47,23 @@ export class AccountComponent implements OnInit {
     return !this.user?.roles.includes(UserRoles.developer) || !this.user?.roles.includes(UserRoles.admin);
   }
 
-  ngOnInit(): void {
-    // TODO: Update form with user values
+  isDeveloper() {
+    return this.user?.roles.includes(UserRoles.developer);
+  }
+
+  isAdmin() {
+    return this.user?.roles.includes(UserRoles.admin);
+  }
+
+  updateForm() {
+    this.accountForm.setValue({
+      name: this.user?.name,
+      phoneNumber: this.user?.phoneNumber,
+      email: this.user?.email,
+      streetAddress: this.user?.streetAddress,
+      streetAddress2: this.user?.streetAddress2,
+      city: this.user?.city,
+      postcode: this.user?.postcode,
+    });
   }
 }
