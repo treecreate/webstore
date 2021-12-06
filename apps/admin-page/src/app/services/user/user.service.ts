@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUser } from '@interfaces';
+import { IUser, UpdateUserPasswordRequest, UpdateUserRequest } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
@@ -13,5 +13,14 @@ export class UserService {
 
   public getUser(): Observable<IUser> {
     return this.http.get<IUser>(`${env.apiUrl}/users/me`);
+  }
+
+  public updateUser(params: UpdateUserRequest): Observable<IUser> {
+    return this.http.put<IUser>(`${env.apiUrl}/users`, params);
+  }
+
+  public updatePassword(params: UpdateUserPasswordRequest) {
+    console.log('params', params);
+    return this.http.put<IUser>(`${env.apiUrl}/users/updatePassword`, params);
   }
 }
