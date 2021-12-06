@@ -5,6 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AccountComponent } from './pages/account/account.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -18,6 +19,12 @@ const routes: Routes = [
     data: { roles: [UserRoles.developer, UserRoles.admin] },
     component: DashboardComponent,
   }, // AuthGuard ensures that only authorized users can view this route
+  {
+    path: 'orders',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: OrdersComponent,
+  }, // Orders management page
   {
     path: 'account',
     canActivate: [AuthGuard],

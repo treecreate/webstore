@@ -9,6 +9,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 export const materialModules = [
   MatCommonModule,
@@ -18,6 +20,9 @@ export const materialModules = [
   MatDividerModule,
   MatIconModule,
   MatListModule,
+  MatCardModule,
+  MatTableModule,
+  MatProgressSpinnerModule,
   MatInputModule,
   MatProgressSpinnerModule,
   MatFormFieldModule,

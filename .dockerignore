@@ -1,1 +1,15 @@
 /node_modules
+
+# Misc files not needed
+/.vscode
+
+# Build files not needed for build context at all
+/dist
+/tmp
+/tools
+
+# Angular files
+/.angular
+
+# Documentation
+/docs
