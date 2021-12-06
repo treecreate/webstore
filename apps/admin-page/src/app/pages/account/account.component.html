@@ -1,8 +1,109 @@
-<div class="account-page">
+<form class="account-page" [formGroup]="accountForm">
     <div class="title-section">
         <h1 class="title">Account</h1>
-        <h3>User id: {{ userId }}</h3>
+        <h3>User id: {{ user?.userId }}</h3>
     </div>
     <hr />
-    <div class="account-page-conten"></div>
-</div>
+    <div class="account-page-content">
+        <div class="account-input-fields">
+            <div class="input-section-left">
+                <!-- email -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">E-mail</mat-label>
+                    <input
+                        #email
+                        type="email"
+                        data-cy="account-email-input"
+                        formControlName="email"
+                        matInput
+                        placeholder="Your e-mail "
+                    />
+                </mat-form-field>
+                <!-- name -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Name</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-name-input"
+                        formControlName="name"
+                        matInput
+                        placeholder="Your name "
+                    />
+                </mat-form-field>
+                <div class="column-section">
+                    <!-- city -->
+                    <mat-form-field class="input small-input" appearance="fill">
+                        <mat-label class="input-label">City</mat-label>
+                        <input
+                            type="text"
+                            data-cy="account-city-input"
+                            formControlName="city"
+                            matInput
+                            placeholder="City"
+                        />
+                    </mat-form-field>
+                    <!-- postcode -->
+                    <mat-form-field class="input small-input" appearance="fill">
+                        <mat-label class="input-label">Postcode</mat-label>
+                        <input
+                            type="text"
+                            data-cy="account-postcode-input"
+                            formControlName="postcode"
+                            matInput
+                            placeholder="1234"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="input-section-right">
+                <!-- Phonenumber -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Phonenumber</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-phonenumber-input"
+                        formControlName="phonenumber"
+                        matInput
+                        placeholder="12345678"
+                    />
+                </mat-form-field>
+                <!-- address -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Address</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-address-input"
+                        formControlName="address"
+                        matInput
+                        placeholder="Your address"
+                    />
+                </mat-form-field>
+                <!-- address 2 -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Address 2</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-address-2-input"
+                        formControlName="addressTwo"
+                        matInput
+                        placeholder="Your address (continued)"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="column-section">
+            <div class="roles-section"></div>
+            <div class="member-section"></div>
+        </div>
+        <div class="actions-section">
+            <button mat-raised-button color="primary">Update info</button>
+            <button mat-raised-button color="primary">Change password</button>
+            <button mat-raised-button color="primary" *ngIf="!isCustomer()">Reset password</button>
+            <button mat-raised-button color="primary" *ngIf="!isCustomer()">Send email</button>
+        </div>
+        <hr />
+        <div class="account-orders"></div>
+    </div>
+</form>

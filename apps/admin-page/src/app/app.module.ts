@@ -26,7 +26,7 @@ registerLocaleData(en);
     DashboardComponent,
     OrdersComponent,
     ItemCardComponent,
-    AccountComponent
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
