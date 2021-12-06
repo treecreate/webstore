@@ -5,6 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '@interfaces';
 import { UserRoles } from '@models';
 import { UserService } from '../../services/user/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'webstore-account',
@@ -16,8 +18,9 @@ export class AccountComponent {
   public accountForm: FormGroup;
   public isLoading: boolean = false;
   public isUpdatingInfo: boolean = false;
+  public panelOpenState: boolean = false;
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar) {
+  constructor(private userService: UserService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.isLoading = true;
     this.userService.getUser().subscribe(
       (user: IUser) => {
@@ -92,5 +95,13 @@ export class AccountComponent {
           this.isUpdatingInfo = false;
         }
       );
+  }
+
+  openUpdatePasswordDialog(): void {
+    this.dialog.open(ChangePasswordDialogComponent, {
+      data: {
+        userId: this.user?.userId,
+      },
+    });
   }
 }

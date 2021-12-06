@@ -63,11 +63,11 @@
             <div class="input-section-right">
                 <!-- Phonenumber -->
                 <mat-form-field class="input" appearance="fill">
-                    <mat-label class="input-label">Phonenumber</mat-label>
+                    <mat-label class="input-label">Phone number</mat-label>
                     <input
                         type="text"
-                        data-cy="account-phonenumber-input"
-                        formControlName="phonenumber"
+                        data-cy="account-phone-number-input"
+                        formControlName="phoneNumber"
                         matInput
                         placeholder="12345678"
                     />
@@ -78,7 +78,7 @@
                     <input
                         type="text"
                         data-cy="account-address-input"
-                        formControlName="address"
+                        formControlName="streetAddress"
                         matInput
                         placeholder="Your address"
                     />
@@ -89,7 +89,7 @@
                     <input
                         type="text"
                         data-cy="account-address-2-input"
-                        formControlName="addressTwo"
+                        formControlName="streetAddress2"
                         matInput
                         placeholder="Your address (continued)"
                     />
@@ -110,7 +110,9 @@
                     <span>Update info</span>
                     <mat-icon *ngIf="isUpdatingInfo"><mat-spinner diameter="15"></mat-spinner></mat-icon>
                 </button>
-                <button mat-raised-button type="button" color="primary">Change password</button>
+                <button mat-raised-button type="button" color="primary" (click)="openUpdatePasswordDialog()">
+                    Change password
+                </button>
                 <button mat-raised-button type="button" color="primary" *ngIf="!isCustomer()">Reset password</button>
                 <button mat-raised-button type="button" color="primary" *ngIf="!isCustomer()">Send email</button>
             </div>
