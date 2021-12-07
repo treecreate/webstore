@@ -77,33 +77,33 @@ describe('change password dialog', () => {
 
   it('should have update btn be disabled when password is not good enough', () => {
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
-    //TODO: check uppercase
+    // Check uppercase
     cy.get('[data-cy=change-password-input]').type('abcdef123');
     cy.get('[data-cy=change-confirm-password-input]').type('abcdef123');
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
     cy.get('[data-cy=change-password-input]').clear().type('abcDEF123');
     cy.get('[data-cy=change-confirm-password-input]').clear().type('abcDEF123');
     cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
-    //TODO: check lowercase
+    // Check lowercase
     cy.get('[data-cy=change-password-input]').clear().type('ABCDEF123');
     cy.get('[data-cy=change-confirm-password-input]').clear().type('ABCDEF123');
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
     cy.get('[data-cy=change-password-input]').clear().type('abcDEF123');
     cy.get('[data-cy=change-confirm-password-input]').clear().type('abcDEF123');
     cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
-    //TODO: check number
+    // Check number
     cy.get('[data-cy=change-password-input]').clear().type('ABCdefabc');
     cy.get('[data-cy=change-confirm-password-input]').clear().type('ABCdefabc');
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
     cy.get('[data-cy=change-password-input]').type('123');
     cy.get('[data-cy=change-confirm-password-input]').type('123');
     cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
-    //TODO: check length
+    // Check length
     cy.get('[data-cy=change-password-input]').clear().type('abcDEF1');
     cy.get('[data-cy=change-confirm-password-input]').clear().type('abcDEF1');
     cy.get('[data-cy=update-password-btn]').should('be.disabled');
-    cy.get('[data-cy=change-password-input]').type('23');
-    cy.get('[data-cy=change-confirm-password-input]').type('23');
+    cy.get('[data-cy=change-password-input]').type('23!');
+    cy.get('[data-cy=change-confirm-password-input]').type('23!');
     cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
   });
 
