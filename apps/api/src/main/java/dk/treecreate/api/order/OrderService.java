@@ -30,7 +30,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class OrderService {
+public class OrderService
+{
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
     @Autowired
@@ -49,27 +50,31 @@ public class OrderService {
     @Autowired
     MailService mailService;
 
-    public boolean verifyPrice(Order order) {
+    public boolean verifyPrice(Order order)
+    {
         int totalItems = 0;
         BigDecimal subTotal = new BigDecimal(0);
         subTotal = subTotal.setScale(2, RoundingMode.HALF_EVEN);
-        for (TransactionItem item : order.getTransactionItems()) {
+        for (TransactionItem item : order.getTransactionItems())
+        {
             // TODO - designType should come from transaction item
             int quantity = item.getQuantity();
-            BigDecimal pricePerItem = pricePerItem(item.getDesign().getDesignType(), item.getDimension());
+            BigDecimal pricePerItem =
+                pricePerItem(item.getDesign().getDesignType(), item.getDimension());
             subTotal = subTotal.add(pricePerItem.multiply(BigDecimal.valueOf(quantity)));
             totalItems += quantity;
         }
 
         LOGGER.info("Verify price | SubTotal: " + subTotal + " | item count: " + totalItems +
-                " | planted trees: " + order.getPlantedTrees());
-        if (!subTotal.equals(order.getSubtotal().setScale(2, RoundingMode.HALF_EVEN))) {
+            " | planted trees: " + order.getPlantedTrees());
+        if (!subTotal.equals(order.getSubtotal().setScale(2, RoundingMode.HALF_EVEN)))
+        {
             LOGGER.warn("Verify price | SubTotal (" + subTotal +
-                    ") DOES NOT match order.subtotal: " +
-                    order.getSubtotal());
+                ") DOES NOT match order.subtotal: " +
+                order.getSubtotal());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Provided order subtotal (" + order.getSubtotal() +
-                            ") does not match calculated subtotal (" + subTotal + ")!");
+                "Provided order subtotal (" + order.getSubtotal() +
+                    ") does not match calculated subtotal (" + subTotal + ")!");
         }
 
         // Apply the discount and delivery price etc
@@ -80,7 +85,8 @@ public class OrderService {
         total = total.add(new BigDecimal(plantedTreesPrice));
 
         // add shipping cost
-        switch (order.getShippingMethod()) {
+        switch (order.getShippingMethod())
+        {
             case PICK_UP_POINT:
                 break; // is free
             case HOME_DELIVERY:
@@ -92,56 +98,64 @@ public class OrderService {
         }
 
         LOGGER.info("Verify price | Calculated Total: " + total);
-        if (!total.equals(order.getTotal().setScale(2, RoundingMode.HALF_EVEN))) {
+        if (!total.equals(order.getTotal().setScale(2, RoundingMode.HALF_EVEN)))
+        {
             LOGGER.warn("Verify price | Total (" + total +
-                    ") DOES NOT match order.total (" +
-                    order.getTotal().setScale(2, RoundingMode.HALF_EVEN) + ")!");
+                ") DOES NOT match order.total (" +
+                order.getTotal().setScale(2, RoundingMode.HALF_EVEN) + ")!");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Provided order total (" + order.getTotal() +
-                            ") does not match calculated total (" + total + ")!");
+                "Provided order total (" + order.getTotal() +
+                    ") does not match calculated total (" + total + ")!");
         }
         return true;
     }
 
     /**
      * Updates the order with the provided ID to contain the new status.
-     * 
+     *
      * @param orderId the ID of the order.
      * @param status  the new status of the order.
      * @return the updated order.
      */
-    public Order updateOrderStatus(UUID orderId, OrderStatus status) throws ResourceNotFoundException {
+    public Order updateOrderStatus(UUID orderId, OrderStatus status)
+        throws ResourceNotFoundException
+    {
         Order order = orderRepository.findByOrderId(orderId)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
 
         order.setStatus(status);
         return orderRepository.save(order);
     }
 
-    public BigDecimal calculateTotal(BigDecimal subTotal, Discount discount, boolean hasMoreThan3) {
+    public BigDecimal calculateTotal(BigDecimal subTotal, Discount discount, boolean hasMoreThan3)
+    {
         BigDecimal total = subTotal;
         total = total.setScale(2, RoundingMode.HALF_EVEN);
-        if (discount != null) {
-            switch (discount.getType()) {
+        if (discount != null)
+        {
+            switch (discount.getType())
+            {
                 case AMOUNT:
                     total = subTotal.subtract(BigDecimal.valueOf(discount.getAmount()));
                     break;
                 case PERCENT:
                     total = subTotal.subtract(
-                            subTotal.multiply(BigDecimal.valueOf((double) discount.getAmount() / 100)));
+                        subTotal.multiply(BigDecimal.valueOf((double) discount.getAmount() / 100)));
                     break;
                 default:
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                            " Provided discount information is not valid (" +
-                                    discount.getType() + ")!");
+                        " Provided discount information is not valid (" +
+                            discount.getType() + ")!");
             }
             LOGGER.info(
-                    "Verify price | Detected discount " + discount.getType() +
-                            " of amount " + discount.getAmount());
-        } else {
-            if (hasMoreThan3) {
+                "Verify price | Detected discount " + discount.getType() +
+                    " of amount " + discount.getAmount());
+        } else
+        {
+            if (hasMoreThan3)
+            {
                 LOGGER.info(
-                        "Verify price | Detected discount via More Than 4 items");
+                    "Verify price | Detected discount via More Than 4 items");
                 total = subTotal.subtract(subTotal.multiply(new BigDecimal("0.25")));
             }
         }
@@ -149,10 +163,13 @@ public class OrderService {
         return total;
     }
 
-    public BigDecimal pricePerItem(DesignType designType, DesignDimension designDimension) {
-        switch (designType) {
+    public BigDecimal pricePerItem(DesignType designType, DesignDimension designDimension)
+    {
+        switch (designType)
+        {
             case FAMILY_TREE:
-                switch (designDimension) {
+                switch (designDimension)
+                {
                     case SMALL:
                         return new BigDecimal(495);
                     case MEDIUM:
@@ -161,39 +178,45 @@ public class OrderService {
                         return new BigDecimal(995);
                     default:
                         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                                "Provided design (" + designDimension +
-                                        ") dimension data is not valid");
+                            "Provided design (" + designDimension +
+                                ") dimension data is not valid");
                 }
             default:
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                        "Provided design (" + designType + ") type data is not valid");
+                    "Provided design (" + designType + ") type data is not valid");
         }
     }
 
-    public void sendOrderConfirmationEmail(String paymentId) {
+    public void sendOrderConfirmationEmail(String paymentId)
+    {
         Order order = orderRepository.findByPaymentId(paymentId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Order with paymentId " + paymentId + " not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(
+                "Order with paymentId " + paymentId + " not found"));
         sendOrderConfirmationEmail(order);
     }
 
-    public void sendOrderConfirmationEmail(UUID orderId) {
+    public void sendOrderConfirmationEmail(UUID orderId)
+    {
         Order order = orderRepository.findByOrderId(orderId)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
         sendOrderConfirmationEmail(order);
     }
 
-    public void sendOrderConfirmationEmail(Order order) {
-        try {
+    public void sendOrderConfirmationEmail(Order order)
+    {
+        try
+        {
             mailService.sendOrderConfirmationEmail(order.getContactInfo().getEmail(), order);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             LOGGER.error("Failed to process order confirmation email", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Failed to send order confirmation email. Try again later");
+                "Failed to send order confirmation email. Try again later");
         }
     }
 
-    public Order setupOrderFromCreateRequest(CreateOrderRequest createOrderRequest) {
+    public Order setupOrderFromCreateRequest(CreateOrderRequest createOrderRequest)
+    {
         Order order = new Order();
         order.setSubtotal(createOrderRequest.getSubtotal());
         order.setTotal(createOrderRequest.getTotal());
@@ -201,35 +224,42 @@ public class OrderService {
         order.setStatus(OrderStatus.INITIAL);
         order.setPlantedTrees(createOrderRequest.getPlantedTrees());
         order.setShippingMethod(createOrderRequest.getShippingMethod());
-        if (createOrderRequest.getDiscountId() != null) {
-            Discount discount = discountRepository.findByDiscountId(createOrderRequest.getDiscountId())
+        if (createOrderRequest.getDiscountId() != null)
+        {
+            Discount discount =
+                discountRepository.findByDiscountId(createOrderRequest.getDiscountId())
                     .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
-            if (discount.getRemainingUses() == 0) {
+            if (discount.getRemainingUses() == 0)
+            {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                        "This discount has no remaining uses");
+                    "This discount has no remaining uses");
             }
-            if (discount.getExpiresAt() != null && new Date().after(discount.getExpiresAt())) {
+            if (discount.getExpiresAt() != null && new Date().after(discount.getExpiresAt()))
+            {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This discount is expired");
             }
 
             discount.setRemainingUses(discount.getRemainingUses() - 1);
             discount.setTotalUses(discount.getTotalUses() + 1);
             order.setDiscount(discount);
-        } else {
+        } else
+        {
             order.setDiscount(null);
         }
 
         // set contact and billing info
         ContactInfo contactInfo = new ContactInfo();
         contactInfo = contactInfoService.mapCreateContactInfoRequest(contactInfo,
-                createOrderRequest.getContactInfo());
+            createOrderRequest.getContactInfo());
         order.setContactInfo(contactInfo);
-        if (createOrderRequest.getBillingInfo() != null) {
+        if (createOrderRequest.getBillingInfo() != null)
+        {
             ContactInfo billingInfo = new ContactInfo();
             billingInfo = contactInfoService.mapCreateContactInfoRequest(billingInfo,
-                    createOrderRequest.getBillingInfo());
+                createOrderRequest.getBillingInfo());
             order.setBillingInfo(billingInfo);
-        } else {
+        } else
+        {
             order.setBillingInfo(null);
         }
         List<TransactionItem> itemList = new ArrayList<>();
@@ -237,16 +267,19 @@ public class OrderService {
 
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User user = userRepository.findByEmail(userDetails.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         order.setUserId(user.getUserId());
-        for (UUID itemId : createOrderRequest.getTransactionItemIds()) {
-            TransactionItem transactionItem = transactionItemRepository.findByTransactionItemId(itemId)
+        for (UUID itemId : createOrderRequest.getTransactionItemIds())
+        {
+            TransactionItem transactionItem =
+                transactionItemRepository.findByTransactionItemId(itemId)
                     .orElseThrow(() -> new ResourceNotFoundException("Transaction item not found"));
             // check if the user has access to the transaction item
-            if (transactionItem.getDesign().getUser().getUserId() != user.getUserId()) {
+            if (transactionItem.getDesign().getUser().getUserId() != user.getUserId())
+            {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                        "You lack clearance to create an order including this transaction item: '" +
-                                transactionItem.getTransactionItemId() + "'");
+                    "You lack clearance to create an order including this transaction item: '" +
+                        transactionItem.getTransactionItemId() + "'");
             }
             itemList.add(transactionItem);
         }

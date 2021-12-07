@@ -53,18 +53,6 @@ public class LinkServiceTest
                 "https://treecreate.dk/dk/payment/cancelled"));
     }
 
-    @ParameterizedTest
-    @MethodSource("generatePaymentRedirectUrlArguments")
-    @DisplayName("generatePaymentRedirectUrl() returns a correctly structured redirect url")
-    void generatePaymentRedirectUrl(Environment environment, Locale locale,
-                                    boolean successLink, String expectedUrl)
-    {
-        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
-
-        assertEquals(linkService.generatePaymentRedirectUrl(locale, successLink),
-            expectedUrl);
-    }
-
     private static Stream<Arguments> generateCallbackUrlArguments()
     {
         return Stream.of(
@@ -74,16 +62,6 @@ public class LinkServiceTest
                 "https://api.testing.treecreate.dk/paymentCallback"),
             Arguments.of(Environment.PRODUCTION,
                 "https://api.treecreate.dk/paymentCallback"));
-    }
-
-    @ParameterizedTest
-    @MethodSource("generateCallbackUrlArguments")
-    @DisplayName("generateCallbackUrl() returns a correctly structured callback url")
-    void generateCallbackUrl(Environment environment, String expectedUrl)
-    {
-        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
-
-        assertEquals(linkService.generateCallbackUrl(), expectedUrl);
     }
 
     private static Stream<Arguments> generateVerificationLinkArguments()
@@ -103,18 +81,6 @@ public class LinkServiceTest
                 "https://treecreate.dk/dk/verification/00000000-0000-0000-0000-000000000000"));
     }
 
-    @ParameterizedTest
-    @MethodSource("generateVerificationLinkArguments")
-    @DisplayName("generateVerificationLink() returns a correctly structured verification link")
-    void generateVerificationLink(UUID token, Locale locale, Environment environment,
-                                  String expectedUrl)
-    {
-        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
-
-        assertEquals(linkService.generateVerificationLink(token, locale),
-            expectedUrl);
-    }
-
     private static Stream<Arguments> generateResetPasswordLinkArguments()
     {
         return Stream.of(
@@ -132,18 +98,6 @@ public class LinkServiceTest
                 "https://treecreate.dk/dk/resetPassword/00000000-0000-0000-0000-000000000000"));
     }
 
-    @ParameterizedTest
-    @MethodSource("generateResetPasswordLinkArguments")
-    @DisplayName("generateResetPasswordLink() returns a correctly structured reset password link")
-    void generateResetPasswordLink(UUID token, Locale locale, Environment environment,
-                                   String expectedUrl)
-    {
-        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
-
-        assertEquals(linkService.generateResetPasswordLink(token, locale),
-            expectedUrl);
-    }
-
     private static Stream<Arguments> generateNewsletterUnsubscribeLinkArguments()
     {
         return Stream.of(
@@ -159,6 +113,52 @@ public class LinkServiceTest
                 "https://testing.treecreate.dk/dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
             Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.PRODUCTION,
                 "https://treecreate.dk/dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("generatePaymentRedirectUrlArguments")
+    @DisplayName("generatePaymentRedirectUrl() returns a correctly structured redirect url")
+    void generatePaymentRedirectUrl(Environment environment, Locale locale,
+                                    boolean successLink, String expectedUrl)
+    {
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generatePaymentRedirectUrl(locale, successLink),
+            expectedUrl);
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateCallbackUrlArguments")
+    @DisplayName("generateCallbackUrl() returns a correctly structured callback url")
+    void generateCallbackUrl(Environment environment, String expectedUrl)
+    {
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generateCallbackUrl(), expectedUrl);
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateVerificationLinkArguments")
+    @DisplayName("generateVerificationLink() returns a correctly structured verification link")
+    void generateVerificationLink(UUID token, Locale locale, Environment environment,
+                                  String expectedUrl)
+    {
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generateVerificationLink(token, locale),
+            expectedUrl);
+    }
+
+    @ParameterizedTest
+    @MethodSource("generateResetPasswordLinkArguments")
+    @DisplayName("generateResetPasswordLink() returns a correctly structured reset password link")
+    void generateResetPasswordLink(UUID token, Locale locale, Environment environment,
+                                   String expectedUrl)
+    {
+        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
+
+        assertEquals(linkService.generateResetPasswordLink(token, locale),
+            expectedUrl);
     }
 
     @ParameterizedTest

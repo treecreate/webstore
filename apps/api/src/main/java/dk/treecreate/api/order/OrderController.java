@@ -164,13 +164,13 @@ public class OrderController
     }
 
     /**
-     * Attempts to update the order with the ID received as a path parameter 
+     * Attempts to update the order with the ID received as a path parameter
      * with the new status received in the body.
-     * Will return a response with the full order if it is successful or 404 - Not Found 
+     * Will return a response with the full order if it is successful or 404 - Not Found
      * if there is no order with specified id.
-     * 
+     *
      * @param updateOrderStatusRequest DTO for the request.
-     * @param orderId the ID of the order.
+     * @param orderId                  the ID of the order.
      * @return the updated order.
      */
     @PatchMapping("/status/{orderId}")
@@ -181,11 +181,15 @@ public class OrderController
     })
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Order updateOrderStatus(
-        @RequestBody() @Valid UpdateOrderStatusRequest updateOrderStatusRequest, @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-        @PathVariable UUID orderId) {
-        try {
+        @RequestBody() @Valid UpdateOrderStatusRequest updateOrderStatusRequest,
+        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId)
+    {
+        try
+        {
             return orderService.updateOrderStatus(orderId, updateOrderStatusRequest.getStatus());
-        } catch (ResourceNotFoundException e) {
+        } catch (ResourceNotFoundException e)
+        {
             throw new ResourceNotFoundException("Order not found");
         }
     }
