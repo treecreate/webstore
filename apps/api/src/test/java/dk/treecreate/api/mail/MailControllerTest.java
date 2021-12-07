@@ -127,7 +127,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(false);
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Provided email is not a valid email",
                 result.getResponse().getErrorMessage()));
@@ -147,7 +147,7 @@ class MailControllerTest
             .sendSignupEmail(anyString(), any(UUID.class), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             // the message comes from a ResponseStatusException so has to be handled differently from normal content
             .andExpect(result -> assertEquals("Failed to send an email",
                 result.getResponse().getErrorMessage()));
