@@ -43,7 +43,7 @@ export class ChangePasswordDialogComponent {
   }
 
   /**
-   * Updates the password by sending a request to the api
+   * Updates the password by sending a request to the api.
    */
   changePassword(): void {
     this.isLoading = true;
@@ -67,7 +67,8 @@ export class ChangePasswordDialogComponent {
   }
 
   /**
-   * checks if the form is valid
+   * Checks if the form is valid.
+   *
    * @returns boolean
    */
   isDisabled(): boolean {
@@ -75,7 +76,8 @@ export class ChangePasswordDialogComponent {
   }
 
   /**
-   * checks if the password and confirm password match
+   * Checks if the password and confirm password match.
+   *
    * @returns boolean
    */
   isEqual(): boolean {

@@ -21,8 +21,9 @@ export class AccountComponent {
   public panelOpenState = false;
 
   /**
-   * gets the current user
-   * initiates the account form
+   * Gets the current user.
+   * Initiates the account form.
+   *
    * @param userService
    * @param snackBar
    * @param dialog
@@ -57,7 +58,8 @@ export class AccountComponent {
   }
 
   /**
-   * checks if user is a customer
+   * Checks if user is a customer.
+   *
    * @returns boolean
    */
   isCustomer(): boolean | undefined {
@@ -65,7 +67,7 @@ export class AccountComponent {
   }
 
   /**
-   * checks if user is a developer
+   * Checks if user is a developer.
    * @returns boolean
    */
   isDeveloper(): boolean | undefined {
@@ -73,7 +75,7 @@ export class AccountComponent {
   }
 
   /**
-   * checks if a user is an admin
+   * Checks if a user is an admin.
    * @returns boolean
    */
   isAdmin(): boolean | undefined {
@@ -81,7 +83,7 @@ export class AccountComponent {
   }
 
   /**
-   * updates the form input fields on the page
+   * Updates the form input fields on the page.
    */
   updateForm(): void {
     this.accountForm.setValue({
@@ -96,7 +98,7 @@ export class AccountComponent {
   }
 
   /**
-   * Updates the account info by sending a request to the api
+   * Updates the account info by sending a request to the api.
    */
   updateAccount(): void {
     this.isUpdatingInfo = true;
@@ -124,7 +126,7 @@ export class AccountComponent {
   }
 
   /**
-   * opens change password dialog
+   * Opens change password dialog.
    */
   openUpdatePasswordDialog(): void {
     this.dialog.open(ChangePasswordDialogComponent, {
