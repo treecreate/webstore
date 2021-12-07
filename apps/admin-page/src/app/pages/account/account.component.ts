@@ -16,9 +16,9 @@ import { ChangePasswordDialogComponent } from '../../components/change-password-
 export class AccountComponent {
   public user?: IUser;
   public accountForm: FormGroup;
-  public isLoading: boolean = false;
-  public isUpdatingInfo: boolean = false;
-  public panelOpenState: boolean = false;
+  public isLoading = false;
+  public isUpdatingInfo = false;
+  public panelOpenState = false;
 
   constructor(private userService: UserService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.isLoading = true;

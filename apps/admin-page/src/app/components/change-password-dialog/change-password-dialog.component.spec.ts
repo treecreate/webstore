@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ChangePasswordDialogComponent } from './change-password-dialog.component';
 
@@ -9,6 +12,10 @@ describe('ChangePasswordDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ChangePasswordDialogComponent],
+      imports: [MatSnackBarModule, HttpClientModule, MatDialogModule],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+    ]
     }).compileComponents();
   });
 
