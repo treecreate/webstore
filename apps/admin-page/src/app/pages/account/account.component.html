@@ -100,17 +100,33 @@
         <div class="column-section">
             <div class="roles-section">
                 <h4>Roles :</h4>
-                <button mat-raised-button type="button" color="basic">User</button>
-                <button mat-raised-button type="button" color="primary" *ngIf="false">Operation</button>
-                <button mat-raised-button type="button" color="primary" *ngIf="isDeveloper">Developer</button>
-                <button mat-raised-button type="button" color="accent" *ngIf="isAdmin">Admin</button>
+                <button mat-raised-button type="button" data-cy="is-user" color="basic">User</button>
+                <button mat-raised-button type="button" data-cy="is-operation" color="primary" *ngIf="false">
+                    Operation
+                </button>
+                <button mat-raised-button type="button" data-cy="is-developer" color="primary" *ngIf="isDeveloper">
+                    Developer
+                </button>
+                <button mat-raised-button type="button" data-cy="is-admin" color="accent" *ngIf="isAdmin">Admin</button>
             </div>
             <div class="actions-section">
-                <button mat-raised-button type="submit" color="primary" [disabled]="isUpdatingInfo">
+                <button
+                    mat-raised-button
+                    type="submit"
+                    data-cy="update-account-btn"
+                    color="primary"
+                    [disabled]="isUpdatingInfo"
+                >
                     <span>Update info</span>
                     <mat-icon *ngIf="isUpdatingInfo"><mat-spinner diameter="15"></mat-spinner></mat-icon>
                 </button>
-                <button mat-raised-button type="button" color="primary" (click)="openUpdatePasswordDialog()">
+                <button
+                    mat-raised-button
+                    type="button"
+                    color="primary"
+                    data-cy="change-password-btn"
+                    (click)="openUpdatePasswordDialog()"
+                >
                     Change password
                 </button>
                 <button mat-raised-button type="button" color="primary" *ngIf="!isCustomer()">Reset password</button>

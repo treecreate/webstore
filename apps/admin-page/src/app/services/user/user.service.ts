@@ -11,7 +11,7 @@ import { environment as env } from '../../../environments/environment';
 export class UserService {
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) {}
 
-  public getUser(): Observable<IUser> {
+  public getCurrentUser(): Observable<IUser> {
     return this.http.get<IUser>(`${env.apiUrl}/users/me`);
   }
 

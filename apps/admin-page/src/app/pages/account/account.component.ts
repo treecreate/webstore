@@ -22,7 +22,7 @@ export class AccountComponent {
 
   constructor(private userService: UserService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.isLoading = true;
-    this.userService.getUser().subscribe(
+    this.userService.getCurrentUser().subscribe(
       (user: IUser) => {
         this.user = user;
         this.updateForm();
