@@ -38,6 +38,7 @@ export class AccountComponent {
       },
       (err: HttpErrorResponse) => {
         console.log(err.message);
+        this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
         this.isLoading = false;
       }
     );
@@ -60,7 +61,7 @@ export class AccountComponent {
   /**
    * Checks if user is a customer.
    *
-   * @returns boolean
+   * @returns whether the user is customer (does not contain admin or developer)
    */
   isCustomer(): boolean | undefined {
     return !this.user?.roles.includes(UserRoles.developer) || !this.user?.roles.includes(UserRoles.admin);
@@ -68,7 +69,7 @@ export class AccountComponent {
 
   /**
    * Checks if user is a developer.
-   * @returns boolean
+   * @returns whether the user is a developer.
    */
   isDeveloper(): boolean | undefined {
     return this.user?.roles.includes(UserRoles.developer);
@@ -76,7 +77,7 @@ export class AccountComponent {
 
   /**
    * Checks if a user is an admin.
-   * @returns boolean
+   * @returns whether the user is admin.
    */
   isAdmin(): boolean | undefined {
     return this.user?.roles.includes(UserRoles.admin);
@@ -120,6 +121,7 @@ export class AccountComponent {
         },
         (err: HttpErrorResponse) => {
           console.log(err.message);
+          this.snackBar.open('Updating the user data failed', 'Oh no!', { duration: 5000 });
           this.isUpdatingInfo = false;
         }
       );

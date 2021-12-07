@@ -69,7 +69,7 @@ export class ChangePasswordDialogComponent {
   /**
    * Checks if the form is valid.
    *
-   * @returns boolean
+   * @returns whether the form is valid
    */
   isDisabled(): boolean {
     return !this.changePasswordForm.valid;
@@ -78,7 +78,7 @@ export class ChangePasswordDialogComponent {
   /**
    * Checks if the password and confirm password match.
    *
-   * @returns boolean
+   * @returns whether the password and confirm password match
    */
   isEqual(): boolean {
     return this.changePasswordForm.get('password')?.value === this.changePasswordForm.get('confirmPassword')?.value;
