@@ -289,7 +289,7 @@ class OrderServiceTest {
         // prepare the order
         UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
         OrderStatus status = OrderStatus.ASSEMBLING;
-        OrderStatus newStatus = OrderStatus.ASSEMBLING;
+        OrderStatus newStatus = OrderStatus.NEW;
 
         Order order = new Order();
         Order newOrder = new Order();
