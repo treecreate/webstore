@@ -20,6 +20,6 @@ export class UserService {
   }
 
   public updatePassword(params: UpdatePasswordAsAdminRequest) {
-    return this.http.put<IUser>(`${env.apiUrl}/users/${params.userId}`, params.password);
+    return this.http.put<IUser>(`${env.apiUrl}/users/${params.userId}`, { password: params.password });
   }
 }

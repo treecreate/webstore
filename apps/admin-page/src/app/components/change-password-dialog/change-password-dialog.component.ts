@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../services/user/user.service';
 
@@ -17,7 +17,8 @@ export class ChangePasswordDialogComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog
   ) {
     this.changePasswordForm = new FormGroup({
       password: new FormControl('', [
@@ -45,6 +46,7 @@ export class ChangePasswordDialogComponent implements OnInit {
       .subscribe(
         () => {
           this.snackBar.open('Password has been updated!', `I'm the best`, { duration: 5000 });
+          this.dialog.closeAll();
           this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
