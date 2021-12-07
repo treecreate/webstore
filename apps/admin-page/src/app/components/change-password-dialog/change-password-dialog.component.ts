@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,9 +10,9 @@ import { UserService } from '../../services/user/user.service';
   templateUrl: './change-password-dialog.component.html',
   styleUrls: ['./change-password-dialog.component.css'],
 })
-export class ChangePasswordDialogComponent implements OnInit {
+export class ChangePasswordDialogComponent {
   public changePasswordForm: FormGroup;
-  public isLoading: boolean = false;
+  public isLoading = false;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -33,8 +33,6 @@ export class ChangePasswordDialogComponent implements OnInit {
       ]),
     });
   }
-
-  ngOnInit(): void {}
 
   changePassword() {
     this.isLoading = true;
@@ -62,6 +60,6 @@ export class ChangePasswordDialogComponent implements OnInit {
   }
 
   isEqual(): boolean {
-    return this.changePasswordForm.get('password')?.value == this.changePasswordForm.get('confirmPassword')?.value;
+    return this.changePasswordForm.get('password')?.value === this.changePasswordForm.get('confirmPassword')?.value;
   }
 }

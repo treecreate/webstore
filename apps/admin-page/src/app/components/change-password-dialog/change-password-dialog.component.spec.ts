@@ -13,9 +13,7 @@ describe('ChangePasswordDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ChangePasswordDialogComponent],
       imports: [MatSnackBarModule, HttpClientModule, MatDialogModule],
-      providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-    ]
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
     }).compileComponents();
   });
 

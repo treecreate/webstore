@@ -87,6 +87,7 @@ export class AccountComponent {
       })
       .subscribe(
         (data: IUser) => {
+          console.log(data);
           this.snackBar.open('Your account has been updated!', `I'm the best`, { duration: 5000 });
           this.isUpdatingInfo = false;
         },
