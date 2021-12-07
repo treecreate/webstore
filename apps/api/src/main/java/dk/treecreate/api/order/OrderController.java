@@ -186,7 +186,6 @@ public class OrderController
         try {
             return orderService.updateOrderStatus(orderId, updateOrderStatusRequest.getStatus());
         } catch (ResourceNotFoundException e) {
-            e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "Order not found");
         }
