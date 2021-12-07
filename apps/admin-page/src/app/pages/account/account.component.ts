@@ -20,6 +20,13 @@ export class AccountComponent {
   public isUpdatingInfo = false;
   public panelOpenState = false;
 
+  /**
+   * gets the current user
+   * initiates the account form
+   * @param userService
+   * @param snackBar
+   * @param dialog
+   */
   constructor(private userService: UserService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.isLoading = true;
     this.userService.getCurrentUser().subscribe(
@@ -49,19 +56,34 @@ export class AccountComponent {
     });
   }
 
+  /**
+   * checks if user is a customer
+   * @returns boolean
+   */
   isCustomer(): boolean | undefined {
     return !this.user?.roles.includes(UserRoles.developer) || !this.user?.roles.includes(UserRoles.admin);
   }
 
-  isDeveloper() {
+  /**
+   * checks if user is a developer
+   * @returns boolean
+   */
+  isDeveloper(): boolean | undefined {
     return this.user?.roles.includes(UserRoles.developer);
   }
 
-  isAdmin() {
+  /**
+   * checks if a user is an admin
+   * @returns boolean
+   */
+  isAdmin(): boolean | undefined {
     return this.user?.roles.includes(UserRoles.admin);
   }
 
-  updateForm() {
+  /**
+   * updates the form input fields on the page
+   */
+  updateForm(): void {
     this.accountForm.setValue({
       name: this.user?.name,
       phoneNumber: this.user?.phoneNumber,
@@ -73,6 +95,9 @@ export class AccountComponent {
     });
   }
 
+  /**
+   * Updates the account info by sending a request to the api
+   */
   updateAccount(): void {
     this.isUpdatingInfo = true;
     this.userService
@@ -98,6 +123,9 @@ export class AccountComponent {
       );
   }
 
+  /**
+   * opens change password dialog
+   */
   openUpdatePasswordDialog(): void {
     this.dialog.open(ChangePasswordDialogComponent, {
       data: {

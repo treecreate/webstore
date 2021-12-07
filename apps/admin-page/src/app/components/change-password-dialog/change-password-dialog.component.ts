@@ -14,6 +14,14 @@ export class ChangePasswordDialogComponent {
   public changePasswordForm: FormGroup;
   public isLoading = false;
 
+  /**
+   * Initiates the change password form.
+   *
+   * @param snackBar
+   * @param userService
+   * @param data - sending the userId that will be used in the update method.
+   * @param dialog
+   */
   constructor(
     private snackBar: MatSnackBar,
     private userService: UserService,
@@ -34,7 +42,10 @@ export class ChangePasswordDialogComponent {
     });
   }
 
-  changePassword() {
+  /**
+   * Updates the password by sending a request to the api
+   */
+  changePassword(): void {
     this.isLoading = true;
     this.userService
       .updatePassword({
@@ -55,10 +66,18 @@ export class ChangePasswordDialogComponent {
       );
   }
 
+  /**
+   * checks if the form is valid
+   * @returns boolean
+   */
   isDisabled(): boolean {
     return !this.changePasswordForm.valid;
   }
 
+  /**
+   * checks if the password and confirm password match
+   * @returns boolean
+   */
   isEqual(): boolean {
     return this.changePasswordForm.get('password')?.value === this.changePasswordForm.get('confirmPassword')?.value;
   }
