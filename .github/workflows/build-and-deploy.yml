@@ -40,18 +40,19 @@ jobs:
 
       - name: Docker-compose build
         shell: bash
-        run: docker-compose -f .deploy/docker-compose-build.yml --profile ${PROFILE} build
+        run: docker-compose -f .deploy/docker-compose.build.yml --profile ${PROFILE} build
 
       - name: Docker-compose push
         shell: bash 
-        run: docker-compose -f .deploy/docker-compose-build.yml --profile ${PROFILE} push 
+        run: docker-compose -f .deploy/docker-compose.build.yml --profile ${PROFILE} push 
 
-      - name: SSH into AWS EC2 instance
-        shell: bash
-        run: echo "Connecting to EC2 instance"
-
-      - name: Run docker-compose up in EC2 instance
-        shell: bash
-        # SSH to AWS instance
-        # run docker-compose -f .deploy/docker-compose-run.yml --profile ${PROFILE} up
-        run: echo "Running docker-compose up"
+      - name: Execute docker-compose up through SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: PROFILE
+          script: |
+            echo $PROFILE
+            ~/scripts/login-and-update.sh $PROFILE up -d
