@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAuthUser } from '@interfaces';
 import { AuthUserEnum } from '.';
-import { authUser, authUserExpired, authUserInvalid, authUserRoleDeveloper, authUserRoleOwner } from './auth-user.mock';
+import { authUser, authUserExpired, authUserInvalid, authUserRoleAdmin, authUserRoleDeveloper } from './auth-user.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +23,8 @@ export class AuthenticationService {
         authUserMock = authUserRoleDeveloper;
         authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
         break;
-      case AuthUserEnum.authUserRoleOwner:
-        authUserMock = authUserRoleOwner;
+      case AuthUserEnum.authUserRoleAdmin:
+        authUserMock = authUserRoleAdmin;
         authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
         break;
       case AuthUserEnum.authUserExpired:

@@ -1,4 +1,4 @@
-export class UpdateUserRequest {
+export interface UpdateUserRequest {
   email?: string;
   password?: string;
   roles?: string[];
@@ -10,7 +10,7 @@ export class UpdateUserRequest {
   postcode?: string;
   country?: string;
 }
-export class UpdateUserPasswordRequest {
+export interface UpdateUserPasswordRequest {
   token: string;
   password: string;
 }

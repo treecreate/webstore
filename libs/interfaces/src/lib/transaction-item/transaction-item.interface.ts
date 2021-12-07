@@ -8,7 +8,7 @@ export interface ITransactionItem extends IBase {
   design: IDesign;
 }
 
-export class CreateLocalStorageTransactionItem {
+export interface CreateLocalStorageTransactionItem {
   designProperties: IFamilyTree;
   dimension: DesignDimensionEnum;
   quantity: number;

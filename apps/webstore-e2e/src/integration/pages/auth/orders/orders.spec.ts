@@ -1,20 +1,21 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
-  IUser,
+  CurrencyEnum,
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  DiscountType,
+  FamilyTreeFontEnum,
+  IDesign,
   IDraggableBox,
   IFamilyTreeBanner,
-  IDesign,
-  FamilyTreeFontEnum,
-  DesignTypeEnum,
-  ITransactionItem,
-  DesignDimensionEnum,
   IOrder,
-  PaymentStateEnum,
-  CurrencyEnum,
-  DiscountType,
+  ITransactionItem,
+  IUser,
+  OrderStatusDisplayNameEnum,
+  OrderStatusEnum,
   ShippingMethodEnum,
 } from '@interfaces';
-import { UserRoles, LocalStorageVars, CookieStatus } from '@models';
+import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();
@@ -98,8 +99,7 @@ const mockTransactionItemTwo: ITransactionItem = {
   design: mockDesign,
 };
 const mockOrder: IOrder = {
-  paymentState: PaymentStateEnum.pending,
-  state: PaymentStateEnum.pending,
+  status: OrderStatusEnum.pending,
   billingInfo: {
     city: 'cph',
     country: 'Denmark',
@@ -138,8 +138,7 @@ const mockOrder: IOrder = {
   userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
 };
 const mockOrderTwo: IOrder = {
-  paymentState: PaymentStateEnum.pending,
-  state: PaymentStateEnum.new,
+  status: OrderStatusEnum.new,
   billingInfo: {
     city: 'LULS',
     country: 'Denmark',
@@ -198,7 +197,7 @@ describe('ordersPage', () => {
       .first()
       .within(() => {
         cy.get('[data-cy=order-item-id]').should('contain', 'MakeMeWantIt');
-        cy.get('[data-cy=order-item-status]').should('contain', 'PENDING');
+        cy.get('[data-cy=order-item-status]').should('contain', OrderStatusDisplayNameEnum.pending);
         cy.get('[data-cy=order-item-email]').should('contain', 'example@hotdeals.dev');
         cy.get('[data-cy=order-item-design-item]').should('have.length', 2);
         cy.get('[data-cy=order-item-design-item]')
