@@ -1,7 +1,6 @@
 import { CurrencyEnum, DiscountType, IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
-import { curryRight } from 'cypress/types/lodash';
 
 enum LabelColorsEnum {
   red = '#FF0000',
