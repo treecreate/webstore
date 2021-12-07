@@ -102,6 +102,7 @@ export class AccountComponent {
       data: {
         userId: this.user?.userId,
       },
+      width: '450px',
     });
   }
 }
