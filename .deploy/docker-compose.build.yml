@@ -1,13 +1,3 @@
-# ENV syntax explanation:
-# :? means that the ENV has to be set & not be blank
-# ?  means that the ENV must be set but may be blank
-# In both cases, due to the '?' it will give an error if the ENV is not set
-
-# env_file tag is currently not working. Its in the file anyhow in hopes that
-#  in the future it will work.
-# Currently you need to call the docker-compose with '--env-file' and point it
-#  to the correct file.
-
 # This file has to be executed with docker-compose push
 
 version: '3.8'
