@@ -72,3 +72,15 @@
   min-height: 15px;
   flex: 1;
 }
+
+.back-btn {
+  color: #ABABAB;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.back-btn mat-icon {
+  width: 12px;
+  height: 12px;
+  font-size: 12px;
+}

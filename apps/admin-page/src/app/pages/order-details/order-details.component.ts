@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
 
@@ -36,7 +37,7 @@ export class OrderDetailsComponent implements OnInit {
   items!: ITransactionItem[];
   itemsColumns: string[] = ['title', 'quantity', 'dimensions', 'price', 'actions'];
 
-  constructor(private ordersService: OrdersService, private route: ActivatedRoute) {
+  constructor(private ordersService: OrdersService, private route: ActivatedRoute, private location: Location) {
     this.title = 'Loading...';
   }
 
@@ -46,6 +47,13 @@ export class OrderDetailsComponent implements OnInit {
     if (this.id !== undefined) {
       this.fetchOrder(this.id);
     }
+  }
+
+  /**
+   * Redirects to the previous page.
+   */
+  historyBack(): void {
+    this.location.back();
   }
 
   /**
@@ -101,7 +109,7 @@ export class OrderDetailsComponent implements OnInit {
    * @param orderDate The date when the order has been placed.
    * @returns amount of days left until delivery date.
    */
-   getDaysLeft(orderDate: Date): number {
+  getDaysLeft(orderDate: Date): number {
     // Calculate delivery date. (can take at most 14 days after the order was placed)
     const deliveryDate = new Date(orderDate);
     deliveryDate.setDate(deliveryDate.getDate() + 14);
