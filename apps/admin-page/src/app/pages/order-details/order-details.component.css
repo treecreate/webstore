@@ -25,9 +25,6 @@
 }
 
 .label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: white;
   width: fit-content;
   height: 2.3vh;

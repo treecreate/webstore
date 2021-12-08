@@ -13,6 +13,8 @@ mat-card mat-divider {
 }
 
 mat-card mat-card-title {
+  display: flex;
+  justify-content: space-between;
   padding: 15px 25px;
 }
 

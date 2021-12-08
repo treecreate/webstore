@@ -14,6 +14,7 @@ export class OrderDetailsComponent implements OnInit {
   order?: IOrder;
   id?: string;
   title!: string;
+  daysLeft!: number;
   isLoading = true;
 
   // Customer information
@@ -87,8 +88,52 @@ export class OrderDetailsComponent implements OnInit {
         if (this.order?.transactionItems) {
           this.items = this.order?.transactionItems;
         }
+        if (this.order) {
+          this.daysLeft = this.getDaysLeft(this.order?.createdAt);
+        }
       },
     });
+  }
+
+  /**
+   * Calculates how many days there are left until the delivery date.
+   *
+   * @param orderDate The date when the order has been placed.
+   * @returns amount of days left until delivery date.
+   */
+   getDaysLeft(orderDate: Date): number {
+    // Calculate delivery date. (can take at most 14 days after the order was placed)
+    const deliveryDate = new Date(orderDate);
+    deliveryDate.setDate(deliveryDate.getDate() + 14);
+
+    // Calculate how many days are left
+    return Number(((deliveryDate.getTime() - Date.now()) / (1000 * 3600 * 24)).toFixed(0));
+  }
+
+  /**
+   * Gets the Label color for the 'Days Left' column in the table based on the days left until
+   * delivery and the status of the order.
+   *
+   * @param daysLeft days left until delivery.
+   * @param orderStatus the status of the order.
+   * @returns the color of the label.
+   */
+  getDaysLeftColor(daysLeft: number, orderStatus: OrderStatusEnum): LabelColorsEnum {
+    // Order status is NOT: Delivered, Shipped or Rejected.
+    if (
+      orderStatus !== OrderStatusEnum.delivered &&
+      orderStatus !== OrderStatusEnum.shipped &&
+      orderStatus !== OrderStatusEnum.rejected
+    ) {
+      if (daysLeft >= 9) {
+        return LabelColorsEnum.green;
+      }
+      if (daysLeft >= 5) {
+        return LabelColorsEnum.yellow;
+      }
+      return LabelColorsEnum.red;
+    }
+    return LabelColorsEnum.lightGrey;
   }
 
   /**

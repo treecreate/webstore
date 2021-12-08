@@ -1,6 +1,13 @@
+<ng-template #header>
+    <span class="mat-body" *ngIf="!isLoading"
+        >Days: <span class="label" [ngStyle]="{ 'background-color': getDaysLeftColor(daysLeft, order!.status) }">{{ daysLeft }}</span></span
+    >
+</ng-template>
+
 <webstore-item-card
     [title]="title"
     [content]="content"
+    [header]="header"
     [isLoading]="isLoading"
     data-cy="orders-card"
     class="order-details-content"
