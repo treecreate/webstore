@@ -19,12 +19,38 @@ export class OrdersComponent implements OnInit {
     'status',
     'actions',
   ];
+  orderStatusOptions: OrderStatusEnum[] = [
+    OrderStatusEnum.delivered,
+    OrderStatusEnum.assembling,
+    OrderStatusEnum.shipped,
+    OrderStatusEnum.pending,
+    OrderStatusEnum.initial,
+    OrderStatusEnum.processed,
+    OrderStatusEnum.new,
+    OrderStatusEnum.rejected,
+  ];
   orders!: IOrder[];
 
   constructor(private ordersService: OrdersService) {}
 
   ngOnInit(): void {
     this.fetchOrders();
+  }
+
+  /**
+   * Gets triggered when the status of an order has been changed.\
+   * It will call the API to update the order with its new status.\
+   * In case an error is encountered, the orders will be reloaded from the database.
+   *
+   * @param order - the order containing the new status.
+   */
+  onStatusChange(order: IOrder): void {
+    this.ordersService.updateOrder(order).subscribe({
+      error: (error: HttpErrorResponse) => {
+        this.fetchOrders();
+        console.error(error);
+      },
+    });
   }
 
   /**

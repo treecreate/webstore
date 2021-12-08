@@ -25,20 +25,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class HealthcheckTests
 {
 
-    @Autowired
-    private MockMvc mvc;
-
-    @MockBean
-    private UserDetailsServiceImpl userDetailsService;
-
-    @MockBean
-    private AuthEntryPointJwt authEntryPointJwt;
-
-    @MockBean
-    private JwtUtils jwtUtils;
-
     @MockBean
     CustomPropertiesConfig customProperties;
+    @Autowired
+    private MockMvc mvc;
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+    @MockBean
+    private JwtUtils jwtUtils;
 
     @Test // MockMvc throws Exception, so i must catch it
     void healthcheckReturnedStatusTest() throws Exception
@@ -53,8 +49,8 @@ class HealthcheckTests
         Mockito.when(customProperties.getEnvironment()).thenReturn(Environment.STAGING);
 
         mvc.perform(get("/healthcheck")
-                // Ensure it is a Json
-                .contentType(MediaType.APPLICATION_JSON))
+            // Ensure it is a Json
+            .contentType(MediaType.APPLICATION_JSON))
             // Check the contents of the body.
             .andExpect(jsonPath("status", is("OK")))
             .andExpect(jsonPath("message", is("Server is live")))
