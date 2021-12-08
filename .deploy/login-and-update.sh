@@ -9,6 +9,9 @@
 # The profile options currently are ["prod", "dev"] 
 
 # Example usage: scripts/login-and-update.sh dev up -d
+# Example usage: scripts/login-and-update.sh prod up -d
+
+# Example usage: scripts/login-and-update.sh dev down
 # Example usage: scripts/login-and-update.sh prod down
 
 # Logs in to DockerHub, creates a subshell to read the dockerhub file and
