@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
+import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
 
 @Component({
@@ -31,6 +31,9 @@ export class OrderDetailsComponent implements OnInit {
   billingPostcodeControl!: FormControl;
   billingAddressOneControl!: FormControl;
   billingAddressTwoControl!: FormControl;
+
+  items!: ITransactionItem[];
+  itemsColumns: string[] = ['title', 'quantity', 'dimensions', 'price', 'actions'];
 
   constructor(private ordersService: OrdersService, private route: ActivatedRoute) {
     this.title = 'Loading...';
@@ -64,7 +67,7 @@ export class OrderDetailsComponent implements OnInit {
         this.order = orders.find((order) => order.orderId === id);
         // Setting the page title.
         this.title = `Order by: ${this.order?.contactInfo.name}`;
-        
+
         // Customer Information
         this.emailControl = new FormControl(this.order?.contactInfo.email);
         this.phoneNumberControl = new FormControl(this.order?.contactInfo.phoneNumber);
@@ -80,13 +83,37 @@ export class OrderDetailsComponent implements OnInit {
         this.billingPostcodeControl = new FormControl(this.order?.billingInfo.postcode);
         this.billingAddressOneControl = new FormControl(this.order?.billingInfo.streetAddress);
         this.billingAddressTwoControl = new FormControl(this.order?.billingInfo.streetAddress2);
+
+        if (this.order?.transactionItems) {
+          this.items = this.order?.transactionItems;
+        }
       },
     });
   }
 
   /**
+   * Calculates the price of a transaction item based on the quantity and its size.
+   *
+   * @param quantity - amount of transaction items.
+   * @param dimension - the dimension of the transaction item.
+   * @returns the price of the item.
+   */
+  calculateItemPrice(quantity: number, dimension: DesignDimensionEnum): number {
+    switch (dimension) {
+      case DesignDimensionEnum.small:
+        return quantity * 495;
+      case DesignDimensionEnum.medium:
+        return quantity * 695;
+      case DesignDimensionEnum.large:
+        return quantity * 995;
+      default:
+        return 99999999;
+    }
+  }
+
+  /**
    * Gets the VAT price.
-   * 
+   *
    * @returns the VAT price.
    */
   getVAT(): number {

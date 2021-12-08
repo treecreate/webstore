@@ -39,11 +39,65 @@
                 </div>
             </mat-grid-tile>
             <!-- Transaction Items table -->
-            <mat-grid-tile colspan="2" rowspan="2">
-                <div class="row">
-                    <!-- TODO: implement items table -->
-                    <span>Items table will go here</span>
-                </div>
+            <mat-grid-tile colspan="2" [rowspan]="2 + items.length * 2" class="table-container">
+                <table mat-table [dataSource]="items" class="mat-elevation-z8 items-table" data-cy="items-table">
+                    <!-- Title Column -->
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef>Title</th>
+                        <td mat-cell *matCellDef="let item">{{ item.design.designProperties.title }}</td>
+                    </ng-container>
+
+                    <!-- Dimensions Column -->
+                    <ng-container matColumnDef="dimensions">
+                        <th mat-header-cell *matHeaderCellDef>Dimensions</th>
+                        <td mat-cell *matCellDef="let item">{{ item.dimension }}</td>
+                    </ng-container>
+
+                    <!-- Quantity Column -->
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                        <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
+                    </ng-container>
+
+                    <!-- Price Column -->
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef>Price</th>
+                        <td mat-cell *matCellDef="let item">
+                            {{ calculateItemPrice(item.quantity, item.dimension) }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Actions Column -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let item">
+                            <div class="actions-row">
+                                <button
+                                    mat-flat-button
+                                    color="primary"
+                                    routerLink="/transaction-items/{{ item.transactionItemId }}"
+                                    data-cy="item-edit-btn"
+                                    [disabled]="true"
+                                >
+                                    Edit
+                                </button>
+                                <div class="spacer"></div>
+                                <button
+                                    mat-flat-button
+                                    color="primary"
+                                    routerLink="/transaction-items/{{ item.transactionItemId }}"
+                                    data-cy="item-view-btn"
+                                    [disabled]="true"
+                                >
+                                    View
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="itemsColumns" data-cy="items-table-header"></tr>
+                    <tr mat-row *matRowDef="let row; columns: itemsColumns" data-cy="items-table-row"></tr>
+                </table>
             </mat-grid-tile>
 
             <!-- Separator - Payment -->

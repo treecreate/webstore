@@ -1,6 +1,7 @@
 .row {
   display: flex;
   justify-content: space-between;
+  text-overflow: ellipsis;
   align-items: center;
   width: 95%;
 }
@@ -13,7 +14,7 @@
   flex: 1;
 }
 
-.row .spacer {
+.spacer {
   flex: 0.15;
 }
 
@@ -33,4 +34,44 @@
   min-height: 15px;
   padding: 0 6px;
   border-radius: 2px;
+}
+
+.table-container {
+  overflow-y: auto;
+}
+
+.items-table {
+  box-shadow: none;
+  width: 100%;
+}
+
+.mat-header-cell {
+  color: black;
+  font-weight: bold;
+  padding: 0 5px;
+  border-bottom-style: none;
+}
+
+.mat-cell {
+  text-overflow: ellipsis;
+  padding: 0 5px;
+  border-bottom-style: none;
+}
+
+.actions-row {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.actions-row button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8.1vw;
+  height: 2.3vh;
+  min-width: fit-content;
+  max-width: 110px;
+  min-height: 15px;
+  flex: 1;
 }
