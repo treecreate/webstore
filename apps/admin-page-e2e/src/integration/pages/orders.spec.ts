@@ -176,10 +176,12 @@ const mockOrders = [
 describe('ordersPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
+
     cy.intercept('GET', 'localhost:5000/orders', {
       body: mockOrders,
       statusCode: 200,
-    });
+    }).as('fetchOrders');
+
     cy.visit('/orders');
   });
 
@@ -246,5 +248,37 @@ describe('ordersPage', () => {
           }
         });
     });
+  });
+
+  it('should display a list of options', () => {
+    cy.get('.mat-select-panel').should('not.exist');
+    cy.get('[data-cy=order-status]').first().click();
+    cy.get('.mat-select-panel').should('be.visible');
+    cy.get('[data-cy=order-status-option]').should('have.length', 8);
+  });
+
+  it('should correctly change the status', () => {
+    cy.intercept('PATCH', 'localhost:5000/orders/status/MakeMeWantIt', {
+      body: mockOrder(OrderStatusEnum.delivered, 14),
+      statusCode: 200,
+    }).as('updateOrderStatus');
+
+    cy.get('[data-cy=order-status]').first().contains('INITIAL');
+    cy.get('[data-cy=order-status]').first().click();
+    cy.get('[data-cy=order-status-option]').first().click();
+    cy.get('[data-cy=order-status]').first().contains('DELIVERED');
+    cy.wait('@updateOrderStatus').its('request.body').should('include', { status: 'DELIVERED' });
+  });
+
+  it('should reload orders on status change failure', () => {
+    cy.intercept('PATCH', 'localhost:5000/orders/status/MakeMeWantIt', {
+      statusCode: 500,
+    }).as('updateOrderStatus');
+
+    cy.get('[data-cy=order-status]').first().click();
+    cy.get('[data-cy=order-status-option]').first().click();
+
+    cy.wait('@fetchOrders');
+    cy.get('[data-cy=order-status]').first().contains('INITIAL');
   });
 });

@@ -28,7 +28,7 @@ class AuthTestControllerTests
     void allReturnsCorrectDataWithoutAuth() throws Exception
     {
         mvc.perform(get("/auth/test/all")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().string("Public Content."));
     }
@@ -38,7 +38,7 @@ class AuthTestControllerTests
     void userReturnsUnauthorizedToUnauthorizedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/user")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isUnauthorized());
     }
 
@@ -49,7 +49,7 @@ class AuthTestControllerTests
     void userReturnsCorrectDataForAuthenticatedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/user")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().string("User Content."));
     }
@@ -59,7 +59,7 @@ class AuthTestControllerTests
     void developerReturnsUnauthorizedToUnauthenticatedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/developer")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isUnauthorized());
     }
 
@@ -70,7 +70,7 @@ class AuthTestControllerTests
     void developerReturnsForbiddenToUnauthorizedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/developer")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isForbidden());
     }
 
@@ -82,7 +82,7 @@ class AuthTestControllerTests
     void developerReturnsCorrectDataForAuthenticatedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/developer")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().string("Developer Board."));
     }
@@ -93,7 +93,7 @@ class AuthTestControllerTests
     void adminReturnsUnauthorizedToUnauthenticatedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/admin")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isUnauthorized());
     }
 
@@ -106,7 +106,7 @@ class AuthTestControllerTests
     void adminReturnsForbiddenToUnauthorizedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/admin")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isForbidden());
     }
 
@@ -117,7 +117,7 @@ class AuthTestControllerTests
     void adminReturnsCorrectDataForAuthenticatedUsers() throws Exception
     {
         mvc.perform(get("/auth/test/admin")
-                .contentType(MediaType.APPLICATION_JSON))
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().string("Admin Board."));
     }
