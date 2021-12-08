@@ -1,0 +1,36 @@
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+}
+
+.row button {
+  padding: 0 3.8vw;
+}
+
+.row mat-form-field {
+  flex: 1;
+}
+
+.row .spacer {
+  flex: 0.15;
+}
+
+::ng-deep .order-details-content .mat-grid-tile-content {
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: fit-content;
+  height: 2.3vh;
+  min-height: 15px;
+  padding: 0 6px;
+  border-radius: 2px;
+}
