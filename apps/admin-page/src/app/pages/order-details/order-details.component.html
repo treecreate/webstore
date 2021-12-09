@@ -1,13 +1,16 @@
 <ng-template #header>
-    <span class="mat-body" *ngIf="!isLoading"
+    <span class="mat-body" *ngIf="!isLoading" data-cy="order-details-header"
         >Days:
-        <span class="label" [ngStyle]="{ 'background-color': ordersService.getDaysLeftColor(daysLeft, order!.status) }">{{
-            daysLeft
-        }}</span></span
+        <span
+            class="label"
+            data-cy="order-details-days"
+            [ngStyle]="{ 'background-color': ordersService.getDaysLeftColor(daysLeft, order!.status) }"
+            >{{ daysLeft }}</span
+        ></span
     >
 </ng-template>
 
-<button mat-button (click)="historyBack()" class="back-btn">
+<button mat-button (click)="historyBack()" class="back-btn" data-cy="back-btn">
     <mat-icon data-cy="icon">arrow_back_ios</mat-icon> Back
 </button>
 <webstore-item-card
@@ -15,13 +18,13 @@
     [content]="content"
     [header]="header"
     [isLoading]="isLoading"
-    data-cy="orders-card"
+    data-cy="order-details-card"
     class="order-details-content"
 >
     <ng-template #content>
         <mat-grid-list cols="2" rowHeight="25px">
             <!-- Ids -->
-            <mat-grid-tile colspan="1" rowspan="2">
+            <mat-grid-tile colspan="1" rowspan="2" data-cy="order-details-ids">
                 <div class="row">
                     <span class="mat-body-strong"> Customer id: </span>
                     <span>{{ order!.userId }}</span>
@@ -32,7 +35,7 @@
                 </div>
             </mat-grid-tile>
             <!-- Creation date & Status -->
-            <mat-grid-tile colspan="1" rowspan="2">
+            <mat-grid-tile colspan="1" rowspan="2" data-cy="order-details-date-status">
                 <div class="row">
                     <span class="mat-body-strong"> Created at: </span>
                     <span>{{ order!.createdAt | date }}</span>
@@ -58,7 +61,7 @@
             </mat-grid-tile>
 
             <!-- Separator - Items -->
-            <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="items-divider">
                 <div class="row">
                     <h2>Items <mat-divider></mat-divider></h2>
                 </div>
@@ -102,6 +105,8 @@
                                     color="primary"
                                     routerLink="/transaction-items/{{ item.transactionItemId }}"
                                     data-cy="item-edit-btn"
+                                    matTooltip="Action not implemented yet."
+                                    matTooltipPosition="right"
                                     [disabled]="true"
                                 >
                                     Edit
@@ -112,6 +117,8 @@
                                     color="primary"
                                     routerLink="/transaction-items/{{ item.transactionItemId }}"
                                     data-cy="item-view-btn"
+                                    matTooltip="Action not implemented yet."
+                                    matTooltipPosition="right"
                                     [disabled]="true"
                                 >
                                     View
@@ -126,13 +133,13 @@
             </mat-grid-tile>
 
             <!-- Separator - Payment -->
-            <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="payment-divider">
                 <div class="row">
                     <h2>Payment <mat-divider></mat-divider></h2>
                 </div>
             </mat-grid-tile>
             <!-- Payment Information -->
-            <mat-grid-tile colspan="1" rowspan="7">
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="payment-left">
                 <div class="row">
                     <span class="mat-body-strong"> Payment id: </span>
                     <span>{{ order!.userId }}</span>
@@ -162,7 +169,7 @@
                     <span>{{ getVAT() }} DKK</span>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="7">
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="payment-right">
                 <div class="row">
                     <span class="mat-body-strong"> Created at: </span>
                     <span>{{ order!.createdAt | date }}</span>
@@ -190,12 +197,12 @@
             </mat-grid-tile>
 
             <!-- Separator - Customer contact info -->
-            <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="contact-info-divider">
                 <div class="row">
                     <h2>Customer contact info <mat-divider></mat-divider></h2>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="5">
+            <mat-grid-tile colspan="1" rowspan="5" data-cy="contact-info-left">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>E-mail</mat-label>
@@ -203,11 +210,27 @@
                     </mat-form-field>
                 </div>
                 <div class="row">
-                    <button mat-flat-button color="primary" [disabled]="true">Update contact info</button>
-                    <button mat-flat-button color="primary" [disabled]="true">Send email</button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Update contact info
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Send email
+                    </button>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="5">
+            <mat-grid-tile colspan="1" rowspan="5" data-cy="contact-info-right">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Phonenumber</mat-label>
@@ -217,12 +240,12 @@
             </mat-grid-tile>
 
             <!-- Separator - Delivery address -->
-            <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="delivery-info-divider">
                 <div class="row">
                     <h2>Delivery address <mat-divider></mat-divider></h2>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="7">
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="delivery-info-left">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Name</mat-label>
@@ -241,10 +264,18 @@
                     </mat-form-field>
                 </div>
                 <div class="row">
-                    <button mat-flat-button color="primary" [disabled]="true">Update Address</button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Update Address
+                    </button>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="7">
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="delivery-info-right">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Address</mat-label>
@@ -260,12 +291,12 @@
             </mat-grid-tile>
 
             <!-- Separator - Billing address -->
-            <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="billing-info-divider">
                 <div class="row">
                     <h2>Billing address <mat-divider></mat-divider></h2>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="7">
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="billing-info-left">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Name</mat-label>
@@ -284,10 +315,18 @@
                     </mat-form-field>
                 </div>
                 <div class="row">
-                    <button mat-flat-button color="primary" [disabled]="true">Update Address</button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Update Address
+                    </button>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="7">
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="billing-info-right">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Address</mat-label>
@@ -303,16 +342,40 @@
             </mat-grid-tile>
 
             <!-- Separator - Actions -->
-            <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-divider">
                 <div class="row">
                     <h2>Actions <mat-divider></mat-divider></h2>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="2" rowspan="2">
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
                 <div class="row">
-                    <button mat-flat-button color="primary" [disabled]="true">Generate shipping label</button>
-                    <button mat-flat-button color="primary" [disabled]="true">Resend order confirmation email</button>
-                    <button mat-flat-button color="primary" [disabled]="true">Generate paymentlink</button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Generate shipping label
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Resend order confirmation email
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Generate paymentlink
+                    </button>
                 </div>
             </mat-grid-tile>
         </mat-grid-list>
