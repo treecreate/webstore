@@ -36,6 +36,16 @@ export class OrderDetailsComponent implements OnInit {
 
   items!: ITransactionItem[];
   itemsColumns: string[] = ['title', 'quantity', 'dimensions', 'price', 'actions'];
+  orderStatusOptions: OrderStatusEnum[] = [
+    OrderStatusEnum.delivered,
+    OrderStatusEnum.assembling,
+    OrderStatusEnum.shipped,
+    OrderStatusEnum.pending,
+    OrderStatusEnum.initial,
+    OrderStatusEnum.processed,
+    OrderStatusEnum.new,
+    OrderStatusEnum.rejected,
+  ];
 
   constructor(private ordersService: OrdersService, private route: ActivatedRoute, private location: Location) {
     this.title = 'Loading...';
@@ -54,6 +64,24 @@ export class OrderDetailsComponent implements OnInit {
    */
   historyBack(): void {
     this.location.back();
+  }
+
+  /**
+   * Gets triggered when the status of an order has been changed.\
+   * It will call the API to update the order with its new status.\
+   * In case an error is encountered, the orders will be reloaded from the database.
+   *
+   * @param order - the order containing the new status.
+   */
+  onStatusChange(order: IOrder): void {
+    this.ordersService.updateOrder(order).subscribe({
+      error: (error: HttpErrorResponse) => {
+        if (this.id !== undefined) {
+          this.fetchOrder(this.id);
+        }
+        console.error(error);
+      },
+    });
   }
 
   /**
