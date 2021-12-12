@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const materialModules = [
   MatCommonModule,
@@ -29,4 +30,5 @@ export const materialModules = [
   MatFormFieldModule,
   MatSnackBarModule,
   MatDialogModule,
+  MatTooltipModule,
 ];

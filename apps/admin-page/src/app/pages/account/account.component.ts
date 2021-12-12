@@ -54,6 +54,22 @@ export class AccountComponent {
     });
   }
 
+  isDisabled(): boolean | undefined {
+    return this.accountForm.invalid || this.formHasChanged() || this.isUpdatingInfo;
+  }
+
+  formHasChanged(): boolean {
+    return (
+      this.accountForm.get('name')?.value === this.user?.name &&
+      this.accountForm.get('phoneNumber')?.value === this.user?.phoneNumber &&
+      this.accountForm.get('email')?.value === this.user?.email &&
+      this.accountForm.get('streetAddress')?.value === this.user?.streetAddress &&
+      this.accountForm.get('streetAddress2')?.value === this.user?.streetAddress2 &&
+      this.accountForm.get('city')?.value === this.user?.city &&
+      this.accountForm.get('postcode')?.value === this.user?.postcode
+    );
+  }
+
   /**
    * Checks if user is a customer.
    *
@@ -113,6 +129,7 @@ export class AccountComponent {
         (data: IUser) => {
           console.log(data);
           this.snackBar.open('Your account has been updated!', `I'm the best`, { duration: 5000 });
+          this.user = data;
           this.isUpdatingInfo = false;
         },
         (err: HttpErrorResponse) => {

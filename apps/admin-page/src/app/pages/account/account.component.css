@@ -74,6 +74,7 @@ hr {
 
 .actions-section {
   margin: 20px 0;
+  display: flex;
 }
 
 .loading-container {

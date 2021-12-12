@@ -1,4 +1,4 @@
-<form class="account-page" [formGroup]="accountForm" (ngSubmit)="updateAccount()">
+<form class="account-page" [formGroup]="accountForm" (ngSubmit)="updateAccount()" data-cy="account-page">
     <div class="title-section">
         <h1 class="title">Account</h1>
         <h3 *ngIf="!isLoading">User id: {{ user?.userId }}</h3>
@@ -110,16 +110,19 @@
                 <button mat-raised-button type="button" data-cy="is-admin" color="accent" *ngIf="isAdmin">Admin</button>
             </div>
             <div class="actions-section">
-                <button
-                    mat-raised-button
-                    type="submit"
-                    data-cy="update-account-btn"
-                    color="primary"
-                    [disabled]="isUpdatingInfo"
-                >
-                    <span>Update info</span>
-                    <mat-icon *ngIf="isUpdatingInfo"><mat-spinner diameter="15"></mat-spinner></mat-icon>
-                </button>
+                <div matTooltip="Invalid form or no changed values" [matTooltipDisabled]="!isDisabled()">
+                    <button
+                        mat-raised-button
+                        type="submit"
+                        data-cy="update-account-btn"
+                        color="primary"
+                        [disabled]="isDisabled()"
+                    >
+                        <span>Update info</span>
+                        <mat-icon *ngIf="isUpdatingInfo"><mat-spinner diameter="15"></mat-spinner></mat-icon>
+                    </button>
+                </div>
+
                 <button
                     mat-raised-button
                     type="button"
