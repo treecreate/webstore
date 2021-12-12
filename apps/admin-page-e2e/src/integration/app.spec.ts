@@ -50,6 +50,17 @@ describe('admin-page', () => {
         );
         cy.visit('/dashboard');
       });
+
+      it('account icon in sidebar should redirect to account page', () => {
+        cy.get('[data-cy=sidebar-user-icon]').click();
+        cy.url().should('contain', 'account');
+      });
+
+      it('account btn in navbar should redirect to account page', () => {
+        cy.get('[data-cy=sidebar-dashboard-btn]').click();
+        cy.url().should('contain', 'account');
+      });
+
       it('should contain a header', () => {
         cy.get('[data-cy=sidebar-header]').should('exist');
       });

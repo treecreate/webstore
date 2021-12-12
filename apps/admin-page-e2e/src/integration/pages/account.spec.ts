@@ -17,6 +17,13 @@ const mockAdminUser: IUser = {
 
 const authMockService = new AuthenticationService();
 
+/**
+ * Update Info button should be disabled if the information hasn't been changed or is invalid
+ * The update info button should have a tooltip explaining why it is disabled (when the button is disabled)
+ * Tests for the failure of updating the user information
+ * Tests for the failure of updating the password
+ */
+
 describe('Account page for admin user', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
@@ -52,6 +59,18 @@ describe('Account page for admin user', () => {
     cy.get('[data-cy=update-account-btn]').click();
   });
 
+  it('should fail to update user', () => {
+    cy.intercept('PUT', `/users/${mockAdminUser.userId}`, {
+      statusCode: 404,
+    });
+    cy.get('[data-cy=account-email-input]').clear().type('slap@me.daddy');
+    cy.get('[data-cy=update-account-btn]').click();
+    cy.visit('/dashboard');
+    cy.visit('/account');
+    cy.get('[data-cy=account-email-input]').should('not.have.value', 'slap@me.daddy');
+    cy.get('[data-cy=account-email-input]').should('have.value', 'e2e@test.com');
+  });
+
   it('should show the correct roles', () => {
     cy.get('[data-cy=is-user]').should('exist');
     cy.get('[data-cy=is-developer]').should('exist');
@@ -60,7 +79,7 @@ describe('Account page for admin user', () => {
   });
 });
 
-describe('change password dialog', () => {
+describe.skip('change password dialog', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
