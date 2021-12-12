@@ -17,13 +17,6 @@ const mockAdminUser: IUser = {
 
 const authMockService = new AuthenticationService();
 
-/**
- * Update Info button should be disabled if the information hasn't been changed or is invalid
- * The update info button should have a tooltip explaining why it is disabled (when the button is disabled)
- * Tests for the failure of updating the user information
- * Tests for the failure of updating the password
- */
-
 describe('Account page for admin user', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
@@ -79,7 +72,7 @@ describe('Account page for admin user', () => {
   });
 });
 
-describe.skip('change password dialog', () => {
+describe('change password dialog', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
@@ -136,6 +129,18 @@ describe.skip('change password dialog', () => {
     cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
     cy.get('[data-cy=update-password-btn]').click();
     cy.get('[data-cy=change-password-dialog]').should('not.exist');
+  });
+
+  it('should fail to update password', () => {
+    cy.intercept('PUT', `/users/${mockAdminUser.userId}`, {
+      statusCode: 404,
+    });
+    cy.get('[data-cy=update-password-btn]').should('be.disabled');
+    cy.get('[data-cy=change-password-input]').type('abcDEF123');
+    cy.get('[data-cy=change-confirm-password-input]').type('abcDEF123');
+    cy.get('[data-cy=update-password-btn]').should('not.be.disabled');
+    cy.get('[data-cy=update-password-btn]').click();
+    cy.get('[data-cy=change-password-dialog]').should('exist');
   });
 
   it('should be able to close dialog', () => {
