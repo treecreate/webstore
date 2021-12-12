@@ -5,25 +5,39 @@ import dk.treecreate.api.designs.DesignDimension;
 import dk.treecreate.api.designs.DesignType;
 import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.discount.DiscountType;
+import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.transactionitem.TransactionItem;
+import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class OrderServiceTest
 {
-    OrderService orderService = new OrderService();
+    @Autowired
+    OrderService orderService;
+
+    @MockBean
+    OrderRepository orderRepository;
 
     private static Stream<Arguments> verifyPriceArguments()
     {
@@ -85,7 +99,8 @@ class OrderServiceTest
                 DiscountType.PERCENT, 69,
                 DesignDimension.LARGE, 69, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            // Discount - percent. Shipping - own delivery. Off number resulting in a complex floating point
+            // Discount - percent. Shipping - own delivery. Off number resulting in a
+            // complex floating point
             Arguments.of(69, new BigDecimal(4737195), new BigDecimal("1469310.45"), 69,
                 DiscountType.PERCENT, 69,
                 DesignDimension.LARGE, 69, DesignType.FAMILY_TREE, ShippingMethod.OWN_DELIVERY,
@@ -154,6 +169,29 @@ class OrderServiceTest
                 "dimension data is not valid"));
     }
 
+    private static Stream<Arguments> calculateTotalArguments()
+    {
+        return Stream.of(
+            Arguments.of(new BigDecimal(495), 100, DiscountType.AMOUNT, false,
+                new BigDecimal("395.00"), null),
+            Arguments.of(new BigDecimal(495), 100, DiscountType.PERCENT, false,
+                new BigDecimal("0.00"), null),
+            Arguments.of(new BigDecimal(495), 50, DiscountType.PERCENT, false,
+                new BigDecimal("247.50"), null),
+            Arguments.of(new BigDecimal(495), 0, null, false, new BigDecimal("495.00"), null),
+            Arguments.of(new BigDecimal(495), 0, null, true, new BigDecimal("371.25"), null));
+    }
+
+    private static Stream<Arguments> pricePerItemArguments()
+    {
+        return Stream.of(
+            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.SMALL, new BigDecimal(495), null),
+            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.MEDIUM, new BigDecimal(695), null),
+            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.LARGE, new BigDecimal(995), null),
+            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.ONE_SIZE, null,
+                "dimension data is not valid"));
+    }
+
     @ParameterizedTest
     @MethodSource("verifyPriceArguments")
     @DisplayName("verifyPrice() correctly validates pricing information")
@@ -206,20 +244,6 @@ class OrderServiceTest
         }
     }
 
-    private static Stream<Arguments> calculateTotalArguments()
-    {
-        return Stream.of(
-            Arguments.of(new BigDecimal(495), 100, DiscountType.AMOUNT, false,
-                new BigDecimal("395.00"), null),
-            Arguments.of(new BigDecimal(495), 100, DiscountType.PERCENT, false,
-                new BigDecimal("0.00"), null),
-            Arguments.of(new BigDecimal(495), 50, DiscountType.PERCENT, false,
-                new BigDecimal("247.50"), null),
-            Arguments.of(new BigDecimal(495), 0, null, false, new BigDecimal("495.00"), null),
-            Arguments.of(new BigDecimal(495), 0, null, true, new BigDecimal("371.25"), null)
-        );
-    }
-
     @ParameterizedTest
     @MethodSource("calculateTotalArguments")
     @DisplayName("calculateTotal() correctly applies discounts to the subtotal")
@@ -254,24 +278,14 @@ class OrderServiceTest
         }
     }
 
-    private static Stream<Arguments> pricePerItemArguments()
-    {
-        return Stream.of(
-            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.SMALL, new BigDecimal(495), null),
-            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.MEDIUM, new BigDecimal(695), null),
-            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.LARGE, new BigDecimal(995), null),
-            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.ONE_SIZE, null,
-                "dimension data is not valid")
-        );
-    }
-
     @ParameterizedTest
     @MethodSource("pricePerItemArguments")
     @DisplayName("pricePerItem() correctly returns price based on design type and dimensions")
     void pricePerItem(DesignType designType, DesignDimension designDimension,
                       BigDecimal expectedPrice, String exceptionMessageSnippet)
     {
-        // there is no point testing the default options sine they are impossible to each as of now (there are not enum values not covered by the switches)
+        // there is no point testing the default options sine they are impossible to
+        // each as of now (there are not enum values not covered by the switches)
         if (expectedPrice != null)
         {
             assertEquals(orderService.pricePerItem(designType, designDimension), expectedPrice);
@@ -282,5 +296,43 @@ class OrderServiceTest
             });
             assertThat(exception.getMessage()).contains(exceptionMessageSnippet);
         }
+    }
+
+    @Test
+    @DisplayName("updateOrderStatus() correctly updates the status of the order")
+    void updateOrderStatus()
+    {
+        // prepare the order
+        UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
+        OrderStatus status = OrderStatus.ASSEMBLING;
+        OrderStatus newStatus = OrderStatus.NEW;
+
+        Order order = new Order();
+        Order newOrder = new Order();
+
+        order.setOrderId(orderId);
+        order.setStatus(status);
+
+        newOrder.setOrderId(orderId);
+        newOrder.setStatus(status);
+
+
+        Mockito.when(orderRepository.findByOrderId(orderId)).thenReturn(Optional.of(order));
+        Mockito.when(orderRepository.save(order)).thenReturn(newOrder);
+
+        assertEquals(newOrder, orderService.updateOrderStatus(orderId, newStatus));
+    }
+
+    @Test
+    @DisplayName("updateOrderStatus() throws ResourceNotFoundException if no order is found")
+    void updateOrderStatusNotFound()
+    {
+        UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
+        OrderStatus status = OrderStatus.ASSEMBLING;
+
+        Mockito.when(orderRepository.findByOrderId(orderId)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class,
+            () -> orderService.updateOrderStatus(orderId, status));
     }
 }

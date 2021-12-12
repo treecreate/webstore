@@ -396,8 +396,8 @@ public class DesignControllerTests
                 .thenReturn(savedDesign);
 
             mvc.perform(post("/designs")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(createDesignRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(createDesignRequest)))
                 .andExpect(status().isOk());
         }
     }
@@ -438,8 +438,8 @@ public class DesignControllerTests
                 .thenReturn(Optional.of(design));
 
             mvc.perform(put("/designs")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(updateDesignRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateDesignRequest)))
                 .andExpect(status().isForbidden());
         }
 
@@ -480,8 +480,8 @@ public class DesignControllerTests
                 .thenReturn(updatedDesign);
 
             mvc.perform(put("/designs")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtilsService.asJsonString(updateDesignRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtilsService.asJsonString(updateDesignRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(TestUtilsService.asJsonString(updatedDesign)));
         }
