@@ -83,11 +83,6 @@ hr {
   align-items: center;
 }
 
-::ng-deep .mat-progress-spinner circle,
-.mat-spinner circle {
-  stroke: white;
-}
-
 button mat-spinner {
   margin: 5px 10px;
 }
