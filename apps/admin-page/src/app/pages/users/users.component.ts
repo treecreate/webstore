@@ -32,10 +32,12 @@ export class UsersComponent {
     this.userService.getAllUsers().subscribe(
       (data: IUser[]) => {
         this.userList = data;
+        this.snackBar.open('User list retrieved', 'Do i care?', { duration: 2000 });
         this.isLoading = false;
       },
       (err: HttpErrorResponse) => {
         console.error(err);
+        this.snackBar.open('Failed to retrieve the list of users', 'Typical', { duration: 5000 });
         this.isLoading = false;
       }
     );
