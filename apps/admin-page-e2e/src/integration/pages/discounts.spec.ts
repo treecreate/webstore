@@ -82,7 +82,7 @@ describe('discountsPage', () => {
     cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].remainingUses).should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].totalUses).should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains('Edit').should('exist');
-    cy.get('[data-cy=discounts-table-row]').first().contains('Activate').should('exist');
+    cy.get('[data-cy=discounts-table-row]').first().contains('Active').should('exist');
   });
 
   it('should contain an edit and activate button for each entry', () => {
