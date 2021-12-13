@@ -25,7 +25,11 @@
                         matInput
                         placeholder="Your e-mail "
                     />
+                    <mat-error *ngIf="accountForm.get('email')?.invalid && accountForm.get('email')?.dirty">
+                        Invalid e-mail
+                    </mat-error>
                 </mat-form-field>
+
                 <!-- name -->
                 <mat-form-field class="input" appearance="fill">
                     <mat-label class="input-label">Name</mat-label>
@@ -36,6 +40,9 @@
                         matInput
                         placeholder="Your name "
                     />
+                    <mat-error *ngIf="accountForm.get('name')?.invalid && accountForm.get('name')?.dirty">
+                        Invalid name (must only contain letters, length in chars: max 50)
+                    </mat-error>
                 </mat-form-field>
                 <div class="column-section">
                     <!-- city -->
@@ -48,6 +55,9 @@
                             matInput
                             placeholder="City"
                         />
+                        <mat-error *ngIf="accountForm.get('city')?.invalid && accountForm.get('city')?.dirty">
+                            Invalid city (must only contain letters, length in chars: min 3, max 50)
+                        </mat-error>
                     </mat-form-field>
                     <!-- postcode -->
                     <mat-form-field class="input small-input" appearance="fill">
@@ -59,6 +69,9 @@
                             matInput
                             placeholder="1234"
                         />
+                        <mat-error *ngIf="accountForm.get('postcode')?.invalid && accountForm.get('postcode')?.dirty">
+                            Invalid postcode (must only contain numbers, length in chars: min 3, max 15)
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -74,6 +87,9 @@
                         matInput
                         placeholder="12345678"
                     />
+                    <mat-error *ngIf="accountForm.get('phoneNumber')?.invalid && accountForm.get('phoneNumber')?.dirty">
+                        Invalid phone number (Must only contain numbers, length in chars: min 3, max 15)
+                    </mat-error>
                 </mat-form-field>
                 <!-- address -->
                 <mat-form-field class="input" appearance="fill">
@@ -85,6 +101,11 @@
                         matInput
                         placeholder="Your address"
                     />
+                    <mat-error
+                        *ngIf="accountForm.get('streetAddress')?.invalid && accountForm.get('streetAddress')?.dirty"
+                    >
+                        Invalid address (length in chars: min 3, max 50)
+                    </mat-error>
                 </mat-form-field>
                 <!-- address 2 -->
                 <mat-form-field class="input" appearance="fill">
@@ -96,6 +117,11 @@
                         matInput
                         placeholder="Your address (continued)"
                     />
+                    <mat-error
+                        *ngIf="accountForm.get('streetAddress2')?.invalid && accountForm.get('streetAddress2')?.dirty"
+                    >
+                        Invalid address (length in chars: min 3, max 50)
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
