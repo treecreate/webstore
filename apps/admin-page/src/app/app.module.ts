@@ -15,6 +15,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { DiscountsComponent } from './pages/discounts/discounts.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 registerLocaleData(en);
 
@@ -36,6 +37,7 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     materialModules,
+    ClipboardModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
