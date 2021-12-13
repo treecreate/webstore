@@ -34,11 +34,7 @@ const mockDiscountExpired: IDiscount = {
 
 const authMockService = new AuthenticationService();
 
-const mockDiscounts = [
-  mockDiscount,
-  mockDiscountNoUsesLeft,
-  mockDiscountExpired
-];
+const mockDiscounts = [mockDiscount, mockDiscountNoUsesLeft, mockDiscountExpired];
 
 describe('discountsPage', () => {
   beforeEach(() => {

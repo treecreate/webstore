@@ -23,7 +23,6 @@ export class DiscountsComponent implements OnInit {
     this.fetchDiscounts();
   }
 
-
   copyToClipboard(content: string): void {
     this.clipboardService.copyFromContent(content);
   }

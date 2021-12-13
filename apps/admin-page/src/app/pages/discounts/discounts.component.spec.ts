@@ -10,9 +10,8 @@ describe('DiscountsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      declarations: [ DiscountsComponent ]
-    })
-    .compileComponents();
+      declarations: [DiscountsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
