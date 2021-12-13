@@ -58,7 +58,7 @@
 
 .icon {
   transform: scale(0.8);
-  opacity: .7;
+  opacity: 0.7;
   position: relative;
   top: -7px;
 }

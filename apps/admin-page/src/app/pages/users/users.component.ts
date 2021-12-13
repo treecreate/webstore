@@ -14,7 +14,7 @@ export class UsersComponent {
   userList!: IUser[];
   isLoading = false;
   displayedColumns: string[] = ['email', 'userId', 'orders', 'createdAt', 'actions'];
-  showFullId = false; 
+  showFullId = false;
 
   /**
    * Retrieves a list of all users.
@@ -22,7 +22,11 @@ export class UsersComponent {
    * @param userService
    * @param snackBar
    */
-  constructor(private userService: UserService, private snackBar: MatSnackBar, private clipboardService: ClipboardService) {
+  constructor(
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+    private clipboardService: ClipboardService
+  ) {
     // Retrieve a list of users.
     this.isLoading = true;
     this.userService.getAllUsers().subscribe(

@@ -10,7 +10,8 @@
             <!-- User id Column -->
             <ng-container matColumnDef="userId">
                 <th mat-header-cell *matHeaderCellDef>User id</th>
-                <td mat-cell *matCellDef="let user" class="id-container" (mouseenter)="showFullId = true">{{ user.userId.slice(0, 8) }}...
+                <td mat-cell *matCellDef="let user" class="id-container" (mouseenter)="showFullId = true">
+                    {{ user.userId.slice(0, 8) }}...
                     <button mat-icon-button (click)="copyToClipboard(user.userId)">
                         <mat-icon class="icon">file_copy</mat-icon>
                     </button>
@@ -30,7 +31,7 @@
             </ng-container>
 
             <!-- Actions Column -->
-            <ng-container matColumnDef="actions" >
+            <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let user" class="actions">
                     <button
