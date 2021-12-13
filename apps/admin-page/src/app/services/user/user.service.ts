@@ -39,4 +39,13 @@ export class UserService {
   public updatePassword(params: UpdatePasswordAsAdminRequest): Observable<IUser> {
     return this.http.put<IUser>(`${env.apiUrl}/users/${params.userId}`, { password: params.password });
   }
+  
+  /**
+   * Calls api to retriece a list of all users.
+   * 
+   * @returns a list of all users as an observable. 
+   */
+  public getAllUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${env.apiUrl}/users`);
+  }
 }
