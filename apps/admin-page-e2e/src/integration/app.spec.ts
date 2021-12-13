@@ -57,7 +57,7 @@ describe('admin-page', () => {
       });
 
       it('account btn in navbar should redirect to account page', () => {
-        cy.get('[data-cy=sidebar-dashboard-btn]').click();
+        cy.get('[data-cy=navbar-account-btn]').click();
         cy.url().should('contain', 'account');
       });
 
