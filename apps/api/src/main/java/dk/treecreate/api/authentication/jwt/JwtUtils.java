@@ -85,6 +85,13 @@ public class JwtUtils
             .getBody().getSubject();
     }
 
+    /**
+     * Check if the given token is valid and whitelisted or not
+     * Prints to console why the token is invalid
+     *
+     * @param authToken token to validate
+     * @return whether the token is valid or not
+     */
     public boolean validateJwtToken(String authToken)
     {
         try
@@ -116,8 +123,9 @@ public class JwtUtils
      *
      * @param token a JWT.
      * @return amount of seconds left until the token expires; <code>0</code> if the token is already expired.
+     * @throws ExpiredJwtException when the token is past its epiration date
      */
-    public long getJwtTTL(String token)
+    public long getJwtTTL(String token) throws ExpiredJwtException
     {
         Date expirationDate =
             Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(token)
