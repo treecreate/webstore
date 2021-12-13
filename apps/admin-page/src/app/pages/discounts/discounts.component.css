@@ -55,3 +55,10 @@
 .row .spacer {
   flex: 0.15;
 }
+
+.icon {
+  transform: scale(0.8);
+  opacity: .7;
+  position: relative;
+  top: -7px;
+}

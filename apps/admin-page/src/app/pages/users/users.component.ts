@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from '@interfaces';
+import { ClipboardService } from 'ngx-clipboard';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -12,7 +13,8 @@ import { UserService } from '../../services/user/user.service';
 export class UsersComponent {
   userList!: IUser[];
   isLoading = false;
-  displayedColumns: string[] = ['email', 'name', 'userId', 'orders', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['email', 'userId', 'orders', 'createdAt', 'actions'];
+  showFullId = false; 
 
   /**
    * Retrieves a list of all users.
@@ -20,7 +22,7 @@ export class UsersComponent {
    * @param userService
    * @param snackBar
    */
-  constructor(private userService: UserService, private snackBar: MatSnackBar) {
+  constructor(private userService: UserService, private snackBar: MatSnackBar, private clipboardService: ClipboardService) {
     // Retrieve a list of users.
     this.isLoading = true;
     this.userService.getAllUsers().subscribe(
@@ -43,6 +45,10 @@ export class UsersComponent {
    */
   getUserOrderAmount(userId: string): number {
     return 1;
+  }
+
+  copyToClipboard(content: string): void {
+    this.clipboardService.copyFromContent(content);
   }
 
   viewOrders(userId: string): void {

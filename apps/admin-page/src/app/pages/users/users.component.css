@@ -24,8 +24,19 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 8.1vw;
   height: 2.3vh;
   min-width: fit-content;
   min-height: 15px;
+  margin: 5px;
+}
+
+.actions, .id-container {
+    display: flex;
+}
+
+.icon {
+    transform: scale(0.8);
+    opacity: .7;
+    position: relative;
+    top: -7px;
 }

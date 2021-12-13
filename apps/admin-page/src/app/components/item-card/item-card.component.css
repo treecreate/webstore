@@ -3,7 +3,7 @@ mat-card {
   flex-direction: column;
   padding: 0;
   width: 71.25vw;
-  height: 60.7vh;
+  height: 80.7vh;
   box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.15) !important;
   border-radius: 10px;
   overflow-y: scroll;
