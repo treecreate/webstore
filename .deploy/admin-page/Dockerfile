@@ -16,6 +16,16 @@ ARG LOG_LEVEL=warn
 # Copy package.json to the root of the WORKDIR
 COPY package.json ./
 
+# Copy all files different to local machine to container
+# The way caching works, any changes to any files will force everything under it to
+#   rebuild all subsequent steps
+COPY nx.json ./nx.json
+COPY tsconfig.base.json ./tsconfig.base.json
+COPY workspace.json ./workspace.json
+COPY ./assets ./assets
+COPY ./libs ./libs
+COPY ./apps/admin-page ./apps/admin-page
+
 # Run npm install inside container
 # --legacy-peer-deps This line is currently required for the dependencies to install
 # Should be tested once in a while and removed when possible, as package maintainers
@@ -24,15 +34,6 @@ RUN if [[ $ENV == "prod" ]] ;	\
 	then npm install --legacy-peer-deps --loglevel ${LOG_LEVEL} --only=prod;	\
 	else npm install --legacy-peer-deps --loglevel ${LOG_LEVEL};				\
     fi
-
-# Copy all files different to local machine to container
-# Uses caching to prevent copying ALL files if only some parts changed
-COPY ./assets ./assets
-COPY ./libs ./libs
-COPY ./apps ./apps
-COPY nx.json ./nx.json
-COPY tsconfig.base.json ./tsconfig.base.json
-COPY workspace.json ./workspace.json
 
 # Execute this command in the docker container
 RUN npm run build:admin:${ENV}
@@ -53,6 +54,6 @@ COPY .deploy/admin-page/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/apps/admin-page /usr/share/nginx/html
 
 # Execute nginx on container to launch application
-CMD [ "/bin/sh", "-c", "exec nginx -g \"daemon off;\""]
+CMD [ "/bin/sh", "-c", "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g \"daemon off;\""]
 
 ###### runtime environment END

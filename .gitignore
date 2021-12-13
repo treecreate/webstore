@@ -42,3 +42,8 @@ Thumbs.db
 
 # Environment variables and confidential data
 .env
+.env.dev.api
+.env.dev.frontend
+.env.prod.api
+.env.prod.frontend
+.env.dockerhub

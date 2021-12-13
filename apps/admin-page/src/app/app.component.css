@@ -61,3 +61,8 @@ mat-toolbar .spacer {
 .sidebar-items .item-desc {
   margin-left: 20px;
 }
+
+.content {
+  padding: 25px;
+  background-color: var(--extra-light-grey);
+}
