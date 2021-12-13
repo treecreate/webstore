@@ -40,8 +40,9 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("auth")
-@Api(tags = { "Authentication" })
-public class AuthController {
+@Api(tags = {"Authentication"})
+public class AuthController
+{
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
     private static final String ROLE_NOT_FOUND_ERROR_MESSAGE = "Error: Role is not found.";
@@ -67,52 +68,60 @@ public class AuthController {
     @PostMapping("/signin")
     @Operation(summary = "Sign in as an existing user")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "User information including the access token", response = JwtResponse.class),
-            @ApiResponse(code = 400, message = "Provided body is invalid or it is missing"),
-            @ApiResponse(code = 401, message = "The login credentials are invalid") })
+        @ApiResponse(code = 200, message = "User information including the access token",
+            response = JwtResponse.class),
+        @ApiResponse(code = 400, message = "Provided body is invalid or it is missing"),
+        @ApiResponse(code = 401, message = "The login credentials are invalid")})
     public ResponseEntity<JwtResponse> authenticateUser(
-            @Valid @RequestBody LoginRequest loginRequest) {
+        @Valid @RequestBody LoginRequest loginRequest)
+    {
         return ResponseEntity.ok(authUserService
-                .authenticateUser(loginRequest.getEmail(), loginRequest.getPassword()));
+            .authenticateUser(loginRequest.getEmail(), loginRequest.getPassword()));
     }
 
     @PostMapping("/signup")
     @Operation(summary = "Register a new user")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Information about the newly created user", response = JwtResponse.class),
-            @ApiResponse(code = 401, message = "Provided body is not valid, it is missing, or the email is already in use") })
+        @ApiResponse(code = 200, message = "Information about the newly created user",
+            response = JwtResponse.class),
+        @ApiResponse(code = 401,
+            message = "Provided body is not valid, it is missing, or the email is already in use")})
     public ResponseEntity<JwtResponse> registerUser(
-            @Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        @Valid @RequestBody SignupRequest signUpRequest)
+    {
+        if (userRepository.existsByEmail(signUpRequest.getEmail()))
+        {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Error: Email is already in use!");
+                "Error: Email is already in use!");
         }
 
         // Create new user's account
         User user = new User(signUpRequest.getEmail(), // for simplicity, the username is the email
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+            signUpRequest.getEmail(),
+            encoder.encode(signUpRequest.getPassword()));
 
         Set<Role> roles = new HashSet<>();
 
         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR_MESSAGE));
+            .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR_MESSAGE));
         roles.add(userRole);
 
         user.setRoles(roles);
         userRepository.save(user);
 
-        try {
+        try
+        {
             mailService.sendSignupEmail(user.getEmail(), user.getToken(),
-                    localeService.getLocale(null));
-        } catch (Exception e) {
+                localeService.getLocale(null));
+        } catch (Exception e)
+        {
             LOGGER.error("Failed to process a verification email", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Failed to send the email. Try again later");
+                "Failed to send the email. Try again later");
         }
 
         return ResponseEntity.ok(authUserService
-                .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
+            .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
     }
 
     /**
@@ -126,22 +135,25 @@ public class AuthController {
     @GetMapping("/refresh")
     @Operation(summary = "Refresh a user's tokens and invalidates the old ones.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Refreshed user's tokens."),
-            @ApiResponse(code = 500, message = "Failed to refresh the tokens.") })
+        @ApiResponse(code = 200, message = "Refreshed user's tokens."),
+        @ApiResponse(code = 500, message = "Failed to refresh the tokens.")})
     public JwtResponse refreshToken(
-            HttpServletRequest request) {
-        try {
+        HttpServletRequest request)
+    {
+        try
+        {
             // Extract refresh token from request.
             String token = jwtUtils.parseJwt(request);
             String username = jwtUtils.getUserNameFromJwtToken(token);
 
             UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService
-                    .loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                .loadUserByUsername(username);
+            UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
             List<String> roles = userDetails.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
 
             // Remove the old pair of tokens from the whitelist.
             jwtUtils.removeWhitelistJwtPair(token);
@@ -154,15 +166,16 @@ public class AuthController {
             jwtUtils.whitelistJwtPair(accessToken, refreshToken);
 
             return new JwtResponse(accessToken,
-                    refreshToken,
-                    userDetails.getUsedId(),
-                    userDetails.getEmail(),
-                    userDetails.getIsVerified(),
-                    roles);
-        } catch (Exception e) {
+                refreshToken,
+                userDetails.getUsedId(),
+                userDetails.getEmail(),
+                userDetails.getIsVerified(),
+                roles);
+        } catch (Exception e)
+        {
             LOGGER.error("Failed to refresh the authentication token.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Failed to refresh the authentication token. Try again later.");
+                "Failed to refresh the authentication token. Try again later.");
         }
     }
 
@@ -180,20 +193,23 @@ public class AuthController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Logout a user and invalidate all previous tokens")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Invalidated user's tokens."),
-            @ApiResponse(code = 500, message = "Failed to logout.") })
-    public void logout(HttpServletRequest request) {
-        try {
+        @ApiResponse(code = 204, message = "Invalidated user's tokens."),
+        @ApiResponse(code = 500, message = "Failed to logout.")})
+    public void logout(HttpServletRequest request)
+    {
+        try
+        {
             // Extract refresh token from request.
             String token = jwtUtils.parseJwt(request);
             String user = jwtUtils.getUserNameFromJwtToken(token);
 
             // Remove all User's tokens from the whitelist
             jwtUtils.removeWhitelistUser(user);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             LOGGER.error("Failed to logout.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Failed to logout. Try again later.");
+                "Failed to logout. Try again later.");
         }
     }
 

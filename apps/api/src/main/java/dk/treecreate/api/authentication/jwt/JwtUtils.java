@@ -16,23 +16,17 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-@Component
-public class JwtUtils
+@Component public class JwtUtils
 {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Autowired
-    CustomPropertiesConfig customProperties;
+    @Autowired CustomPropertiesConfig customProperties;
 
     private ExpiringMap<String, String> whitelist;
 
-    @Autowired
-    public JwtUtils()
+    @Autowired public JwtUtils()
     {
-        this.whitelist = ExpiringMap.builder()
-            .variableExpiration()
-            .maxSize(1000)
-            .build();
+        this.whitelist = ExpiringMap.builder().variableExpiration().maxSize(1000).build();
     }
 
     public String parseJwt(HttpServletRequest request)
@@ -52,12 +46,9 @@ public class JwtUtils
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        return Jwts.builder()
-            .setSubject((userPrincipal.getUsername()))
-            .setIssuedAt(new Date())
+        return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + customProperties.getJwtExpirationMs()))
-            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
-            .compact();
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret()).compact();
     }
 
     /**
@@ -70,13 +61,10 @@ public class JwtUtils
     {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        return Jwts.builder()
-            .setSubject(userPrincipal.getUsername())
-            .setIssuedAt(new Date())
+        return Jwts.builder().setSubject(userPrincipal.getUsername()).setIssuedAt(new Date())
             .setExpiration(
                 new Date((new Date()).getTime() + customProperties.getJwtRefreshExpirationMs()))
-            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret())
-            .compact();
+            .signWith(SignatureAlgorithm.HS512, customProperties.getJwtSecret()).compact();
     }
 
     public String getUserNameFromJwtToken(String token)

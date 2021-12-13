@@ -34,7 +34,6 @@ public class AuthUserService
 
     public JwtResponse authenticateUser(final String email, final String password)
     {
-
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(email,
                 password));
