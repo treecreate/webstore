@@ -51,6 +51,8 @@ describe('accountPage', () => {
 
     //Update user request
     cy.get('[data-cy=account-update-button]').click();
+
+    //TODO: Actually check that the user has been updated
   });
 
   it('should open change password modal', () => {

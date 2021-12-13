@@ -14,6 +14,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { DiscountsComponent } from './pages/discounts/discounts.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { AccountComponent } from './pages/account/account.component';
+import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
 
 registerLocaleData(en);
 
@@ -25,6 +29,9 @@ registerLocaleData(en);
     DashboardComponent,
     OrdersComponent,
     ItemCardComponent,
+    DiscountsComponent,
+    AccountComponent,
+    ChangePasswordDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +41,7 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     materialModules,
+    ClipboardModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
