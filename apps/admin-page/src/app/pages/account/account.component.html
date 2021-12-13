@@ -8,7 +8,10 @@
     </div>
     <hr />
 
-    <div class="account-page-content">
+    <div class="loading-container-large" *ngIf="isLoading">
+        <mat-spinner [diameter]="40"></mat-spinner>
+    </div>
+    <div class="account-page-content" *ngIf="!isLoading">
         <div class="account-input-fields">
             <div class="input-section-left">
                 <!-- email -->

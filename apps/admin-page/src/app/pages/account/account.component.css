@@ -77,10 +77,15 @@ hr {
   display: flex;
 }
 
-.loading-container {
+.loading-container,
+.loading-container-large {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.loading-container-large {
+  height: 318px;
 }
 
 button mat-spinner {
