@@ -20,7 +20,13 @@
   border-bottom-style: none;
 }
 
-.mat-flat-button {
+.header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.row .mat-flat-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +36,7 @@
   padding: 0 10px;
 }
 
-.mat-icon-button {
+.row .mat-icon-button {
   font-size: 24px;
   color: #616060;
 }

@@ -1,5 +1,12 @@
 <webstore-item-card title="Discounts" [content]="content" [isLoading]="isLoading" data-cy="discounts-card">
     <ng-template #content>
+        <div class="header">
+            <div matTooltip="Not implemented yet.">
+                <button mat-flat-button color="primary" [disabled]="true" class="item" data-cy="discount-view-btn">
+                    Create new
+                </button>
+            </div>
+        </div>
         <table mat-table [dataSource]="discounts" class="mat-elevation-z8 discounts-table" data-cy="discounts-table">
             <!-- Code Column -->
             <ng-container matColumnDef="code">
@@ -53,16 +60,18 @@
                             Edit
                         </button>
                         <div class="spacer"></div>
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            [disabled]="true"
-                            class="item"
-                            data-cy="discount-view-btn"
-                            [ngStyle]="{ 'background-color': '#00B207' }"
-                        >
-                            Active
-                        </button>
+                        <div matTooltip="Not implemented yet.">
+                            <button
+                                mat-flat-button
+                                color="primary"
+                                [disabled]="true"
+                                class="item"
+                                data-cy="discount-view-btn"
+                                [ngStyle]="{ 'background-color': '#00B207' }"
+                            >
+                                Active
+                            </button>
+                        </div>
                     </div>
                 </td>
             </ng-container>
