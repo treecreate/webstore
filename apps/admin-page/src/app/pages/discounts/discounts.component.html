@@ -1,0 +1,83 @@
+<webstore-item-card title="Discounts" [content]="content" [isLoading]="isLoading" data-cy="discounts-card">
+    <ng-template #content>
+        <div class="header">
+            <div matTooltip="Not implemented yet.">
+                <button mat-flat-button color="primary" [disabled]="true" class="item" data-cy="discounts-create-btn">
+                    Create new
+                </button>
+            </div>
+        </div>
+        <table mat-table [dataSource]="discounts" class="mat-elevation-z8 discounts-table" data-cy="discounts-table">
+            <!-- Code Column -->
+            <ng-container matColumnDef="code">
+                <th mat-header-cell *matHeaderCellDef>Code</th>
+                <td mat-cell *matCellDef="let discount">{{ discount.discountCode }}</td>
+            </ng-container>
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let discount">
+                    <div class="row">
+                        <span class="id">{{ discount.discountId }}</span>
+                        <button mat-icon-button (click)="copyToClipboard(discount.discountId)">
+                            <mat-icon>file_copy</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Uses left Column -->
+            <ng-container matColumnDef="usesLeft">
+                <th mat-header-cell *matHeaderCellDef>Uses left</th>
+                <td mat-cell *matCellDef="let discount">{{ discount.remainingUses }}</td>
+            </ng-container>
+
+            <!-- Used Column -->
+            <ng-container matColumnDef="used">
+                <th mat-header-cell *matHeaderCellDef>Used</th>
+                <td mat-cell *matCellDef="let discount">{{ discount.totalUses }}</td>
+            </ng-container>
+
+            <!-- Expires at Column -->
+            <ng-container matColumnDef="expiresAt">
+                <th mat-header-cell *matHeaderCellDef>Expires at</th>
+                <td mat-cell *matCellDef="let discount">{{ discount.expiresAt | date }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let discount">
+                    <div class="row">
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            routerLink="/discounts/{{ discount.discountId }}"
+                            class="item"
+                            data-cy="discounts-edit-btn"
+                        >
+                            Edit
+                        </button>
+                        <div class="spacer"></div>
+                        <div matTooltip="Not implemented yet.">
+                            <button
+                                mat-flat-button
+                                color="primary"
+                                [disabled]="true"
+                                class="item"
+                                data-cy="discounts-enable-btn"
+                                [ngStyle]="{ 'background-color': '#00B207' }"
+                            >
+                                Active
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="discounts-table-header"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="discounts-table-row"></tr>
+        </table>
+    </ng-template>
+</webstore-item-card>
