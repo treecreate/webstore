@@ -33,6 +33,7 @@ export class UsersComponent {
       (data: IUser[]) => {
         this.userList = data;
         this.snackBar.open('User list retrieved', 'Do i care?', { duration: 2000 });
+        console.log(data);
         this.isLoading = false;
       },
       (err: HttpErrorResponse) => {
@@ -59,9 +60,5 @@ export class UsersComponent {
 
   viewOrders(userId: string): void {
     //TODO: show dialog with orders list.
-  }
-
-  getDate(userId: string): void {
-    //TODO: get date created
   }
 }

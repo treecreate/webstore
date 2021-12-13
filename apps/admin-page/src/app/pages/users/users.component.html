@@ -11,23 +11,23 @@
             <ng-container matColumnDef="userId">
                 <th mat-header-cell *matHeaderCellDef>User id</th>
                 <td mat-cell *matCellDef="let user" class="id-container" (mouseenter)="showFullId = true">
-                    {{ user.userId.slice(0, 8) }}...
+                    ...{{ user.userId.slice(user.userId.length - 8) }}
                     <button mat-icon-button (click)="copyToClipboard(user.userId)">
                         <mat-icon class="icon">file_copy</mat-icon>
                     </button>
                 </td>
             </ng-container>
 
+            <!-- Date created Column -->
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let user">{{ user.createdAt | date }}</td>
+            </ng-container>
+
             <!-- Order amount Column -->
             <ng-container matColumnDef="orders">
                 <th mat-header-cell *matHeaderCellDef>Orders</th>
                 <td mat-cell *matCellDef="let user">{{ getUserOrderAmount(user.userId) }}</td>
-            </ng-container>
-
-            <!-- Date created Column -->
-            <ng-container matColumnDef="createdAt">
-                <th mat-header-cell *matHeaderCellDef>Date</th>
-                <td mat-cell *matCellDef="let user">{{ getDate(user.userId) }}</td>
             </ng-container>
 
             <!-- Actions Column -->
@@ -39,6 +39,7 @@
                         color="primary"
                         (click)="viewOrders(user.userId)"
                         data-cy="view-user-orders-btn"
+                        *ngIf="getUserOrderAmount(user.userId) > 0"
                     >
                         View orders
                     </button>
