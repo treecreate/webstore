@@ -21,7 +21,7 @@ public class Parcels {
     }
 
     /** 
-     * Minim value is: <pre><code>1</code></pre>
+     * Minimum value is: <pre><code>1</code></pre>
      * If a value lower than the minimum is provided it will override it to: <pre><code>1</code></pre><code>1</code>
     */
     public void setQuantity(int quantity) {
