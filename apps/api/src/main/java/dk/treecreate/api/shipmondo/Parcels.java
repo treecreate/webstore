@@ -1,5 +1,8 @@
 package dk.treecreate.api.shipmondo;
 
+import dk.treecreate.api.shipmondo.utility.DangerousGoods;
+import dk.treecreate.api.shipmondo.utility.DeclaredValue;
+
 public class Parcels {
     
     private int quantity;
@@ -15,6 +18,8 @@ public class Parcels {
     private DangerousGoods dangerous_goods;
     private DeclaredValue declared_value;
     
+    public Parcels() { /* Empty constructor */ }
+
     // Getters and setters
     public int getQuantity() {
         return this.quantity;

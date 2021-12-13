@@ -1,4 +1,6 @@
-package dk.treecreate.api.shipmondo;
+package dk.treecreate.api.shipmondo.utility;
+
+import dk.treecreate.api.shipmondo.Parcels;
 
 public class QuoteObject {
 
