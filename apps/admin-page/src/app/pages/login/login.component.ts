@@ -15,6 +15,13 @@ export class LoginComponent {
   isLoading = false;
   loginForm: FormGroup;
 
+  /**
+   * Initiates login form and checks if user is authentikated.
+   *
+   * @param authService
+   * @param router
+   * @param snackBar
+   */
   constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -26,11 +33,20 @@ export class LoginComponent {
     }
   }
 
-  isDisabled() {
+  /**
+   * Checks if form is valid.
+   *
+   * @returns boolean
+   */
+  isDisabled(): boolean {
     return !this.loginForm.valid;
   }
 
-  submitLogin() {
+  /**
+   * Sends a request to the api with email and password to log the user in. \
+   * If the user is accepted, it is saved to localstorage with token.
+   */
+  submitLogin(): void {
     this.isLoading = true;
     if (this.loginForm.valid) {
       this.authService
