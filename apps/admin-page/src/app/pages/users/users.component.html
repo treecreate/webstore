@@ -1,1 +1,63 @@
-<p>users works!</p>
+<webstore-item-card title="Users" [content]="content" [isLoading]="isLoading" data-cy="users-card">
+    <ng-template #content>
+        <table mat-table [dataSource]="userList" class="mat-elevation-z8 users-table" data-cy="users-table">
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>E-mail</th>
+                <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+            </ng-container>
+
+            <!-- User id Column -->
+            <ng-container matColumnDef="userId">
+                <th mat-header-cell *matHeaderCellDef>User id</th>
+                <td mat-cell *matCellDef="let user">{{ user.userId }}</td>
+            </ng-container>
+
+            <!-- Order amount Column -->
+            <ng-container matColumnDef="orders">
+                <th mat-header-cell *matHeaderCellDef>Orders</th>
+                <td mat-cell *matCellDef="let user">{{ getUserOrderAmount(user.userId) }}</td>
+            </ng-container>
+
+            <!-- Date created Column -->
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let user">{{ getDate(user.userId) }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let user">
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="viewOrders(user.userId)"
+                        data-cy="view-user-orders-btn"
+                    >
+                        View orders
+                    </button>
+
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        routerLink="/users/{{ user.userId }}"
+                        data-cy="edit-user-btn"
+                    >
+                        Edit
+                    </button>
+                    <button mat-flat-button color="primary" [disabled]="true" data-cy="delete-user-btn">Delete</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="users-table-header"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="users-table-row"></tr>
+        </table>
+    </ng-template>
+</webstore-item-card>
