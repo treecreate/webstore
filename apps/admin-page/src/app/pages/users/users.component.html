@@ -47,8 +47,9 @@
                     <button
                         mat-flat-button
                         color="accent"
-                        routerLink="/users/{{ user.userId }}"
+                        routerLink="/account"
                         data-cy="edit-user-btn"
+                        [queryParams]="{ userId: user.userId }"
                     >
                         Edit
                     </button>

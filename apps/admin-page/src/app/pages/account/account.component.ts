@@ -7,6 +7,7 @@ import { UserRoles } from '@models';
 import { UserService } from '../../services/user/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'webstore-account',
@@ -28,20 +29,44 @@ export class AccountComponent {
    * @param snackBar
    * @param dialog
    */
-  constructor(private userService: UserService, private snackBar: MatSnackBar, public dialog: MatDialog) {
+  constructor(
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.isLoading = true;
-    this.userService.getCurrentUser().subscribe(
-      (user: IUser) => {
-        this.user = user;
-        this.updateForm();
-        this.isLoading = false;
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-        this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
-        this.isLoading = false;
-      }
-    );
+
+    const queryParams = this.route.snapshot.queryParams;
+    if (queryParams.userId != undefined) {
+      this.userService.getUser(queryParams.userId).subscribe(
+        (user: IUser) => {
+          this.user = user;
+          this.updateForm();
+          this.isLoading = false;
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err.message);
+          this.router.navigate(['/dashboad']);
+          this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
+          this.isLoading = false;
+        }
+      );
+    } else {
+      this.userService.getCurrentUser().subscribe(
+        (user: IUser) => {
+          this.user = user;
+          this.updateForm();
+          this.isLoading = false;
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err.message);
+          this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
+          this.isLoading = false;
+        }
+      );
+    }
 
     this.accountForm = new FormGroup({
       name: new FormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),

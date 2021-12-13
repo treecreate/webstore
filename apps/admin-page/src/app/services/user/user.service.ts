@@ -48,4 +48,8 @@ export class UserService {
   public getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(`${env.apiUrl}/users`);
   }
+
+  public getUser(userId: string): Observable<IUser> {
+    return this.http.get<IUser>(`${env.apiUrl}/users/${userId}`);
+  }
 }
