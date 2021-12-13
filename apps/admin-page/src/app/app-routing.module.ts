@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserRoles } from '@models';
 import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { LoginComponent } from './pages/login/login.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -18,6 +19,12 @@ const routes: Routes = [
     data: { roles: [UserRoles.developer, UserRoles.admin] },
     component: DashboardComponent,
   }, // AuthGuard ensures that only authorized users can view this route
+  {
+    path: 'discounts',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: DiscountsComponent,
+  }, // Orders management page
   {
     path: 'orders',
     canActivate: [AuthGuard],
