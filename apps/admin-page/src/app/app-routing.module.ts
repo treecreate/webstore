@@ -8,6 +8,7 @@ import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { LoginComponent } from './pages/login/login.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.developer, UserRoles.admin] },
     component: AccountComponent,
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: UsersComponent,
   },
   { path: '404', component: PageNotFoundComponent }, // PageNotFound for all other page requests
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' }, // Redirect to dashboard page
