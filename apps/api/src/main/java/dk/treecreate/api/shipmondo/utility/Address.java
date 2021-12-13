@@ -1,4 +1,4 @@
-package dk.treecreate.api.shipmondo;
+package dk.treecreate.api.shipmondo.utility;
 
 public class Address {
 
