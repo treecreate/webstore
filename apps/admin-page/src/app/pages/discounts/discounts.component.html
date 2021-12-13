@@ -2,7 +2,7 @@
     <ng-template #content>
         <div class="header">
             <div matTooltip="Not implemented yet.">
-                <button mat-flat-button color="primary" [disabled]="true" class="item" data-cy="discount-view-btn">
+                <button mat-flat-button color="primary" [disabled]="true" class="item" data-cy="discounts-create-btn">
                     Create new
                 </button>
             </div>
@@ -53,7 +53,7 @@
                         <button
                             mat-flat-button
                             color="primary"
-                            routerLink="/orders/{{ discount.discountId }}"
+                            routerLink="/discounts/{{ discount.discountId }}"
                             class="item"
                             data-cy="discount-edit-btn"
                         >
@@ -66,7 +66,7 @@
                                 color="primary"
                                 [disabled]="true"
                                 class="item"
-                                data-cy="discount-view-btn"
+                                data-cy="discount-enable-btn"
                                 [ngStyle]="{ 'background-color': '#00B207' }"
                             >
                                 Active
@@ -76,8 +76,8 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="orders-table-header"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="orders-table-row"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="discounts-table-header"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="discounts-table-row"></tr>
         </table>
     </ng-template>
 </webstore-item-card>
