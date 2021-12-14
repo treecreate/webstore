@@ -1,17 +1,20 @@
 package dk.treecreate.api.shipmondo;
 
-import dk.treecreate.api.shipmondo.utility.DangerousGoods;
-import dk.treecreate.api.shipmondo.utility.DeclaredValue;
-
+import dk.treecreate.api.shipmondo.ParcelsComponents.DangerousGoods;
+import dk.treecreate.api.shipmondo.ParcelsComponents.DeclaredValue;
+/**
+ * Meant to be a complete package of one parcel. <p>
+ * It is to be provided as a list with individual parcels to the ShipmentObject.
+ */
 public class Parcels {
     
     private int quantity;
-    private int weight; // Weight in grams          | Either use this or weight_kg
-    private double weight_kg; // Weight in in Kg    | Either use this or weight
-    private int length; // Length in CM
-    private int width; // Width in CM
-    private int height; // Height in CM
-    private double volume; // Cubic meter
+    private int weight;           // Weight in grams    | Either use this or weight_kg
+    private double weight_kg;     // Weight in in Kg    | Either use this or weight
+    private int length;           // Length in CM
+    private int width;            // Width in CM
+    private int height;           // Height in CM
+    private double volume;        // Cubic meter
     private double running_metre; // Running metre in metre
     private String description;
     private String packaging;

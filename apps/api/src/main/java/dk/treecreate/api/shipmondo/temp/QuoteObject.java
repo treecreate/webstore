@@ -1,6 +1,8 @@
-package dk.treecreate.api.shipmondo.utility;
+package dk.treecreate.api.shipmondo.temp;
 
 import dk.treecreate.api.shipmondo.Parcels;
+import dk.treecreate.api.shipmondo.utility.Receiver;
+import dk.treecreate.api.shipmondo.utility.Sender;
 
 public class QuoteObject {
 
