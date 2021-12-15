@@ -3,6 +3,7 @@ package dk.treecreate.api.discount;
 import dk.treecreate.api.discount.dto.CreateDiscountRequest;
 import dk.treecreate.api.discount.dto.GetDiscountsResponse;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.order.Order;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -39,6 +40,7 @@ public class DiscountController
         return discountRepository.findAll();
     }
 
+    // TODO - change mapping to something like GET /discounts/code/:discountCode for better readbility
     @GetMapping("{discountCode}")
     @Operation(summary = "Get discount by discount code")
     @ApiResponses(value = {
@@ -50,6 +52,18 @@ public class DiscountController
         @PathVariable String discountCode)
     {
         return discountRepository.findByDiscountCode(discountCode)
+            .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
+    }
+
+    // TODO - add tests for GET /discounts/:discountId
+    @GetMapping("{discountId}/id")
+    @Operation(summary = "Get a discount")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Discount getOne(
+        @ApiParam(name = "discountId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID discountId)
+    {
+        return discountRepository.findByDiscountId(discountId)
             .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
     }
 
