@@ -11,7 +11,7 @@ public class Receiver extends Address {
     private String instruction; // Delivery instruction to the carrier.
     private String date; // String with the Date format
     private String from_time; // Requested earliest delivery time
-    private String to_time; // Requested latest delivery tim
+    private String to_time; // Requested latest delivery time
     private String member_id; // Carrier member ID
     private String access_code; // Gate/door code for the carrier to access the receiver's address
 

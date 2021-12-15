@@ -15,7 +15,7 @@ public class ShipmentObject {
     private Sender sender;
     private Receiver receiver;
     private PickUp pick_up;
-    // private BillTo bill_to;
+    private BillTo bill_to;
     // private ServicePoint service_point;
     // private ReturnTo return_to;
     // private Parcels[] parcels;
@@ -25,8 +25,8 @@ public class ShipmentObject {
     // private PalletExchange pallet_exchange;
     // private Customs customs;
     // private boolean replace_http_status_code;
-    // // Cash on Delivery
-    // private Cod cod;                    
-    // // Danske Fragtmænd extra info for them
-    // private Dmf dmf;                    
+    // private Cod cod;                    // Cash on Delivery
+    // private Dmf dmf;                    // Danske Fragtmænd extra info for them
+
+
 }
