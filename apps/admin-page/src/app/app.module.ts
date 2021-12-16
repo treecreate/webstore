@@ -19,6 +19,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { AccountComponent } from './pages/account/account.component';
 import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
 import { UsersComponent } from './pages/users/users.component';
+import { ViewUserOrdersDialogComponent } from './components/view-user-orders-dialog/view-user-orders-dialog.component';
 
 registerLocaleData(en);
 
@@ -34,6 +35,7 @@ registerLocaleData(en);
     AccountComponent,
     ChangePasswordDialogComponent,
     UsersComponent,
+    ViewUserOrdersDialogComponent,
   ],
   imports: [
     BrowserModule,
