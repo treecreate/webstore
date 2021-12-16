@@ -1,4 +1,4 @@
-import { CookieStatus, LocalStorageVars } from '@models';
+import { LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 describe('Login Page', () => {

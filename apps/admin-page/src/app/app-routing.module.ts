@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserRoles } from '@models';
 import { AuthGuard } from './auth/auth.guard';
+import { AccountComponent } from './pages/account/account.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { LoginComponent } from './pages/login/login.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { OrdersComponent } from './pages/orders/orders.component';
@@ -20,11 +22,23 @@ const routes: Routes = [
     component: DashboardComponent,
   }, // AuthGuard ensures that only authorized users can view this route
   {
+    path: 'discounts',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: DiscountsComponent,
+  }, // Orders management page
+  {
     path: 'orders',
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.developer, UserRoles.admin] },
     component: OrdersComponent,
   }, // Orders management page
+  {
+    path: 'account',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: AccountComponent,
+  },
   {
     path: 'orders/:id',
     canActivate: [AuthGuard],

@@ -14,3 +14,8 @@ export interface UpdateUserPasswordRequest {
   token: string;
   password: string;
 }
+
+export interface UpdatePasswordAsAdminRequest {
+  userId: string;
+  password: string;
+}

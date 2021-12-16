@@ -66,3 +66,7 @@ mat-toolbar .spacer {
   padding: 25px;
   background-color: var(--extra-light-grey);
 }
+
+.sidebar-user-icon {
+  cursor: pointer;
+}

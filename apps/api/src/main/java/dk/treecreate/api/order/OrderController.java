@@ -66,15 +66,27 @@ public class OrderController
     @Autowired
     private LocaleService localeService;
 
+    /**
+     * Get a list of orders
+     *
+     * @param userId <i>Optional</i> query param user to filer orders for the given user
+     * @return a list of orders
+     */
     @GetMapping()
     @Operation(summary = "Get all orders")
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "A list of orders",
-            response = GetOrdersResponse.class)})
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
-    public List<Order> getAll()
+    public List<Order> getAll(@Parameter(name = "userId",
+        description = "Id of the user the listed orders belong to",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = false)
+                                  @RequestParam(required = false) UUID userId)
     {
-        return orderRepository.findAll();
+        if (userId == null)
+        {
+            return orderRepository.findAll();
+        }
+        User currentUser = userRepository.findByUserId(userId)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return orderRepository.findByUserId(currentUser.getUserId());
     }
 
     @GetMapping("me")
