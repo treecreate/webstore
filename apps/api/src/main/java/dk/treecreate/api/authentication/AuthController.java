@@ -8,6 +8,8 @@ import dk.treecreate.api.authentication.models.ERole;
 import dk.treecreate.api.authentication.models.Role;
 import dk.treecreate.api.authentication.repository.RoleRepository;
 import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.authentication.services.UserDetailsImpl;
+import dk.treecreate.api.authentication.services.UserDetailsServiceImpl;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -22,13 +24,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -51,6 +58,8 @@ public class AuthController
     JwtUtils jwtUtils;
     @Autowired
     AuthUserService authUserService;
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
     @Autowired
     MailService mailService;
     @Autowired
@@ -113,6 +122,95 @@ public class AuthController
 
         return ResponseEntity.ok(authUserService
             .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
+    }
+
+    /**
+     * Refreshes the user's pair of tokens by generating a new set of
+     * <code>accessToken</code> and
+     * <code>refreshToken</code>, and invalidating the old pair.
+     *
+     * @param request an HTTP request.
+     * @return a <code>JwtResponse</code> containing the new user information.
+     */
+    @GetMapping("/refresh")
+    @Operation(summary = "Refresh a user's tokens and invalidates the old ones.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Refreshed user's tokens."),
+        @ApiResponse(code = 500, message = "Failed to refresh the tokens.")})
+    public JwtResponse refreshToken(
+        HttpServletRequest request)
+    {
+        try
+        {
+            // Extract refresh token from request.
+            String token = jwtUtils.parseJwt(request);
+            String username = jwtUtils.getUserNameFromJwtToken(token);
+
+            UserDetailsImpl userDetails = (UserDetailsImpl) userDetailsService
+                .loadUserByUsername(username);
+            UsernamePasswordAuthenticationToken authentication =
+                new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
+            List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+            // Remove the old pair of tokens from the whitelist.
+            jwtUtils.removeWhitelistJwtPair(token);
+
+            // Generate a new set of tokens for the user.
+            String accessToken = jwtUtils.generateJwtToken(authentication);
+            String refreshToken = jwtUtils.generateJwtRefreshToken(authentication);
+
+            // Whitelist the new pair of tokens.
+            jwtUtils.whitelistJwtPair(accessToken, refreshToken);
+
+            return new JwtResponse(accessToken,
+                refreshToken,
+                userDetails.getUsedId(),
+                userDetails.getEmail(),
+                userDetails.getIsVerified(),
+                roles);
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to refresh the authentication token.", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to refresh the authentication token. Try again later.");
+        }
+    }
+
+    /**
+     * Logs out the user by taking the token from the <code>Authorization</code>
+     * header,
+     * extracting the username from its body, and invalidating all of the tokens
+     * that
+     * belong to that user.
+     *
+     * @param request an HTTP request.
+     * @return a <code>Response Entity</code> with no body.
+     */
+    @GetMapping("/logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Logout a user and invalidate all previous tokens")
+    @ApiResponses(value = {
+        @ApiResponse(code = 204, message = "Invalidated user's tokens."),
+        @ApiResponse(code = 500, message = "Failed to logout.")})
+    public void logout(HttpServletRequest request)
+    {
+        try
+        {
+            // Extract refresh token from request.
+            String token = jwtUtils.parseJwt(request);
+            String user = jwtUtils.getUserNameFromJwtToken(token);
+
+            // Remove all User's tokens from the whitelist
+            jwtUtils.removeWhitelistUser(user);
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to logout.", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to logout. Try again later.");
+        }
     }
 
 }
