@@ -24,12 +24,6 @@
                 <td mat-cell *matCellDef="let user">{{ user.createdAt | date }}</td>
             </ng-container>
 
-            <!-- Order amount Column -->
-            <ng-container matColumnDef="orders">
-                <th mat-header-cell *matHeaderCellDef>Orders</th>
-                <td mat-cell *matCellDef="let user">{{ getUserOrderAmount(user.userId) }}</td>
-            </ng-container>
-
             <!-- Actions Column -->
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
@@ -39,7 +33,6 @@
                         color="primary"
                         (click)="viewOrders(user.userId)"
                         data-cy="view-user-orders-btn"
-                        *ngIf="getUserOrderAmount(user.userId) > 0"
                     >
                         View orders
                     </button>

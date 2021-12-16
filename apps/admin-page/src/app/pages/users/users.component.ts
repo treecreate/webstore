@@ -13,7 +13,7 @@ import { UserService } from '../../services/user/user.service';
 export class UsersComponent {
   userList!: IUser[];
   isLoading = false;
-  displayedColumns: string[] = ['email', 'userId', 'orders', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['email', 'userId', 'createdAt', 'actions'];
   showFullId = false;
 
   /**
@@ -42,16 +42,6 @@ export class UsersComponent {
         this.isLoading = false;
       }
     );
-  }
-
-  /**
-   * Checks how many orders the user has.
-   *
-   * @param userId
-   * @returns a number representing the amount this user has bought.
-   */
-  getUserOrderAmount(userId: string): number {
-    return 1;
   }
 
   copyToClipboard(content: string): void {
