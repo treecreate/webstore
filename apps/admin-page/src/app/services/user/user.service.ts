@@ -31,6 +31,16 @@ export class UserService {
   }
 
   /**
+   * Call api to update a user. Send all the user info needed. None of the fields are *required* for the call.
+   *
+   * @param params ( UpdateUserRequest )
+   * @returns the updated user as an observable.
+   */
+  public updateUserById(params: UpdateUserRequest, userId: string): Observable<IUser> {
+    return this.http.put<IUser>(`${env.apiUrl}/users/${userId}`, params);
+  }
+
+  /**
    * Calls api to update a users password.
    *
    * @param params ( UpdatePasswordAsAdminRequest = { userId: string, password: string } )
