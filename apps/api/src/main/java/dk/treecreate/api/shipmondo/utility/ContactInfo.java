@@ -14,16 +14,17 @@ public class ContactInfo {
     public ContactInfo() { /* Blank constructor */ }
 
     /**
-     * Class constructor with most likely used fields
-     * @param name 
-     * @param mobile
-     * @param email
+     * Class constructor used for for ReturnTo
+     * @param name
+     * @param attention
+     * @param telephone
      */
-    public ContactInfo(String name, String mobile, String email) {
+    public ContactInfo(String name, String attention, String telephone) {
         this.name = name;
-        this.mobile = mobile;
-        this.email = email;
+        this.attention = attention;
+        this.telephone = telephone;
     }
+
     /**
      * Class constructor with all possible fields
      * @param name 
@@ -39,6 +40,18 @@ public class ContactInfo {
         this.mobile = mobile;
         this.email = email;
     }
+
+    // /**
+    //  * Class constructor with most likely used fields
+    //  * @param name 
+    //  * @param mobile
+    //  * @param email
+    //  */
+    // public ContactInfo(String name, String mobile, String email) {
+    //     this.name = name;
+    //     this.mobile = mobile;
+    //     this.email = email;
+    // }
 
     // Getters and setters
     public String getName() {

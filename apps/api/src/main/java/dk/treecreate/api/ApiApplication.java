@@ -23,8 +23,10 @@ public class ApiApplication
         // print(a.getCity());
         // print(a.getCountry_code());
         var b = new DateAndTime();
-        b.setDate("2021-12-15");
+        b.setDate("2021-01-15");
+        b.setFrom_time("24:00");
         print(b.getDate());
+        print(b.getFrom_time());
         // SpringApplication.run(ApiApplication.class, args);
     }
 

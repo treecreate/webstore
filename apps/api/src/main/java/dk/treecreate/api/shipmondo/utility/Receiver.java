@@ -1,6 +1,5 @@
 package dk.treecreate.api.shipmondo.utility;
 
-import dk.treecreate.api.shipmondo.utility.Address;
 /**
  * Receiver information for the object
  */

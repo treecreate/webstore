@@ -100,8 +100,8 @@ public class BillTo extends Address {
             ", address2='" + getAddress2() + "'" +
             ", zipcode='" + getZipcode() + "'" +
             ", city='" + getCity() + "'" +
-            ", country_code='" + getCountry_code() + "'" +
             ", vat_id='" + getVat_id() + "'" +
+            ", country_code='" + getCountry_code() + "'" +
             ", telephone='" + getTelephone() + "'" +
             ", mobile='" + getMobile() + "'" +
             ", email='" + getEmail() + "'" +

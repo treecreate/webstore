@@ -16,8 +16,8 @@ public class ShipmentObject {
     private Receiver receiver;
     private PickUp pick_up;
     private BillTo bill_to;
-    // private ServicePoint service_point;
-    // private ReturnTo return_to;
+    private ServicePoint service_point;
+    private ReturnTo return_to;
     // private Parcels[] parcels;
     private boolean print;
     // private PrintAt print_at;
