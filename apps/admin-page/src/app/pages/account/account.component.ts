@@ -204,13 +204,13 @@ export class AccountComponent {
         .subscribe(
           (data: IUser) => {
             console.log(data);
-            this.snackBar.open('Your account has been updated!', `I'm the best`, { duration: 5000 });
+            this.snackBar.open('User ' + this.user?.email + ' has been updated!', `I'm the best`, { duration: 5000 });
             this.user = data;
             this.isUpdatingInfo = false;
           },
           (err: HttpErrorResponse) => {
             console.log(err.message);
-            this.snackBar.open('Updating the user data failed', 'Oh no!', { duration: 5000 });
+            this.snackBar.open('Updating the user ' + this.user?.email + ' has failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
           }
         );
