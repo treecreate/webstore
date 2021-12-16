@@ -25,6 +25,7 @@ export class AccountComponent {
 
   /**
    * Gets the current user.
+   * Checks if the user is fetched by id or by is the current user.
    * Initiates the account form.
    *
    * @param userService
@@ -94,10 +95,18 @@ export class AccountComponent {
     });
   }
 
+  /**
+   * @returns if an update of the account is possible
+   */
   isDisabled(): boolean | undefined {
     return this.accountForm.invalid || this.formHasChanged() || this.isUpdatingInfo;
   }
 
+  /**
+   * Checks for changes in the form.
+   *
+   * @returns whether or not the inputfields in the form have changed.
+   */
   formHasChanged(): boolean {
     return (
       this.accountForm.get('name')?.value === this.user?.name &&
