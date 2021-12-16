@@ -286,5 +286,4 @@ describe('ordersPage', () => {
     cy.get('.mat-sort-header-container').should('exist');
     cy.get('.mat-sort-header-container').should('have.length', 7);
   });
-  
 });
