@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IAuthUser, IUser } from '@interfaces';
+import { IAuthUser, IUser, IRole } from '@interfaces';
 import { UserRoles } from '@models';
 import { UserService } from '../../services/user/user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +16,7 @@ import { AuthService } from '../../services/authentication/auth.service';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent {
-  public user?: IUser;
+  public user!: IUser;
   public authUser;
   public accountForm: FormGroup;
   public isLoading = false;
@@ -50,6 +50,7 @@ export class AccountComponent {
       this.userService.getUser(queryParams.userId).subscribe(
         (user: IUser) => {
           this.user = user;
+          console.log(user);
           this.updateForm();
           this.isLoading = false;
         },
@@ -120,28 +121,38 @@ export class AccountComponent {
   }
 
   /**
-   * Checks if user is a customer.
-   *
-   * @returns whether the user is customer (does not contain admin or developer)
+   * Checks if user is a user only a user.
+   * @returns whether the user contains the role user but not admin or developer.
    */
-  isCustomer(): boolean | undefined {
-    return !this.user?.roles.includes(UserRoles.developer) || !this.user?.roles.includes(UserRoles.admin);
+  isOnlyUser(): boolean {
+    const developer = this.user.roles.filter(
+      (role) => role.name === UserRoles.developer || role.name === UserRoles.admin
+    );
+    return developer.length > 0;
+  }
+
+  /**
+   * Checks if user is a user.
+   * @returns whether the user contains the role user.
+   */
+  isUser(): boolean {
+    return this.user.roles.some((role) => role.name === UserRoles.user);
   }
 
   /**
    * Checks if user is a developer.
    * @returns whether the user is a developer.
    */
-  isDeveloper(): boolean | undefined {
-    return this.user?.roles.includes(UserRoles.developer);
+  isDeveloper(): boolean {
+    return this.user.roles.some((role) => role.name === UserRoles.developer);
   }
 
   /**
    * Checks if a user is an admin.
    * @returns whether the user is admin.
    */
-  isAdmin(): boolean | undefined {
-    return this.user?.roles.includes(UserRoles.admin);
+  isAdmin(): boolean {
+    return this.user.roles.some((role) => role.name === UserRoles.admin);
   }
 
   /**
