@@ -15,6 +15,10 @@ public class JwtResponse
         example = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MUBob3RkZWFscy5kZXYiLCJpYXQiOjE2MjY3MjgwMDcsImV4cCI6MTYyNjgxNDQwN30.vGcbMzk3zt5P5uwLI9tLVS4GrRZZO7aVT-smrjwtu0LE2sYYY3xQbnwXdtkIAtckPxV1eGninvalid")
     private String accessToken;
 
+    @ApiModelProperty(notes = "A JWT token used for refreshing the access token",
+        example = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MUBob3RkZWFscy5kZXYiLCJpYXQiOjE2MjY3MjgwMDcsImV4cCI6MTYyNjgxNDQwN30.vGcbMzk3zt5P5uwLI9tLVS4GrRZZO7aVT-smrjwtu0LE2sYYY3xQbnwXdtkIAtckPxV1eGninvalid")
+    private String refreshToken;
+
     @ApiModelProperty(notes = "Type of authentication method", example = "Bearer")
     private String tokenType = "Bearer";
 
@@ -28,9 +32,11 @@ public class JwtResponse
     @ApiModelProperty(notes = "Email verification status", example = "false")
     private boolean isVerified;
 
-    public JwtResponse(String accessToken, UUID userId, String email, boolean isVerified,
+    public JwtResponse(String accessToken, String refreshToken, UUID userId, String email,
+                       boolean isVerified,
                        List<String> roles)
     {
+        this.refreshToken = refreshToken;
         this.accessToken = accessToken;
         this.userId = userId;
         this.email = email;
@@ -46,6 +52,16 @@ public class JwtResponse
     public void setAccessToken(String accessToken)
     {
         this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken()
+    {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken)
+    {
+        this.refreshToken = refreshToken;
     }
 
     public String getTokenType()
