@@ -1,5 +1,8 @@
 package dk.treecreate.api.shipmondo.utility;
 
+/**
+ * Sender information for the object
+ */
 public class Sender extends Address{
    
     private String name; // Required
@@ -39,13 +42,13 @@ public class Sender extends Address{
      * @param telephone Landline phone number of the sender
      * @param address Address object containing information about the sender
      */
-    public Sender(String name,String attention, String vat_id, String email, String mobile, String telephone, Address address) {
-        this.name = name;
-        this.attention = attention;
+    public Sender( String vat_id, ContactInfo contact, Address address) {
+        this.name = contact.getName();
+        this.attention = contact.getAttention();
         this.vat_id = vat_id;
-        this.email = email;
-        this.mobile = mobile;
-        this.telephone = telephone;
+        this.email = contact.getEmail();
+        this.mobile = contact.getMobile();
+        this.telephone = contact.getTelephone();
         this.address1 = address.getAddress1();
         this.address2 = address.getAddress2();
         this.zipcode = address.getZipcode();

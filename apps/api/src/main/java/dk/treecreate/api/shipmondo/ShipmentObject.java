@@ -19,12 +19,12 @@ public class ShipmentObject {
     // private ServicePoint service_point;
     // private ReturnTo return_to;
     // private Parcels[] parcels;
-    // private boolean print;
+    private boolean print;
     // private PrintAt print_at;
     // private SendLabel send_label;
     // private PalletExchange pallet_exchange;
     // private Customs customs;
-    // private boolean replace_http_status_code;
+    private boolean replace_http_status_code;
     // private Cod cod;                    // Cash on Delivery
     // private Dmf dmf;                    // Danske Fragtmænd extra info for them
 

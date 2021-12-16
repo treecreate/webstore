@@ -1,5 +1,9 @@
 package dk.treecreate.api.shipmondo.utility;
 
+import dk.treecreate.api.shipmondo.utility.Address;
+/**
+ * Receiver information for the object
+ */
 public class Receiver extends Address {
 
     private String name; // Required
@@ -14,6 +18,31 @@ public class Receiver extends Address {
     private String to_time; // Requested latest delivery time
     private String member_id; // Carrier member ID
     private String access_code; // Gate/door code for the carrier to access the receiver's address
+
+
+    public Receiver() { /* Blank constructor */ }
+
+
+    public Receiver(String vat_id, String instruction, String member_id, String access_code, Address address, ContactInfo contact, DateAndTime dnt) {
+        this.name = contact.getName();
+        this.attention = contact.getAttention();
+        this.address1 = address.getAddress1();
+        this.address2 = address.getAddress2();
+        this.zipcode = address.getZipcode();
+        this.city = address.getCity();
+        this.country_code = address.getCountry_code();
+        this.vat_id = vat_id;
+        this.email = contact.getEmail();
+        this.mobile = contact.getMobile();
+        this.telephone = contact.getTelephone();
+        this.instruction = instruction;
+        this.date = dnt.getDate();
+        this.from_time = dnt.getFrom_time();
+        this.to_time = dnt.getTo_time();
+        this.member_id = member_id;
+        this.access_code = access_code;
+    }
+
 
     // Getters and setters
     public String getName() {

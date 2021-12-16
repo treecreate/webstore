@@ -3,6 +3,9 @@ package dk.treecreate.api.shipmondo;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.DateAndTime;
 
+/**
+ * Pick up point for the package(s)
+ */
 public class PickUp extends Address
 {
     private String name;
@@ -32,7 +35,7 @@ public class PickUp extends Address
      * @param date Requested pickup date. must follow the Date format
      * @param from_time Requested earliest pickup time. must follow the Time format.
      * @param to_time Requested latest pickup time. must follow the Time format.
-     * @param address
+     * @param address Address object containing the pick up address
      */
     public PickUp(String name, String attention, String telephone, String instruction, DateAndTime dnt, Address address)
     {

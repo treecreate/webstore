@@ -2,11 +2,11 @@ package dk.treecreate.api.shipmondo.utility;
 
 public class Address {
 
-    protected String address1;        // Required
-    protected String address2;
-    protected String zipcode;          // Required
-    protected String city;             // Required
-    protected String country_code;     // Required
+    protected String address1;          // Required
+    protected String address2 = "null";
+    protected String zipcode;           // Required
+    protected String city;              // Required
+    protected String country_code;      // Required
 
     /**
      * Empty Class constructor
@@ -28,7 +28,7 @@ public class Address {
     }
 
     /**
-     * Class constructor with both addresses  
+     * Class constructor with both address fields
      * @param address1 Address of the receiver, including address number.
      * @param address2 Second address line of the receiver. Can be used for i.e. apartment number.
      * @param zipcode Name of the city that the zipcode refers to.
@@ -53,11 +53,7 @@ public class Address {
     }
 
     public String getAddress2() {
-        if (address2 != null) {
-            return this.address2;
-        } else {
-            return "null";
-        }
+        return this.address2;
     }
 
     public void setAddress2(String address2) {
