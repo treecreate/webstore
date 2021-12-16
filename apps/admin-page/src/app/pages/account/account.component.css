@@ -1,10 +1,21 @@
 .account-page {
   background-color: white;
   border-radius: 5px;
-  margin: 25px;
+  margin: 5px 25px 25px 25px;
   padding: 25px 0;
   box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.15);
   border-radius: 7px;
+}
+
+.back-btn {
+  margin-left: 25px;
+  width: 80px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  margin-left: 15px;
 }
 
 .account-page-content {
