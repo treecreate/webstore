@@ -20,6 +20,8 @@ public class CustomPropertiesConfig
 
     private int jwtExpirationMs;
 
+    private int jwtRefreshExpirationMs;
+
     public String getQuickpayApiKey()
     {
         return quickpayApiKey;
@@ -79,5 +81,15 @@ public class CustomPropertiesConfig
     public void setJwtExpirationMs(int jwtExpirationMs)
     {
         this.jwtExpirationMs = jwtExpirationMs;
+    }
+
+    public int getJwtRefreshExpirationMs()
+    {
+        return jwtRefreshExpirationMs;
+    }
+
+    public void setJwtRefreshExpirationMs(int jwtRefreshExpirationMs)
+    {
+        this.jwtRefreshExpirationMs = jwtRefreshExpirationMs;
     }
 }

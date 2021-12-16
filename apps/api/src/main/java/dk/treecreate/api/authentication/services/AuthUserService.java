@@ -34,13 +34,15 @@ public class AuthUserService
 
     public JwtResponse authenticateUser(final String email, final String password)
     {
-
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(email,
                 password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
+        String jwtRefresh = jwtUtils.generateJwtRefreshToken(authentication);
+
+        jwtUtils.whitelistJwtPair(jwt, jwtRefresh);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
@@ -48,6 +50,7 @@ public class AuthUserService
             .collect(Collectors.toList());
 
         return new JwtResponse(jwt,
+            jwtRefresh,
             userDetails.getUsedId(),
             userDetails.getEmail(),
             userDetails.getIsVerified(),

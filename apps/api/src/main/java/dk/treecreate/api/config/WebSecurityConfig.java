@@ -65,6 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
+            .antMatchers("/auth/refresh").authenticated()
+            .antMatchers("/auth/logout").authenticated()
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/users/verification/{token}").permitAll()
             .antMatchers("/users/resetPassword/{email}").permitAll()
