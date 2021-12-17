@@ -11,9 +11,8 @@ describe('EditDiscountComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule, RouterTestingModule],
-      declarations: [ EditDiscountComponent ]
-    })
-    .compileComponents();
+      declarations: [EditDiscountComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

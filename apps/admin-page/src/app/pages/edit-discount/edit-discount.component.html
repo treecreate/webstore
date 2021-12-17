@@ -22,33 +22,38 @@
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Discount code</mat-label>
-                        <input matInput type="text" [formControl]="discountCodeControl" data-cy="discount-code"/>
+                        <input matInput type="text" [formControl]="discountCodeControl" data-cy="discount-code" />
                     </mat-form-field>
                     <div class="spacer"></div>
                     <mat-form-field appearance="fill">
                         <mat-label>Uses left</mat-label>
-                        <input matInput type="number" [formControl]="usesLeftControl" data-cy="discount-uses-left"/>
+                        <input matInput type="number" [formControl]="usesLeftControl" data-cy="discount-uses-left" />
                     </mat-form-field>
                     <div class="spacer"></div>
                     <mat-form-field appearance="fill">
                         <mat-label>Expiration date</mat-label>
-                        <input matInput type="text" [formControl]="expirationDateControl" data-cy="discount-expiration"/>
+                        <input
+                            matInput
+                            type="text"
+                            [formControl]="expirationDateControl"
+                            data-cy="discount-expiration"
+                        />
                     </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Amount</mat-label>
-                        <input matInput type="number" [formControl]="amountControl" data-cy="discount-amount"/>
+                        <input matInput type="number" [formControl]="amountControl" data-cy="discount-amount" />
                     </mat-form-field>
                     <div class="spacer"></div>
                     <mat-form-field appearance="fill">
                         <mat-label>Type</mat-label>
-                        <input matInput type="text" [formControl]="typeControl" data-cy="discount-type"/>
+                        <input matInput type="text" [formControl]="typeControl" data-cy="discount-type" />
                     </mat-form-field>
                     <div class="spacer"></div>
                     <mat-form-field appearance="fill">
                         <mat-label>Start date for discount</mat-label>
-                        <input matInput type="text" [formControl]="startDateControl" data-cy="discount-start-date"/>
+                        <input matInput type="text" [formControl]="startDateControl" data-cy="discount-start-date" />
                     </mat-form-field>
                 </div>
             </mat-grid-tile>
