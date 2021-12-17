@@ -296,7 +296,7 @@
                     <h2>Billing address <mat-divider></mat-divider></h2>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="7" data-cy="billing-info-left">
+            <mat-grid-tile colspan="1" rowspan="6" data-cy="billing-info-left">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Name</mat-label>
@@ -314,19 +314,8 @@
                         <input matInput type="number" [formControl]="billingPostcodeControl" />
                     </mat-form-field>
                 </div>
-                <div class="row">
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
-                        matTooltipPosition="right"
-                        [disabled]="true"
-                    >
-                        Update Address
-                    </button>
-                </div>
             </mat-grid-tile>
-            <mat-grid-tile colspan="1" rowspan="7" data-cy="billing-info-right">
+            <mat-grid-tile colspan="1" rowspan="6" data-cy="billing-info-right">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Address</mat-label>
