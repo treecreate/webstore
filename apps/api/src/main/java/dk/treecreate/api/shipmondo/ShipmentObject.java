@@ -1,5 +1,6 @@
 package dk.treecreate.api.shipmondo;
 
+import java.util.List;
 import dk.treecreate.api.shipmondo.utility.Receiver;
 import dk.treecreate.api.shipmondo.utility.Sender;
 
@@ -18,10 +19,10 @@ public class ShipmentObject {
     private BillTo bill_to;
     private ServicePoint service_point;
     private ReturnTo return_to;
-    private Parcels[] parcels;
+    private List<Parcels> parcels;
     private boolean print;
     private PrintAt print_at;
-    // private SendLabel send_label;
+    private SendLabel send_label;
     // private PalletExchange pallet_exchange;
     // private Customs customs;
     private boolean replace_http_status_code;
