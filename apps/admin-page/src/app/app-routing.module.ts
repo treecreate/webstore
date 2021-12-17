@@ -7,6 +7,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { EditDiscountComponent } from './pages/edit-discount/edit-discount.component';
 import { LoginComponent } from './pages/login/login.component';
+import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
@@ -45,6 +46,12 @@ const routes: Routes = [
     data: { roles: [UserRoles.developer, UserRoles.admin] },
     component: AccountComponent,
   },
+  {
+    path: 'orders/:id',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: OrderDetailsComponent,
+  }, // Order details page
   { path: '404', component: PageNotFoundComponent }, // PageNotFound for all other page requests
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' }, // Redirect to dashboard page
   { path: '**', redirectTo: '404' }, // PageNotFound for all other page requests

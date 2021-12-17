@@ -1,6 +1,8 @@
 <mat-card data-cy="card">
     <mat-card-title data-cy="card-title">
         <span>{{ title }}</span>
+
+        <ng-container *ngTemplateOutlet="header"></ng-container>
     </mat-card-title>
     <mat-divider data-cy="card-divider"></mat-divider>
     <mat-card-content data-cy="card-content">
