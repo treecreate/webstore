@@ -118,8 +118,14 @@ export class OrderDetailsComponent implements OnInit {
         this.billingNameControl = new FormControl({ value: this.order?.billingInfo.name, disabled: true });
         this.billingCityControl = new FormControl({ value: this.order?.billingInfo.city, disabled: true });
         this.billingPostcodeControl = new FormControl({ value: this.order?.billingInfo.postcode, disabled: true });
-        this.billingAddressOneControl = new FormControl({ value: this.order?.billingInfo.streetAddress, disabled: true });
-        this.billingAddressTwoControl = new FormControl({ value: this.order?.billingInfo.streetAddress2, disabled: true });
+        this.billingAddressOneControl = new FormControl({
+          value: this.order?.billingInfo.streetAddress,
+          disabled: true,
+        });
+        this.billingAddressTwoControl = new FormControl({
+          value: this.order?.billingInfo.streetAddress2,
+          disabled: true,
+        });
 
         if (this.order?.transactionItems) {
           this.items = this.order?.transactionItems;
