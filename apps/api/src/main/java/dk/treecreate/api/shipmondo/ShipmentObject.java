@@ -18,9 +18,9 @@ public class ShipmentObject {
     private BillTo bill_to;
     private ServicePoint service_point;
     private ReturnTo return_to;
-    // private Parcels[] parcels;
+    private Parcels[] parcels;
     private boolean print;
-    // private PrintAt print_at;
+    private PrintAt print_at;
     // private SendLabel send_label;
     // private PalletExchange pallet_exchange;
     // private Customs customs;

@@ -4,7 +4,8 @@ import dk.treecreate.api.shipmondo.ParcelsComponents.DangerousGoods;
 import dk.treecreate.api.shipmondo.ParcelsComponents.DeclaredValue;
 /**
  * Meant to be a complete package of one parcel. <p>
- * It is to be provided as a list with individual parcels to the ShipmentObject.
+ * It is to be provided as a list with individual parcels to the ShipmentObject. <p>
+ * Each Parcels object is meant to represent one kind of package. Eg. one size of trees
  */
 public class Parcels {
     
@@ -16,12 +17,55 @@ public class Parcels {
     private int height;           // Height in CM
     private double volume;        // Cubic meter
     private double running_metre; // Running metre in metre
-    private String description;
-    private String packaging;
+    private String description = "null";
+    private String packaging = "null";
     private DangerousGoods dangerous_goods;
     private DeclaredValue declared_value;
     
+    /**
+     * Empty class constructor
+     */
     public Parcels() { /* Empty constructor */ }
+
+    /**
+     * Most likely to be used class constructor with required fields
+     * @param quantity Number of parcels of this kind. Maximum quantity depends on the product.
+     * @param weight_kg Weight in Kg.
+     */
+    public Parcels(int quantity, int weight_kg) {
+        this.quantity = quantity;
+        this.weight_kg = weight_kg;
+    }
+
+    /**
+     * Class constructor with all possible fields
+     * @param quantity Number of parcels of this kind. Maximum quantity depends on the product.
+     * @param weight Weight in gram. Use either this or weight kg.
+     * @param weight_kg Weight in kilogram. Use either this or weight.
+     * @param length Length in cm
+     * @param width Width in cm
+     * @param height Height in cm
+     * @param volume Volume in cubic metre
+     * @param running_metre Running metre in metre
+     * @param description Describing the content of the parcel.
+     * @param packaging Package type for the parcel. Must be a valid package type for the customer.
+     * @param dangerous_goods DangerousGoods object with all required fields
+     * @param declared_value Value of the goods in the parcel. Used in terms of insurance for certain carriers.
+     */
+    public Parcels(int quantity, int weight, double weight_kg, int length, int width, int height, double volume, double running_metre, String description, String packaging, DangerousGoods dangerous_goods, DeclaredValue declared_value) {
+        this.quantity = quantity;
+        this.weight = weight;
+        this.weight_kg = weight_kg;
+        this.length = length;
+        this.width = width;
+        this.height = height;
+        this.volume = volume;
+        this.running_metre = running_metre;
+        this.description = description;
+        this.packaging = packaging;
+        this.dangerous_goods = dangerous_goods;
+        this.declared_value = declared_value;
+    }
 
     // Getters and setters
     public int getQuantity() {
