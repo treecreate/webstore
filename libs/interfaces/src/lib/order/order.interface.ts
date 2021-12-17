@@ -7,7 +7,7 @@ export interface IOrder extends IBase {
   currency: CurrencyEnum;
   plantedTrees: number;
   paymentId: string;
-  userID: string;
+  userId: string;
   shippingMethod: ShippingMethodEnum;
   discount?: IDiscount;
   contactInfo: ContactInfo;

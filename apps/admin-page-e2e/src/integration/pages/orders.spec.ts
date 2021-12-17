@@ -156,7 +156,7 @@ function mockOrder(status: OrderStatusEnum, daysLeft: number): IOrder {
     subtotal: 1914,
     total: 1814,
     transactionItems: [],
-    userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+    userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   };
 }
 
