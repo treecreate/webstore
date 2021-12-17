@@ -13,21 +13,22 @@ public class ShipmentObject {
     private String service_codes;       // Required
     private String reference;
     private String automatic_select_service_point;
-    private Sender sender;
-    private Receiver receiver;
+    private Sender sender;              // Required
+    private Receiver receiver;          // Required
     private PickUp pick_up;
     private BillTo bill_to;
     private ServicePoint service_point;
     private ReturnTo return_to;
-    private List<Parcels> parcels;
+    private List<Parcels> parcels;      // Required
     private boolean print;
     private PrintAt print_at;
     private SendLabel send_label;
-    // private PalletExchange pallet_exchange;
-    // private Customs customs;
+    private PalletExchange pallet_exchange;
+    private Customs customs;
     private boolean replace_http_status_code;
-    // private Cod cod;                    // Cash on Delivery
-    // private Dmf dmf;                    // Danske Fragtmænd extra info for them
+    private Cod cod;                    // Cash on Delivery
+    private Dfm dfm;                    // Danske Fragtmænd extra info for them
+
 
 
 }
