@@ -1,1 +1,73 @@
-<p>edit-discount works!</p>
+<ng-template #header>
+    <span class="mat-body" *ngIf="!isLoading" data-cy="edit-discount-header"
+        >Discount id: <span data-cy="edit-discount-id">{{ id }}</span></span
+    >
+</ng-template>
+
+<button mat-button (click)="historyBack()" class="back-btn" data-cy="back-btn">
+    <mat-icon data-cy="icon">arrow_back_ios</mat-icon> Back
+</button>
+<webstore-item-card
+    title="Edit discount"
+    [content]="content"
+    [header]="header"
+    [isLoading]="isLoading"
+    data-cy="edit-discount-card"
+    class="edit-discount-content"
+>
+    <ng-template #content>
+        <mat-grid-list cols="2" rowHeight="25px">
+            <!-- Discount Information -->
+            <mat-grid-tile colspan="2" rowspan="7" data-cy="edit-discount-info">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Discount code</mat-label>
+                        <input matInput type="text" [formControl]="discountCodeControl" data-cy="discount-code"/>
+                    </mat-form-field>
+                    <div class="spacer"></div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Uses left</mat-label>
+                        <input matInput type="number" [formControl]="usesLeftControl" data-cy="discount-uses-left"/>
+                    </mat-form-field>
+                    <div class="spacer"></div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Expiration date</mat-label>
+                        <input matInput type="text" [formControl]="expirationDateControl" data-cy="discount-expiration"/>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Amount</mat-label>
+                        <input matInput type="number" [formControl]="amountControl" data-cy="discount-amount"/>
+                    </mat-form-field>
+                    <div class="spacer"></div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Type</mat-label>
+                        <input matInput type="text" [formControl]="typeControl" data-cy="discount-type"/>
+                    </mat-form-field>
+                    <div class="spacer"></div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Start date for discount</mat-label>
+                        <input matInput type="text" [formControl]="startDateControl" data-cy="discount-start-date"/>
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
+                <div class="actions-row">
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                        <button mat-flat-button color="primary" [disabled]="true">Update</button>
+                    </span>
+                    <div class="spacer"></div>
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="right"
+                        ><button mat-flat-button color="primary" [disabled]="true">Active</button></span
+                    >
+                    <div class="spacer"></div>
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                        <button mat-flat-button color="primary" [disabled]="true">Delete</button></span
+                    >
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </ng-template>
+</webstore-item-card>
