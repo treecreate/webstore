@@ -1,1 +1,76 @@
-<p>view-user-orders-dialog works!</p>
+<div class="header">
+    <h2>User: {{ data.email }}</h2>
+    <button mat-flat-button color="basic" mat-dialog-close data-cy="order-view-btn">X</button>
+</div>
+<hr />
+
+<div class="loading-container" *ngIf="isLoading">
+    <mat-spinner [diameter]="20"></mat-spinner>
+</div>
+
+<div class="no-orders" *ngIf="orders.length === 0 && !isLoading">
+    <div class="no-order-text">This user currently has no orders</div>
+    <button mat-flat-button color="primary" mat-dialog-close data-cy="order-view-btn">Close</button>
+</div>
+
+<div #content *ngIf="orders.length > 0 && !isLoading" class="orders-list-container">
+    <table mat-table [dataSource]="orders" class="mat-elevation-z8 orders-table" data-cy="user-orders-table">
+        <!-- Payment ID Column -->
+        <ng-container matColumnDef="paymentId">
+            <th mat-header-cell *matHeaderCellDef>Payment ID</th>
+            <td mat-cell *matCellDef="let order">{{ order.paymentId }}</td>
+        </ng-container>
+
+        <!-- Payment Total Column -->
+        <ng-container matColumnDef="paymentTotal">
+            <th mat-header-cell *matHeaderCellDef>Payment Total</th>
+            <td mat-cell *matCellDef="let order">{{ order.total }}</td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let order">{{ order.createdAt | date }}</td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let order">
+                <mat-select
+                    [(value)]="order.status"
+                    class="order-status-select"
+                    data-cy="order-status"
+                    [ngStyle]="{ 'background-color': getOrderStatusColor(order.status) }"
+                    (selectionChange)="onStatusChange(order)"
+                >
+                    <mat-option
+                        [value]="status"
+                        *ngFor="let status of orderStatusOptions"
+                        [ngStyle]="{ 'background-color': getOrderStatusColor(status) }"
+                        data-cy="order-status-option"
+                        >{{ status }}</mat-option
+                    >
+                </mat-select>
+            </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let order">
+                <button
+                    mat-flat-button
+                    color="primary"
+                    routerLink="/orders/{{ order.orderId }}"
+                    data-cy="order-view-btn"
+                >
+                    View
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="users-orders-table-header"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="users-orders-table-row"></tr>
+    </table>
+</div>

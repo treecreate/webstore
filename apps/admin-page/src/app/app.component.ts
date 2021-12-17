@@ -11,10 +11,10 @@ import { AuthService } from './services/authentication/auth.service';
 export class AppComponent {
   title = 'admin-page';
   sidebarCollapsed = false;
-  username!: string;
+  username?: string;
 
   constructor(public router: Router, private authService: AuthService, private snackBar: MatSnackBar) {
-    this.username = this.authService.getAuthUser()!.email;
+    this.username = this.authService.getAuthUser()?.email;
   }
 
   /**
