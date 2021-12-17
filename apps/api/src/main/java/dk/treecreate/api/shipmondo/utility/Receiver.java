@@ -22,6 +22,16 @@ public class Receiver extends Address {
     public Receiver() { /* Blank constructor */ }
 
 
+    /**
+     * Class constructor with all possible fields
+     * @param vat_id Special VAT identification number i.e. GB EORI for Great Britain.
+     * @param instruction Delivery instruction to the carrier.
+     * @param member_id Carrier member ID
+     * @param access_code Gate/door code for the carrier to access the receiver's address
+     * @param address Address object containing all relevant fields
+     * @param contact Contact object containing all relevant fields
+     * @param dnt DateAndTime object containing all relevant fields
+     */
     public Receiver(String vat_id, String instruction, String member_id, String access_code, Address address, ContactInfo contact, DateAndTime dnt) {
         this.name = contact.getName();
         this.attention = contact.getAttention();
