@@ -354,7 +354,6 @@ describe('orderDetailsPage', () => {
       cy.get('[data-cy=billing-info-left]').contains('Name');
       cy.get('[data-cy=billing-info-left]').contains('City');
       cy.get('[data-cy=billing-info-left]').contains('Postcode');
-      cy.get('[data-cy=billing-info-left]').contains('Update Address');
     });
 
     it('should display the billing-info right information', () => {
