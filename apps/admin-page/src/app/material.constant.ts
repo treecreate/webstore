@@ -11,6 +11,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const materialModules = [
   MatCommonModule,
@@ -27,4 +31,8 @@ export const materialModules = [
   MatProgressSpinnerModule,
   MatFormFieldModule,
   MatSnackBarModule,
+  MatSelectModule,
+  MatGridListModule,
+  MatTooltipModule,
+  MatDialogModule,
 ];

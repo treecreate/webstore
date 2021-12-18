@@ -8,6 +8,7 @@ import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetAllOrdersResponse;
 import dk.treecreate.api.order.dto.GetOrdersResponse;
+import dk.treecreate.api.order.dto.UpdateOrderStatusRequest;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -16,6 +17,7 @@ import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
 import io.sentry.Sentry;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +35,7 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -63,15 +66,27 @@ public class OrderController
     @Autowired
     private LocaleService localeService;
 
+    /**
+     * Get a list of orders
+     *
+     * @param userId <i>Optional</i> query param user to filer orders for the given user
+     * @return a list of orders
+     */
     @GetMapping()
     @Operation(summary = "Get all orders")
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "A list of orders",
-            response = GetOrdersResponse.class)})
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
-    public List<Order> getAll()
+    public List<Order> getAll(@Parameter(name = "userId",
+        description = "Id of the user the listed orders belong to",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = false)
+                                  @RequestParam(required = false) UUID userId)
     {
-        return orderRepository.findAll();
+        if (userId == null)
+        {
+            return orderRepository.findAll();
+        }
+        User currentUser = userRepository.findByUserId(userId)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return orderRepository.findByUserId(currentUser.getUserId());
     }
 
     @GetMapping("me")
@@ -159,4 +174,36 @@ public class OrderController
         Sentry.captureMessage("New order has been created");
         return createPaymentLinkResponse;
     }
+
+    /**
+     * Attempts to update the order with the ID received as a path parameter
+     * with the new status received in the body.
+     * Will return a response with the full order if it is successful or 404 - Not Found
+     * if there is no order with specified id.
+     *
+     * @param updateOrderStatusRequest DTO for the request.
+     * @param orderId                  the ID of the order.
+     * @return the updated order.
+     */
+    @PatchMapping("/status/{orderId}")
+    @Operation(summary = "Update an order's status")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Updated the orders's status",
+            response = Order.class)
+    })
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Order updateOrderStatus(
+        @RequestBody() @Valid UpdateOrderStatusRequest updateOrderStatusRequest,
+        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId)
+    {
+        try
+        {
+            return orderService.updateOrderStatus(orderId, updateOrderStatusRequest.getStatus());
+        } catch (ResourceNotFoundException e)
+        {
+            throw new ResourceNotFoundException("Order not found");
+        }
+    }
+
 }

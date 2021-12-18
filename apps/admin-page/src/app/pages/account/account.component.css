@@ -1,0 +1,93 @@
+.account-page {
+  background-color: white;
+  border-radius: 5px;
+  margin: 25px;
+  padding: 25px 0;
+  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+}
+
+.account-page-content {
+  padding: 0 25px;
+}
+
+h1,
+h3 {
+  margin-bottom: 0;
+}
+
+.title-section {
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+hr {
+  margin-top: 5px;
+}
+
+.actions-section button {
+  margin-right: 10px;
+}
+
+.input {
+  padding: 0 5px 8px 0;
+}
+
+.column-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.input-section-left,
+.input-section-right {
+  display: flex;
+  flex-direction: column;
+  width: 49.5%;
+}
+
+.account-input-fields {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.small-input {
+  width: 46%;
+}
+
+.roles-section {
+  display: flex;
+  align-items: baseline;
+}
+
+.roles-section h4 {
+  margin-right: 10px;
+}
+
+.roles-section button {
+  margin: 0 10px;
+}
+
+.actions-section {
+  margin: 20px 0;
+  display: flex;
+}
+
+.loading-container,
+.loading-container-large {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-container-large {
+  height: 318px;
+}
+
+button mat-spinner {
+  margin: 5px 10px;
+}

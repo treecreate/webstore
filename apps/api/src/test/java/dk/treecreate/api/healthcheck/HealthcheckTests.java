@@ -25,20 +25,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class HealthcheckTests
 {
 
-    @Autowired
-    private MockMvc mvc;
-
-    @MockBean
-    private UserDetailsServiceImpl userDetailsService;
-
-    @MockBean
-    private AuthEntryPointJwt authEntryPointJwt;
-
-    @MockBean
-    private JwtUtils jwtUtils;
-
     @MockBean
     CustomPropertiesConfig customProperties;
+    @Autowired
+    private MockMvc mvc;
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+    @MockBean
+    private JwtUtils jwtUtils;
 
     @Test // MockMvc throws Exception, so i must catch it
     void healthcheckReturnedStatusTest() throws Exception
