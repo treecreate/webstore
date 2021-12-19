@@ -14,4 +14,7 @@ export class ItemCardComponent {
 
   @Input()
   content!: TemplateRef<unknown>;
+
+  @Input()
+  header!: TemplateRef<unknown>;
 }
