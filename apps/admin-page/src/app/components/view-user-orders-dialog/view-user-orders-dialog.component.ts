@@ -58,9 +58,7 @@ export class ViewUserOrdersDialogComponent implements OnInit {
     this.ordersService.getOrders().subscribe(
       (listData: IOrder[]) => {
         this.fullOrdersList = listData;
-        this.orders = this.fullOrdersList.filter((order) => {
-          return order.userId === this.data.userId;
-        });
+        this.orders = this.fullOrdersList.filter((order) => order.userId === this.data.userId);
         if (this.orders.length === 0) {
           this.snackBar.open('User currently has no orders', 'Waaauw!', { duration: 4000 });
         }

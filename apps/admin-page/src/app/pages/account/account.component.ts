@@ -2,12 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IAuthUser, IUser, IRole } from '@interfaces';
+import { IUser } from '@interfaces';
 import { UserRoles } from '@models';
 import { UserService } from '../../services/user/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/authentication/auth.service';
 
 @Component({
@@ -46,7 +46,7 @@ export class AccountComponent {
     // get user info
     const queryParams = this.route.snapshot.queryParams;
     // check if it is findUserById
-    if (queryParams.userId != undefined) {
+    if (queryParams.userId !== undefined) {
       this.userService.getUser(queryParams.userId).subscribe(
         (user: IUser) => {
           this.user = user;
@@ -201,7 +201,7 @@ export class AccountComponent {
             this.isUpdatingInfo = false;
           }
         );
-      if (this.accountForm.get('email')?.value != this.authUser?.email) {
+      if (this.accountForm.get('email')?.value !== this.authUser?.email) {
         this.snackBar.open('You have been logged out due to email change', 'Wauw');
         this.authService.logout();
         this.router.navigate(['/login']);
@@ -219,7 +219,7 @@ export class AccountComponent {
             city: this.accountForm.get('city')?.value,
             postcode: this.accountForm.get('postcode')?.value,
           },
-          this.user!.userId
+          this.user.userId
         )
         .subscribe(
           (data: IUser) => {

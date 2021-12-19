@@ -14,10 +14,15 @@ import {
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
+const roleUser = {
+  roleId: '1234',
+  name: UserRoles.user,
+};
+
 const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
-  roles: [UserRoles.user],
+  roles: [roleUser],
   name: 'teodor jonasson',
   phoneNumber: '26192327',
   streetAddress: 'hillerødgade 69, 3 etage',
