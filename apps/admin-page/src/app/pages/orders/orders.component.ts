@@ -33,7 +33,7 @@ export class OrdersComponent implements OnInit {
   ];
   orders!: IOrder[];
 
-  constructor(private ordersService: OrdersService) {}
+  constructor(public ordersService: OrdersService) {}
 
   ngOnInit(): void {
     this.fetchOrders();

@@ -38,10 +38,15 @@
                 <td mat-cell *matCellDef="let order">
                     <div
                         class="label"
-                        [ngStyle]="{ 'background-color': getDaysLeftColor(getDaysLeft(order.createdAt), order.status) }"
+                        [ngStyle]="{
+                            'background-color': ordersService.getDaysLeftColor(
+                                ordersService.getDaysLeft(order.createdAt),
+                                order.status
+                            )
+                        }"
                         data-cy="order-days-left"
                     >
-                        {{ getDaysLeft(order.createdAt) }}
+                        {{ ordersService.getDaysLeft(order.createdAt) }}
                     </div>
                 </td>
             </ng-container>
@@ -60,13 +65,13 @@
                         [(value)]="order.status"
                         class="order-status-select"
                         data-cy="order-status"
-                        [ngStyle]="{ 'background-color': getOrderStatusColor(order.status) }"
+                        [ngStyle]="{ 'background-color': ordersService.getOrderStatusColor(order.status) }"
                         (selectionChange)="onStatusChange(order)"
                     >
                         <mat-option
                             [value]="status"
                             *ngFor="let status of orderStatusOptions"
-                            [ngStyle]="{ 'background-color': getOrderStatusColor(status) }"
+                            [ngStyle]="{ 'background-color': ordersService.getOrderStatusColor(status) }"
                             data-cy="order-status-option"
                             >{{ status }}</mat-option
                         >

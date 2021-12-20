@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 
@@ -32,7 +33,8 @@ export const materialModules = [
   MatFormFieldModule,
   MatSnackBarModule,
   MatSelectModule,
-  MatDialogModule,
+  MatGridListModule,
   MatTooltipModule,
+  MatDialogModule,
   MatSortModule,
 ];
