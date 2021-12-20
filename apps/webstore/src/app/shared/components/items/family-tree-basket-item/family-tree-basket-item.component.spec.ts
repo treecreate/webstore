@@ -29,7 +29,7 @@ describe('BasketItemComponent', () => {
     const mockUser: IUser = {
       userId: '1',
       email: 'mock@hotdeals.dev',
-      roles: [UserRoles.user],
+      roles: [{ roleId: '1234', name: UserRoles.user }],
     };
 
     const mockTransactionItem: ITransactionItem = {
