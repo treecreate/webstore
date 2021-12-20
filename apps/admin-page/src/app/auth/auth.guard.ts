@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
-import { IAuthUser } from '@interfaces';
+import { IAuthUser, IRole } from '@interfaces';
+import { UserRoles } from '@models';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/authentication/auth.service';
 
@@ -43,8 +44,8 @@ export class AuthGuard implements CanActivate {
     if (authUser === null) {
       return false;
     }
-    const userRoles: string[] = authUser.roles;
-    const isAuthorized = userRoles.some((role) => userRoles.includes(role));
+    const userRoles: IRole[] = authUser.roles;
+    const isAuthorized = userRoles.some((role) => role.name === UserRoles.user);
     if (!isAuthorized) {
       this.router.navigate(['/login']);
     }

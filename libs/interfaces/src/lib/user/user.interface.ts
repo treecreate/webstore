@@ -4,14 +4,14 @@ import { UserRoles } from '@models';
 export interface IAuthUser {
   userId: string;
   email: string;
-  roles: string[];
+  roles: IRole[];
   accessToken: string;
   tokenType: string;
 }
 export interface IAuthUser {
   userId: string;
   email: string;
-  roles: string[];
+  roles: IRole[];
   accessToken: string;
   tokenType: string;
 }

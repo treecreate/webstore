@@ -56,7 +56,7 @@ export class LoginComponent {
         })
         .subscribe(
           (data: ILoginResponse) => {
-            if (data.roles.includes(UserRoles.admin) || data.roles.includes(UserRoles.developer)) {
+            if (data.roles[0].name === UserRoles.admin || data.roles.includes(UserRoles.developer)) {
               this.authService.saveAuthUser(data);
               this.snackBar.open('Welcome back to Treecreate!', 'Thanks', { duration: 2500 });
               this.router.navigate(['/dashboard']);
