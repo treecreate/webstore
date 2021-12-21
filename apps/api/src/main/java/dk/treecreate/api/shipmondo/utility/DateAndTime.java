@@ -10,9 +10,34 @@ import java.util.Date;
 
 public class DateAndTime
 {
-    private String date = "null"; // Requested pickup date. |format: yyyy-mm-dd
-    private String from_time = "null"; // Requested earliest pickup time. |format: 13:00
-    private String to_time = "null"; // Requested latest pickup time |format: 16:00
+    private String date ; // Requested pickup date. |format: yyyy-mm-dd
+    private String from_time ; // Requested earliest pickup time. |format: 13:00
+    private String to_time ; // Requested latest pickup time |format: 16:00
+
+    /**
+     * Blank class constructor
+     */
+    public DateAndTime() { /* Blank constructor */ }
+
+    /**
+     * Class constructor with only a date in it
+     * @param date Requested pickup date. |format: yyyy-mm-dd
+     */
+    public DateAndTime(String date) {
+        setDate(date);
+    }
+
+    /**
+     * Class constructor with all possible fields
+     * @param date Requested pickup date. |format: yyyy-mm-dd
+     * @param from_time Requested earliest pickup time. |format: 13:00
+     * @param to_time Requested latest pickup time |format: 16:00
+     */
+    public DateAndTime(String date, String from_time, String to_time) {
+        setDate(date);
+        setFrom_time(from_time);
+        setTo_time(to_time);
+    }
 
 
     /**

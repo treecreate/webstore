@@ -17,8 +17,8 @@ public class Parcels {
     private int height;           // Height in CM
     private double volume;        // Cubic meter
     private double running_metre; // Running metre in metre
-    private String description = "null";
-    private String packaging = "null";
+    private String description ;
+    private String packaging ;
     private DangerousGoods dangerous_goods;
     private DeclaredValue declared_value;
     
@@ -30,11 +30,11 @@ public class Parcels {
     /**
      * Most likely to be used class constructor with required fields
      * @param quantity Number of parcels of this kind. Maximum quantity depends on the product.
-     * @param weight_kg Weight in Kg.
+     * @param weight Weight in grams.
      */
-    public Parcels(int quantity, int weight_kg) {
+    public Parcels(int quantity, int weight) {
         this.quantity = quantity;
-        this.weight_kg = weight_kg;
+        this.weight = weight;
     }
 
     /**

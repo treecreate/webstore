@@ -21,6 +21,25 @@ public class Receiver extends Address {
 
     public Receiver() { /* Blank constructor */ }
 
+    /**
+     * Class constructor with the most likely to be used parameters
+     * @param instruction Delivery instruction to the carrier.
+     * @param contact Contact object containing all relevant fields
+     * @param address Address object containing all relevant fields
+     */
+    public Receiver(String instruction, ContactInfo contact, Address address) {
+        this.instruction = instruction;
+        this.name = contact.getName();
+        this.attention = contact.getAttention();
+        this.address1 = address.getAddress1();
+        this.address2 = address.getAddress2();
+        this.zipcode = address.getZipcode();
+        this.city = address.getCity();
+        this.country_code = address.getCountry_code();
+        this.email = contact.getEmail();
+        this.mobile = contact.getMobile();
+        this.telephone = contact.getTelephone();
+    }
 
     /**
      * Class constructor with all possible fields

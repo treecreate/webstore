@@ -20,6 +20,7 @@ public class Sender extends Address{
     /**
      * Class constructor containing the minimum required fields. <p>
      * You can choose wether or not to include address2 in your Address
+     * Country code is always set to DK as we only send from there
      * @param name Name of sender
      * @param address Address object containing information about the sender
      */
@@ -29,11 +30,28 @@ public class Sender extends Address{
         this.address2 = address.getAddress2();
         this.zipcode = address.getZipcode();
         this.city = address.getCity();
-        this.country_code = address.getCountry_code();
+        this.country_code = "DK";
     }
 
     /**
+     * Class constructor containing the minimum required fields. <p>
+     * You can choose wether or not to include address2 in your Address
+     * Country code is always set to DK as we only send from there
+     * @param name Name of sender
+     * @param address Address object containing information about the sender
+     */
+    public Sender(String name, String email, Address address) {
+        this.name = name;
+        this.email = email;
+        this.address1 = address.getAddress1();
+        this.address2 = address.getAddress2();
+        this.zipcode = address.getZipcode();
+        this.city = address.getCity();
+        this.country_code = "DK";
+    }
+    /**
      * Class constructor containing all possible fields
+     * Country code is always set to DK as we only send from there
      * @param name Name of sender
      * @param attention Attention of the sender. If the sender is a company, it is the contact person.
      * @param vat_id Special VAT idenfication number i.e. GB EORI for Great Britain or VOEC for Norway.
@@ -53,7 +71,17 @@ public class Sender extends Address{
         this.address2 = address.getAddress2();
         this.zipcode = address.getZipcode();
         this.city = address.getCity();
-        this.country_code = address.getCountry_code();
+        this.country_code = "DK";
+    }
+ 
+    /**
+     * Creates an instance of the Sender object with all the default TreeCreate values set up.
+     * @return Sender 
+     * @throws Exception - Can never trigger on this function call as the default is correct.
+     */
+    public static Sender treecreateDefault() throws Exception {
+        var address = Address.treecreateDefault();
+        return new Sender("TreeCreate", "teodor_jonasson@hotmail.com", address);
     }
 
     // Getter and setters

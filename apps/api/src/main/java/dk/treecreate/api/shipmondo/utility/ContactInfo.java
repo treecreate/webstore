@@ -1,11 +1,11 @@
 package dk.treecreate.api.shipmondo.utility;
 
 public class ContactInfo {
-    private String name = "null";
-    private String attention = "null";
-    private String telephone = "null";
-    private String mobile = "null";
-    private String email = "null";
+    private String name ;
+    private String attention ;
+    private String telephone ;
+    private String mobile ;
+    private String email ;
 
     /**
      * Blank class constructor <p>

@@ -1,9 +1,9 @@
 package dk.treecreate.api.shipmondo.shipment_object_components;
 
 public class SendLabel {
-    private String name = "null";
-    private String email = "null";
-    private String label_format = "null";
+    private String name ;
+    private String email ;
+    private String label_format ;
 
     /**
      * Blank class constructor

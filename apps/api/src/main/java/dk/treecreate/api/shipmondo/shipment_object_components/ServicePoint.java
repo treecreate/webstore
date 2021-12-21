@@ -3,8 +3,8 @@ package dk.treecreate.api.shipmondo.shipment_object_components;
 import dk.treecreate.api.shipmondo.utility.Address;
 
 public class ServicePoint extends Address {
-    private String id = "null";
-    private String name = "null";
+    private String id ;
+    private String name ;
 
     /**
      * Blank class constructor
