@@ -141,6 +141,7 @@ export class BasketComponent implements OnInit {
           amount: 25,
           remainingUses: 9999,
           totalUses: 1,
+          isEnabled: true,
         };
       } else {
         this.discount = null;
