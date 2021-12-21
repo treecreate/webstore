@@ -43,6 +43,11 @@ import java.util.UUID;
     public Discount setDiscountFields(Discount discount,
                                       UpdateDiscountRequest updateDiscountRequest)
     {
+        System.out.println(updateDiscountRequest);
+        if (updateDiscountRequest == null)
+        {
+            return discount;
+        }
         if (updateDiscountRequest.getDiscountCode() != null)
         {
             discount.setDiscountCode(updateDiscountRequest.getDiscountCode());
@@ -61,7 +66,16 @@ import java.util.UUID;
         }
         if (updateDiscountRequest.getTotalUses() != null)
         {
+            System.out.println("Updating total uses");
             discount.setTotalUses(updateDiscountRequest.getTotalUses());
+        }
+        if (updateDiscountRequest.getIsEnabled() != null)
+        {
+            discount.setIsEnabled(updateDiscountRequest.getIsEnabled());
+        }
+        if (updateDiscountRequest.getStartsAt() != null)
+        {
+            discount.setStartsAt(updateDiscountRequest.getStartsAt());
         }
         if (updateDiscountRequest.getExpiresAt() != null)
         {

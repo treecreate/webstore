@@ -171,14 +171,14 @@ public class Discount
         this.expiresAt = expiresAt;
     }
 
-    public boolean isEnabled()
+    public boolean getIsEnabled()
     {
         return isEnabled;
     }
 
-    public void setEnabled(boolean enabled)
+    public void setIsEnabled(boolean isEnabled)
     {
-        isEnabled = enabled;
+        this.isEnabled = isEnabled;
     }
 
     public Date getCreatedAt()

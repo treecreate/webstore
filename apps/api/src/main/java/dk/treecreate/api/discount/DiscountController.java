@@ -90,9 +90,14 @@ public class DiscountController
         discount.setDiscountCode(createDiscountRequest.getDiscountCode());
         discount.setRemainingUses(createDiscountRequest.getRemainingUses());
         discount.setTotalUses((createDiscountRequest.getTotalUses()));
+        discount.setIsEnabled(createDiscountRequest.getIsEnabled());
         if (createDiscountRequest.getExpiresAt() != null)
         {
             discount.setExpiresAt(createDiscountRequest.getExpiresAt());
+        }
+        if (createDiscountRequest.getStartsAt() != null)
+        {
+            discount.setStartsAt(createDiscountRequest.getStartsAt());
         }
         if (discountRepository.existsByDiscountCode(createDiscountRequest.getDiscountCode()))
         {
