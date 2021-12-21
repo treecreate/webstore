@@ -1,4 +1,4 @@
-package dk.treecreate.api.shipmondo.ParcelsComponents;
+package dk.treecreate.api.shipmondo.shipment_object_components.parcels_components;
 
 public class DeclaredValue {
 

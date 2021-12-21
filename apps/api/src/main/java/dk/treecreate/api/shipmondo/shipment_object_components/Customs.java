@@ -1,8 +1,8 @@
-package dk.treecreate.api.shipmondo;
+package dk.treecreate.api.shipmondo.shipment_object_components;
 
 import java.util.List;
 
-import dk.treecreate.api.shipmondo.customs_components.Goods;
+import dk.treecreate.api.shipmondo.shipment_object_components.customs_components.Goods;
 
 public class Customs {
     private String export_reason = "other";

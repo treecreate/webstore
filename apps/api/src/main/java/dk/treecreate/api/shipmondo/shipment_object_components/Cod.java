@@ -1,4 +1,4 @@
-package dk.treecreate.api.shipmondo;
+package dk.treecreate.api.shipmondo.shipment_object_components;
 
 /**
  * Used for COD (Cash on Delivery) shipments, when booking with service code COD

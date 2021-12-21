@@ -1,6 +1,6 @@
 package dk.treecreate.api.shipmondo.temp;
 
-import dk.treecreate.api.shipmondo.Parcels;
+import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
 import dk.treecreate.api.shipmondo.utility.Receiver;
 import dk.treecreate.api.shipmondo.utility.Sender;
 

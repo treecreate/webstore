@@ -1,4 +1,4 @@
-package dk.treecreate.api.shipmondo.customs_components;
+package dk.treecreate.api.shipmondo.shipment_object_components.customs_components;
 
 public class Goods {
     private int quantity;

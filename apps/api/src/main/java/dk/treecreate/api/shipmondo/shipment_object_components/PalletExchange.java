@@ -1,4 +1,4 @@
-package dk.treecreate.api.shipmondo;
+package dk.treecreate.api.shipmondo.shipment_object_components;
 
 /**
  * Object to represent the pallets the user wishes to exchange

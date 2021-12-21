@@ -1,6 +1,6 @@
 package dk.treecreate.api;
 
-import dk.treecreate.api.shipmondo.PalletExchange;
+import dk.treecreate.api.shipmondo.shipment_object_components.PalletExchange;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.ContactInfo;
 import dk.treecreate.api.shipmondo.utility.DateAndTime;

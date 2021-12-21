@@ -1,4 +1,4 @@
-package dk.treecreate.api.shipmondo;
+package dk.treecreate.api.shipmondo.shipment_object_components;
 
 import dk.treecreate.api.shipmondo.utility.Address;
 

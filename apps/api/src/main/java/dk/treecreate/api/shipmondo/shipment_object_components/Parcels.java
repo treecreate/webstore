@@ -1,7 +1,7 @@
-package dk.treecreate.api.shipmondo;
+package dk.treecreate.api.shipmondo.shipment_object_components;
 
-import dk.treecreate.api.shipmondo.ParcelsComponents.DangerousGoods;
-import dk.treecreate.api.shipmondo.ParcelsComponents.DeclaredValue;
+import dk.treecreate.api.shipmondo.shipment_object_components.parcels_components.DangerousGoods;
+import dk.treecreate.api.shipmondo.shipment_object_components.parcels_components.DeclaredValue;
 /**
  * Meant to be a complete package of one parcel. <p>
  * It is to be provided as a list with individual parcels to the ShipmentObject. <p>

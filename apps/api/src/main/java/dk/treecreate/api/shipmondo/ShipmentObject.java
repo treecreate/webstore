@@ -1,6 +1,18 @@
 package dk.treecreate.api.shipmondo;
 
 import java.util.List;
+
+import dk.treecreate.api.shipmondo.shipment_object_components.BillTo;
+import dk.treecreate.api.shipmondo.shipment_object_components.Cod;
+import dk.treecreate.api.shipmondo.shipment_object_components.Customs;
+import dk.treecreate.api.shipmondo.shipment_object_components.Dfm;
+import dk.treecreate.api.shipmondo.shipment_object_components.PalletExchange;
+import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
+import dk.treecreate.api.shipmondo.shipment_object_components.PickUp;
+import dk.treecreate.api.shipmondo.shipment_object_components.PrintAt;
+import dk.treecreate.api.shipmondo.shipment_object_components.ReturnTo;
+import dk.treecreate.api.shipmondo.shipment_object_components.SendLabel;
+import dk.treecreate.api.shipmondo.shipment_object_components.ServicePoint;
 import dk.treecreate.api.shipmondo.utility.Receiver;
 import dk.treecreate.api.shipmondo.utility.Sender;
 
@@ -29,6 +41,6 @@ public class ShipmentObject {
     private Cod cod;                    // Cash on Delivery
     private Dfm dfm;                    // Danske Fragtmænd extra info for them
 
-
+    
 
 }
