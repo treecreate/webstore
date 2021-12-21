@@ -103,6 +103,18 @@ public class OrderController
         return orderRepository.findByUserId(currentUser.getUserId());
     }
 
+    // TODO - add tests for GET /orders/:orderId
+    @GetMapping("{orderId}")
+    @Operation(summary = "Get an order")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Order getOne(
+        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId)
+    {
+        return orderRepository.findByOrderId(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+    }
+
     @PostMapping("")
     @Operation(summary = "Create an order and get a payment link")
     @ApiResponses(value = {
