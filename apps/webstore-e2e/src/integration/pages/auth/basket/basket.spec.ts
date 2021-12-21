@@ -272,6 +272,42 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.get('[data-cy=total-price-basket]').should('contain', '1690');
   });
 
+  it('should not apply discount that is not enabled', () => {
+    cy.intercept('GET', '/discounts/yeet30percent', {
+      statusCode: 200,
+      body: { ...mockDiscount, isEnabled: false },
+    });
+    cy.visit('/basket');
+    cy.get('[data-cy=discount-amount-basket]').should('not.exist');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
+      force: true,
+    });
+    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
+    cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+  });
+
+  it('should not apply discount that has not started yet', () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 2);
+    cy.intercept('GET', '/discounts/yeet30percent', {
+      statusCode: 200,
+      body: { ...mockDiscount, startsAt: date },
+    });
+    cy.visit('/basket');
+    cy.get('[data-cy=discount-amount-basket]').should('not.exist');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
+      force: true,
+    });
+    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
+    cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+  });
+
   it('should remove the product from basket when pressing delete', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-item]')
