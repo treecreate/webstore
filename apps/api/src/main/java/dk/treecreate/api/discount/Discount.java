@@ -67,10 +67,19 @@ public class Discount
     @Column(name = "total_uses", nullable = false)
     private int totalUses = 0;
 
+    @ApiModelProperty(name = "Date after which the discount can be used",
+        example = "2021-08-31T19:40:10.000+00:00")
+    @Column(name = "starts_at", nullable = true)
+    private Date startsAt = new Date();
+
     @ApiModelProperty(name = "Date after which the discount can no longer be used",
         example = "2021-08-31T19:40:10.000+00:00", required = false)
     @Column(name = "expires_at", nullable = true)
     private Date expiresAt;
+
+    @ApiModelProperty(name = "Can the discount be used", example = "1")
+    @Column(name = "is_enabled", columnDefinition = "boolean default true", nullable = false)
+    private boolean isEnabled = true;
 
     @ApiModelProperty(name = "Date the entity was created at",
         example = "2021-08-31T19:40:10.000+00:00")
@@ -142,6 +151,16 @@ public class Discount
         this.totalUses = totalUses;
     }
 
+    public Date getStartsAt()
+    {
+        return startsAt;
+    }
+
+    public void setStartsAt(Date startsAt)
+    {
+        this.startsAt = startsAt;
+    }
+
     public Date getExpiresAt()
     {
         return expiresAt;
@@ -150,6 +169,16 @@ public class Discount
     public void setExpiresAt(Date expiresAt)
     {
         this.expiresAt = expiresAt;
+    }
+
+    public boolean isEnabled()
+    {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled)
+    {
+        isEnabled = enabled;
     }
 
     public Date getCreatedAt()
@@ -178,19 +207,20 @@ public class Discount
         if (o == null || getClass() != o.getClass()) return false;
         Discount discount = (Discount) o;
         return amount == discount.amount && remainingUses == discount.remainingUses &&
-            totalUses == discount.totalUses && discountId.equals(discount.discountId) &&
-            discountCode.equals(discount.discountCode) && type == discount.type &&
+            totalUses == discount.totalUses && isEnabled == discount.isEnabled &&
+            discountId.equals(discount.discountId) && discountCode.equals(discount.discountCode) &&
+            type == discount.type && Objects.equals(startsAt, discount.startsAt) &&
             Objects.equals(expiresAt, discount.expiresAt) &&
-            Objects.equals(createdAt, discount.createdAt);
+            Objects.equals(createdAt, discount.createdAt) &&
+            Objects.equals(updatedAt, discount.updatedAt);
     }
 
     @Override
     public int hashCode()
     {
         return Objects.hash(discountId, discountCode, type, amount, remainingUses, totalUses,
-            expiresAt, createdAt);
+            startsAt, expiresAt, isEnabled, createdAt, updatedAt);
     }
-
 
     // TODO - OneToMany relationship to orders
 }
