@@ -12,6 +12,8 @@ public class Sender extends Address{
     private String mobile;
     private String telephone;
 
+
+
     /**
      * Blank class constructor
      */
@@ -79,7 +81,7 @@ public class Sender extends Address{
      * @return Sender 
      * @throws Exception - Can never trigger on this function call as the default is correct.
      */
-    public static Sender treecreateDefault() throws Exception {
+    public static Sender treecreateDefault() {
         var address = Address.treecreateDefault();
         return new Sender("TreeCreate", "teodor_jonasson@hotmail.com", address);
     }

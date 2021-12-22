@@ -3,6 +3,9 @@ package dk.treecreate.api.shipmondo.utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 public class Address
 {
 
@@ -28,7 +31,7 @@ public class Address
      * @param country_code ISO 3166-1 alpha-2 country code of the receiver address.
      * @throws Exception
      */
-    public Address(String address1, String zipcode, String city, String country_code) throws Exception
+    public Address(String address1, String zipcode, String city, String country_code)
     {
         this.address1 = address1;
         this.zipcode = zipcode;
@@ -46,7 +49,7 @@ public class Address
      * @param country_code ISO 3166-1 alpha-2 country code of the receiver address.
      * @throws Exception
      */
-    public Address(String address1, String address2, String zipcode, String city, String country_code) throws Exception
+    public Address(String address1, String address2, String zipcode, String city, String country_code)
     {
         this.address1 = address1;
         this.address2 = address2;
@@ -55,9 +58,9 @@ public class Address
         this.setCountry_code(country_code);
     }
 
-
-    public static Address treecreateDefault() throws Exception {
-        return new Address("Hillerødgade 69, 3 etage", "2200" , "København", "DK" );
+    public static Address treecreateDefault()
+    {
+        return new Address("Hillerødgade 69, 3 etage", "2200", "København", "DK");
     }
 
     // Getters and setters
@@ -106,30 +109,40 @@ public class Address
         return this.country_code;
     }
 
-    public void setCountry_code(String country_code) throws Exception
+    /**
+     * Enum containing all the valid country codes in the ISO 3166-1 alpha-2 format
+     */
+    private enum CountryCodes
     {
-        ArrayList<String> countryList = new ArrayList<>(Arrays.asList("DK", "AF", "AX", "AL", "DZ", "AS", "AD",
-                "AO", "AI", "AQ", "AG", "AR", "AM", "AW", "AU", "AT", "AZ", "BS", "BH", "BD", "BB", "BY", "BE", "BZ",
-                "BJ", "BM", "BT", "BA", "BW", "BV", "BR", "IO", "BN", "BG", "BF", "BI", "KH", "CM", "CA", "CV", "KY",
-                "CF", "TD", "CL", "CN", "CX", "CC", "CO", "KM", "CG", "CK", "CR", "CI", "HR", "CU", "CW", "CY", "CZ",
-                "DJ", "DM", "DO", "EC", "EG", "SV", "GQ", "ER", "EE", "ET", "FK", "FO", "FJ", "FI", "FR", "GF", "PF",
-                "TF", "GA", "GM", "GE", "DE", "GH", "GI", "GR", "GL", "GD", "GP", "GU", "GT", "GG", "GN", "GW", "GY",
-                "HT", "HM", "VA", "HN", "HK", "HU", "IS", "IN", "ID", "IQ", "IE", "IM", "IL", "IT", "JM", "JP", "JE",
-                "JO", "KZ", "KE", "KI", "KW", "KG", "LA", "LV", "LB", "LS", "LR", "LY", "LI", "LT", "LU", "MO", "MG",
-                "MW", "MY", "MV", "ML", "MT", "MH", "MQ", "MR", "MU", "YT", "MX", "MC", "MN", "ME", "MS", "MA", "MZ",
-                "MM", "NA", "NR", "NP", "NL", "NC", "NZ", "NI", "NE", "NG", "NU", "NF", "MP", "NO", "OM", "PK", "PW",
-                "PA", "PG", "PY", "PE", "PH", "PN", "PL", "PT", "PR", "QA", "RE", "RO", "RU", "RW", "BL", "KN", "LC",
-                "MF", "PM", "VC", "WS", "SM", "ST", "SA", "SN", "RS", "SC", "SL", "SG", "SX", "SK", "SI", "SB", "SO",
-                "ZA", "GS", "SS", "ES", "LK", "SD", "SR", "SJ", "SZ", "SE", "CH", "SY", "TJ", "TH", "TL", "TG", "TK",
-                "TO", "TT", "TN", "TR", "TM", "TC", "TV", "UG", "UA", "AE", "GB", "US", "UM", "UY", "UZ", "VU", "VN",
-                "WF", "EH", "YE", "ZM", "ZW"));
-        if (countryList.contains(country_code.toUpperCase()))
-        {
-            this.country_code = country_code.toUpperCase();
-        } else
-        {
+        DK, AF, AX, AL, DZ, AS, AD, AO, AI, AQ, AG, AR, AM, AW, AU, AT, AZ, BS, BH, BD, BB, BY, BE, BZ, BJ, BM, BT, BA,
+        BW, BV, BR, IO, BN, BG, BF, BI, KH, CM, CA, CV, KY, CF, TD, CL, CN, CX, CC, CO, KM, CG, CK, CR, CI, HR, CU, CW,
+        CY, CZ, DJ, DM, DO, EC, EG, SV, GQ, ER, EE, ET, FK, FO, FJ, FI, FR, GF, PF, TF, GA, GM, GE, DE, GH, GI, GR, GL,
+        GD, GP, GU, GT, GG, GN, GW, GY, HT, HM, VA, HN, HK, HU, IS, IN, ID, IQ, IE, IM, IL, IT, JM, JP, JE, JO, KZ, KE,
+        KI, KW, KG, LA, LV, LB, LS, LR, LY, LI, LT, LU, MO, MG, MW, MY, MV, ML, MT, MH, MQ, MR, MU, YT, MX, MC, MN, ME,
+        MS, MA, MZ, MM, NA, NR, NP, NL, NC, NZ, NI, NE, NG, NU, NF, MP, NO, OM, PK, PW, PA, PG, PY, PE, PH, PN, PL, PT,
+        PR, QA, RE, RO, RU, RW, BL, KN, LC, MF, PM, VC, WS, SM, ST, SA, SN, RS, SC, SL, SG, SX, SK, SI, SB, SO, ZA, GS,
+        SS, ES, LK, SD, SR, SJ, SZ, SE, CH, SY, TJ, TH, TL, TG, TK, TO, TT, TN, TR, TM, TC, TV, UG, UA, AE, GB, US, UM,
+        UY, UZ, VU, VN, WF, EH, YE, ZM, ZW
+    }
+
+    /**
+     * Compares the passed country code with the CountryCodes enum to ensure it is valid and then sets it
+     * @param country_code  The desired country code in ISO 3166-1 alpha-2 format
+     * @throws ResponseStatusException If the given country code is not in the CountryCodes Enum
+     */
+    public void setCountry_code(String country_code)
+    {
+        try {
+            if (country_code != null) {
+                CountryCodes.valueOf(country_code.toUpperCase());
+                this.country_code = country_code.toUpperCase();
+            } else {
+                this.country_code = null;
+            }
+ 
+        } catch (IllegalArgumentException | NullPointerException e) {
             System.err.println("Invalid country code provided. Invalid value: " + country_code); // TODO - use LOGGER
-            throw new Exception("Invalid country code{" + country_code + "} ");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid country code{'" + country_code + "'} ");
         }
     }
 

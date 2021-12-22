@@ -12,8 +12,5 @@ public class ApiApplication
         SpringApplication.run(ApiApplication.class, args);
     }
 
-    public static <T> void print(T value)
-    {
-        System.out.println(value);
-    }
+
 }

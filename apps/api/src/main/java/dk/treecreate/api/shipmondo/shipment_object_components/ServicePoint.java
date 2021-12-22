@@ -5,6 +5,7 @@ import dk.treecreate.api.shipmondo.utility.Address;
 public class ServicePoint extends Address {
     private String id ;
     private String name ;
+    private String shipping_agent;
 
     /**
      * Blank class constructor
@@ -17,9 +18,10 @@ public class ServicePoint extends Address {
      * @param name Name of the service point.
      * @param address Address object with all relevant information
      */
-    ServicePoint(String id, String name, Address address) {
+    ServicePoint(String id, String name, String shipping_agent, Address address) {
         this.id = id;
         this.name = name;
+        this.shipping_agent = shipping_agent;
         this.address1 = address.getAddress1();
         this.address2 = address.getAddress2();
         this.zipcode = address.getZipcode();
@@ -42,5 +44,13 @@ public class ServicePoint extends Address {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getShipping_agent() {
+        return this.shipping_agent;
+    }
+
+    public void setShipping_agent(String shipping_agent) {
+        this.shipping_agent = shipping_agent;
     }
 }
