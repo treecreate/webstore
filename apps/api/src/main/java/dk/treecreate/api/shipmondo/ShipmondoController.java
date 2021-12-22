@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.UnknownContentTypeException;
 import org.springframework.web.server.ResponseStatusException;
 
+import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.shipmondo.dto.ShipmentObjectDto;
 import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.ContactInfo;
-import dk.treecreate.api.shipmondo.utility.PrintUtil;
 
 @CrossOrigin(origins = "*", maxAge = 3600) @RestController @RequestMapping()
 public class ShipmondoController
@@ -42,28 +43,41 @@ public class ShipmondoController
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    private ShipmentObjectResponse queryShipmondo(ShipmentObject shipment) {
+    @Autowired
+    CustomPropertiesConfig customPropertiesConfig;
 
-            HttpHeaders headers = new HttpHeaders();
-            RestTemplate restTemplate = new RestTemplate();
+    private ShipmentObjectResponse queryShipmondo(ShipmentObject shipment)
+    {
 
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("Authorization",
-                    "");
-        try {
-            URI uri = new URI("https://app.shipmondo.com/api/public/v3/shipments");
+        HttpHeaders headers = new HttpHeaders();
+        RestTemplate restTemplate = new RestTemplate();
+
+        var shipmondoUrl = customPropertiesConfig.getShipmondoUrl();
+        var shipmondoToken = customPropertiesConfig.getShipmondoToken();
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", shipmondoToken);
+
+        System.out.println(shipmondoUrl + shipmondoToken);
+        try
+        {
+            URI uri = new URI(shipmondoUrl);
 
             HttpEntity<ShipmentObject> httpEntity = new HttpEntity<>(shipment, headers);
             return restTemplate.postForObject(uri, httpEntity, ShipmentObjectResponse.class);
-            
-        } catch (URISyntaxException | ResourceAccessException e) {
+
+        } catch (URISyntaxException | ResourceAccessException e)
+        {
             System.err.println(e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid Shipmondo URI.");
-        } catch (UnknownContentTypeException e) {
+        } catch (UnknownContentTypeException e)
+        {
             System.err.println(e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to parse response");
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid request.\n" + e);
+        } catch (Exception e)
+        {
+            System.err.println(e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Whoops.");
         }
     }
 }
