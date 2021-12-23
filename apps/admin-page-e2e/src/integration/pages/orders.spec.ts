@@ -147,6 +147,7 @@ function mockOrder(status: OrderStatusEnum, daysLeft: number): IOrder {
       amount: 100,
       remainingUses: 1,
       totalUses: 2,
+      isEnabled: true,
     },
     orderId: 'MakeMeWantIt',
     paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
