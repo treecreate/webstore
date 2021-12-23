@@ -233,7 +233,9 @@ FROM
 	       ,now()                                  AS created_at
 	       ,'populated_discount'                   AS discount_code
 	       ,'2026-06-06 06:06:06'                  AS expires_at
+         ,1                                      As is_enabled
 	       ,100                                    AS remaining_uses
+         ,now()                                  AS starts_at
 	       ,0                                      AS total_uses
 	       ,0                                      AS type
 	       ,now()                                   AS updated_at )
@@ -243,7 +245,9 @@ FROM
 	       ,now()                                  AS created_at
 	       ,'populated_discount2'                  AS discount_code
 	       ,'2026-06-06 06:06:06'                  AS expires_at
+         ,1                                      As is_enabled
 	       ,100                                    AS remaining_uses
+         ,now()                                  AS starts_at
 	       ,0                                      AS total_uses
 	       ,1                                      AS type
 	       ,now()                                   AS updated_at )
@@ -253,7 +257,9 @@ FROM
 	       ,now()                                  AS created_at
 	       ,'populated_discount_expired'           AS discount_code
 	       ,'2006-06-06 06:06:06'                  AS expires_at
+         ,1                                      As is_enabled
 	       ,100                                    AS remaining_uses
+         ,now()                                  AS starts_at
 	       ,0                                      AS total_uses
 	       ,0                                      AS type
 	       ,now()                                   AS updated_at )
@@ -263,10 +269,36 @@ FROM
 	       ,now()                                  AS created_at
 	       ,'populated_discount_no_uses'           AS discount_code
 	       ,'2026-06-06 06:06:06'                  AS expires_at
+         ,1                                      As is_enabled
 	       ,0                                      AS remaining_uses
+         ,now()                                  AS starts_at
 	       ,1                                      AS total_uses
 	       ,1                                      AS type
 	       ,now()                                   AS updated_at )
+  UNION ALL(
+    SELECT  'dd274bf4-1189-44b9-88cf-51bcf00b62b0' AS discount_id
+         ,50                                     AS amount
+         ,now()                                  AS created_at
+         ,'populated_discount_disabled'          AS discount_code
+         ,'2026-06-06 06:06:06'                  AS expires_at
+         ,0                                      As is_enabled
+         ,100                                    AS remaining_uses
+         ,now()                                  AS starts_at
+         ,100                                    AS total_uses
+         ,1                                      AS type
+         ,now()                                   AS updated_at )
+  UNION ALL(
+    SELECT  'bda8fad1-bc3a-4f84-a439-2fa69e4d1ae6' AS discount_id
+         ,50                                     AS amount
+         ,now()                                  AS created_at
+         ,'populated_discount_starts_2024'          AS discount_code
+         ,'2026-06-06 06:06:06'                  AS expires_at
+         ,1                                      As is_enabled
+         ,100                                    AS remaining_uses
+         ,'2024-06-06 06:06:06'                  AS starts_at
+         ,100                                    AS total_uses
+         ,1                                      AS type
+         ,now()                                   AS updated_at )
 ) discounts
 WHERE NOT EXISTS (
 SELECT  *
