@@ -1,9 +1,8 @@
-import { IRole } from '..';
 
 export interface ILoginResponse {
   userId: string;
   email: string;
-  roles: IRole[];
+  roles: String[];
   accessToken: string;
   tokenType: string;
 }
