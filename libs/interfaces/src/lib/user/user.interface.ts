@@ -1,5 +1,4 @@
 import { IBase } from '..';
-import { UserRoles } from '@models';
 
 export interface IAuthUser {
   userId: string;
