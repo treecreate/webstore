@@ -16,63 +16,75 @@
     class="edit-discount-content"
 >
     <ng-template #content>
-        <mat-grid-list cols="2" rowHeight="25px">
-            <!-- Discount Information -->
-            <mat-grid-tile colspan="2" rowspan="7" data-cy="edit-discount-info">
-                <div class="row">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Discount code</mat-label>
-                        <input matInput type="text" [formControl]="discountCodeControl" data-cy="discount-code" />
-                    </mat-form-field>
-                    <div class="spacer"></div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Uses left</mat-label>
-                        <input matInput type="number" [formControl]="usesLeftControl" data-cy="discount-uses-left" />
-                    </mat-form-field>
-                    <div class="spacer"></div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Expiration date</mat-label>
-                        <input
-                            matInput
-                            type="text"
-                            [formControl]="expirationDateControl"
-                            data-cy="discount-expiration"
-                        />
-                    </mat-form-field>
-                </div>
-                <div class="row">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Amount</mat-label>
-                        <input matInput type="number" [formControl]="amountControl" data-cy="discount-amount" />
-                    </mat-form-field>
-                    <div class="spacer"></div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Type</mat-label>
-                        <input matInput type="text" [formControl]="typeControl" data-cy="discount-type" />
-                    </mat-form-field>
-                    <div class="spacer"></div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Start date for discount</mat-label>
-                        <input matInput type="text" [formControl]="startDateControl" data-cy="discount-start-date" />
-                    </mat-form-field>
-                </div>
-            </mat-grid-tile>
+        <form class="edit-discount-form" [formGroup]="discountForm!">
+            <mat-grid-list cols="2" rowHeight="25px">
+                <!-- Discount Information -->
+                <mat-grid-tile colspan="2" rowspan="7" data-cy="edit-discount-info">
+                    <div class="row">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Discount code</mat-label>
+                            <input matInput type="text" formControlName="discountCodeControl" data-cy="discount-code" />
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Uses left</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                formControlName="usesLeftControl"
+                                data-cy="discount-uses-left"
+                            />
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Expiration date</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="expirationDateControl"
+                                data-cy="discount-expiration"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Amount</mat-label>
+                            <input matInput type="number" formControlName="amountControl" data-cy="discount-amount" />
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Type</mat-label>
+                            <input matInput type="text" formControlName="typeControl" data-cy="discount-type" />
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Start date for discount</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="startDateControl"
+                                data-cy="discount-start-date"
+                            />
+                        </mat-form-field>
+                    </div>
+                </mat-grid-tile>
 
-            <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
-                <div class="actions-row">
-                    <span matTooltip="Action not implemented yet." matTooltipPosition="right">
-                        <button mat-flat-button color="primary" [disabled]="true">Update</button>
-                    </span>
-                    <div class="spacer"></div>
-                    <span matTooltip="Action not implemented yet." matTooltipPosition="right"
-                        ><button mat-flat-button color="primary" [disabled]="true">Active</button></span
-                    >
-                    <div class="spacer"></div>
-                    <span matTooltip="Action not implemented yet." matTooltipPosition="right">
-                        <button mat-flat-button color="primary" [disabled]="true">Delete</button></span
-                    >
-                </div>
-            </mat-grid-tile>
-        </mat-grid-list>
+                <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
+                    <div class="actions-row">
+                        <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                            <button mat-flat-button color="primary" [disabled]="true">Update</button>
+                        </span>
+                        <div class="spacer"></div>
+                        <span matTooltip="Action not implemented yet." matTooltipPosition="right"
+                            ><button mat-flat-button color="primary" [disabled]="true">Active</button></span
+                        >
+                        <div class="spacer"></div>
+                        <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                            <button mat-flat-button color="primary" [disabled]="true">Delete</button></span
+                        >
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
     </ng-template>
 </webstore-item-card>

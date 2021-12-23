@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IDiscount } from '@interfaces';
 import { Location } from '@angular/common';
@@ -17,12 +17,7 @@ export class EditDiscountComponent implements OnInit {
   isLoading = true;
 
   // Discount information
-  discountCodeControl!: FormControl;
-  usesLeftControl!: FormControl;
-  expirationDateControl!: FormControl;
-  amountControl!: FormControl;
-  typeControl!: FormControl;
-  startDateControl!: FormControl;
+  discountForm: FormGroup | undefined;
 
   constructor(public discountService: DiscountsService, private route: ActivatedRoute, private location: Location) {}
 
@@ -60,17 +55,21 @@ export class EditDiscountComponent implements OnInit {
         this.isLoading = false;
         this.discount = discounts.find((discount) => discount.discountId === id);
 
+        const expiresAt = this.discount?.expiresAt || '';
+        const createdAt = this.discount?.createdAt || '';
+
         // Discount Information
-        this.discountCodeControl = new FormControl(this.discount?.discountCode);
-        this.usesLeftControl = new FormControl(this.discount?.remainingUses);
-        if (this.discount?.expiresAt) {
-          this.expirationDateControl = new FormControl(new Date(this.discount?.expiresAt).toLocaleDateString());
-        }
-        this.amountControl = new FormControl(this.discount?.amount);
-        this.typeControl = new FormControl(this.discount?.type);
-        if (this.discount?.createdAt) {
-          this.startDateControl = new FormControl(new Date(this.discount.createdAt).toLocaleDateString());
-        }
+        this.discountForm = new FormGroup({
+          discountCodeControl: new FormControl(this.discount?.discountCode, [
+            Validators.required,
+            Validators.maxLength(50),
+          ]),
+          usesLeftControl: new FormControl(this.discount?.remainingUses, [Validators.required, Validators.min(0)]),
+          expirationDateControl: new FormControl(new Date(expiresAt).toLocaleDateString(), [Validators.required]),
+          amountControl: new FormControl(this.discount?.amount, [Validators.required, Validators.min(0)]),
+          typeControl: new FormControl(this.discount?.type, [Validators.required]),
+          startDateControl: new FormControl(new Date(createdAt).toLocaleDateString(), [Validators.required]),
+        });
       },
     });
   }
