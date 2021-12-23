@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 export const materialModules = [
   MatCommonModule,
@@ -35,4 +36,5 @@ export const materialModules = [
   MatGridListModule,
   MatTooltipModule,
   MatDialogModule,
+  MatSortModule,
 ];

@@ -282,4 +282,9 @@ describe('ordersPage', () => {
     cy.wait('@fetchOrders');
     cy.get('[data-cy=order-status]').first().contains('INITIAL');
   });
+
+  it('should display sort buttons', () => {
+    cy.get('.mat-sort-header-container').should('exist');
+    cy.get('.mat-sort-header-container').should('have.length', 7);
+  });
 });
