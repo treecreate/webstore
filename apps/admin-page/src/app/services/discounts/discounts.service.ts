@@ -18,4 +18,14 @@ export class DiscountsService {
   public getDiscounts(): Observable<IDiscount[]> {
     return this.http.get<IDiscount[]>(`${env.apiUrl}/discounts`);
   }
+
+  /**
+   * Calls the API to fetch a discount by ID.
+   *
+   * @param id - the ID of the discount.
+   * @returns an observable with the requested discount.
+   */
+  public getDiscountById(id: string): Observable<IDiscount> {
+    return this.http.get<IDiscount>(`${env.apiUrl}/discounts/${id}/id`);
+  }
 }
