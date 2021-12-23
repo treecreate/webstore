@@ -48,13 +48,13 @@ export class EditDiscountComponent implements OnInit {
    */
   fetchDiscount(id: string): void {
     this.isLoading = true;
-    this.discountService.getDiscounts().subscribe({
+    this.discountService.getDiscountById(id).subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
       },
-      next: (discounts: IDiscount[]) => {
+      next: (discount: IDiscount) => {
         this.isLoading = false;
-        this.discount = discounts.find((discount) => discount.discountId === id);
+        this.discount = discount;
 
         const expiresAt = this.discount?.expiresAt || '';
         const createdAt = this.discount?.createdAt || '';
