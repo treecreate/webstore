@@ -8,6 +8,7 @@ const mockDiscount: IDiscount = {
   amount: 10,
   type: DiscountType.percent,
   remainingUses: 2,
+  isEnabled: true,
   totalUses: 1,
 };
 
