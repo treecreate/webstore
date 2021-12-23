@@ -12,7 +12,7 @@ describe('ProfileComponent', () => {
   const mockUser: IUser = {
     userId: '1',
     email: 'e2e@test.com',
-    roles: [{ roleId: '1234', name: UserRoles.user }],
+    roles: [UserRoles.user],
     name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',
