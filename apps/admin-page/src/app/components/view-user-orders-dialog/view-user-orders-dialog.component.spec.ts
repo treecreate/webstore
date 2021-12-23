@@ -9,7 +9,8 @@ describe('ViewUserOrdersDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ViewUserOrdersDialogComponent, HttpClientModule],
+      declarations: [ViewUserOrdersDialogComponent],
+      imports: [HttpClientModule],
     }).compileComponents();
   });
 
