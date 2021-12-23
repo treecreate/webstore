@@ -119,15 +119,14 @@ export class AccountComponent {
       this.accountForm.get('postcode')?.value === this.user?.postcode
     );
   }
+  //TODO: these dont work. Fix them.
 
   /**
    * Checks if user is a user only a user.
    * @returns whether the user contains the role user but not admin or developer.
    */
   isOnlyUser(): boolean {
-    const developer = this.user.roles.filter(
-      (role) => role.name === UserRoles.developer || role.name === UserRoles.admin
-    );
+    const developer = this.user.roles.filter((role) => role === UserRoles.developer || role === UserRoles.admin);
     return developer.length > 0;
   }
 
@@ -136,7 +135,7 @@ export class AccountComponent {
    * @returns whether the user contains the role user.
    */
   isUser(): boolean {
-    return this.user.roles.some((role) => role.name === UserRoles.user);
+    return this.user.roles.some((role) => role === UserRoles.user);
   }
 
   /**
@@ -144,7 +143,7 @@ export class AccountComponent {
    * @returns whether the user is a developer.
    */
   isDeveloper(): boolean {
-    return this.user.roles.some((role) => role.name === UserRoles.developer);
+    return this.user.roles.some((role) => role === UserRoles.developer);
   }
 
   /**
@@ -152,7 +151,7 @@ export class AccountComponent {
    * @returns whether the user is admin.
    */
   isAdmin(): boolean {
-    return this.user.roles.some((role) => role.name === UserRoles.admin);
+    return this.user.roles.some((role) => role === UserRoles.admin);
   }
 
   /**

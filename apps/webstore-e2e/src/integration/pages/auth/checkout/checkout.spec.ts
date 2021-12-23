@@ -14,7 +14,6 @@ import {
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
-
 const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
