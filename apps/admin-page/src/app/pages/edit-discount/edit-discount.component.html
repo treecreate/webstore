@@ -54,7 +54,18 @@
                         <div class="spacer"></div>
                         <mat-form-field appearance="fill">
                             <mat-label>Type</mat-label>
-                            <input matInput type="text" formControlName="typeControl" data-cy="discount-type" />
+                            <mat-select
+                                formControlName="typeControl"
+                                class="order-status-select"
+                                data-cy="discount-type-status"
+                            >
+                                <mat-option
+                                    [value]="type"
+                                    *ngFor="let type of discountTypeOptions"
+                                    data-cy="discount-type-option"
+                                    >{{ type }}</mat-option
+                                >
+                            </mat-select>
                         </mat-form-field>
                         <div class="spacer"></div>
                         <mat-form-field appearance="fill">

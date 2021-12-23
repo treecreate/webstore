@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IDiscount } from '@interfaces';
+import { DiscountType, IDiscount } from '@interfaces';
 import { Location } from '@angular/common';
 import { DiscountsService } from '../../services/discounts/discounts.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -15,6 +15,7 @@ export class EditDiscountComponent implements OnInit {
   discount?: IDiscount;
   id?: string;
   isLoading = true;
+  discountTypeOptions = [DiscountType.amount, DiscountType.percent];
 
   // Discount information
   discountForm: FormGroup | undefined;
