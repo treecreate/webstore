@@ -9,6 +9,7 @@ const mockDiscount: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 2,
   totalUses: 1,
+  isEnabled: true,
   expiresAt: new Date('2029-11-20T00:00:00'),
 };
 
@@ -19,6 +20,7 @@ const mockDiscountNoUsesLeft: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 0,
   totalUses: 1,
+  isEnabled: true,
   expiresAt: new Date('2029-11-20T00:00:00'),
 };
 
@@ -29,6 +31,7 @@ const mockDiscountExpired: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 10,
   totalUses: 1,
+  isEnabled: true,
   expiresAt: new Date('2021-11-20T00:00:00'),
 };
 

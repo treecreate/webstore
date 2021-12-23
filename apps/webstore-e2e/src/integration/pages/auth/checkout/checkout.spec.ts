@@ -84,6 +84,7 @@ const mockDiscount: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 2,
   totalUses: 1,
+  isEnabled: true,
 };
 const authMockService = new AuthenticationService();
 
