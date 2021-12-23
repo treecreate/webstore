@@ -5,48 +5,39 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class CreateDiscountRequest
+public class UpdateDiscountRequest
 {
-    @NotEmpty
-    @Length(max = 50, min = 1)
-    @ApiModelProperty(example = "DiscountRelease2021", required = true)
+
+    @Length(min = 1, max = 50)
+    @ApiModelProperty(example = "DiscountRelease2021")
     private String discountCode;
 
-    @NotNull
-    @ApiModelProperty(notes = "Discount type", example = "PERCENT", required = true)
+    @ApiModelProperty(notes = "Discount type", example = "PERCENT")
     private DiscountType type;
 
-    @NotNull
     @Min(0)
-    @ApiModelProperty(name = "The amount the discount provides", example = "0",
-        required = true)
+    @ApiModelProperty(name = "The amount the discount provides", example = "0")
     private Integer amount;
 
-    @NotNull
     @Min(0)
-    @ApiModelProperty(name = "How many more times the discount can be used", example = "0",
-        required = true)
+    @ApiModelProperty(name = "How many more times the discount can be used", example = "0")
     private Integer remainingUses;
 
-    @NotNull
     @Min(0)
-    @ApiModelProperty(name = "How many times the discount has been used", example = "1",
-        required = true)
+    @ApiModelProperty(name = "How many times the discount has been used", example = "1")
     private Integer totalUses;
 
     @ApiModelProperty(notes = "Can the discount be used", example = "1")
-    private Boolean isEnabled = true;
+    private Boolean isEnabled;
 
     @ApiModelProperty(name = "Date after which the discount can be used",
         example = "2021-08-31T19:40:10.000+00:00", required = false)
     private Date startsAt;
 
     @ApiModelProperty(name = "Date after which the discount can no longer be used",
-        example = "2021-08-31T19:40:10.000+00:00", required = false)
+        example = "2021-08-31T19:40:10.000+00:00")
     private Date expiresAt;
 
     public String getDiscountCode()
@@ -69,7 +60,7 @@ public class CreateDiscountRequest
         this.type = type;
     }
 
-    public int getAmount()
+    public Integer getAmount()
     {
         return amount;
     }
@@ -79,7 +70,7 @@ public class CreateDiscountRequest
         this.amount = amount;
     }
 
-    public int getRemainingUses()
+    public Integer getRemainingUses()
     {
         return remainingUses;
     }
@@ -89,7 +80,7 @@ public class CreateDiscountRequest
         this.remainingUses = remainingUses;
     }
 
-    public int getTotalUses()
+    public Integer getTotalUses()
     {
         return totalUses;
     }
@@ -99,7 +90,7 @@ public class CreateDiscountRequest
         this.totalUses = totalUses;
     }
 
-    public boolean getIsEnabled()
+    public Boolean getIsEnabled()
     {
         return isEnabled;
     }
@@ -127,5 +118,19 @@ public class CreateDiscountRequest
     public void setExpiresAt(Date expiresAt)
     {
         this.expiresAt = expiresAt;
+    }
+
+    @Override public String toString()
+    {
+        return "UpdateDiscountRequest{" +
+            "discountCode='" + discountCode + '\'' +
+            ", type=" + type +
+            ", amount=" + amount +
+            ", remainingUses=" + remainingUses +
+            ", totalUses=" + totalUses +
+            ", isEnabled=" + isEnabled +
+            ", startsAt=" + startsAt +
+            ", expiresAt=" + expiresAt +
+            '}';
     }
 }

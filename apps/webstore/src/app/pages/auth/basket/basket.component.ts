@@ -141,6 +141,7 @@ export class BasketComponent implements OnInit {
           amount: 25,
           remainingUses: 9999,
           totalUses: 1,
+          isEnabled: true,
         };
       } else {
         this.discount = null;
@@ -164,6 +165,7 @@ export class BasketComponent implements OnInit {
       .subscribe(
         (discount: IDiscount) => {
           const expires = new Date(discount.expiresAt);
+          const starts = new Date(discount.startsAt);
 
           // Check remaining uses
           if (discount.remainingUses <= 0) {
@@ -173,7 +175,6 @@ export class BasketComponent implements OnInit {
               'danger',
               4000
             );
-            this.discountIsLoading = false;
 
             // Check experation date
           } else if (expires.getTime() < Date.now()) {
@@ -183,8 +184,14 @@ export class BasketComponent implements OnInit {
               'danger',
               4000
             );
-            this.discountIsLoading = false;
-
+          } else if (!discount.isEnabled || starts.getTime() > Date.now()) {
+            // TODO - properly translate the danish version of the alert (is invalid)
+            this.toastService.showAlert(
+              'The discount code: ' + this.discountForm.get('discountCode').value + ' is invalid!',
+              'Rabat koden: ' + this.discountForm.get('discountCode').value + ' is invalid!',
+              'danger',
+              4000
+            );
             // Activate discount
           } else {
             this.toastService.showAlert(
@@ -195,8 +202,8 @@ export class BasketComponent implements OnInit {
             );
             this.discount = discount;
             console.log('Discount changed to: ', this.discount);
-            this.discountIsLoading = false;
           }
+          this.discountIsLoading = false;
         },
         (error: HttpErrorResponse) => {
           console.error(error);
