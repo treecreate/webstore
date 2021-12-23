@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewUserOrdersDialogComponent } from './view-user-orders-dialog.component';
@@ -8,7 +9,7 @@ describe('ViewUserOrdersDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ViewUserOrdersDialogComponent],
+      declarations: [ViewUserOrdersDialogComponent, HttpClientModule],
     }).compileComponents();
   });
 
