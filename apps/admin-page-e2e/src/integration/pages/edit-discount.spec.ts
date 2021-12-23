@@ -18,8 +18,8 @@ describe('editDiscountPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'localhost:5000/discounts', {
-      body: [mockDiscount],
+    cy.intercept('GET', 'localhost:5000/discounts/123/id', {
+      body: mockDiscount,
       statusCode: 200,
     }).as('fetchDiscounts');
 
@@ -52,7 +52,6 @@ describe('editDiscountPage', () => {
       cy.get('[data-cy=discount-code]').should('have.value', mockDiscount.discountCode);
       cy.get('[data-cy=discount-uses-left]').should('have.value', mockDiscount.remainingUses);
       cy.get('[data-cy=discount-amount]').should('have.value', mockDiscount.amount);
-      cy.get('[data-cy=discount-type]').should('have.value', mockDiscount.type);
       if (mockDiscount.expiresAt) {
         cy.get('[data-cy=discount-expiration]').should(
           'have.value',
