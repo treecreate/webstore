@@ -93,7 +93,7 @@ describe('admin-page', () => {
 
       it('should contain a users item', () => {
         cy.get('[data-cy=sidebar-users-btn]').should('exist');
-        cy.get('[data-cy=sidebar-users-btn]').contains('users').should('exist');
+        cy.get('[data-cy=sidebar-users-btn]').contains('Users').should('exist');
         cy.get('[data-cy=sidebar-users-btn]').get('[data-cy=icon]').should('be.visible');
       });
 

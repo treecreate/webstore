@@ -56,12 +56,21 @@ describe('Account page for admin user', () => {
     cy.intercept('PUT', `/users/${mockAdminUser.userId}`, {
       statusCode: 404,
     });
-    cy.get('[data-cy=account-email-input]').clear().type('slap@me.daddy');
+    cy.get('[data-cy=account-name-input]').clear().type('slap@me.daddy');
     cy.get('[data-cy=update-account-btn]').click();
     cy.visit('/dashboard');
     cy.visit('/account');
     cy.get('[data-cy=account-email-input]').should('not.have.value', 'slap@me.daddy');
     cy.get('[data-cy=account-email-input]').should('have.value', 'e2e@test.com');
+  });
+
+  it('should log user out when changing email', () => {
+    cy.intercept('PUT', `/users/${mockAdminUser.userId}`, {
+      statusCode: 200,
+    });
+    cy.get('[data-cy=account-email-input]').clear().type('slap@me.daddy');
+    cy.get('[data-cy=update-account-btn]').click();
+    cy.url().should('contain', '/login');
   });
 
   it('should show the correct roles', () => {
