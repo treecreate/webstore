@@ -23,11 +23,7 @@ const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   email: 'e2e@test.com',
-  roles: [
-    { roleId: '1234', name: UserRoles.user },
-    { roleId: '1234', name: UserRoles.admin },
-    { roleId: '1234', name: UserRoles.developer },
-  ],
+  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',

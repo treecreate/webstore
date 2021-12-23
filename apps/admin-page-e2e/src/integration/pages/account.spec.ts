@@ -1,24 +1,11 @@
-import { IRole, IUser } from '@interfaces';
+import { IUser } from '@interfaces';
 import { LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
-
-const roleAdmin: IRole = {
-  roleId: '1234',
-  name: UserRoles.admin,
-};
-const roleDeveloper: IRole = {
-  roleId: '1234',
-  name: UserRoles.developer,
-};
-const roleUser: IRole = {
-  roleId: '1234',
-  name: UserRoles.user,
-};
 
 const mockAdminUser: IUser = {
   userId: 'PleaseTakeMe',
   email: 'e2e@test.com',
-  roles: [roleAdmin, roleDeveloper, roleUser],
+  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
   name: 'telinior the great',
   phoneNumber: '69420420',
   streetAddress: 'Y u b like dis?',

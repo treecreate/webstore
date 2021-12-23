@@ -10,7 +10,6 @@ import {
   IDiscount,
   IDraggableBox,
   IFamilyTreeBanner,
-  IRole,
   ITransactionItem,
   IUser,
   UpdateTransactionItemRequest,
@@ -18,24 +17,11 @@ import {
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
-const roleAdmin: IRole = {
-  roleId: '1234',
-  name: UserRoles.admin,
-};
-const roleDeveloper: IRole = {
-  roleId: '1234',
-  name: UserRoles.developer,
-};
-const roleUser: IRole = {
-  roleId: '1234',
-  name: UserRoles.user,
-};
-
 const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
   email: 'e2e@test.com',
-  roles: [roleAdmin, roleDeveloper, roleUser],
+  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
