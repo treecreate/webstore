@@ -4,21 +4,21 @@ import { UserRoles } from '@models';
 export interface IAuthUser {
   userId: string;
   email: string;
-  roles: String[];
+  roles: string[];
   accessToken: string;
   tokenType: string;
 }
 export interface IAuthUser {
   userId: string;
   email: string;
-  roles: String[];
+  roles: string[];
   accessToken: string;
   tokenType: string;
 }
 export interface IUser extends IBase {
   userId: string;
   email: string;
-  roles: String[];
+  roles: string[];
   name?: string;
   phoneNumber?: string;
   streetAddress?: string;

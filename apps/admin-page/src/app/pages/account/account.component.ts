@@ -119,7 +119,7 @@ export class AccountComponent {
       this.accountForm.get('postcode')?.value === this.user?.postcode
     );
   }
-  //TODO: Check if these work. 
+  //TODO: Check if these work.
 
   /**
    * Checks if user is a user only a user.
