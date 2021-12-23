@@ -66,10 +66,10 @@ export class EditDiscountComponent implements OnInit {
             Validators.maxLength(50),
           ]),
           usesLeftControl: new FormControl(this.discount?.remainingUses, [Validators.required, Validators.min(0)]),
-          expirationDateControl: new FormControl(new Date(expiresAt).toLocaleDateString(), [Validators.required]),
+          expirationDateControl: new FormControl(new Date(expiresAt), [Validators.required]),
           amountControl: new FormControl(this.discount?.amount, [Validators.required, Validators.min(0)]),
           typeControl: new FormControl(this.discount?.type, [Validators.required]),
-          startDateControl: new FormControl(new Date(createdAt).toLocaleDateString(), [Validators.required]),
+          startDateControl: new FormControl(new Date(createdAt), [Validators.required]),
         });
       },
     });

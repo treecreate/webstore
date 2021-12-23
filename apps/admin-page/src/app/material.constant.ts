@@ -15,6 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export const materialModules = [
   MatCommonModule,
@@ -35,4 +37,6 @@ export const materialModules = [
   MatGridListModule,
   MatTooltipModule,
   MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
