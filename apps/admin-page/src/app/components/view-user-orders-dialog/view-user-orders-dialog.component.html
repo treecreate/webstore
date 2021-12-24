@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" data-cy="view-orders-dialog">
     <h2>User: {{ data.email }}</h2>
     <button mat-flat-button color="basic" mat-dialog-close data-cy="order-view-btn">X</button>
 </div>
@@ -8,7 +8,7 @@
     <mat-spinner [diameter]="20"></mat-spinner>
 </div>
 
-<div class="no-orders" *ngIf="orders.length === 0 && !isLoading">
+<div class="no-orders" *ngIf="orders.length === 0 && !isLoading" data-cy="user-has-no-orders">
     <div class="no-order-text">This user currently has no orders</div>
     <button mat-flat-button color="primary" mat-dialog-close data-cy="order-view-btn">Close</button>
 </div>

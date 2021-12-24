@@ -4,7 +4,7 @@
             <!-- Email Column -->
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef>E-mail</th>
-                <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+                <td mat-cell *matCellDef="let user" data-cy="user-email">{{ user.email }}</td>
             </ng-container>
 
             <!-- User id Column -->
