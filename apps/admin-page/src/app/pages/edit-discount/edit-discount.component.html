@@ -102,8 +102,18 @@
                             </button>
                         </span>
                         <div class="spacer"></div>
-                        <span matTooltip="Action not implemented yet." matTooltipPosition="right"
-                            ><button mat-flat-button color="primary" [disabled]="true">Active</button></span
+                        <span
+                            matTooltip="You can't update while the data is loading."
+                            [matTooltipDisabled]="!isLoading ? true : false"
+                            matTooltipPosition="below"
+                            ><button
+                                mat-flat-button
+                                color="primary"
+                                (click)="toggleDiscountState()"
+                                [disabled]="isLoading"
+                            >
+                                {{ discount?.isEnabled ? 'activated' : 'deactivated' }}
+                            </button></span
                         >
                         <div class="spacer"></div>
                         <span matTooltip="Action not implemented yet." matTooltipPosition="right">

@@ -85,7 +85,7 @@ export class EditDiscountComponent implements OnInit {
 
   /**
    * Performs a API call in order to update the discount entity based on the discount form information.\
-   * Changes the state of isLoading variable whilst the update is on-going
+   * Changes the state of isLoading variable whilst the update is on-going.
    */
   updateDiscount(): void {
     if (!this.isFormValid && this.isFormDirty) {
@@ -113,12 +113,42 @@ export class EditDiscountComponent implements OnInit {
         },
         next: (discount: IDiscount) => {
           this.discountForm.markAsPristine();
+          this.discount = discount;
           this.snackBar.open(`Discount has been updated`);
           this.patchDiscountForm(discount);
           this.isLoading = false;
         },
       });
-    console.log('Discount form: ', this.discountForm?.get('discountCode')?.value);
+  }
+
+  /**
+   * Performs a API call in order to either activate or deactive a discount.\
+   * Changes the state of isLoading variable whilst the update is on-going.
+   */
+  toggleDiscountState(): void {
+    this.isLoading = true;
+    this.discountService
+      .updateDiscount(this.discount?.discountId!, {
+        isEnabled: !this.discount?.isEnabled,
+      })
+      .subscribe({
+        error: (error: HttpErrorResponse) => {
+          console.error(error);
+          this.snackBar.open(
+            `Failed to change discount state with error: ${error.error.error}`,
+            `Cool, Let's try again`,
+            { duration: 5000 }
+          );
+          this.isLoading = false;
+        },
+        next: (discount: IDiscount) => {
+          this.discount = discount;
+          this.snackBar.open(`Discount has been ${this.discount?.isEnabled ? 'activated' : 'deactivated'}`, 'Ya Yeet', {
+            duration: 3500,
+          });
+          this.isLoading = false;
+        },
+      });
   }
 
   /**
