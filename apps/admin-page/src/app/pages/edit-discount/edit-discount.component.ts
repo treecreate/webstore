@@ -88,12 +88,16 @@ export class EditDiscountComponent implements OnInit {
    * Changes the state of isLoading variable whilst the update is on-going.
    */
   updateDiscount(): void {
+    // validate that the request and its information is valid
     if (!this.isFormValid && this.isFormDirty) {
+      return;
+    }
+    if (this.discount === undefined || this.discount?.discountId === undefined) {
       return;
     }
     this.isLoading = true;
     this.discountService
-      .updateDiscount(this.discount?.discountId!, {
+      .updateDiscount(this.discount.discountId, {
         discountCode: this.discountForm.get('discountCode')?.value,
         remainingUses: this.discountForm.get('usesLeft')?.value,
         expiresAt: this.discountForm.get('expiresAt')?.value,
@@ -134,9 +138,13 @@ export class EditDiscountComponent implements OnInit {
    * Changes the state of isLoading variable whilst the update is on-going.
    */
   toggleDiscountState(): void {
+    // validate that the request and its information is valid
+    if (this.discount === undefined || this.discount?.discountId === undefined) {
+      return;
+    }
     this.isLoading = true;
     this.discountService
-      .updateDiscount(this.discount?.discountId!, {
+      .updateDiscount(this.discount.discountId, {
         isEnabled: !this.discount?.isEnabled,
       })
       .subscribe({
