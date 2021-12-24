@@ -7,6 +7,10 @@ import { ActivatedRoute } from '@angular/router';
 import { DiscountType, IDiscount } from '@interfaces';
 import { DiscountsService } from '../../services/discounts/discounts.service';
 
+enum DiscountStatusColorsEnum {
+  red = '#FF0000',
+  green = '#00B207',
+}
 @Component({
   selector: 'webstore-edit-discount',
   templateUrl: './edit-discount.component.html',
@@ -17,6 +21,7 @@ export class EditDiscountComponent implements OnInit {
   id?: string;
   isLoading = true;
   discountTypeOptions = [DiscountType.amount, DiscountType.percent];
+  discountStatusColorsEnum = DiscountStatusColorsEnum;
 
   // Discount information
   discountForm: FormGroup;

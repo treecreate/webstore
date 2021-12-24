@@ -107,6 +107,11 @@
                             [matTooltipDisabled]="!isLoading ? true : false"
                             matTooltipPosition="below"
                             ><button
+                                [ngStyle]="{
+                                    'background-color': discount?.isEnabled
+                                        ? discountStatusColorsEnum.green
+                                        : discountStatusColorsEnum.red
+                                }"
                                 mat-flat-button
                                 color="primary"
                                 (click)="toggleDiscountState()"
