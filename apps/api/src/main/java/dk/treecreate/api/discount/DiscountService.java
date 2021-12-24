@@ -50,6 +50,7 @@ import java.util.UUID;
         }
         if (updateDiscountRequest.getDiscountCode() != null)
         {
+            // TODO - add a check for duplicate discount code
             discount.setDiscountCode(updateDiscountRequest.getDiscountCode());
         }
         if (updateDiscountRequest.getType() != null)
