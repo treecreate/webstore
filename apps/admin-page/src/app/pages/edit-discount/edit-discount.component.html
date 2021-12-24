@@ -82,7 +82,14 @@
                 <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
                     <div class="actions-row">
                         <span matTooltip="Action not implemented yet." matTooltipPosition="right">
-                            <button mat-flat-button color="primary" [disabled]="true">Update</button>
+                            <button
+                                mat-flat-button
+                                color="primary"
+                                [disabled]="isLoading || !isFormValid() || !isFormDirty()"
+                                (click)="updateDiscount()"
+                            >
+                                Update
+                            </button>
                         </span>
                         <div class="spacer"></div>
                         <span matTooltip="Action not implemented yet." matTooltipPosition="right"

@@ -82,4 +82,20 @@ export class EditDiscountComponent implements OnInit {
       },
     });
   }
+
+  /**
+   * Checks whether the discount form fields are valid
+   * @returns whether the form fields are valid
+   */
+  isFormValid(): boolean {
+    return this.discount === undefined || this.discountForm.valid;
+  }
+
+  /**
+   * Checks whether the discount form has been modified
+   * @returns whether the form has been modified
+   */
+  isFormDirty(): boolean {
+    return this.discountForm.dirty;
+  }
 }
