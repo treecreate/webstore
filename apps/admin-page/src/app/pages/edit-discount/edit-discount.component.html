@@ -81,7 +81,17 @@
 
                 <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
                     <div class="actions-row">
-                        <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                        <span
+                            [matTooltipDisabled]="isFormDirty() && !isLoading && isFormValid() ? true : false"
+                            [matTooltip]="
+                                !isFormDirty()
+                                    ? 'You need to change discount information before you can update'
+                                    : isLoading
+                                    ? 'Cant update while the data is loading'
+                                    : 'The data is invalid'
+                            "
+                            matTooltipPosition="below"
+                        >
                             <button
                                 mat-flat-button
                                 color="primary"
