@@ -103,8 +103,13 @@
                         </span>
                         <div class="spacer"></div>
                         <span
-                            matTooltip="You can't update while the data is loading."
-                            [matTooltipDisabled]="!isLoading ? true : false"
+                            [matTooltip]="
+                                isLoading
+                                    ? 'You cant update while the data is loading.'
+                                    : discount?.isEnabled
+                                    ? 'Click to disable the discount'
+                                    : 'Click to enable the discount'
+                            "
                             matTooltipPosition="below"
                             ><button
                                 [ngStyle]="{
