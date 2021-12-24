@@ -1,10 +1,10 @@
+import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DiscountType, IDiscount } from '@interfaces';
-import { Location } from '@angular/common';
 import { DiscountsService } from '../../services/discounts/discounts.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'webstore-edit-discount',
@@ -18,9 +18,24 @@ export class EditDiscountComponent implements OnInit {
   discountTypeOptions = [DiscountType.amount, DiscountType.percent];
 
   // Discount information
-  discountForm: FormGroup | undefined;
+  discountForm: FormGroup;
 
-  constructor(public discountService: DiscountsService, private route: ActivatedRoute, private location: Location) {}
+  /**
+   * Initliaze the disocunt form
+   * @param discountService service for discount-related http calls and logic
+   * @param route angular route for getting url params
+   * @param location used for navigating through browser history
+   */
+  constructor(public discountService: DiscountsService, private route: ActivatedRoute, private location: Location) {
+    this.discountForm = new FormGroup({
+      discountCode: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      usesLeft: new FormControl('', [Validators.required, Validators.min(0)]),
+      expiresAt: new FormControl('', [Validators.required]),
+      startsAt: new FormControl('', [Validators.required]),
+      amount: new FormControl('', [Validators.required, Validators.min(0)]),
+      type: new FormControl('', [Validators.required]),
+    });
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || undefined;
@@ -56,20 +71,13 @@ export class EditDiscountComponent implements OnInit {
         this.isLoading = false;
         this.discount = discount;
 
-        const expiresAt = this.discount?.expiresAt || '';
-        const createdAt = this.discount?.createdAt || '';
-
-        // Discount Information
-        this.discountForm = new FormGroup({
-          discountCodeControl: new FormControl(this.discount?.discountCode, [
-            Validators.required,
-            Validators.maxLength(50),
-          ]),
-          usesLeftControl: new FormControl(this.discount?.remainingUses, [Validators.required, Validators.min(0)]),
-          expirationDateControl: new FormControl(new Date(expiresAt), [Validators.required]),
-          amountControl: new FormControl(this.discount?.amount, [Validators.required, Validators.min(0)]),
-          typeControl: new FormControl(this.discount?.type, [Validators.required]),
-          startDateControl: new FormControl(new Date(createdAt), [Validators.required]),
+        this.discountForm.patchValue({
+          discountCode: discount.discountCode,
+          usesLeft: discount.remainingUses,
+          expiresAt: this.discount?.expiresAt || '',
+          startsAt: this.discount?.startsAt || '',
+          amount: discount.amount,
+          type: discount.type,
         });
       },
     });
