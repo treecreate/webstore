@@ -104,11 +104,19 @@ export class EditDiscountComponent implements OnInit {
       .subscribe({
         error: (error: HttpErrorResponse) => {
           console.error(error);
-          this.snackBar.open(
-            `Failed to update the discount with error: ${error.error.error}`,
-            `Cool, Let's try again`,
-            { duration: 5000 }
-          );
+          if (error.error.message.includes('discount code is already used')) {
+            this.snackBar.open(
+              `The provided discount code is already used by another discount`,
+              `Cool, Lemme try something else`,
+              { duration: 10000 }
+            );
+          } else {
+            this.snackBar.open(
+              `Failed to update the discount state with error: ${error.error.message}`,
+              `Cool, Let's try again`,
+              { duration: 5000 }
+            );
+          }
           this.isLoading = false;
         },
         next: (discount: IDiscount) => {
