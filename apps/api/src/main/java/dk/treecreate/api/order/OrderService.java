@@ -2,6 +2,8 @@ package dk.treecreate.api.order;
 
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfo;
+import dk.treecreate.api.contactinfo.ContactInfoRepository;
+import dk.treecreate.api.contactinfo.dto.UpdateContactInfoRequest;
 import dk.treecreate.api.designs.ContactInfoService;
 import dk.treecreate.api.designs.DesignDimension;
 import dk.treecreate.api.designs.DesignType;
@@ -10,6 +12,7 @@ import dk.treecreate.api.discount.DiscountRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
+import dk.treecreate.api.order.dto.UpdateOrderRequest;
 import dk.treecreate.api.transactionitem.TransactionItem;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
@@ -20,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
@@ -30,6 +34,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class OrderService
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
@@ -124,6 +129,67 @@ public class OrderService
             .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
 
         order.setStatus(status);
+        return orderRepository.save(order);
+    }
+
+    @Autowired
+    ContactInfoRepository contactInfoRepository;
+
+    /**
+     * Updates the order with select data from the provided DTO
+     *
+     * @param orderId            the ID of the order
+     * @param updateOrderRequest the new order data
+     * @return the updated order
+     */
+    public Order updateOrder(UUID orderId, UpdateOrderRequest updateOrderRequest)
+    {
+        Order order = orderRepository.findByOrderId(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+        if (updateOrderRequest == null)
+        {
+            return order;
+        }
+        // only update the fields that aren't null
+        if (updateOrderRequest.getStatus() != null)
+        {
+            order.setStatus(updateOrderRequest.getStatus());
+        }
+        if (updateOrderRequest.getContactInfo() != null)
+        {
+            ContactInfo contactInfo = order.getContactInfo();
+            UpdateContactInfoRequest updateContactInfoRequest = updateOrderRequest.getContactInfo();
+            if (updateContactInfoRequest.getName() != null)
+            {
+                contactInfo.setName(updateContactInfoRequest.getName());
+            }
+            if (updateContactInfoRequest.getPhoneNumber() != null)
+            {
+                contactInfo.setPhoneNumber(updateContactInfoRequest.getPhoneNumber());
+            }
+            if (updateContactInfoRequest.getStreetAddress() != null)
+            {
+                contactInfo.setStreetAddress(updateContactInfoRequest.getStreetAddress());
+            }
+            if (updateContactInfoRequest.getStreetAddress2() != null)
+            {
+                contactInfo.setStreetAddress2(updateContactInfoRequest.getStreetAddress2());
+            }
+            if (updateContactInfoRequest.getCity() != null)
+            {
+                contactInfo.setCity(updateContactInfoRequest.getCity());
+            }
+            if (updateContactInfoRequest.getPostcode() != null)
+            {
+                contactInfo.setPostcode(updateContactInfoRequest.getPostcode());
+            }
+            if (updateContactInfoRequest.getCountry() != null)
+            {
+                contactInfo.setCountry(updateContactInfoRequest.getCountry());
+            }
+            contactInfo = contactInfoRepository.save(contactInfo);
+            order.setContactInfo(contactInfo);
+        }
         return orderRepository.save(order);
     }
 

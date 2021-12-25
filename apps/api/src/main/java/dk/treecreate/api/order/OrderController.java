@@ -7,7 +7,7 @@ import dk.treecreate.api.discount.DiscountRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetAllOrdersResponse;
-import dk.treecreate.api.order.dto.GetOrdersResponse;
+import dk.treecreate.api.order.dto.UpdateOrderRequest;
 import dk.treecreate.api.order.dto.UpdateOrderStatusRequest;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
@@ -78,7 +78,7 @@ public class OrderController
     public List<Order> getAll(@Parameter(name = "userId",
         description = "Id of the user the listed orders belong to",
         example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = false)
-                                  @RequestParam(required = false) UUID userId)
+                              @RequestParam(required = false) UUID userId)
     {
         if (userId == null)
         {
@@ -216,6 +216,26 @@ public class OrderController
         {
             throw new ResourceNotFoundException("Order not found");
         }
+    }
+
+    /**
+     * Update the given order with select information.
+     * Will return a response with the full order if it is successful or 404 - Not Found
+     * if there is no order with specified id.
+     *
+     * @param updateOrderRequest DTO for the request.
+     * @param orderId            the ID of the order.
+     * @return the updated order.
+     */
+    @PatchMapping("{orderId}")
+    @Operation(summary = "Update an order with select information")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Order updateOrder(
+        @RequestBody(required = false) @Valid UpdateOrderRequest updateOrderRequest,
+        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId)
+    {
+        return orderService.updateOrder(orderId, updateOrderRequest);
     }
 
 }
