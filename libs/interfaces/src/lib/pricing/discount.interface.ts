@@ -11,3 +11,13 @@ export interface IDiscount extends IBase {
   startsAt?: Date;
   expiresAt?: Date;
 }
+
+export interface CreateDiscountRequest {
+  discountCode: string;
+  expiresAt: Date;
+  startsAt: Date;
+  isEnabled: boolean;
+  totalUses: number;
+  mount: number;
+  type: DiscountType;
+}

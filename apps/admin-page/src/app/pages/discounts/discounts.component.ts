@@ -33,6 +33,9 @@ export class DiscountsComponent implements OnInit {
     this.clipboardService.copyFromContent(content);
   }
 
+  /**
+   * Open create discount dialog.
+   */
   openCreateDiscountDialog(): void {
     this.dialog.open(CreateDiscountDialogComponent, { width: '500px' });
   }
