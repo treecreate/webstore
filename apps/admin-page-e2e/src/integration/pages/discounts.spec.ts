@@ -56,7 +56,7 @@ describe('discountsPage', () => {
   });
 
   it('should display the create new button', () => {
-    cy.get('[data-cy=discounts-create-btn]').should('exist');
+    cy.get('[data-cy=create-discount-btn]').should('exist');
   });
 
   it('should display the discounts table with header and rows', () => {
