@@ -42,8 +42,8 @@ export class EditDiscountComponent implements OnInit {
     this.discountForm = new FormGroup({
       discountCode: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       usesLeft: new FormControl('', [Validators.required, Validators.min(0)]),
-      expiresAt: new FormControl('', [Validators.required]),
-      startsAt: new FormControl('', [Validators.required]),
+      expiresAt: new FormControl(''),
+      startsAt: new FormControl(''),
       amount: new FormControl('', [Validators.required, Validators.min(0)]),
       type: new FormControl('', [Validators.required]),
     });

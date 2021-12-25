@@ -95,8 +95,9 @@
                             <button
                                 mat-flat-button
                                 color="primary"
-                                [disabled]="isLoading || !isFormValid() || !isFormDirty()"
                                 (click)="updateDiscount()"
+                                [disabled]="isLoading || !isFormValid() || !isFormDirty()"
+                                data-cy="update-discount-btn"
                             >
                                 Update
                             </button>
@@ -121,6 +122,7 @@
                                 color="primary"
                                 (click)="toggleDiscountState()"
                                 [disabled]="isLoading"
+                                data-cy="toggle-discount-status-btn"
                             >
                                 {{ discount?.isEnabled ? 'Active' : 'Deactivated' }}
                             </button></span
