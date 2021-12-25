@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
+import { environment as env } from '../../../environments/environment';
 
 @Component({
   selector: 'webstore-order-details',
@@ -155,6 +156,10 @@ export class OrderDetailsComponent implements OnInit {
       default:
         return 99999999;
     }
+  }
+
+  getDesignViewOnlyUrl(id: string): string {
+    return `${env.webstoreUrl}/product?designId=${id}`; 
   }
 
   /**

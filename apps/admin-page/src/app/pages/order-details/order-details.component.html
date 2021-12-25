@@ -112,17 +112,15 @@
                                     Edit
                                 </button>
                                 <div class="spacer"></div>
-                                <button
+                                <a
                                     mat-flat-button
                                     color="primary"
-                                    routerLink="/transaction-items/{{ item.transactionItemId }}"
+                                    href="{{getDesignViewOnlyUrl(item.design.designId)}}"
+                                    target="_blank"
                                     data-cy="item-view-btn"
-                                    matTooltip="Action not implemented yet."
-                                    matTooltipPosition="right"
-                                    [disabled]="true"
                                 >
                                     View
-                                </button>
+                            </a>
                             </div>
                         </td>
                     </ng-container>
