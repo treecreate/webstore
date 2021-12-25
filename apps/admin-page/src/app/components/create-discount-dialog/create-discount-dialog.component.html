@@ -1,17 +1,45 @@
-<form (ngSubmit)="createDiscount()">
-    <h3>Create discount</h3>
+<form (ngSubmit)="createDiscount()" [formGroup]="createDiscountForm" data-cy="create-discount-dialog">
+    <div class="header">
+        <h2>Create discount</h2>
+        <div class="enable-toggle">
+            Enable Discount
+            <mat-slide-toggle color="primary" formControlName="isEnabled" [checked]="checked"></mat-slide-toggle>
+        </div>
+    </div>
     <hr />
-    <mat-form-field class="input-100" appearance="fill">
-        <mat-label class="input-label">Discount code</mat-label>
-        <input type="text" data-cy="discount-code-input" formControlName="discountCode" matInput placeholder="ABC123" />
-        <mat-error
-            *ngIf="createDiscountForm.get('discountCode')?.invalid && createDiscountForm.get('discountCode')?.dirty"
-        >
-            Invalid discount code (length in chars: min 3, max 50)
-        </mat-error>
-    </mat-form-field>
 
     <div class="input-container">
+        <div class="row-container">
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Discount code</mat-label>
+                <input
+                    type="text"
+                    data-cy="discount-code-input"
+                    formControlName="discountCode"
+                    matInput
+                    placeholder="ABC123"
+                />
+                <mat-error
+                    *ngIf="
+                        createDiscountForm.get('discountCode')?.invalid && createDiscountForm.get('discountCode')?.dirty
+                    "
+                >
+                    Invalid discount code (length in chars: min 3, max 50)
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Remaining uses</mat-label>
+                <input
+                    type="number"
+                    data-cy="discount-remaining-uses-input"
+                    formControlName="remainingUses"
+                    matInput
+                    value="1"
+                />
+            </mat-form-field>
+        </div>
+
         <div class="row-container">
             <mat-form-field class="input" appearance="fill">
                 <mat-label class="input-label">Starts at</mat-label>
@@ -38,30 +66,6 @@
 
         <div class="row-container">
             <mat-form-field class="input" appearance="fill">
-                <mat-label class="input-label">Is enabled</mat-label>
-                <input
-                    type="test"
-                    data-cy="discount-is-enabled-input"
-                    formControlName="isEnabled"
-                    matInput
-                    placeholder="True"
-                />
-            </mat-form-field>
-
-            <mat-form-field class="input" appearance="fill">
-                <mat-label class="input-label">Total uses</mat-label>
-                <input
-                    type="number"
-                    data-cy="discount-total-uses-input"
-                    formControlName="totalUses"
-                    matInput
-                    value="1"
-                />
-            </mat-form-field>
-        </div>
-
-        <div class="row-container">
-            <mat-form-field class="input" appearance="fill">
                 <mat-label class="input-label">Discount type</mat-label>
                 <select matNativeControl required>
                     <option value="PERCENT">Percent</option>
@@ -74,5 +78,21 @@
                 <input type="number" data-cy="discount-amount-input" formControlName="amount" matInput value="10" />
             </mat-form-field>
         </div>
+    </div>
+
+    <div class="action">
+        <button
+            mat-flat-button
+            color="accent"
+            class="action-button"
+            data-cy="discount-dialog-cancel-btn"
+            mat-dialog-close
+            (click)="show()"
+        >
+            Cancel
+        </button>
+        <button mat-flat-button color="primary" class="action-button" data-cy="discount-create-btn" type="submit">
+            Create
+        </button>
     </div>
 </form>
