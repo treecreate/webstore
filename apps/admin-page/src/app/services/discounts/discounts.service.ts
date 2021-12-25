@@ -36,6 +36,6 @@ export class DiscountsService {
    * @returns an observable with created discount.
    */
   public createDiscount(params: CreateDiscountRequest): Observable<IDiscount> {
-    return this.http.post<IDiscount>(`${env.apiUrl}/discounts`, { params });
+    return this.http.post<IDiscount>(`${env.apiUrl}/discounts`, params);
   }
 }

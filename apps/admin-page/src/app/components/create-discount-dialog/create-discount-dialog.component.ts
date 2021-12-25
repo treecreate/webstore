@@ -17,9 +17,9 @@ export class CreateDiscountDialogComponent {
   constructor(private discountService: DiscountsService, private snackbar: MatSnackBar) {
     this.createDiscountForm = new FormGroup({
       discountCode: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
-      startsAt: new FormControl(new Date(), [Validators.required]),
+      startsAt: new FormControl(''),
       expiresAt: new FormControl('', [Validators.required]),
-      remainingUses: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      remainingUses: new FormControl(1, [Validators.required, Validators.pattern('^[0-9]*$')]),
       type: new FormControl(DiscountType.amount, [Validators.required]),
       isEnabled: new FormControl(this.checked, [Validators.required]),
       amount: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
@@ -35,27 +35,36 @@ export class CreateDiscountDialogComponent {
   }
 
   createDiscount(): void {
-    if (true) {
-      this.discountService
-        .createDiscount({
-          discountCode: this.createDiscountForm.get('discountCode')?.value,
-          expiresAt: this.createDiscountForm.get('expiresAt')?.value,
-          startsAt: this.createDiscountForm.get('startsAt')?.value,
-          isEnabled: this.createDiscountForm.get('isEnabled')?.value,
-          totalUses: 0,
-          amount: this.createDiscountForm.get('amount')?.value,
-          type: this.createDiscountForm.get('type')?.value,
-        })
-        .subscribe(
-          (data: IDiscount) => {
-            console.log(data);
-            this.snackbar.open('Discount created!', 'HOLY SH***', { duration: 2500 });
-          },
-          (err: HttpErrorResponse) => {
-            console.error(err);
-            this.snackbar.open('Failed to create discount sadly :(((', 'SH*** HOLY', { duration: 5000 });
-          }
-        );
-    }
+    console.log({
+      discountCode: this.createDiscountForm.get('discountCode')?.value,
+      expiresAt: this.getDateTime(this.createDiscountForm.get('expiresAt')?.value),
+      startsAt: this.getDateTime(this.createDiscountForm.get('startsAt')?.value) || new Date(),
+      isEnabled: this.createDiscountForm.get('isEnabled')?.value,
+      remainingUses: this.createDiscountForm.get('remainingUses')?.value,
+      totalUses: 0,
+      amount: this.createDiscountForm.get('amount')?.value,
+      type: this.createDiscountForm.get('type')?.value,
+    });
+    this.discountService
+      .createDiscount({
+        discountCode: this.createDiscountForm.get('discountCode')?.value,
+        expiresAt: this.getDateTime(this.createDiscountForm.get('expiresAt')?.value),
+        startsAt: this.getDateTime(this.createDiscountForm.get('startsAt')?.value) || new Date(),
+        isEnabled: this.createDiscountForm.get('isEnabled')?.value,
+        remainingUses: this.createDiscountForm.get('remainingUses')?.value,
+        totalUses: 0,
+        amount: this.createDiscountForm.get('amount')?.value,
+        type: this.createDiscountForm.get('type')?.value,
+      })
+      .subscribe(
+        (data: IDiscount) => {
+          console.log(data);
+          this.snackbar.open('Discount created!', 'HOLY SH***', { duration: 2500 });
+        },
+        (err: HttpErrorResponse) => {
+          console.error(err);
+          this.snackbar.open('Failed to create discount sadly :(((', 'SH*** HOLY', { duration: 5000 });
+        }
+      );
   }
 }

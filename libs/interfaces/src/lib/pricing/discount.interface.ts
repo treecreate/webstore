@@ -17,6 +17,7 @@ export interface CreateDiscountRequest {
   expiresAt: Date;
   startsAt: Date;
   isEnabled: boolean;
+  remainingUses: number;
   totalUses: number;
   amount: number;
   type: DiscountType;
