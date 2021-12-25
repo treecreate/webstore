@@ -18,6 +18,6 @@ export interface CreateDiscountRequest {
   startsAt: Date;
   isEnabled: boolean;
   totalUses: number;
-  mount: number;
+  amount: number;
   type: DiscountType;
 }
