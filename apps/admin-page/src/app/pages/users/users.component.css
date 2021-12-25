@@ -1,4 +1,4 @@
-.discounts-table {
+.users-table {
   box-shadow: none;
   width: 100%;
   max-width: 71.25vw;
@@ -20,40 +20,19 @@
   border-bottom-style: none;
 }
 
-.header {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.row .mat-flat-button {
+button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: fit-content;
   height: 2.3vh;
+  min-width: fit-content;
   min-height: 15px;
-  padding: 0 10px;
+  margin: 5px;
 }
 
-.row .mat-icon-button {
-  font-size: 24px;
-  color: #616060;
-}
-
-.row {
+.actions,
+.id-container {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-}
-
-.row > .item {
-  flex: 1;
-}
-
-.row .spacer {
-  flex: 0.15;
 }
 
 .icon {
