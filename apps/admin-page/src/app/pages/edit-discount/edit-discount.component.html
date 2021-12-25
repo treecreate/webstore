@@ -103,6 +103,10 @@
                             </button>
                         </span>
                         <div class="spacer"></div>
+                        <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                            <button mat-flat-button color="primary" [disabled]="true">Delete</button></span
+                        >
+                        <div class="spacer"></div>
                         <span
                             [matTooltip]="
                                 isLoading
@@ -112,25 +116,16 @@
                                     : 'Click to enable the discount'
                             "
                             matTooltipPosition="below"
-                            ><button
-                                [ngStyle]="{
-                                    'background-color': discount?.isEnabled
-                                        ? discountStatusColorsEnum.green
-                                        : discountStatusColorsEnum.red
-                                }"
-                                mat-flat-button
-                                color="primary"
+                        >
+                            <mat-slide-toggle
+                                [checked]="discount?.isEnabled"
                                 (click)="toggleDiscountState()"
                                 [disabled]="isLoading"
-                                data-cy="toggle-discount-status-btn"
+                                data-cy="toggle-discount-status-slider"
                             >
-                                {{ discount?.isEnabled ? 'Active' : 'Deactivated' }}
-                            </button></span
-                        >
-                        <div class="spacer"></div>
-                        <span matTooltip="Action not implemented yet." matTooltipPosition="right">
-                            <button mat-flat-button color="primary" [disabled]="true">Delete</button></span
-                        >
+                                {{ discount?.isEnabled ? 'Enabled' : 'Disabled' }}
+                            </mat-slide-toggle>
+                        </span>
                     </div>
                 </mat-grid-tile>
             </mat-grid-list>

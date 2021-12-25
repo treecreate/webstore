@@ -139,7 +139,7 @@ export class EditDiscountComponent implements OnInit {
   }
 
   /**
-   * Performs a API call in order to either activate or deactive a discount.\
+   * Performs a API call in order to either enable or disable a discount.\
    * Changes the state of isLoading variable whilst the update is on-going.
    */
   toggleDiscountState(): void {
@@ -164,7 +164,7 @@ export class EditDiscountComponent implements OnInit {
         },
         next: (discount: IDiscount) => {
           this.discount = discount;
-          this.snackBar.open(`Discount has been ${this.discount?.isEnabled ? 'activated' : 'deactivated'}`, 'Ya Yeet', {
+          this.snackBar.open(`Discount has been ${this.discount?.isEnabled ? 'enabled' : 'disabled'}`, 'Ya Yeet', {
             duration: 3500,
           });
           this.isLoading = false;

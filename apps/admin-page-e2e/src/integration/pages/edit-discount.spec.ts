@@ -120,17 +120,17 @@ describe('editDiscountPage', () => {
         statusCode: 200,
         times: 1,
       }).as('updateDiscountStatusFalse');
-      cy.get('[data-cy=toggle-discount-status-btn]').should('be.enabled').click();
-      cy.get('[data-cy=toggle-discount-status-btn]').contains('Deactivated');
-      cy.get('simple-snack-bar').should('contain', 'deactivated');
+      cy.get('[data-cy=toggle-discount-status-slider]').click();
+      cy.get('[data-cy=toggle-discount-status-slider]').contains('Disabled');
+      cy.get('simple-snack-bar').should('contain', 'disabled');
       cy.intercept('PATCH', 'discounts/123', {
         body: { ...mockDiscount, isEnabled: true },
         statusCode: 200,
         times: 1,
       });
-      cy.get('[data-cy=toggle-discount-status-btn]').should('be.enabled').click();
-      cy.get('[data-cy=toggle-discount-status-btn]').contains('Active');
-      cy.get('simple-snack-bar').should('contain', 'activated');
+      cy.get('[data-cy=toggle-discount-status-slider]').click();
+      cy.get('[data-cy=toggle-discount-status-slider]').contains('Enabled');
+      cy.get('simple-snack-bar').should('contain', 'enabled');
     });
 
     it('should display a snackbar on failed toggle of discount status', () => {
@@ -139,10 +139,9 @@ describe('editDiscountPage', () => {
         statusCode: 400,
         times: 1,
       });
-      cy.get('[data-cy=toggle-discount-status-btn]').should('be.enabled').click();
-      cy.get('[data-cy=toggle-discount-status-btn]').contains('Active');
+      cy.get('[data-cy=toggle-discount-status-slider]').click();
+      cy.get('[data-cy=toggle-discount-status-slider]').contains('Enabled');
       cy.get('simple-snack-bar').should('contain', 'Failed');
-      cy.get('[data-cy=toggle-discount-status-btn]').should('be.enabled');
     });
   });
 });
