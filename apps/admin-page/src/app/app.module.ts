@@ -20,6 +20,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
 import { EditDiscountComponent } from './pages/edit-discount/edit-discount.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
+import { CreateDiscountDialogComponent } from './components/create-discount-dialog/create-discount-dialog.component';
 
 registerLocaleData(en);
 
@@ -36,6 +37,7 @@ registerLocaleData(en);
     ChangePasswordDialogComponent,
     EditDiscountComponent,
     OrderDetailsComponent,
+    CreateDiscountDialogComponent,
   ],
   imports: [
     BrowserModule,

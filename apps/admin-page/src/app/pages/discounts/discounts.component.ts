@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { IDiscount } from '@interfaces';
 import { ClipboardService } from 'ngx-clipboard';
+import { CreateDiscountDialogComponent } from '../../components/create-discount-dialog/create-discount-dialog.component';
 import { DiscountsService } from '../../services/discounts/discounts.service';
 
 @Component({
@@ -14,7 +16,11 @@ export class DiscountsComponent implements OnInit {
   displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'expiresAt', 'actions'];
   discounts!: IDiscount[];
 
-  constructor(private discountsService: DiscountsService, private clipboardService: ClipboardService) {}
+  constructor(
+    private discountsService: DiscountsService,
+    private clipboardService: ClipboardService,
+    private dialog: MatDialog
+  ) {}
 
   /**
    * Fetches the discounts.
@@ -25,6 +31,10 @@ export class DiscountsComponent implements OnInit {
 
   copyToClipboard(content: string): void {
     this.clipboardService.copyFromContent(content);
+  }
+
+  openCreateDiscountDialog(): void {
+    this.dialog.open(CreateDiscountDialogComponent, { width: '500px' });
   }
 
   /**

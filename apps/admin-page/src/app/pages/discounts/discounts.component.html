@@ -2,7 +2,13 @@
     <ng-template #content>
         <div class="header">
             <div matTooltip="Not implemented yet.">
-                <button mat-flat-button color="primary" [disabled]="true" class="item" data-cy="discounts-create-btn">
+                <button
+                    mat-flat-button
+                    color="primary"
+                    (click)="openCreateDiscountDialog()"
+                    class="item"
+                    data-cy="discounts-create-btn"
+                >
                     Create new
                 </button>
             </div>
