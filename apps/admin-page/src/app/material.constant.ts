@@ -18,6 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 export const materialModules = [
   MatCommonModule,
@@ -41,4 +42,5 @@ export const materialModules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSortModule,
+  MatSlideToggleModule,
 ];
