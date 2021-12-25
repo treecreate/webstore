@@ -1,1 +1,78 @@
-<form (ngSubmit)="createDiscount()"></form>
+<form (ngSubmit)="createDiscount()">
+    <h3>Create discount</h3>
+    <hr />
+    <mat-form-field class="input-100" appearance="fill">
+        <mat-label class="input-label">Discount code</mat-label>
+        <input type="text" data-cy="discount-code-input" formControlName="discountCode" matInput placeholder="ABC123" />
+        <mat-error
+            *ngIf="createDiscountForm.get('discountCode')?.invalid && createDiscountForm.get('discountCode')?.dirty"
+        >
+            Invalid discount code (length in chars: min 3, max 50)
+        </mat-error>
+    </mat-form-field>
+
+    <div class="input-container">
+        <div class="row-container">
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Starts at</mat-label>
+                <input
+                    type="date"
+                    data-cy="discount-starts-at-input"
+                    formControlName="startsAt"
+                    matInput
+                    placeholder="25-12-2021"
+                />
+            </mat-form-field>
+
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Expires at</mat-label>
+                <input
+                    type="date"
+                    data-cy="discount-expires-at-input"
+                    formControlName="expiresAt"
+                    matInput
+                    placeholder=""
+                />
+            </mat-form-field>
+        </div>
+
+        <div class="row-container">
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Is enabled</mat-label>
+                <input
+                    type="test"
+                    data-cy="discount-is-enabled-input"
+                    formControlName="isEnabled"
+                    matInput
+                    placeholder="True"
+                />
+            </mat-form-field>
+
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Total uses</mat-label>
+                <input
+                    type="number"
+                    data-cy="discount-total-uses-input"
+                    formControlName="totalUses"
+                    matInput
+                    value="1"
+                />
+            </mat-form-field>
+        </div>
+
+        <div class="row-container">
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Discount type</mat-label>
+                <select matNativeControl required>
+                    <option value="PERCENT">Percent</option>
+                    <option value="AMOUNT">Amount</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Amount</mat-label>
+                <input type="number" data-cy="discount-amount-input" formControlName="amount" matInput value="10" />
+            </mat-form-field>
+        </div>
+    </div>
+</form>

@@ -15,7 +15,7 @@ export class CreateDiscountDialogComponent {
 
   constructor(private discountService: DiscountsService, private snackbar: MatSnackBar) {
     this.createDiscountForm = new FormGroup({
-      discountCode: new FormControl('', [Validators.min(3), Validators.required]),
+      discountCode: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
       startsAt: new FormControl(new Date(), [Validators.required]),
       expiresAt: new FormControl('', [Validators.required]),
       remainingUses: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),

@@ -1,0 +1,17 @@
+.input-100 {
+  width: 100%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  width: 48%;
+}
