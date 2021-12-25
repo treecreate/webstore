@@ -39,7 +39,7 @@ const authMockService = new AuthenticationService();
 
 const mockDiscounts = [mockDiscount, mockDiscountNoUsesLeft, mockDiscountExpired];
 
-describe.skip('discountsPage', () => {
+describe('discountsPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
