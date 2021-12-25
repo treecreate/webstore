@@ -24,7 +24,7 @@
                         createDiscountForm.get('discountCode')?.invalid && createDiscountForm.get('discountCode')?.dirty
                     "
                 >
-                    Invalid discount code (length in chars: min 3, max 50)
+                    Invalid discount - Chars: min 3, max 50
                 </mat-error>
             </mat-form-field>
 
@@ -37,24 +37,12 @@
         <div class="row-container">
             <mat-form-field class="input" appearance="fill">
                 <mat-label class="input-label">Starts at</mat-label>
-                <input
-                    type="date"
-                    data-cy="discount-starts-at-input"
-                    formControlName="startsAt"
-                    matInput
-                    placeholder="25-12-2021"
-                />
+                <input type="date" data-cy="discount-starts-at-input" formControlName="startsAt" matInput />
             </mat-form-field>
 
             <mat-form-field class="input" appearance="fill">
                 <mat-label class="input-label">Expires at</mat-label>
-                <input
-                    type="date"
-                    data-cy="discount-expires-at-input"
-                    formControlName="expiresAt"
-                    matInput
-                    placeholder=""
-                />
+                <input type="date" data-cy="discount-expires-at-input" formControlName="expiresAt" matInput />
             </mat-form-field>
         </div>
 
@@ -81,12 +69,19 @@
             class="action-button"
             data-cy="discount-dialog-cancel-btn"
             mat-dialog-close
-            (click)="show()"
         >
             Cancel
         </button>
-        <button mat-flat-button color="primary" class="action-button" data-cy="discount-create-btn" type="submit">
+        <button
+            mat-flat-button
+            color="primary"
+            class="action-button"
+            data-cy="discount-create-btn"
+            type="submit"
+            [disabled]="createDiscountForm.invalid"
+        >
             Create
         </button>
+        <button (click)="showNew()" type="button">close the damn thing</button>
     </div>
 </form>

@@ -39,7 +39,7 @@ const authMockService = new AuthenticationService();
 
 const mockDiscounts = [mockDiscount, mockDiscountNoUsesLeft, mockDiscountExpired];
 
-describe('discountsPage', () => {
+describe.skip('discountsPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
@@ -107,11 +107,24 @@ describe('create discount dialog', () => {
     cy.get('[data-cy=create-discount-dialog]').should('exist');
   });
 
-  it('should have create button disabled with an invalid form', () => {});
+  it('should have create button disabled with an invalid form', () => {
+    cy.get('[data-cy=discount-create-btn]').should('be.disabled');
+    cy.get('[data-cy=discount-code-input]').clear().type('Yo');
+    cy.get('[data-cy=discount-expires-at-input]').type('2022-10-10');
+    cy.get('[data-cy=discount-amount-input]').type('25');
+    cy.get('[data-cy=discount-create-btn]').should('be.disabled');
+    cy.get('[data-cy=discount-code-input]').clear().type('YoYo');
+    cy.get('[data-cy=discount-create-btn]').should('not.be.disabled');
+  });
 
   it('should create a discount', () => {
     cy.intercept('POST', '/discounts', {
       statusCode: 200,
     });
+    cy.get('[data-cy=discount-code-input]').clear().type('Yoyoyo');
+    cy.get('[data-cy=discount-expires-at-input]').type('2022-10-10');
+    cy.get('[data-cy=discount-amount-input]').type('25');
+    cy.get('[data-cy=discount-create-btn]').click();
+    cy.get('[data-cy=create-discount-dialog]').should('not.exist');
   });
 });

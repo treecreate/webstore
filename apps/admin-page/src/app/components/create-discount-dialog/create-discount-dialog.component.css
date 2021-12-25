@@ -33,3 +33,7 @@ hr {
   display: flex;
   justify-content: space-between;
 }
+
+.input {
+  margin-bottom: 7px;
+}
