@@ -89,3 +89,29 @@ describe('discountsPage', () => {
     cy.get('[data-cy=discounts-enable-btn]').should('have.length', mockDiscounts.length);
   });
 });
+
+describe('create discount dialog', () => {
+  beforeEach(() => {
+    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
+
+    cy.intercept('GET', 'localhost:5000/discounts', {
+      body: mockDiscounts,
+      statusCode: 200,
+    }).as('fetchDiscounts');
+
+    cy.visit('/discounts');
+    cy.get('[data-cy=create-discount-btn]').click();
+  });
+
+  it('should display the create discount dialog', () => {
+    cy.get('[data-cy=create-discount-dialog]').should('exist');
+  });
+
+  it('should have create button disabled with an invalid form', () => {});
+
+  it('should create a discount', () => {
+    cy.intercept('POST', '/discounts', {
+      statusCode: 200,
+    });
+  });
+});

@@ -30,6 +30,10 @@ export class CreateDiscountDialogComponent {
     return new Date(date);
   }
 
+  show() {
+    console.log(this.createDiscountForm.get('isEnabled')?.value);
+  }
+
   createDiscount(): void {
     if (true) {
       this.discountService
