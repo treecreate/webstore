@@ -35,12 +35,12 @@
                             <mat-label>Expiration date</mat-label>
                             <input
                                 matInput
-                                [matDatepicker]="picker"
+                                [matDatepicker]="expireDatePicker"
                                 formControlName="expiresAt"
                                 data-cy="discount-expiration"
                             />
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker-toggle matSuffix [for]="expireDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #expireDatePicker></mat-datepicker>
                         </mat-form-field>
                     </div>
                     <div class="row">
@@ -69,12 +69,12 @@
                             <mat-label>Start date for discount</mat-label>
                             <input
                                 matInput
-                                [matDatepicker]="picker"
+                                [matDatepicker]="startDatePicker"
                                 formControlName="startsAt"
                                 data-cy="discount-start-date"
                             />
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #startDatePicker></mat-datepicker>
                         </mat-form-field>
                     </div>
                 </mat-grid-tile>
