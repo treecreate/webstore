@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DiscountType, IDiscount } from '@interfaces';
 import { DiscountsService } from '../../services/discounts/discounts.service';
@@ -14,7 +15,14 @@ export class CreateDiscountDialogComponent {
   createDiscountForm: FormGroup;
   checked = true;
 
-  constructor(private discountService: DiscountsService, private snackbar: MatSnackBar) {
+  /**
+   * Initialise the create password form.
+   *
+   * @param discountService
+   * @param snackbar
+   * @param dialog
+   */
+  constructor(private discountService: DiscountsService, private snackbar: MatSnackBar, private dialog: MatDialog) {
     this.createDiscountForm = new FormGroup({
       discountCode: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
       startsAt: new FormControl(''),
@@ -26,25 +34,18 @@ export class CreateDiscountDialogComponent {
     });
   }
 
+  /**
+   * @param date
+   * @returns The date in a dateTime format
+   */
   getDateTime(date: string): Date {
     return new Date(date);
   }
 
-  show() {
-    console.log(this.createDiscountForm.get('isEnabled')?.value);
-  }
-
+  /**
+   * Calls the service with a request to create the discount.
+   */
   createDiscount(): void {
-    console.log({
-      discountCode: this.createDiscountForm.get('discountCode')?.value,
-      expiresAt: this.getDateTime(this.createDiscountForm.get('expiresAt')?.value),
-      startsAt: this.getDateTime(this.createDiscountForm.get('startsAt')?.value) || new Date(),
-      isEnabled: this.createDiscountForm.get('isEnabled')?.value,
-      remainingUses: this.createDiscountForm.get('remainingUses')?.value,
-      totalUses: 0,
-      amount: this.createDiscountForm.get('amount')?.value,
-      type: this.createDiscountForm.get('type')?.value,
-    });
     this.discountService
       .createDiscount({
         discountCode: this.createDiscountForm.get('discountCode')?.value,
@@ -60,6 +61,7 @@ export class CreateDiscountDialogComponent {
         (data: IDiscount) => {
           console.log(data);
           this.snackbar.open('Discount created!', 'HOLY SH***', { duration: 2500 });
+          this.dialog.closeAll();
         },
         (err: HttpErrorResponse) => {
           console.error(err);
