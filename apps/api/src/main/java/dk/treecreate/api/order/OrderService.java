@@ -115,23 +115,6 @@ public class OrderService
         return true;
     }
 
-    /**
-     * Updates the order with the provided ID to contain the new status.
-     *
-     * @param orderId the ID of the order.
-     * @param status  the new status of the order.
-     * @return the updated order.
-     */
-    public Order updateOrderStatus(UUID orderId, OrderStatus status)
-        throws ResourceNotFoundException
-    {
-        Order order = orderRepository.findByOrderId(orderId)
-            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-
-        order.setStatus(status);
-        return orderRepository.save(order);
-    }
-
     @Autowired
     ContactInfoRepository contactInfoRepository;
 

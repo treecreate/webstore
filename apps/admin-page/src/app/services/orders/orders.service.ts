@@ -35,7 +35,7 @@ export class OrdersService {
    * @returns an observable with the updated order.
    */
   public updateOrder(order: IOrder): Observable<IOrder> {
-    return this.http.patch<IOrder>(`${env.apiUrl}/orders/status/${order.orderId}`, { status: order.status });
+    return this.http.patch<IOrder>(`${env.apiUrl}/orders/${order.orderId}`, { status: order.status });
   }
 
   /**
