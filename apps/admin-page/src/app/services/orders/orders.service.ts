@@ -20,6 +20,15 @@ export class OrdersService {
   }
 
   /**
+   * Calls the API to fetch all available orders.
+   *
+   * @returns an observable with the list of orders.
+   */
+  //  public getOrdersById(userId: string): Observable<IOrder[]> {
+  //   return this.http.get<IOrder[]>(`${env.apiUrl}/orders/${userId}`);
+  // }
+
+  /**
    * Calls the API to update the status of an order.
    *
    * @param order - the order that needs to be updated.

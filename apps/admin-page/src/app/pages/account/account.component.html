@@ -1,3 +1,5 @@
+<div class="back-btn" onclick="history.back()">< Back</div>
+
 <form class="account-page" [formGroup]="accountForm" (ngSubmit)="updateAccount()" data-cy="account-page">
     <div class="title-section">
         <h1 class="title">Account</h1>
@@ -130,13 +132,15 @@
             <div class="roles-section">
                 <h4>Roles :</h4>
                 <button mat-raised-button type="button" data-cy="is-user" color="basic">User</button>
-                <button mat-raised-button type="button" data-cy="is-operation" color="primary" *ngIf="false">
+                <!-- <button mat-raised-button type="button" data-cy="is-operation" color="primary" *ngIf="false">
                     Operation
-                </button>
-                <button mat-raised-button type="button" data-cy="is-developer" color="primary" *ngIf="isDeveloper">
+                </button> -->
+                <button mat-raised-button type="button" data-cy="is-developer" color="primary" *ngIf="isDeveloper()">
                     Developer
                 </button>
-                <button mat-raised-button type="button" data-cy="is-admin" color="accent" *ngIf="isAdmin">Admin</button>
+                <button mat-raised-button type="button" data-cy="is-admin" color="accent" *ngIf="isAdmin()">
+                    Admin
+                </button>
             </div>
             <div class="actions-section">
                 <div matTooltip="Invalid form or no changed values" [matTooltipDisabled]="!isDisabled()">
@@ -161,10 +165,9 @@
                 >
                     Change password
                 </button>
-                <button mat-raised-button type="button" color="primary" *ngIf="!isCustomer()">Reset password</button>
-                <button mat-raised-button type="button" color="primary" *ngIf="!isCustomer()">Send email</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="!isOnlyUser()">Reset password</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="!isOnlyUser()">Send email</button>
             </div>
         </div>
-        <hr />
     </div>
 </form>
