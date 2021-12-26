@@ -230,7 +230,8 @@
                             type="button"
                             (click)="updateOrder('CONTACT INFO', order!)"
                         >
-                            Update contact info
+                            <span *ngIf="!isLoading">Update contact info</span>
+                            <mat-icon *ngIf="isLoading"><mat-spinner diameter="15"></mat-spinner></mat-icon>
                         </button>
                     </span>
 
@@ -308,7 +309,8 @@
                             [disabled]="!isDeliveryAddressValid()"
                             (click)="updateOrder('DELIVERY ADDRESS', order!)"
                         >
-                            Update Address
+                            <span *ngIf="!isLoading">Update address</span>
+                            <mat-icon *ngIf="isLoading"><mat-spinner diameter="15"></mat-spinner></mat-icon>
                         </button>
                     </span>
                 </div>

@@ -99,30 +99,10 @@ export class OrderDetailsComponent implements OnInit {
     }
   }
 
+  /**
+   * @returns whether or not the delivery address fields are valid.
+   */
   isDeliveryAddressValid(): boolean {
-    console.log(
-      'name is valid',
-      this.nameControl.valid,
-      '\n',
-      'city is valid',
-      this.cityControl.valid,
-      '\n',
-      'postcode is valid',
-      this.postcodeControl.valid,
-      '\n',
-      'address 1 is valid',
-      this.addressOneControl.valid,
-      '\n',
-      'address 2 is valid',
-      this.addressTwoControl.valid,
-      '\n',
-      'form is dirty',
-      this.nameControl.dirty ||
-        this.cityControl.dirty ||
-        this.postcodeControl.dirty ||
-        this.addressOneControl.dirty ||
-        this.addressTwoControl.dirty
-    );
     return (
       this.nameControl.valid &&
       this.cityControl.valid &&
@@ -137,6 +117,9 @@ export class OrderDetailsComponent implements OnInit {
     );
   }
 
+  /**
+   * @returns whether or not the contact info fields are valid.
+   */
   isContactInfoValid(): boolean {
     return (
       !this.isLoading &&
