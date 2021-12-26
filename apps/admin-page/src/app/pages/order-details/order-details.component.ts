@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'webstore-order-details',
@@ -47,7 +48,12 @@ export class OrderDetailsComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
 
-  constructor(public ordersService: OrdersService, private route: ActivatedRoute, private location: Location) {
+  constructor(
+    public ordersService: OrdersService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private snackbar: MatSnackBar
+  ) {
     this.title = 'Loading...';
   }
 
@@ -72,16 +78,33 @@ export class OrderDetailsComponent implements OnInit {
    * In case an error is encountered, the orders will be reloaded from the database.
    *
    * @param order - the order containing the new status.
+   * @param updatedForm - the information that is updated. (status, contact info, delivery address)
    */
-  onStatusChange(order: IOrder): void {
-    this.ordersService.updateOrder(order).subscribe({
-      error: (error: HttpErrorResponse) => {
-        if (this.id !== undefined) {
-          this.fetchOrder(this.id);
-        }
-        console.error(error);
-      },
-    });
+  updateOrder(updatedForm: string, order: IOrder): void {
+    if (this.order !== undefined) {
+      this.ordersService.updateOrder(order).subscribe({
+        error: (error: HttpErrorResponse) => {
+          if (this.id !== undefined) {
+            this.fetchOrder(this.id);
+          }
+          this.snackbar.open('Order has failed to update', 'like, how even?..', { duration: 5000 });
+          console.error(error);
+        },
+        next: () => {
+          this.snackbar.open('Orders ' + updatedForm + ' has been updated!', 'Nice!', { duration: 2500 });
+        },
+      });
+    } else {
+      this.snackbar.open('Order is undefined', 'like, how even?..', { duration: 5000 });
+    }
+  }
+
+  isDeliveryAddressValid(): boolean {
+    return false;
+  }
+
+  isContactInfoValid(): boolean {
+    return false;
   }
 
   /**

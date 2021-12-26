@@ -47,7 +47,7 @@
                         class="order-status-select"
                         data-cy="order-status"
                         [ngStyle]="{ 'background-color': ordersService.getOrderStatusColor(order!.status) }"
-                        (selectionChange)="onStatusChange(order!)"
+                        (selectionChange)="updateOrder('STATUS', order!)"
                     >
                         <mat-option
                             [value]="status"
@@ -215,7 +215,9 @@
                         color="primary"
                         matTooltip="Action not implemented yet."
                         matTooltipPosition="right"
-                        [disabled]="true"
+                        [disabled]="isContactInfoValid()"
+                        type="button"
+                        (click)="updateOrder('CONTACT INFO', order!)"
                     >
                         Update contact info
                     </button>
@@ -269,7 +271,8 @@
                         color="primary"
                         matTooltip="Action not implemented yet."
                         matTooltipPosition="right"
-                        [disabled]="true"
+                        [disabled]="isDeliveryAddressValid()"
+                        (click)="updateOrder('DELIVERY ADDRESS', order!)"
                     >
                         Update Address
                     </button>
