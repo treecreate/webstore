@@ -272,7 +272,7 @@ describe('ordersPage', () => {
   });
 
   it('should reload orders on status change failure', () => {
-    cy.intercept('PATCH', 'localhost:5000/orders/MakeMeWantIt', {
+    cy.intercept('PATCH', 'orders/MakeMeWantIt', {
       statusCode: 500,
     }).as('updateOrderStatus');
 
