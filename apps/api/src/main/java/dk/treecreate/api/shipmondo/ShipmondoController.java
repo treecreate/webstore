@@ -2,8 +2,6 @@ package dk.treecreate.api.shipmondo;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -23,14 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.shipmondo.dto.ShipmentInfoDto;
-import dk.treecreate.api.shipmondo.ShipmentObject;
-import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
-import dk.treecreate.api.shipmondo.shipment_object_components.SendLabel;
-import dk.treecreate.api.shipmondo.utility.Address;
-import dk.treecreate.api.shipmondo.utility.ContactInfo;
-import dk.treecreate.api.shipmondo.utility.PrintUtil;
-import dk.treecreate.api.shipmondo.utility.Receiver;
-import dk.treecreate.api.shipmondo.utility.Sender;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
