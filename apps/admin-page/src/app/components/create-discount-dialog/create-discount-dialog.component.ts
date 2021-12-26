@@ -62,6 +62,7 @@ export class CreateDiscountDialogComponent {
       .subscribe(
         (data: IDiscount) => {
           this.snackbar.open('Discount created!', 'HOLY SH***', { duration: 2500 });
+          document.location.reload();
           this.dialog.closeAll();
           this.isLoading = false;
         },
