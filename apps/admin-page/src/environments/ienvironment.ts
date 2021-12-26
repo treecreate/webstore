@@ -4,4 +4,5 @@ export interface IEnvironment {
   envName: string;
 
   apiUrl: string;
+  webstoreUrl: string;
 }
