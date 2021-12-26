@@ -87,7 +87,6 @@ public class CustomPropertiesConfig
         this.jwtExpirationMs = jwtExpirationMs;
     }
 
-<<<<<<< HEAD
     public void setShipmondoUrl(String shipmondoUrl) {
         this.shipmondoUrl = shipmondoUrl;
     }
@@ -104,8 +103,9 @@ public class CustomPropertiesConfig
     public String getShipmondoToken()
     {
         return this.shipmondoToken;
-=======
-    public int getJwtRefreshExpirationMs()
+    }
+    
+        public int getJwtRefreshExpirationMs()
     {
         return jwtRefreshExpirationMs;
     }
@@ -113,6 +113,5 @@ public class CustomPropertiesConfig
     public void setJwtRefreshExpirationMs(int jwtRefreshExpirationMs)
     {
         this.jwtRefreshExpirationMs = jwtRefreshExpirationMs;
->>>>>>> admin-page
     }
 }
