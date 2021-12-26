@@ -18,6 +18,7 @@ export class OrderDetailsComponent implements OnInit {
   title!: string;
   daysLeft!: number;
   isLoading = true;
+  isUpdating = false;
 
   // Customer information
   emailControl!: FormControl;
@@ -82,6 +83,7 @@ export class OrderDetailsComponent implements OnInit {
    */
   updateOrder(updatedForm: string, order: IOrder): void {
     if (this.order !== undefined) {
+      this.isUpdating = true;
       this.ordersService.updateOrder(order).subscribe({
         error: (error: HttpErrorResponse) => {
           if (this.id !== undefined) {
@@ -89,9 +91,11 @@ export class OrderDetailsComponent implements OnInit {
           }
           this.snackbar.open('Order has failed to update', 'like, how even?..', { duration: 5000 });
           console.error(error);
+          this.isUpdating = false;
         },
         next: () => {
           this.snackbar.open('Orders ' + updatedForm + ' has been updated!', 'Nice!', { duration: 2500 });
+          this.isUpdating = false;
         },
       });
     } else {
