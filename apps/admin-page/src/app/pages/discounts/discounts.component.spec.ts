@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { DiscountsComponent } from './discounts.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('DiscountsComponent', () => {
   let component: DiscountsComponent;
@@ -9,7 +10,7 @@ describe('DiscountsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, MatDialogModule],
       declarations: [DiscountsComponent],
     }).compileComponents();
   });

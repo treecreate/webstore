@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IDiscount, UpdateDiscountRequest } from '@interfaces';
+import { IDiscount, UpdateDiscountRequest, CreateDiscountRequest } from '@interfaces';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 
@@ -39,5 +39,15 @@ export class DiscountsService {
    */
   public updateDiscount(id: string, params: UpdateDiscountRequest): Observable<IDiscount> {
     return this.http.patch<IDiscount>(`${env.apiUrl}/discounts/${id}`, params);
+  }
+
+  /**
+   * Calls the API to create a discount.
+   *
+   * @param params - a create discount request with all the needed info.
+   * @returns an observable with created discount.
+   */
+  public createDiscount(params: CreateDiscountRequest): Observable<IDiscount> {
+    return this.http.post<IDiscount>(`${env.apiUrl}/discounts`, params);
   }
 }

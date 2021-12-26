@@ -22,6 +22,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { ViewUserOrdersDialogComponent } from './components/view-user-orders-dialog/view-user-orders-dialog.component';
 import { EditDiscountComponent } from './pages/edit-discount/edit-discount.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
+import { CreateDiscountDialogComponent } from './components/create-discount-dialog/create-discount-dialog.component';
 
 registerLocaleData(en);
 
@@ -40,6 +41,7 @@ registerLocaleData(en);
     ViewUserOrdersDialogComponent,
     EditDiscountComponent,
     OrderDetailsComponent,
+    CreateDiscountDialogComponent,
   ],
   imports: [
     BrowserModule,
