@@ -169,7 +169,7 @@ describe('orderDetailsPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'localhost:5000/orders', {
+    cy.intercept('GET', 'http://localhost:5000/orders', {
       body: mockOrders,
       statusCode: 200,
     }).as('fetchOrders');
@@ -241,7 +241,7 @@ describe('orderDetailsPage', () => {
   });
 
   it('should correctly change the status', () => {
-    cy.intercept('PATCH', 'localhost:5000/orders/MakeMeWantIt', {
+    cy.intercept('PATCH', 'orders/MakeMeWantIt', {
       body: mockOrder(OrderStatusEnum.delivered, 14),
       statusCode: 200,
     }).as('updateOrderStatus');
