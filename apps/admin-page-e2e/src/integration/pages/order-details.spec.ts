@@ -315,7 +315,6 @@ describe('orderDetailsPage', () => {
       cy.get('[data-cy=contact-info-left]').should('exist');
       cy.get('[data-cy=contact-info-left]').contains('E-mail');
       cy.get('[data-cy=contact-info-left]').contains('Update contact info');
-      cy.get('[data-cy=contact-info-left]').contains('Send email');
     });
 
     it('should display the contact-info right information', () => {
@@ -335,7 +334,7 @@ describe('orderDetailsPage', () => {
       cy.get('[data-cy=delivery-info-left]').contains('Name');
       cy.get('[data-cy=delivery-info-left]').contains('City');
       cy.get('[data-cy=delivery-info-left]').contains('Postcode');
-      cy.get('[data-cy=delivery-info-left]').contains('Update Address');
+      cy.get('[data-cy=delivery-info-left]').contains('Update address');
     });
 
     it('should display the delivery-info right information', () => {
