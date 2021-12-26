@@ -43,10 +43,13 @@ describe('discountsPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'localhost:5000/discounts', {
-      body: mockDiscounts,
-      statusCode: 200,
-    }).as('fetchDiscounts');
+    cy.intercept(
+      { method: 'GET', url: 'http://localhost:5000/discounts' },
+      {
+        body: mockDiscounts,
+        statusCode: 200,
+      }
+    ).as('fetchDiscounts');
 
     cy.visit('/discounts');
   });
