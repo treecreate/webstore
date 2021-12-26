@@ -196,10 +196,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   createShipmondoOrder(): void {
-    // Prepare data
-    console.log(`Country? : ${this.order?.contactInfo.country}`)
-
-    
+    // Prepare data    
     let weight = 0;
     // Calculating the total weight from quantity
     this.order?.transactionItems.forEach((item) => {
@@ -226,15 +223,16 @@ export class OrderDetailsComponent implements OnInit {
           quantity: 1,
           weight
         }
-      ]
+      ],
+      isHomeDelivery: this.order?.shippingMethod === ShippingMethodEnum.homeDelivery,
     };
-    console.log(`Order Info: ${orderInfo}`);
     // Send data
     this.shipmondoService.createOrder(orderInfo).subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
       },
       next: (shipmondoOrder: Object) => {
+        console.log("Order Info:", shipmondoOrder);
         this.snackBar.open('Order was created successfully!', "I'm big UwU", { duration: 1500 });
       },
     });

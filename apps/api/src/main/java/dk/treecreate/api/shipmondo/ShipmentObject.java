@@ -24,7 +24,7 @@ public class ShipmentObject {
     public String product_code;        // Required
     public String service_codes;       // Required
     public String reference;
-    public String automatic_select_service_point;
+    public boolean automatic_select_service_point;
     public Sender sender;              // Required
     public Receiver receiver;          // Required
     public PickUp pick_up;
@@ -53,12 +53,14 @@ public class ShipmentObject {
      * @param label Label object specifying where to send the shipping label to <p> 
      *              For now it's hardcoded to Teodor's email
      */
-    public ShipmentObject(boolean test_mode, Sender sender, Receiver receiver, List<Parcels> parcels, SendLabel label) {
+    public ShipmentObject(boolean test_mode, boolean isHomeDelivery, Sender sender, Receiver receiver, List<Parcels> parcels, SendLabel label) {
         this.test_mode = test_mode;
         this.own_agreement = false;
         this.label_format = "a4_pdf";
-        this.product_code = "GLSDK_HD"; // GLS Home Delivery
-        this.service_codes = "EMAIL_NT,SMS_NT"; // Email Notification and SMS Notification
+        this.automatic_select_service_point = !isHomeDelivery;
+        this.product_code = isHomeDelivery ? "GLSDK_HD" : "GLSDK_SD"; // GLS home delivery or Store Delivery (pickup point)
+        // TODO - Implement required phone number for home delivery requests
+        this.service_codes = isHomeDelivery ? "EMAIL_NT,SMS_NT" : "EMAIL_NT"; // home delivery requires both sms and email notification
         this.sender = sender;
         this.receiver = receiver;
         this.parcels = parcels;
@@ -131,11 +133,11 @@ public class ShipmentObject {
         this.reference = reference;
     }
 
-    public String getAutomatic_select_service_point() {
+    public boolean getAutomatic_select_service_point() {
         return this.automatic_select_service_point;
     }
 
-    public void setAutomatic_select_service_point(String automatic_select_service_point) {
+    public void setAutomatic_select_service_point(boolean automatic_select_service_point) {
         this.automatic_select_service_point = automatic_select_service_point;
     }
 

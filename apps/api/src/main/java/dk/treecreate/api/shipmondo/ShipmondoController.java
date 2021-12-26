@@ -36,7 +36,7 @@ public class ShipmondoController
     public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody ShipmentInfoDto infoDto)
     {
 
-        var shipment = service.createShipmentObject(infoDto.getInstruction(), infoDto.getAddress(), infoDto.getContact(), infoDto.getParcels());
+        var shipment = service.createShipmentObject(infoDto.getInstruction(), infoDto.getIsHomeDelivery(), infoDto.getAddress(), infoDto.getContact(), infoDto.getParcels());
 
         // Shipmondo query
         var response = queryShipmondo(shipment);

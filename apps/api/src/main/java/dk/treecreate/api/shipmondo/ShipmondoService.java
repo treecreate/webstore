@@ -15,26 +15,29 @@ import dk.treecreate.api.shipmondo.utility.Receiver;
 import dk.treecreate.api.shipmondo.utility.Sender;
 
 @Service
-public class ShipmondoService {
+public class ShipmondoService
+{
 
     static final Sender SENDER = Sender.treecreateDefault();
-    static final SendLabel LABEL = new SendLabel("Test label", "nyt604@gmail.com", "a4_pdf");
+    static final SendLabel LABEL = new SendLabel("Teo of TreeCreate", "teodor_jonasson@hotmail.com", "a4_pdf");
 
-    public ShipmentObject createShipmentObject(String instruction, Address address, ContactInfo contact, List<Parcels> parcelsList) {
-        
-        // TODO - remove
-        PrintUtil.print("Instruction: " + instruction);
-        PrintUtil.print("Address: " + address.toString());
-        PrintUtil.print("Contact info: " + contact.toString());
-        PrintUtil.print("Parcel info: " + parcelsList.toString());
-        // ------------------
-
+    public ShipmentObject createShipmentObject(
+            String instruction, 
+            boolean isHomeDelivery,
+            Address address, ContactInfo contact,
+            List<Parcels> parcelsList
+        )
+    {
         // Customer values - variable
-        var receiverAddress = new Address(address.getAddress1(), address.getZipcode(), address.getCity(), address.getCountry_code());
-        var receiverContact = new ContactInfo(contact.getName(), contact.getAttention(), contact.getTelephone(), contact.getMobile(), contact.getEmail());
+        var receiverAddress = new Address(address.getAddress1(), address.getZipcode(), address.getCity(),
+                address.getCountry_code());
+        var receiverContact = new ContactInfo(contact.getName(), contact.getAttention(), contact.getTelephone(),
+                contact.getMobile(), contact.getEmail());
         var receiver = new Receiver(instruction, receiverContact, receiverAddress);
 
+
+        boolean testMode = true;
         // Shipment object
-        return new ShipmentObject(true, SENDER, receiver, parcelsList, LABEL);
+        return new ShipmentObject(testMode, isHomeDelivery, SENDER, receiver, parcelsList, LABEL);
     }
 }

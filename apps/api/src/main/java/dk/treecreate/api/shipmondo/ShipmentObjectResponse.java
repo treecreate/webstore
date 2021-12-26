@@ -28,12 +28,46 @@ public class ShipmentObjectResponse {
     public Receiver receiver;
     public Sender sender;
     public List<ParcelsResponse> parcels;
-    public ServicePoint servicePoint;
-    public PickupResponse pickUp;
-    public BillToResponse billTo;
+    public ServicePoint service_point;
+    public PickupResponse pick_up;
+    public BillToResponse bill_to;
     public boolean paperless_trade;
     public String labelless_code;
     public String source_id;
     public String source_type;
-    public List<LabelResponse> labels;   
+    public List<LabelResponse> labels;
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + id + "'" +
+            ", created_at='" + created_at + "'" +
+            ", updated_at='" + updated_at + "'" +
+            ", carrier_code='" + carrier_code + "'" +
+            ", description='" + description + "'" +
+            ", contents='" + contents + "'" +
+            ", product_id='" + product_id + "'" +
+            ", services='" + services + "'" +
+            ", product_code='" + product_code + "'" +
+            ", service_codes='" + service_codes + "'" +
+            ", price='" + price + "'" +
+            ", reference='" + reference + "'" +
+            ", order_id='" + order_id + "'" +
+            ", pkg_no='" + pkg_no + "'" +
+            ", receiver='" + receiver + "'" +
+            ", sender='" + sender + "'" +
+            ", parcels='" + parcels + "'" +
+            ", service_point='" + service_point + "'" +
+            ", pick_up='" + pick_up + "'" +
+            ", bill_to='" + bill_to + "'" +
+            ", paperless_trade='" + paperless_trade + "'" +
+            ", labelless_code='" + labelless_code + "'" +
+            ", source_id='" + source_id + "'" +
+            ", source_type='" + source_type + "'" +
+            ", labels='" + labels + "'" +
+            "}";
+    }
+
+
 }

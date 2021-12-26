@@ -168,7 +168,4 @@ public class Receiver extends Address {
     public void setAccess_code(String access_code) {
         this.access_code = access_code;
     }
-
-    
-
 }

@@ -8,48 +8,81 @@ import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.ContactInfo;
 
-
 public class ShipmentInfoDto
 {
-    
+
     private String instruction;
     @NotNull
     private Address address;
     @NotNull
     private ContactInfo contact;
     private List<Parcels> parcels;
+    private boolean isHomeDelivery;
 
     // Getters and setters
-    public String getInstruction() {
+    public String getInstruction()
+    {
         return this.instruction;
     }
 
-    public void setInstruction(String instruction) {
+    public void setInstruction(String instruction)
+    {
         this.instruction = instruction;
     }
 
-    public Address getAddress() {
+    public Address getAddress()
+    {
         return this.address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Address address)
+    {
         this.address = address;
     }
 
-    public ContactInfo getContact() {
+    public ContactInfo getContact()
+    {
         return this.contact;
     }
 
-    public void setContact(ContactInfo contact) {
+    public void setContact(ContactInfo contact)
+    {
         this.contact = contact;
     }
 
-    public List<Parcels> getParcels() {
+    public List<Parcels> getParcels()
+    {
         return this.parcels;
     }
 
-    public void setParcels(List<Parcels> parcels) {
+    public void setParcels(List<Parcels> parcels)
+    {
         this.parcels = parcels;
     }
 
+    public boolean isIsHomeDelivery()
+    {
+        return this.isHomeDelivery;
+    }
+
+    public boolean getIsHomeDelivery()
+    {
+        return this.isHomeDelivery;
+    }
+
+    public void setIsHomeDelivery(boolean isHomeDelivery)
+    {
+        this.isHomeDelivery = isHomeDelivery;
+    }
+    
+    @Override
+    public String toString() {
+        return "{" +
+            " instruction='" + getInstruction() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", contact='" + getContact() + "'" +
+            ", parcels='" + getParcels() + "'" +
+            ", isHomeDelivery='" + isIsHomeDelivery() + "'" +
+            "}";
+    }
 }
