@@ -35,8 +35,5 @@ public class ShipmentObjectResponse {
     public String labelless_code;
     public String source_id;
     public String source_type;
-    public List<LabelResponse> labels;
-    
-
-    
+    public List<LabelResponse> labels;   
 }

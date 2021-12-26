@@ -1,7 +1,10 @@
 package dk.treecreate.api.shipmondo.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
+import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.ContactInfo;
 
@@ -14,6 +17,7 @@ public class ShipmentInfoDto
     private Address address;
     @NotNull
     private ContactInfo contact;
+    private List<Parcels> parcels;
 
     // Getters and setters
     public String getInstruction() {
@@ -38,6 +42,14 @@ public class ShipmentInfoDto
 
     public void setContact(ContactInfo contact) {
         this.contact = contact;
+    }
+
+    public List<Parcels> getParcels() {
+        return this.parcels;
+    }
+
+    public void setParcels(List<Parcels> parcels) {
+        this.parcels = parcels;
     }
 
 }

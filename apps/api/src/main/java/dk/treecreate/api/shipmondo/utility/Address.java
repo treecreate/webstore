@@ -57,7 +57,7 @@ public class Address
 
     public static Address treecreateDefault()
     {
-        return new Address("Hillerødgade 69, 3 etage", "2200", "København", "DK");
+        return new Address("Hillerødgade 69", "3 etage", "2200", "København", "DK");
     }
 
     // Getters and setters

@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.shipmondo.dto.ShipmentInfoDto;
+import dk.treecreate.api.shipmondo.utility.PrintUtil;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -35,11 +36,12 @@ public class ShipmondoController
     public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody ShipmentInfoDto infoDto)
     {
 
-        var shipment = service.createShipmentObject(infoDto.getInstruction(), infoDto.getAddress(), infoDto.getContact());
+        var shipment = service.createShipmentObject(infoDto.getInstruction(), infoDto.getAddress(), infoDto.getContact(), infoDto.getParcels());
 
         // Shipmondo query
         var response = queryShipmondo(shipment);
 
+        PrintUtil.print(response);
         // Return response from Shipmondo
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

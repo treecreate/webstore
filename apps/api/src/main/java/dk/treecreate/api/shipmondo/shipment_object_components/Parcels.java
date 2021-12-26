@@ -146,6 +146,7 @@ public class Parcels
             System.out.println("Minimum was less than one. Overriding to one."); // TODO - logger this
             this.weight = 1;
         }
+        this.weight_kg = (double) this.weight / 1_000;
     }
 
     /**
@@ -377,4 +378,16 @@ public class Parcels
     {
         this.declared_value = declared_value;
     }
+
+    @Override
+    public String toString()
+    {
+        return "{" + " quantity='" + getQuantity() + "'" + ", weight='" + getWeight() + "'" + ", weight_kg='"
+                + getWeight_kg() + "'" + ", length='" + getLength() + "'" + ", width='" + getWidth() + "'"
+                + ", height='" + getHeight() + "'" + ", volume='" + getVolume() + "'" + ", running_metre='"
+                + getRunning_metre() + "'" + ", description='" + getDescription() + "'" + ", packaging='"
+                + getPackaging() + "'" + ", dangerous_goods='" + getDangerous_goods() + "'" + ", declared_value='"
+                + getDeclared_value() + "'" + "}";
+    }
+
 }

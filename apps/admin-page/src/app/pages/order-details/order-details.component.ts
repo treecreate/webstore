@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
+import { ShipmondoService } from '../../services/shipmondo/shipmondo.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'webstore-order-details',
@@ -47,7 +49,7 @@ export class OrderDetailsComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
 
-  constructor(public ordersService: OrdersService, private route: ActivatedRoute, private location: Location) {
+  constructor(public ordersService: OrdersService, public shipmondoService: ShipmondoService, private route: ActivatedRoute, private location: Location, private snackBar: MatSnackBar) {
     this.title = 'Loading...';
   }
 
@@ -191,5 +193,52 @@ export class OrderDetailsComponent implements OnInit {
       return 25;
     }
     return 0;
+  }
+
+  createShipmondoOrder(): void {
+    // Prepare data
+    console.log(`Country? : ${this.order?.contactInfo.country}`)
+
+    
+    let weight = 0;
+    // Calculating the total weight from quantity
+    this.order?.transactionItems.forEach((item) => {
+      weight += item.quantity;
+    });
+    // Converting weight to grams
+    weight = weight * 1000;
+    const orderInfo = {
+      instruction: "", // TODO - Ask Teo about "instruction"
+      address: {
+        address1: this.order?.contactInfo.streetAddress,
+        address2: this.order?.contactInfo.streetAddress2,
+        zipcode: this.order?.contactInfo.postcode,
+        city: this.order?.contactInfo.city,
+        country_code: "DK"
+      },
+      contact: {
+        name: this.order?.contactInfo.name,
+        mobile: this.order?.contactInfo.phoneNumber,
+        email: this.order?.contactInfo.email
+      },
+      parcels: [
+        {
+          quantity: 1,
+          weight
+        }
+      ]
+    };
+    console.log(`Order Info: ${orderInfo}`);
+    // Send data
+    this.shipmondoService.createOrder(orderInfo).subscribe({
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+      next: (shipmondoOrder: Object) => {
+        this.snackBar.open('Order was created successfully!', "I'm big UwU", { duration: 1500 });
+      },
+    });
+
+
   }
 }
