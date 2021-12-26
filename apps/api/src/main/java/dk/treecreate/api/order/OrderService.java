@@ -239,6 +239,13 @@ public class OrderService
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This discount is expired");
             }
 
+            if (!discount.getIsEnabled() ||
+                discount.getStartsAt() != null && new Date().before(discount.getStartsAt()))
+            {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "This discount (" + discount.getDiscountCode() + ") is invalid");
+            }
+
             discount.setRemainingUses(discount.getRemainingUses() - 1);
             discount.setTotalUses(discount.getTotalUses() + 1);
             order.setDiscount(discount);

@@ -21,7 +21,7 @@ const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.admin, UserRoles.developer],
+  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
@@ -74,6 +74,7 @@ const mockDiscount: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 2,
   totalUses: 1,
+  isEnabled: true,
   expiresAt: new Date('2029-11-20T00:00:00'),
 };
 const mockDiscountNoUsesLeft: IDiscount = {
@@ -83,6 +84,7 @@ const mockDiscountNoUsesLeft: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 0,
   totalUses: 1,
+  isEnabled: true,
   expiresAt: new Date('2029-11-20T00:00:00'),
 };
 const mockDiscountExpired: IDiscount = {
@@ -92,6 +94,7 @@ const mockDiscountExpired: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 10,
   totalUses: 1,
+  isEnabled: true,
   expiresAt: new Date('2021-11-20T00:00:00'),
 };
 const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
@@ -256,6 +259,42 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.intercept('GET', '/discounts/yeet30percent', {
       statusCode: 200,
       body: mockDiscountExpired,
+    });
+    cy.visit('/basket');
+    cy.get('[data-cy=discount-amount-basket]').should('not.exist');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
+      force: true,
+    });
+    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
+    cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+  });
+
+  it('should not apply discount that is not enabled', () => {
+    cy.intercept('GET', '/discounts/yeet30percent', {
+      statusCode: 200,
+      body: { ...mockDiscount, isEnabled: false },
+    });
+    cy.visit('/basket');
+    cy.get('[data-cy=discount-amount-basket]').should('not.exist');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+    cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
+      force: true,
+    });
+    cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
+    cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1690');
+  });
+
+  it('should not apply discount that has not started yet', () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 2);
+    cy.intercept('GET', '/discounts/yeet30percent', {
+      statusCode: 200,
+      body: { ...mockDiscount, startsAt: date },
     });
     cy.visit('/basket');
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');

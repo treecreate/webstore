@@ -3,10 +3,9 @@ mat-card {
   flex-direction: column;
   padding: 0;
   width: 71.25vw;
-  height: 60.7vh;
-  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.15) !important;
+  max-height: 80.7vh;
+  box-shadow: 0px 0px 35px rgba(145, 109, 109, 0.15) !important;
   border-radius: 10px;
-  overflow-y: scroll;
 }
 
 mat-card mat-divider {
@@ -15,7 +14,9 @@ mat-card mat-divider {
 }
 
 mat-card mat-card-title {
-  padding: 15px 25px;
+  padding: 20px 25px 0 25px;
+  display: flex;
+  justify-content: space-between;
 }
 
 mat-card mat-card-content {

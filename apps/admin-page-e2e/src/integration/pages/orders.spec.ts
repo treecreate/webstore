@@ -147,6 +147,7 @@ function mockOrder(status: OrderStatusEnum, daysLeft: number): IOrder {
       amount: 100,
       remainingUses: 1,
       totalUses: 2,
+      isEnabled: true,
     },
     orderId: 'MakeMeWantIt',
     paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
@@ -156,7 +157,7 @@ function mockOrder(status: OrderStatusEnum, daysLeft: number): IOrder {
     subtotal: 1914,
     total: 1814,
     transactionItems: [],
-    userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+    userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   };
 }
 
@@ -280,5 +281,10 @@ describe('ordersPage', () => {
 
     cy.wait('@fetchOrders');
     cy.get('[data-cy=order-status]').first().contains('INITIAL');
+  });
+
+  it('should display sort buttons', () => {
+    cy.get('.mat-sort-header-container').should('exist');
+    cy.get('.mat-sort-header-container').should('have.length', 7);
   });
 });

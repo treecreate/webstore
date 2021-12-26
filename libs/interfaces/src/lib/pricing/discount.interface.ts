@@ -7,5 +7,7 @@ export interface IDiscount extends IBase {
   amount: number;
   remainingUses: number;
   totalUses: number;
+  isEnabled: boolean;
+  startsAt?: Date;
   expiresAt?: Date;
 }

@@ -23,7 +23,7 @@ const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.admin, UserRoles.developer],
+  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
@@ -126,6 +126,7 @@ const mockOrder: IOrder = {
     amount: 100,
     remainingUses: 1,
     totalUses: 2,
+    isEnabled: true,
   },
   orderId: 'MakeMeWantIt',
   paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
@@ -135,7 +136,7 @@ const mockOrder: IOrder = {
   subtotal: 1914,
   total: 1814,
   transactionItems: [mockTransactionItemTwo, mockTransactionItem],
-  userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+  userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
 };
 const mockOrderTwo: IOrder = {
   status: OrderStatusEnum.new,
@@ -165,6 +166,7 @@ const mockOrderTwo: IOrder = {
     amount: 200,
     remainingUses: 1,
     totalUses: 2,
+    isEnabled: true,
   },
   orderId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
@@ -173,7 +175,7 @@ const mockOrderTwo: IOrder = {
   subtotal: 1914,
   total: 1814,
   transactionItems: [mockTransactionItemTwo, mockTransactionItem],
-  userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+  userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
 };
 
 describe('ordersPage', () => {

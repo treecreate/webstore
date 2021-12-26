@@ -11,9 +11,11 @@ import { AuthService } from './services/authentication/auth.service';
 export class AppComponent {
   title = 'admin-page';
   sidebarCollapsed = false;
-  username = 'username@example.com';
+  username?: string;
 
-  constructor(public router: Router, private authService: AuthService, private snackBar: MatSnackBar) {}
+  constructor(public router: Router, private authService: AuthService, private snackBar: MatSnackBar) {
+    this.username = this.authService.getAuthUser()?.email;
+  }
 
   /**
    * Toggles the `sidebarCollapsed` boolean.
