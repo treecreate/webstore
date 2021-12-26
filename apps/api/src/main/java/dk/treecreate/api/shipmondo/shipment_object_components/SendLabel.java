@@ -49,4 +49,13 @@ public class SendLabel {
         this.label_format = label_format;
     }
 
+
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", label_format='" + getLabel_format() + "'" +
+            "}";
+    }
 }

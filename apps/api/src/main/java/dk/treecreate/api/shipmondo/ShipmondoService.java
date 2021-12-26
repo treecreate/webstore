@@ -25,9 +25,7 @@ public class ShipmondoService {
         PrintUtil.print("Instruction: " + instruction);
         PrintUtil.print("Address: " + address.toString());
         PrintUtil.print("Contact info: " + contact.toString());
-        
-        // var receiverAddress = new Address("Kongens Nytorv 14", "1050", "Copenhagen", "DK");
-        // var receiverContact = new ContactInfo("Test contact", null, null, "52525252", "test@test.email");
+        // ------------------
 
         // Customer values - variable
         var receiverAddress = new Address(address.getAddress1(), address.getZipcode(), address.getCity(), address.getCountry_code());

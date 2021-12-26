@@ -4,6 +4,7 @@ import java.util.List;
 
 import dk.treecreate.api.shipmondo.shipment_object_components.ServicePoint;
 import dk.treecreate.api.shipmondo.shipment_object_response_components.BillToResponse;
+import dk.treecreate.api.shipmondo.shipment_object_response_components.LabelResponse;
 import dk.treecreate.api.shipmondo.shipment_object_response_components.ParcelsResponse;
 import dk.treecreate.api.shipmondo.shipment_object_response_components.PickupResponse;
 import dk.treecreate.api.shipmondo.utility.Receiver;
@@ -34,6 +35,7 @@ public class ShipmentObjectResponse {
     public String labelless_code;
     public String source_id;
     public String source_type;
+    public List<LabelResponse> labels;
     
 
     

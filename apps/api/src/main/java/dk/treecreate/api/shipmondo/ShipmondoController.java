@@ -22,12 +22,13 @@ import org.springframework.web.client.UnknownContentTypeException;
 import org.springframework.web.server.ResponseStatusException;
 
 import dk.treecreate.api.config.CustomPropertiesConfig;
-import dk.treecreate.api.shipmondo.dto.ShipmentObjectDto;
+import dk.treecreate.api.shipmondo.dto.ShipmentInfoDto;
 import dk.treecreate.api.shipmondo.ShipmentObject;
 import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
 import dk.treecreate.api.shipmondo.shipment_object_components.SendLabel;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.ContactInfo;
+import dk.treecreate.api.shipmondo.utility.PrintUtil;
 import dk.treecreate.api.shipmondo.utility.Receiver;
 import dk.treecreate.api.shipmondo.utility.Sender;
 
@@ -41,14 +42,10 @@ public class ShipmondoController
     ShipmondoService service;
 
     @PostMapping(path = "/create-shipment")
-    public ResponseEntity<ShipmentObjectResponse> createShipment(
-            @RequestBody String instruction,
-            @RequestBody Address address,
-            @RequestBody ContactInfo contact
-        )
+    public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody ShipmentInfoDto infoDto)
     {
 
-        var shipment = service.createShipmentObject(instruction, address, contact);
+        var shipment = service.createShipmentObject(infoDto.getInstruction(), infoDto.getAddress(), infoDto.getContact());
 
         // Shipmondo query
         var response = queryShipmondo(shipment);

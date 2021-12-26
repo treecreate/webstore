@@ -20,7 +20,7 @@ public class ShipmentObject {
     public boolean test_mode;
     public boolean own_agreement;      // Required
     public String customer_number;
-    public String label_format;
+    public String label_format = "a4_pdf";
     public String product_code;        // Required
     public String service_codes;       // Required
     public String reference;
@@ -63,7 +63,6 @@ public class ShipmentObject {
         this.receiver = receiver;
         this.parcels = parcels;
         this.send_label = label;
-        this.send_label = new SendLabel("test_label", "nyt604@gmail.com", "a4_pdf");
     }
 
 

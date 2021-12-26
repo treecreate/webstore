@@ -40,9 +40,10 @@ public class Sender extends Address{
      * You can choose wether or not to include address2 in your Address
      * Country code is always set to DK as we only send from there
      * @param name Name of sender
+     * @param email Email of the sender
      * @param address Address object containing information about the sender
      */
-    public Sender(String name, String email, Address address) {
+    public Sender(String name, String email,  Address address) {
         this.name = name;
         this.email = email;
         this.address1 = address.getAddress1();
@@ -83,7 +84,7 @@ public class Sender extends Address{
      */
     public static Sender treecreateDefault() {
         var address = Address.treecreateDefault();
-        return new Sender("TreeCreate", "teodor_jonasson@hotmail.com", address);
+        return new Sender("TreeCreate", "nyt604@gmail.com", address);
     }
 
     // Getter and setters
