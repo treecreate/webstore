@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.ResourceAccessException;
@@ -22,27 +23,41 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.shipmondo.dto.ShipmentObjectDto;
+import dk.treecreate.api.shipmondo.ShipmentObject;
 import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
+import dk.treecreate.api.shipmondo.shipment_object_components.SendLabel;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.ContactInfo;
+import dk.treecreate.api.shipmondo.utility.Receiver;
+import dk.treecreate.api.shipmondo.utility.Sender;
 
-@CrossOrigin(origins = "*", maxAge = 3600) @RestController @RequestMapping()
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
+@RequestMapping("/shipmondo")
 public class ShipmondoController
 {
 
-    @PostMapping(path = "/create-shipment")
-    public ResponseEntity<ShipmentObjectResponse> createShipment(/* Needs some serious params */) throws Exception
-    {
-        var receiverAddress = new Address("Kongens Nytorv 14", "1050", "Copenhagen", "DK");
-        var receiverContact = new ContactInfo("Test contact", null, null, "52525252", "test@test.email");
-        var parcelsList = new ArrayList<>(Arrays.asList(new Parcels(1, 1000)));
+    @Autowired
+    ShipmondoService service;
 
-        var shipment = ShipmentObjectDto.createShipment("", receiverContact, receiverAddress, parcelsList);
+    @PostMapping(path = "/create-shipment")
+    public ResponseEntity<ShipmentObjectResponse> createShipment(
+            @RequestBody String instruction,
+            @RequestBody Address address,
+            @RequestBody ContactInfo contact
+        )
+    {
+
+        var shipment = service.createShipmentObject(instruction, address, contact);
+
+        // Shipmondo query
         var response = queryShipmondo(shipment);
 
+        // Return response from Shipmondo
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    
     @Autowired
     CustomPropertiesConfig customPropertiesConfig;
 

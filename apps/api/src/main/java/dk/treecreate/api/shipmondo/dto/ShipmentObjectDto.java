@@ -16,10 +16,7 @@ public class ShipmentObjectDto
 
     public static ShipmentObject createShipment(String instruction, ContactInfo contact, Address address, List<Parcels> parcelsList)
     {
-        var sender = Sender.treecreateDefault();
-        var receiver = new Receiver(instruction, contact, address);
-        var label = new SendLabel("Test label", "nyt604@gmail.com", "a4_pdf");
-
-        return new ShipmentObject(true, sender, receiver, parcelsList, label);
+        // TODO - stuff
+        return null;
     }
 }
