@@ -209,7 +209,7 @@
                         <input matInput type="email" [formControl]="emailControl" />
                     </mat-form-field>
                 </div>
-                <div class="row">
+                <div class="actions">
                     <span
                         [matTooltipDisabled]="isContactInfoValid()"
                         [matTooltip]="
@@ -228,24 +228,21 @@
                             color="primary"
                             [disabled]="!isContactInfoValid()"
                             type="button"
+                            class="action-button"
                             (click)="updateOrder('CONTACT INFO', order!)"
                         >
                             <span>Update contact info</span>
-                            <mat-icon *ngIf="isUpdating"
+                            <mat-icon *ngIf="isUpdating" class="icon"
                                 ><mat-spinner diameter="15" color="accent"></mat-spinner
                             ></mat-icon>
                         </button>
                     </span>
 
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
-                        matTooltipPosition="right"
-                        [disabled]="true"
-                    >
-                        Send email
-                    </button>
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                        <button mat-flat-button color="primary" class="action-button" [disabled]="true">
+                            <mat-icon> mail_outline</mat-icon>
+                        </button>
+                    </span>
                 </div>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="5" data-cy="contact-info-right">
@@ -306,10 +303,9 @@
                         <button
                             mat-flat-button
                             color="primary"
-                            matTooltip="Action not implemented yet."
-                            matTooltipPosition="right"
                             [disabled]="!isDeliveryAddressValid()"
                             (click)="updateOrder('DELIVERY ADDRESS', order!)"
+                            class="action-button"
                         >
                             <span>Update address</span>
                             <mat-icon *ngIf="isUpdating" class="icon"

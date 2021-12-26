@@ -13,16 +13,21 @@
   width: 3px;
 }
 
-.row button {
-  padding: 0 3.8vw;
-}
-
 .row mat-form-field {
   flex: 1;
 }
 
 .spacer {
   flex: 0.15;
+}
+
+.actions {
+  width: 100%;
+  padding-left: 13px;
+}
+
+.action-button {
+  margin-right: 20px;
 }
 
 ::ng-deep .order-details-content .mat-grid-tile-content {
