@@ -127,4 +127,15 @@ describe('create discount dialog', () => {
     cy.get('[data-cy=discount-create-btn]').click();
     cy.get('[data-cy=create-discount-dialog]').should('not.exist');
   });
+
+  it('should fail to create a discount', () => {
+    cy.intercept('POST', '/discounts', {
+      statusCode: 400,
+    });
+    cy.get('[data-cy=discount-code-input]').clear().type('Yoyoyo');
+    cy.get('[data-cy=discount-expires-at-input]').type('2022-10-10');
+    cy.get('[data-cy=discount-amount-input]').type('25');
+    cy.get('[data-cy=discount-create-btn]').click();
+    cy.get('[data-cy=create-discount-dialog]').should('exist');
+  });
 });
