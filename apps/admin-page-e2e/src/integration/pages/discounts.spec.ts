@@ -103,7 +103,7 @@ describe('create discount dialog', () => {
     }).as('fetchDiscounts');
 
     cy.visit('/discounts');
-    cy.get('[data-cy=create-discount-btn]').click();
+    cy.get('[data-cy=create-discount-btn]').click({ force: true });
   });
 
   it('should display the create discount dialog', () => {
