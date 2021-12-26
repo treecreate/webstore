@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IDiscount, UpdateDiscountRequest } from '@interfaces';
-import { CreateDiscountRequest, IDiscount } from '@interfaces';
+import { IDiscount, UpdateDiscountRequest, CreateDiscountRequest } from '@interfaces';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 
