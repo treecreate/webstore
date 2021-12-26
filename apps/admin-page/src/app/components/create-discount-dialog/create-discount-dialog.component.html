@@ -72,15 +72,21 @@
         >
             Cancel
         </button>
-        <button
-            mat-flat-button
-            color="primary"
+        <span
             class="action-button"
-            data-cy="discount-create-btn"
-            type="submit"
-            [disabled]="createDiscountForm.invalid"
+            [matTooltip]="createDiscountForm.invalid ? 'Form is invalid' : 'Cant update while loading'"
         >
-            Create
-        </button>
+            <button
+                mat-flat-button
+                color="primary"
+                style="width: 100%"
+                data-cy="discount-create-btn"
+                type="submit"
+                [disabled]="createDiscountForm.invalid || isLoading"
+            >
+                <span *ngIf="!isLoading">Create</span>
+                <mat-icon *ngIf="isLoading"><mat-spinner diameter="21" color="accent"></mat-spinner></mat-icon>
+            </button>
+        </span>
     </div>
 </form>

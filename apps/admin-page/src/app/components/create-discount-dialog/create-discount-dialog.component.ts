@@ -14,6 +14,7 @@ import { DiscountsService } from '../../services/discounts/discounts.service';
 export class CreateDiscountDialogComponent {
   createDiscountForm: FormGroup;
   checked = true;
+  isLoading = false;
 
   /**
    * Initialise the create password form.
@@ -46,6 +47,7 @@ export class CreateDiscountDialogComponent {
    * Calls the service with a request to create the discount.
    */
   createDiscount(): void {
+    this.isLoading = true;
     this.discountService
       .createDiscount({
         discountCode: this.createDiscountForm.get('discountCode')?.value,
@@ -59,13 +61,14 @@ export class CreateDiscountDialogComponent {
       })
       .subscribe(
         (data: IDiscount) => {
-          console.log(data);
           this.snackbar.open('Discount created!', 'HOLY SH***', { duration: 2500 });
           this.dialog.closeAll();
+          this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
           console.error(err);
           this.snackbar.open('Failed to create discount sadly :(((', 'SH*** HOLY', { duration: 5000 });
+          this.isLoading = false;
         }
       );
   }
