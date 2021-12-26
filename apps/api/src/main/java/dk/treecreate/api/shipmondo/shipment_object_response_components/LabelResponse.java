@@ -1,7 +1,5 @@
 package dk.treecreate.api.shipmondo.shipment_object_response_components;
 
-import java.util.Base64;
-
 public class LabelResponse {
     private String base64;
     private String file_format;
