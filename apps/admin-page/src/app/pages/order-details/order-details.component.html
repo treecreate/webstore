@@ -210,17 +210,30 @@
                     </mat-form-field>
                 </div>
                 <div class="row">
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
+                    <span
+                        [matTooltipDisabled]="isContactInfoValid()"
+                        [matTooltip]="
+                            !emailControl.dirty && !phoneNumberControl.dirty
+                                ? 'No changed values'
+                                : emailControl.invalid
+                                ? 'Email is invalid'
+                                : phoneNumberControl.invalid
+                                ? 'Phone number is invalid'
+                                : 'The form is loading'
+                        "
                         matTooltipPosition="right"
-                        [disabled]="isContactInfoValid()"
-                        type="button"
-                        (click)="updateOrder('CONTACT INFO', order!)"
                     >
-                        Update contact info
-                    </button>
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            [disabled]="!isContactInfoValid()"
+                            type="button"
+                            (click)="updateOrder('CONTACT INFO', order!)"
+                        >
+                            Update contact info
+                        </button>
+                    </span>
+
                     <button
                         mat-flat-button
                         color="primary"
@@ -262,20 +275,42 @@
                     <div class="spacer"></div>
                     <mat-form-field appearance="fill">
                         <mat-label>Postcode</mat-label>
-                        <input matInput type="number" [formControl]="postcodeControl" />
+                        <input matInput type="text" [formControl]="postcodeControl" />
                     </mat-form-field>
                 </div>
                 <div class="row">
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
+                    <span
+                        [matTooltipDisabled]="isDeliveryAddressValid()"
+                        [matTooltip]="
+                            !nameControl.dirty &&
+                            !cityControl.dirty &&
+                            !postcodeControl.dirty &&
+                            !addressOneControl.dirty &&
+                            !addressTwoControl.dirty
+                                ? 'No changed values'
+                                : nameControl.invalid
+                                ? 'Name is invalid'
+                                : cityControl.invalid
+                                ? 'City is invalid'
+                                : postcodeControl.invalid
+                                ? 'Postcode is invalid'
+                                : addressOneControl.invalid
+                                ? 'Address is invalid'
+                                : 'The form is loading'
+                        "
                         matTooltipPosition="right"
-                        [disabled]="isDeliveryAddressValid()"
-                        (click)="updateOrder('DELIVERY ADDRESS', order!)"
                     >
-                        Update Address
-                    </button>
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            matTooltip="Action not implemented yet."
+                            matTooltipPosition="right"
+                            [disabled]="!isDeliveryAddressValid()"
+                            (click)="updateOrder('DELIVERY ADDRESS', order!)"
+                        >
+                            Update Address
+                        </button>
+                    </span>
                 </div>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="7" data-cy="delivery-info-right">

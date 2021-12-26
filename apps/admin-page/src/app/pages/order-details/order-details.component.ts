@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
@@ -100,11 +100,50 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   isDeliveryAddressValid(): boolean {
-    return false;
+    console.log(
+      'name is valid',
+      this.nameControl.valid,
+      '\n',
+      'city is valid',
+      this.cityControl.valid,
+      '\n',
+      'postcode is valid',
+      this.postcodeControl.valid,
+      '\n',
+      'address 1 is valid',
+      this.addressOneControl.valid,
+      '\n',
+      'address 2 is valid',
+      this.addressTwoControl.valid,
+      '\n',
+      'form is dirty',
+      this.nameControl.dirty ||
+        this.cityControl.dirty ||
+        this.postcodeControl.dirty ||
+        this.addressOneControl.dirty ||
+        this.addressTwoControl.dirty
+    );
+    return (
+      this.nameControl.valid &&
+      this.cityControl.valid &&
+      this.postcodeControl.valid &&
+      this.addressOneControl.valid &&
+      this.addressTwoControl.valid &&
+      (this.nameControl.dirty ||
+        this.cityControl.dirty ||
+        this.postcodeControl.dirty ||
+        this.addressOneControl.dirty ||
+        this.addressTwoControl.dirty)
+    );
   }
 
   isContactInfoValid(): boolean {
-    return false;
+    return (
+      !this.isLoading &&
+      this.emailControl.valid &&
+      this.phoneNumberControl.valid &&
+      (this.emailControl.dirty || this.phoneNumberControl.dirty)
+    );
   }
 
   /**
@@ -129,14 +168,35 @@ export class OrderDetailsComponent implements OnInit {
         this.title = `Order by: ${this.order?.contactInfo.name}`;
 
         // Customer Information
-        this.emailControl = new FormControl(this.order?.contactInfo.email);
-        this.phoneNumberControl = new FormControl(this.order?.contactInfo.phoneNumber);
+        this.emailControl = new FormControl(this.order?.contactInfo.email, [Validators.email, Validators.required]);
+        this.phoneNumberControl = new FormControl(this.order?.contactInfo.phoneNumber, [
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          Validators.pattern('^[0-9+ ]*$'),
+        ]);
         // Contact Information
-        this.nameControl = new FormControl(this.order?.contactInfo.name);
-        this.cityControl = new FormControl(this.order?.contactInfo.city);
-        this.postcodeControl = new FormControl(this.order?.contactInfo.postcode);
-        this.addressOneControl = new FormControl(this.order?.contactInfo.streetAddress);
-        this.addressTwoControl = new FormControl(this.order?.contactInfo.streetAddress2);
+        this.nameControl = new FormControl(this.order?.contactInfo.name, [
+          Validators.maxLength(50),
+          Validators.pattern('^[^0-9]+$'),
+        ]);
+        this.cityControl = new FormControl(this.order?.contactInfo.city, [
+          Validators.maxLength(50),
+          Validators.minLength(3),
+          Validators.pattern('^[^0-9]+$'),
+        ]);
+        this.postcodeControl = new FormControl(this.order?.contactInfo.postcode, [
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          Validators.pattern('^[0-9]*$'),
+        ]);
+        this.addressOneControl = new FormControl(this.order?.contactInfo.streetAddress, [
+          Validators.maxLength(50),
+          Validators.minLength(3),
+        ]);
+        this.addressTwoControl = new FormControl(this.order?.contactInfo.streetAddress2, [
+          Validators.maxLength(50),
+          Validators.minLength(3),
+        ]);
         // Billing Information
         this.billingNameControl = new FormControl({ value: this.order?.billingInfo.name, disabled: true });
         this.billingCityControl = new FormControl({ value: this.order?.billingInfo.city, disabled: true });
