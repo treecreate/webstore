@@ -6,6 +6,13 @@
   width: 95%;
 }
 
+.icon {
+  margin-left: 10px;
+  position: relative;
+  top: 5px;
+  width: 3px;
+}
+
 .row button {
   padding: 0 3.8vw;
 }
