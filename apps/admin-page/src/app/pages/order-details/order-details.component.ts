@@ -1,13 +1,13 @@
+import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
+import { environment as env } from '../../../environments/environment';
 import { OrdersService } from '../../services/orders/orders.service';
 import { ShipmondoService } from '../../services/shipmondo/shipmondo.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment as env } from '../../../environments/environment';
 
 @Component({
   selector: 'webstore-order-details',
@@ -215,13 +215,19 @@ export class OrderDetailsComponent implements OnInit {
     });
     // Converting weight to grams
     weight = weight * 1000;
+    if (this.order === undefined) {
+      console.warn('The order is not defined yet, skipping creation of the shipment object');
+      return;
+    }
+
     const orderInfo = {
-      instruction: '', // TODO - Ask Teo about "instruction"
+      instruction: '',
       address: {
-        address1: this.order?.contactInfo.streetAddress,
-        address2: this.order?.contactInfo.streetAddress2,
-        zipcode: this.order?.contactInfo.postcode,
+        address1: this.order.contactInfo.streetAddress,
+        address2: this.order.contactInfo.streetAddress2 || '',
+        zipcode: this.order.contactInfo.postcode,
         city: this.order?.contactInfo.city,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         country_code: 'DK',
       },
       contact: {
@@ -242,7 +248,7 @@ export class OrderDetailsComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         console.error(error);
       },
-      next: (shipmondoOrder: Object) => {
+      next: (shipmondoOrder: unknown) => {
         console.log('Order Info:', shipmondoOrder);
         this.snackBar.open('Order was created successfully!', "I'm big UwU", { duration: 1500 });
       },
