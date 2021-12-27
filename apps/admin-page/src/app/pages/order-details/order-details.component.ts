@@ -50,7 +50,13 @@ export class OrderDetailsComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
 
-  constructor(public ordersService: OrdersService, public shipmondoService: ShipmondoService, private route: ActivatedRoute, private location: Location, private snackBar: MatSnackBar) {
+  constructor(
+    public ordersService: OrdersService,
+    public shipmondoService: ShipmondoService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private snackBar: MatSnackBar
+  ) {
     this.title = 'Loading...';
   }
 
@@ -201,7 +207,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   createShipmondoOrder(): void {
-    // Prepare data    
+    // Prepare data
     let weight = 0;
     // Calculating the total weight from quantity
     this.order?.transactionItems.forEach((item) => {
@@ -210,24 +216,24 @@ export class OrderDetailsComponent implements OnInit {
     // Converting weight to grams
     weight = weight * 1000;
     const orderInfo = {
-      instruction: "", // TODO - Ask Teo about "instruction"
+      instruction: '', // TODO - Ask Teo about "instruction"
       address: {
         address1: this.order?.contactInfo.streetAddress,
         address2: this.order?.contactInfo.streetAddress2,
         zipcode: this.order?.contactInfo.postcode,
         city: this.order?.contactInfo.city,
-        country_code: "DK"
+        country_code: 'DK',
       },
       contact: {
         name: this.order?.contactInfo.name,
         mobile: this.order?.contactInfo.phoneNumber,
-        email: this.order?.contactInfo.email
+        email: this.order?.contactInfo.email,
       },
       parcels: [
         {
           quantity: 1,
-          weight
-        }
+          weight,
+        },
       ],
       isHomeDelivery: this.order?.shippingMethod === ShippingMethodEnum.homeDelivery,
     };
@@ -237,11 +243,9 @@ export class OrderDetailsComponent implements OnInit {
         console.error(error);
       },
       next: (shipmondoOrder: Object) => {
-        console.log("Order Info:", shipmondoOrder);
+        console.log('Order Info:', shipmondoOrder);
         this.snackBar.open('Order was created successfully!', "I'm big UwU", { duration: 1500 });
       },
     });
-
-
   }
 }

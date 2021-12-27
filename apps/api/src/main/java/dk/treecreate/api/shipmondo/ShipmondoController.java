@@ -42,8 +42,8 @@ public class ShipmondoController
      * @param infoDto Dto with all necessary information
      * @return Shipmondo response object
      */
-    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     @PostMapping(path = "/create-shipment")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody @Valid ShipmentInfoDto infoDto)
     {
 
@@ -56,12 +56,12 @@ public class ShipmondoController
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    
+
     @Autowired
     CustomPropertiesConfig customPropertiesConfig;
 
     /**
-     * Send a ShipmentObject to Shipmondo and get the response back. 
+     * Send a ShipmentObject to Shipmondo and get the response back.
      * It contains headers for security auth
      * @param shipment Completed shipment object
      * @return ShipmondoResponseObject
