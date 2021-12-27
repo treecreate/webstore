@@ -49,6 +49,9 @@ export class EditDiscountComponent implements OnInit {
     });
   }
 
+  /**
+   * Checks the the param id in the url and uses it to fetch the discount.
+   */
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || undefined;
     // Fetching the discount.

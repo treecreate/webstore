@@ -42,7 +42,7 @@
                     class="order-status-select"
                     data-cy="order-status"
                     [ngStyle]="{ 'background-color': getOrderStatusColor(order.status) }"
-                    (selectionChange)="onStatusChange(order)"
+                    (selectionChange)="onStatusChange(order.status, order.orderId)"
                 >
                     <mat-option
                         [value]="status"

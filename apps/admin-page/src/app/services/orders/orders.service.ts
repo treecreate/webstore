@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IOrder, OrderStatusEnum } from '@interfaces';
+import { CreateUpdateOrderRequest, IOrder, OrderStatusEnum } from '@interfaces';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 
@@ -34,8 +34,8 @@ export class OrdersService {
    * @param order - the order that needs to be updated.
    * @returns an observable with the updated order.
    */
-  public updateOrder(order: IOrder): Observable<IOrder> {
-    return this.http.patch<IOrder>(`${env.apiUrl}/orders/${order.orderId}`, { status: order.status });
+  public updateOrder(params: CreateUpdateOrderRequest, orderId: string): Observable<IOrder> {
+    return this.http.patch<IOrder>(`${env.apiUrl}/orders/${orderId}`, params);
   }
 
   /**
