@@ -50,10 +50,14 @@ export class ViewUserOrdersDialogComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
+  ngOnInit(): void {
+    this.fetchOrders();
+  }
+
   /**
    * Fetch all orders through the api.
    */
-  ngOnInit(): void {
+  fetchOrders(): void {
     this.isLoading = true;
     this.ordersService.getOrders().subscribe(
       (listData: IOrder[]) => {
@@ -77,14 +81,23 @@ export class ViewUserOrdersDialogComponent implements OnInit {
    * It will call the API to update the order with its new status.\
    * In case an error is encountered, the orders will be reloaded from the database.
    *
-   * @param order - the order containing the new status.
+   * @param orderStatus
+   * @param orderId
    */
-  onStatusChange(order: IOrder): void {
-    this.ordersService.updateOrder(order).subscribe({
-      error: (error: HttpErrorResponse) => {
-        console.error(error);
-      },
-    });
+  onStatusChange(orderStatus: OrderStatusEnum, orderId: string): void {
+    this.ordersService
+      .updateOrder(
+        {
+          status: orderStatus,
+        },
+        orderId
+      )
+      .subscribe({
+        error: (error: HttpErrorResponse) => {
+          this.fetchOrders();
+          console.error(error);
+        },
+      });
   }
 
   /**

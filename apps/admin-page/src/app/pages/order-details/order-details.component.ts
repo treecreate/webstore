@@ -1,10 +1,17 @@
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
+import {
+  CreateUpdateOrderRequest,
+  DesignDimensionEnum,
+  IOrder,
+  ITransactionItem,
+  OrderStatusEnum,
+  ShippingMethodEnum,
+} from '@interfaces';
 import { environment as env } from '../../../environments/environment';
 import { OrdersService } from '../../services/orders/orders.service';
 import { ShipmondoService } from '../../services/shipmondo/shipmondo.service';
@@ -20,7 +27,9 @@ export class OrderDetailsComponent implements OnInit {
   title!: string;
   daysLeft!: number;
   isLoading = true;
+  isUpdating = false;
 
+  statusControl!: FormControl;
   // Customer information
   emailControl!: FormControl;
   phoneNumberControl!: FormControl;
@@ -55,11 +64,14 @@ export class OrderDetailsComponent implements OnInit {
     public shipmondoService: ShipmondoService,
     private route: ActivatedRoute,
     private location: Location,
-    private snackBar: MatSnackBar
+    private snackbar: MatSnackBar
   ) {
     this.title = 'Loading...';
   }
 
+  /**
+   * Checks the the param id in the url and uses it to fetch the order.
+   */
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || undefined;
     // Fetching the order.
@@ -81,16 +93,72 @@ export class OrderDetailsComponent implements OnInit {
    * In case an error is encountered, the orders will be reloaded from the database.
    *
    * @param order - the order containing the new status.
+   * @param updatedForm - the information that is updated. (status, contact info, delivery address)
    */
-  onStatusChange(order: IOrder): void {
-    this.ordersService.updateOrder(order).subscribe({
-      error: (error: HttpErrorResponse) => {
-        if (this.id !== undefined) {
-          this.fetchOrder(this.id);
-        }
-        console.error(error);
-      },
-    });
+  updateOrder(updatedForm: string): void {
+    if (this.order !== undefined) {
+      const updateOrderRequest: CreateUpdateOrderRequest = {
+        contactInfo: {
+          city: this.billingCityControl.value,
+          country: 'Denmark',
+          email: this.emailControl.value,
+          name: this.nameControl.value,
+          phoneNumber: this.phoneNumberControl.value,
+          postcode: this.postcodeControl.value,
+          streetAddress: this.addressOneControl.value,
+          streetAddress2: this.addressTwoControl.value,
+        },
+        status: OrderStatusEnum.assembling,
+      };
+
+      this.isUpdating = true;
+      this.ordersService.updateOrder(updateOrderRequest, this.order?.orderId).subscribe({
+        error: (error: HttpErrorResponse) => {
+          if (this.id !== undefined) {
+            this.fetchOrder(this.id);
+          }
+          this.snackbar.open('Order has failed to update', 'like, how even?..', { duration: 5000 });
+          console.error(error);
+          this.isUpdating = false;
+        },
+        next: () => {
+          this.snackbar.open('Orders ' + updatedForm + ' has been updated!', 'Nice!', { duration: 2500 });
+          this.isUpdating = false;
+        },
+      });
+    } else {
+      this.snackbar.open('Order is undefined', 'like, how even?..', { duration: 5000 });
+    }
+  }
+
+  /**
+   * @returns whether or not the delivery address fields are valid.
+   */
+  isDeliveryAddressValid(): boolean {
+    return (
+      this.nameControl.valid &&
+      this.cityControl.valid &&
+      this.postcodeControl.valid &&
+      this.addressOneControl.valid &&
+      this.addressTwoControl.valid &&
+      (this.nameControl.dirty ||
+        this.cityControl.dirty ||
+        this.postcodeControl.dirty ||
+        this.addressOneControl.dirty ||
+        this.addressTwoControl.dirty)
+    );
+  }
+
+  /**
+   * @returns whether or not the contact info fields are valid.
+   */
+  isContactInfoValid(): boolean {
+    return (
+      !this.isLoading &&
+      this.emailControl.valid &&
+      this.phoneNumberControl.valid &&
+      (this.emailControl.dirty || this.phoneNumberControl.dirty)
+    );
   }
 
   /**
@@ -113,16 +181,37 @@ export class OrderDetailsComponent implements OnInit {
         this.order = orders.find((order) => order.orderId === id);
         // Setting the page title.
         this.title = `Order by: ${this.order?.contactInfo.name}`;
-
+        this.statusControl = new FormControl(this.order?.status);
         // Customer Information
-        this.emailControl = new FormControl(this.order?.contactInfo.email);
-        this.phoneNumberControl = new FormControl(this.order?.contactInfo.phoneNumber);
+        this.emailControl = new FormControl(this.order?.contactInfo.email, [Validators.email, Validators.required]);
+        this.phoneNumberControl = new FormControl(this.order?.contactInfo.phoneNumber, [
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          Validators.pattern('^[0-9+ ]*$'),
+        ]);
         // Contact Information
-        this.nameControl = new FormControl(this.order?.contactInfo.name);
-        this.cityControl = new FormControl(this.order?.contactInfo.city);
-        this.postcodeControl = new FormControl(this.order?.contactInfo.postcode);
-        this.addressOneControl = new FormControl(this.order?.contactInfo.streetAddress);
-        this.addressTwoControl = new FormControl(this.order?.contactInfo.streetAddress2);
+        this.nameControl = new FormControl(this.order?.contactInfo.name, [
+          Validators.maxLength(50),
+          Validators.pattern('^[^0-9]+$'),
+        ]);
+        this.cityControl = new FormControl(this.order?.contactInfo.city, [
+          Validators.maxLength(50),
+          Validators.minLength(3),
+          Validators.pattern('^[^0-9]+$'),
+        ]);
+        this.postcodeControl = new FormControl(this.order?.contactInfo.postcode, [
+          Validators.minLength(3),
+          Validators.maxLength(15),
+          Validators.pattern('^[0-9]*$'),
+        ]);
+        this.addressOneControl = new FormControl(this.order?.contactInfo.streetAddress, [
+          Validators.maxLength(50),
+          Validators.minLength(3),
+        ]);
+        this.addressTwoControl = new FormControl(this.order?.contactInfo.streetAddress2, [
+          Validators.maxLength(50),
+          Validators.minLength(3),
+        ]);
         // Billing Information
         this.billingNameControl = new FormControl({ value: this.order?.billingInfo.name, disabled: true });
         this.billingCityControl = new FormControl({ value: this.order?.billingInfo.city, disabled: true });
@@ -252,7 +341,7 @@ export class OrderDetailsComponent implements OnInit {
       },
       next: (shipmondoOrder: unknown) => {
         console.log('Order Info:', shipmondoOrder);
-        this.snackBar.open('Order was created successfully!', "I'm big UwU", { duration: 1500 });
+        this.snackbar.open('Order was created successfully!', "I'm big UwU", { duration: 1500 });
       },
     });
   }
