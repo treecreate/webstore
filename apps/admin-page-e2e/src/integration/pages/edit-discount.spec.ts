@@ -71,12 +71,12 @@ describe('editDiscountPage', () => {
     it('should display the actions', () => {
       cy.get('[data-cy=actions-section]').should('exist');
       cy.get('[data-cy=actions-section]').contains('Update');
-      cy.get('[data-cy=actions-section]').contains('Active');
+      cy.get('[data-cy=actions-section]').contains('Enabled');
       cy.get('[data-cy=actions-section]').contains('Delete');
     });
   });
 
-  describe.only('update discount', () => {
+  describe('update discount', () => {
     it('update button should be disabled for unchanged discount information', () => {
       cy.get('[data-cy=update-discount-btn]').should('be.disabled');
     });

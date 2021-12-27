@@ -241,7 +241,7 @@ describe('orderDetailsPage', () => {
   });
 
   it('should correctly change the status', () => {
-    cy.intercept('PATCH', 'orders/status/MakeMeWantIt', {
+    cy.intercept('PATCH', 'orders/MakeMeWantIt', {
       body: mockOrder(OrderStatusEnum.delivered, 14),
       statusCode: 200,
     }).as('updateOrderStatus');
@@ -254,7 +254,7 @@ describe('orderDetailsPage', () => {
   });
 
   it('should reload orders on status change failure', () => {
-    cy.intercept('PATCH', 'orders/status/MakeMeWantIt', {
+    cy.intercept('PATCH', 'orders/MakeMeWantIt', {
       statusCode: 500,
     }).as('updateOrderStatus');
 
