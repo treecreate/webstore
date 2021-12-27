@@ -1,10 +1,13 @@
 package dk.treecreate.api.shipmondo.utility;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 public class Address
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Address.class);
 
     protected String address1; // Required
     protected String address2;
@@ -138,7 +141,7 @@ public class Address
             }
  
         } catch (IllegalArgumentException | NullPointerException e) {
-            System.err.println("Invalid country code provided. Invalid value: " + country_code); // TODO - use LOGGER
+            LOGGER.error("Invalid country code provided. Invalid value: " +  country_code);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid country code{'" + country_code + "'} ");
         }
     }

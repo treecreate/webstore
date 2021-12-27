@@ -10,7 +10,6 @@ import dk.treecreate.api.shipmondo.shipment_object_components.Parcels;
 import dk.treecreate.api.shipmondo.shipment_object_components.SendLabel;
 import dk.treecreate.api.shipmondo.utility.Address;
 import dk.treecreate.api.shipmondo.utility.ContactInfo;
-import dk.treecreate.api.shipmondo.utility.PrintUtil;
 import dk.treecreate.api.shipmondo.utility.Receiver;
 import dk.treecreate.api.shipmondo.utility.Sender;
 

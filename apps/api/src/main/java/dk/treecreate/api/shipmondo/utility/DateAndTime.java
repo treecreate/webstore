@@ -4,8 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 public class DateAndTime
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DateAndTime.class);
+
     private String date ; // Requested pickup date. |format: yyyy-mm-dd
     private String from_time ; // Requested earliest pickup time. |format: 13:00
     private String to_time ; // Requested latest pickup time |format: 16:00
@@ -47,8 +54,8 @@ public class DateAndTime
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH':'mm");
             return LocalTime.parse(time, timeFormatter).toString(); 
         } catch (Exception e) {
-            System.err.println("Failed to parse time: [" + time + "]");
-            throw e;
+            LOGGER.error("Failed to parse time: {" + time + "}", e);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to process time {'" + time + "'} into HH:mm");
         }
     }
 
@@ -65,8 +72,8 @@ public class DateAndTime
             return LocalDate.parse(date, dateFormatter).toString();
         } catch (Exception e)
         {
-            System.err.println("Failed to parse date!");
-            throw e;
+            LOGGER.error("Failed to parse time: {" + date + "}", e);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to process date {'" + date + "'} into yyyy-MM-dd");
         }
     }
     // Getters and setters

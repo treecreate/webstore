@@ -3,12 +3,17 @@ package dk.treecreate.api.shipmondo;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +31,10 @@ import dk.treecreate.api.shipmondo.utility.PrintUtil;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/shipmondo")
+@PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
 public class ShipmondoController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShipmondoController.class);
 
     @Autowired
     ShipmondoService service;
@@ -38,7 +45,7 @@ public class ShipmondoController
      * @return Shipmondo response object
      */
     @PostMapping(path = "/create-shipment")
-    public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody ShipmentInfoDto infoDto)
+    public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody @Valid ShipmentInfoDto infoDto)
     {
 
         var shipment = service.createShipmentObject(infoDto.getInstruction(), infoDto.getIsHomeDelivery(), infoDto.getAddress(), infoDto.getContact(), infoDto.getParcels());
@@ -46,7 +53,6 @@ public class ShipmondoController
         // Shipmondo query
         var response = queryShipmondo(shipment);
 
-        PrintUtil.print(response);
         // Return response from Shipmondo
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -72,8 +78,6 @@ public class ShipmondoController
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", shipmondoToken);
-
-        System.out.println(shipmondoUrl + shipmondoToken);
         try
         {
             URI uri = new URI(shipmondoUrl);
@@ -83,16 +87,16 @@ public class ShipmondoController
 
         } catch (URISyntaxException | ResourceAccessException e)
         {
-            System.err.println(e);
+            LOGGER.error("The shipmondo URL was wrong.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid Shipmondo URI.");
         } catch (UnknownContentTypeException e)
         {
-            System.err.println(e);
+            LOGGER.error("Error occurred while processing the shipment.", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to parse response");
         } catch (Exception e)
         {
-            System.err.println(e);
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Whoops.");
+            LOGGER.error("Unhandled exception occurred!", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Grab a coffee and lean back, the experts are on it.");
         }
     }
 }

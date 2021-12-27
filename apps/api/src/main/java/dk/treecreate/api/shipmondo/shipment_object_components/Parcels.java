@@ -2,6 +2,9 @@ package dk.treecreate.api.shipmondo.shipment_object_components;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dk.treecreate.api.shipmondo.shipment_object_components.parcels_components.DangerousGoods;
 import dk.treecreate.api.shipmondo.shipment_object_components.parcels_components.DeclaredValue;
 
@@ -14,6 +17,7 @@ import dk.treecreate.api.shipmondo.shipment_object_components.parcels_components
  */
 public class Parcels
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Parcels.class);
 
     private int quantity;
     private int weight; // Weight in grams | Either use this or weight_kg
@@ -107,7 +111,7 @@ public class Parcels
             this.quantity = quantity;
         } else
         {
-            System.out.println("Minimum was less than one. Overriding to one."); // TODO - logger this
+            LOGGER.warn("Minimum was less than one. Overriding to one.");
             this.quantity = 1;
         }
     }
@@ -143,7 +147,7 @@ public class Parcels
             this.weight = weight;
         } else
         {
-            System.out.println("Minimum was less than one. Overriding to one."); // TODO - logger this
+            LOGGER.warn("Minimum was less than one. Overriding to one.");
             this.weight = 1;
         }
         this.weight_kg = (double) this.weight / 1_000;
@@ -182,8 +186,8 @@ public class Parcels
             this.weight_kg = weight_kg;
         } else
         {
-            System.out.println("Minimum was less than 0.001 kg. Overriding to 0.001."); // TODO - logger this
-            this.weight_kg = 0.001;
+            LOGGER.warn("Minimum was less than 0.001 kg. Overriding to 1.");
+            this.weight_kg = 1;
         }
     }
 

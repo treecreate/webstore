@@ -16,7 +16,7 @@ public class ContactInfo {
     /**
      * Class constructor used for for ReturnTo
      * @param name
-     * @param attention
+     * @param attention // Optional, can be null or ""
      * @param telephone
      */
     public ContactInfo(String name, String attention, String telephone) {
@@ -28,30 +28,18 @@ public class ContactInfo {
     /**
      * Class constructor with all possible fields
      * @param name 
-     * @param attention
+     * @param attention // Optional, can be null or ""
      * @param telephone
      * @param mobile
      * @param email
      */
     public ContactInfo(String name, String attention, String telephone, String mobile, String email) {
         this.name = name;
-        this.attention = attention;
+        this.attention = attention; // Optional, can be null or ""
         this.telephone = telephone;
         this.mobile = mobile;
         this.email = email;
     }
-
-    // /**
-    //  * Class constructor with most likely used fields
-    //  * @param name 
-    //  * @param mobile
-    //  * @param email
-    //  */
-    // public ContactInfo(String name, String mobile, String email) {
-    //     this.name = name;
-    //     this.mobile = mobile;
-    //     this.email = email;
-    // }
 
     // Getters and setters
     public String getName() {
