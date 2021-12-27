@@ -7,6 +7,7 @@ import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, Shippin
 import { OrdersService } from '../../services/orders/orders.service';
 import { ShipmondoService } from '../../services/shipmondo/shipmondo.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment as env } from '../../../environments/environment';
 
 @Component({
   selector: 'webstore-order-details',
@@ -157,6 +158,10 @@ export class OrderDetailsComponent implements OnInit {
       default:
         return 99999999;
     }
+  }
+
+  getDesignViewOnlyUrl(id: string): string {
+    return `${env.webstoreUrl}/product?designId=${id}`;
   }
 
   /**

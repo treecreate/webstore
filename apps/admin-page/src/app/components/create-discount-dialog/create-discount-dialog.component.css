@@ -1,0 +1,39 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  width: 48%;
+}
+
+.action-button {
+  width: 48%;
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+hr {
+  margin-top: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  margin-bottom: 7px;
+}

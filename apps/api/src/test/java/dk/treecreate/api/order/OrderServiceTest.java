@@ -1,15 +1,20 @@
 package dk.treecreate.api.order;
 
+import dk.treecreate.api.contactinfo.ContactInfo;
+import dk.treecreate.api.contactinfo.ContactInfoRepository;
+import dk.treecreate.api.contactinfo.dto.UpdateContactInfoRequest;
 import dk.treecreate.api.designs.Design;
 import dk.treecreate.api.designs.DesignDimension;
 import dk.treecreate.api.designs.DesignType;
 import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.discount.DiscountType;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.order.dto.UpdateOrderRequest;
 import dk.treecreate.api.transactionitem.TransactionItem;
 import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -357,41 +362,104 @@ class OrderServiceTest
         }
     }
 
-    @Test
-    @DisplayName("updateOrderStatus() correctly updates the status of the order")
-    void updateOrderStatus()
+    @MockBean
+    ContactInfoRepository contactInfoRepository;
+
+    @Nested
+    class UpdateOrderTests
     {
-        // prepare the order
-        UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
-        OrderStatus status = OrderStatus.ASSEMBLING;
-        OrderStatus newStatus = OrderStatus.NEW;
+        @Test
+        @DisplayName("updateOrder() correctly updates the contact info of the order")
+        void updateOrderContactInfo()
+        {
+            // prepare the order
+            UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
 
-        Order order = new Order();
-        Order newOrder = new Order();
+            ContactInfo contactInfo = new ContactInfo();
+            contactInfo.setContactInfoId(new UUID(0, 0));
+            contactInfo.setName("tester");
+            contactInfo.setEmail("test@example.com");
+            contactInfo.setPhoneNumber("4512345678");
+            contactInfo.setStreetAddress("Testgade 123");
+            contactInfo.setStreetAddress2("1st floor");
+            contactInfo.setCity("Testhavn");
+            contactInfo.setPostcode("1234");
+            contactInfo.setCountry("Testevnia");
 
-        order.setOrderId(orderId);
-        order.setStatus(status);
+            Order order = new Order();
+            Order newOrder = new Order();
 
-        newOrder.setOrderId(orderId);
-        newOrder.setStatus(status);
+            order.setOrderId(orderId); // contact info is null
+            order.setStatus(
+                OrderStatus.ASSEMBLING); // shouldn't change after update// shouldn't change after update
+            order.setSubtotal(new BigDecimal(0));
+            order.setTotal(new BigDecimal(0));
+            order.setContactInfo(new ContactInfo());
 
+            newOrder.setOrderId(orderId);
+            newOrder.setContactInfo(contactInfo);
+            newOrder.setStatus(OrderStatus.ASSEMBLING); // shouldn't change after update
+            newOrder.setSubtotal(new BigDecimal(0));
+            newOrder.setTotal(new BigDecimal(0));
 
-        Mockito.when(orderRepository.findByOrderId(orderId)).thenReturn(Optional.of(order));
-        Mockito.when(orderRepository.save(order)).thenReturn(newOrder);
+            var updateOrderRequest = new UpdateOrderRequest();
+            var updateContactInfoRequest = new UpdateContactInfoRequest();
+            updateContactInfoRequest.setName(contactInfo.getName());
+            updateContactInfoRequest.setEmail(contactInfo.getEmail());
+            updateContactInfoRequest.setPhoneNumber(contactInfo.getPhoneNumber());
+            updateContactInfoRequest.setStreetAddress(contactInfo.getStreetAddress());
+            updateContactInfoRequest.setStreetAddress2(contactInfo.getStreetAddress2());
+            updateContactInfoRequest.setCity(contactInfo.getCity());
+            updateContactInfoRequest.setPostcode(contactInfo.getPostcode());
+            updateContactInfoRequest.setCountry(contactInfo.getCountry());
+            updateOrderRequest.setContactInfo(updateContactInfoRequest);
 
-        assertEquals(newOrder, orderService.updateOrderStatus(orderId, newStatus));
-    }
+            Mockito.when(orderRepository.findByOrderId(orderId)).thenReturn(Optional.of(order));
+            Mockito.when(contactInfoRepository.save(contactInfo)).thenReturn(contactInfo);
+            Mockito.when(orderRepository.save(order)).thenReturn(newOrder);
 
-    @Test
-    @DisplayName("updateOrderStatus() throws ResourceNotFoundException if no order is found")
-    void updateOrderStatusNotFound()
-    {
-        UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
-        OrderStatus status = OrderStatus.ASSEMBLING;
+            assertEquals(newOrder, orderService.updateOrder(orderId, updateOrderRequest));
+        }
 
-        Mockito.when(orderRepository.findByOrderId(orderId)).thenReturn(Optional.empty());
+        @Test
+        @DisplayName("updateOrder() correctly updates the status of the order")
+        void updateOrderStatus()
+        {
+            // prepare the order
+            UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
+            OrderStatus status = OrderStatus.ASSEMBLING;
+            OrderStatus newStatus = OrderStatus.NEW;
 
-        assertThrows(ResourceNotFoundException.class,
-            () -> orderService.updateOrderStatus(orderId, status));
+            Order order = new Order();
+            Order newOrder = new Order();
+
+            order.setOrderId(orderId);
+            order.setStatus(status);
+
+            newOrder.setOrderId(orderId);
+            newOrder.setStatus(newStatus);
+
+            var updateOrderRequest = new UpdateOrderRequest();
+            updateOrderRequest.setStatus(status);
+
+            Mockito.when(orderRepository.findByOrderId(orderId)).thenReturn(Optional.of(order));
+            Mockito.when(orderRepository.save(order)).thenReturn(newOrder);
+
+            assertEquals(newOrder, orderService.updateOrder(orderId, updateOrderRequest));
+        }
+
+        @Test
+        @DisplayName("updateOrder() throws ResourceNotFoundException if no order is found")
+        void updateOrderNotFoundException()
+        {
+            UUID orderId = UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234");
+            var updateOrderRequest = new UpdateOrderRequest();
+            updateOrderRequest.setStatus(OrderStatus.ASSEMBLING);
+
+            Mockito.when(orderRepository.findByOrderId(orderId)).thenReturn(Optional.empty());
+
+            assertThrows(ResourceNotFoundException.class,
+                () -> orderService.updateOrder(orderId, updateOrderRequest));
+        }
     }
 }

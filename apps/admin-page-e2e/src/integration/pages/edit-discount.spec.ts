@@ -18,7 +18,7 @@ describe('editDiscountPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'localhost:5000/discounts/123/id', {
+    cy.intercept('GET', 'discounts/123/id', {
       body: mockDiscount,
       statusCode: 200,
     }).as('fetchDiscounts');
@@ -71,8 +71,77 @@ describe('editDiscountPage', () => {
     it('should display the actions', () => {
       cy.get('[data-cy=actions-section]').should('exist');
       cy.get('[data-cy=actions-section]').contains('Update');
-      cy.get('[data-cy=actions-section]').contains('Active');
+      cy.get('[data-cy=actions-section]').contains('Enabled');
       cy.get('[data-cy=actions-section]').contains('Delete');
+    });
+  });
+
+  describe('update discount', () => {
+    it('update button should be disabled for unchanged discount information', () => {
+      cy.get('[data-cy=update-discount-btn]').should('be.disabled');
+    });
+
+    it('update button should be disabled for invalid discount information', () => {
+      cy.get('[data-cy=discount-amount]').type('-1');
+      cy.get('[data-cy=update-discount-btn]').should('be.disabled');
+    });
+
+    it('should update discount information', () => {
+      const updatedDiscountCode = 'Update Discount Code';
+      cy.intercept('PATCH', 'discounts/123', {
+        body: { ...mockDiscount, discountCode: updatedDiscountCode },
+        statusCode: 200,
+      }).as('updateDiscount');
+      cy.get('[data-cy=update-discount-btn]').should('be.disabled');
+      cy.get('[data-cy=discount-code]').clear().type(updatedDiscountCode);
+      cy.get('[data-cy=update-discount-btn]').should('be.enabled').click();
+      cy.get('[data-cy=discount-code]').invoke('val').should('eq', updatedDiscountCode);
+      cy.get('[data-cy=update-discount-btn]').should('be.disabled');
+      cy.get('simple-snack-bar').should('contain', 'updated');
+    });
+
+    it('should display a snackbar and keep update btn enabled on failed update', () => {
+      const updatedDiscountCode = 'Update Discount Code';
+      cy.intercept('PATCH', 'discounts/123', {
+        body: { message: 'discount code is already used' },
+        statusCode: 400,
+      }).as('UpdateDiscountDuplicate');
+      cy.get('[data-cy=update-discount-btn]').should('be.disabled');
+      cy.get('[data-cy=discount-code]').clear().type(updatedDiscountCode);
+      cy.get('[data-cy=update-discount-btn]').should('be.enabled').click();
+      cy.get('[data-cy=discount-code]').invoke('val').should('eq', updatedDiscountCode);
+      cy.get('[data-cy=update-discount-btn]').should('be.enabled');
+      cy.get('simple-snack-bar').should('contain', 'discount code is already used');
+    });
+
+    it('should toggle discount status correctly', () => {
+      cy.intercept('PATCH', 'discounts/123', {
+        body: { ...mockDiscount, isEnabled: false },
+        statusCode: 200,
+        times: 1,
+      }).as('updateDiscountStatusFalse');
+      cy.get('[data-cy=toggle-discount-status-slider]').click();
+      cy.get('[data-cy=toggle-discount-status-slider]').contains('Disabled');
+      cy.get('simple-snack-bar').should('contain', 'disabled');
+      cy.intercept('PATCH', 'discounts/123', {
+        body: { ...mockDiscount, isEnabled: true },
+        statusCode: 200,
+        times: 1,
+      });
+      cy.get('[data-cy=toggle-discount-status-slider]').click();
+      cy.get('[data-cy=toggle-discount-status-slider]').contains('Enabled');
+      cy.get('simple-snack-bar').should('contain', 'enabled');
+    });
+
+    it('should display a snackbar on failed toggle of discount status', () => {
+      cy.intercept('PATCH', 'discounts/123', {
+        body: {},
+        statusCode: 400,
+        times: 1,
+      });
+      cy.get('[data-cy=toggle-discount-status-slider]').click();
+      cy.get('[data-cy=toggle-discount-status-slider]').contains('Enabled');
+      cy.get('simple-snack-bar').should('contain', 'Failed');
     });
   });
 });

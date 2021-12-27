@@ -1,11 +1,15 @@
 <webstore-item-card title="Discounts" [content]="content" [isLoading]="isLoading" data-cy="discounts-card">
     <ng-template #content>
         <div class="header">
-            <div matTooltip="Not implemented yet.">
-                <button mat-flat-button color="primary" [disabled]="true" class="item" data-cy="discounts-create-btn">
-                    Create new
-                </button>
-            </div>
+            <button
+                mat-flat-button
+                color="primary"
+                (click)="openCreateDiscountDialog()"
+                class="item"
+                data-cy="create-discount-btn"
+            >
+                Create new
+            </button>
         </div>
         <table mat-table [dataSource]="discounts" class="mat-elevation-z8 discounts-table" data-cy="discounts-table">
             <!-- Code Column -->
