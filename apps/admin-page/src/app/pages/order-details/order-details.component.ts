@@ -3,7 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DesignDimensionEnum, IOrder, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
+import {
+  CreateUpdateOrderRequest,
+  DesignDimensionEnum,
+  IOrder,
+  ITransactionItem,
+  OrderStatusEnum,
+  ShippingMethodEnum,
+} from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
 import { environment as env } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,6 +28,7 @@ export class OrderDetailsComponent implements OnInit {
   isLoading = true;
   isUpdating = false;
 
+  statusControl!: FormControl;
   // Customer information
   emailControl!: FormControl;
   phoneNumberControl!: FormControl;
@@ -82,10 +90,24 @@ export class OrderDetailsComponent implements OnInit {
    * @param order - the order containing the new status.
    * @param updatedForm - the information that is updated. (status, contact info, delivery address)
    */
-  updateOrder(updatedForm: string, order: IOrder): void {
+  updateOrder(updatedForm: string): void {
     if (this.order !== undefined) {
+      const updateOrderRequest: CreateUpdateOrderRequest = {
+        contactInfo: {
+          city: this.billingCityControl.value,
+          country: 'Denmark',
+          email: this.emailControl.value,
+          name: this.nameControl.value,
+          phoneNumber: this.phoneNumberControl.value,
+          postcode: this.postcodeControl.value,
+          streetAddress: this.addressOneControl.value,
+          streetAddress2: this.addressTwoControl.value,
+        },
+        status: OrderStatusEnum.assembling,
+      };
+
       this.isUpdating = true;
-      this.ordersService.updateOrder(order).subscribe({
+      this.ordersService.updateOrder(updateOrderRequest, this.order?.orderId).subscribe({
         error: (error: HttpErrorResponse) => {
           if (this.id !== undefined) {
             this.fetchOrder(this.id);
@@ -154,7 +176,7 @@ export class OrderDetailsComponent implements OnInit {
         this.order = orders.find((order) => order.orderId === id);
         // Setting the page title.
         this.title = `Order by: ${this.order?.contactInfo.name}`;
-
+        this.statusControl = new FormControl(this.order?.status);
         // Customer Information
         this.emailControl = new FormControl(this.order?.contactInfo.email, [Validators.email, Validators.required]);
         this.phoneNumberControl = new FormControl(this.order?.contactInfo.phoneNumber, [

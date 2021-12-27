@@ -47,7 +47,7 @@
                         class="order-status-select"
                         data-cy="order-status"
                         [ngStyle]="{ 'background-color': ordersService.getOrderStatusColor(order!.status) }"
-                        (selectionChange)="updateOrder('STATUS', order!)"
+                        (selectionChange)="updateOrder('STATUS')"
                     >
                         <mat-option
                             [value]="status"
@@ -227,7 +227,7 @@
                             [disabled]="!isContactInfoValid()"
                             type="button"
                             class="action-button"
-                            (click)="updateOrder('CONTACT INFO', order!)"
+                            (click)="updateOrder('CONTACT INFO')"
                         >
                             <span>Update contact info</span>
                             <mat-icon *ngIf="isUpdating" class="icon"
@@ -302,7 +302,7 @@
                             mat-flat-button
                             color="primary"
                             [disabled]="!isDeliveryAddressValid()"
-                            (click)="updateOrder('DELIVERY ADDRESS', order!)"
+                            (click)="updateOrder('DELIVERY ADDRESS')"
                             class="action-button"
                         >
                             <span>Update address</span>
