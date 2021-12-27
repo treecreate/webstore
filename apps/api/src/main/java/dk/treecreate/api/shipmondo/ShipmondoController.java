@@ -26,7 +26,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.shipmondo.dto.ShipmentInfoDto;
-import dk.treecreate.api.shipmondo.utility.PrintUtil;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
