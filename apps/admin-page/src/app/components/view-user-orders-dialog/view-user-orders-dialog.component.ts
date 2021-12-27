@@ -50,13 +50,13 @@ export class ViewUserOrdersDialogComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  /**
-   * Fetch all orders through the api.
-   */
   ngOnInit(): void {
     this.fetchOrders();
   }
 
+  /**
+   * Fetch all orders through the api.
+   */
   fetchOrders(): void {
     this.isLoading = true;
     this.ordersService.getOrders().subscribe(

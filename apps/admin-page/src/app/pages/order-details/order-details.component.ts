@@ -58,6 +58,12 @@ export class OrderDetailsComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
 
+  /**
+   * @param ordersService
+   * @param route
+   * @param location
+   * @param snackbar
+   */
   constructor(
     public ordersService: OrdersService,
     private route: ActivatedRoute,
@@ -67,6 +73,9 @@ export class OrderDetailsComponent implements OnInit {
     this.title = 'Loading...';
   }
 
+  /**
+   * Checks the the param id in the url and uses it to fetch the order.
+   */
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || undefined;
     // Fetching the order.
