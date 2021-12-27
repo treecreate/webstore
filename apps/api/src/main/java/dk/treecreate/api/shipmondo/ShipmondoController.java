@@ -31,7 +31,6 @@ import dk.treecreate.api.shipmondo.utility.PrintUtil;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/shipmondo")
-@PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
 public class ShipmondoController
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShipmondoController.class);
@@ -44,6 +43,7 @@ public class ShipmondoController
      * @param infoDto Dto with all necessary information
      * @return Shipmondo response object
      */
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     @PostMapping(path = "/create-shipment")
     public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody @Valid ShipmentInfoDto infoDto)
     {

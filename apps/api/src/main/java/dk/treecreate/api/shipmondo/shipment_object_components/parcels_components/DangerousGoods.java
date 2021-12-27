@@ -2,6 +2,12 @@ package dk.treecreate.api.shipmondo.shipment_object_components.parcels_component
 
 public class DangerousGoods {
    
+    // ------------------- WARNING -------------------
+    // This is currently named ard_class 
+    // It MUST be called "class" for this object to be usable
+    // Java does not normally the name "class " to be used.
+    // It can be overridden but as it was not needed currently it is not in place
+    // ------------------- WARNING -------------------
     private String ard_class;
     private String un_number;
     private int net_weight;
