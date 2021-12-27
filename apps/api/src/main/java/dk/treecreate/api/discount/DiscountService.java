@@ -3,8 +3,10 @@ package dk.treecreate.api.discount;
 import dk.treecreate.api.discount.dto.UpdateDiscountRequest;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
@@ -50,6 +52,14 @@ import java.util.UUID;
         }
         if (updateDiscountRequest.getDiscountCode() != null)
         {
+            // check that the discount code is not a duplicate of another discount
+            if (!updateDiscountRequest.getDiscountCode().equals(discount.getDiscountCode()) &&
+                this.discountRepository.existsByDiscountCode(
+                    updateDiscountRequest.getDiscountCode()))
+            {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "The provided discount code is already used by another discount");
+            }
             discount.setDiscountCode(updateDiscountRequest.getDiscountCode());
         }
         if (updateDiscountRequest.getType() != null)
