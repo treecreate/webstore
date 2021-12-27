@@ -181,8 +181,6 @@ describe('orderDetailsPage', () => {
     cy.get('[data-cy=back-btn]').should('exist');
   });
 
-  // TODO: test if the button goes back in history
-
   it('should display the order details card', () => {
     cy.get('[data-cy=order-details-card]').should('exist');
   });
@@ -242,7 +240,6 @@ describe('orderDetailsPage', () => {
 
   it('should correctly change the status', () => {
     cy.intercept('PATCH', 'orders/MakeMeWantIt', {
-      body: mockOrder(OrderStatusEnum.delivered, 14),
       statusCode: 200,
     }).as('updateOrderStatus');
 
@@ -250,7 +247,7 @@ describe('orderDetailsPage', () => {
     cy.get('[data-cy=order-status]').first().click();
     cy.get('[data-cy=order-status-option]').first().click();
     cy.get('[data-cy=order-status]').first().contains('DELIVERED');
-    cy.wait('@updateOrderStatus').its('request.body').should('include', { status: 'DELIVERED' });
+    cy.wait('@updateOrderStatus').get('[data-cy=order-status-option]').should('contain', 'DELIVERED');
   });
 
   it('should reload orders on status change failure', () => {
@@ -324,6 +321,32 @@ describe('orderDetailsPage', () => {
   });
 
   describe('delivery-info-section', () => {
+    it('should update order delivery info', () => {
+      cy.intercept('PATCH', '/orders/' + mockOrders[0].orderId, {
+        statusCode: 200,
+      });
+      cy.get('[data-cy=update-contact-info-btn]').should('be.disabled');
+      cy.get('[data-cy=email-input]').clear().type('howdy@maggot.booty');
+      cy.get('[data-cy=phone-number-input]').clear().type('12345678');
+      cy.get('[data-cy=update-contact-info-btn]').should('not.be.disabled');
+      cy.get('[data-cy=update-contact-info-btn]').click();
+    });
+
+    it('should update order delivery info', () => {
+      cy.intercept('PATCH', '/orders/' + mockOrders[0].orderId, {
+        statusCode: 200,
+      });
+      cy.get('[data-cy=update-delivery-address-btn]').should('be.disabled');
+      cy.get('[data-cy=name-input]').clear().type('Joe who? Joe mamma!');
+      cy.get('[data-cy=update-delivery-address-btn]').should('not.be.disabled');
+      cy.get('[data-cy=city-input]').clear().type('MammaCity');
+      cy.get('[data-cy=postcode-input]').clear().type('Joe who? Joe mamma!');
+      cy.get('[data-cy=update-delivery-address-btn]').should('be.disabled');
+      cy.get('[data-cy=postcode-input]').clear().type('1234');
+      cy.get('[data-cy=update-delivery-address-btn]').should('not.be.disabled');
+      cy.get('[data-cy=update-delivery-address-btn]').click();
+    });
+
     it('should display the delivery info divider', () => {
       cy.get('[data-cy=delivery-info-divider]').should('exist');
       cy.get('[data-cy=delivery-info-divider]').contains('Delivery address');
