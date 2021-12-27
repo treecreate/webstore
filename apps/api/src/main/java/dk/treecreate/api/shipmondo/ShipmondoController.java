@@ -72,7 +72,8 @@ public class ShipmondoController
         HttpHeaders headers = new HttpHeaders();
         RestTemplate restTemplate = new RestTemplate();
 
-        var shipmondoUrl = customPropertiesConfig.getShipmondoUrl();
+        var shipmondoUrl = customPropertiesConfig.getShipmondoUrl() + "/shipments";
+        // NOTE: the token is format of Base64 encoded of `BASIC <base64 of username:password>`
         var shipmondoToken = customPropertiesConfig.getShipmondoToken();
 
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -81,6 +82,7 @@ public class ShipmondoController
         {
             URI uri = new URI(shipmondoUrl);
 
+            // TODO - inform user when the address is invalid etc
             HttpEntity<ShipmentObject> httpEntity = new HttpEntity<>(shipment, headers);
             return restTemplate.postForObject(uri, httpEntity, ShipmentObjectResponse.class);
 

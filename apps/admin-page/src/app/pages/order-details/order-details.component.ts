@@ -244,9 +244,11 @@ export class OrderDetailsComponent implements OnInit {
       isHomeDelivery: this.order?.shippingMethod === ShippingMethodEnum.homeDelivery,
     };
     // Send data
+    // TODO - name the function etc according to the actual content and purpose
     this.shipmondoService.createOrder(orderInfo).subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
+        // TODO - display error via snackbar
       },
       next: (shipmondoOrder: unknown) => {
         console.log('Order Info:', shipmondoOrder);
