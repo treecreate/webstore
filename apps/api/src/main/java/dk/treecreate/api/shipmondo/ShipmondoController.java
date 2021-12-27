@@ -32,6 +32,11 @@ public class ShipmondoController
     @Autowired
     ShipmondoService service;
 
+    /**
+     * Create a shipmondo shipment and send the label via email to the email defined in LABEL
+     * @param infoDto Dto with all necessary information
+     * @return Shipmondo response object
+     */
     @PostMapping(path = "/create-shipment")
     public ResponseEntity<ShipmentObjectResponse> createShipment(@RequestBody ShipmentInfoDto infoDto)
     {
@@ -50,6 +55,12 @@ public class ShipmondoController
     @Autowired
     CustomPropertiesConfig customPropertiesConfig;
 
+    /**
+     * Send a ShipmentObject to Shipmondo and get the response back. 
+     * It contains headers for security auth
+     * @param shipment Completed shipment object
+     * @return ShipmondoResponseObject
+     */
     private ShipmentObjectResponse queryShipmondo(ShipmentObject shipment)
     {
 
