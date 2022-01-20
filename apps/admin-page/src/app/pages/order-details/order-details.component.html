@@ -47,7 +47,7 @@
                         class="order-status-select"
                         data-cy="order-status"
                         [ngStyle]="{ 'background-color': ordersService.getOrderStatusColor(order!.status) }"
-                        (selectionChange)="onStatusChange(order!)"
+                        (selectionChange)="updateOrder('STATUS')"
                     >
                         <mat-option
                             [value]="status"
@@ -112,17 +112,15 @@
                                     Edit
                                 </button>
                                 <div class="spacer"></div>
-                                <button
+                                <a
                                     mat-flat-button
                                     color="primary"
-                                    routerLink="/transaction-items/{{ item.transactionItemId }}"
+                                    href="{{ getDesignViewOnlyUrl(item.design.designId) }}"
+                                    target="_blank"
                                     data-cy="item-view-btn"
-                                    matTooltip="Action not implemented yet."
-                                    matTooltipPosition="right"
-                                    [disabled]="true"
                                 >
                                     View
-                                </button>
+                                </a>
                             </div>
                         </td>
                     </ng-container>
@@ -206,35 +204,51 @@
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>E-mail</mat-label>
-                        <input matInput type="email" [formControl]="emailControl" />
+                        <input matInput type="email" [formControl]="emailControl" data-cy="email-input" />
                     </mat-form-field>
                 </div>
-                <div class="row">
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
+                <div class="actions">
+                    <span
+                        [matTooltipDisabled]="isContactInfoValid()"
+                        [matTooltip]="
+                            !emailControl.dirty && !phoneNumberControl.dirty
+                                ? 'No changed values'
+                                : emailControl.invalid
+                                ? 'Email is invalid'
+                                : phoneNumberControl.invalid
+                                ? 'Phone number is invalid'
+                                : 'The form is loading'
+                        "
                         matTooltipPosition="right"
-                        [disabled]="true"
                     >
-                        Update contact info
-                    </button>
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
-                        matTooltipPosition="right"
-                        [disabled]="true"
-                    >
-                        Send email
-                    </button>
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            [disabled]="!isContactInfoValid()"
+                            type="button"
+                            class="action-button"
+                            data-cy="update-contact-info-btn"
+                            (click)="updateOrder('CONTACT INFO')"
+                        >
+                            <span>Update contact info</span>
+                            <mat-icon *ngIf="isUpdating" class="icon"
+                                ><mat-spinner diameter="15" color="accent"></mat-spinner
+                            ></mat-icon>
+                        </button>
+                    </span>
+
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                        <button mat-flat-button color="primary" class="action-button" [disabled]="true">
+                            <mat-icon> mail_outline</mat-icon>
+                        </button>
+                    </span>
                 </div>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="5" data-cy="contact-info-right">
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Phonenumber</mat-label>
-                        <input matInput type="tel" [formControl]="phoneNumberControl" />
+                        <input matInput type="tel" [formControl]="phoneNumberControl" data-cy="phone-number-input" />
                     </mat-form-field>
                 </div>
             </mat-grid-tile>
@@ -249,30 +263,56 @@
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>Name</mat-label>
-                        <input matInput type="text" [formControl]="nameControl" />
+                        <input matInput type="text" [formControl]="nameControl" data-cy="name-input" />
                     </mat-form-field>
                 </div>
                 <div class="row">
                     <mat-form-field appearance="fill">
                         <mat-label>City</mat-label>
-                        <input matInput type="text" [formControl]="cityControl" />
+                        <input matInput type="text" [formControl]="cityControl" data-cy="city-input" />
                     </mat-form-field>
                     <div class="spacer"></div>
                     <mat-form-field appearance="fill">
                         <mat-label>Postcode</mat-label>
-                        <input matInput type="number" [formControl]="postcodeControl" />
+                        <input matInput type="text" [formControl]="postcodeControl" data-cy="postcode-input" />
                     </mat-form-field>
                 </div>
                 <div class="row">
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
+                    <span
+                        [matTooltipDisabled]="isDeliveryAddressValid()"
+                        [matTooltip]="
+                            !nameControl.dirty &&
+                            !cityControl.dirty &&
+                            !postcodeControl.dirty &&
+                            !addressOneControl.dirty &&
+                            !addressTwoControl.dirty
+                                ? 'No changed values'
+                                : nameControl.invalid
+                                ? 'Name is invalid'
+                                : cityControl.invalid
+                                ? 'City is invalid'
+                                : postcodeControl.invalid
+                                ? 'Postcode is invalid'
+                                : addressOneControl.invalid
+                                ? 'Address is invalid'
+                                : 'The form is loading'
+                        "
                         matTooltipPosition="right"
-                        [disabled]="true"
                     >
-                        Update Address
-                    </button>
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            [disabled]="!isDeliveryAddressValid()"
+                            (click)="updateOrder('DELIVERY ADDRESS')"
+                            class="action-button"
+                            data-cy="update-delivery-address-btn"
+                        >
+                            <span>Update address</span>
+                            <mat-icon *ngIf="isUpdating" class="icon"
+                                ><mat-spinner diameter="15" color="accent"></mat-spinner
+                            ></mat-icon>
+                        </button>
+                    </span>
                 </div>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="7" data-cy="delivery-info-right">
@@ -338,13 +378,7 @@
             </mat-grid-tile>
             <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
                 <div class="row">
-                    <button
-                        mat-flat-button
-                        color="primary"
-                        matTooltip="Action not implemented yet."
-                        matTooltipPosition="right"
-                        [disabled]="true"
-                    >
+                    <button mat-flat-button color="primary" (click)="createShipmondoOrder()">
                         Generate shipping label
                     </button>
                     <button

@@ -38,6 +38,13 @@ public class CreateDiscountRequest
         required = true)
     private Integer totalUses;
 
+    @ApiModelProperty(notes = "Can the discount be used", example = "1")
+    private Boolean isEnabled = true;
+
+    @ApiModelProperty(name = "Date after which the discount can be used",
+        example = "2021-08-31T19:40:10.000+00:00", required = false)
+    private Date startsAt;
+
     @ApiModelProperty(name = "Date after which the discount can no longer be used",
         example = "2021-08-31T19:40:10.000+00:00", required = false)
     private Date expiresAt;
@@ -90,6 +97,26 @@ public class CreateDiscountRequest
     public void setTotalUses(int totalUses)
     {
         this.totalUses = totalUses;
+    }
+
+    public boolean getIsEnabled()
+    {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(boolean isEnabled)
+    {
+        this.isEnabled = isEnabled;
+    }
+
+    public Date getStartsAt()
+    {
+        return startsAt;
+    }
+
+    public void setStartsAt(Date startsAt)
+    {
+        this.startsAt = startsAt;
     }
 
     public Date getExpiresAt()

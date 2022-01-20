@@ -147,6 +147,7 @@ function mockOrder(status: OrderStatusEnum, daysLeft: number): IOrder {
       amount: 100,
       remainingUses: 1,
       totalUses: 2,
+      isEnabled: true,
     },
     orderId: 'MakeMeWantIt',
     paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
@@ -177,7 +178,7 @@ describe('ordersPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'localhost:5000/orders', {
+    cy.intercept('GET', 'http://localhost:5000/orders', {
       body: mockOrders,
       statusCode: 200,
     }).as('fetchOrders');
@@ -258,7 +259,7 @@ describe('ordersPage', () => {
   });
 
   it('should correctly change the status', () => {
-    cy.intercept('PATCH', 'localhost:5000/orders/status/MakeMeWantIt', {
+    cy.intercept('PATCH', 'orders/MakeMeWantIt', {
       body: mockOrder(OrderStatusEnum.delivered, 14),
       statusCode: 200,
     }).as('updateOrderStatus');
@@ -271,7 +272,7 @@ describe('ordersPage', () => {
   });
 
   it('should reload orders on status change failure', () => {
-    cy.intercept('PATCH', 'localhost:5000/orders/status/MakeMeWantIt', {
+    cy.intercept('PATCH', 'orders/MakeMeWantIt', {
       statusCode: 500,
     }).as('updateOrderStatus');
 
@@ -280,5 +281,10 @@ describe('ordersPage', () => {
 
     cy.wait('@fetchOrders');
     cy.get('[data-cy=order-status]').first().contains('INITIAL');
+  });
+
+  it('should display sort buttons', () => {
+    cy.get('.mat-sort-header-container').should('exist');
+    cy.get('.mat-sort-header-container').should('have.length', 7);
   });
 });

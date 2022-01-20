@@ -2,6 +2,7 @@ package dk.treecreate.api.discount;
 
 import dk.treecreate.api.discount.dto.CreateDiscountRequest;
 import dk.treecreate.api.discount.dto.GetDiscountsResponse;
+import dk.treecreate.api.discount.dto.UpdateDiscountRequest;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +27,8 @@ public class DiscountController
 {
     @Autowired
     DiscountRepository discountRepository;
+    @Autowired
+    DiscountService discountService;
 
     @GetMapping()
     @Operation(summary = "Get all discounts items")
@@ -39,6 +41,7 @@ public class DiscountController
         return discountRepository.findAll();
     }
 
+    // TODO - change mapping to something like GET /discounts/code/:discountCode for better readbility
     @GetMapping("{discountCode}")
     @Operation(summary = "Get discount by discount code")
     @ApiResponses(value = {
@@ -50,6 +53,18 @@ public class DiscountController
         @PathVariable String discountCode)
     {
         return discountRepository.findByDiscountCode(discountCode)
+            .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
+    }
+
+    // TODO - add tests for GET /discounts/:discountId
+    @GetMapping("{discountId}/id")
+    @Operation(summary = "Get a discount")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Discount getOne(
+        @ApiParam(name = "discountId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID discountId)
+    {
+        return discountRepository.findByDiscountId(discountId)
             .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
     }
 
@@ -75,9 +90,14 @@ public class DiscountController
         discount.setDiscountCode(createDiscountRequest.getDiscountCode());
         discount.setRemainingUses(createDiscountRequest.getRemainingUses());
         discount.setTotalUses((createDiscountRequest.getTotalUses()));
+        discount.setIsEnabled(createDiscountRequest.getIsEnabled());
         if (createDiscountRequest.getExpiresAt() != null)
         {
             discount.setExpiresAt(createDiscountRequest.getExpiresAt());
+        }
+        if (createDiscountRequest.getStartsAt() != null)
+        {
+            discount.setStartsAt(createDiscountRequest.getStartsAt());
         }
         if (discountRepository.existsByDiscountCode(createDiscountRequest.getDiscountCode()))
         {
@@ -86,31 +106,23 @@ public class DiscountController
         return discountRepository.save(discount);
     }
 
-    @PutMapping("/use/{discountId}")
-    @Operation(summary = "Update discount with information that it has been used once")
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Discount information",
-            response = Discount.class),
-        @ApiResponse(code = 404, message = "Discount not found")})
-    @PreAuthorize("hasRole('USER') or hasRole('DEVELOPER') or hasRole('ADMIN')")
+    // TODO - add tests for PATCH /discounts/:discountId
+
+    /**
+     * Update discount with delect information
+     *
+     * @param discountId            Id of the discount entity
+     * @param updateDiscountRequest DTO with information about fields that should be updated
+     * @return updated entity
+     */
+    @PatchMapping("/{discountId}")
+    @Operation(summary = "Update discount with select information")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Discount update(
         @ApiParam(name = "discountId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-        @PathVariable UUID discountId)
+        @PathVariable UUID discountId,
+        @RequestBody(required = false) @Valid UpdateDiscountRequest updateDiscountRequest)
     {
-        Discount discount = discountRepository.findByDiscountId(discountId)
-            .orElseThrow(() -> new ResourceNotFoundException("Discount not found"));
-        if (discount.getRemainingUses() == 0)
-        {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                "This discount has no remaining uses");
-        }
-        if (discount.getExpiresAt() != null && new Date().after(discount.getExpiresAt()))
-        {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This discount is expired");
-        }
-
-        discount.setRemainingUses(discount.getRemainingUses() - 1);
-        discount.setTotalUses(discount.getTotalUses() + 1);
-        return discountRepository.save(discount);
+        return discountService.updateDiscountEntity(updateDiscountRequest, discountId);
     }
 }

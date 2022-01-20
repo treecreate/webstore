@@ -6,8 +6,11 @@
   width: 95%;
 }
 
-.row button {
-  padding: 0 3.8vw;
+.icon {
+  margin-left: 10px;
+  position: relative;
+  top: 5px;
+  width: 3px;
 }
 
 .row mat-form-field {
@@ -16,6 +19,15 @@
 
 .spacer {
   flex: 0.15;
+}
+
+.actions {
+  width: 100%;
+  padding-left: 13px;
+}
+
+.action-button {
+  margin-right: 20px;
 }
 
 ::ng-deep .order-details-content .mat-grid-tile-content {
@@ -57,7 +69,8 @@
   width: fit-content;
 }
 
-.actions-row button {
+.actions-row button,
+a {
   display: flex;
   justify-content: center;
   align-items: center;

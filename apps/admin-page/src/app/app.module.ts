@@ -18,7 +18,11 @@ import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { AccountComponent } from './pages/account/account.component';
 import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
+import { UsersComponent } from './pages/users/users.component';
+import { ViewUserOrdersDialogComponent } from './components/view-user-orders-dialog/view-user-orders-dialog.component';
+import { EditDiscountComponent } from './pages/edit-discount/edit-discount.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
+import { CreateDiscountDialogComponent } from './components/create-discount-dialog/create-discount-dialog.component';
 
 registerLocaleData(en);
 
@@ -33,7 +37,11 @@ registerLocaleData(en);
     DiscountsComponent,
     AccountComponent,
     ChangePasswordDialogComponent,
+    UsersComponent,
+    ViewUserOrdersDialogComponent,
+    EditDiscountComponent,
     OrderDetailsComponent,
+    CreateDiscountDialogComponent,
   ],
   imports: [
     BrowserModule,

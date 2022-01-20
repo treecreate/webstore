@@ -20,6 +20,10 @@ public class CustomPropertiesConfig
 
     private int jwtExpirationMs;
 
+    private String shipmondoUrl;
+
+    private String shipmondoToken;
+    
     private int jwtRefreshExpirationMs;
 
     public String getQuickpayApiKey()
@@ -83,7 +87,25 @@ public class CustomPropertiesConfig
         this.jwtExpirationMs = jwtExpirationMs;
     }
 
-    public int getJwtRefreshExpirationMs()
+    public void setShipmondoUrl(String shipmondoUrl) {
+        this.shipmondoUrl = shipmondoUrl;
+    }
+
+    public String getShipmondoUrl()
+    {
+        return this.shipmondoUrl;
+    }
+
+    public void setShipmondoToken(String shipmondoToken) {
+        this.shipmondoToken = shipmondoToken;
+    }
+
+    public String getShipmondoToken()
+    {
+        return this.shipmondoToken;
+    }
+    
+        public int getJwtRefreshExpirationMs()
     {
         return jwtRefreshExpirationMs;
     }
