@@ -7,7 +7,8 @@ import dk.treecreate.api.discount.DiscountRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetAllOrdersResponse;
-import dk.treecreate.api.order.dto.GetOrdersResponse;
+import dk.treecreate.api.order.dto.UpdateOrderRequest;
+import dk.treecreate.api.order.dto.UpdateOrderStatusRequest;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -16,6 +17,7 @@ import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
 import io.sentry.Sentry;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +35,7 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -63,15 +66,27 @@ public class OrderController
     @Autowired
     private LocaleService localeService;
 
+    /**
+     * Get a list of orders
+     *
+     * @param userId <i>Optional</i> query param user to filer orders for the given user
+     * @return a list of orders
+     */
     @GetMapping()
     @Operation(summary = "Get all orders")
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "A list of orders",
-            response = GetOrdersResponse.class)})
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
-    public List<Order> getAll()
+    public List<Order> getAll(@Parameter(name = "userId",
+        description = "Id of the user the listed orders belong to",
+        example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = false)
+                              @RequestParam(required = false) UUID userId)
     {
-        return orderRepository.findAll();
+        if (userId == null)
+        {
+            return orderRepository.findAll();
+        }
+        User currentUser = userRepository.findByUserId(userId)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return orderRepository.findByUserId(currentUser.getUserId());
     }
 
     @GetMapping("me")
@@ -86,6 +101,18 @@ public class OrderController
         User currentUser = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         return orderRepository.findByUserId(currentUser.getUserId());
+    }
+
+    // TODO - add tests for GET /orders/:orderId
+    @GetMapping("{orderId}")
+    @Operation(summary = "Get an order")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Order getOne(
+        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId)
+    {
+        return orderRepository.findByOrderId(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
     }
 
     @PostMapping("")
@@ -159,4 +186,25 @@ public class OrderController
         Sentry.captureMessage("New order has been created");
         return createPaymentLinkResponse;
     }
+
+    /**
+     * Update the given order with select information.
+     * Will return a response with the full order if it is successful or 404 - Not Found
+     * if there is no order with specified id.
+     *
+     * @param updateOrderRequest DTO for the request.
+     * @param orderId            the ID of the order.
+     * @return the updated order.
+     */
+    @PatchMapping("{orderId}")
+    @Operation(summary = "Update an order with select information")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+    public Order updateOrder(
+        @RequestBody(required = false) @Valid UpdateOrderRequest updateOrderRequest,
+        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID orderId)
+    {
+        return orderService.updateOrder(orderId, updateOrderRequest);
+    }
+
 }

@@ -1,0 +1,406 @@
+<ng-template #header>
+    <span class="mat-body" *ngIf="!isLoading" data-cy="order-details-header"
+        >Days:
+        <span
+            class="label"
+            data-cy="order-details-days"
+            [ngStyle]="{ 'background-color': ordersService.getDaysLeftColor(daysLeft, order!.status) }"
+            >{{ daysLeft }}</span
+        ></span
+    >
+</ng-template>
+
+<button mat-button (click)="historyBack()" class="back-btn" data-cy="back-btn">
+    <mat-icon data-cy="icon">arrow_back_ios</mat-icon> Back
+</button>
+<webstore-item-card
+    [title]="title"
+    [content]="content"
+    [header]="header"
+    [isLoading]="isLoading"
+    data-cy="order-details-card"
+    class="order-details-content"
+>
+    <ng-template #content>
+        <mat-grid-list cols="2" rowHeight="25px">
+            <!-- Ids -->
+            <mat-grid-tile colspan="1" rowspan="2" data-cy="order-details-ids">
+                <div class="row">
+                    <span class="mat-body-strong"> Customer id: </span>
+                    <span>{{ order!.userId }}</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Order id: </span>
+                    <span>{{ order!.orderId }}</span>
+                </div>
+            </mat-grid-tile>
+            <!-- Creation date & Status -->
+            <mat-grid-tile colspan="1" rowspan="2" data-cy="order-details-date-status">
+                <div class="row">
+                    <span class="mat-body-strong"> Created at: </span>
+                    <span>{{ order!.createdAt | date }}</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Order status: </span>
+                    <mat-select
+                        [(value)]="order!.status"
+                        class="order-status-select"
+                        data-cy="order-status"
+                        [ngStyle]="{ 'background-color': ordersService.getOrderStatusColor(order!.status) }"
+                        (selectionChange)="updateOrder('STATUS')"
+                    >
+                        <mat-option
+                            [value]="status"
+                            *ngFor="let status of orderStatusOptions"
+                            [ngStyle]="{ 'background-color': ordersService.getOrderStatusColor(status) }"
+                            data-cy="order-status-option"
+                            >{{ status }}</mat-option
+                        >
+                    </mat-select>
+                </div>
+            </mat-grid-tile>
+
+            <!-- Separator - Items -->
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="items-divider">
+                <div class="row">
+                    <h2>Items <mat-divider></mat-divider></h2>
+                </div>
+            </mat-grid-tile>
+            <!-- Transaction Items table -->
+            <mat-grid-tile colspan="2" [rowspan]="2 + items.length * 2" class="table-container">
+                <table mat-table [dataSource]="items" class="mat-elevation-z8 items-table" data-cy="items-table">
+                    <!-- Title Column -->
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef>Title</th>
+                        <td mat-cell *matCellDef="let item">{{ item.design.designProperties.title }}</td>
+                    </ng-container>
+
+                    <!-- Dimensions Column -->
+                    <ng-container matColumnDef="dimensions">
+                        <th mat-header-cell *matHeaderCellDef>Dimensions</th>
+                        <td mat-cell *matCellDef="let item">{{ item.dimension }}</td>
+                    </ng-container>
+
+                    <!-- Quantity Column -->
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                        <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
+                    </ng-container>
+
+                    <!-- Price Column -->
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef>Price</th>
+                        <td mat-cell *matCellDef="let item">
+                            {{ getItemPrice(item.quantity, item.dimension) }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Actions Column -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let item">
+                            <div class="actions-row">
+                                <button
+                                    mat-flat-button
+                                    color="primary"
+                                    routerLink="/transaction-items/{{ item.transactionItemId }}"
+                                    data-cy="item-edit-btn"
+                                    matTooltip="Action not implemented yet."
+                                    matTooltipPosition="right"
+                                    [disabled]="true"
+                                >
+                                    Edit
+                                </button>
+                                <div class="spacer"></div>
+                                <a
+                                    mat-flat-button
+                                    color="primary"
+                                    href="{{ getDesignViewOnlyUrl(item.design.designId) }}"
+                                    target="_blank"
+                                    data-cy="item-view-btn"
+                                >
+                                    View
+                                </a>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="itemsColumns" data-cy="items-table-header"></tr>
+                    <tr mat-row *matRowDef="let row; columns: itemsColumns" data-cy="items-table-row"></tr>
+                </table>
+            </mat-grid-tile>
+
+            <!-- Separator - Payment -->
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="payment-divider">
+                <div class="row">
+                    <h2>Payment <mat-divider></mat-divider></h2>
+                </div>
+            </mat-grid-tile>
+            <!-- Payment Information -->
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="payment-left">
+                <div class="row">
+                    <span class="mat-body-strong"> Payment id: </span>
+                    <span>{{ order!.userId }}</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Subtotal: </span>
+                    <span>{{ order!.subtotal }} DKK</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Saved: </span>
+                    <span>{{ order!.subtotal - order!.total }} DKK</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Delivery price: </span>
+                    <span>{{ getDeliveryPrice() }} DKK</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Trees planted price: </span>
+                    <span>{{ getPlantedTreesPrice() }} DKK</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Total amount payed: </span>
+                    <span>{{ order!.total }} DKK</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> VAT: </span>
+                    <span>{{ getVAT() }} DKK</span>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="payment-right">
+                <div class="row">
+                    <span class="mat-body-strong"> Created at: </span>
+                    <span>{{ order!.createdAt | date }}</span>
+                </div>
+                <div class="row" *ngIf="order!.discount">
+                    <span class="mat-body-strong"> Discount type: </span>
+                    <span>{{ order!.discount!.type }}</span>
+                </div>
+                <div class="row" *ngIf="order!.discount">
+                    <span class="mat-body-strong"> Discount code: </span>
+                    <span>{{ order!.discount!.discountCode }}</span>
+                </div>
+                <div class="row" *ngIf="order!.discount">
+                    <span class="mat-body-strong"> Discount amount: </span>
+                    <span>{{ order!.discount!.amount }}</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Delivery type: </span>
+                    <span>{{ order!.shippingMethod }}</span>
+                </div>
+                <div class="row">
+                    <span class="mat-body-strong"> Extra trees planted: </span>
+                    <span>{{ order!.plantedTrees - 1 }} STK</span>
+                </div>
+            </mat-grid-tile>
+
+            <!-- Separator - Customer contact info -->
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="contact-info-divider">
+                <div class="row">
+                    <h2>Customer contact info <mat-divider></mat-divider></h2>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="5" data-cy="contact-info-left">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput type="email" [formControl]="emailControl" data-cy="email-input" />
+                    </mat-form-field>
+                </div>
+                <div class="actions">
+                    <span
+                        [matTooltipDisabled]="isContactInfoValid()"
+                        [matTooltip]="
+                            !emailControl.dirty && !phoneNumberControl.dirty
+                                ? 'No changed values'
+                                : emailControl.invalid
+                                ? 'Email is invalid'
+                                : phoneNumberControl.invalid
+                                ? 'Phone number is invalid'
+                                : 'The form is loading'
+                        "
+                        matTooltipPosition="right"
+                    >
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            [disabled]="!isContactInfoValid()"
+                            type="button"
+                            class="action-button"
+                            data-cy="update-contact-info-btn"
+                            (click)="updateOrder('CONTACT INFO')"
+                        >
+                            <span>Update contact info</span>
+                            <mat-icon *ngIf="isUpdating" class="icon"
+                                ><mat-spinner diameter="15" color="accent"></mat-spinner
+                            ></mat-icon>
+                        </button>
+                    </span>
+
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                        <button mat-flat-button color="primary" class="action-button" [disabled]="true">
+                            <mat-icon> mail_outline</mat-icon>
+                        </button>
+                    </span>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="5" data-cy="contact-info-right">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Phonenumber</mat-label>
+                        <input matInput type="tel" [formControl]="phoneNumberControl" data-cy="phone-number-input" />
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+
+            <!-- Separator - Delivery address -->
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="delivery-info-divider">
+                <div class="row">
+                    <h2>Delivery address <mat-divider></mat-divider></h2>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="delivery-info-left">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" [formControl]="nameControl" data-cy="name-input" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input matInput type="text" [formControl]="cityControl" data-cy="city-input" />
+                    </mat-form-field>
+                    <div class="spacer"></div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Postcode</mat-label>
+                        <input matInput type="text" [formControl]="postcodeControl" data-cy="postcode-input" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <span
+                        [matTooltipDisabled]="isDeliveryAddressValid()"
+                        [matTooltip]="
+                            !nameControl.dirty &&
+                            !cityControl.dirty &&
+                            !postcodeControl.dirty &&
+                            !addressOneControl.dirty &&
+                            !addressTwoControl.dirty
+                                ? 'No changed values'
+                                : nameControl.invalid
+                                ? 'Name is invalid'
+                                : cityControl.invalid
+                                ? 'City is invalid'
+                                : postcodeControl.invalid
+                                ? 'Postcode is invalid'
+                                : addressOneControl.invalid
+                                ? 'Address is invalid'
+                                : 'The form is loading'
+                        "
+                        matTooltipPosition="right"
+                    >
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            [disabled]="!isDeliveryAddressValid()"
+                            (click)="updateOrder('DELIVERY ADDRESS')"
+                            class="action-button"
+                            data-cy="update-delivery-address-btn"
+                        >
+                            <span>Update address</span>
+                            <mat-icon *ngIf="isUpdating" class="icon"
+                                ><mat-spinner diameter="15" color="accent"></mat-spinner
+                            ></mat-icon>
+                        </button>
+                    </span>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="7" data-cy="delivery-info-right">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="text" [formControl]="addressOneControl" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="text" [formControl]="addressTwoControl" />
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+
+            <!-- Separator - Billing address -->
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="billing-info-divider">
+                <div class="row">
+                    <h2>Billing address <mat-divider></mat-divider></h2>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="6" data-cy="billing-info-left">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" [formControl]="billingNameControl" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input matInput type="text" [formControl]="billingCityControl" />
+                    </mat-form-field>
+                    <div class="spacer"></div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Postcode</mat-label>
+                        <input matInput type="number" [formControl]="billingPostcodeControl" />
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="6" data-cy="billing-info-right">
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="text" [formControl]="billingAddressOneControl" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput type="text" [formControl]="billingAddressTwoControl" />
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+
+            <!-- Separator - Actions -->
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-divider">
+                <div class="row">
+                    <h2>Actions <mat-divider></mat-divider></h2>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
+                <div class="row">
+                    <button mat-flat-button color="primary" (click)="createShipmondoOrder()">
+                        Generate shipping label
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Resend order confirmation email
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        matTooltip="Action not implemented yet."
+                        matTooltipPosition="right"
+                        [disabled]="true"
+                    >
+                        Generate paymentlink
+                    </button>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </ng-template>
+</webstore-item-card>

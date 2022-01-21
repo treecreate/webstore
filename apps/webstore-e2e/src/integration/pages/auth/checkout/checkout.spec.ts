@@ -17,7 +17,7 @@ import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
-  roles: [UserRoles.user],
+  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
   name: 'teodor jonasson',
   phoneNumber: '26192327',
   streetAddress: 'hillerødgade 69, 3 etage',
@@ -84,6 +84,7 @@ const mockDiscount: IDiscount = {
   type: DiscountType.percent,
   remainingUses: 2,
   totalUses: 1,
+  isEnabled: true,
 };
 const authMockService = new AuthenticationService();
 

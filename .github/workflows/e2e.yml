@@ -2,7 +2,6 @@
 name: E2E CI
 
 on:
-  push:
   pull_request:
   workflow_dispatch:
 
@@ -13,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
       - name: Install and run end-to-end tests
         # Install the apps using npm ci (ensures a clean install)
         run: |

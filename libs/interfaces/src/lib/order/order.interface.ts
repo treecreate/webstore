@@ -1,21 +1,20 @@
-import { CurrencyEnum, IBase, IDiscount, ITransactionItem, PaymentStateEnum, ShippingMethodEnum } from '..';
+import { CurrencyEnum, IBase, IDiscount, ITransactionItem, OrderStatusEnum, ShippingMethodEnum } from '..';
 
 export interface IOrder extends IBase {
   orderId: string;
   subtotal: number;
   total: number;
   currency: CurrencyEnum;
-  paymentState: PaymentStateEnum;
   plantedTrees: number;
   paymentId: string;
-  userID: string;
+  userId: string;
   shippingMethod: ShippingMethodEnum;
   discount?: IDiscount;
   contactInfo: ContactInfo;
   billingInfo: ContactInfo;
   transactionItems: ITransactionItem[];
   createdAt: Date;
-  state?: PaymentStateEnum;
+  status: OrderStatusEnum;
 }
 
 export interface ContactInfo {

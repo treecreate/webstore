@@ -16,19 +16,22 @@
             "polyfills": "apps/admin-page/src/polyfills.ts",
             "tsConfig": "apps/admin-page/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/admin-page/src/favicon.ico",
-              "apps/admin-page/src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+            "assets": ["apps/admin-page/src/favicon.ico", "apps/admin-page/src/assets"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/admin-page/src/styles.css"
             ],
-            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "apps/admin-page/src/styles.css"],
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -56,12 +59,14 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
+          "defaultConfiguration": "",
           "options": {
-            "browserTarget": "admin-page:build",
+            "browserTarget": "admin-page:build:development",
             "proxyConfig": "apps/admin-page/proxy.conf.json",
             "port": 4300
           },
@@ -330,6 +335,14 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -370,12 +383,14 @@
               ],
               "localize": ["dk"]
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
+          "defaultConfiguration": "",
           "options": {
-            "browserTarget": "webstore:build"
+            "browserTarget": "webstore:build:development"
           },
           "configurations": {
             "production": {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IOrder, ITransactionItem } from '@interfaces';
+import { IOrder, ITransactionItem, OrderStatusDisplayNameEnum, OrderStatusEnum } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 
 @Component({
@@ -19,6 +19,32 @@ export class OrderItemComponent implements OnInit {
 
   getPrice(transactionItem: ITransactionItem): number {
     return this.calculePriceService.calculateItemPrice(transactionItem);
+  }
+
+  /**
+   * Returns corresponding order status display text
+   * @param status order status
+   * @returns user-friendly order status text
+   */
+  getStatusDisplayName(status: OrderStatusEnum): OrderStatusDisplayNameEnum {
+    switch (status) {
+      case OrderStatusEnum.initial:
+        return OrderStatusDisplayNameEnum.initial;
+      case OrderStatusEnum.pending:
+        return OrderStatusDisplayNameEnum.pending;
+      case OrderStatusEnum.new:
+        return OrderStatusDisplayNameEnum.new;
+      case OrderStatusEnum.rejected:
+        return OrderStatusDisplayNameEnum.rejected;
+      case OrderStatusEnum.processed:
+        return OrderStatusDisplayNameEnum.processed;
+      case OrderStatusEnum.assembling:
+        return OrderStatusDisplayNameEnum.assembling;
+      case OrderStatusEnum.shipped:
+        return OrderStatusDisplayNameEnum.shipped;
+      case OrderStatusEnum.delivered:
+        return OrderStatusDisplayNameEnum.delivered;
+    }
   }
 
   scrollTop() {

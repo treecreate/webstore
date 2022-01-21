@@ -1,20 +1,21 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
-  IUser,
+  CurrencyEnum,
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  DiscountType,
+  FamilyTreeFontEnum,
+  IDesign,
   IDraggableBox,
   IFamilyTreeBanner,
-  IDesign,
-  FamilyTreeFontEnum,
-  DesignTypeEnum,
-  ITransactionItem,
-  DesignDimensionEnum,
   IOrder,
-  PaymentStateEnum,
-  CurrencyEnum,
-  DiscountType,
+  ITransactionItem,
+  IUser,
+  OrderStatusDisplayNameEnum,
+  OrderStatusEnum,
   ShippingMethodEnum,
 } from '@interfaces';
-import { UserRoles, LocalStorageVars, CookieStatus } from '@models';
+import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();
@@ -22,7 +23,7 @@ const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.admin, UserRoles.developer],
+  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
@@ -98,8 +99,7 @@ const mockTransactionItemTwo: ITransactionItem = {
   design: mockDesign,
 };
 const mockOrder: IOrder = {
-  paymentState: PaymentStateEnum.pending,
-  state: PaymentStateEnum.pending,
+  status: OrderStatusEnum.pending,
   billingInfo: {
     city: 'cph',
     country: 'Denmark',
@@ -126,6 +126,7 @@ const mockOrder: IOrder = {
     amount: 100,
     remainingUses: 1,
     totalUses: 2,
+    isEnabled: true,
   },
   orderId: 'MakeMeWantIt',
   paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
@@ -135,11 +136,10 @@ const mockOrder: IOrder = {
   subtotal: 1914,
   total: 1814,
   transactionItems: [mockTransactionItemTwo, mockTransactionItem],
-  userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+  userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
 };
 const mockOrderTwo: IOrder = {
-  paymentState: PaymentStateEnum.pending,
-  state: PaymentStateEnum.new,
+  status: OrderStatusEnum.new,
   billingInfo: {
     city: 'LULS',
     country: 'Denmark',
@@ -166,6 +166,7 @@ const mockOrderTwo: IOrder = {
     amount: 200,
     remainingUses: 1,
     totalUses: 2,
+    isEnabled: true,
   },
   orderId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
@@ -174,7 +175,7 @@ const mockOrderTwo: IOrder = {
   subtotal: 1914,
   total: 1814,
   transactionItems: [mockTransactionItemTwo, mockTransactionItem],
-  userID: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+  userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
 };
 
 describe('ordersPage', () => {
@@ -198,7 +199,7 @@ describe('ordersPage', () => {
       .first()
       .within(() => {
         cy.get('[data-cy=order-item-id]').should('contain', 'MakeMeWantIt');
-        cy.get('[data-cy=order-item-status]').should('contain', 'PENDING');
+        cy.get('[data-cy=order-item-status]').should('contain', OrderStatusDisplayNameEnum.pending);
         cy.get('[data-cy=order-item-email]').should('contain', 'example@hotdeals.dev');
         cy.get('[data-cy=order-item-design-item]').should('have.length', 2);
         cy.get('[data-cy=order-item-design-item]')

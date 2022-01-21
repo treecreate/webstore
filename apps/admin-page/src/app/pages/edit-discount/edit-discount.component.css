@@ -1,0 +1,49 @@
+.row {
+  display: flex;
+  justify-content: space-between;
+  text-overflow: ellipsis;
+  align-items: center;
+  width: 95%;
+}
+
+.actions-row {
+  display: flex;
+  text-overflow: ellipsis;
+  align-items: flex-start;
+  width: 95%;
+}
+
+.actions-row button {
+  width: 13.3vw;
+  flex: 1;
+}
+
+.row button {
+  padding: 0 3.8vw;
+}
+
+.row mat-form-field {
+  flex: 1;
+}
+
+.spacer {
+  flex: 0.15;
+}
+
+::ng-deep .edit-discount-content .mat-grid-tile-content {
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.back-btn {
+  color: #ababab;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.back-btn mat-icon {
+  width: 12px;
+  height: 12px;
+  font-size: 12px;
+}
