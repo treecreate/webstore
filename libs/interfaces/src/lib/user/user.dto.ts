@@ -1,4 +1,4 @@
-export class UpdateUserRequest {
+export interface UpdateUserRequest {
   email?: string;
   password?: string;
   roles?: string[];
@@ -9,8 +9,14 @@ export class UpdateUserRequest {
   city?: string;
   postcode?: string;
   country?: string;
+  createdAt?: string;
 }
-export class UpdateUserPasswordRequest {
+export interface UpdateUserPasswordRequest {
   token: string;
+  password: string;
+}
+
+export interface UpdatePasswordAsAdminRequest {
+  userId: string;
   password: string;
 }

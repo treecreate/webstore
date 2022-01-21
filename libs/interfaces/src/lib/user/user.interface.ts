@@ -1,3 +1,5 @@
+import { IBase } from '..';
+
 export interface IAuthUser {
   userId: string;
   email: string;
@@ -5,7 +7,14 @@ export interface IAuthUser {
   accessToken: string;
   tokenType: string;
 }
-export interface IUser {
+export interface IAuthUser {
+  userId: string;
+  email: string;
+  roles: string[];
+  accessToken: string;
+  tokenType: string;
+}
+export interface IUser extends IBase {
   userId: string;
   email: string;
   roles: string[];

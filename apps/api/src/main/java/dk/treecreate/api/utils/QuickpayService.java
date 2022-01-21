@@ -39,6 +39,15 @@ public class QuickpayService
     @Autowired
     LinkService linkService;
 
+    public static String encode(String key, String data) throws Exception
+    {
+        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
+        sha256_HMAC.init(secret_key);
+
+        return DatatypeConverter.printHexBinary(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
+    }
+
     /**
      * send a POST /payments request to Quickpay, creating a new payment
      *
@@ -52,10 +61,8 @@ public class QuickpayService
                 order.getDiscount(), order.getContactInfo(),
                 order.getBillingInfo() != null ? order.getBillingInfo() : order.getContactInfo(),
                 order.getShippingMethod(), order.getTransactionItems());
-        // TODO - fully setup environment in API (currently is just a custom property.)
-        // The environment should affect urls included in the emails etc
         payment.order_id =
-            createOrderId(order.getContactInfo().getEmail(), Environment.DEVELOPMENT);
+            createOrderId(order.getContactInfo().getEmail(), customProperties.getEnvironment());
 
         // perform POST https://api.quickpay.net/payments to create a payment object in Quickpay
         String quickpayApiUrl = "https://api.quickpay.net";
@@ -303,14 +310,5 @@ public class QuickpayService
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to calculate the checksum for the request body");
         }
-    }
-
-    public static String encode(String key, String data) throws Exception
-    {
-        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
-        sha256_HMAC.init(secret_key);
-
-        return DatatypeConverter.printHexBinary(sha256_HMAC.doFinal(data.getBytes("UTF-8")));
     }
 }

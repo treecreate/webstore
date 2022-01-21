@@ -1,10 +1,5 @@
 <div class="flex-container-signup">
-    <form
-        (ngSubmit)="onSubmit()"
-        name="signupForm"
-        class="signup-form"
-        [formGroup]="signupForm"
-    >
+    <form (ngSubmit)="onSubmit()" name="signupForm" class="signup-form" [formGroup]="signupForm">
         <h1 class="page-title" i18n="@@signup">Sign up</h1>
         <div class="tc-input-group field">
             <input
@@ -23,10 +18,7 @@
 
         <div
             class="error-message"
-            *ngIf="
-                this.signupForm.get('email').dirty &&
-                this.signupForm.get('email').invalid
-            "
+            *ngIf="this.signupForm.get('email').dirty && this.signupForm.get('email').invalid"
             i18n="@@invalid-email"
             data-cy="signup-email-error"
         >
@@ -47,39 +39,27 @@
                     required
                     data-cy="signup-password-input"
                 />
-                <label for="password" class="tc-input-label" i18n="@@password"
-                    >Password</label
-                >
+                <label for="password" class="tc-input-label" i18n="@@password">Password</label>
             </div>
             <button
                 class="show-password-btn"
                 type="button"
-                (click)="
-                    signupPassword.type =
-                        signupPassword.type == 'password' ? 'text' : 'password'
-                "
+                (click)="signupPassword.type = signupPassword.type == 'password' ? 'text' : 'password'"
             >
                 <img
                     src="/assets/icons/error-icon.svg"
                     class="password-icon"
-                    [ngClass]="
-                        signupPassword.type == 'text'
-                            ? 'password-show-icon'
-                            : 'password-hide-icon'
-                    "
+                    [ngClass]="signupPassword.type === 'text' ? 'password-show-icon' : 'password-hide-icon'"
                 />
             </button>
         </div>
         <div class="info-message" i18n="@@info-password">
-            Password must contain: min 8 characters, at least one upper case
-            letter, one lower case letter and one number.
+            Password must contain: min 8 characters, at least one upper case letter, one lower case letter and one
+            number.
         </div>
         <div
             class="error-message"
-            *ngIf="
-                this.signupForm.get('password').dirty &&
-                this.signupForm.get('password').invalid
-            "
+            *ngIf="this.signupForm.get('password').dirty && this.signupForm.get('password').invalid"
             data-cy="signup-password-error"
             i18n="@@invalid-password"
         >
@@ -100,41 +80,24 @@
                     required
                     data-cy="signup-confirm-password-input"
                 />
-                <label
-                    for="confirmPassword"
-                    class="tc-input-label"
-                    i18n="@@confirm-password"
-                    >Confirm password</label
-                >
+                <label for="confirmPassword" class="tc-input-label" i18n="@@confirm-password">Confirm password</label>
             </div>
             <button
                 class="show-password-btn"
                 type="button"
-                (click)="
-                    signupConfirmPassword.type =
-                        signupConfirmPassword.type == 'password'
-                            ? 'text'
-                            : 'password'
-                "
+                (click)="signupConfirmPassword.type = signupConfirmPassword.type == 'password' ? 'text' : 'password'"
             >
                 <img
                     src="/assets/icons/error-icon.svg"
                     class="password-icon"
-                    [ngClass]="
-                        signupConfirmPassword.type == 'text'
-                            ? 'password-show-icon'
-                            : 'password-hide-icon'
-                    "
+                    [ngClass]="signupConfirmPassword.type === 'text' ? 'password-show-icon' : 'password-hide-icon'"
                 />
             </button>
         </div>
 
         <div
             class="error-message"
-            *ngIf="
-                this.signupForm.get('confirmPassword').dirty &&
-                !this.matchingPasswords()
-            "
+            *ngIf="this.signupForm.get('confirmPassword').dirty && !this.matchingPasswords()"
             data-cy="signup-confirm-password-error"
             i18n="@@invalid-confirm-password"
         >
@@ -142,31 +105,18 @@
         </div>
         <div class="terms-and-conditions-container">
             <label class="checkbox-container">
-                <input
-                    type="checkbox"
-                    (change)="
-                        this.termsAndConditions = !this.termsAndConditions
-                    "
-                />
+                <input type="checkbox" (change)="this.termsAndConditions = !this.termsAndConditions" />
                 <span class="checkmark" data-cy="checkbox-terms-of-use"></span>
             </label>
             <div class="terms-and-conditions">
-                <span i18n="@@i-accept-terms"
-                    >I accept terms and conditions</span
-                ><a class="TnC" (click)="showTermsOfUse()" i18n="@@read-here"
-                    >Read here</a
-                >
+                <span i18n="@@i-accept-terms">I accept terms and conditions</span
+                ><a class="TnC" (click)="showTermsOfUse()" i18n="@@read-here">Read here</a>
             </div>
         </div>
 
         <div class="sign-up-container">
             <label class="checkbox-container">
-                <input
-                    type="checkbox"
-                    (change)="
-                        this.signUpForNewletter = !this.signUpForNewletter
-                    "
-                />
+                <input type="checkbox" (change)="this.signUpForNewletter = !this.signUpForNewletter" />
                 <span class="checkmark" data-cy="checkbox-newsletter"></span>
             </label>
             <div class="sign-up" i18n="@@signup-for-newsletter-subtitle">
@@ -174,15 +124,8 @@
             </div>
         </div>
 
-        <button
-            class="tc-button-100"
-            type="submit"
-            [disabled]="isDisabled()"
-            data-cy="signup-btn"
-        >
-            <span i18n="@@create-account" *ngIf="!isLoading"
-                >Create account</span
-            >
+        <button class="tc-button-100" type="submit" [disabled]="isDisabled()" data-cy="signup-btn">
+            <span i18n="@@create-account" *ngIf="!isLoading">Create account</span>
             <span
                 *ngIf="isLoading"
                 class="spinner-border spinner-border-sm text-light"

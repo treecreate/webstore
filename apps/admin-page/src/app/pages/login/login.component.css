@@ -1,0 +1,22 @@
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 400px;
+}
+
+.login-form-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 400px;
+  max-width: 90vw;
+}
+
+.password-input,
+.email-input,
+.login-btn {
+  width: 100%;
+  margin-bottom: 10px;
+}

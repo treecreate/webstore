@@ -3,13 +3,14 @@ package dk.treecreate.api.order;
 import dk.treecreate.api.contactinfo.ContactInfo;
 import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.transactionitem.TransactionItem;
+import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.model.quickpay.Currency;
-import dk.treecreate.api.utils.model.quickpay.PaymentState;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -56,9 +57,9 @@ public class Order
     @ApiModelProperty(notes = "Currency", example = "dkk", required = false)
     private Currency currency = Currency.DKK;
 
-    @Column(name = "state", nullable = false)
-    @ApiModelProperty(notes = "State of the quickpay payment", example = "PENDING")
-    private PaymentState state;
+    @Column(name = "status", nullable = false)
+    @ApiModelProperty(notes = "Status of the quickpay payment", example = "PENDING")
+    private OrderStatus status;
 
     @Min(1)
     @Column(name = "planted_trees", nullable = false)
@@ -98,10 +99,15 @@ public class Order
     @ApiModelProperty(notes = "Transaction items of the given order")
     private List<TransactionItem> transactionItems;
 
-    @ApiModelProperty(name = "Date the discount entry was created at",
+    @ApiModelProperty(name = "Date the entity was created at",
         example = "2021-08-31T19:40:10.000+00:00")
     @CreationTimestamp
     private Date createdAt;
+
+    @ApiModelProperty(name = "Date the entity was updated at",
+        example = "2021-08-31T19:40:10.000+00:00")
+    @UpdateTimestamp
+    private Date updatedAt;
 
     public UUID getOrderId()
     {
@@ -143,14 +149,14 @@ public class Order
         this.currency = currency;
     }
 
-    public PaymentState getState()
+    public OrderStatus getStatus()
     {
-        return state;
+        return status;
     }
 
-    public void setState(PaymentState state)
+    public void setStatus(OrderStatus status)
     {
-        this.state = state;
+        this.status = status;
     }
 
     public int getPlantedTrees()
@@ -243,6 +249,16 @@ public class Order
         this.createdAt = createdAt;
     }
 
+    public Date getUpdatedAt()
+    {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt)
+    {
+        this.updatedAt = updatedAt;
+    }
+
     @Override public boolean equals(Object o)
     {
         if (this == o) return true;
@@ -250,7 +266,7 @@ public class Order
         Order order = (Order) o;
         return plantedTrees == order.plantedTrees && orderId.equals(order.orderId) &&
             subtotal.equals(order.subtotal) && total.equals(order.total) &&
-            currency == order.currency && state == order.state &&
+            currency == order.currency && status == order.status &&
             Objects.equals(userId, order.userId) && shippingMethod == order.shippingMethod &&
             Objects.equals(discount, order.discount) &&
             Objects.equals(contactInfo, order.contactInfo) &&
@@ -262,7 +278,7 @@ public class Order
     @Override
     public int hashCode()
     {
-        return Objects.hash(orderId, subtotal, total, currency, state, plantedTrees, userId,
+        return Objects.hash(orderId, subtotal, total, currency, status, plantedTrees, userId,
             shippingMethod, discount, contactInfo, billingInfo, transactionItems, createdAt);
     }
 }

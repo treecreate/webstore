@@ -51,9 +51,7 @@ describe('Signup Page', () => {
       cy.get('[data-cy=signup-confirm-password-input]').type('abcDEF1234');
       cy.get('[data-cy=signup-btn]').should('be.disabled');
       cy.get('[data-cy=signup-confirm-password-error').should('exist');
-      cy.get('[data-cy=signup-confirm-password-input]')
-        .clear()
-        .type('abcDEF123');
+      cy.get('[data-cy=signup-confirm-password-input]').clear().type('abcDEF123');
       cy.get('[data-cy=signup-confirm-password-error').should('not.exist');
       cy.get('[data-cy=signup-btn]').should('be.enabled');
       // check that email validation works
@@ -110,9 +108,7 @@ describe('Signup Page', () => {
     it('should detect that the access token is expired and log the user out', () => {
       localStorage.setItem(
         LocalStorageVars.authUser,
-        JSON.stringify(
-          authMockService.getMockUser(AuthUserEnum.authUserExpired)
-        )
+        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserExpired))
       );
       cy.visit('/signup');
 

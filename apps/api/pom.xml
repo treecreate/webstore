@@ -81,6 +81,11 @@
       <version>0.9.1</version>
     </dependency>
 
+    <dependency>
+      <groupId>net.jodah</groupId>
+      <artifactId>expiringmap</artifactId>
+      <version>0.5.9</version>
+    </dependency>
 
     <!-- Database Connection using the MySQL driver-->
     <dependency>
