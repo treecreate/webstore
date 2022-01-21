@@ -8,6 +8,7 @@
             color="primary"
             data-cy="navbar-account-btn"
             *ngIf="router.url !== '/login' && router.url !== '/404'"
+            routerLink="account"
         >
             Account
         </button>
@@ -36,7 +37,9 @@
         data-cy="sidebar"
     >
         <div class="sidebar-header" data-cy="sidebar-header">
-            <mat-icon aria-hidden="false" data-cy="sidebar-user-icon">face</mat-icon>
+            <mat-icon aria-hidden="false" data-cy="sidebar-user-icon" class="sidebar-user-icon" routerLink="account"
+                >face</mat-icon
+            >
             <h2 class="role" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="sidebar-role">Admin</h2>
             <h4 class="username" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="sidebar-username">
                 {{ username }}
@@ -45,7 +48,7 @@
         <mat-divider [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="sidebar-divider"></mat-divider>
         <div class="sidebar-items" data-cy="sidebar-items">
             <mat-action-list>
-                <button mat-list-item data-cy="sidebar-dashboard-btn">
+                <button mat-list-item data-cy="sidebar-dashboard-btn" routerLink="dashboard">
                     <mat-icon aria-hidden="false" data-cy="icon">dashboard</mat-icon>
                     <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
                         >Dashboard</span
@@ -57,13 +60,13 @@
                         >Orders</span
                     >
                 </button>
-                <button mat-list-item data-cy="sidebar-customers-btn">
+                <button mat-list-item data-cy="sidebar-users-btn" routerLink="users">
                     <mat-icon aria-hidden="false" data-cy="icon">account_box</mat-icon>
                     <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
-                        >Customers</span
+                        >Users</span
                     >
                 </button>
-                <button mat-list-item data-cy="sidebar-discounts-btn">
+                <button mat-list-item data-cy="sidebar-discounts-btn" routerLink="/discounts">
                     <mat-icon aria-hidden="false" data-cy="icon">credit_card</mat-icon>
                     <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
                         >Discounts</span

@@ -1,0 +1,134 @@
+<ng-template #header>
+    <span class="mat-body" *ngIf="!isLoading" data-cy="edit-discount-header"
+        >Discount id: <span data-cy="edit-discount-id">{{ id }}</span></span
+    >
+</ng-template>
+
+<button mat-button (click)="historyBack()" class="back-btn" data-cy="back-btn">
+    <mat-icon data-cy="icon">arrow_back_ios</mat-icon> Back
+</button>
+<webstore-item-card
+    title="Edit discount"
+    [content]="content"
+    [header]="header"
+    [isLoading]="isLoading"
+    data-cy="edit-discount-card"
+    class="edit-discount-content"
+>
+    <ng-template #content>
+        <form class="edit-discount-form" [formGroup]="discountForm!">
+            <mat-grid-list cols="2" rowHeight="25px">
+                <!-- Discount Information -->
+                <mat-grid-tile colspan="2" rowspan="7" data-cy="edit-discount-info">
+                    <div class="row">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Discount code</mat-label>
+                            <input matInput type="text" formControlName="discountCode" data-cy="discount-code" />
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Uses left</mat-label>
+                            <input matInput type="number" formControlName="usesLeft" data-cy="discount-uses-left" />
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Expiration date</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="expireDatePicker"
+                                formControlName="expiresAt"
+                                data-cy="discount-expiration"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="expireDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #expireDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Amount</mat-label>
+                            <input matInput type="number" formControlName="amount" data-cy="discount-amount" />
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Type</mat-label>
+                            <mat-select
+                                formControlName="type"
+                                class="order-status-select"
+                                data-cy="discount-type-status"
+                            >
+                                <mat-option
+                                    [value]="type"
+                                    *ngFor="let type of discountTypeOptions"
+                                    data-cy="discount-type-option"
+                                    >{{ type }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Start date for discount</mat-label>
+                            <input
+                                matInput
+                                [matDatepicker]="startDatePicker"
+                                formControlName="startsAt"
+                                data-cy="discount-start-date"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #startDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </mat-grid-tile>
+
+                <mat-grid-tile colspan="2" rowspan="2" data-cy="actions-section">
+                    <div class="actions-row">
+                        <span
+                            [matTooltipDisabled]="isFormDirty() && !isLoading && isFormValid() ? true : false"
+                            [matTooltip]="
+                                !isFormDirty()
+                                    ? 'You need to change discount information before you can update'
+                                    : isLoading
+                                    ? 'Cant update while the data is loading'
+                                    : 'The data is invalid'
+                            "
+                            matTooltipPosition="below"
+                        >
+                            <button
+                                mat-flat-button
+                                color="primary"
+                                (click)="updateDiscount()"
+                                [disabled]="isLoading || !isFormValid() || !isFormDirty()"
+                                data-cy="update-discount-btn"
+                            >
+                                Update
+                            </button>
+                        </span>
+                        <div class="spacer"></div>
+                        <span matTooltip="Action not implemented yet." matTooltipPosition="right">
+                            <button mat-flat-button color="primary" [disabled]="true">Delete</button></span
+                        >
+                        <div class="spacer"></div>
+                        <span
+                            [matTooltip]="
+                                isLoading
+                                    ? 'You cant update while the data is loading.'
+                                    : discount?.isEnabled
+                                    ? 'Click to disable the discount'
+                                    : 'Click to enable the discount'
+                            "
+                            matTooltipPosition="below"
+                        >
+                            <mat-slide-toggle
+                                [checked]="discount?.isEnabled"
+                                (click)="toggleDiscountState()"
+                                [disabled]="isLoading"
+                                data-cy="toggle-discount-status-slider"
+                            >
+                                {{ discount?.isEnabled ? 'Enabled' : 'Disabled' }}
+                            </mat-slide-toggle>
+                        </span>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </ng-template>
+</webstore-item-card>

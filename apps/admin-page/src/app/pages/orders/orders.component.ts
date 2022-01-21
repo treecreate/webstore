@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IOrder, OrderStatusEnum } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
+import { Sort } from '@angular/material/sort';
+
 @Component({
   selector: 'webstore-orders',
   templateUrl: './orders.component.html',
@@ -19,12 +21,46 @@ export class OrdersComponent implements OnInit {
     'status',
     'actions',
   ];
+  orderStatusOptions: OrderStatusEnum[] = [
+    OrderStatusEnum.delivered,
+    OrderStatusEnum.assembling,
+    OrderStatusEnum.shipped,
+    OrderStatusEnum.pending,
+    OrderStatusEnum.initial,
+    OrderStatusEnum.processed,
+    OrderStatusEnum.new,
+    OrderStatusEnum.rejected,
+  ];
   orders!: IOrder[];
 
-  constructor(private ordersService: OrdersService) {}
+  constructor(public ordersService: OrdersService) {}
 
   ngOnInit(): void {
     this.fetchOrders();
+  }
+
+  /**
+   * Gets triggered when the status of an order has been changed.\
+   * It will call the API to update the order with its new status.\
+   * In case an error is encountered, the orders will be reloaded from the database.
+   *
+   * @param orderStatus
+   * @param orderId
+   */
+  onStatusChange(orderStatus: OrderStatusEnum, orderId: string): void {
+    this.ordersService
+      .updateOrder(
+        {
+          status: orderStatus,
+        },
+        orderId
+      )
+      .subscribe({
+        error: (error: HttpErrorResponse) => {
+          this.fetchOrders();
+          console.error(error);
+        },
+      });
   }
 
   /**
@@ -117,6 +153,53 @@ export class OrdersComponent implements OnInit {
         return LabelColorsEnum.lightGrey;
     }
   }
+
+  /**
+   * Sorts the data of the table.
+   *
+   * @param sort
+   */
+  sortData(sort: Sort) {
+    const data = this.orders.slice();
+    if (!sort.active || sort.direction === '') {
+      this.orders = data;
+      return;
+    }
+
+    this.orders = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'paymentId':
+          return compare(a.paymentId, b.paymentId, isAsc);
+        case 'paymentTotal':
+          return compare(a.total, b.total, isAsc);
+        case 'contactEmail':
+          return compare(a.contactInfo.email, b.contactInfo.email, isAsc);
+        case 'date':
+          return compare(a.createdAt, b.createdAt, isAsc);
+        case 'daysLeft':
+          return compare(this.getDaysLeft(a.createdAt), this.getDaysLeft(b.createdAt), isAsc);
+        case 'items':
+          return compare(a.transactionItems.length, b.transactionItems.length, isAsc);
+        case 'status':
+          return compare(a.status, b.status, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+}
+
+/**
+ * Compares two elements.
+ *
+ * @param a element a.
+ * @param b element b.
+ * @param isAsc is sorted ascended.
+ * @returns the result of the comparison.
+ */
+function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
 enum LabelColorsEnum {

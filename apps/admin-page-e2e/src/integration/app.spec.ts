@@ -50,6 +50,17 @@ describe('admin-page', () => {
         );
         cy.visit('/dashboard');
       });
+
+      it('account icon in sidebar should redirect to account page', () => {
+        cy.get('[data-cy=sidebar-user-icon]').click();
+        cy.url().should('contain', 'account');
+      });
+
+      it('account btn in navbar should redirect to account page', () => {
+        cy.get('[data-cy=navbar-account-btn]').click();
+        cy.url().should('contain', 'account');
+      });
+
       it('should contain a header', () => {
         cy.get('[data-cy=sidebar-header]').should('exist');
       });
@@ -80,10 +91,10 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-orders-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
-      it('should contain a customers item', () => {
-        cy.get('[data-cy=sidebar-customers-btn]').should('exist');
-        cy.get('[data-cy=sidebar-customers-btn]').contains('Customers').should('exist');
-        cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=icon]').should('be.visible');
+      it('should contain a users item', () => {
+        cy.get('[data-cy=sidebar-users-btn]').should('exist');
+        cy.get('[data-cy=sidebar-users-btn]').contains('Users').should('exist');
+        cy.get('[data-cy=sidebar-users-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a discounts item', () => {
@@ -153,11 +164,11 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-orders-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
-      it('should contain a collapsed customers item', () => {
+      it('should contain a collapsed users item', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
-        cy.get('[data-cy=sidebar-customers-btn]').should('exist');
-        cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-customers-btn]').get('[data-cy=icon]').should('be.visible');
+        cy.get('[data-cy=sidebar-users-btn]').should('exist');
+        cy.get('[data-cy=sidebar-users-btn]').get('[data-cy=item-desc').should('not.be.visible');
+        cy.get('[data-cy=sidebar-users-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed discounts item', () => {

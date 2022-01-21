@@ -9,8 +9,14 @@ export interface UpdateUserRequest {
   city?: string;
   postcode?: string;
   country?: string;
+  createdAt?: string;
 }
 export interface UpdateUserPasswordRequest {
   token: string;
+  password: string;
+}
+
+export interface UpdatePasswordAsAdminRequest {
+  userId: string;
   password: string;
 }

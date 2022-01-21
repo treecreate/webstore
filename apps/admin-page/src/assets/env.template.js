@@ -4,4 +4,5 @@
 
   // Environment variables
   window['env']['apiUrl'] = '${API_URL}';
+  window['env']['webstoreUrl'] = '${WEBSTORE_URL}';
 })(this);
