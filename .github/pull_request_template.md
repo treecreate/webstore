@@ -1,6 +1,6 @@
 ### This pull request closes:
 
-🏁 Jira Issue: [TC-<!-- Insert issue number here -->](https://treecreate.atlassian.net/browse/TC-)
+✔️ Closes Jira Issue: [TC-<!-- Insert issue number here -->](https://treecreate.atlassian.net/browse/TC-)
 
 ### Which service(s) does this issue affect:
 
