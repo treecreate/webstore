@@ -1,0 +1,98 @@
+<!-- Navbar -->
+<mat-toolbar color="primary" data-cy="admin-navbar">
+    <mat-toolbar-row>
+        <span>TC management</span>
+        <span class="spacer"></span>
+        <button
+            mat-flat-button
+            color="primary"
+            data-cy="navbar-account-btn"
+            *ngIf="router.url !== '/login' && router.url !== '/404'"
+            routerLink="account"
+        >
+            Account
+        </button>
+        <button
+            mat-flat-button
+            color="primary"
+            data-cy="navbar-logout-btn"
+            (click)="logout()"
+            *ngIf="router.url !== '/login' && router.url !== '/404'"
+        >
+            Logout
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- Only content unaffected by the sidenav should be placed outside of mat-sidenav-container -->
+<mat-sidenav-container autosize class="body-container" data-cy="body-container">
+    <!-- Sidebar -->
+    <mat-sidenav
+        *ngIf="router.url !== '/login' && router.url !== '/404'"
+        mode="side"
+        disableClose
+        opened
+        class="sidebar"
+        [ngClass]="{ collapsed: sidebarCollapsed }"
+        data-cy="sidebar"
+    >
+        <div class="sidebar-header" data-cy="sidebar-header">
+            <mat-icon aria-hidden="false" data-cy="sidebar-user-icon" class="sidebar-user-icon" routerLink="account"
+                >face</mat-icon
+            >
+            <h2 class="role" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="sidebar-role">Admin</h2>
+            <h4 class="username" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="sidebar-username">
+                {{ username }}
+            </h4>
+        </div>
+        <mat-divider [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="sidebar-divider"></mat-divider>
+        <div class="sidebar-items" data-cy="sidebar-items">
+            <mat-action-list>
+                <button mat-list-item data-cy="sidebar-dashboard-btn" routerLink="dashboard">
+                    <mat-icon aria-hidden="false" data-cy="icon">dashboard</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Dashboard</span
+                    >
+                </button>
+                <button mat-list-item data-cy="sidebar-orders-btn" routerLink="/orders">
+                    <mat-icon aria-hidden="false" data-cy="icon">shopping_cart</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Orders</span
+                    >
+                </button>
+                <button mat-list-item data-cy="sidebar-users-btn" routerLink="users">
+                    <mat-icon aria-hidden="false" data-cy="icon">account_box</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Users</span
+                    >
+                </button>
+                <button mat-list-item data-cy="sidebar-discounts-btn" routerLink="/discounts">
+                    <mat-icon aria-hidden="false" data-cy="icon">credit_card</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Discounts</span
+                    >
+                </button>
+                <button mat-list-item data-cy="sidebar-activity-log-btn">
+                    <mat-icon aria-hidden="false" data-cy="icon">timeline</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Activity Log</span
+                    >
+                </button>
+                <button mat-list-item data-cy="sidebar-newsletter-btn">
+                    <mat-icon aria-hidden="false" data-cy="icon">markunread</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Newsletter</span
+                    >
+                </button>
+            </mat-action-list>
+        </div>
+        <button mat-flat-button (click)="toggleCollapsed()" class="toggle-btn" data-cy="sidebar-collapse-btn">
+            {{ sidebarCollapsed ? '>' : '<' }}
+        </button>
+    </mat-sidenav>
+
+    <!-- Content -->
+    <mat-sidenav-content class="content" data-cy="content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,92 @@
+<form (ngSubmit)="createDiscount()" [formGroup]="createDiscountForm" data-cy="create-discount-dialog">
+    <div class="header">
+        <h2>Create discount</h2>
+        <div class="enable-toggle">
+            Enable Discount
+            <mat-slide-toggle color="primary" formControlName="isEnabled" [checked]="checked"></mat-slide-toggle>
+        </div>
+    </div>
+    <hr />
+
+    <div class="input-container">
+        <div class="row-container">
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Discount code</mat-label>
+                <input
+                    type="text"
+                    data-cy="discount-code-input"
+                    formControlName="discountCode"
+                    matInput
+                    placeholder="ABC123"
+                />
+                <mat-error
+                    *ngIf="
+                        createDiscountForm.get('discountCode')?.invalid && createDiscountForm.get('discountCode')?.dirty
+                    "
+                >
+                    Invalid discount - Chars: min 3, max 50
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Remaining uses</mat-label>
+                <input type="number" data-cy="discount-remaining-uses-input" formControlName="remainingUses" matInput />
+            </mat-form-field>
+        </div>
+
+        <div class="row-container">
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Starts at</mat-label>
+                <input type="date" data-cy="discount-starts-at-input" formControlName="startsAt" matInput />
+            </mat-form-field>
+
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Expires at</mat-label>
+                <input type="date" data-cy="discount-expires-at-input" formControlName="expiresAt" matInput />
+            </mat-form-field>
+        </div>
+
+        <div class="row-container">
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Discount type</mat-label>
+                <select matNativeControl required>
+                    <option value="PERCENT">Percent</option>
+                    <option value="AMOUNT">Amount</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field class="input" appearance="fill">
+                <mat-label class="input-label">Amount</mat-label>
+                <input type="number" data-cy="discount-amount-input" formControlName="amount" matInput value="10" />
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="action">
+        <button
+            mat-flat-button
+            color="accent"
+            class="action-button"
+            data-cy="discount-dialog-cancel-btn"
+            mat-dialog-close
+        >
+            Cancel
+        </button>
+        <span
+            class="action-button"
+            [matTooltip]="createDiscountForm.invalid ? 'Form is invalid' : 'Cant update while loading'"
+        >
+            <button
+                mat-flat-button
+                color="primary"
+                style="width: 100%"
+                data-cy="discount-create-btn"
+                type="submit"
+                [disabled]="createDiscountForm.invalid || isLoading"
+            >
+                <span *ngIf="!isLoading">Create</span>
+                <mat-icon *ngIf="isLoading"><mat-spinner diameter="21" color="accent"></mat-spinner></mat-icon>
+            </button>
+        </span>
+    </div>
+</form>

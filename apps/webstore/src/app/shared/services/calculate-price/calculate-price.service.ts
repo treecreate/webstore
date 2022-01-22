@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  DesignDimensionEnum,
-  DiscountType,
-  IDiscount,
-  IPricing,
-  ITransactionItem,
-} from '@interfaces';
+import { DesignDimensionEnum, DiscountType, IDiscount, IPricing, ITransactionItem } from '@interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -109,10 +103,7 @@ export class CalculatePriceService {
     }
   }
 
-  calculateItemPriceAlternative(
-    quantity: number,
-    dimension: DesignDimensionEnum
-  ): number {
+  calculateItemPriceAlternative(quantity: number, dimension: DesignDimensionEnum): number {
     switch (dimension) {
       case DesignDimensionEnum.small:
         return quantity * 495;

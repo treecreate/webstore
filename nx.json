@@ -21,33 +21,37 @@
         "accessToken": "M2ExOWU0YTEtYmQwMi00YzdiLWI1ZDEtNmRjM2I1ZTQ3ODI5fHJlYWQtd3JpdGU=",
         "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
-        "showUsageWarnings": true
+        "showUsageWarnings": true,
+        "parallel": 1
       }
     }
   },
-  "projects": {
-    "api": {
-      "tags": []
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress",
+      "strict": true
     },
-    "assets": {
-      "tags": []
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     },
-    "interfaces": {
-      "tags": []
-    },
-    "mocks": {
-      "tags": []
-    },
-    "models": {
-      "tags": []
-    },
-    "webstore": {
-      "tags": [],
-      "implicitDependencies": ["assets"]
-    },
-    "webstore-e2e": {
-      "tags": [],
-      "implicitDependencies": ["webstore"]
+    "@nrwl/angular:component": {
+      "style": "css"
     }
   }
 }

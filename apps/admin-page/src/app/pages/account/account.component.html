@@ -1,0 +1,173 @@
+<div class="back-btn" onclick="history.back()">< Back</div>
+
+<form class="account-page" [formGroup]="accountForm" (ngSubmit)="updateAccount()" data-cy="account-page">
+    <div class="title-section">
+        <h1 class="title">Account</h1>
+        <h3 *ngIf="!isLoading">User id: {{ user?.userId }}</h3>
+        <div class="loading-container" *ngIf="isLoading">
+            <mat-spinner [diameter]="20"></mat-spinner>
+        </div>
+    </div>
+    <hr />
+
+    <div class="loading-container-large" *ngIf="isLoading">
+        <mat-spinner [diameter]="40"></mat-spinner>
+    </div>
+    <div class="account-page-content" *ngIf="!isLoading">
+        <div class="account-input-fields">
+            <div class="input-section-left">
+                <!-- email -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">E-mail</mat-label>
+                    <input
+                        #email
+                        type="email"
+                        data-cy="account-email-input"
+                        formControlName="email"
+                        matInput
+                        placeholder="Your e-mail "
+                    />
+                    <mat-error *ngIf="accountForm.get('email')?.invalid && accountForm.get('email')?.dirty">
+                        Invalid e-mail
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- name -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Name</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-name-input"
+                        formControlName="name"
+                        matInput
+                        placeholder="Your name "
+                    />
+                    <mat-error *ngIf="accountForm.get('name')?.invalid && accountForm.get('name')?.dirty">
+                        Invalid name (must only contain letters, length in chars: max 50)
+                    </mat-error>
+                </mat-form-field>
+                <div class="column-section">
+                    <!-- city -->
+                    <mat-form-field class="input small-input" appearance="fill">
+                        <mat-label class="input-label">City</mat-label>
+                        <input
+                            type="text"
+                            data-cy="account-city-input"
+                            formControlName="city"
+                            matInput
+                            placeholder="City"
+                        />
+                        <mat-error *ngIf="accountForm.get('city')?.invalid && accountForm.get('city')?.dirty">
+                            Invalid city (must only contain letters, length in chars: min 3, max 50)
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- postcode -->
+                    <mat-form-field class="input small-input" appearance="fill">
+                        <mat-label class="input-label">Postcode</mat-label>
+                        <input
+                            type="text"
+                            data-cy="account-postcode-input"
+                            formControlName="postcode"
+                            matInput
+                            placeholder="1234"
+                        />
+                        <mat-error *ngIf="accountForm.get('postcode')?.invalid && accountForm.get('postcode')?.dirty">
+                            Invalid postcode (must only contain numbers, length in chars: min 3, max 15)
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="input-section-right">
+                <!-- Phonenumber -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Phone number</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-phone-number-input"
+                        formControlName="phoneNumber"
+                        matInput
+                        placeholder="12345678"
+                    />
+                    <mat-error *ngIf="accountForm.get('phoneNumber')?.invalid && accountForm.get('phoneNumber')?.dirty">
+                        Invalid phone number (Must only contain numbers, length in chars: min 3, max 15)
+                    </mat-error>
+                </mat-form-field>
+                <!-- address -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Address</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-address-input"
+                        formControlName="streetAddress"
+                        matInput
+                        placeholder="Your address"
+                    />
+                    <mat-error
+                        *ngIf="accountForm.get('streetAddress')?.invalid && accountForm.get('streetAddress')?.dirty"
+                    >
+                        Invalid address (length in chars: min 3, max 50)
+                    </mat-error>
+                </mat-form-field>
+                <!-- address 2 -->
+                <mat-form-field class="input" appearance="fill">
+                    <mat-label class="input-label">Address 2</mat-label>
+                    <input
+                        type="text"
+                        data-cy="account-address-2-input"
+                        formControlName="streetAddress2"
+                        matInput
+                        placeholder="Your address (continued)"
+                    />
+                    <mat-error
+                        *ngIf="accountForm.get('streetAddress2')?.invalid && accountForm.get('streetAddress2')?.dirty"
+                    >
+                        Invalid address (length in chars: min 3, max 50)
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="column-section">
+            <div class="roles-section">
+                <h4>Roles :</h4>
+                <button mat-raised-button type="button" data-cy="is-user" color="basic">User</button>
+                <!-- <button mat-raised-button type="button" data-cy="is-operation" color="primary" *ngIf="false">
+                    Operation
+                </button> -->
+                <button mat-raised-button type="button" data-cy="is-developer" color="primary" *ngIf="isDeveloper()">
+                    Developer
+                </button>
+                <button mat-raised-button type="button" data-cy="is-admin" color="accent" *ngIf="isAdmin()">
+                    Admin
+                </button>
+            </div>
+            <div class="actions-section">
+                <div matTooltip="Invalid form or no changed values" [matTooltipDisabled]="!isDisabled()">
+                    <button
+                        mat-raised-button
+                        type="submit"
+                        data-cy="update-account-btn"
+                        color="primary"
+                        [disabled]="isDisabled()"
+                    >
+                        <span>Update info</span>
+                        <mat-icon *ngIf="isUpdatingInfo"><mat-spinner diameter="15"></mat-spinner></mat-icon>
+                    </button>
+                </div>
+
+                <button
+                    mat-raised-button
+                    type="button"
+                    color="primary"
+                    data-cy="change-password-btn"
+                    (click)="openUpdatePasswordDialog()"
+                >
+                    Change password
+                </button>
+                <button mat-raised-button type="button" color="primary" *ngIf="!isOnlyUser()">Reset password</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="!isOnlyUser()">Send email</button>
+            </div>
+        </div>
+    </div>
+</form>

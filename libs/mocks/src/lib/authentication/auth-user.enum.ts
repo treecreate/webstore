@@ -1,7 +1,7 @@
 export enum AuthUserEnum {
   authUser,
   authUserRoleDeveloper,
-  authUserRoleOwner,
+  authUserRoleAdmin,
   authUserExpired,
   authUserInvalid,
 }

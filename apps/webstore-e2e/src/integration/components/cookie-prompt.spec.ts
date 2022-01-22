@@ -17,11 +17,9 @@ describe('CookiePromptModal', () => {
       .then(() => {
         cy.url().should('contain', '/rejectedCookies');
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
-        expect(
-          localStorage
-            .getItem(LocalStorageVars.cookiesAccepted)
-            .replace(new RegExp('"', 'g'), '')
-        ).to.equal(CookieStatus.rejected);
+        expect(localStorage.getItem(LocalStorageVars.cookiesAccepted).replace(new RegExp('"', 'g'), '')).to.equal(
+          CookieStatus.rejected
+        );
         // shouldn't allow to directly visit home
         cy.visit('/home');
         cy.url().should('contain', '/rejectedCookies');
@@ -34,11 +32,9 @@ describe('CookiePromptModal', () => {
       .then(() => {
         cy.url().should('contain', '/home');
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
-        expect(
-          localStorage
-            .getItem(LocalStorageVars.cookiesAccepted)
-            .replace(new RegExp('"', 'g'), '')
-        ).to.equal(CookieStatus.accepted);
+        expect(localStorage.getItem(LocalStorageVars.cookiesAccepted).replace(new RegExp('"', 'g'), '')).to.equal(
+          CookieStatus.accepted
+        );
         // shouldn't open the prompt when re-visiting the website
         cy.visit('/home');
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');

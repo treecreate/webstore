@@ -1,21 +1,21 @@
 import { CreateDesignRequest, DesignDimensionEnum } from '../design';
 
-export class UpdateTransactionItemRequest {
+export interface UpdateTransactionItemRequest {
   dimension: DesignDimensionEnum;
   quantity: number;
 }
 
-export class CreateTransactionItemRequest {
+export interface CreateTransactionItemRequest {
   designId: string;
   dimension: DesignDimensionEnum;
   quantity: number;
 }
 
-class CreateBulkTransactionItemRequest {
+interface CreateBulkTransactionItemRequest {
   design: CreateDesignRequest;
   dimension: DesignDimensionEnum;
   quantity: number;
 }
-export class CreateBulkTransactionItemsRequest {
+export interface CreateBulkTransactionItemsRequest {
   transactionItems: CreateBulkTransactionItemRequest[];
 }

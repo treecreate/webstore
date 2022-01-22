@@ -1,25 +1,134 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
-  "generators": {
-    "@nrwl/angular:application": {
-      "style": "css",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "css",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "css"
-    }
-  },
   "projects": {
+    "admin-page": {
+      "projectType": "application",
+      "root": "apps/admin-page",
+      "sourceRoot": "apps/admin-page/src",
+      "prefix": "webstore",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/admin-page",
+            "index": "apps/admin-page/src/index.html",
+            "main": "apps/admin-page/src/main.ts",
+            "polyfills": "apps/admin-page/src/polyfills.ts",
+            "tsConfig": "apps/admin-page/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/admin-page/src/favicon.ico", "apps/admin-page/src/assets"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/admin-page/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "development": {
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/admin-page/src/environments/environment.ts",
+                  "with": "apps/admin-page/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "defaultConfiguration": "",
+          "options": {
+            "browserTarget": "admin-page:build:development",
+            "proxyConfig": "apps/admin-page/proxy.conf.json",
+            "port": 4300
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "admin-page:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "admin-page:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/admin-page/src/**/*.ts", "apps/admin-page/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/admin-page"],
+          "options": {
+            "jestConfig": "apps/admin-page/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "admin-page-e2e": {
+      "root": "apps/admin-page-e2e",
+      "sourceRoot": "apps/admin-page-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/admin-page-e2e/cypress.json",
+            "tsConfig": "apps/admin-page-e2e/tsconfig.e2e.json",
+            "devServerTarget": "admin-page:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "admin-page:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/admin-page-e2e/**/*.{js,ts}"]
+          },
+          "outputs": ["{options.outputFile}"]
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["admin-page"]
+    },
     "api": {
       "projectType": "application",
       "root": "apps/api",
@@ -73,7 +182,8 @@
             "root": "apps/api"
           }
         }
-      }
+      },
+      "tags": []
     },
     "assets": {
       "root": "libs/assets",
@@ -84,7 +194,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/assets/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -94,7 +205,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "interfaces": {
       "root": "libs/interfaces",
@@ -105,7 +217,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/interfaces/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -115,7 +228,31 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
+    },
+    "local-storage": {
+      "root": "libs/local-storage",
+      "sourceRoot": "libs/local-storage/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/local-storage/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/local-storage"],
+          "options": {
+            "jestConfig": "libs/local-storage/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
     },
     "mocks": {
       "projectType": "library",
@@ -126,11 +263,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/mocks/src/**/*.ts",
-              "libs/mocks/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["libs/mocks/src/**/*.ts", "libs/mocks/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -140,7 +275,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "models": {
       "root": "libs/models",
@@ -151,7 +287,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/models/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -161,7 +298,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "webstore": {
       "projectType": "application",
@@ -193,13 +331,18 @@
                 "output": "assets"
               }
             ],
-            "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "apps/webstore/src/styles.css"
-            ],
+            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css", "apps/webstore/src/styles.css"],
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "buildOptimizer": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -240,12 +383,14 @@
               ],
               "localize": ["dk"]
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
+          "defaultConfiguration": "",
           "options": {
-            "browserTarget": "webstore:build"
+            "browserTarget": "webstore:build:development"
           },
           "configurations": {
             "production": {
@@ -266,11 +411,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/webstore/src/**/*.ts",
-              "apps/webstore/src/**/*.html"
-            ]
-          }
+            "lintFilePatterns": ["apps/webstore/src/**/*.ts", "apps/webstore/src/**/*.html"]
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -280,7 +423,9 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["assets"]
     },
     "webstore-e2e": {
       "root": "apps/webstore-e2e",
@@ -307,9 +452,12 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/webstore-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["webstore"]
     }
   }
 }

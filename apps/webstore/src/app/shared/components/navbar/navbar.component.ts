@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
-import { LocalStorageService } from '../../services/local-storage';
+import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../toast/toast-service';
 
@@ -38,22 +38,16 @@ export class NavbarComponent implements OnInit {
     private router: Router
   ) {
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(
-      LocalStorageVars.locale
-    );
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
-      LocalStorageVars.authUser
-    );
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
-      this.isLoggedIn =
-        this.authUser$.getValue() != null &&
-        this.authService.isAccessTokenValid();
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     this.environment = environment;
   }
@@ -67,10 +61,7 @@ export class NavbarComponent implements OnInit {
         this.localeCode = LocaleType.en;
         break;
     }
-    this.locale$ = this.localStorageService.setItem<LocaleType>(
-      LocalStorageVars.locale,
-      this.localeCode
-    );
+    this.locale$ = this.localStorageService.setItem<LocaleType>(LocalStorageVars.locale, this.localeCode);
   }
 
   getItemsInBasket() {
@@ -88,9 +79,9 @@ export class NavbarComponent implements OnInit {
         }
       );
     } else {
-      const localStorageItemsList = this.localStorageService.getItem<
-        ITransactionItem[]
-      >(LocalStorageVars.transactionItems).value;
+      const localStorageItemsList = this.localStorageService.getItem<ITransactionItem[]>(
+        LocalStorageVars.transactionItems
+      ).value;
       if (localStorageItemsList !== null) {
         this.itemsInBasket = localStorageItemsList.length;
       } else {
@@ -101,12 +92,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     console.log('logged out');
-    this.toastService.showAlert(
-      'You have now logged out!',
-      'Du er nu logget ud!',
-      'success',
-      2500
-    );
+    this.toastService.showAlert('You have now logged out!', 'Du er nu logget ud!', 'success', 2500);
     this.authService.logout();
     // Clear the local storage;
     this.localStorageService.removeItem(LocalStorageVars.transactionItems);

@@ -1,11 +1,5 @@
 <div class="flex-container-login">
-    <form
-        *ngIf="!isLoggedIn"
-        (ngSubmit)="onSubmit()"
-        name="loginForm"
-        class="login-form"
-        [formGroup]="loginForm"
-    >
+    <form *ngIf="!isLoggedIn" (ngSubmit)="onSubmit()" name="loginForm" class="login-form" [formGroup]="loginForm">
         <h1 class="page-title" i18n="@@login">Login</h1>
         <div class="tc-input-group field">
             <input
@@ -36,25 +30,16 @@
                     autocomplete="current-password"
                     required
                 />
-                <label for="password" class="tc-input-label" i18n="@@password"
-                    >Password</label
-                >
+                <label for="password" class="tc-input-label" i18n="@@password">Password</label>
             </div>
             <button
                 class="show-password-btn"
                 type="button"
-                (click)="
-                    password.type =
-                        password.type == 'password' ? 'text' : 'password'
-                "
+                (click)="password.type = password.type == 'password' ? 'text' : 'password'"
             >
                 <img
                     class="password-icon"
-                    [ngClass]="
-                        password.type == 'text'
-                            ? 'password-show-icon'
-                            : 'password-hide-icon'
-                    "
+                    [ngClass]="password.type === 'text' ? 'password-show-icon' : 'password-hide-icon'"
                 />
             </button>
         </div>
@@ -70,12 +55,7 @@
             </a>
         </div>
 
-        <button
-            class="tc-button-100"
-            data-cy="login-btn"
-            type="submit"
-            [disabled]="isDisabled()"
-        >
+        <button class="tc-button-100" data-cy="login-btn" type="submit" [disabled]="isDisabled()">
             <span i18n="@@login" *ngIf="!isLoading">Login</span>
             <span
                 *ngIf="isLoading"
@@ -85,13 +65,7 @@
                 aria-hidden="true"
             ></span>
         </button>
-        <button
-            class="tc-button-100"
-            data-cy="login-signup-btn"
-            type="button"
-            routerLink="/signup"
-            i18n="@@signup"
-        >
+        <button class="tc-button-100" data-cy="login-signup-btn" type="button" routerLink="/signup" i18n="@@signup">
             Sign up
         </button>
     </form>

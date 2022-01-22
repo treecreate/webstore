@@ -1,9 +1,8 @@
-import { IUser } from '../user';
-import { DesignTypeEnum } from './design-type.enum';
 import { ComponentRef } from '@angular/core';
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
+import { DesignTypeEnum, IBase, IUser } from '..';
 
-export interface IDesign {
+export interface IDesign extends IBase {
   designId: string;
   designProperties: IFamilyTree;
   designType: DesignTypeEnum;
@@ -34,12 +33,19 @@ export interface IDraggableBox {
 }
 
 export enum FamilyTreeFontEnum {
-  timesNewRoam = 'Times new roman',
-  roboto = 'Roboto',
-  georgia = 'Georgia',
-  shareTech = 'Share Tech',
-  spectral = 'Spectral',
-  sansita = 'Sansita',
+  argestadisplay = 'argestadisplay',
+  argestadisplayItalic = 'argestadisplay-italic',
+  bairolBold = 'bairol-bold',
+  bairolBoldItalic = 'bairol-bold-italic',
+  calendasItalic = 'calendas-italic',
+  sansita = 'sansita',
+  roboto = 'roboto',
+  georgia = 'georgia',
+  spectral = 'spectral',
+  archaLight = 'archia-light',
+  archaMedium = 'archia-medium',
+  calendas = 'calendas',
+  knile = 'knile',
 }
 
 export interface IFamilyTreeBanner {

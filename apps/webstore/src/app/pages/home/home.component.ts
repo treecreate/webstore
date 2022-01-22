@@ -5,8 +5,8 @@ import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '../../shared/services/local-storage';
-import { NewsletterService } from '../../shared/services/order/newsletter/newsletter.service';
+import { LocalStorageService } from '@local-storage';
+import { NewsletterService } from '../../shared/services/newsletter/newsletter.service';
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
@@ -32,15 +32,11 @@ export class HomeComponent {
     this.initialTop = 0;
 
     // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(
-      LocalStorageVars.authUser
-    );
+    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
 
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
-      this.isLoggedIn =
-        this.authUser$.getValue() != null &&
-        this.authService.isAccessTokenValid();
+      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
 
     this.subscribeForm = new FormGroup({
@@ -50,30 +46,23 @@ export class HomeComponent {
 
   submitNewsletterEmail() {
     this.isSubscribingUser = true;
-    this.newsletterService
-      .registerNewsletterEmail(this.subscribeForm.get('email').value)
-      .subscribe(
-        (data: INewsletter) => {
-          this.toastService.showAlert(
-            `Thank you for subscribing: ${data.email}`,
-            `Tak for din tilmelding: ${data.email}`,
-            'success',
-            3000
-          );
-          this.isSubscribingUser = false;
-        },
-        (error) => {
-          // TODO: translate API errors to danish
-          this.toastService.showAlert(
-            error.error.message,
-            error.error.message,
-            'danger',
-            100000
-          );
-          console.error(error);
-          this.isSubscribingUser = false;
-        }
-      );
+    this.newsletterService.registerNewsletterEmail(this.subscribeForm.get('email').value).subscribe(
+      (data: INewsletter) => {
+        this.toastService.showAlert(
+          `Thank you for subscribing: ${data.email}`,
+          `Tak for din tilmelding: ${data.email}`,
+          'success',
+          3000
+        );
+        this.isSubscribingUser = false;
+      },
+      (error) => {
+        // TODO: translate API errors to danish
+        this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
+        console.error(error);
+        this.isSubscribingUser = false;
+      }
+    );
   }
 
   @HostListener('window:scroll')
