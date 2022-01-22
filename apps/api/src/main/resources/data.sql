@@ -6,6 +6,7 @@
 -- * transaction_items -> Add sample items.
 -- * discounts -> Add some sample discounts.
 -- * newsletter -> Add sample newsletters.
+-- * orders -> add sample orders.
 -- --> Roles TABLE <--
 INSERT INTO `roles`
 SELECT  roles.*
@@ -178,51 +179,7 @@ WHERE NOT EXISTS (
 SELECT  *
 FROM `designs` );
 -- --> End Designs TABLE <-- --
--- --> Transaction_items TABLE <-- --
-INSERT INTO `transaction_items`
-SELECT  transaction_items.*
-FROM
-( (
-	SELECT  '42066fdf-507f-41e2-b8ea-dfffd75f70dc' AS transaction_item_id
-	       ,now()                                  AS created_at
-	       ,0                                      AS dimension
-	       ,null                                   AS order_id
-	       ,1                                      AS quantity
-	       ,now()                                  AS updated_at
-	       ,'2e81e681-30b1-41ee-b1b1-f58ad846e115' AS design_design_id
-	       ,null                                   AS order_order_id )
-	UNION ALL(
-	SELECT  'b224219b-9c2b-4bec-84a6-bd285fb092f7' AS transaction_item_id
-	       ,now()                                  AS created_at
-	       ,1                                      AS dimension
-	       ,null                                   AS order_id
-	       ,2                                      AS quantity
-	       ,now()                                   AS updated_at
-	       ,'0e5260a6-bb90-4c7b-a19e-ccefe1016a2b' AS design_design_id
-	       ,null                                   AS order_order_id )
-	UNION ALL(
-	SELECT  'd17b9f81-bc30-41ec-8324-7f8ed72021cb' AS transaction_item_id
-	       ,now()                                  AS created_at
-	       ,0                                      AS dimension
-	       ,null                                   AS order_id
-	       ,1                                      AS quantity
-	       ,now()                                   AS updated_at
-	       ,'c1b2a42f-d47e-424d-a7c5-ddac696e21c7' AS design_design_id
-	       ,null                                   AS order_order_id )
-	UNION ALL(
-	SELECT  '3849e7aa-4a27-43bc-8a11-0fd836516b40' AS transaction_item_id
-	       ,now()                                  AS created_at
-	       ,1                                      AS dimension
-	       ,null                                   AS order_id
-	       ,2                                      AS quantity
-	       ,now()                                   AS updated_at
-	       ,'8e8e340e-f9ca-4765-a338-8f9ea727e839' AS design_design_id
-	       ,null                                   AS order_order_id )
-) transaction_items
-WHERE NOT EXISTS (
-SELECT  *
-FROM `transaction_items` );
--- --> End Transaction_items TABLE <-- --
+
 -- --> Discounts TABLE <-- --
 INSERT INTO `discounts`
 SELECT  discounts.*
@@ -328,3 +285,122 @@ WHERE NOT EXISTS (
 SELECT  *
 FROM `newsletter` );
 -- --> End Newsletter TABLE <-- --
+
+-- --> Contact Info TABLE <-- --
+INSERT INTO `contact_info`
+SELECT  contact_info.*
+FROM
+( (
+	SELECT  '7f000101-7dfa-1cd5-817d-fb9156b80001'  AS contact_info_id
+			,'Warsaw'								AS city
+			,null									AS country
+	       ,now()                                   AS created_at
+	       ,'admin@example.com'                     AS email
+		   ,'John Doe'								AS name
+		   ,'+4512345678'							AS phone_number
+		   ,'1234'									AS postcode
+		   ,'StreetGade 123'						AS street_address
+		   ,'3rd floor'								AS street_address_2
+	       ,now()                                   AS updated_at )
+	UNION ALL(
+	SELECT  '7f000101-7dfa-1cd5-817d-fb9156bd0002'  AS contact_info_id
+			,'Warsaw'								AS city
+			,'Denmark'								AS country
+	       ,now()                                   AS created_at
+	       ,'user@example.com'                      AS email
+		   ,'John Doe'								AS name
+		   ,'+4512345678'							AS phone_number
+		   ,'9999'									AS postcode
+		   ,'StreetGade 123'						AS street_address
+		   ,'3rd floor'								AS street_address_2
+	       ,now()                                   AS updated_at )
+) contact_info
+WHERE NOT EXISTS (
+SELECT  *
+FROM `contact_info` );
+-- --> End Contact Info TABLE <-- --
+
+-- --> Orders TABLE <-- --
+INSERT INTO `orders`
+SELECT  orders.*
+FROM
+( (
+	SELECT  '7f000101-7dfa-1cd5-817d-fb9156b30000' AS order_id
+	       ,now()                                  AS created_at
+	       ,0                    					AS currency
+		   ,'286487927'								AS payment_id
+		   ,1										AS planted_trees
+		   ,1										AS shipping_method
+		   ,5										AS status
+		   ,495.00									AS subtotal
+		   ,395.00									AS total
+	       ,now()                                 	AS updated_at
+		   ,'f12d7bcc-ac5f-48f8-8b74-055622e128f0'	AS user_id
+		   ,'7f000101-7dfa-1cd5-817d-fb9156b80001'	AS billing_info_contact_info_id
+		   ,'7f000101-7dfa-1cd5-817d-fb9156bd0002'	AS contact_info_contact_info_id
+		   ,'2f61a7a1-499d-45bb-8229-53f70a4475c4'	AS discount_discount_id )
+) orders
+WHERE NOT EXISTS (
+SELECT  *
+FROM `orders` );
+-- --> End Orders TABLE <-- --
+
+
+-- --> Transaction_items TABLE <-- --
+INSERT INTO `transaction_items`
+SELECT  transaction_items.*
+FROM
+( (
+	SELECT  '42066fdf-507f-41e2-b8ea-dfffd75f70dc' AS transaction_item_id
+	       ,now()                                  AS created_at
+	       ,0                                      AS dimension
+	       ,'7f000101-7dfa-1cd5-817d-fb9156b30000' AS order_id
+	       ,1                                      AS quantity
+	       ,now()                                  AS updated_at
+	       ,'2e81e681-30b1-41ee-b1b1-f58ad846e115' AS design_design_id
+	       ,'7f000101-7dfa-1cd5-817d-fb9156b30000' AS order_order_id )
+	UNION ALL(
+	SELECT  'b224219b-9c2b-4bec-84a6-bd285fb092f7' AS transaction_item_id
+	       ,now()                                  AS created_at
+	       ,1                                      AS dimension
+	       ,null                                   AS order_id
+	       ,2                                      AS quantity
+	       ,now()                                   AS updated_at
+	       ,'0e5260a6-bb90-4c7b-a19e-ccefe1016a2b' AS design_design_id
+	       ,null                                   AS order_order_id )
+	UNION ALL(
+	SELECT  'd17b9f81-bc30-41ec-8324-7f8ed72021cb' AS transaction_item_id
+	       ,now()                                  AS created_at
+	       ,0                                      AS dimension
+	       ,null                                   AS order_id
+	       ,1                                      AS quantity
+	       ,now()                                   AS updated_at
+	       ,'c1b2a42f-d47e-424d-a7c5-ddac696e21c7' AS design_design_id
+	       ,null                                   AS order_order_id )
+	UNION ALL(
+	SELECT  '3849e7aa-4a27-43bc-8a11-0fd836516b40' AS transaction_item_id
+	       ,now()                                  AS created_at
+	       ,1                                      AS dimension
+	       ,null                                   AS order_id
+	       ,2                                      AS quantity
+	       ,now()                                   AS updated_at
+	       ,'8e8e340e-f9ca-4765-a338-8f9ea727e839' AS design_design_id
+	       ,null                                   AS order_order_id )
+) transaction_items
+WHERE NOT EXISTS (
+SELECT  *
+FROM `transaction_items` );
+-- --> End Transaction_items TABLE <-- --
+
+-- --> orders_transaction_items TABLE <-- --
+INSERT INTO `orders_transaction_items`
+SELECT  orders_transaction_items.*
+FROM
+( (
+	SELECT  '7f000101-7dfa-1cd5-817d-fb9156b30000' AS order_order_id
+	       ,'42066fdf-507f-41e2-b8ea-dfffd75f70dc' AS transaction_items_transaction_item_id )
+) orders_transaction_items
+WHERE NOT EXISTS (
+SELECT  *
+FROM `orders_transaction_items` );
+-- --> End Contact Info TABLE <-- --
