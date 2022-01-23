@@ -55,10 +55,13 @@ export class AuthService {
   }
 
   /**
-   * Remove the logged in user information from local storage
+   * Remove the logged in user information from local storage and API
+   * @param callApi whether or not it should perform a /logout api call. Not needed when you know the user is already logged out
    */
-  public logout(): void {
-    this.http.get<void>(`${env.apiUrl}/auth/logout`).subscribe();
+  public logout(callApi: boolean = true): void {
+    if (callApi) {
+      this.http.get<void>(`${env.apiUrl}/auth/logout`).subscribe();
+    }
     this.localStorageService.removeItem(LocalStorageVars.authUser);
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
     this.localStorageService.removeItem(LocalStorageVars.transactionItems);
@@ -85,6 +88,9 @@ export class AuthService {
       error: (error) => {
         console.error(error);
         this.refreshingTokens = false;
+        if (error.status === 401) {
+          this.logout(false);
+        }
       },
     });
   }

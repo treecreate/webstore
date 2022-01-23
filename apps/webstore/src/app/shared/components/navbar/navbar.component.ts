@@ -90,6 +90,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Remove the logged in user information from local storage and API
+   */
   logout() {
     this.toastService.showAlert('You have now logged out!', 'Du er nu logget ud!', 'success', 2500);
     this.authService.logout();
