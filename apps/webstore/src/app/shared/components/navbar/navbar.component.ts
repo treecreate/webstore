@@ -2,12 +2,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAuthUser, ITransactionItem } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
-import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../toast/toast-service';
 
@@ -91,14 +91,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    console.log('logged out');
     this.toastService.showAlert('You have now logged out!', 'Du er nu logget ud!', 'success', 2500);
     this.authService.logout();
-    // Clear the local storage;
-    this.localStorageService.removeItem(LocalStorageVars.transactionItems);
-    this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
-    window.scroll(0, 0);
-    window.location.reload();
   }
 
   autoCollapse() {

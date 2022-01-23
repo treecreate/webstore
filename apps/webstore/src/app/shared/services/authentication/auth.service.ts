@@ -54,14 +54,14 @@ export class AuthService {
     );
   }
 
-  // TODO - send a logout request
   /**
-   * Remove the user authentication information from local storage
+   * Remove the logged in user information from local storage
    */
   public logout(): void {
+    this.http.get<void>(`${env.apiUrl}/auth/logout`).subscribe();
     this.localStorageService.removeItem(LocalStorageVars.authUser);
-    // the tree design should no longer be accessible
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
+    this.localStorageService.removeItem(LocalStorageVars.transactionItems);
     this.router.navigate(['/home']);
   }
 
@@ -132,7 +132,7 @@ export class AuthService {
           return true;
         }
         console.warn('Valid: Your session has expired, logging you out');
-        this.localStorageService.removeItem(LocalStorageVars.authUser);
+        this.logout();
       }
       return !isExpired;
     }
