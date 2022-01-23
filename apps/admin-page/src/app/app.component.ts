@@ -24,9 +24,11 @@ export class AppComponent {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
 
+  /**
+   * Remove the logged in user information from local storage and API
+   */
   logout() {
-    this.snackBar.open('You have logged out', 'Wauw');
+    this.snackBar.open('You have logged out', 'Wauw', { duration: 5000 });
     this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

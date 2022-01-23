@@ -18,6 +18,8 @@ const httpOptions = {
 export class AuthService {
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router) {}
 
+  private refreshingTokens: boolean = false;
+
   /**
    * Perform a login request to the API
    * @param params user credentials
@@ -53,11 +55,42 @@ export class AuthService {
   }
 
   /**
-   * Remove the user authentication information from local storage
+   * Remove the logged in user information from local storage and API
+   * @param callApi whether or not it should perform a /logout api call. Not needed when you know the user is already logged out
    */
-  public logout(): void {
+  public logout(callApi: boolean = true): void {
+    if (callApi) {
+      this.http.get<void>(`${env.apiUrl}/auth/logout`).subscribe();
+    }
     this.localStorageService.removeItem(LocalStorageVars.authUser);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
+  }
+
+  /**
+   * Performs a query to the backend to refresh the access token.
+   * Updates the data in local storage.
+   */
+  refreshAccessToken(): void {
+    // check if the tokens are already being refreshed
+    if (this.refreshingTokens) {
+      return;
+    }
+    this.refreshingTokens = true;
+    // call the api to refresh the authentication info
+    this.http.get<IAuthUser>(`${env.apiUrl}/auth/refresh`).subscribe({
+      next: (authUser: IAuthUser) => {
+        this.localStorageService.setItem(LocalStorageVars.authUser, authUser);
+        this.refreshingTokens = false;
+        return authUser;
+      },
+      error: (error) => {
+        console.error(error);
+        this.refreshingTokens = false;
+        if (error.status === 401) {
+          this.logout(false);
+        }
+      },
+    });
   }
 
   /**
@@ -93,9 +126,17 @@ export class AuthService {
         return false;
       }
       const isExpired = this.isJwtExpired(accessToken);
+      // if the access token is expired, check the refresh token
       if (isExpired) {
-        console.warn('Your session has expired, logging you out');
-        this.localStorageService.removeItem(LocalStorageVars.authUser);
+        const refreshToken = authUser.getValue()?.refreshToken;
+        if (refreshToken === undefined) {
+          return false;
+        }
+        if (!this.isJwtExpired(refreshToken)) {
+          return true;
+        }
+        console.warn('Valid: Your session has expired, logging you out');
+        this.logout();
       }
       return !isExpired;
     }
