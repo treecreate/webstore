@@ -1,9 +1,9 @@
-import { IBase } from '..';
 import { UserRoles } from '@models';
+import { IBase } from '..';
 export interface IAuthUser {
   userId: string;
   email: string;
-  roles: string[];
+  roles: IRole[];
   accessToken: string;
   refreshToken: string;
   tokenType: string;
