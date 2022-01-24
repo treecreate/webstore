@@ -42,7 +42,7 @@ export class AuthGuard implements CanActivate {
     if (authUser === null) {
       return false;
     }
-    const userRoles: string[] = authUser.roles.map((role) => role.name);
+    const userRoles: string[] = authUser.roles;
     const isAuthorized = userRoles.includes(...requiredRoles);
     if (!isAuthorized) {
       this.router.navigate(['/PageNotFound'], { skipLocationChange: true });
