@@ -18,7 +18,7 @@ const httpOptions = {
 export class AuthService {
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router) {}
 
-  private refreshingTokens: boolean = false;
+  private refreshingTokens = false;
 
   /**
    * Perform a login request to the API

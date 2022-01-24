@@ -106,7 +106,6 @@ describe('Signup Page', () => {
     });
 
     it('should detect that the access token is expired and log the user out', () => {
-
       cy.intercept('POST', `/auth/logout`, {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
