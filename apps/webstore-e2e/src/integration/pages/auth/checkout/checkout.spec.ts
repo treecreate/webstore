@@ -17,7 +17,11 @@ import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 const mockUser: IUser = {
   userId: '1',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
+  roles: [
+    { name: UserRoles.user, roleId: '' },
+    { name: UserRoles.developer, roleId: '' },
+    { name: UserRoles.admin, roleId: '' },
+  ],
   name: 'teodor jonasson',
   phoneNumber: '26192327',
   streetAddress: 'hillerødgade 69, 3 etage',
