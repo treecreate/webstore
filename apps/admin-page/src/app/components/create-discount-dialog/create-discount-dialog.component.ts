@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DiscountType, IDiscount } from '@interfaces';
+import { DiscountType } from '@interfaces';
 import { DiscountsService } from '../../services/discounts/discounts.service';
 
 @Component({
@@ -60,7 +60,7 @@ export class CreateDiscountDialogComponent {
         type: this.createDiscountForm.get('type')?.value,
       })
       .subscribe(
-        (data: IDiscount) => {
+        () => {
           this.snackbar.open('Discount created!', 'HOLY SH***', { duration: 2500 });
           document.location.reload();
           this.dialog.closeAll();
