@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IUser } from '@interfaces';
 import { UserRoles } from '@models';
+
 import { ProfileComponent } from './profile.component';
 
 describe('ProfileComponent', () => {
@@ -11,7 +12,7 @@ describe('ProfileComponent', () => {
   const mockUser: IUser = {
     userId: '1',
     email: 'e2e@test.com',
-    roles: [{ name: UserRoles.user, roleId: '' }],
+    roles: [UserRoles.user],
     name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',

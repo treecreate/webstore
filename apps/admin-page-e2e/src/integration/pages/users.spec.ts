@@ -8,11 +8,7 @@ const mockUsers = [
   {
     userId: 'IllTakeYouSon',
     email: 'IllTakeYouSon@test.com',
-    roles: [
-      { name: UserRoles.user, roleId: '' },
-      { name: UserRoles.developer, roleId: '' },
-      { name: UserRoles.admin, roleId: '' },
-    ],
+    roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
     name: 'Teo the almigthy',
     phoneNumber: '69420420',
     streetAddress: 'Y u b like dis?',
@@ -24,7 +20,7 @@ const mockUsers = [
   {
     userId: 'PleaseTakeMeDaddyOG',
     email: 'PleaseTakeMeDaddyOG@test.com',
-    roles: [{ name: UserRoles.user, roleId: '' }],
+    roles: [UserRoles.user],
     name: 'cristian the huh hah',
     phoneNumber: '69420420',
     streetAddress: 'Y u b like dis?',
@@ -36,7 +32,7 @@ const mockUsers = [
   {
     userId: 'PleaseTakeMeDaddy1',
     email: 'PleaseTakeMeDaddy1@test.com',
-    roles: [{ name: UserRoles.user, roleId: '' }],
+    roles: [UserRoles.user],
     name: 'Alex MACAGNANA oooh nana',
     phoneNumber: '69420420',
     streetAddress: 'Y u b like dis?',
@@ -48,7 +44,7 @@ const mockUsers = [
   {
     userId: 'PleaseTakeMeDaddy2',
     email: 'PleaseTakeMeDaddy2@CAliJanuwich.com',
-    roles: [{ name: UserRoles.user, roleId: '' }],
+    roles: [UserRoles.user],
     name: 'CAliJanuwich',
     phoneNumber: '69420420',
     streetAddress: 'Y u b like dis?',
