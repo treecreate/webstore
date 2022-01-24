@@ -1,5 +1,5 @@
-import { IBase } from '..';
-import { UserRoles } from '@models';
+import { IBase, IRole } from '..';
+
 export interface IAuthUser {
   userId: string;
   email: string;
@@ -21,9 +21,4 @@ export interface IUser extends IBase {
   postcode?: string;
   country?: string;
   //TODO: add the basket IDesign[] list so it stays even when they leave the page
-}
-
-export interface IRole extends IBase {
-  roleId: string;
-  name: UserRoles;
 }
