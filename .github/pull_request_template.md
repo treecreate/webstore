@@ -1,7 +1,6 @@
 ### This pull request closes:
 
-✔️ Closes: #<!-- Insert issue number here -->
-🏁 Jira Issue: [TC-<!-- Insert issue number here -->](<!-- Insert issue link here -->)
+✔️ Closes Jira Issue: [TC-<!-- Insert issue number here -->](https://treecreate.atlassian.net/browse/TC-)
 
 ### Which service(s) does this issue affect:
 
@@ -16,6 +15,7 @@
 - [ ] 💥 Breaking change (fix or feature that would cause existing functionality to change)
 - [ ] 🤖 CI/CD (a change to the CI/CD pipeline)
 - [ ] ⚗️ Refactoring (an update to some already existing code)
+- [ ] 💄 Style (Markup, formatting, CSS)
 
 ### Documentation Updates
 

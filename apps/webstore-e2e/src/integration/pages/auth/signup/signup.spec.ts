@@ -106,13 +106,17 @@ describe('Signup Page', () => {
     });
 
     it('should detect that the access token is expired and log the user out', () => {
+      cy.intercept('POST', `/auth/logout`, {
+        body: authMockService.getMockUser(AuthUserEnum.authUser),
+        statusCode: 200,
+      });
       localStorage.setItem(
         LocalStorageVars.authUser,
         JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserExpired))
       );
       cy.visit('/signup');
 
-      cy.url().should('contain', '/signup');
+      cy.url().should('contain', '/home');
 
       cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');

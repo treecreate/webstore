@@ -45,6 +45,7 @@ export class ViewUserOrdersDialogComponent implements OnInit {
    */
   constructor(
     private ordersService: OrdersService,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private snackBar: MatSnackBar
