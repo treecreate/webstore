@@ -132,7 +132,7 @@ export class AccountComponent {
    * Checks if user has USER role.
    * @returns whether the user contains the role user.
    */
-  isUser(): boolean | undefined {
+  isUser(): boolean {
     return this.user.roles.some((role) => role.name === UserRoles.user);
   }
 
