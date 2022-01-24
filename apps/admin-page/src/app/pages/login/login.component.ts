@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ILoginResponse } from '@interfaces';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../../services/authentication/auth.service';
 import { UserRoles } from '@models';
+import { AuthService } from '../../services/authentication/auth.service';
 
 @Component({
   selector: 'webstore-login',
@@ -56,7 +56,10 @@ export class LoginComponent {
         })
         .subscribe(
           (data: ILoginResponse) => {
-            if (data.roles.includes(UserRoles.admin) || data.roles.includes(UserRoles.developer)) {
+            if (
+              data.roles.some((role) => role.name === UserRoles.developer) ||
+              data.roles.some((role) => role.name === UserRoles.admin)
+            ) {
               this.authService.saveAuthUser(data);
               this.snackBar.open('Welcome back to Treecreate!', 'Thanks', { duration: 2500 });
               this.router.navigate(['/dashboard']);
