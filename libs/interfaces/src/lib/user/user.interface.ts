@@ -1,4 +1,4 @@
-import { IBase } from '..';
+import { IBase, IRole } from '..';
 
 export interface IAuthUser {
   userId: string;
@@ -12,7 +12,7 @@ export interface IAuthUser {
 export interface IUser extends IBase {
   userId: string;
   email: string;
-  roles: string[];
+  roles: IRole[];
   name?: string;
   phoneNumber?: string;
   streetAddress?: string;

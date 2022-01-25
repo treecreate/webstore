@@ -8,7 +8,7 @@ describe('accountPage', () => {
   const mockUser: IUser = {
     userId: '1',
     email: 'e2e@test.com',
-    roles: [UserRoles.user],
+    roles: [{ name: UserRoles.user, roleId: '' }],
     name: 'teodor jonasson',
     phoneNumber: '',
     streetAddress: '',
