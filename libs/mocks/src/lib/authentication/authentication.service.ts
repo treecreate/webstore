@@ -18,18 +18,22 @@ export class AuthenticationService {
       case AuthUserEnum.authUser:
         authUserMock = authUser;
         authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
+        authUserMock.refreshToken = this.generateAccessToken(false, authUserMock.email, 86400000);
         break;
       case AuthUserEnum.authUserRoleDeveloper:
         authUserMock = authUserRoleDeveloper;
         authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
+        authUserMock.refreshToken = this.generateAccessToken(false, authUserMock.email, 86400000);
         break;
       case AuthUserEnum.authUserRoleAdmin:
         authUserMock = authUserRoleAdmin;
         authUserMock.accessToken = this.generateAccessToken(true, authUserMock.email);
+        authUserMock.refreshToken = this.generateAccessToken(false, authUserMock.email, 86400000);
         break;
       case AuthUserEnum.authUserExpired:
         authUserMock = authUserExpired;
         authUserMock.accessToken = this.generateAccessToken(false, authUserMock.email);
+        authUserMock.refreshToken = this.generateAccessToken(false, authUserMock.email, 86400000);
         break;
       case AuthUserEnum.authUserInvalid:
         authUserMock = authUserInvalid;
@@ -38,7 +42,7 @@ export class AuthenticationService {
     return authUserMock;
   }
 
-  private generateAccessToken(validExpDate: boolean, email: string): string {
+  private generateAccessToken(validExpDate: boolean, email: string, duration: number = 90000): string {
     const currentDate = new Date();
 
     const data = {
@@ -46,7 +50,7 @@ export class AuthenticationService {
       // Set the issued date to yesterday
       iat: Math.floor(new Date(currentDate.getTime() - 86400000).getTime() / 1000),
       // If the token should be still valid, the exp date is ahead of today. Otherwise, it is before
-      exp: Math.floor(new Date(currentDate.getTime() + (validExpDate ? 86400000 : -86400000)).getTime() / 1000),
+      exp: Math.floor(new Date(currentDate.getTime() + (validExpDate ? duration : -86400000)).getTime() / 1000),
     };
     // return the encoded access token
     return `${this.encodeBase64url(JSON.stringify(this.header))}.${this.encodeBase64url(JSON.stringify(data))}`;

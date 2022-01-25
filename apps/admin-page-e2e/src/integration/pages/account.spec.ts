@@ -5,7 +5,11 @@ import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 const mockAdminUser: IUser = {
   userId: 'PleaseTakeMe',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
+  roles: [
+    { name: UserRoles.user, roleId: '' },
+    { name: UserRoles.developer, roleId: '' },
+    { name: UserRoles.admin, roleId: '' },
+  ],
   name: 'telinior the great',
   phoneNumber: '69420420',
   streetAddress: 'Y u b like dis?',

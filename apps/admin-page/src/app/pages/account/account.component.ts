@@ -1,14 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '@interfaces';
 import { UserRoles } from '@models';
-import { UserService } from '../../services/user/user.service';
-import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/authentication/auth.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'webstore-account',
@@ -119,39 +119,37 @@ export class AccountComponent {
       this.accountForm.get('postcode')?.value === this.user?.postcode
     );
   }
-  //TODO: Check if these work.
 
   /**
    * Checks if user is a user only a user.
    * @returns whether the user contains the role user but not admin or developer.
    */
-  isOnlyUser(): boolean {
-    const developer = this.user.roles.filter((role) => role === UserRoles.developer || role === UserRoles.admin);
-    return developer.length > 0;
+  isOnlyCustomer(): boolean {
+    return this.user.roles.some((role) => role.name === UserRoles.user) && !(this.isDeveloper() || this.isAdmin());
   }
 
   /**
-   * Checks if user is a user.
+   * Checks if user has USER role.
    * @returns whether the user contains the role user.
    */
   isUser(): boolean {
-    return this.user.roles.some((role) => role === UserRoles.user);
+    return this.user.roles.some((role) => role.name === UserRoles.user);
   }
 
   /**
-   * Checks if user is a developer.
+   * Checks if user has DEVELOPER role.
    * @returns whether the user is a developer.
    */
   isDeveloper(): boolean {
-    return this.user.roles.some((role) => role === UserRoles.developer);
+    return this.user.roles.some((role) => role.name === UserRoles.developer);
   }
 
   /**
-   * Checks if a user is an admin.
+   * Checks if a user has ADMIN role.
    * @returns whether the user is admin.
    */
   isAdmin(): boolean {
-    return this.user.roles.some((role) => role === UserRoles.admin);
+    return this.user.roles.some((role) => role.name === UserRoles.admin);
   }
 
   /**

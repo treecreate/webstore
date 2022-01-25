@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TreeDesignEnum, BoxDesignEnum } from '@assets';
+import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   CreateTransactionItemRequest,
   DesignDimensionEnum,
@@ -21,7 +21,11 @@ const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
+  roles: [
+    { name: UserRoles.user, roleId: '' },
+    { name: UserRoles.developer, roleId: '' },
+    { name: UserRoles.admin, roleId: '' },
+  ],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
