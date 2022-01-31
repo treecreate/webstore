@@ -30,6 +30,10 @@ export class LocalStorageService implements OnDestroy {
     window.addEventListener('storage', (e) => this.handleStorageUpdate(e));
   }
 
+  get isLocalStorageSupported(): boolean {
+    return !!localStorage;
+  }
+
   // Lifecycle methods
   ngOnDestroy(): void {
     window.removeEventListener('storage', this.handleStorageUpdate.bind(this));
@@ -98,9 +102,5 @@ export class LocalStorageService implements OnDestroy {
       localStorage.removeItem(key);
     }
     if (this.cache[key]) this.cache[key].next(undefined);
-  }
-
-  get isLocalStorageSupported(): boolean {
-    return !!localStorage;
   }
 }
