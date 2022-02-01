@@ -632,6 +632,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
             // remove the box and the input component
             this.myBoxes[i].inputRef.destroy();
             this.myBoxes.splice(i, 1);
+            // prevent follow up click for touch events (causes new click creating a new box)
+            event.preventDefault();
+
             return;
           }
 
@@ -642,6 +645,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           const temp = this.myBoxes[this.myBoxes.length - 1];
           this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
           this.myBoxes[i] = temp;
+          // prevent registration of screen dragging to ensure the background doesn't move on mobile
+          event.preventDefault();
+          this.myBoxes[i].inputRef.instance.input.nativeElement.focus()
+
           // skip checking the other boxes
           return;
         }
