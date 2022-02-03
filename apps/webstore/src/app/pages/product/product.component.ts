@@ -44,7 +44,7 @@ export class ProductComponent implements OnInit {
   backgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 20;
   maxSize = 40;
-  minSize = 10;
+  minSize = 15;
   banner: IFamilyTreeBanner = undefined;
   isLargeFont = false;
   design: IFamilyTree;
