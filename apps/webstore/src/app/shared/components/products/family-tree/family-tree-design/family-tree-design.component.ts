@@ -82,8 +82,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   public context: CanvasRenderingContext2D;
 
   canvasResolution = {
-    height: 1000,
-    width: 1000,
+    height: 2000,
+    width: 2000,
   };
 
   myBoxes: IDraggableBox[] = [];
@@ -343,7 +343,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
-          const bannerTextFontSize = 1.5; // in rem
+          const bannerTextFontSize = 3; // in rem
           this.context.font = `${bannerTextFontSize}rem ${this.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
