@@ -100,7 +100,6 @@ export class ProductComponent implements OnInit {
   // TODO: properly assign the banner
   loadDesign() {
     const queryParams = this.route.snapshot.queryParams;
-    console.log('queryParams', queryParams);
     if (queryParams.designId !== undefined) {
       if (this.isLoggedIn) {
         // Load the design from database
@@ -110,9 +109,7 @@ export class ProductComponent implements OnInit {
         this.loadDesignFromLocalStorage(queryParams.designId);
       }
     } else {
-      console.log('Loading design from local storage');
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
-      console.log('loaded design', this.design);
       // apply the design
       if (this.design !== null && this.design !== undefined) {
         this.designTitle = this.design.title;
@@ -161,16 +158,13 @@ export class ProductComponent implements OnInit {
 
   loadDesignFromDB(queryParams) {
     const designId = queryParams.designId;
-    console.warn('Fetching design from database', designId);
     this.designService.getDesign(designId).subscribe(
       (result: IDesign) => {
-        console.log('Result: ', result);
         if (result.designType !== DesignTypeEnum.familyTree) {
           console.warn('The requested design is not a family tree!');
           return;
         }
         this.design = result.designProperties;
-        console.log('Fetched design: ', this.design);
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {
@@ -236,7 +230,6 @@ export class ProductComponent implements OnInit {
         })
         .subscribe(
           (result) => {
-            console.log('Design persisted', result);
             this.toastService.showAlert(
               'Your design has been updated',
               'Dit design er bleven opdateret',
@@ -264,7 +257,6 @@ export class ProductComponent implements OnInit {
         })
         .subscribe(
           (result) => {
-            console.log('Design created and persisted', result);
             this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
             this.router.navigate([], {
               relativeTo: this.route,

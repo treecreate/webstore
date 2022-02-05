@@ -231,9 +231,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     // Setup canvas
     this.designCanvas.nativeElement.width = this.canvasResolution.width;
     this.designCanvas.nativeElement.height = this.canvasResolution.height;
-    console.log('Canvas', this.designCanvas);
     this.context = this.designCanvas.nativeElement.getContext('2d');
-    console.log('Context', this.context);
 
     // run the render loop
     clearInterval(this.timeInterval);
@@ -463,7 +461,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.createBox(box.x, box.y, box.boxDesign, box.text);
         });
       }
-      console.log('Boxes', this.myBoxes);
       console.log('Finished loading design');
       this.frameChanged = true;
       this.cdr.detectChanges();
@@ -647,7 +644,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.myBoxes[i] = temp;
           // prevent registration of screen dragging to ensure the background doesn't move on mobile
           event.preventDefault();
-          this.myBoxes[i].inputRef.instance.input.nativeElement.focus()
+          this.myBoxes[i].inputRef.instance.input.nativeElement.focus();
 
           // skip checking the other boxes
           return;

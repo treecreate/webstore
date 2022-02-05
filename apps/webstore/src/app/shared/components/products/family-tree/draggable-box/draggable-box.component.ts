@@ -84,9 +84,7 @@ export class DraggableBoxComponent implements AfterViewInit {
     return this.localeCode === LocaleType.en;
   }
 
-  ngAfterViewInit(): void {
-    console.log('box created', this);
-  }
+  ngAfterViewInit(): void {}
 
   @HostListener('mousedown', ['$event'])
   onMouseDown($event) {
