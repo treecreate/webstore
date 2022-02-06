@@ -504,7 +504,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       largeFont: this.isLargeFont,
       boxes: boxesCopy,
     });
-    console.log('Design saved');
   }
 
   // handle input value updates
