@@ -104,7 +104,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   // render loop
   timeInterval;
-  framesPerSecond = 45; // FPS of the render loop
+  framesPerSecond = 60; // FPS of the render loop
   // autosaving of the design
   autosaveFrequencyInSeconds = 30;
   autosaveInterval;
