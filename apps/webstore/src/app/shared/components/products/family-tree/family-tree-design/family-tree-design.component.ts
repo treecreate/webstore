@@ -76,8 +76,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   @ViewChild('designWrapper', { read: ViewContainerRef })
   designWrapper: ViewContainerRef;
 
-  @ViewChild('designCanvas', { static: true })
-  designCanvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('foregroundCanvas', { static: true })
+  foregroundCanvas: ElementRef<HTMLCanvasElement>;
+
+  @ViewChild('backgroundImage', { static: true })
+  backgroundImage: ElementRef<HTMLImageElement>;
 
   public context: CanvasRenderingContext2D;
 
@@ -156,12 +159,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     // Load and validate tree design SVGs
     for (let i = 0; i < Object.values(TreeDesignEnum).length; i++) {
       let image = new Image();
+      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
       image.src = Object.values(TreeDesignEnum)[i];
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a tree design');
       };
-      this.treeDesigns.set(Object.values(TreeDesignEnum)[i], image);
     }
     // Load and validate banner SVGs
     for (let i = 0; i < Object.values(BannerDesignEnum).length; i++) {
@@ -229,9 +232,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   ngAfterViewInit(): void {
     console.log('Setting up design area');
     // Setup canvas
-    this.designCanvas.nativeElement.width = this.canvasResolution.width;
-    this.designCanvas.nativeElement.height = this.canvasResolution.height;
-    this.context = this.designCanvas.nativeElement.getContext('2d');
+    this.foregroundCanvas.nativeElement.width = this.canvasResolution.width;
+    this.foregroundCanvas.nativeElement.height = this.canvasResolution.height;
+    this.context = this.foregroundCanvas.nativeElement.getContext('2d');
 
     // run the render loop
     clearInterval(this.timeInterval);
@@ -311,21 +314,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // Draw the entire canvas with the boxes etc
   draw() {
     try {
-      this.context.clearRect(0, 0, this.designCanvas.nativeElement.width, this.designCanvas.nativeElement.height);
+      this.context.clearRect(
+        0,
+        0,
+        this.foregroundCanvas.nativeElement.width,
+        this.foregroundCanvas.nativeElement.height
+      );
 
-      // draw the background image
-      if (
-        this.treeDesigns.get(this.backgroundTreeDesign) !== null &&
-        this.treeDesigns.get(this.backgroundTreeDesign).complete
-      ) {
-        this.context.drawImage(
-          this.treeDesigns.get(this.backgroundTreeDesign),
-          0,
-          0,
-          this.designCanvas.nativeElement.width,
-          this.designCanvas.nativeElement.height
-        );
-      }
       // render the banner
       if (
         this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
@@ -365,13 +360,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.boxDimensions.width,
           this.boxDimensions.height
         );
-        const cords = this.getRealCords(this.designCanvas.nativeElement, {
+        const cords = this.getRealCords(this.foregroundCanvas.nativeElement, {
           x: box.x,
           y: box.y,
         });
         // Update position of the input field to match the box
         if (this.myBoxes[i].inputRef !== undefined) {
-          const scale = this.getCanvasScale(this.designCanvas.nativeElement);
+          const scale = this.getCanvasScale(this.foregroundCanvas.nativeElement);
           this.myBoxes[i].inputRef.instance.x = cords.x;
           this.myBoxes[i].inputRef.instance.y = cords.y;
           // set the input dimensions, accounting for the scale between canvas and document
@@ -535,6 +530,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         box.inputRef.instance.largeFont = this.isLargeFont;
       });
     }
+
+    if (changes.backgroundTreeDesign != undefined) {
+      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
+    }
+
     this.frameChanged = true;
     this.cdr.detectChanges();
   }
@@ -592,9 +592,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
     return (
       this.mouseCords.x - this.mouseClickOffset.x < 0 ||
-      this.mouseCords.x - this.mouseClickOffset.x > this.designCanvas.nativeElement.width - boxWidth ||
+      this.mouseCords.x - this.mouseClickOffset.x > this.foregroundCanvas.nativeElement.width - boxWidth ||
       this.mouseCords.y - this.mouseClickOffset.y < 0 ||
-      this.mouseCords.y - this.mouseClickOffset.y > this.designCanvas.nativeElement.height - boxHeight
+      this.mouseCords.y - this.mouseClickOffset.y > this.foregroundCanvas.nativeElement.height - boxHeight
     );
   }
 
@@ -609,7 +609,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         setTimeout(() => (this.downEventDelay = false), 100);
       }
 
-      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
+      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
 
@@ -673,7 +673,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   mouseMoveHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
+      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       let boxesGotMousedOver = false;
 
@@ -712,7 +712,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   mouseUpHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
+      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       for (const box of this.myBoxes) {
         if (box.dragging) {
