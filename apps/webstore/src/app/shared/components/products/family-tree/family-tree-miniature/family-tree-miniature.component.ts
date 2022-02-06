@@ -172,7 +172,9 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
     this.context = this.foregroundCanvas.nativeElement.getContext('2d');
 
     // Set the background
-    this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
+    if (this.design !== undefined && this.design !== null) {
+      this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
+    }
 
     this.isDesignValid = true;
     this.cdr.detectChanges();
