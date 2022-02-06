@@ -530,7 +530,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       });
     }
 
-    if (changes.backgroundTreeDesign != undefined) {
+    if (changes.backgroundTreeDesign !== undefined) {
       this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
     }
 

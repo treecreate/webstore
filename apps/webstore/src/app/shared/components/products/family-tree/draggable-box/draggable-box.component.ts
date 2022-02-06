@@ -1,23 +1,14 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '@local-storage';
 
 @Component({
   selector: 'webstore-draggable-box',
   templateUrl: './draggable-box.component.html',
   styleUrls: ['./draggable-box.component.css'],
 })
-export class DraggableBoxComponent implements AfterViewInit {
+export class DraggableBoxComponent {
   // NOTE: The purpose of this component is to provide a way to easily track user inputs.
   // The text written in the input here is not actually displayed on the page
   // The input box size still has to scale well so the mouse is caught properly
@@ -83,8 +74,6 @@ export class DraggableBoxComponent implements AfterViewInit {
   isEnglish() {
     return this.localeCode === LocaleType.en;
   }
-
-  ngAfterViewInit(): void {}
 
   @HostListener('mousedown', ['$event'])
   onMouseDown($event) {

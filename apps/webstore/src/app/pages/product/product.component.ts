@@ -229,7 +229,7 @@ export class ProductComponent implements OnInit {
           designProperties: design,
         })
         .subscribe(
-          (result) => {
+          () => {
             this.toastService.showAlert(
               'Your design has been updated',
               'Dit design er bleven opdateret',
