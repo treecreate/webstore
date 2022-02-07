@@ -368,7 +368,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.boxDimensions.width,
           this.boxDimensions.height
         );
-        const cords = this.getRealCords(this.foregroundCanvas.nativeElement, {
+        const cords = this.familyTreeDesignService.getRealCords(this.foregroundCanvas.nativeElement, {
           x: box.x,
           y: box.y,
         });
@@ -552,17 +552,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   // handle canvas events
-
-  // calculate document mouse coordinates based on canvas coordinates
-  getRealCords(canvas, cords: { x: number; y: number }) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-    return {
-      x: cords.x / scaleX + rect.left + window.pageXOffset,
-      y: cords.y / scaleY + rect.top + window.pageYOffset,
-    };
-  }
 
   mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
     return (

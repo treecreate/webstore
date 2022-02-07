@@ -96,6 +96,22 @@ export class FamilyTreeDesignService {
   }
 
   /**
+   * Calculate document mouse coordinates based on canvas coordinates.
+   * @param canvas reference to the canvas
+   * @param cords the canvas-relative coordinates
+   * @returns actual mouse coordinates on the page
+   */
+  getRealCords(canvas, cords: { x: number; y: number }): { x: number; y: number } {
+    const rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+    return {
+      x: cords.x / scaleX + rect.left + window.pageXOffset,
+      y: cords.y / scaleY + rect.top + window.pageYOffset,
+    };
+  }
+
+  /**
    * Get current mouse position scaled to the canvas dimensions.
    * @param canvas reference to the canvas
    * @param event the touch or mouse event to process

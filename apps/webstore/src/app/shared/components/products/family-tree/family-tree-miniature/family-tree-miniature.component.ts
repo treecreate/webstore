@@ -352,20 +352,4 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       this.isDesignValid = false;
     }
   }
-
-  // Util methods
-  // TODO: Extract them into a library
-
-  // handle canvas events
-
-  // calculate document mouse coordinates based on canvas coordinates
-  getRealCords(canvas, cords: { x: number; y: number }) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-    return {
-      x: cords.x / scaleX + rect.left + window.pageXOffset,
-      y: cords.y / scaleY + rect.top + window.pageYOffset,
-    };
-  }
 }
