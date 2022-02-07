@@ -118,9 +118,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     height: this.canvasResolution.height / 8,
     width: this.canvasResolution.width / 2,
   };
-  tree1BoxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
-  tree2BoxDesigns: Map<Tree2BoxDesignEnum, HTMLImageElement> = new Map();
-  tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
+  treeBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[] = new Array<
+    Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>
+  >(
+    new Map<Tree1BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree2BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree3BoxDesignEnum, HTMLImageElement>()
+  );
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
     height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
@@ -185,7 +189,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree1BoxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[0].set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
     // Tree 2 designs
     for (let i = 0; i < Object.values(Tree2BoxDesignEnum).length; i++) {
@@ -195,7 +199,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree2BoxDesigns.set(Object.values(Tree2BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[1].set(Object.values(Tree2BoxDesignEnum)[i], image);
     }
     // Tree 3 designs
     for (let i = 0; i < Object.values(Tree3BoxDesignEnum).length; i++) {
@@ -205,7 +209,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree3BoxDesigns.set(Object.values(Tree3BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
     this.closeButton.src = CloseBoxDesignEnum.closeButton1;
@@ -354,7 +358,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
         this.context.drawImage(
-          this.getImageElementFromBoxDesign(this.backgroundTreeDesign, box.boxDesign),
+          this.familyTreeDesignService.getImageElementFromBoxDesign(
+            this.backgroundTreeDesign,
+            box.boxDesign,
+            this.treeBoxDesigns
+          ),
           box.x,
           box.y,
           this.boxDimensions.width,
@@ -431,19 +439,19 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 6,
           this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 3,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
       } else {
@@ -622,7 +630,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.createBox(
         this.mouseCords.x - this.boxDimensions.width / 2,
         this.mouseCords.y - this.boxDimensions.height / 2,
-        Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+        // assign a random design based on the amount of fetched box designs
+        Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
         ''
       );
 
@@ -706,24 +715,4 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   // Util methods
-
-  getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
-    switch (treeDesign) {
-      case TreeDesignEnum.tree1: {
-        return this.tree1BoxDesigns.get(
-          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree2: {
-        return this.tree2BoxDesigns.get(
-          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree3: {
-        return this.tree3BoxDesigns.get(
-          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-    }
-  }
 }

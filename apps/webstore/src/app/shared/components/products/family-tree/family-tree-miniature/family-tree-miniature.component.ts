@@ -73,9 +73,13 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
     height: this.canvasResolution.height / 8,
     width: this.canvasResolution.width / 2,
   };
-  tree1BoxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
-  tree2BoxDesigns: Map<Tree2BoxDesignEnum, HTMLImageElement> = new Map();
-  tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
+  treeBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[] = new Array<
+    Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>
+  >(
+    new Map<Tree1BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree2BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree3BoxDesignEnum, HTMLImageElement>()
+  );
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
     height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
@@ -126,7 +130,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree1BoxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[0].set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
     // Tree 2 designs
     for (let i = 0; i < Object.values(Tree2BoxDesignEnum).length; i++) {
@@ -136,7 +140,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree2BoxDesigns.set(Object.values(Tree2BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[1].set(Object.values(Tree2BoxDesignEnum)[i], image);
     }
     // Tree 3 designs
     for (let i = 0; i < Object.values(Tree3BoxDesignEnum).length; i++) {
@@ -146,7 +150,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree3BoxDesigns.set(Object.values(Tree3BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
     this.closeButton.src = CloseBoxDesignEnum.closeButton1;
@@ -268,27 +272,30 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         }
       } else {
         requestAnimationFrame(this.draw.bind(this));
-        return;
       }
 
       // render the boxes
       for (const box of this.myBoxes) {
-        this.context.drawImage(
-          this.getImageElementFromBoxDesign(this.design.backgroundTreeDesign, box.boxDesign),
-          box.x,
-          box.y,
-          this.boxDimensions.width,
-          this.boxDimensions.height
+        const boxImage = this.familyTreeDesignService.getImageElementFromBoxDesign(
+          this.design.backgroundTreeDesign,
+          box.boxDesign,
+          this.treeBoxDesigns
         );
+        // if the box hasn't been fetched yet continue redrawing
+        if (boxImage !== null && boxImage.complete) {
+          this.context.drawImage(boxImage, box.x, box.y, this.boxDimensions.width, this.boxDimensions.height);
 
-        this.familyTreeDesignService.drawTextInDraggableBox(
-          this.context,
-          this.boxSize,
-          this.design.largeFont,
-          this.design.font,
-          box,
-          this.boxDimensions
-        );
+          this.familyTreeDesignService.drawTextInDraggableBox(
+            this.context,
+            this.boxSize,
+            this.design.largeFont,
+            this.design.font,
+            box,
+            this.boxDimensions
+          );
+        } else {
+          requestAnimationFrame(this.draw.bind(this));
+        }
       }
     } catch (error) {
       console.error('An error has occurred while drawing the tree', error);
@@ -311,19 +318,19 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 6,
           this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 3,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
       } else {
@@ -360,25 +367,5 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       x: cords.x / scaleX + rect.left + window.pageXOffset,
       y: cords.y / scaleY + rect.top + window.pageYOffset,
     };
-  }
-
-  getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
-    switch (treeDesign) {
-      case TreeDesignEnum.tree1: {
-        return this.tree1BoxDesigns.get(
-          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree2: {
-        return this.tree2BoxDesigns.get(
-          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree3: {
-        return this.tree3BoxDesigns.get(
-          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-    }
   }
 }

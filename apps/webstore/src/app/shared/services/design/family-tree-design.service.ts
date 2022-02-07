@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BoxDesignEnum, Tree1BoxDesignEnum, Tree2BoxDesignEnum, Tree3BoxDesignEnum, TreeDesignEnum } from '@assets';
 import { FamilyTreeFontEnum, IDraggableBox } from '@interfaces';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class FamilyTreeDesignService {
   maxLines = 2;
 
   /**
-   * Draw the text within a draggable box
+   * Draw the text within a draggable box.
    * @param context canvas context
    * @param boxSize size of the draggable box the text should be written in. Affect font size
    * @param isLargeFont  whether the font is large or normal. Affects font size
@@ -82,7 +83,7 @@ export class FamilyTreeDesignService {
   }
 
   /**
-   * Calculate the ratio between the canvas and its bounding rectangle
+   * Calculate the ratio between the canvas and its bounding rectangle.
    * @param canvas reference to the canvas
    * @returns the scales for x and y axis
    */
@@ -95,7 +96,7 @@ export class FamilyTreeDesignService {
   }
 
   /**
-   * get current mouse position scaled to the canvas dimensions
+   * Get current mouse position scaled to the canvas dimensions.
    * @param canvas reference to the canvas
    * @param event the touch or mouse event to process
    * @returns  the canvas coordinates where the click occured
@@ -121,5 +122,36 @@ export class FamilyTreeDesignService {
       x: (clientX - rect.left) * scaleX,
       y: (clientY - rect.top) * scaleY,
     };
+  }
+
+  /**
+   * Based on the specified tree design, return a correct box design,
+   * @param treeDesign which tree design to base the box on
+   * @param boxDesign which box design to use (index, not source uri)
+   * @param fetchedBoxDesigns the already fetched designs
+   * @returns appriopriate html image element
+   */
+  getImageElementFromBoxDesign(
+    treeDesign: TreeDesignEnum,
+    boxDesign: BoxDesignEnum,
+    fetchedBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[]
+  ): HTMLImageElement {
+    switch (treeDesign) {
+      case TreeDesignEnum.tree1: {
+        return fetchedBoxDesigns[0].get(
+          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
+        );
+      }
+      case TreeDesignEnum.tree2: {
+        return fetchedBoxDesigns[1].get(
+          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
+        );
+      }
+      case TreeDesignEnum.tree3: {
+        return fetchedBoxDesigns[2].get(
+          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
+        );
+      }
+    }
   }
 }
