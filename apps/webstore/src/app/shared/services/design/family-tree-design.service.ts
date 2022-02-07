@@ -80,4 +80,17 @@ export class FamilyTreeDesignService {
     }
     context.fillText(line, x, y);
   }
+
+  /**
+   * Calculate the ratio between the canvas and its bounding rectangle
+   * @param canvas reference to the canvas
+   * @returns the scales for x and y axis
+   */
+  getCanvasScale(canvas): { scaleX: number; scaleY: number } {
+    const rect = canvas.getBoundingClientRect(); // abs. size of element
+    return {
+      scaleX: canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
+    };
+  }
 }

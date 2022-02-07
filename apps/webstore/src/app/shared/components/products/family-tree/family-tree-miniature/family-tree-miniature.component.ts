@@ -351,14 +351,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
 
   // handle canvas events
 
-  getCanvasScale(canvas): { scaleX: number; scaleY: number } {
-    const rect = canvas.getBoundingClientRect(); // abs. size of element
-    return {
-      scaleX: canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
-    };
-  }
-
   // get current mouse position scaled to the canvas dimensions
   getMousePosition(canvas, event) {
     const rect = canvas.getBoundingClientRect(), // abs. size of element
