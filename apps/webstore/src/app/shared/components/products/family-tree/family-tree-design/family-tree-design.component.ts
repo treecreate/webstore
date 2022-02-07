@@ -545,30 +545,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   // handle canvas events
 
-  // get current mouse position scaled to the canvas dimensions
-  getMousePosition(canvas, event) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-
-    // get coordinates based on whether it is a touch or mouse event
-    const clientX =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
-        : event.clientX;
-
-    const clientY =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
-        : event.clientY;
-
-    // scale mouse coordinates after they have been adjusted to be relative to element
-    return {
-      x: (clientX - rect.left) * scaleX,
-      y: (clientY - rect.top) * scaleY,
-    };
-  }
-
   // calculate document mouse coordinates based on canvas coordinates
   getRealCords(canvas, cords: { x: number; y: number }) {
     const rect = canvas.getBoundingClientRect(), // abs. size of element
@@ -600,7 +576,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         setTimeout(() => (this.downEventDelay = false), 100);
       }
 
-      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
 
@@ -664,7 +640,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   mouseMoveHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       let boxesGotMousedOver = false;
 
@@ -703,7 +679,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   mouseUpHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       for (const box of this.myBoxes) {
         if (box.dragging) {

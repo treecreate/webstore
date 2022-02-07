@@ -93,4 +93,33 @@ export class FamilyTreeDesignService {
       scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
     };
   }
+
+  /**
+   * get current mouse position scaled to the canvas dimensions
+   * @param canvas reference to the canvas
+   * @param event the touch or mouse event to process
+   * @returns  the canvas coordinates where the click occured
+   */
+  getMousePosition(canvas, event: MouseEvent | TouchEvent): { x: number; y: number } {
+    const rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+    // get coordinates based on whether it is a touch or mouse event
+    const clientX =
+      window.TouchEvent && event instanceof TouchEvent
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
+        : (event as MouseEvent).clientX;
+
+    const clientY =
+      window.TouchEvent && event instanceof TouchEvent
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
+        : (event as MouseEvent).clientY;
+
+    // scale mouse coordinates after they have been adjusted to be relative to element
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
+    };
+  }
 }
