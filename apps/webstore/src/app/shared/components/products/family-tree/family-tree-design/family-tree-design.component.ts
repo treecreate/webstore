@@ -436,22 +436,16 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         // Setup default boxes if there is no saved design
         console.log('There was no saved design, generating a clean slate');
         this.createBox(
-          this.canvasResolution.width / 8,
-          this.canvasResolution.height / 4,
+          this.canvasResolution.width / 7,
+          this.canvasResolution.height / 2.5,
           Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
-          ''
-        );
-        this.createBox(
-          this.canvasResolution.width / 6,
-          this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
-          ''
+          'Dig'
         );
         this.createBox(
           this.canvasResolution.width / 2,
-          this.canvasResolution.height / 3,
+          this.canvasResolution.height / 2.5,
           Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
-          ''
+          'Partner'
         );
       } else {
         // Setup boxes based on the loaded design
