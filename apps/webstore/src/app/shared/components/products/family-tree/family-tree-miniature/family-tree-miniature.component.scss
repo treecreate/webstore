@@ -12,3 +12,18 @@ canvas {
   left: 0;
   right: 0;
 }
+
+#backgroundImage {
+  z-index: 1;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#foregroundCanvas {
+  z-index: 2;
+  position: relative;
+}

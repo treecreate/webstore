@@ -29,7 +29,7 @@ describe('CalculatePriceService', () => {
   const mockUser: IUser = {
     userId: '1',
     email: 'mock@hotdeals.dev',
-    roles: [UserRoles.user],
+    roles: [{ name: UserRoles.user, roleId: '' }],
   };
   const itemList: ITransactionItem[] = [
     {

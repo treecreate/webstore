@@ -50,14 +50,17 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
   @ViewChild('designWrapper', { read: ViewContainerRef })
   designWrapper: ViewContainerRef;
 
-  @ViewChild('designCanvas', { static: true })
-  designCanvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('foregroundCanvas', { static: true })
+  foregroundCanvas: ElementRef<HTMLCanvasElement>;
+
+  @ViewChild('backgroundImage', { static: true })
+  backgroundImage: ElementRef<HTMLImageElement>;
 
   public context: CanvasRenderingContext2D;
 
   canvasResolution = {
-    height: 4000,
-    width: 4000,
+    height: 2000,
+    width: 2000,
   };
 
   myBoxes: IDraggableBox[] = [];
@@ -104,15 +107,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
 
   ngOnInit(): void {
     // Load and validate tree design SVGs
-    for (let i = 0; i < Object.values(TreeDesignEnum).length; i++) {
-      let image = new Image();
-      image.src = Object.values(TreeDesignEnum)[i];
-      image.onerror = () => {
-        image = null;
-        this.handleFailedResourceLoading('Failed to load a tree design');
-      };
-      this.treeDesigns.set(Object.values(TreeDesignEnum)[i], image);
-    }
     // Load and validate banner SVGs
     for (let i = 0; i < Object.values(BannerDesignEnum).length; i++) {
       let image = new Image();
@@ -173,9 +167,14 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
 
   ngAfterViewInit(): void {
     // Setup canvas
-    this.designCanvas.nativeElement.width = this.canvasResolution.width;
-    this.designCanvas.nativeElement.height = this.canvasResolution.height;
-    this.context = this.designCanvas.nativeElement.getContext('2d');
+    this.foregroundCanvas.nativeElement.width = this.canvasResolution.width;
+    this.foregroundCanvas.nativeElement.height = this.canvasResolution.height;
+    this.context = this.foregroundCanvas.nativeElement.getContext('2d');
+
+    // Set the background
+    if (this.design !== undefined && this.design !== null) {
+      this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
+    }
 
     this.isDesignValid = true;
     this.cdr.detectChanges();
@@ -202,6 +201,8 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       this.loadDesign();
 
       this.maxCharsPerLine = this.design.largeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
+      // Set the background
+      this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
     }
 
     this.cdr.detectChanges();
@@ -231,24 +232,13 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       return;
     }
     try {
-      this.context.clearRect(0, 0, this.designCanvas.nativeElement.width, this.designCanvas.nativeElement.height);
+      this.context.clearRect(
+        0,
+        0,
+        this.foregroundCanvas.nativeElement.width,
+        this.foregroundCanvas.nativeElement.height
+      );
 
-      // draw the background image
-      if (
-        this.treeDesigns.get(this.design.backgroundTreeDesign) !== undefined &&
-        this.treeDesigns.get(this.design.backgroundTreeDesign).complete
-      ) {
-        this.context.drawImage(
-          this.treeDesigns.get(this.design.backgroundTreeDesign),
-          0,
-          0,
-          this.designCanvas.nativeElement.width,
-          this.designCanvas.nativeElement.height
-        );
-      } else {
-        requestAnimationFrame(this.draw.bind(this));
-        return;
-      }
       // render the banner
       if (
         this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
@@ -264,7 +254,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
-          const bannerTextFontSize = 6; // in rem
+          const bannerTextFontSize = 3; // in rem
           this.context.font = `${bannerTextFontSize}rem ${this.design.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
