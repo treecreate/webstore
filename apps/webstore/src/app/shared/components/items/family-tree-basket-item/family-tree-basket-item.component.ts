@@ -141,7 +141,6 @@ export class FamilyTreeBasketItemComponent implements OnInit {
       .subscribe(
         (item: ITransactionItem) => {
           this.item = item;
-          console.log('Fetched transaction item', item);
           this.isLoading = false;
         },
         (error: HttpErrorResponse) => {
