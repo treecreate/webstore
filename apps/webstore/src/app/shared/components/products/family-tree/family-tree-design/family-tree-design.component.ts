@@ -597,12 +597,14 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.mouseClickOffset.x = this.mouseCords.x - box.x;
           this.mouseClickOffset.y = this.mouseCords.y - box.y;
           // swap the dragged box to the top of rending order, displaying it on top of the other boxes
+          const clickedBox = this.myBoxes[i];
           const temp = this.myBoxes[this.myBoxes.length - 1];
           this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
           this.myBoxes[i] = temp;
           // prevent registration of screen dragging to ensure the background doesn't move on mobile
           event.preventDefault();
-          this.myBoxes[i].inputRef.instance.input.nativeElement.focus();
+          // focus on the input element of the clicked box which is now on top of the stack
+          clickedBox.inputRef.instance.input.nativeElement.focus();
 
           // skip checking the other boxes
           return;
