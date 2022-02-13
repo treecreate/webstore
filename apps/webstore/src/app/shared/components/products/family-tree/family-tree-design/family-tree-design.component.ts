@@ -131,6 +131,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
   closeButton = new Image();
+  dragButton = new Image();
   // If the height doesn't equal the width, the button will not be a cricle and click detection logic will break!
   optionButtonDimensions = {
     height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
@@ -215,7 +216,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     // load and validate close button image SVG
     this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
-      this.handleFailedResourceLoading('Failed to load the tree design SVG');
+      this.handleFailedResourceLoading('Failed to load the close box SVG');
+    };
+    // load and validate drag button image SVG
+    this.dragButton.src = BoxOptionsDesignEnum.dragButton1;
+    this.dragButton.onerror = () => {
+      this.handleFailedResourceLoading('Failed to load the drag box SVG');
     };
   }
 
@@ -384,11 +390,19 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.myBoxes[i].inputRef.instance.zIndex = i;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
           this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
-          // draw the close button within the box
+          // draw the close button for the box
           if (this.showOptionBoxButtons) {
             this.context.drawImage(
               this.closeButton,
               this.myBoxes[i].x - this.optionButtonDimensions.width / 4,
+              this.myBoxes[i].y - this.optionButtonDimensions.height / 4,
+              this.optionButtonDimensions.width,
+              this.optionButtonDimensions.height
+            );
+            // draw the drag button for the box
+            this.context.drawImage(
+              this.dragButton,
+              this.myBoxes[i].x + this.boxDimensions.width - this.optionButtonDimensions.width / 2,
               this.myBoxes[i].y - this.optionButtonDimensions.height / 4,
               this.optionButtonDimensions.width,
               this.optionButtonDimensions.height
