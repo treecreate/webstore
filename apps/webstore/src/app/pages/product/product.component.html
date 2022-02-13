@@ -19,7 +19,13 @@
             </div>
         </button>
 
-        <button class="toggle-box-options" type="button" (click)="toggleBoxOptions()" *ngIf="isMutable">
+        <button
+            class="toggle-box-options"
+            type="button"
+            (click)="toggleBoxOptions()"
+            *ngIf="isMutable"
+            title="Hide/Show box options"
+        >
             <img
                 #toggleBoxOptionsIcon
                 id="toggleBoxOptionsIcon"
