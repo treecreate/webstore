@@ -568,7 +568,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       }
 
       this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
-      for (let i = 0; i < this.myBoxes.length; i++) {
+      for (let i = this.myBoxes.length - 1; i >= 0; i--) {
         const box = this.myBoxes[i];
 
         if (
