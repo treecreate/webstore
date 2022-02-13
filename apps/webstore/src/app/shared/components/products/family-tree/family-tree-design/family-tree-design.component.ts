@@ -131,12 +131,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
   closeButton = new Image();
-  closeButtonDimensions = {
+  // If the height doesn't equal the width, the button will not be a cricle and click detection logic will break!
+  optionButtonDimensions = {
     height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
     width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
 
-  // the max chars control how much text can be put into the draggable box
+  // The max chars control how much text can be put into the draggable box
   // It is propagated to the draggable box input element
   smallFontMaxChars = 12;
   largeFontMaxChars = 9;
@@ -387,10 +388,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           if (this.showDeleteBoxButtons) {
             this.context.drawImage(
               this.closeButton,
-              this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
-              this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
-              this.closeButtonDimensions.width,
-              this.closeButtonDimensions.height
+              this.myBoxes[i].x - this.optionButtonDimensions.width / 4,
+              this.myBoxes[i].y - this.optionButtonDimensions.height / 4,
+              this.optionButtonDimensions.width,
+              this.optionButtonDimensions.height
             );
           }
           this.familyTreeDesignService.drawTextInDraggableBox(
@@ -517,7 +518,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
 
-      this.closeButtonDimensions = {
+      this.optionButtonDimensions = {
         height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
         width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
@@ -571,28 +572,28 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       for (let i = this.myBoxes.length - 1; i >= 0; i--) {
         const box = this.myBoxes[i];
 
+        // check if the Close button got pressed
+        if (
+          this.familyTreeDesignService.isWithinBoxOption(
+            this.mouseCords,
+            { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
+            this.optionButtonDimensions
+          )
+        ) {
+          // remove the box and the input component
+          this.myBoxes[i].inputRef.destroy();
+          this.myBoxes.splice(i, 1);
+          // prevent follow up click for touch events (causes new click creating a new box)
+          event.preventDefault();
+
+          return;
+        }
         if (
           this.mouseCords.x > box.x &&
           this.mouseCords.x < box.x + this.boxDimensions.width &&
           this.mouseCords.y > box.y &&
           this.mouseCords.y < box.y + this.boxDimensions.height
         ) {
-          // check if the Close button got pressed
-          if (
-            this.mouseCords.x > box.x &&
-            this.mouseCords.x < box.x + this.closeButtonDimensions.width &&
-            this.mouseCords.y > box.y &&
-            this.mouseCords.y < box.y + this.closeButtonDimensions.width
-          ) {
-            // remove the box and the input component
-            this.myBoxes[i].inputRef.destroy();
-            this.myBoxes.splice(i, 1);
-            // prevent follow up click for touch events (causes new click creating a new box)
-            event.preventDefault();
-
-            return;
-          }
-
           this.myBoxes[i].dragging = true;
           this.mouseClickOffset.x = this.mouseCords.x - box.x;
           this.mouseClickOffset.y = this.mouseCords.y - box.y;
