@@ -13,7 +13,6 @@ import {
 import {
   BannerDesignEnum,
   BoxDesignEnum,
-  BoxOptionsDesignEnum,
   Tree1BoxDesignEnum,
   Tree2BoxDesignEnum,
   Tree3BoxDesignEnum,
@@ -85,11 +84,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
     height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
     width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
-  closeButton = new Image();
-  closeButtonDimensions = {
-    height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
-    width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
-  };
 
   // the max chars control how much text can be put into the draggable box
   // It is propagated to the draggable box input element
@@ -152,11 +146,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       };
       this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
-    // load and validate close button image SVG
-    this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
-    this.closeButton.onerror = () => {
-      this.handleFailedResourceLoading('Failed to load the tree design SVG');
-    };
   }
 
   handleFailedResourceLoading(message: string) {
@@ -193,11 +182,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       this.boxDimensions = {
         height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
         width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
-      };
-
-      this.closeButtonDimensions = {
-        height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
-        width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
     }
 

@@ -96,7 +96,9 @@ export class ProductComponent implements OnInit {
       this.modalService.open(FamilyTreeIntroModalComponent);
     }
     this.showOptionBoxButtons = true;
-    this.toggleBoxOptionsIcon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible;
+    if (this.toggleBoxOptionsIcon !== undefined) {
+      this.toggleBoxOptionsIcon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible;
+    }
   }
 
   isEnglish(): boolean {
