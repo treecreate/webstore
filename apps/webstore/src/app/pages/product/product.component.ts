@@ -42,7 +42,7 @@ export class ProductComponent implements OnInit {
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
   backgroundTreeDesign = TreeDesignEnum.tree1;
-  boxSize = 20;
+  boxSize = 40;
   maxSize = 40;
   minSize = 15;
   banner: IFamilyTreeBanner = undefined;
@@ -119,13 +119,13 @@ export class ProductComponent implements OnInit {
         this.isLargeFont = this.design.largeFont;
       } else {
         // set the defaults
-        this.designTitle = '';
+        this.designTitle = 'Mit Design';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
-        this.boxSize = 20;
+        this.boxSize = 40;
         this.maxSize = 40;
         this.minSize = 10;
-        this.banner = undefined;
+        this.banner = { text: 'Til min elskede', style: 'first' };
         this.isLargeFont = false;
       }
       this.isMutable = true;
