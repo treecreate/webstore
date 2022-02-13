@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
+import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
   DesignTypeEnum,
   FamilyTreeFontEnum,
@@ -34,6 +34,9 @@ export class ProductComponent implements OnInit {
   @ViewChild('familyTreeDesignCanvas', { static: false })
   designCanvas: FamilyTreeDesignComponent;
 
+  @ViewChild('toggleBoxOptionsIcon')
+  toggleBoxOptionsIcon: ElementRef<HTMLImageElement>;
+
   isDesignValid = false;
   isMutable = false;
   isMobileOptionOpen = false;
@@ -48,6 +51,7 @@ export class ProductComponent implements OnInit {
   banner: IFamilyTreeBanner = undefined;
   isLargeFont = false;
   design: IFamilyTree;
+  showOptionBoxButtons = true;
   isIphone = false;
 
   public isLoggedIn: boolean;
@@ -91,6 +95,8 @@ export class ProductComponent implements OnInit {
     if (!this.isLoggedIn) {
       this.modalService.open(FamilyTreeIntroModalComponent);
     }
+    this.showOptionBoxButtons = true;
+    this.toggleBoxOptionsIcon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible;
   }
 
   isEnglish(): boolean {
@@ -398,5 +404,18 @@ export class ProductComponent implements OnInit {
     return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(
       navigator.platform
     );
+  }
+
+  /**
+   * Toggles between whether or not the box options like drag and close buttons should be visible.
+   * Changes the icon depending on the state.
+   */
+  toggleBoxOptions(): void {
+    this.showOptionBoxButtons = !this.showOptionBoxButtons;
+    if (this.showOptionBoxButtons) {
+      this.toggleBoxOptionsIcon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible;
+    } else {
+      this.toggleBoxOptionsIcon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsHidden;
+    }
   }
 }

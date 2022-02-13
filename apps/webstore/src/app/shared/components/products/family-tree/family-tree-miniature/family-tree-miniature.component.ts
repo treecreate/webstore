@@ -13,7 +13,7 @@ import {
 import {
   BannerDesignEnum,
   BoxDesignEnum,
-  CloseBoxDesignEnum,
+  BoxOptionsDesignEnum,
   Tree1BoxDesignEnum,
   Tree2BoxDesignEnum,
   Tree3BoxDesignEnum,
@@ -153,7 +153,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
       this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
-    this.closeButton.src = CloseBoxDesignEnum.closeButton1;
+    this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the tree design SVG');
     };

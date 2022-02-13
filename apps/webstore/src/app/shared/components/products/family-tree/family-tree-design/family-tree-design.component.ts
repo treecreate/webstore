@@ -18,7 +18,7 @@ import {
 import {
   BannerDesignEnum,
   BoxDesignEnum,
-  CloseBoxDesignEnum,
+  BoxOptionsDesignEnum,
   Tree1BoxDesignEnum,
   Tree2BoxDesignEnum,
   Tree3BoxDesignEnum,
@@ -150,8 +150,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     dismissible: boolean;
   };
 
-  // TODO - add a button for controlling this variable
-  showDeleteBoxButtons = true;
+  @Input()
+  showOptionBoxButtons = true;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -213,7 +213,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
-    this.closeButton.src = CloseBoxDesignEnum.closeButton1;
+    this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the tree design SVG');
     };
@@ -385,7 +385,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
           this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
           // draw the close button within the box
-          if (this.showDeleteBoxButtons) {
+          if (this.showOptionBoxButtons) {
             this.context.drawImage(
               this.closeButton,
               this.myBoxes[i].x - this.optionButtonDimensions.width / 4,
@@ -573,7 +573,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         const box = this.myBoxes[i];
 
         // check if the Close button got pressed
+        // only works if the buttons are supposed to be shown
         if (
+          this.showOptionBoxButtons &&
           this.familyTreeDesignService.isWithinBoxOption(
             this.mouseCords,
             { x: this.myBoxes[i].x, y: this.myBoxes[i].y },

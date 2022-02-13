@@ -61,7 +61,8 @@
   justify-content: center;
 }
 
-.option-icon {
+.option-icon,
+.toggle-box-options-icon {
   width: 20px;
   height: 20px;
   margin-bottom: 4px;
@@ -141,7 +142,8 @@
 }
 
 /* option toggle button */
-.option-toggler {
+.option-toggler,
+.toggle-box-options {
   background-color: var(--second-action-color);
   transition: 0.5s;
   display: none;
@@ -150,8 +152,13 @@
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  top: 70px;
   border: none;
+}
+.option-toggler {
+  top: 70px;
+}
+.toggle-box-options {
+  top: 140px;
 }
 
 .option-icon {

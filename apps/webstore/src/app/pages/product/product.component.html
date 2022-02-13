@@ -19,6 +19,17 @@
             </div>
         </button>
 
+        <button class="toggle-box-options" type="button" (click)="toggleBoxOptions()" *ngIf="isMutable">
+            <img
+                #toggleBoxOptionsIcon
+                id="toggleBoxOptionsIcon"
+                class="toggle-box-options-icon"
+                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+                src=""
+                alt="toggle box options"
+            />
+        </button>
+
         <webstore-family-tree-design
             *ngIf="isMutable"
             #familyTreeDesignCanvas
@@ -28,6 +39,7 @@
             [title]="designTitle"
             [backgroundTreeDesign]="backgroundTreeDesign"
             [font]="font"
+            [showOptionBoxButtons]="showOptionBoxButtons"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
             data-cy="family-tree-canvas"
         ></webstore-family-tree-design>
