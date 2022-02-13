@@ -172,13 +172,13 @@ export class FamilyTreeDesignService {
   }
 
   /**
-   * Returns whether or not the given coordinates are within the box option. The option is assumed to be a circle.
+   * Returns whether or not the given coordinates are within Close the box option. The icon is assumed to be a circle.
    * @param pointCords point (for example, mouse click) coordinates x and y.
    * @param boxCord starting coordinates of the draggable box. Aka top-left corner x and y values.
    * @param optionButtonDimensions the dimensions of the option button
    * @returns
    */
-  isWithinBoxOption(
+  isWithinBoxCloseOption(
     pointCords: { x: number; y: number },
     boxCord: { x: number; y: number },
     optionButtonDimensions: { width: number; height: number }
@@ -186,6 +186,31 @@ export class FamilyTreeDesignService {
     const radius = optionButtonDimensions.width / 2;
     // get where the circle started drawing
     const drawingX = boxCord.x - optionButtonDimensions.width / 4;
+    const drawingY = boxCord.y - optionButtonDimensions.height / 4;
+    // get where the center of the drawn circle is
+    const centerX = drawingX + optionButtonDimensions.width / 2;
+    const centerY = drawingY + optionButtonDimensions.height / 2;
+    return (
+      (pointCords.x - centerX) * (pointCords.x - centerX) + (pointCords.y - centerY) * (pointCords.y - centerY) <
+      radius * radius
+    );
+  }
+  /**
+   * Returns whether or not the given coordinates are within the drag box option. The icon is assumed to be a circle.
+   * @param pointCords point (for example, mouse click) coordinates x and y.
+   * @param boxCord starting coordinates of the draggable box. Aka top-left corner x and y values.
+   * @param optionButtonDimensions the dimensions of the option button
+   * @returns
+   */
+  isWithinBoxDragOption(
+    pointCords: { x: number; y: number },
+    boxCord: { x: number; y: number },
+    boxDimensions: { width: number; height: number },
+    optionButtonDimensions: { width: number; height: number }
+  ): boolean {
+    const radius = optionButtonDimensions.width / 2;
+    // get where the circle started drawing
+    const drawingX = boxCord.x + boxDimensions.width - optionButtonDimensions.width / 2;
     const drawingY = boxCord.y - optionButtonDimensions.height / 4;
     // get where the center of the drawn circle is
     const centerX = drawingX + optionButtonDimensions.width / 2;
