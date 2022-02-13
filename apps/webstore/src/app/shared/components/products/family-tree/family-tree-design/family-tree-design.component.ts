@@ -150,8 +150,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     dismissible: boolean;
   };
 
-  // TODO: show only for one box instead of showing it for all if any of the boxes got moused over
-  showDeleteBoxButtons = false;
+  // TODO - add a button for controlling this variable
+  showDeleteBoxButtons = true;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -637,34 +637,19 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       event = event || window.event;
       this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
-      let boxesGotMousedOver = false;
-
       for (const box of this.myBoxes) {
+        // if the mouse is within the design boundries and the given box is supposed to be moved, move it to the cursor position
         if (!this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
-          // check if any of the boxes got moused over
-          if (
-            this.mouseCords.x > box.x &&
-            this.mouseCords.x < box.x + this.boxDimensions.width &&
-            this.mouseCords.y > box.y &&
-            this.mouseCords.y < box.y + this.boxDimensions.height
-          ) {
-            boxesGotMousedOver = true;
-            this.showDeleteBoxButtons = true;
-          }
           if (box.dragging) {
             {
               // move the box with the cursor
               box.x = this.mouseCords.x - this.mouseClickOffset.x;
               box.y = this.mouseCords.y - this.mouseClickOffset.y;
-              // skip checking the other boxes
+              // skip checking the other boxes, only one box should get moved at a time
               return;
             }
           }
         }
-      }
-      // only stop showing the delete button if none of the boxes got moused over
-      if (!boxesGotMousedOver) {
-        this.showDeleteBoxButtons = false;
       }
     } finally {
       this.frameChanged = true;
