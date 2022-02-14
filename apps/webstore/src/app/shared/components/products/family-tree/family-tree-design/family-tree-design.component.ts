@@ -640,10 +640,26 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         }
       }
       // this will only be reached if none of the boxes was clicked on
+      // create a new box
+      // if part of it would end up outside of the boundries it gets moved a bit to fit
+      let createOffsetX = 0;
+      let createOffsetY = 0;
+      if (this.mouseCords.x - this.boxDimensions.width / 2 < 0) {
+        createOffsetX = this.boxDimensions.width / 2;
+      }
+      if (this.mouseCords.x + this.boxDimensions.width / 2 > this.canvasResolution.width) {
+        createOffsetX = (this.boxDimensions.width / 2) * -1;
+      }
+      if (this.mouseCords.y - this.boxDimensions.height / 2 < 0) {
+        createOffsetY = this.boxDimensions.height / 2;
+      }
+      if (this.mouseCords.y + this.boxDimensions.height / 2 > this.canvasResolution.height) {
+        createOffsetY = (this.boxDimensions.height / 2) * -1;
+      }
       // create new box
       this.createBox(
-        this.mouseCords.x - this.boxDimensions.width / 2,
-        this.mouseCords.y - this.boxDimensions.height / 2,
+        this.mouseCords.x - this.boxDimensions.width / 2 + createOffsetX,
+        this.mouseCords.y - this.boxDimensions.height / 2 + createOffsetY,
         // assign a random design based on the amount of fetched box designs
         Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
         ''
