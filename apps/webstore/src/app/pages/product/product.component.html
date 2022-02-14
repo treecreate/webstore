@@ -287,6 +287,12 @@
                     <img src="/assets/icons/reset-icon.svg" class="option-icon" />
                 </button>
             </div>
+            <div class="option misc-option-actions">
+                <button class="tc-button-100" (click)="toggleBoxOptions()" title="Hide/Show box options">
+                    {{ showOptionBoxButtons ? 'Hide' : 'Show' }} box options
+                    <img #toggleBoxOptionsIcon class="option-icon" src="" alt="toggle box options" />
+                </button>
+            </div>
         </div>
     </div>
 </section>
