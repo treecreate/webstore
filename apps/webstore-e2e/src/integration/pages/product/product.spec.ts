@@ -13,7 +13,6 @@ const mockDesign = {
     text: 'my tree',
     style: 'first',
   },
-  largeFont: false,
   boxes: [
     {
       x: 400,
@@ -136,15 +135,6 @@ describe('ProductPage', () => {
         cy.wrap(localStorageDesignAfter).its('banner.text').should('equal', 'test');
       });
     });
-    it('should be able to change large font', () => {
-      cy.wrap(localStorageDesign).its('largeFont').should('equal', false);
-      cy.get('[data-cy=checkbox-large-font]').click();
-      cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('largeFont').should('equal', true);
-      });
-    });
 
     it('should be able to load a design via url', () => {
       //TODO: intercept loading a design with url
@@ -224,15 +214,6 @@ describe('ProductPage', () => {
       cy.get('[data-cy=banner]').should('have.text', ' test ');
       cy.get('[data-cy=checkbox-banner]').click();
       cy.get('[data-cy=banner]').should('have.text', '  ');
-    });
-
-    // Big font
-    it('should show/remove large-font', () => {
-      cy.get('[data-cy=large-font]').should('have.text', 'false');
-      cy.get('[data-cy=checkbox-large-font]').click();
-      cy.get('[data-cy=large-font]').should('have.text', 'true');
-      cy.get('[data-cy=checkbox-large-font]').click();
-      cy.get('[data-cy=large-font]').should('have.text', 'false');
     });
   });
 });
