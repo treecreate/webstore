@@ -18,7 +18,7 @@ import {
 import {
   BannerDesignEnum,
   BoxDesignEnum,
-  CloseBoxDesignEnum,
+  BoxOptionsDesignEnum,
   Tree1BoxDesignEnum,
   Tree2BoxDesignEnum,
   Tree3BoxDesignEnum,
@@ -118,21 +118,27 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     height: this.canvasResolution.height / 8,
     width: this.canvasResolution.width / 2,
   };
-  tree1BoxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
-  tree2BoxDesigns: Map<Tree2BoxDesignEnum, HTMLImageElement> = new Map();
-  tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
+  treeBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[] = new Array<
+    Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>
+  >(
+    new Map<Tree1BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree2BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree3BoxDesignEnum, HTMLImageElement>()
+  );
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
     height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
     width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
   closeButton = new Image();
-  closeButtonDimensions = {
+  dragButton = new Image();
+  // If the height doesn't equal the width, the button will not be a cricle and click detection logic will break!
+  optionButtonDimensions = {
     height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
     width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
 
-  // the max chars control how much text can be put into the draggable box
+  // The max chars control how much text can be put into the draggable box
   // It is propagated to the draggable box input element
   smallFontMaxChars = 12;
   largeFontMaxChars = 9;
@@ -145,8 +151,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     dismissible: boolean;
   };
 
-  // TODO: show only for one box instead of showing it for all if any of the boxes got moused over
-  showDeleteBoxButtons = false;
+  @Input()
+  showOptionBoxButtons = true;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -185,7 +191,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree1BoxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[0].set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
     // Tree 2 designs
     for (let i = 0; i < Object.values(Tree2BoxDesignEnum).length; i++) {
@@ -195,7 +201,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree2BoxDesigns.set(Object.values(Tree2BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[1].set(Object.values(Tree2BoxDesignEnum)[i], image);
     }
     // Tree 3 designs
     for (let i = 0; i < Object.values(Tree3BoxDesignEnum).length; i++) {
@@ -205,12 +211,17 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree3BoxDesigns.set(Object.values(Tree3BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
-    this.closeButton.src = CloseBoxDesignEnum.closeButton1;
+    this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
-      this.handleFailedResourceLoading('Failed to load the tree design SVG');
+      this.handleFailedResourceLoading('Failed to load the close box SVG');
+    };
+    // load and validate drag button image SVG
+    this.dragButton.src = BoxOptionsDesignEnum.dragButton1;
+    this.dragButton.onerror = () => {
+      this.handleFailedResourceLoading('Failed to load the drag box SVG');
     };
   }
 
@@ -354,19 +365,23 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
         this.context.drawImage(
-          this.getImageElementFromBoxDesign(this.backgroundTreeDesign, box.boxDesign),
+          this.familyTreeDesignService.getImageElementFromBoxDesign(
+            this.backgroundTreeDesign,
+            box.boxDesign,
+            this.treeBoxDesigns
+          ),
           box.x,
           box.y,
           this.boxDimensions.width,
           this.boxDimensions.height
         );
-        const cords = this.getRealCords(this.foregroundCanvas.nativeElement, {
+        const cords = this.familyTreeDesignService.getRealCords(this.foregroundCanvas.nativeElement, {
           x: box.x,
           y: box.y,
         });
         // Update position of the input field to match the box
         if (this.myBoxes[i].inputRef !== undefined) {
-          const scale = this.getCanvasScale(this.foregroundCanvas.nativeElement);
+          const scale = this.familyTreeDesignService.getCanvasScale(this.foregroundCanvas.nativeElement);
           this.myBoxes[i].inputRef.instance.x = cords.x;
           this.myBoxes[i].inputRef.instance.y = cords.y;
           // set the input dimensions, accounting for the scale between canvas and document
@@ -375,14 +390,22 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.myBoxes[i].inputRef.instance.zIndex = i;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
           this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
-          // draw the close button within the box
-          if (this.showDeleteBoxButtons) {
+          // draw the close button for the box
+          if (this.showOptionBoxButtons) {
             this.context.drawImage(
               this.closeButton,
-              this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
-              this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
-              this.closeButtonDimensions.width,
-              this.closeButtonDimensions.height
+              this.myBoxes[i].x - this.optionButtonDimensions.width / 4,
+              this.myBoxes[i].y - this.optionButtonDimensions.height / 4,
+              this.optionButtonDimensions.width,
+              this.optionButtonDimensions.height
+            );
+            // draw the drag button for the box
+            this.context.drawImage(
+              this.dragButton,
+              this.myBoxes[i].x + this.boxDimensions.width - this.optionButtonDimensions.width / 2,
+              this.myBoxes[i].y - this.optionButtonDimensions.height / 4,
+              this.optionButtonDimensions.width,
+              this.optionButtonDimensions.height
             );
           }
           this.familyTreeDesignService.drawTextInDraggableBox(
@@ -431,13 +454,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         this.createBox(
           this.canvasResolution.width / 7,
           this.canvasResolution.height / 2.5,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           'Dig'
         );
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 2.5,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           'Partner'
         );
       } else {
@@ -509,7 +532,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
 
-      this.closeButtonDimensions = {
+      this.optionButtonDimensions = {
         height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
         width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
@@ -539,49 +562,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   // handle canvas events
 
-  getCanvasScale(canvas): { scaleX: number; scaleY: number } {
-    const rect = canvas.getBoundingClientRect(); // abs. size of element
-    return {
-      scaleX: canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
-    };
-  }
-
-  // get current mouse position scaled to the canvas dimensions
-  getMousePosition(canvas, event) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-
-    // get coordinates based on whether it is a touch or mouse event
-    const clientX =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
-        : event.clientX;
-
-    const clientY =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
-        : event.clientY;
-
-    // scale mouse coordinates after they have been adjusted to be relative to element
-    return {
-      x: (clientX - rect.left) * scaleX,
-      y: (clientY - rect.top) * scaleY,
-    };
-  }
-
-  // calculate document mouse coordinates based on canvas coordinates
-  getRealCords(canvas, cords: { x: number; y: number }) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-    return {
-      x: cords.x / scaleX + rect.left + window.pageXOffset,
-      y: cords.y / scaleY + rect.top + window.pageYOffset,
-    };
-  }
-
   mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
     return (
       this.mouseCords.x - this.mouseClickOffset.x < 0 ||
@@ -602,53 +582,86 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         setTimeout(() => (this.downEventDelay = false), 100);
       }
 
-      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
-      for (let i = 0; i < this.myBoxes.length; i++) {
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
+      for (let i = this.myBoxes.length - 1; i >= 0; i--) {
         const box = this.myBoxes[i];
 
+        // check if the Close button got pressed
+        // only works if the buttons are supposed to be shown
+        if (
+          this.showOptionBoxButtons &&
+          this.familyTreeDesignService.isWithinBoxCloseOption(
+            this.mouseCords,
+            { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
+            this.optionButtonDimensions
+          )
+        ) {
+          // remove the box and the input component
+          this.myBoxes[i].inputRef.destroy();
+          this.myBoxes.splice(i, 1);
+          // prevent follow up click for touch events (causes new click creating a new box)
+          event.preventDefault();
+
+          return;
+        }
+        // check if the Drag button got pressed
+        // only works if the buttons are supposed to be shown
+        if (
+          this.showOptionBoxButtons &&
+          this.familyTreeDesignService.isWithinBoxDragOption(
+            this.mouseCords,
+            { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
+            this.boxDimensions,
+            this.optionButtonDimensions
+          )
+        ) {
+          // remove the box and the input component
+          this.myBoxes[i].dragging = true;
+          this.mouseClickOffset.x = this.mouseCords.x - this.myBoxes[i].x;
+          this.mouseClickOffset.y = this.mouseCords.y - this.myBoxes[i].y;
+
+          this.bringBoxToFront(i);
+          // prevent registration of screen dragging to ensure the background doesn't move on mobile
+          event.preventDefault();
+          return;
+        }
         if (
           this.mouseCords.x > box.x &&
           this.mouseCords.x < box.x + this.boxDimensions.width &&
           this.mouseCords.y > box.y &&
           this.mouseCords.y < box.y + this.boxDimensions.height
         ) {
-          // check if the Close button got pressed
-          if (
-            this.mouseCords.x > box.x &&
-            this.mouseCords.x < box.x + this.closeButtonDimensions.width &&
-            this.mouseCords.y > box.y &&
-            this.mouseCords.y < box.y + this.closeButtonDimensions.width
-          ) {
-            // remove the box and the input component
-            this.myBoxes[i].inputRef.destroy();
-            this.myBoxes.splice(i, 1);
-            // prevent follow up click for touch events (causes new click creating a new box)
-            event.preventDefault();
-
-            return;
-          }
-
-          this.myBoxes[i].dragging = true;
-          this.mouseClickOffset.x = this.mouseCords.x - box.x;
-          this.mouseClickOffset.y = this.mouseCords.y - box.y;
-          // swap the dragged box to the top of rending order, displaying it on top of the other boxes
-          const temp = this.myBoxes[this.myBoxes.length - 1];
-          this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
-          this.myBoxes[i] = temp;
+          this.bringBoxToFront(i);
           // prevent registration of screen dragging to ensure the background doesn't move on mobile
           event.preventDefault();
-          this.myBoxes[i].inputRef.instance.input.nativeElement.focus();
 
           // skip checking the other boxes
           return;
         }
       }
       // this will only be reached if none of the boxes was clicked on
+      // create a new box
+      // if part of it would end up outside of the boundries it gets moved a bit to fit
+      let createOffsetX = 0;
+      let createOffsetY = 0;
+      if (this.mouseCords.x - this.boxDimensions.width / 2 < 0) {
+        createOffsetX = this.boxDimensions.width / 2;
+      }
+      if (this.mouseCords.x + this.boxDimensions.width / 2 > this.canvasResolution.width) {
+        createOffsetX = (this.boxDimensions.width / 2) * -1;
+      }
+      if (this.mouseCords.y - this.boxDimensions.height / 2 < 0) {
+        createOffsetY = this.boxDimensions.height / 2;
+      }
+      if (this.mouseCords.y + this.boxDimensions.height / 2 > this.canvasResolution.height) {
+        createOffsetY = (this.boxDimensions.height / 2) * -1;
+      }
       // create new box
       this.createBox(
-        this.mouseCords.x - this.boxDimensions.width / 2,
-        this.mouseCords.y - this.boxDimensions.height / 2,
-        Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+        this.mouseCords.x - this.boxDimensions.width / 2 + createOffsetX,
+        this.mouseCords.y - this.boxDimensions.height / 2 + createOffsetY,
+        // assign a random design based on the amount of fetched box designs
+        Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
         ''
       );
 
@@ -666,36 +679,19 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   mouseMoveHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
-
-      let boxesGotMousedOver = false;
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       for (const box of this.myBoxes) {
-        if (!this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
-          // check if any of the boxes got moused over
-          if (
-            this.mouseCords.x > box.x &&
-            this.mouseCords.x < box.x + this.boxDimensions.width &&
-            this.mouseCords.y > box.y &&
-            this.mouseCords.y < box.y + this.boxDimensions.height
-          ) {
-            boxesGotMousedOver = true;
-            this.showDeleteBoxButtons = true;
-          }
-          if (box.dragging) {
-            {
-              // move the box with the cursor
-              box.x = this.mouseCords.x - this.mouseClickOffset.x;
-              box.y = this.mouseCords.y - this.mouseClickOffset.y;
-              // skip checking the other boxes
-              return;
-            }
+        // if the mouse is within the design boundries and the given box is supposed to be moved, move it to the cursor position
+        if (box.dragging && !this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
+          {
+            // move the box with the cursor
+            box.x = this.mouseCords.x - this.mouseClickOffset.x;
+            box.y = this.mouseCords.y - this.mouseClickOffset.y;
+            // skip checking the other boxes, only one box should get moved at a time
+            return;
           }
         }
-      }
-      // only stop showing the delete button if none of the boxes got moused over
-      if (!boxesGotMousedOver) {
-        this.showDeleteBoxButtons = false;
       }
     } finally {
       this.frameChanged = true;
@@ -705,7 +701,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   mouseUpHandler(event) {
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.foregroundCanvas.nativeElement, event);
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       for (const box of this.myBoxes) {
         if (box.dragging) {
@@ -733,23 +729,16 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   // Util methods
 
-  getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
-    switch (treeDesign) {
-      case TreeDesignEnum.tree1: {
-        return this.tree1BoxDesigns.get(
-          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree2: {
-        return this.tree2BoxDesigns.get(
-          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree3: {
-        return this.tree3BoxDesigns.get(
-          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-    }
+  /**
+   * Swap the dragged box to the top of rending order, displaying it on top of the other boxes.
+   * Focuses on the input element of the clicked box which is now on top of the stack.
+   * @param boxIndex the index in myBoxes of the now-first box.
+   */
+  bringBoxToFront(boxIndex: number): void {
+    const clickedBox = this.myBoxes[boxIndex];
+    const temp = this.myBoxes[this.myBoxes.length - 1];
+    this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[boxIndex];
+    this.myBoxes[boxIndex] = temp;
+    clickedBox.inputRef.instance.input.nativeElement.focus();
   }
 }

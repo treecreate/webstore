@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BoxDesignEnum, Tree1BoxDesignEnum, Tree2BoxDesignEnum, Tree3BoxDesignEnum, TreeDesignEnum } from '@assets';
 import { FamilyTreeFontEnum, IDraggableBox } from '@interfaces';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class FamilyTreeDesignService {
   maxLines = 2;
 
   /**
-   * Draw the text within a draggable box
+   * Draw the text within a draggable box.
    * @param context canvas context
    * @param boxSize size of the draggable box the text should be written in. Affect font size
    * @param isLargeFont  whether the font is large or normal. Affects font size
@@ -79,5 +80,144 @@ export class FamilyTreeDesignService {
       }
     }
     context.fillText(line, x, y);
+  }
+
+  /**
+   * Calculate the ratio between the canvas and its bounding rectangle.
+   * @param canvas reference to the canvas
+   * @returns the scales for x and y axis
+   */
+  getCanvasScale(canvas): { scaleX: number; scaleY: number } {
+    const rect = canvas.getBoundingClientRect(); // abs. size of element
+    return {
+      scaleX: canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
+    };
+  }
+
+  /**
+   * Calculate document mouse coordinates based on canvas coordinates.
+   * @param canvas reference to the canvas
+   * @param cords the canvas-relative coordinates
+   * @returns actual mouse coordinates on the page
+   */
+  getRealCords(canvas, cords: { x: number; y: number }): { x: number; y: number } {
+    const rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+    return {
+      x: cords.x / scaleX + rect.left + window.pageXOffset,
+      y: cords.y / scaleY + rect.top + window.pageYOffset,
+    };
+  }
+
+  /**
+   * Get current mouse position scaled to the canvas dimensions.
+   * @param canvas reference to the canvas
+   * @param event the touch or mouse event to process
+   * @returns  the canvas coordinates where the click occured
+   */
+  getMousePosition(canvas, event: MouseEvent | TouchEvent): { x: number; y: number } {
+    const rect = canvas.getBoundingClientRect(), // abs. size of element
+      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
+      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
+
+    // get coordinates based on whether it is a touch or mouse event
+    const clientX =
+      window.TouchEvent && event instanceof TouchEvent
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
+        : (event as MouseEvent).clientX;
+
+    const clientY =
+      window.TouchEvent && event instanceof TouchEvent
+        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
+        : (event as MouseEvent).clientY;
+
+    // scale mouse coordinates after they have been adjusted to be relative to element
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
+    };
+  }
+
+  /**
+   * Based on the specified tree design, return a correct box design,
+   * @param treeDesign which tree design to base the box on
+   * @param boxDesign which box design to use (index, not source uri)
+   * @param fetchedBoxDesigns the already fetched designs
+   * @returns appriopriate html image element
+   */
+  getImageElementFromBoxDesign(
+    treeDesign: TreeDesignEnum,
+    boxDesign: BoxDesignEnum,
+    fetchedBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[]
+  ): HTMLImageElement {
+    switch (treeDesign) {
+      case TreeDesignEnum.tree1: {
+        return fetchedBoxDesigns[0].get(
+          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
+        );
+      }
+      case TreeDesignEnum.tree2: {
+        return fetchedBoxDesigns[1].get(
+          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
+        );
+      }
+      case TreeDesignEnum.tree3: {
+        return fetchedBoxDesigns[2].get(
+          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
+        );
+      }
+    }
+  }
+
+  /**
+   * Returns whether or not the given coordinates are within Close the box option. The icon is assumed to be a circle.
+   * @param pointCords point (for example, mouse click) coordinates x and y.
+   * @param boxCord starting coordinates of the draggable box. Aka top-left corner x and y values.
+   * @param optionButtonDimensions the dimensions of the option button
+   * @returns
+   */
+  isWithinBoxCloseOption(
+    pointCords: { x: number; y: number },
+    boxCord: { x: number; y: number },
+    optionButtonDimensions: { width: number; height: number }
+  ): boolean {
+    const radius = optionButtonDimensions.width / 2;
+    // get where the circle started drawing
+    const drawingX = boxCord.x - optionButtonDimensions.width / 4;
+    const drawingY = boxCord.y - optionButtonDimensions.height / 4;
+    // get where the center of the drawn circle is
+    const centerX = drawingX + optionButtonDimensions.width / 2;
+    const centerY = drawingY + optionButtonDimensions.height / 2;
+    return (
+      (pointCords.x - centerX) * (pointCords.x - centerX) + (pointCords.y - centerY) * (pointCords.y - centerY) <
+      radius * radius
+    );
+  }
+  /**
+   * Returns whether or not the given coordinates are within the drag box option. The icon is assumed to be a circle.
+   * @param pointCords point (for example, mouse click) coordinates x and y.
+   * @param boxCord starting coordinates of the draggable box. Aka top-left corner x and y values.
+   * @param optionButtonDimensions the dimensions of the option button
+   * @returns
+   */
+  isWithinBoxDragOption(
+    pointCords: { x: number; y: number },
+    boxCord: { x: number; y: number },
+    boxDimensions: { width: number; height: number },
+    optionButtonDimensions: { width: number; height: number }
+  ): boolean {
+    const radius = optionButtonDimensions.width / 2;
+    // get where the circle started drawing
+    const drawingX = boxCord.x + boxDimensions.width - optionButtonDimensions.width / 2;
+    const drawingY = boxCord.y - optionButtonDimensions.height / 4;
+    // get where the center of the drawn circle is
+    const centerX = drawingX + optionButtonDimensions.width / 2;
+    const centerY = drawingY + optionButtonDimensions.height / 2;
+    return (
+      (pointCords.x - centerX) * (pointCords.x - centerX) + (pointCords.y - centerY) * (pointCords.y - centerY) <
+      radius * radius
+    );
   }
 }
