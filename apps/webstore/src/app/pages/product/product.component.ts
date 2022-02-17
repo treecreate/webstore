@@ -58,7 +58,6 @@ export class ProductComponent implements OnInit {
   maxSize = 40;
   minSize = 15;
   banner: IFamilyTreeBanner = undefined;
-  isLargeFont = false;
   design: IFamilyTree;
   showOptionBoxButtons = true;
   isIphone = false;
@@ -133,7 +132,6 @@ export class ProductComponent implements OnInit {
         this.font = this.design.font;
         this.banner = this.design.banner;
         this.boxSize = this.design.boxSize;
-        this.isLargeFont = this.design.largeFont;
       } else {
         // set the defaults
         this.designTitle = 'Mit Design';
@@ -143,7 +141,6 @@ export class ProductComponent implements OnInit {
         this.maxSize = 40;
         this.minSize = 10;
         this.banner = { text: 'Til min elskede', style: 'first' };
-        this.isLargeFont = false;
       }
       this.isMutable = true;
       this.cdr.detectChanges();
@@ -170,7 +167,6 @@ export class ProductComponent implements OnInit {
     this.font = this.design.font;
     this.banner = this.design.banner;
     this.boxSize = this.design.boxSize;
-    this.isLargeFont = this.design.largeFont;
   }
 
   loadDesignFromDB(queryParams) {
@@ -192,7 +188,6 @@ export class ProductComponent implements OnInit {
           this.font = this.design.font;
           this.banner = this.design.banner;
           this.boxSize = this.design.boxSize;
-          this.isLargeFont = this.design.largeFont;
           this.isMutable = result.mutable;
           this.cdr.detectChanges();
           if (this.isMutable) {

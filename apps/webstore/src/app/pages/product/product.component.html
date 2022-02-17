@@ -40,7 +40,6 @@
             #familyTreeDesignCanvas
             [boxSize]="boxSize"
             [banner]="banner"
-            [isLargeFont]="isLargeFont"
             [title]="designTitle"
             [backgroundTreeDesign]="backgroundTreeDesign"
             [font]="font"
@@ -66,7 +65,6 @@
     <div class="hide" data-cy="banner">
         {{ banner !== undefined ? banner.text : '' }}
     </div>
-    <div class="hide" data-cy="large-font">{{ isLargeFont }}</div>
     <!-- END CY TESTS -->
 
     <div
@@ -222,25 +220,6 @@
                                     isEnglish()
                                         ? 'Add or remove the banner from your design.'
                                         : 'Tillæg eller fjern banneret fra dit design.'
-                                }}"
-                            ></webstore-info-popover>
-                        </label>
-                    </div>
-                    <div class="option-large-font">
-                        <label class="checkbox-container option-title">
-                            Large font
-                            <input
-                                type="checkbox"
-                                [checked]="this.isLargeFont"
-                                (change)="this.isLargeFont = !this.isLargeFont"
-                            />
-                            <span class="checkmark" data-cy="checkbox-large-font"></span>
-                            <webstore-info-popover
-                                title="{{ isEnglish() ? 'Large font' : 'Stor font' }}"
-                                text="{{
-                                    isEnglish()
-                                        ? 'Add or remove large font. With the large font the visibility will be better, but there wont be space for a surname.'
-                                        : 'Tillæg eller fjern stor font. Med den store font bliver teksten mere tydeligt, men der er ikke plads til mere end 10 bokstaver i hver navne boks.'
                                 }}"
                             ></webstore-info-popover>
                         </label>
