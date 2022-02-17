@@ -15,7 +15,6 @@ export interface IFamilyTree {
   backgroundTreeDesign: TreeDesignEnum;
   boxSize: number;
   banner: IFamilyTreeBanner;
-  largeFont: boolean;
   boxes: IDraggableBox[];
 }
 

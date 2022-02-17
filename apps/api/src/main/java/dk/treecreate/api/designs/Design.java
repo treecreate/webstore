@@ -48,7 +48,6 @@ public class Design
             "  design: 'first'," +
             "  boxSize: 10," +
             "  banner: false," +
-            "  largeFont: true," +
             "  boxes: []}")
     @Convert(converter = HashMapConverter.class)
     private Map<String, Object> designProperties;

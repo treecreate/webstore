@@ -88,7 +88,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
   // the max chars control how much text can be put into the draggable box
   // It is propagated to the draggable box input element
   smallFontMaxChars = 12;
-  largeFontMaxChars = 9;
   maxCharsPerLine = this.smallFontMaxChars;
   maxLines = 2;
 
@@ -188,7 +187,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
     if (this.design !== undefined && this.context !== undefined) {
       this.loadDesign();
 
-      this.maxCharsPerLine = this.design.largeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
+      this.maxCharsPerLine = this.smallFontMaxChars;
       // Set the background
       this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
     }
@@ -272,7 +271,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
           this.familyTreeDesignService.drawTextInDraggableBox(
             this.context,
             this.boxSize,
-            this.design.largeFont,
             this.design.font,
             box,
             this.boxDimensions

@@ -55,9 +55,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   banner: IFamilyTreeBanner;
 
   @Input()
-  isLargeFont = false;
-
-  @Input()
   font: FamilyTreeFontEnum;
 
   @Input()
@@ -141,8 +138,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // The max chars control how much text can be put into the draggable box
   // It is propagated to the draggable box input element
   smallFontMaxChars = 12;
-  largeFontMaxChars = 9;
-  maxCharsPerLine = this.isLargeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
+  maxCharsPerLine = this.smallFontMaxChars;
   maxLines = 2;
 
   alert: {
@@ -312,7 +308,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
     draggableBoxRef.instance.boxSize = this.boxSize;
-    draggableBoxRef.instance.isLargeFont = this.isLargeFont;
     draggableBoxRef.instance.maxCharsPerLine = this.maxCharsPerLine;
     // set the reference to the draggable box component instance
     newBox.inputRef = draggableBoxRef;
@@ -411,7 +406,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.familyTreeDesignService.drawTextInDraggableBox(
             this.context,
             this.boxSize,
-            this.isLargeFont,
             this.font,
             this.myBoxes[i],
             this.boxDimensions
@@ -468,7 +462,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         this.showBanner = design.banner === null;
         this.boxSize = design.boxSize;
         this.backgroundTreeDesign = design.backgroundTreeDesign;
-        this.isLargeFont = design.largeFont;
         design.boxes.forEach((box) => {
           this.createBox(box.x, box.y, box.boxDesign, box.text);
         });
@@ -518,7 +511,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       backgroundTreeDesign: this.backgroundTreeDesign,
       boxSize: this.boxSize,
       banner: this.banner,
-      largeFont: this.isLargeFont,
       boxes: boxesCopy,
     });
   }
@@ -536,15 +528,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
         width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
-    }
-
-    if (changes.isLargeFont !== undefined) {
-      this.maxCharsPerLine = this.isLargeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
-      // update the box inputs
-      this.myBoxes.forEach((box) => {
-        box.inputRef.instance.maxCharsPerLine = this.maxCharsPerLine;
-        box.inputRef.instance.largeFont = this.isLargeFont;
-      });
     }
 
     if (changes.backgroundTreeDesign !== undefined) {
