@@ -20,18 +20,24 @@ services:
     image: kwandes/treecreate-v2:api-dev
     env_file: .env-files/.env.dev.api
     ports: [4001:5000]
+    networks:
+      - staging
 
   webstore-dev:
     profiles: [dev]
     image: kwandes/treecreate-v2:webstore-dev
     env_file: .env-files/.env.dev.frontend
     ports: [8081:80]
+    networks:
+      - staging
 
   admin-page-dev:
     profiles: [dev]
     image: kwandes/treecreate-v2:admin-page-dev
     env_file: .env-files/.env.dev.frontend
     ports: [8091:80]
+    networks:
+      - staging
 
   #### DEV END ####
 
@@ -42,6 +48,8 @@ services:
     image: kwandes/treecreate-v2:api-prod
     env_file: .env-files/.env.prod.api
     ports: [4000:5000]
+    networks:
+      - production
     deploy:
       restart_policy:
         condition: on-failure
@@ -56,6 +64,8 @@ services:
     image: kwandes/treecreate-v2:webstore-prod
     env_file: .env-files/.env.prod.frontend
     ports: [8080:80]
+    networks:
+      - production
     deploy:
       restart_policy:
         condition: on-failure
@@ -70,6 +80,8 @@ services:
     image: kwandes/treecreate-v2:admin-page-prod
     env_file: .env-files/.env.prod.frontend
     ports: [8090:80]
+    networks:
+      - production
     deploy:
       restart_policy:
         condition: on-failure
@@ -80,3 +92,9 @@ services:
       - api-prod
 
   #### PROD END ####
+
+networks:
+  staging:
+    name: staging
+  production:
+    name: production
