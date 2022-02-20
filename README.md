@@ -62,7 +62,7 @@ The repository is made as a monorepo using NX. The applications are located in t
 
 ### Prerequisites
 
-In order to run this project locally and develop it, you need to have Node and JDK installed.\
+In order to run this project locally and develop it, you need to have Node and JDK 11 installed.
 
 #### Node
 
@@ -106,17 +106,46 @@ _If you install it locally, you will have to use `npx git cz` instead_
 git clone https://github.com/treecreate/webstore.git
 ```
 
-2. Install NPM packages
+2. Serve the API
+
+The API requires the following Envirnonment variables to run.
+Not all variables need to have values but have to exist.
+
+`TREECREATE_JDBC_URL` - url for connecting to the database. Follows a format of `jdbc:mysql://username:password@hostname:port/schema?serverTimezone\=UTC&characterEncoding\=UTF-8`
+
+`TREECREATE_MAIL_PASS` - password for the mail provider
+
+> Only needed for sending emails
+
+`TREECREATE_QUICKPAY_API_KEY` - api key for the Quickpay account
+
+> Only needed for processing payment-related data
+
+`TREECREATE_QUICKPAY_PRIVATE_KEY` - private key for the Quickpay account
+
+> Only needed for processing payment-related data
+
+`TREECREATE_SENTRY_DSN` - DSN key for Sentry, a logging service. Leave blank to not send any data
+
+`SHIPMONDO_URL` - `https://app.shipmondo.com/api/public/v3`
+
+> Only needed for processing shipping information
+
+`SHIPMONDO_TOKEN`- Shipmondo api key. Follows instrucions in shipmondo documentation to obtain and format it properly (should look like so: `Basic base64enconded-username:password`)
+
+> Only needed for processing shipping information
+
+3. Install NPM packages
 
 ```sh
 npm install
 ```
 
-3. Serve the apps via NX
+4. Serve the frontend apps via NX
 
 ```
-nx serve api
 nx serve webstore
+nx serve admin-page
 ```
 
 ## Api Documentation
@@ -140,7 +169,7 @@ Email: info@treecreate.dk\
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the BSD-3-Clause License. See [LICENSE](./LICENSE) for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
