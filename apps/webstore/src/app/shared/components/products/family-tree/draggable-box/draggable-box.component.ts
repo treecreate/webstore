@@ -38,9 +38,6 @@ export class DraggableBoxComponent {
   text: string;
 
   @Input()
-  isLargeFont = false;
-
-  @Input()
   maxCharsPerLine = 12;
 
   @Input()

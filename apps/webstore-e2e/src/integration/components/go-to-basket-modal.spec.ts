@@ -41,7 +41,6 @@ describe('go to basket modal', () => {
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
-      largeFont: false,
       boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
     },
     designType: DesignTypeEnum.familyTree,

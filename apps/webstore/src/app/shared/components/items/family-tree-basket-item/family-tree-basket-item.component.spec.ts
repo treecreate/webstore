@@ -41,7 +41,6 @@ describe('BasketItemComponent', () => {
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: undefined,
-          largeFont: true,
           boxes: [],
         },
         user: mockUser,

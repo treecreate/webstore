@@ -13,7 +13,6 @@ import {
 import {
   BannerDesignEnum,
   BoxDesignEnum,
-  CloseBoxDesignEnum,
   Tree1BoxDesignEnum,
   Tree2BoxDesignEnum,
   Tree3BoxDesignEnum,
@@ -73,24 +72,22 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
     height: this.canvasResolution.height / 8,
     width: this.canvasResolution.width / 2,
   };
-  tree1BoxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
-  tree2BoxDesigns: Map<Tree2BoxDesignEnum, HTMLImageElement> = new Map();
-  tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
+  treeBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[] = new Array<
+    Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>
+  >(
+    new Map<Tree1BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree2BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree3BoxDesignEnum, HTMLImageElement>()
+  );
   boxSizeScalingMultiplier = 0.05;
   boxDimensions = {
     height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
     width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
-  closeButton = new Image();
-  closeButtonDimensions = {
-    height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
-    width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
-  };
 
   // the max chars control how much text can be put into the draggable box
   // It is propagated to the draggable box input element
   smallFontMaxChars = 12;
-  largeFontMaxChars = 9;
   maxCharsPerLine = this.smallFontMaxChars;
   maxLines = 2;
 
@@ -126,7 +123,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree1BoxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[0].set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
     // Tree 2 designs
     for (let i = 0; i < Object.values(Tree2BoxDesignEnum).length; i++) {
@@ -136,7 +133,7 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree2BoxDesigns.set(Object.values(Tree2BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[1].set(Object.values(Tree2BoxDesignEnum)[i], image);
     }
     // Tree 3 designs
     for (let i = 0; i < Object.values(Tree3BoxDesignEnum).length; i++) {
@@ -146,13 +143,8 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree3BoxDesigns.set(Object.values(Tree3BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
-    // load and validate close button image SVG
-    this.closeButton.src = CloseBoxDesignEnum.closeButton1;
-    this.closeButton.onerror = () => {
-      this.handleFailedResourceLoading('Failed to load the tree design SVG');
-    };
   }
 
   handleFailedResourceLoading(message: string) {
@@ -190,17 +182,12 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
         width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
-
-      this.closeButtonDimensions = {
-        height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
-        width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
-      };
     }
 
     if (this.design !== undefined && this.context !== undefined) {
       this.loadDesign();
 
-      this.maxCharsPerLine = this.design.largeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
+      this.maxCharsPerLine = this.smallFontMaxChars;
       // Set the background
       this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
     }
@@ -268,27 +255,29 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         }
       } else {
         requestAnimationFrame(this.draw.bind(this));
-        return;
       }
 
       // render the boxes
       for (const box of this.myBoxes) {
-        this.context.drawImage(
-          this.getImageElementFromBoxDesign(this.design.backgroundTreeDesign, box.boxDesign),
-          box.x,
-          box.y,
-          this.boxDimensions.width,
-          this.boxDimensions.height
+        const boxImage = this.familyTreeDesignService.getImageElementFromBoxDesign(
+          this.design.backgroundTreeDesign,
+          box.boxDesign,
+          this.treeBoxDesigns
         );
+        // if the box hasn't been fetched yet continue redrawing
+        if (boxImage !== null && boxImage.complete) {
+          this.context.drawImage(boxImage, box.x, box.y, this.boxDimensions.width, this.boxDimensions.height);
 
-        this.familyTreeDesignService.drawTextInDraggableBox(
-          this.context,
-          this.boxSize,
-          this.design.largeFont,
-          this.design.font,
-          box,
-          this.boxDimensions
-        );
+          this.familyTreeDesignService.drawTextInDraggableBox(
+            this.context,
+            this.boxSize,
+            this.design.font,
+            box,
+            this.boxDimensions
+          );
+        } else {
+          requestAnimationFrame(this.draw.bind(this));
+        }
       }
     } catch (error) {
       console.error('An error has occurred while drawing the tree', error);
@@ -311,19 +300,19 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         this.createBox(
           this.canvasResolution.width / 8,
           this.canvasResolution.height / 4,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 6,
           this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
         this.createBox(
           this.canvasResolution.width / 2,
           this.canvasResolution.height / 3,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
           ''
         );
       } else {
@@ -343,74 +332,6 @@ export class FamilyTreeMiniatureComponent implements AfterViewInit, OnInit, OnCh
         dismissible: false,
       };
       this.isDesignValid = false;
-    }
-  }
-
-  // Util methods
-  // TODO: Extract them into a library
-
-  // handle canvas events
-
-  getCanvasScale(canvas): { scaleX: number; scaleY: number } {
-    const rect = canvas.getBoundingClientRect(); // abs. size of element
-    return {
-      scaleX: canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
-    };
-  }
-
-  // get current mouse position scaled to the canvas dimensions
-  getMousePosition(canvas, event) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-
-    // get coordinates based on whether it is a touch or mouse event
-    const clientX =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
-        : event.clientX;
-
-    const clientY =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
-        : event.clientY;
-
-    // scale mouse coordinates after they have been adjusted to be relative to element
-    return {
-      x: (clientX - rect.left) * scaleX,
-      y: (clientY - rect.top) * scaleY,
-    };
-  }
-
-  // calculate document mouse coordinates based on canvas coordinates
-  getRealCords(canvas, cords: { x: number; y: number }) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-    return {
-      x: cords.x / scaleX + rect.left + window.pageXOffset,
-      y: cords.y / scaleY + rect.top + window.pageYOffset,
-    };
-  }
-
-  getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
-    switch (treeDesign) {
-      case TreeDesignEnum.tree1: {
-        return this.tree1BoxDesigns.get(
-          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree2: {
-        return this.tree2BoxDesigns.get(
-          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree3: {
-        return this.tree3BoxDesigns.get(
-          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
     }
   }
 }
