@@ -47,9 +47,14 @@
             <div class="item-info-container">
                 <div class="row-2">
                     <div class="section-row">
-                        <div class="line">
+                        <div class="line" [ngSwitch]="item.design.designType">
                             <span class="sub-title" i18n="@@title">Title </span>
-                            <span data-cy="order-item-design-item-title">{{ item.design.designProperties.title }}</span>
+                            <span
+                                *ngSwitchCase="designTypeEnum.familyTree"
+                                data-cy="order-item-design-item-title"
+                                i18n="@@design-type-family-tree"
+                                >Family Tree</span
+                            >
                         </div>
                     </div>
 

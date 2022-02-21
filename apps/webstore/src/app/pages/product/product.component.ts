@@ -49,7 +49,6 @@ export class ProductComponent implements OnInit {
   isDesignValid = false;
   isMutable = false;
   isMobileOptionOpen = false;
-  designTitle = '';
   showSuggestion = true;
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
@@ -128,13 +127,11 @@ export class ProductComponent implements OnInit {
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       // apply the design
       if (this.design !== null && this.design !== undefined) {
-        this.designTitle = this.design.title;
         this.font = this.design.font;
         this.banner = this.design.banner;
         this.boxSize = this.design.boxSize;
       } else {
         // set the defaults
-        this.designTitle = 'Mit Design';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 40;
@@ -163,7 +160,6 @@ export class ProductComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
-    this.designTitle = this.design.title;
     this.font = this.design.font;
     this.banner = this.design.banner;
     this.boxSize = this.design.boxSize;
@@ -183,7 +179,6 @@ export class ProductComponent implements OnInit {
         } else {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
           // apply the design
-          this.designTitle = this.design.title;
           this.backgroundTreeDesign = this.design.backgroundTreeDesign;
           this.font = this.design.font;
           this.banner = this.design.banner;
@@ -373,10 +368,6 @@ export class ProductComponent implements OnInit {
     } else {
       this.font = FamilyTreeFontEnum[previousFont];
     }
-  }
-
-  onKey(event) {
-    this.designTitle = event.target.value;
   }
 
   updateBannerText($event) {

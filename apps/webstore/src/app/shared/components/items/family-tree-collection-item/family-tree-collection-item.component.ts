@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IDesign, IFamilyTree } from '@interfaces';
+import { DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
@@ -21,6 +21,7 @@ export class FamilyTreeCollectionItemComponent {
   @Input() design: IDesign;
   isLoading = false;
   @Output() deleteEvent = new EventEmitter();
+  public designTypeEnum = DesignTypeEnum;
 
   constructor(
     private toastService: ToastService,

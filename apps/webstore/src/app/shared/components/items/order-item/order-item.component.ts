@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IOrder, ITransactionItem, OrderStatusDisplayNameEnum, OrderStatusEnum } from '@interfaces';
+import { DesignTypeEnum, IOrder, ITransactionItem, OrderStatusDisplayNameEnum, OrderStatusEnum } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 
 @Component({
@@ -11,6 +11,7 @@ export class OrderItemComponent implements OnInit {
   @Input() order: IOrder;
   @Input() orderNumber: number;
   isLoading = false;
+  public designTypeEnum = DesignTypeEnum;
 
   constructor(private calculePriceService: CalculatePriceService) {}
 

@@ -10,7 +10,6 @@ export interface IDesign extends IBase {
   mutable: boolean;
 }
 export interface IFamilyTree {
-  title: string;
   font: FamilyTreeFontEnum;
   backgroundTreeDesign: TreeDesignEnum;
   boxSize: number;

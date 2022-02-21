@@ -40,7 +40,6 @@
             #familyTreeDesignCanvas
             [boxSize]="boxSize"
             [banner]="banner"
-            [title]="designTitle"
             [backgroundTreeDesign]="backgroundTreeDesign"
             [font]="font"
             [showOptionBoxButtons]="showOptionBoxButtons"
@@ -58,7 +57,6 @@
     </div>
 
     <!-- FOR CY TESTS -->
-    <div class="hide" data-cy="design-title">{{ designTitle }}</div>
     <div class="hide" data-cy="font">{{ font }}</div>
     <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
     <div class="hide" data-cy="box-size">{{ boxSize }}</div>
@@ -74,31 +72,6 @@
     >
         <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
-            <div class="option option-design-name">
-                <div class="option-title">
-                    <span i18n="@@title">Title</span>
-                    <webstore-info-popover
-                        title="{{ isEnglish() ? 'Title' : 'Titel' }}"
-                        text="{{
-                            isEnglish()
-                                ? 'Add a good title so you can keep track of your designs.'
-                                : 'Giv dit design en god titel så den er nemmere at huske.'
-                        }}"
-                    ></webstore-info-popover>
-                </div>
-                <div class="option-design-title">
-                    <input
-                        type="text"
-                        class="title-input"
-                        [value]="designTitle"
-                        (keyup)="onKey($event)"
-                        placeholder="{{ isEnglish() ? 'Navngiv dit design...' : 'Name your design...' }}"
-                        data-cy="design-title-input"
-                        maxlength="50"
-                    />
-                </div>
-            </div>
-
             <div class="option option-font-select">
                 <div class="option-title">
                     Font

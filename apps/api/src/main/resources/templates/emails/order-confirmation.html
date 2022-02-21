@@ -706,10 +706,15 @@
                                                         >
                                                             <strong>
                                                                 <span th:text="#{order.title}"></span>
-                                                                <span
-                                                                    th:text="${transactionItem.design.designProperties.title}"
-                                                                ></span
-                                                            ></strong>
+                                                                <th:block
+                                                                    th:switch="${#strings.toString(transactionItem.design.type)}"
+                                                                >
+                                                                    <span
+                                                                        th:case="'FAMILY_TREE'"
+                                                                        th:text="#{order.title.family.tree}"
+                                                                    ></span>
+                                                                </th:block>
+                                                            </strong>
                                                             <br />
                                                             <span th:text="#{order.size}"> </span>
                                                             <span th:text="${transactionItem.dimension}"></span>

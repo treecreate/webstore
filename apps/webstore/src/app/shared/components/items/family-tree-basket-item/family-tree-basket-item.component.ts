@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DesignDimensionEnum, IAuthUser, ITransactionItem } from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, ITransactionItem } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
@@ -31,6 +31,7 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   };
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
+  public designTypeEnum = DesignTypeEnum;
 
   constructor(
     private calculatePriceService: CalculatePriceService,

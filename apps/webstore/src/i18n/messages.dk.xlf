@@ -1421,6 +1421,14 @@
           <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="design-type-family-tree" datatype="html">
+        <source>Family tree</source>
+        <target>Familietræe</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/family-tree-basket-item/family-tree-basket-item.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="amount" datatype="html">
         <source>Amount</source>
         <target>Antal</target> 
