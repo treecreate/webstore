@@ -219,10 +219,13 @@ export class AddToBasketModalComponent implements OnInit {
     this.isLoading = false;
   }
 
+  //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design) before trying to update it
+  /**
+   * Persist the design in the database (either update or create a new entry) and, if successful, create a transaction item for it (add to basket).
+   */
   saveToDataBase(): void {
-    // Check if the loaded design has an ID
-    // If yes, update the title in the users collection
-    if (this.route.snapshot.queryParams.designId !== null) {
+    // Check if the design is loaded using a design ID (design comes from a user account ccollection)
+    if (this.route.snapshot.queryParams.designId !== undefined) {
       this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
       //Update design title in collection
       this.designService
@@ -233,60 +236,59 @@ export class AddToBasketModalComponent implements OnInit {
         })
         .subscribe(
           (result) => {
-            console.log('Design persisted', result);
+            console.log('Design updated', result);
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
-          }
-        );
-    } else {
-      // Persist the design as a new one, and, if successful, create a transaction item for it
-      //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design)
-      this.designService
-        .createDesign({
-          designType: DesignTypeEnum.familyTree,
-          designProperties: this.design,
-          mutable: false, // the transaction-item related designs are immutable
-        })
-        .subscribe(
-          (result) => {
-            console.log('Design created and persisted', result);
-            console.log('design properties', {
-              designId: result.designId,
-              dimension: this.addToBasketForm.get('dimension').value,
-              quantity: this.addToBasketForm.get('quantity').value,
-            });
-            this.transactionItemService
-              .createTransactionItem({
-                designId: result.designId,
-                dimension: this.addToBasketForm.get('dimension').value,
-                quantity: this.addToBasketForm.get('quantity').value,
-              })
-              .subscribe(
-                (newItem: ITransactionItem) => {
-                  this.isLoading = false;
-                  console.log('added design to basket', newItem);
-                  this.toastService.showAlert('Design added to basket', 'Design er lagt i kurven', 'success', 5000);
-                  this.activeModal.close();
-                  this.modalService.open(GoToBasketModalComponent);
-                },
-                (error: HttpErrorResponse) => {
-                  console.error(error);
-                  this.toastService.showAlert(
-                    'Failed to add design to basket, please try again',
-                    'Der skete en fejl, prøv venligst igen',
-                    'danger',
-                    5000
-                  );
-                  this.isLoading = false;
-                }
-              );
-          },
-          (error: HttpErrorResponse) => {
-            console.error('Failed to save design', error);
-            this.toastService.showAlert('Failed to save your design', 'Kunne ikke gemme dit design', 'danger', 10000);
           }
         );
     }
+
+    // Add an entry for the design to the basket (transaction item). Includes creation of a immutable version of the design
+    this.designService
+      .createDesign({
+        designType: DesignTypeEnum.familyTree,
+        designProperties: this.design,
+        mutable: false, // the transaction-item related designs are immutable
+      })
+      .subscribe(
+        (result) => {
+          console.log('Design created and persisted', result);
+          console.log('design properties', {
+            designId: result.designId,
+            dimension: this.addToBasketForm.get('dimension').value,
+            quantity: this.addToBasketForm.get('quantity').value,
+          });
+          this.transactionItemService
+            .createTransactionItem({
+              designId: result.designId,
+              dimension: this.addToBasketForm.get('dimension').value,
+              quantity: this.addToBasketForm.get('quantity').value,
+            })
+            .subscribe(
+              (newItem: ITransactionItem) => {
+                this.isLoading = false;
+                console.log('added design to basket', newItem);
+                this.toastService.showAlert('Design added to basket', 'Design er lagt i kurven', 'success', 5000);
+                this.activeModal.close();
+                this.modalService.open(GoToBasketModalComponent);
+              },
+              (error: HttpErrorResponse) => {
+                console.error(error);
+                this.toastService.showAlert(
+                  'Failed to add design to basket, please try again',
+                  'Der skete en fejl, prøv venligst igen',
+                  'danger',
+                  5000
+                );
+                this.isLoading = false;
+              }
+            );
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Failed to save design', error);
+          this.toastService.showAlert('Failed to save your design', 'Kunne ikke gemme dit design', 'danger', 10000);
+        }
+      );
   }
 }
