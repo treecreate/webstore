@@ -27,11 +27,10 @@
             title="Hide/Show box options"
         >
             <img
-                #toggleBoxOptionsIcon
-                id="toggleBoxOptionsIcon"
                 class="toggle-box-options-icon"
                 [ngClass]="!isMobileOptionOpen ? '' : 'active'"
                 alt="toggle box options"
+                [src]="toggleBoxOptionsIcon"
             />
         </button>
 
@@ -246,7 +245,7 @@
                     data-cy="toggle-box-options"
                 >
                     {{ showOptionBoxButtons ? 'Hide' : 'Show' }} box options
-                    <img #toggleBoxOptionsIcon class="option-icon" alt="toggle box options" />
+                    <img class="option-icon" alt="toggle box options" [src]="toggleBoxOptionsIcon" />
                 </button>
             </div>
         </div>

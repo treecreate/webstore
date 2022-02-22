@@ -1,14 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
@@ -43,8 +34,7 @@ export class ProductComponent implements OnInit {
   @ViewChild('familyTreeDesignCanvas', { static: false })
   designCanvas: FamilyTreeDesignComponent;
 
-  @ViewChildren('toggleBoxOptionsIcon')
-  toggleBoxOptionsIcon: QueryList<ElementRef<HTMLImageElement>>;
+  toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
 
   isDesignValid = false;
   isMutable = false;
@@ -103,9 +93,6 @@ export class ProductComponent implements OnInit {
       this.modalService.open(FamilyTreeIntroModalComponent);
     }
     this.showOptionBoxButtons = true;
-    if (this.toggleBoxOptionsIcon !== undefined) {
-      this.toggleBoxOptionsIcon.forEach((icon) => (icon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible));
-    }
   }
 
   isEnglish(): boolean {
@@ -410,9 +397,9 @@ export class ProductComponent implements OnInit {
   toggleBoxOptions(): void {
     this.showOptionBoxButtons = !this.showOptionBoxButtons;
     if (this.showOptionBoxButtons) {
-      this.toggleBoxOptionsIcon.forEach((icon) => (icon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible));
+      this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
     } else {
-      this.toggleBoxOptionsIcon.forEach((icon) => (icon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsHidden));
+      this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsHidden;
     }
   }
 }
