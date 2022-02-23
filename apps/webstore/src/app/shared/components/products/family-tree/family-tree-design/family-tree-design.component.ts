@@ -40,6 +40,42 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+  // Various sizing and position variables
+  // Note - modify this variable to control option button size
+  boxOptionSize = 6;
+  // Note - modify this variable to control the curve of box size changes
+  boxSizeScalingMultiplier = 0.05;
+
+  // The max chars control how much text can be put into the draggable box
+  // It is propagated to the draggable box input element
+  smallFontMaxChars = 12;
+  maxCharsPerLine = this.smallFontMaxChars;
+  maxLines = 2;
+
+  // FPS of the render loop
+  framesPerSecond = 60;
+  // design autosave frequency, in seconds
+  autosaveFrequencyInSeconds = 30;
+
+  canvasResolution = {
+    height: 2000,
+    width: 2000,
+  };
+
+  // ---------------------------------------------------------- //
+
+  // render loop variables
+  timeInterval;
+  autosaveInterval;
+  frameChanged = true;
+
+  // alert for failed load of the design etc
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
+  };
+
   // Inputs for design settings
 
   @Input()
@@ -78,11 +114,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   public context: CanvasRenderingContext2D;
 
-  canvasResolution = {
-    height: 2000,
-    width: 2000,
-  };
-
   myBoxes: IDraggableBox[] = [];
   mouseCords = {
     x: 0,
@@ -95,14 +126,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     y: 0,
   };
   downEventDelay = false;
-
-  // render loop
-  timeInterval;
-  framesPerSecond = 60; // FPS of the render loop
-  // autosaving of the design
-  autosaveFrequencyInSeconds = 30;
-  autosaveInterval;
-  frameChanged = true;
 
   // SVGs
 
@@ -119,30 +142,22 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     new Map<Tree2BoxDesignEnum, HTMLImageElement>(),
     new Map<Tree3BoxDesignEnum, HTMLImageElement>()
   );
-  boxSizeScalingMultiplier = 0.05;
+
+  closeButton = new Image();
+  dragButton = new Image();
+
+  // dimensions etc of various design elements. Control with variables at the top of the component
   boxDimensions = {
     height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
     width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
   };
-  closeButton = new Image();
-  dragButton = new Image();
-  // If the height doesn't equal the width, the button will not be a cricle and click detection logic will break!
+
+  // placeholder dimensions. Get calculated after the canvas is initialized (depend on canvasScaleToBounds)
   optionButtonDimensions = {
-    height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
-    width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
+    height: 0,
+    width: 0,
   };
-
-  // The max chars control how much text can be put into the draggable box
-  // It is propagated to the draggable box input element
-  smallFontMaxChars = 12;
-  maxCharsPerLine = this.smallFontMaxChars;
-  maxLines = 2;
-
-  alert: {
-    type: 'success' | 'info' | 'warning' | 'danger';
-    message: string;
-    dismissible: boolean;
-  };
+  canvasScaleToBounds: { scaleX: number; scaleY: number };
 
   @Input()
   showOptionBoxButtons = true;
