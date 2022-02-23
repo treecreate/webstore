@@ -27,6 +27,9 @@ export class DraggableBoxComponent {
   };
 
   @Input()
+  optionButtonOffset: { dragX: number; dragY: number; closeX: number; closeY: number };
+
+  @Input()
   x: number;
 
   @Input()

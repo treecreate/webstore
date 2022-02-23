@@ -40,9 +40,13 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+  @Input()
+  boxSize = 20;
+
   // Various sizing and position variables
   // Note - modify this variable to control option button size
   boxOptionSize = 10;
+  boxRawSize = 1;
   // Note - modify this variable to control the curve of box size changes
   boxSizeScalingMultiplier = 0.05;
 
@@ -62,6 +66,26 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     width: 2000,
   };
 
+  bannerDimensions = {
+    height: this.canvasResolution.height / 8,
+    width: this.canvasResolution.width / 2,
+  };
+  // dimensions etc of various design elements. Control with variables at the top of the component
+  // NOTE - each change needs to be replicated in ngOnChanges method
+  boxDimensions = {
+    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+  };
+
+  // controls position of option buttons around the draggable box
+  // NOTE - each change needs to be replicated in ngOnChanges method
+  optionButtonOffset = {
+    dragX: this.boxDimensions.width,
+    dragY: this.boxDimensions.height * 0.55,
+    closeX: this.boxDimensions.width,
+    closeY: this.boxDimensions.height * 0.15,
+  };
+
   // ---------------------------------------------------------- //
 
   // render loop variables
@@ -77,9 +101,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   };
 
   // Inputs for design settings
-
-  @Input()
-  boxSize = 20;
 
   @Input()
   showBanner: boolean;
@@ -131,10 +152,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   treeDesigns: Map<TreeDesignEnum, HTMLImageElement> = new Map();
   bannerDesigns: Map<BannerDesignEnum, HTMLImageElement> = new Map();
-  bannerDimensions = {
-    height: this.canvasResolution.height / 8,
-    width: this.canvasResolution.width / 2,
-  };
+
   treeBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[] = new Array<
     Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>
   >(
@@ -145,12 +163,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   closeButton = new Image();
   dragButton = new Image();
-
-  // dimensions etc of various design elements. Control with variables at the top of the component
-  boxDimensions = {
-    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
-    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
-  };
 
   // placeholder dimensions. Get calculated after the canvas is initialized (depend on canvasScaleToBounds)
   optionButtonDimensions = {
@@ -329,6 +341,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     draggableBoxRef.instance.boxOptionDimensions = {
       height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
       width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
+    };
+    draggableBoxRef.instance.optionButtonOffset = {
+      dragX: this.optionButtonOffset.dragX / this.canvasScaleToBounds.scaleX,
+      dragY: this.optionButtonOffset.dragY / this.canvasScaleToBounds.scaleY,
+      closeX: this.optionButtonOffset.closeX / this.canvasScaleToBounds.scaleX,
+      closeY: this.optionButtonOffset.closeY / this.canvasScaleToBounds.scaleY,
     };
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
@@ -511,8 +529,16 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   ngOnChanges(changes: SimpleChanges) {
     if (changes.boxSize !== undefined) {
       this.boxDimensions = {
-        height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
-        width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
+        height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+        width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+      };
+
+      // controls position of option buttons around the draggable box
+      this.optionButtonOffset = {
+        dragX: this.boxDimensions.width,
+        dragY: this.boxDimensions.height * 0.55,
+        closeX: this.boxDimensions.width,
+        closeY: this.boxDimensions.height * 0.15,
       };
     }
 
@@ -562,8 +588,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.familyTreeDesignService.isWithinBoxCloseOption(
             this.mouseCords,
             { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
-            this.boxDimensions,
-            this.optionButtonDimensions
+            this.optionButtonDimensions,
+            this.optionButtonOffset
           )
         ) {
           // remove the box and the input component
@@ -581,8 +607,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.familyTreeDesignService.isWithinBoxDragOption(
             this.mouseCords,
             { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
-            this.boxDimensions,
-            this.optionButtonDimensions
+            this.optionButtonDimensions,
+            this.optionButtonOffset
           )
         ) {
           // remove the box and the input component

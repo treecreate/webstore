@@ -198,13 +198,13 @@ export class FamilyTreeDesignService {
   isWithinBoxCloseOption(
     pointCords: { x: number; y: number },
     boxCord: { x: number; y: number },
-    boxDimensions: { width: number; height: number },
-    optionButtonDimensions: { width: number; height: number }
+    optionButtonDimensions: { width: number; height: number },
+    optionButtonOffset: { dragX: number; dragY: number; closeX: number; closeY: number }
   ): boolean {
     const radius = optionButtonDimensions.width / 2;
     // get where the circle started drawing
-    const drawingX = boxCord.x + boxDimensions.width;
-    const drawingY = boxCord.y + boxDimensions.height * 0.15;
+    const drawingX = boxCord.x + optionButtonOffset.closeX;
+    const drawingY = boxCord.y + optionButtonOffset.closeY;
     // get where the center of the drawn circle is
     const centerX = drawingX + optionButtonDimensions.width / 2;
     const centerY = drawingY + optionButtonDimensions.height / 2;
@@ -223,13 +223,13 @@ export class FamilyTreeDesignService {
   isWithinBoxDragOption(
     pointCords: { x: number; y: number },
     boxCord: { x: number; y: number },
-    boxDimensions: { width: number; height: number },
-    optionButtonDimensions: { width: number; height: number }
+    optionButtonDimensions: { width: number; height: number },
+    optionButtonOffset: { dragX: number; dragY: number; closeX: number; closeY: number }
   ): boolean {
     const radius = optionButtonDimensions.width / 2;
     // get where the circle started drawing
-    const drawingX = boxCord.x + boxDimensions.width;
-    const drawingY = boxCord.y + boxDimensions.height * 0.55;
+    const drawingX = boxCord.x + optionButtonOffset.dragX;
+    const drawingY = boxCord.y + optionButtonOffset.dragY;
     // get where the center of the drawn circle is
     const centerX = drawingX + optionButtonDimensions.width / 2;
     const centerY = drawingY + optionButtonDimensions.height / 2;

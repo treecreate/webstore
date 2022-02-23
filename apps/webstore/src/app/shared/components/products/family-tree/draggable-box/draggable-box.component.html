@@ -19,8 +19,8 @@
 />
 <img
     [ngStyle]="{
-        top: y + height * 0.15 + 'px',
-        left: x + width + 'px',
+        top: y + optionButtonOffset.closeY + 'px',
+        left: x + optionButtonOffset.closeX + 'px',
         width: boxOptionDimensions.width + 'px',
         height: boxOptionDimensions.height + 'px'
     }"
@@ -30,8 +30,8 @@
 />
 <img
     [ngStyle]="{
-        top: y + height * 0.55 + 'px',
-        left: x + width + 'px',
+        top: y + optionButtonOffset.dragY + 'px',
+        left: x + optionButtonOffset.dragX + 'px',
         width: boxOptionDimensions.width + 'px',
         height: boxOptionDimensions.height + 'px'
     }"
