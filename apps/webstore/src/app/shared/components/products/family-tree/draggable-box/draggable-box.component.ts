@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { BoxOptionsDesignEnum } from '@assets';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
@@ -15,6 +16,9 @@ export class DraggableBoxComponent {
 
   @ViewChild('draggableBoxInput')
   input: ElementRef;
+
+  @Input()
+  backgroundImageUri: string;
 
   @Input()
   x: number;
@@ -59,6 +63,8 @@ export class DraggableBoxComponent {
   newTextValue = new EventEmitter<string>();
 
   fontSize = 1;
+
+  boxOptionsDesignEnum = BoxOptionsDesignEnum;
 
   // get locale to determine what language to display the toast in
   public locale$: BehaviorSubject<LocaleType>;

@@ -302,6 +302,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.updateBoxRefText();
       this.frameChanged = true;
     });
+    draggableBoxRef.instance.backgroundImageUri = this.familyTreeDesignService.getUriFromBoxDesign(
+      this.backgroundTreeDesign,
+      newBox.boxDesign
+    );
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
     draggableBoxRef.instance.boxSize = this.boxSize;
@@ -356,17 +360,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       // render the boxes
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
-        this.context.drawImage(
-          this.familyTreeDesignService.getImageElementFromBoxDesign(
-            this.backgroundTreeDesign,
-            box.boxDesign,
-            this.treeBoxDesigns
-          ),
-          box.x,
-          box.y,
-          this.boxDimensions.width,
-          this.boxDimensions.height
-        );
         const cords = this.familyTreeDesignService.getRealCords(this.foregroundCanvas.nativeElement, {
           x: box.x,
           y: box.y,
@@ -382,31 +375,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.myBoxes[i].inputRef.instance.zIndex = i;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
           this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
-          // draw the close button for the box
-          if (this.showOptionBoxButtons) {
-            this.context.drawImage(
-              this.closeButton,
-              this.myBoxes[i].x - this.optionButtonDimensions.width / 4,
-              this.myBoxes[i].y - this.optionButtonDimensions.height / 4,
-              this.optionButtonDimensions.width,
-              this.optionButtonDimensions.height
-            );
-            // draw the drag button for the box
-            this.context.drawImage(
-              this.dragButton,
-              this.myBoxes[i].x + this.boxDimensions.width - this.optionButtonDimensions.width / 2,
-              this.myBoxes[i].y - this.optionButtonDimensions.height / 4,
-              this.optionButtonDimensions.width,
-              this.optionButtonDimensions.height
-            );
-          }
-          this.familyTreeDesignService.drawTextInDraggableBox(
-            this.context,
-            this.boxSize,
-            this.font,
-            this.myBoxes[i],
-            this.boxDimensions
-          );
         }
       }
       this.frameChanged = false;

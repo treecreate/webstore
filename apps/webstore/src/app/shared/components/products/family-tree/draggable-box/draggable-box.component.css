@@ -3,18 +3,26 @@
   border: none;
   background: transparent;
   text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  z-index: 1;
 }
 
 .draggable-box-input:hover {
   cursor: pointer;
 }
 
-.draggable-box-input:focus {
-  background: rgba(182, 102, 33, 0.04);
-}
-
 .draggable-box-input::placeholder {
   font-size: small;
   position: relative;
   top: -5px;
+}
+
+.drag-button-icon,
+.close-button-icon {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: fill;
+  z-index: 2;
 }

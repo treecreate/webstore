@@ -7,13 +7,32 @@
     class="draggable-box-input"
     (ngModelChange)="onInputChange($event)"
     [ngStyle]="{
+        'background-image': 'url(' + backgroundImageUri + ')',
         top: y - 2 + 'px',
         left: x + 'px',
         'z-index': zIndex,
-        'max-width': width * 0.8 + 'px',
-        'max-height': height * 0.6 + 'px',
-        margin: height * 0.3 + 'px ' + width * 0.12 + 'px',
+        width: width + 'px',
+        height: height + 'px',
         'font-size': fontSize + 'rem'
     }"
     [maxlength]="maxCharsPerLine * maxLines"
 />
+<img
+    [ngStyle]="{
+        top: y + height * 0.15 + 'px',
+        left: x + width + 'px'
+    }"
+    class="close-button-icon"
+    src="{{ boxOptionsDesignEnum.closeButton1 }}"
+    alt="Remove"
+/>
+<img
+    [ngStyle]="{
+        top: y + height * 0.55 + 'px',
+        left: x + width + 'px'
+    }"
+    class="drag-button-icon"
+    src="{{ boxOptionsDesignEnum.dragButton1 }}"
+    alt="Drag"
+/>
+<!-- + width * -0.3 + 'px' + height * 0.3 + 'px' + width * 0.3 + 'px' -->

@@ -169,6 +169,26 @@ export class FamilyTreeDesignService {
   }
 
   /**
+   * Based on the specified tree design, return a correct box design URI,
+   * @param treeDesign which tree design to base the box on
+   * @param boxDesign which box design to use (index, not source uri)
+   * @returns appriopriate uri of the given design
+   */
+  getUriFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): string {
+    switch (treeDesign) {
+      case TreeDesignEnum.tree1: {
+        return Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]];
+      }
+      case TreeDesignEnum.tree2: {
+        return Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]];
+      }
+      case TreeDesignEnum.tree3: {
+        return Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]];
+      }
+    }
+  }
+
+  /**
    * Returns whether or not the given coordinates are within Close the box option. The icon is assumed to be a circle.
    * @param pointCords point (for example, mouse click) coordinates x and y.
    * @param boxCord starting coordinates of the draggable box. Aka top-left corner x and y values.
