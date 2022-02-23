@@ -46,9 +46,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   boxSize = 20;
 
   @Input()
-  title: string;
-
-  @Input()
   showBanner: boolean;
 
   @Input()
@@ -506,7 +503,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     });
 
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, {
-      title: this.title,
       font: this.font,
       backgroundTreeDesign: this.backgroundTreeDesign,
       boxSize: this.boxSize,

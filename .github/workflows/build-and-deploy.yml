@@ -38,7 +38,7 @@ jobs:
 
       - name: Docker-compose build
         shell: bash
-        run: docker-compose -f .deploy/docker-compose.build.yml --profile ${PROFILE} build
+        run: docker-compose -f .deploy/docker-compose.build.yml --profile ${PROFILE} build --no-cache
 
       - name: Docker-compose push
         shell: bash

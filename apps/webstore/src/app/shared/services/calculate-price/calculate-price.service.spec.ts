@@ -36,7 +36,6 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          title: 'first design',
           font: FamilyTreeFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
@@ -56,7 +55,6 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          title: 'second design',
           font: FamilyTreeFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree2,
           boxSize: 10,
@@ -76,7 +74,6 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          title: 'third design',
           font: FamilyTreeFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
@@ -111,7 +108,6 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          title: 'second design',
           font: FamilyTreeFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
@@ -131,7 +127,6 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          title: 'third design',
           font: FamilyTreeFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree2,
           boxSize: 10,

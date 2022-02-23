@@ -61,7 +61,6 @@ const mockBanner: IFamilyTreeBanner = {
 const mockDesign: IDesign = {
   designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
   designProperties: {
-    title: 'title1',
     font: FamilyTreeFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
@@ -75,7 +74,6 @@ const mockDesign: IDesign = {
 const mockDesign2: IDesign = {
   designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
   designProperties: {
-    title: 'title2',
     font: FamilyTreeFontEnum.georgia,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 20,
@@ -207,7 +205,6 @@ describe('ordersPage', () => {
         cy.get('[data-cy=order-item-design-item]')
           .first()
           .within(() => {
-            cy.get('[data-cy=order-item-design-item-title]').should('contain', 'title1');
             cy.get('[data-cy=order-item-design-item-amount]').should('contain', '2');
           });
       });

@@ -1,14 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
@@ -43,13 +34,11 @@ export class ProductComponent implements OnInit {
   @ViewChild('familyTreeDesignCanvas', { static: false })
   designCanvas: FamilyTreeDesignComponent;
 
-  @ViewChildren('toggleBoxOptionsIcon')
-  toggleBoxOptionsIcon: QueryList<ElementRef<HTMLImageElement>>;
+  toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
 
   isDesignValid = false;
   isMutable = false;
   isMobileOptionOpen = false;
-  designTitle = '';
   showSuggestion = true;
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
@@ -104,9 +93,6 @@ export class ProductComponent implements OnInit {
       this.modalService.open(FamilyTreeIntroModalComponent);
     }
     this.showOptionBoxButtons = true;
-    if (this.toggleBoxOptionsIcon !== undefined) {
-      this.toggleBoxOptionsIcon.forEach((icon) => (icon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible));
-    }
   }
 
   isEnglish(): boolean {
@@ -128,13 +114,11 @@ export class ProductComponent implements OnInit {
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       // apply the design
       if (this.design !== null && this.design !== undefined) {
-        this.designTitle = this.design.title;
         this.font = this.design.font;
         this.banner = this.design.banner;
         this.boxSize = this.design.boxSize;
       } else {
         // set the defaults
-        this.designTitle = 'Mit Design';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 40;
@@ -163,7 +147,6 @@ export class ProductComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
-    this.designTitle = this.design.title;
     this.font = this.design.font;
     this.banner = this.design.banner;
     this.boxSize = this.design.boxSize;
@@ -183,7 +166,6 @@ export class ProductComponent implements OnInit {
         } else {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
           // apply the design
-          this.designTitle = this.design.title;
           this.backgroundTreeDesign = this.design.backgroundTreeDesign;
           this.font = this.design.font;
           this.banner = this.design.banner;
@@ -375,10 +357,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  onKey(event) {
-    this.designTitle = event.target.value;
-  }
-
   updateBannerText($event) {
     this.banner.text = $event.target.value;
   }
@@ -419,9 +397,9 @@ export class ProductComponent implements OnInit {
   toggleBoxOptions(): void {
     this.showOptionBoxButtons = !this.showOptionBoxButtons;
     if (this.showOptionBoxButtons) {
-      this.toggleBoxOptionsIcon.forEach((icon) => (icon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsVisible));
+      this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
     } else {
-      this.toggleBoxOptionsIcon.forEach((icon) => (icon.nativeElement.src = BoxOptionsDesignEnum.boxOptionsHidden));
+      this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsHidden;
     }
   }
 }
