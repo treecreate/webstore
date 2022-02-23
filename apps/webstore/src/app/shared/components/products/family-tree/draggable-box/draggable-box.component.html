@@ -20,7 +20,9 @@
 <img
     [ngStyle]="{
         top: y + height * 0.15 + 'px',
-        left: x + width + 'px'
+        left: x + width + 'px',
+        width: boxOptionDimensions.width + 'px',
+        height: boxOptionDimensions.height + 'px'
     }"
     class="close-button-icon"
     src="{{ boxOptionsDesignEnum.closeButton1 }}"
@@ -29,7 +31,9 @@
 <img
     [ngStyle]="{
         top: y + height * 0.55 + 'px',
-        left: x + width + 'px'
+        left: x + width + 'px',
+        width: boxOptionDimensions.width + 'px',
+        height: boxOptionDimensions.height + 'px'
     }"
     class="drag-button-icon"
     src="{{ boxOptionsDesignEnum.dragButton1 }}"

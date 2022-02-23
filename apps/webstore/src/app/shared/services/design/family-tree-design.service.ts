@@ -198,12 +198,13 @@ export class FamilyTreeDesignService {
   isWithinBoxCloseOption(
     pointCords: { x: number; y: number },
     boxCord: { x: number; y: number },
+    boxDimensions: { width: number; height: number },
     optionButtonDimensions: { width: number; height: number }
   ): boolean {
     const radius = optionButtonDimensions.width / 2;
     // get where the circle started drawing
-    const drawingX = boxCord.x - optionButtonDimensions.width / 4;
-    const drawingY = boxCord.y - optionButtonDimensions.height / 4;
+    const drawingX = boxCord.x + boxDimensions.width;
+    const drawingY = boxCord.y + boxDimensions.height * 0.15;
     // get where the center of the drawn circle is
     const centerX = drawingX + optionButtonDimensions.width / 2;
     const centerY = drawingY + optionButtonDimensions.height / 2;
@@ -227,8 +228,8 @@ export class FamilyTreeDesignService {
   ): boolean {
     const radius = optionButtonDimensions.width / 2;
     // get where the circle started drawing
-    const drawingX = boxCord.x + boxDimensions.width - optionButtonDimensions.width / 2;
-    const drawingY = boxCord.y - optionButtonDimensions.height / 4;
+    const drawingX = boxCord.x + boxDimensions.width;
+    const drawingY = boxCord.y + boxDimensions.height * 0.55;
     // get where the center of the drawn circle is
     const centerX = drawingX + optionButtonDimensions.width / 2;
     const centerY = drawingY + optionButtonDimensions.height / 2;

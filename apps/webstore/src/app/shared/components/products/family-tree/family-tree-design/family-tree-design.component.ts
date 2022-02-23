@@ -42,7 +42,7 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
   // Various sizing and position variables
   // Note - modify this variable to control option button size
-  boxOptionSize = 6;
+  boxOptionSize = 10;
   // Note - modify this variable to control the curve of box size changes
   boxSizeScalingMultiplier = 0.05;
 
@@ -254,7 +254,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     this.foregroundCanvas.nativeElement.width = this.canvasResolution.width;
     this.foregroundCanvas.nativeElement.height = this.canvasResolution.height;
     this.context = this.foregroundCanvas.nativeElement.getContext('2d');
-
+    this.canvasScaleToBounds = this.familyTreeDesignService.getCanvasScale(this.foregroundCanvas.nativeElement);
+    this.optionButtonDimensions = {
+      height: (this.canvasResolution.height / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
+      width: (this.canvasResolution.width / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
+    };
     // run the render loop
     clearInterval(this.timeInterval);
 
@@ -321,6 +325,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.backgroundTreeDesign,
       newBox.boxDesign
     );
+
+    draggableBoxRef.instance.boxOptionDimensions = {
+      height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
+      width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
+    };
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
     draggableBoxRef.instance.boxSize = this.boxSize;
@@ -381,12 +390,15 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         });
         // Update position of the input field to match the box
         if (this.myBoxes[i].inputRef !== undefined) {
-          const scale = this.familyTreeDesignService.getCanvasScale(this.foregroundCanvas.nativeElement);
           this.myBoxes[i].inputRef.instance.x = cords.x;
           this.myBoxes[i].inputRef.instance.y = cords.y;
           // set the input dimensions, accounting for the scale between canvas and document
-          this.myBoxes[i].inputRef.instance.width = Math.floor(this.boxDimensions.width / scale.scaleX);
-          this.myBoxes[i].inputRef.instance.height = Math.floor(this.boxDimensions.height / scale.scaleY);
+          this.myBoxes[i].inputRef.instance.width = Math.floor(
+            this.boxDimensions.width / this.canvasScaleToBounds.scaleX
+          );
+          this.myBoxes[i].inputRef.instance.height = Math.floor(
+            this.boxDimensions.height / this.canvasScaleToBounds.scaleY
+          );
           this.myBoxes[i].inputRef.instance.zIndex = i;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
           this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
@@ -502,11 +514,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
         width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
       };
-
-      this.optionButtonDimensions = {
-        height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
-        width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
-      };
     }
 
     if (changes.backgroundTreeDesign !== undefined) {
@@ -555,6 +562,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.familyTreeDesignService.isWithinBoxCloseOption(
             this.mouseCords,
             { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
+            this.boxDimensions,
             this.optionButtonDimensions
           )
         ) {

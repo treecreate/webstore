@@ -21,6 +21,12 @@ export class DraggableBoxComponent {
   backgroundImageUri: string;
 
   @Input()
+  boxOptionDimensions: {
+    width: number;
+    height: number;
+  };
+
+  @Input()
   x: number;
 
   @Input()
