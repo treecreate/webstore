@@ -369,6 +369,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         this.foregroundCanvas.nativeElement.width,
         this.foregroundCanvas.nativeElement.height
       );
+      // recalculate the scale (screen size change etc)
+      this.canvasScaleToBounds = this.familyTreeDesignService.getCanvasScale(this.foregroundCanvas.nativeElement);
 
       // render the banner
       if (
@@ -410,13 +412,24 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         if (this.myBoxes[i].inputRef !== undefined) {
           this.myBoxes[i].inputRef.instance.x = cords.x;
           this.myBoxes[i].inputRef.instance.y = cords.y;
-          // set the input dimensions, accounting for the scale between canvas and document
+          // set the input and option button dimensions, accounting for the scale between canvas and document
+          // needs to occur on each frame in case of screen size changing
           this.myBoxes[i].inputRef.instance.width = Math.floor(
             this.boxDimensions.width / this.canvasScaleToBounds.scaleX
           );
           this.myBoxes[i].inputRef.instance.height = Math.floor(
             this.boxDimensions.height / this.canvasScaleToBounds.scaleY
           );
+          this.myBoxes[i].inputRef.instance.boxOptionDimensions = {
+            height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
+            width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
+          };
+          this.myBoxes[i].inputRef.instance.optionButtonOffset = {
+            dragX: this.optionButtonOffset.dragX / this.canvasScaleToBounds.scaleX,
+            dragY: this.optionButtonOffset.dragY / this.canvasScaleToBounds.scaleY,
+            closeX: this.optionButtonOffset.closeX / this.canvasScaleToBounds.scaleX,
+            closeY: this.optionButtonOffset.closeY / this.canvasScaleToBounds.scaleY,
+          };
           this.myBoxes[i].inputRef.instance.zIndex = i;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
           this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
