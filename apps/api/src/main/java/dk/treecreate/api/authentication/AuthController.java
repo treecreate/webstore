@@ -111,8 +111,7 @@ public class AuthController
 
         try
         {
-            mailService.sendSignupEmail(user.getEmail(), user.getToken(),
-                localeService.getLocale(null));
+            mailService.sendSignupEmail(user.getEmail(), localeService.getLocale(null));
         } catch (Exception e)
         {
             LOGGER.error("Failed to process a verification email", e);

@@ -96,7 +96,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         Mockito.doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(anyString(), any(UUID.class), any(Locale.class));
+            .sendSignupEmail(anyString(), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isInternalServerError());
@@ -144,7 +144,7 @@ class MailControllerTest
         Mockito.when(mailService.isValidEmail(email)).thenReturn(true);
         Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
         doThrow(UnsupportedEncodingException.class).when(mailService)
-            .sendSignupEmail(anyString(), any(UUID.class), any(Locale.class));
+            .sendSignupEmail(anyString(), any(Locale.class));
 
         mvc.perform(post("/mail/signup").content(TestUtilsService.asJsonString(params))
                 .contentType(MediaType.APPLICATION_JSON))

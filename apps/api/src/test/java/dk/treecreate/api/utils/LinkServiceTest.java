@@ -138,18 +138,6 @@ public class LinkServiceTest
     }
 
     @ParameterizedTest
-    @MethodSource("generateVerificationLinkArguments")
-    @DisplayName("generateVerificationLink() returns a correctly structured verification link")
-    void generateVerificationLink(UUID token, Locale locale, Environment environment,
-                                  String expectedUrl)
-    {
-        Mockito.when(customProperties.getEnvironment()).thenReturn(environment);
-
-        assertEquals(linkService.generateVerificationLink(token, locale),
-            expectedUrl);
-    }
-
-    @ParameterizedTest
     @MethodSource("generateResetPasswordLinkArguments")
     @DisplayName("generateResetPasswordLink() returns a correctly structured reset password link")
     void generateResetPasswordLink(UUID token, Locale locale, Environment environment,
