@@ -1,21 +1,30 @@
 <!-- NOTE: the top/left thing is broken since it doesn't scale -->
-<input
+<textarea
     #draggableBoxInput
-    type="input"
     placeholder="{{ isEnglish() ? 'Write name...' : 'Skriv navn...' }}"
-    [ngModel]="text"
     class="draggable-box-input"
     (ngModelChange)="onInputChange($event)"
     [ngStyle]="{
-        'background-image': 'url(' + backgroundImageUri + ')',
+        top: y + (height - calculateInputHeight()) / 2 + 'px',
+        left: x + (width - calculateInputWidth()) / 2 + 'px',
+        'z-index': zIndex + 1,
+        width: calculateInputWidth() + 'px',
+        height: calculateInputHeight() + 'px',
+        'font-size': fontSize * 0.8 + 'rem'
+    }"
+    [maxLength]="maxLines * maxCharsPerLine"
+    [ngModel]="text"
+></textarea>
+<img
+    class="draggable-box-input"
+    src="{{ backgroundImageUri }}"
+    [ngStyle]="{
         top: y - 2 + 'px',
         left: x + 'px',
         'z-index': zIndex,
         width: width + 'px',
-        height: height + 'px',
-        'font-size': fontSize + 'rem'
+        height: height + 'px'
     }"
-    [maxlength]="maxCharsPerLine * maxLines"
 />
 <img
     [ngStyle]="{

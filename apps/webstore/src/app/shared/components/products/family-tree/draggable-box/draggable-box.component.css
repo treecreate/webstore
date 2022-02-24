@@ -6,7 +6,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
-  z-index: 1;
+  line-height: 95%;
+  overflow: hidden;
+  resize: none;
+  z-index: 2;
 }
 
 .draggable-box-input:hover {
@@ -14,9 +17,7 @@
 }
 
 .draggable-box-input::placeholder {
-  font-size: small;
   position: relative;
-  top: -5px;
 }
 
 .drag-button-icon,
@@ -24,5 +25,5 @@
   position: absolute;
   background-repeat: no-repeat;
   background-size: fill;
-  z-index: 2;
+  z-index: 1;
 }

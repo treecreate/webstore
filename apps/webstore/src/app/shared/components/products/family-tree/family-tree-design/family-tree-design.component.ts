@@ -361,6 +361,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   // Draw the entire canvas with the boxes etc
+  @HostListener('window:resize', ['$event'])
   draw() {
     try {
       this.context.clearRect(
@@ -641,9 +642,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.mouseCords.y < box.y + this.boxDimensions.height
         ) {
           this.bringBoxToFront(i);
-          // prevent registration of screen dragging to ensure the background doesn't move on mobile
-          event.preventDefault();
-
           // skip checking the other boxes
           return;
         }

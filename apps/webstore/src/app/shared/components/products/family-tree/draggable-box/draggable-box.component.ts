@@ -10,10 +10,6 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./draggable-box.component.css'],
 })
 export class DraggableBoxComponent {
-  // NOTE: The purpose of this component is to provide a way to easily track user inputs.
-  // The text written in the input here is not actually displayed on the page
-  // The input box size still has to scale well so the mouse is caught properly
-
   @ViewChild('draggableBoxInput')
   input: ElementRef;
 
@@ -25,6 +21,8 @@ export class DraggableBoxComponent {
     width: number;
     height: number;
   };
+
+  textWidthCalculationCanvas;
 
   @Input()
   optionButtonOffset: { dragX: number; dragY: number; closeX: number; closeY: number };
@@ -123,6 +121,68 @@ export class DraggableBoxComponent {
   public set boxSize(boxSize: number) {
     this._boxSize = boxSize;
     // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-    this.fontSize = 0.0545 * this.boxSize + 0.05;
+    this.fontSize = 0.05 * this.boxSize + 0.05;
+  }
+
+  /**
+   * Get screen width of the text input element, in pixels.
+   * @returns screen width of the text input element, in pixels.
+   */
+  public calculateInputWidth(): number {
+    return this.width * 0.7;
+  }
+
+  /**
+   * Get screen height of the text input element, in pixels. Depends on amount of text in the input.
+   * @returns screen height of the text input element, in pixels
+   */
+  public calculateInputHeight(): number {
+    if (this.getTextWidth(this.text, this.getCanvasFontSize()) > 120) {
+      return this.height * 0.5;
+    } else {
+      return this.height * 0.3;
+    }
+  }
+
+  /**
+   * Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
+   *
+   * @param {String} text The text to be rendered.
+   * @param {String} font The css font descriptor that text is to be rendered with (e.g. "bold 14px verdana").
+   *
+   * @see https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
+   */
+  private getTextWidth(text: string, font: string): number {
+    // re-use canvas object for better performance
+    if (this.textWidthCalculationCanvas === undefined) {
+      this.textWidthCalculationCanvas = document.createElement('canvas');
+    }
+    const context = this.textWidthCalculationCanvas.getContext('2d');
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  /**
+   * Get css properties of the given html element.
+   * @param element html element, for example canvas.
+   * @param prop name of a css property to get values from.
+   * @returns
+   */
+  private getCssStyle(element: HTMLElement, prop: string): string {
+    return window.getComputedStyle(element, null).getPropertyValue(prop);
+  }
+
+  /**
+   * Get font information of the given html element.
+   * @param el html element, optional. Defaults to document.body.
+   * @returns font information formatted as a css font string `${fontWeight} ${fontSize} ${fontFamily}`
+   */
+  private getCanvasFontSize(el = document.body): string {
+    const fontWeight = this.getCssStyle(el, 'font-weight') || 'normal';
+    const fontSize = this.getCssStyle(el, 'font-size') || '16px';
+    const fontFamily = this.getCssStyle(el, 'font-family') || 'Times New Roman';
+
+    return `${fontWeight} ${fontSize} ${fontFamily}`;
   }
 }
