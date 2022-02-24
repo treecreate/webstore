@@ -42,10 +42,27 @@ export class AuthService {
    * @param params user credentials
    * @returns observable of the API request
    */
-  register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
+   register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
     return this.http.post<IRegisterResponse>(
       `${env.apiUrl}/auth/signup`,
+      {
+        email,
+        password,
+      },
+      httpOptions
+    );
+  }
+
+  /**
+   * Perform a signup/registration request to the API
+   * @param params user credentials
+   * @returns observable of the API request
+   */
+   registerOnOrder(params: IRegisterRequestParams): Observable<IRegisterResponse> {
+    const { email, password } = params;
+    return this.http.post<IRegisterResponse>(
+      `${env.apiUrl}/auth/signup?sendPasswordEmail=true`,
       {
         email,
         password,

@@ -47,6 +47,17 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
     }
 
+    public void sendSignupEmailOnOrder(String to, UUID token, Locale locale)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(locale);
+        context.setVariable("email", to);
+        context.setVariable("resetPasswordLink",
+            linkService.generateResetPasswordLink(token, locale));
+        String subject = "Welcome to Treecreate";
+        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUPONORDER);
+    }
+
     public void sendResetPasswordEmail(String to, UUID token, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
