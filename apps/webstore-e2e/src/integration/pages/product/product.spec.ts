@@ -5,7 +5,6 @@ import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();
 const mockDesign = {
-  title: 'title',
   font: FamilyTreeFontEnum.roboto,
   backgroundTreeDesign: TreeDesignEnum.tree1,
   boxSize: 20,

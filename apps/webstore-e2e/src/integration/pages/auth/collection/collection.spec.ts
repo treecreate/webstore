@@ -42,7 +42,6 @@ describe('CollectionPage', () => {
   const mockDesign1: IDesign = {
     designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title1',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
@@ -56,7 +55,6 @@ describe('CollectionPage', () => {
   const mockDesign2: IDesign = {
     designId: 'c0a121-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title2',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
@@ -70,7 +68,6 @@ describe('CollectionPage', () => {
   const mockDesign3: IDesign = {
     designId: 'c0a1-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title3',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
@@ -84,7 +81,6 @@ describe('CollectionPage', () => {
   const mockDesign4: IDesign = {
     designId: 'c0a1-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title3',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
@@ -186,9 +182,6 @@ describe('CollectionPage', () => {
       .first()
       .within(() => {
         cy.get('[data-cy=family-tree-collection-item-add-to-basket-button]').click();
-      })
-      .then(() => {
-        cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'title1');
       });
   });
 

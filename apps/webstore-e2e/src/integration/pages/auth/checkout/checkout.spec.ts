@@ -55,7 +55,6 @@ const mockBanner: IFamilyTreeBanner = {
 const mockDesign: IDesign = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   designProperties: {
-    title: 'title1',
     font: FamilyTreeFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
@@ -121,12 +120,6 @@ describe('logged in user functionality', () => {
 
   it('should load the transactionItems correctly', () => {
     cy.get('[data-cy=checkout-item]').should('have.length', 3);
-    cy.get('[data-cy=checkout-item]')
-      .first()
-      .within(() => {
-        cy.get('[data-cy=checkout-item-title]').should('not.contain', 'title2');
-        cy.get('[data-cy=checkout-item-title]').should('contain', 'title1');
-      });
   });
 
   it('should have the correct pricing', () => {
@@ -219,12 +212,6 @@ describe('CheckoutPage', () => {
 
     it('should display items from localstorage correctly', () => {
       cy.get('[data-cy=checkout-item]').should('have.length', 2);
-      cy.get('[data-cy=checkout-item]')
-        .first()
-        .within(() => {
-          cy.get('[data-cy=checkout-item-title]').should('not.contain', 'title2');
-          cy.get('[data-cy=checkout-item-title]').should('contain', 'title1');
-        });
     });
     it('should have go to payment button disabled when terms are not accepted', () => {
       cy.get('[data-cy=checkout-form-terms-checkbox]').should('not.be.checked');
