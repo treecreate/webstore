@@ -256,9 +256,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   getDesignViewOnlyUrl(id: string): string {
-    // return `${env.webstoreUrl}/product?designId=${id}`;
-    // Only works on production
-    return `https://treecreate.dk/en-US/product?designId=${id}`;
+    return `${env.webstoreUrl}/product?designId=${id}`;
   }
 
   /**
