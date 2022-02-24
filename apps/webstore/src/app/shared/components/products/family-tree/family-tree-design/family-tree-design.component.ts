@@ -337,7 +337,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.backgroundTreeDesign,
       newBox.boxDesign
     );
-
+    draggableBoxRef.instance.boxSize = this.boxSize;
+    draggableBoxRef.instance.width = Math.floor(this.boxDimensions.width / this.canvasScaleToBounds.scaleX);
+    draggableBoxRef.instance.height = Math.floor(this.boxDimensions.height / this.canvasScaleToBounds.scaleY);
     draggableBoxRef.instance.boxOptionDimensions = {
       height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
       width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
@@ -350,7 +352,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     };
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
-    draggableBoxRef.instance.boxSize = this.boxSize;
     draggableBoxRef.instance.maxCharsPerLine = this.maxCharsPerLine;
     // set the reference to the draggable box component instance
     newBox.inputRef = draggableBoxRef;
@@ -405,35 +406,16 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       // render the boxes
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
+        // Update position of the input field to match the box
         const cords = this.familyTreeDesignService.getRealCords(this.foregroundCanvas.nativeElement, {
           x: box.x,
           y: box.y,
         });
-        // Update position of the input field to match the box
         if (this.myBoxes[i].inputRef !== undefined) {
           this.myBoxes[i].inputRef.instance.x = cords.x;
           this.myBoxes[i].inputRef.instance.y = cords.y;
-          // set the input and option button dimensions, accounting for the scale between canvas and document
-          // needs to occur on each frame in case of screen size changing
-          this.myBoxes[i].inputRef.instance.width = Math.floor(
-            this.boxDimensions.width / this.canvasScaleToBounds.scaleX
-          );
-          this.myBoxes[i].inputRef.instance.height = Math.floor(
-            this.boxDimensions.height / this.canvasScaleToBounds.scaleY
-          );
-          this.myBoxes[i].inputRef.instance.boxOptionDimensions = {
-            height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
-            width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
-          };
-          this.myBoxes[i].inputRef.instance.optionButtonOffset = {
-            dragX: this.optionButtonOffset.dragX / this.canvasScaleToBounds.scaleX,
-            dragY: this.optionButtonOffset.dragY / this.canvasScaleToBounds.scaleY,
-            closeX: this.optionButtonOffset.closeX / this.canvasScaleToBounds.scaleX,
-            closeY: this.optionButtonOffset.closeY / this.canvasScaleToBounds.scaleY,
-          };
           this.myBoxes[i].inputRef.instance.zIndex = i;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
-          this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
         }
       }
       this.frameChanged = false;
@@ -554,6 +536,29 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         closeX: this.boxDimensions.width,
         closeY: this.boxDimensions.height * 0.15,
       };
+
+      // update all of the boxes with new sizing information
+      for (let i = 0; i < this.myBoxes.length; i++) {
+        // set the input and option button dimensions, accounting for the scale between canvas and document
+        // needs to occur on each frame in case of screen size changing
+        this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
+        this.myBoxes[i].inputRef.instance.width = Math.floor(
+          this.boxDimensions.width / this.canvasScaleToBounds.scaleX
+        );
+        this.myBoxes[i].inputRef.instance.height = Math.floor(
+          this.boxDimensions.height / this.canvasScaleToBounds.scaleY
+        );
+        this.myBoxes[i].inputRef.instance.boxOptionDimensions = {
+          height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
+          width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
+        };
+        this.myBoxes[i].inputRef.instance.optionButtonOffset = {
+          dragX: this.optionButtonOffset.dragX / this.canvasScaleToBounds.scaleX,
+          dragY: this.optionButtonOffset.dragY / this.canvasScaleToBounds.scaleY,
+          closeX: this.optionButtonOffset.closeX / this.canvasScaleToBounds.scaleX,
+          closeY: this.optionButtonOffset.closeY / this.canvasScaleToBounds.scaleY,
+        };
+      }
     }
 
     if (changes.backgroundTreeDesign !== undefined) {
