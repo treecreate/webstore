@@ -1,4 +1,13 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { BoxOptionsDesignEnum } from '@assets';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -9,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './draggable-box.component.html',
   styleUrls: ['./draggable-box.component.css'],
 })
-export class DraggableBoxComponent {
+export class DraggableBoxComponent implements AfterViewInit {
   @ViewChild('draggableBoxInput')
   input: ElementRef;
 
@@ -54,6 +63,13 @@ export class DraggableBoxComponent {
   @Input()
   maxLines = 2;
 
+  // NOTE - magic number. Represents how "wide" given text is based on the font. Used to figure out when text becomes more than one line
+  maxWidthOfText = 160;
+  singleLineInputHeight = 0.3;
+  multiLineInputHeight = 0.5;
+
+  textareaHeight = 0;
+
   private _boxSize;
 
   @Output()
@@ -79,6 +95,13 @@ export class DraggableBoxComponent {
   constructor(private localStorageService: LocalStorageService) {
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
+  }
+
+  /**
+   * Adjust input height to match its contents.
+   */
+  ngAfterViewInit() {
+    setTimeout(() => (this.textareaHeight = this.input.nativeElement.scrollHeight), 100);
   }
 
   isEnglish() {
@@ -110,18 +133,39 @@ export class DraggableBoxComponent {
     this.touchendEvent.emit($event);
   }
 
-  onInputChange($event) {
+  /**
+   * Adjusts input height and propagates the text change to any listener (family tree design listener)
+   * @param $event
+   */
+  onInputChange($event): void {
+    this.adjustInputHeight();
     this.text = $event;
     this.newTextValue.emit($event);
+  }
+
+  /**
+   * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
+   */
+  adjustInputHeight(): void {
+    if (this.input !== undefined && this.input.nativeElement !== undefined) {
+      this.input.nativeElement.style.height = '0px';
+      this.textareaHeight = this.input.nativeElement.scrollHeight;
+      this.input.nativeElement.style.height = this.textareaHeight + 'px';
+    }
   }
 
   public get boxSize() {
     return this._boxSize;
   }
+
+  /**
+   * Update the box size property and reclaulcate the font size and input height.
+   */
   public set boxSize(boxSize: number) {
     this._boxSize = boxSize;
     // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-    this.fontSize = 0.05 * this.boxSize + 0.05;
+    this.fontSize = 0.045 * this.boxSize + 0.05;
+    this.adjustInputHeight();
   }
 
   /**
@@ -130,59 +174,5 @@ export class DraggableBoxComponent {
    */
   public calculateInputWidth(): number {
     return this.width * 0.7;
-  }
-
-  /**
-   * Get screen height of the text input element, in pixels. Depends on amount of text in the input.
-   * @returns screen height of the text input element, in pixels
-   */
-  public calculateInputHeight(): number {
-    if (this.getTextWidth(this.text, this.getCanvasFontSize()) > 120) {
-      return this.height * 0.5;
-    } else {
-      return this.height * 0.3;
-    }
-  }
-
-  /**
-   * Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
-   *
-   * @param {String} text The text to be rendered.
-   * @param {String} font The css font descriptor that text is to be rendered with (e.g. "bold 14px verdana").
-   *
-   * @see https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
-   */
-  private getTextWidth(text: string, font: string): number {
-    // re-use canvas object for better performance
-    if (this.textWidthCalculationCanvas === undefined) {
-      this.textWidthCalculationCanvas = document.createElement('canvas');
-    }
-    const context = this.textWidthCalculationCanvas.getContext('2d');
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-
-  /**
-   * Get css properties of the given html element.
-   * @param element html element, for example canvas.
-   * @param prop name of a css property to get values from.
-   * @returns
-   */
-  private getCssStyle(element: HTMLElement, prop: string): string {
-    return window.getComputedStyle(element, null).getPropertyValue(prop);
-  }
-
-  /**
-   * Get font information of the given html element.
-   * @param el html element, optional. Defaults to document.body.
-   * @returns font information formatted as a css font string `${fontWeight} ${fontSize} ${fontFamily}`
-   */
-  private getCanvasFontSize(el = document.body): string {
-    const fontWeight = this.getCssStyle(el, 'font-weight') || 'normal';
-    const fontSize = this.getCssStyle(el, 'font-size') || '16px';
-    const fontFamily = this.getCssStyle(el, 'font-family') || 'Times New Roman';
-
-    return `${fontWeight} ${fontSize} ${fontFamily}`;
   }
 }

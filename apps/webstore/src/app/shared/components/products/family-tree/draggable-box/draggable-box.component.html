@@ -7,11 +7,11 @@
     (keyup.enter)="$event.preventDefault()"
     (ngModelChange)="onInputChange($event)"
     [ngStyle]="{
-        top: y + (height - calculateInputHeight()) / 2 + 'px',
+        top: y + (height - textareaHeight) / 2 + 'px',
         left: x + (width - calculateInputWidth()) / 2 + 'px',
         'z-index': zIndex + 1,
         width: calculateInputWidth() + 'px',
-        height: calculateInputHeight() + 'px',
+        height: textareaHeight + 'px',
         'font-size': fontSize * 0.8 + 'rem'
     }"
     [maxLength]="maxLines * maxCharsPerLine"
