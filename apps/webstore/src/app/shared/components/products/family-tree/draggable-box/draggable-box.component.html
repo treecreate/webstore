@@ -3,6 +3,8 @@
     #draggableBoxInput
     placeholder="{{ isEnglish() ? 'Write name...' : 'Skriv navn...' }}"
     class="draggable-box-input"
+    (keydown.enter)="$event.preventDefault()"
+    (keyup.enter)="$event.preventDefault()"
     (ngModelChange)="onInputChange($event)"
     [ngStyle]="{
         top: y + (height - calculateInputHeight()) / 2 + 'px',
