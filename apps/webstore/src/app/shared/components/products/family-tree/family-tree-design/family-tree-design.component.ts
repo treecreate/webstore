@@ -573,6 +573,14 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
     }
 
+    if (changes.font !== undefined) {
+      setTimeout(() => {
+        for (let i = 0; i < this.myBoxes.length; i++) {
+          this.myBoxes[i].inputRef.instance.adjustInputHeight();
+        }
+      }, 50);
+    }
+
     if (changes.showOptionBoxButtons !== undefined) {
       for (let i = 0; i < this.myBoxes.length; i++) {
         this.myBoxes[i].inputRef.instance.showOptionButtons = changes.showOptionBoxButtons.currentValue;
