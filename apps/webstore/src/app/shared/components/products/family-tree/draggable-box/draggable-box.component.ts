@@ -34,6 +34,12 @@ export class DraggableBoxComponent implements AfterViewInit {
   textWidthCalculationCanvas;
 
   @Input()
+  isMutable = false;
+
+  @Input()
+  showOptionButtons = false;
+
+  @Input()
   optionButtonOffset: { dragX: number; dragY: number; closeX: number; closeY: number };
 
   @Input()

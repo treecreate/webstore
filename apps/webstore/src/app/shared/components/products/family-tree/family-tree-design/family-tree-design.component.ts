@@ -103,6 +103,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // Inputs for design settings
 
   @Input()
+  isMutable = false;
+
+  @Input()
   showBanner: boolean;
 
   @Input()
@@ -353,6 +356,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     draggableBoxRef.instance.text = newBox.text;
     draggableBoxRef.instance.zIndex = this.myBoxes.length;
     draggableBoxRef.instance.maxCharsPerLine = this.maxCharsPerLine;
+    draggableBoxRef.instance.isMutable = this.isMutable;
+    draggableBoxRef.instance.showOptionButtons = this.showOptionBoxButtons;
     // set the reference to the draggable box component instance
     newBox.inputRef = draggableBoxRef;
     this.cdr.detectChanges();
@@ -490,6 +495,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   saveDesign() {
+    if (!this.isMutable) {
+      return;
+    }
     console.log('Saving your design...');
     if (!this.isDesignValid || this.timeInterval === null || this.timeInterval === undefined) {
       console.warn('The design is not valid, and thus it cannot get saved!');
@@ -565,6 +573,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
     }
 
+    if (changes.showOptionBoxButtons !== undefined) {
+      for (let i = 0; i < this.myBoxes.length; i++) {
+        this.myBoxes[i].inputRef.instance.showOptionButtons = changes.showOptionBoxButtons.currentValue;
+      }
+    }
+
     this.frameChanged = true;
     this.cdr.detectChanges();
   }
@@ -586,6 +600,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   mouseDownHandler(event) {
+    if (!this.isMutable) {
+      return;
+    }
     try {
       event = event || window.event;
       // if the mouse down/touchdown event got triggered, don't allow any new down events for 100ms
@@ -689,6 +706,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // the mousemove event is not available as a angular attribute so it has to be declared explicitly
   @HostListener('document:mousemove', ['$event'])
   mouseMoveHandler(event) {
+    if (!this.isMutable) {
+      return;
+    }
     try {
       event = event || window.event;
       this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
@@ -711,6 +731,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   mouseUpHandler(event) {
+    if (!this.isMutable) {
+      return;
+    }
     try {
       event = event || window.event;
       this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);

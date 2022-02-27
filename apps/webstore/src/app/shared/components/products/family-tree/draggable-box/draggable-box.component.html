@@ -16,6 +16,7 @@
     }"
     [maxLength]="maxLines * maxCharsPerLine"
     [ngModel]="text"
+    [disabled]="!isMutable"
 ></textarea>
 <img
     class="draggable-box-input"
@@ -29,6 +30,7 @@
     }"
 />
 <img
+    *ngIf="isMutable && showOptionButtons"
     [ngStyle]="{
         top: y + optionButtonOffset.closeY + 'px',
         left: x + optionButtonOffset.closeX + 'px',
@@ -40,6 +42,7 @@
     alt="Remove"
 />
 <img
+    *ngIf="isMutable && showOptionButtons"
     [ngStyle]="{
         top: y + optionButtonOffset.dragY + 'px',
         left: x + optionButtonOffset.dragX + 'px',

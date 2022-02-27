@@ -172,9 +172,7 @@ export class ProductComponent implements OnInit {
           this.boxSize = this.design.boxSize;
           this.isMutable = result.mutable;
           this.cdr.detectChanges();
-          if (this.isMutable) {
-            this.designCanvas.loadDesign();
-          }
+          this.designCanvas.loadDesign();
         }
       },
       (err: HttpErrorResponse) => {
