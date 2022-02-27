@@ -245,7 +245,7 @@ export class CheckoutComponent implements OnInit {
         .registerOnOrder({
           email: this.checkoutForm.get('email').value,
           password: passwordGen,
-         })
+        })
         .toPromise();
 
       // set the new user logged in data

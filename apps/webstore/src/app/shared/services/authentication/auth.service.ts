@@ -42,7 +42,7 @@ export class AuthService {
    * @param params user credentials
    * @returns observable of the API request
    */
-   register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
+  register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
     return this.http.post<IRegisterResponse>(
       `${env.apiUrl}/auth/signup`,
@@ -59,7 +59,7 @@ export class AuthService {
    * @param params user credentials
    * @returns observable of the API request
    */
-   registerOnOrder(params: IRegisterRequestParams): Observable<IRegisterResponse> {
+  registerOnOrder(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
     return this.http.post<IRegisterResponse>(
       `${env.apiUrl}/auth/signup?sendPasswordEmail=true`,
