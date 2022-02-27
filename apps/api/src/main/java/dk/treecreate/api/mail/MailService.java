@@ -58,12 +58,12 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP_ON_ORDER);
     }
 
-    public void sendNewsletterDiscountEmail(String to, Locale locale, String newsletterId)
+    public void sendNewsletterDiscountEmail(String to, Locale locale, String unsubscribeNewsletterUrl)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("newsletterId", newsletterId);
+        context.setVariable("unsubscribeNewsletterUrl", unsubscribeNewsletterUrl);
         String subject = locale.getLanguage().equals("dk") ? "Her er din rabatkode - Team Treecreate!" : "Here's your discount - Team Treecreate!";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT);
     }
