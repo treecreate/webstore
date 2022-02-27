@@ -2,7 +2,9 @@ package dk.treecreate.api.newsletter;
 
 import dk.treecreate.api.TestUtilsService;
 import dk.treecreate.api.authentication.services.AuthUserService;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.user.User;
+import dk.treecreate.api.utils.LinkService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,11 +18,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,6 +33,10 @@ class NewsletterControllerTests
 
     @MockBean
     AuthUserService authUserService;
+    @MockBean
+    MailService mailService;
+    @MockBean
+    LinkService linkService;
     @Autowired
     private MockMvc mvc;
     @MockBean
@@ -172,8 +176,9 @@ class NewsletterControllerTests
 
             Mockito.when(newsletterRepository.existsByEmail(newsletter.getEmail()))
                 .thenReturn(false);
-            Mockito.when(newsletterRepository.save(newsletter))
-                .thenReturn((newsletter));
+            Mockito.doNothing().when(mailService).sendNewsletterDiscountEmail(any(), any(), any());
+            Mockito.when(linkService.generateNewsletterUnsubscribeLink(any(), any())).thenReturn("dk");
+            Mockito.when(newsletterRepository.save(any())).thenReturn(newsletter);
 
             mvc.perform(post("/newsletter/" + newsletter.getEmail()))
                 .andExpect(status().isOk());
