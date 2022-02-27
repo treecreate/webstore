@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -96,7 +97,10 @@ public class NewsletterController
         @ApiResponse(code = 400, message = "Duplicate newsletter")})
     public Newsletter createNewsletter(
         @ApiParam(name = "email", example = "example@hotdeals.dev")
-        @PathVariable String email)
+        @PathVariable String email, @Parameter(name = "lang",
+        description = "Language of the email. Defaults to danish (dk)." +
+            "\nValid values: 'en', 'dk'", example = "en") @RequestParam(required = false)
+        String lang)
         throws MessagingException, UnsupportedEncodingException
     {
         if (newsletterRepository.existsByEmail(email))
@@ -113,11 +117,10 @@ public class NewsletterController
         String unsubscribeNewsletterUrl = linkService.generateNewsletterUnsubscribeLink(returnStatement.getNewsletterId(), localeService.getLocale(null));
 
         // Send intro letter with discount
-        // TODO: possibly set this with info from the users locale settings
-        mailService.sendNewsletterDiscountEmail(email, localeService.getLocale(null), unsubscribeNewsletterUrl);
+        mailService.sendNewsletterDiscountEmail(email, localeService.getLocale(lang), unsubscribeNewsletterUrl);
         Sentry.captureMessage("Newsletter signup discount email sent to: " + email);
 
-        return returnStatement;
+        return newsletterRepository.save(newsletter);
     }
 
     @DeleteMapping("{newsletterId}")
