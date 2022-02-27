@@ -10,14 +10,21 @@
   overflow: hidden;
   resize: none;
   z-index: 2;
+  outline: none;
+  border: none;
 }
 
 .draggable-box-input:hover {
   cursor: pointer;
+  box-shadow: none;
 }
 
 .draggable-box-input::placeholder {
   position: relative;
+}
+
+.draggable-box-input:disabled {
+  opacity: 1;
 }
 
 .drag-button-icon,
