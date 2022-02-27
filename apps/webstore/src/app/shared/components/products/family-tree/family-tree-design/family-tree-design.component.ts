@@ -106,6 +106,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   isMutable = false;
 
   @Input()
+  design: IFamilyTree = null;
+
+  @Input()
   showBanner: boolean;
 
   @Input()
@@ -463,25 +466,30 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       });
       this.myBoxes = [];
       // load the design from local storage
-      const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
-        LocalStorageVars.designFamilyTree
-      ).value;
+      let design: IFamilyTree = null;
+      if (this.isMutable) {
+        design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+      } else {
+        design = this.design;
+      }
       // Load the design
       if (design === null || design === undefined) {
-        // Setup default boxes if there is no saved design
-        console.log('There was no saved design, generating a clean slate');
-        this.createBox(
-          this.canvasResolution.width / 7,
-          this.canvasResolution.height / 2.5,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
-          'Dig'
-        );
-        this.createBox(
-          this.canvasResolution.width / 2,
-          this.canvasResolution.height / 2.5,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
-          'Partner'
-        );
+        // Setup default boxes if there is no saved design and it is not an immutable miniature etc
+        if (this.isMutable) {
+          console.log('There was no saved design, generating a clean slate');
+          this.createBox(
+            this.canvasResolution.width / 7,
+            this.canvasResolution.height / 2.5,
+            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
+            'Dig'
+          );
+          this.createBox(
+            this.canvasResolution.width / 2,
+            this.canvasResolution.height / 2.5,
+            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
+            'Partner'
+          );
+        }
       } else {
         // Setup boxes based on the loaded design
         this.showBanner = design.banner === null;
