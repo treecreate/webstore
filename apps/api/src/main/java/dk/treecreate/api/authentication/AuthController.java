@@ -121,7 +121,7 @@ public class AuthController
             }
         } catch (Exception e)
         {
-            LOGGER.error("Failed to process a verification email", e);
+            LOGGER.error("Failed to process a signup email", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to send the email. Try again later");
         }

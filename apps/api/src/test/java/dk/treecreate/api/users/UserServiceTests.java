@@ -6,7 +6,6 @@ import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.user.UserService;
 import dk.treecreate.api.user.dto.UpdateUserRequest;
-import dk.treecreate.api.utils.LocaleService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
-import java.util.Locale;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,11 +31,9 @@ class UserServiceTests
     UserRepository userRepository;
     @MockBean
     MailService mailService;
-    @MockBean
-    private LocaleService localeService;
 
     @Test
-    void updatesUserCorrectly() throws MessagingException, UnsupportedEncodingException
+    void updatesUserCorrectly()
     {
         User user = new User();
         User baseUser = new User();
@@ -86,7 +82,6 @@ class UserServiceTests
 
     @Test
     void updatesUserCorrectlyWithNullValuesPresent()
-        throws MessagingException, UnsupportedEncodingException
     {
         User user = new User();
         User baseUser = new User();
@@ -153,7 +148,6 @@ class UserServiceTests
 
     @Test
     void updatesUserCorrectlyIfEmailMatchesUserEmail()
-        throws MessagingException, UnsupportedEncodingException
     {
         User baseUser = new User();
         User user = new User();
@@ -171,63 +165,6 @@ class UserServiceTests
         user.setUsername(user.getEmail());
 
         Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(true);
-
-        assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
-    }
-
-    @Test
-    void changeUserVerificationStatusWhenEmailGetsUpdated()
-        throws MessagingException, UnsupportedEncodingException
-    {
-        User baseUser = new User();
-        User user = new User();
-        var updateUserRequest = new UpdateUserRequest();
-        baseUser.setUserId(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234"));
-        baseUser.setToken(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1235"));
-        baseUser.setEmail("base@hotdeals.dev");
-        baseUser.setUsername(baseUser.getEmail());
-        baseUser.setIsVerified(true);
-        updateUserRequest.setEmail("new@hotdeals.dev");
-        user.setUserId(baseUser.getUserId());
-        user.setToken(baseUser.getToken());
-        user.setPassword("");
-        user.setEmail("new@hotdeals.dev");
-        user.setUsername(user.getEmail());
-        user.setIsVerified(false);
-
-        Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
-        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
-        Mockito.doNothing().when(mailService)
-            .sendVerificationEmail(user.getEmail(), user.getToken(), new Locale("dk"));
-
-        assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
-    }
-
-
-    @Test
-    void dontChangeUserVerificationStatusWhenEmailIsTheSame()
-        throws MessagingException, UnsupportedEncodingException
-    {
-        User baseUser = new User();
-        User user = new User();
-        var updateUserRequest = new UpdateUserRequest();
-        baseUser.setUserId(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1234"));
-        baseUser.setToken(UUID.fromString("c0a80121-7adb-10c0-817a-dbc2f0ec1235"));
-        baseUser.setEmail("base@hotdeals.dev");
-        baseUser.setUsername(baseUser.getEmail());
-        baseUser.setIsVerified(true);
-        updateUserRequest.setEmail("base@hotdeals.dev");
-        user.setUserId(baseUser.getUserId());
-        user.setToken(baseUser.getToken());
-        user.setPassword("");
-        user.setEmail("base@hotdeals.dev");
-        user.setUsername(user.getEmail());
-        user.setIsVerified(true);
-
-        Mockito.when(userRepository.existsByEmail(updateUserRequest.getEmail())).thenReturn(false);
-        Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
-        Mockito.doNothing().when(mailService)
-            .sendVerificationEmail(user.getEmail(), user.getToken(), new Locale("dk"));
 
         assertEquals(user, userService.updateUser(updateUserRequest, baseUser));
     }

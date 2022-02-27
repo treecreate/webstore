@@ -64,23 +64,6 @@ public class LinkServiceTest
                 "https://api.treecreate.dk/paymentCallback"));
     }
 
-    private static Stream<Arguments> generateVerificationLinkArguments()
-    {
-        return Stream.of(
-            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.DEVELOPMENT,
-                "http://localhost:4200/verification/00000000-0000-0000-0000-000000000000"),
-            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.STAGING,
-                "https://testing.treecreate.dk/en-US/verification/00000000-0000-0000-0000-000000000000"),
-            Arguments.of(new UUID(0, 0), Locale.ENGLISH, Environment.PRODUCTION,
-                "https://treecreate.dk/en-US/verification/00000000-0000-0000-0000-000000000000"),
-            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.DEVELOPMENT,
-                "http://localhost:4200/verification/00000000-0000-0000-0000-000000000000"),
-            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.STAGING,
-                "https://testing.treecreate.dk/dk/verification/00000000-0000-0000-0000-000000000000"),
-            Arguments.of(new UUID(0, 0), new Locale("dk"), Environment.PRODUCTION,
-                "https://treecreate.dk/dk/verification/00000000-0000-0000-0000-000000000000"));
-    }
-
     private static Stream<Arguments> generateResetPasswordLinkArguments()
     {
         return Stream.of(

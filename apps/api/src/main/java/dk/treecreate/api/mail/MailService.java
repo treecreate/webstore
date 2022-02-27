@@ -79,15 +79,6 @@ public class MailService
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
     }
 
-    public void sendVerificationEmail(String to, UUID token, Locale locale)
-        throws UnsupportedEncodingException, MessagingException
-    {
-        Context context = new Context(locale);
-        context.setVariable("email", to);
-        String subject = "Treecreate - verify email";
-        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
-    }
-
     public void sendOrderConfirmationEmail(String to, Order order)
         throws UnsupportedEncodingException, MessagingException
     {

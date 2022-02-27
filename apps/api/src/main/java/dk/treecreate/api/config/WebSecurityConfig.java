@@ -68,7 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .antMatchers("/auth/refresh").authenticated()
             .antMatchers("/auth/logout").authenticated()
             .antMatchers("/auth/**").permitAll()
-            .antMatchers("/users/verification/{token}").permitAll()
             .antMatchers("/users/resetPassword/{email}").permitAll()
             .antMatchers("/users/updatePassword").permitAll()
             .antMatchers("/paymentCallback").permitAll()
