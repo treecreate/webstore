@@ -4,10 +4,11 @@ package dk.treecreate.api.mail;
 public enum MailTemplate
 {
     SIGNUP("signup"),
-    SIGNUPONORDER("signup-on-order"),
+    SIGNUP_ON_ORDER("signup-on-order"),
     RESET_PASSWORD("reset-password"),
     VERIFY_EMAIL("verify-email"),
-    ORDER_CONFIRMATION("order-confirmation");
+    ORDER_CONFIRMATION("order-confirmation"),
+    NEWSLETTER_DISCOUNT("newsletter-discount");
 
     public final String label;
 
