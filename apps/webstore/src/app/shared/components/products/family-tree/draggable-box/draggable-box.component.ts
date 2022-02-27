@@ -58,7 +58,7 @@ export class DraggableBoxComponent implements AfterViewInit {
   height: number;
 
   @Input()
-  font: string;
+  fontSize: number;
 
   @Input()
   text: string;
@@ -90,8 +90,6 @@ export class DraggableBoxComponent implements AfterViewInit {
   touchendEvent = new EventEmitter();
   @Output()
   newTextValue = new EventEmitter<string>();
-
-  fontSize = 1;
 
   boxOptionsDesignEnum = BoxOptionsDesignEnum;
 
@@ -169,8 +167,6 @@ export class DraggableBoxComponent implements AfterViewInit {
    */
   public set boxSize(boxSize: number) {
     this._boxSize = boxSize;
-    // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-    this.fontSize = 0.045 * this.boxSize + 0.05;
     this.adjustInputHeight();
   }
 

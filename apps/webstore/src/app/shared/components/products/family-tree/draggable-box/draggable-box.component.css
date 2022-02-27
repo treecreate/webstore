@@ -25,6 +25,7 @@
 
 .draggable-box-input:disabled {
   opacity: 1;
+  color: black;
 }
 
 .drag-button-icon,
