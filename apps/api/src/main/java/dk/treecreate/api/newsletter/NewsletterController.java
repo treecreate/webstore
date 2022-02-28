@@ -2,20 +2,31 @@ package dk.treecreate.api.newsletter;
 
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.newsletter.dto.GetNewslettersResponse;
+import dk.treecreate.api.utils.LinkService;
+import dk.treecreate.api.utils.LocaleService;
 import io.sentry.Sentry;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +40,12 @@ public class NewsletterController
     NewsletterRepository newsletterRepository;
     @Autowired
     AuthUserService authUserService;
+    @Autowired
+    MailService mailService;
+    @Autowired
+    LinkService linkService;
+    @Autowired
+    private LocaleService localeService;
 
     @GetMapping()
     @Operation(summary = "Get all newsletters")
@@ -80,7 +97,11 @@ public class NewsletterController
         @ApiResponse(code = 400, message = "Duplicate newsletter")})
     public Newsletter createNewsletter(
         @ApiParam(name = "email", example = "example@hotdeals.dev")
-        @PathVariable String email)
+        @PathVariable String email, @Parameter(name = "lang",
+        description = "Language of the email. Defaults to danish (dk)." +
+            "\nValid values: 'en', 'dk'", example = "en") @RequestParam(required = false)
+        String lang)
+        throws MessagingException, UnsupportedEncodingException
     {
         if (newsletterRepository.existsByEmail(email))
         {
@@ -91,6 +112,14 @@ public class NewsletterController
         newsletter.setEmail(email);
         Sentry.setExtra("email", newsletter.getEmail());
         Sentry.captureMessage("New newsletter entry");
+
+        Newsletter returnStatement = newsletterRepository.save(newsletter);
+        String unsubscribeNewsletterUrl = linkService.generateNewsletterUnsubscribeLink(returnStatement.getNewsletterId(), localeService.getLocale(null));
+
+        // Send intro letter with discount
+        mailService.sendNewsletterDiscountEmail(email, localeService.getLocale(lang), unsubscribeNewsletterUrl);
+        Sentry.captureMessage("Newsletter signup discount email sent to: " + email);
+
         return newsletterRepository.save(newsletter);
     }
 
@@ -104,7 +133,6 @@ public class NewsletterController
         @ApiParam(name = "Newsletter ID", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
         @Valid @PathVariable UUID newsletterId)
     {
-
         Newsletter newsletter = newsletterRepository.findByNewsletterId(newsletterId)
             .orElseThrow(() -> new ResourceNotFoundException("Newsletter not found"));
         Sentry.setExtra("newsletterId", newsletter.getNewsletterId().toString());

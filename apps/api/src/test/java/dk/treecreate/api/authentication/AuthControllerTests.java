@@ -192,7 +192,7 @@ class AuthControllerTests
                 java.util.Optional.of(new Role(ERole.ROLE_USER)));
             Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
             Mockito.doNothing().when(mailService)
-                .sendSignupEmail(user.getEmail(), user.getToken(), new Locale("dk"));
+                .sendSignupEmail(user.getEmail(), new Locale("dk"));
 
             mvc.perform(post("/auth/signup")
                     .contentType(MediaType.APPLICATION_JSON)
