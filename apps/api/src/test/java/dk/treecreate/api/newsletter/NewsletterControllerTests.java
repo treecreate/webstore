@@ -184,7 +184,6 @@ class NewsletterControllerTests
                 .andExpect(status().isOk());
         }
 
-
         @Test
         @DisplayName("POST /newsletter/:email retuns 400: Bad Request on duplicate email entry")
         void createNewsletterReturnsBadRequestOnDuplicate() throws Exception
