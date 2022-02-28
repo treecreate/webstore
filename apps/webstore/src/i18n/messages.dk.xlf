@@ -886,8 +886,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="signup-for-newsletter-subtitle" datatype="html">
-        <source>Sign up for newsletter and get 10% off your first purchase!</source>
-        <target>Tilmeld dig nyhedsbrevet og få 10% rabat på dit første køb!</target> 
+        <source>Sign up for newsletter and get 20% off your first purchase!</source>
+        <target>Tilmeld dig nyhedsbrevet og få 20% rabat på dit første køb!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
           <context context-type="linenumber">121,122</context>
@@ -1022,16 +1022,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home-02-text" datatype="html">
-        <source>get 10% discount and have a chance to win a family tree!</source>
-        <target>Få 10% rabat og vær med i lodtrækningen om at vinde et stamtræ!</target> 
+        <source>get 20% discount and have a chance to win a family tree!</source>
+        <target>Få 20% rabat og vær med i lodtrækningen om at vinde et stamtræ!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">31,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delivery-4-7" datatype="html">
-        <source>4-7 days delivery</source>
-        <target>4-7 dages lev.</target> 
+        <source>avg. 7 days delivery</source>
+        <target>gen. 7 dages lev.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">21</context>
@@ -1390,8 +1390,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subscribe-to-newsletter-subtitle" datatype="html">
-        <source>Get 10% off your first purchase.</source>
-        <target>Få 10% rabat på dit første køb. </target> 
+        <source>Get 20% off your first purchase.</source>
+        <target>Få 20% rabat på dit første køb. </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">101,102</context>

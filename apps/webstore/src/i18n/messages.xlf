@@ -766,7 +766,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="signup-for-newsletter-subtitle" datatype="html">
-        <source> Sign up for newsletter and get 10% off your first purchase! </source>
+        <source> Sign up for newsletter and get 20% off your first purchase! </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
           <context context-type="linenumber">122,124</context>
@@ -843,7 +843,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="delivery-4-7" datatype="html">
-        <source> 4-7 days delivery</source>
+        <source> avg. 7 days delivery</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">20</context>
@@ -899,7 +899,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="home-02-text" datatype="html">
-        <source> Get 10% discount and a chance to win a family tree! </source>
+        <source> Get 20% discount and a chance to win a family tree! </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">67,69</context>
@@ -1112,7 +1112,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subscribe-to-newsletter-subtitle" datatype="html">
-        <source>Get 10% off your first purchase.</source>
+        <source>Get 20% off your first purchase.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">65</context>

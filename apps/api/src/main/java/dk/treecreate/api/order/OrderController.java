@@ -132,7 +132,6 @@ public class OrderController
         // Get the language
         Locale language = localeService.getLocale(lang);
 
-        // check if the user is verified
         var userDetails = authUserService.getCurrentlyAuthenticatedUser();
         User user = userRepository.findByEmail(userDetails.getUsername())
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
