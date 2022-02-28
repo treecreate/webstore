@@ -49,7 +49,7 @@
         <div class="row-container">
             <mat-form-field class="input" appearance="fill">
                 <mat-label class="input-label">Discount type</mat-label>
-                <select matNativeControl required>
+                <select matNativeControl required formControlName="type" data-cy="discount-type-select">
                     <option value="PERCENT">Percent</option>
                     <option value="AMOUNT">Amount</option>
                 </select>

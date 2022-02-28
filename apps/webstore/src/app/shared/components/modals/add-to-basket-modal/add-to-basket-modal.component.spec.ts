@@ -33,7 +33,6 @@ describe('AddToBasketModalComponent', () => {
     component.addToBasketForm.setValue({
       dimension: DesignDimensionEnum.small,
       quantity: 1,
-      title: '',
     });
     expect(component.addToBasketForm.get('dimension').value).toEqual(DesignDimensionEnum.small);
     const increaseDimension = fixture.debugElement.query(By.css('#increase-dimension-btn'));
@@ -70,7 +69,6 @@ describe('AddToBasketModalComponent', () => {
     component.addToBasketForm.setValue({
       dimension: DesignDimensionEnum.small,
       quantity: 3,
-      title: '',
     });
     expect(component.addToBasketForm.get('quantity').value).toEqual(3);
     component.decreaseQuantity();

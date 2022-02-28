@@ -25,7 +25,6 @@ public class UserService
     private LocaleService localeService;
 
     public User updateUser(UpdateUserRequest updateUserRequest, User user)
-        throws MessagingException, UnsupportedEncodingException
     {
         if (updateUserRequest.getEmail() != null &&
             !updateUserRequest.getEmail().equals(user.getEmail()))
@@ -37,7 +36,6 @@ public class UserService
             }
             user.setEmail(updateUserRequest.getEmail());
             user.setUsername(updateUserRequest.getEmail());
-            triggerNewAccountVerification(user);
         }
         if (updateUserRequest.getPassword() != null)
             user.setPassword(authUserService.encodePassword(updateUserRequest.getPassword()));
@@ -55,16 +53,6 @@ public class UserService
             user.setCountry(updateUserRequest.getCountry());
         if (updateUserRequest.getPostcode() != null)
             user.setPostcode(updateUserRequest.getPostcode());
-        return user;
-    }
-
-    private User triggerNewAccountVerification(User user)
-        throws MessagingException, UnsupportedEncodingException
-    {
-        System.out.println("Setting to false");
-        user.setIsVerified(false);
-        mailService.sendVerificationEmail(user.getEmail(), user.getToken(),
-            localeService.getLocale(null));
         return user;
     }
 }

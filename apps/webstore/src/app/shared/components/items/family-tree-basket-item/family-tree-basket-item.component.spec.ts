@@ -36,7 +36,6 @@ describe('BasketItemComponent', () => {
       design: {
         designId: '1',
         designProperties: {
-          title: 'Mock 1',
           font: FamilyTreeFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,

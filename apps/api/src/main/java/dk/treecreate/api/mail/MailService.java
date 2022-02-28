@@ -38,15 +38,34 @@ public class MailService
         this.orderMailSender = orderMailSender;
     }
 
-    public void sendSignupEmail(String to, UUID token, Locale locale)
+    public void sendSignupEmail(String to, Locale locale)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        context.setVariable("verificationLink",
-            linkService.generateVerificationLink(token, locale));
-        String subject = "Welcome to Treecreate";
+        String subject = locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
+    }
+
+    public void sendSignupEmailOnOrder(String to, UUID token, Locale locale)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(locale);
+        context.setVariable("email", to);
+        context.setVariable("resetPasswordLink",
+            linkService.generateResetPasswordLink(token, locale));
+        String subject = locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP_ON_ORDER);
+    }
+
+    public void sendNewsletterDiscountEmail(String to, Locale locale, String unsubscribeNewsletterUrl)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(locale);
+        context.setVariable("email", to);
+        context.setVariable("unsubscribeNewsletterUrl", unsubscribeNewsletterUrl);
+        String subject = locale.getLanguage().equals("dk") ? "Her er din rabatkode - Team Treecreate!" : "Here's your discount - Team Treecreate!";
+        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT);
     }
 
     public void sendResetPasswordEmail(String to, UUID token, Locale locale)
@@ -56,19 +75,8 @@ public class MailService
         context.setVariable("email", to);
         context.setVariable("resetPasswordLink",
             linkService.generateResetPasswordLink(token, locale));
-        String subject = "Reset password";
+        String subject = locale.getLanguage().equals("dk") ? "Skift kodeord" : "Reset password";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
-    }
-
-    public void sendVerificationEmail(String to, UUID token, Locale locale)
-        throws UnsupportedEncodingException, MessagingException
-    {
-        Context context = new Context(locale);
-        context.setVariable("email", to);
-        context.setVariable("verificationLink",
-            linkService.generateVerificationLink(token, locale));
-        String subject = "Treecreate - verify email";
-        sendMail(to, MailDomain.INFO, subject, context, MailTemplate.VERIFY_EMAIL);
     }
 
     public void sendOrderConfirmationEmail(String to, Order order)

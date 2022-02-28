@@ -1,31 +1,5 @@
 <div class="modal-container add-transition" data-cy="add-to-basket-modal">
     <form [formGroup]="addToBasketForm" (ngSubmit)="addDesignToBasket()" class="modal-content">
-        <div class="option-title">
-            <div class="title">
-                <span i18n="@@title">Title</span>
-                <webstore-info-popover
-                    title="{{ isEnglish() ? 'Title' : 'Titel' }}"
-                    text="{{
-                        isEnglish()
-                            ? 'Add a good title so you can keep track of your designs.'
-                            : 'Giv dit design en god titel så den er nemmere at huske.'
-                    }}"
-                ></webstore-info-popover>
-            </div>
-            <div
-                class="option-design-title add-transition"
-                [ngClass]="this.addToBasketForm.get('title').invalid ? 'title-error' : 'title-success'"
-            >
-                <input
-                    type="text"
-                    class="title-input"
-                    placeholder="{{ isEnglish() ? 'Navngiv dit design...' : 'Name your design...' }}"
-                    formControlName="title"
-                    data-cy="add-to-basket-title-input"
-                />
-            </div>
-        </div>
-
         <!-- quantity -->
         <div class="option-quantity add-transition">
             <div class="text">
@@ -135,12 +109,7 @@
         <!-- Actions -->
         <div class="option-actions add-transition">
             <div class="button-container add-transition">
-                <button
-                    class="tc-button-100 green"
-                    type="submit"
-                    data-cy="add-to-basket-add-to-basket-button"
-                    [disabled]="this.addToBasketForm.get('title').invalid"
-                >
+                <button class="tc-button-100 green" type="submit" data-cy="add-to-basket-add-to-basket-button">
                     <span i18n="@@add-to-basket" *ngIf="!isLoading">Add to basket</span>
                     <span
                         *ngIf="isLoading"
