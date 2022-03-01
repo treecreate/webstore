@@ -42,6 +42,7 @@ export class ProductComponent implements OnInit {
   showSuggestion = true;
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
+  fontOptions = [];
   backgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 40;
   maxSize = 40;
@@ -89,18 +90,28 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     // The subscription will get triggered right away, loading the design
     this.route.queryParams.subscribe((p) => {
-      console.warn('query paramas changed', p);
       this.loadDesign();
     });
-    console.log('logged in', this.isLoggedIn);
-    if (!this.isLoggedIn) {
-      this.modalService.open(FamilyTreeIntroModalComponent);
-    }
     this.showOptionBoxButtons = true;
+    this.getFontList();
   }
 
   isEnglish(): boolean {
     return this.localeCode === 'en-US';
+  }
+
+  openIntroModal() {
+    this.modalService.open(FamilyTreeIntroModalComponent);
+  }
+
+  getFontList() {
+    Object.entries(FamilyTreeFontEnum).forEach(([key, value]) => {
+      this.fontOptions.push(key);
+    });
+  }
+
+  changeFont(font: string) {
+    this.font = font;
   }
 
   // TODO: properly assign the banner
@@ -128,7 +139,7 @@ export class ProductComponent implements OnInit {
         this.boxSize = 40;
         this.maxSize = 40;
         this.minSize = 10;
-        this.banner = { text: 'Til min elskede', style: 'first' };
+        this.banner = { text: 'Familietræet', style: 'first' };
       }
       this.isMutable = true;
       this.cdr.detectChanges();
@@ -276,7 +287,6 @@ export class ProductComponent implements OnInit {
   }
 
   clearDesignCanvas() {
-    console.log('Clearing design canvas');
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
     if (this.route.snapshot.queryParams.designId === undefined) {
       // trigger reload of the page by switching to another page and back

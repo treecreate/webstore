@@ -43,6 +43,7 @@ import { FamilyTreeIntroModalComponent } from './shared/components/modals/family
 import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
 import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [

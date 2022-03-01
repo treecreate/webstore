@@ -80,6 +80,29 @@
   flex-direction: column;
 }
 
+.font-dropdown-container {
+  text-align: center;
+  width: 100%;
+  border: 2px solid var(--second-action-color);
+  border-radius: 3px;
+}
+
+::ng-deep.dropdown-toggle {
+  width: 100%;
+}
+
+.btn {
+  padding: 0.2rem 0rem;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.dropdown-menu.show {
+  width: 100%;
+}
+
 .option-tree-design-btn {
   display: flex;
   justify-content: space-between;
