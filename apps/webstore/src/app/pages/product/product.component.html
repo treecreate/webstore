@@ -27,6 +27,15 @@
             [src]="toggleBoxOptionsIcon"
         />
     </button>
+    <button
+        class="intro-modal-option"
+        type="button"
+        (click)="openIntroModal()"
+        *ngIf="isMutable"
+        title="Hide/Show box options"
+    >
+    ? 
+    </button>
 </div>
 <section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
     <div class="back-container" *ngIf="!isMutable">

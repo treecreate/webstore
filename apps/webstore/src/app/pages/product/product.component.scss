@@ -162,15 +162,27 @@
 
 /* option toggle button */
 .option-toggler,
-.toggle-box-options {
+.toggle-box-options,
+.intro-modal-option {
   background-color: var(--second-action-color);
   transition: 0.5s;
-  display: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   border: none;
   margin: 5px;
+}
+
+.intro-modal-option {
+  color: white;
+  font-size: larger;
+  font-weight: 900;
+  font-family: 'archia-medium';
+}
+
+.option-toggler,
+.toggle-box-options {
+  display: none;
 }
 
 .mobile-options {
