@@ -1,5 +1,5 @@
 .product-section {
-  min-height: 100vh;
+  min-height: 90vh;
   padding-top: 50px;
   text-align: center;
   margin: auto;
@@ -166,19 +166,22 @@
   background-color: var(--second-action-color);
   transition: 0.5s;
   display: none;
-  position: absolute;
-  right: 3vw;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   border: none;
+  margin: 5px;
+}
+
+.mobile-options {
   z-index: 10;
-}
-.option-toggler {
   top: 70px;
-}
-.toggle-box-options {
-  top: 140px;
+  left: 10px;
+  position: sticky;
+  height: 40px;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 10px;
 }
 
 .option-icon {
@@ -228,8 +231,8 @@
   transform: scale(0.9);
   width: 300px;
   position: absolute;
-  top: 100px;
-  right: 13px;
+  top: 60px;
+  right: 1px;
   background: white;
   padding: 10px 25px 20px 25px;
   z-index: 100;

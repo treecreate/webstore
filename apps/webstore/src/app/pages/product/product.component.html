@@ -1,3 +1,33 @@
+<div class="mobile-options">
+    <button
+        class="option-toggler"
+        data-cy="mobile-options-toggler"
+        type="button"
+        (click)="showOptions()"
+        *ngIf="isMutable"
+    >
+        <div class="option-icon" [ngClass]="!isMobileOptionOpen ? '' : 'active'">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </button>
+
+    <button
+        class="toggle-box-options"
+        type="button"
+        (click)="toggleBoxOptions()"
+        *ngIf="isMutable"
+        title="Hide/Show box options"
+    >
+        <img
+            class="toggle-box-options-icon"
+            [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+            alt="toggle box options"
+            [src]="toggleBoxOptionsIcon"
+        />
+    </button>
+</div>
 <section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
     <div class="back-container" *ngIf="!isMutable">
         <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
@@ -5,35 +35,6 @@
         </a>
     </div>
     <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
-        <button
-            class="option-toggler"
-            data-cy="mobile-options-toggler"
-            type="button"
-            (click)="showOptions()"
-            *ngIf="isMutable"
-        >
-            <div class="option-icon" [ngClass]="!isMobileOptionOpen ? '' : 'active'">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-                <div class="bar3"></div>
-            </div>
-        </button>
-
-        <button
-            class="toggle-box-options"
-            type="button"
-            (click)="toggleBoxOptions()"
-            *ngIf="isMutable"
-            title="Hide/Show box options"
-        >
-            <img
-                class="toggle-box-options-icon"
-                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
-                alt="toggle box options"
-                [src]="toggleBoxOptionsIcon"
-            />
-        </button>
-
         <webstore-family-tree-design
             *ngIf="isMutable"
             #familyTreeDesignCanvas
