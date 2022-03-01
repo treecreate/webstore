@@ -323,5 +323,16 @@
 }
 
 ::ng-deep.ngx-slider {
-  margin: 20px 0 0px !important;
+  margin: 10px 0 0px !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-pointer {
+  width: 20px !important;
+  height: 20px !important;
+  top: -8px !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-pointer:after {
+  top: 6px !important;
+  left: 6px !important;
 }
