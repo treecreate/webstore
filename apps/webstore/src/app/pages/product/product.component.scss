@@ -243,7 +243,7 @@
   transform: scale(0.9);
   width: 300px;
   position: absolute;
-  top: 60px;
+  top: 105px;
   right: 1px;
   background: white;
   padding: 10px 25px 20px 25px;
@@ -350,4 +350,10 @@
 ::ng-deep.ngx-slider .ngx-slider-pointer:after {
   top: 6px !important;
   left: 6px !important;
+}
+
+.mobile-option-buttons-container {
+  top: 70px;
+  right: 0;
+  position: absolute;
 }
