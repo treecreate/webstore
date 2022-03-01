@@ -106,7 +106,7 @@ export class ProductComponent implements OnInit {
 
   getFontList() {
     Object.entries(FamilyTreeFontEnum).forEach(([key, value]) => {
-      this.fontOptions.push({key, value});
+      this.fontOptions.push({ key, value });
     });
   }
 

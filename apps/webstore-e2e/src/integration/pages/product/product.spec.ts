@@ -84,11 +84,16 @@ describe('ProductPage', () => {
 
     it('should be able to change the fonts', () => {
       cy.wrap(localStorageDesign).its('font').should('equal', 'roboto');
-      cy.get('[data-cy=font-next-btn]').click();
+      cy.get('[data-cy=font]').should('have.text', 'roboto');
+      cy.get('[data-cy=font-select-option]')
+        .click()
+        .then(() => {
+          cy.get('button').contains('calendasItalic').click();
+        });
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('font').should('equal', 'georgia');
+        cy.wrap(localStorageDesignAfter).its('font').should('equal', 'calendas-italic');
       });
     });
 
@@ -102,7 +107,7 @@ describe('ProductPage', () => {
       });
     });
 
-    // it('should increase box size and save it', () => {
+    //  it('should increase box size and save it', () => {
     //   cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
     //   cy.get('[data-cy=box-size-plus]').click();
     //   cy.get('[data-cy=box-size-plus]').click();
@@ -113,7 +118,7 @@ describe('ProductPage', () => {
     //   });
     // });
 
-    // it('should decrease box size and save it', () => {
+    //  it('should decrease box size and save it', () => {
     //   cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
     //   cy.get('[data-cy=box-size-minus]').click();
     //   cy.get('[data-cy=box-size-minus]').click();
@@ -152,62 +157,29 @@ describe('ProductPage', () => {
   });
 
   describe('Unauthorised', () => {
-    beforeEach(() => {
-      cy.get('[data-cy=family-tree-intro-close-button]').click();
-    });
     // box-size buttons
     it('should contain a navbar and footer', () => {
       cy.get('[data-cy=navbar]').should('exist');
     });
 
-    it.skip('should have a box-size of 20', () => {
-      cy.get('[data-cy=box-size]').should('have.text', '20');
-    });
-
-    it.skip('should increase box size when + is pressed in options', () => {
-      cy.get('[data-cy=box-size]').should('have.text', '20');
-      cy.get('[data-cy=box-size-plus]').click();
-      cy.get('[data-cy=box-size]').should('have.text', '21');
-    });
-
-    it.skip('should decrease box size when - is pressed in options', () => {
-      cy.get('[data-cy=box-size]').should('have.text', '20');
-      cy.get('[data-cy=box-size-minus]').click();
-      cy.get('[data-cy=box-size]').should('have.text', '19');
-    });
-
-    it.skip('should not increase box size above 40', () => {
-      cy.get('[data-cy=box-size-plus]').should('not.be.disabled');
-      for (let i = 0; i < 20; i++) {
-        cy.get('[data-cy=box-size-plus]').click();
-      }
-      cy.get('[data-cy=box-size]').invoke('text').then(parseFloat).should('not.be.above', 40);
-      cy.get('[data-cy=box-size-plus]').should('be.disabled');
-    });
-
-    it.skip('should not decrease box size below 15', () => {
-      cy.get('[data-cy=box-size-minus]').should('not.be.disabled');
-      for (let i = 0; i < 10; i++) {
-        cy.get('[data-cy=box-size-minus]').click();
-      }
-      cy.get('[data-cy=box-size]').invoke('text').then(parseFloat).should('not.be.lt', 10);
-      cy.get('[data-cy=box-size-minus]').should('be.disabled');
-    });
+    // TODO: Create tests for the boxSize slider
 
     // Font change
     it('should change the font', () => {
       cy.get('[data-cy=font]').should('have.text', 'bairol-bold-italic');
-      cy.get('[data-cy=font-next-btn]').click();
+      cy.get('[data-cy=font-select-option]')
+        .click()
+        .then(() => {
+          cy.get('button').contains('calendasItalic').click();
+        });
       cy.get('[data-cy=font]').should('not.have.text', 'bairol-bold-italic');
-      cy.get('[data-cy=font-prev-btn]').click();
-      cy.get('[data-cy=font-prev-btn]').click();
-      cy.get('[data-cy=font]').should('not.have.text', 'bairol-bold-italic');
+      cy.get('[data-cy=font]').should('have.text', 'calendas-italic');
     });
 
     // Banner
     it('should show/remove banner', () => {
       // for some reason, cypress reads the value with extra spaces
-      cy.get('[data-cy=banner]').should('have.text', ' Til min elskede ');
+      cy.get('[data-cy=banner]').should('have.text', ' Familietræet ');
       cy.get('[data-cy=design-banner-input]').clear().type('test');
       cy.get('[data-cy=banner]').should('have.text', ' test ');
       cy.get('[data-cy=checkbox-banner]').click();
