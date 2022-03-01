@@ -106,7 +106,7 @@ export class ProductComponent implements OnInit {
 
   getFontList() {
     Object.entries(FamilyTreeFontEnum).forEach(([key, value]) => {
-      this.fontOptions.push(key);
+      this.fontOptions.push({key, value});
     });
   }
 
@@ -349,28 +349,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  nextFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
-    const nextFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex + 1];
-    if (nextFont === undefined) {
-      // set the first font in the enum
-      this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
-    } else {
-      this.font = FamilyTreeFontEnum[nextFont];
-    }
-  }
-
-  prevFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
-    const previousFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex - 1];
-    if (previousFont === undefined) {
-      // set the last font in the enum
-      this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[Object.values(FamilyTreeFontEnum).length - 1]];
-    } else {
-      this.font = FamilyTreeFontEnum[previousFont];
-    }
-  }
-
   updateBannerText($event) {
     this.banner.text = $event.target.value;
   }
@@ -384,18 +362,6 @@ export class ProductComponent implements OnInit {
     console.warn('Design state has changed. Valid:', $event);
     this.isDesignValid = $event;
     this.cdr.detectChanges();
-  }
-
-  /**
-   * Format a font name into a more readable format without dashes
-   * @param font a font to format
-   * @returns formatted font name
-   */
-  formatFontTextForDisplay(font: FamilyTreeFontEnum): string {
-    let formattedFont = font.replace('-', ' ');
-    formattedFont = formattedFont.replace('-', ' '); // double replacement because I am lazy and some fonts have multiple dashes
-    formattedFont = formattedFont.replace('display', ' display');
-    return formattedFont;
   }
 
   iOS() {

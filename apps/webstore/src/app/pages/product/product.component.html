@@ -88,12 +88,12 @@
                         <button class="btn" ngbDropdownToggle [ngStyle]="{ 'font-family': font }">{{ font }}</button>
                         <div ngbDropdownMenu>
                             <button
-                                (click)="changeFont(font)"
+                                (click)="changeFont(font.value)"
                                 ngbDropdownItem
                                 *ngFor="let font of fontOptions"
-                                [ngStyle]="{ 'font-family': font }"
+                                [ngStyle]="{ 'font-family': font.value }"
                             >
-                                {{ font }}
+                                {{ font.key }}
                             </button>
                         </div>
                     </div>
