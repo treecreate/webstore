@@ -197,17 +197,6 @@
                     <img src="/assets/icons/reset-icon.svg" class="option-icon" />
                 </button>
             </div>
-            <div class="option misc-option-actions" *ngIf="!isMobileOptionOpen">
-                <button
-                    class="tc-button-100"
-                    (click)="toggleBoxOptions($event)"
-                    title="Hide/Show box options"
-                    data-cy="toggle-box-options"
-                >
-                    {{ showOptionBoxButtons ? 'Hide' : 'Show' }} box options
-                    <img class="option-icon" alt="toggle box options" [src]="toggleBoxOptionsIcon" />
-                </button>
-            </div>
         </div>
     </div>
 </section>
@@ -226,7 +215,15 @@
                 <div class="bar3"></div>
             </div>
         </button>
-    
+        <button
+            class="intro-modal-option"
+            type="button"
+            (click)="openIntroModal()"
+            *ngIf="isMutable"
+            title="Hide/Show box options"
+        >
+        ? 
+        </button>
         <button
             class="toggle-box-options"
             type="button"
@@ -240,15 +237,6 @@
                 alt="toggle box options"
                 [src]="toggleBoxOptionsIcon"
             />
-        </button>
-        <button
-            class="intro-modal-option"
-            type="button"
-            (click)="openIntroModal()"
-            *ngIf="isMutable"
-            title="Hide/Show box options"
-        >
-        ? 
         </button>
     </div>
 </div>

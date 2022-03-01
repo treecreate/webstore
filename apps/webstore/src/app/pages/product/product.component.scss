@@ -56,16 +56,11 @@
   justify-content: space-between;
 }
 
-.misc-option-actions {
-  display: flex;
-  justify-content: center;
-}
-
 .option-icon,
 .toggle-box-options-icon {
   width: 20px;
   height: 20px;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .option-box-size {
@@ -180,8 +175,7 @@
   font-family: 'archia-medium';
 }
 
-.option-toggler,
-.toggle-box-options {
+.option-toggler {
   display: none;
 }
 
