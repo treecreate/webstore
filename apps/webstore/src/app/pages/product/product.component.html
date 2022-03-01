@@ -180,21 +180,21 @@
                     <span i18n="@@save">Save</span>
                     <img src="/assets/icons/save-icon.svg" class="option-icon" />
                 </button>
+                <button class="tc-button-50" (click)="clearDesignCanvas()">
+                    Reset
+                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
+                </button>
+            </div>
+
+            <div class="option misc-option-actions">
                 <button
-                    class="btn-add-to-cart tc-button-50"
+                    class="btn-add-to-cart tc-button-100 green"
                     (click)="openAddToBasketModal()"
                     data-cy="add-family-tree-to-basket-button"
                     [disabled]="!isDesignValid"
                 >
                     <span i18n="@@add">Add</span>
                     <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
-                </button>
-            </div>
-
-            <div class="option misc-option-actions">
-                <button class="tc-button-100" (click)="clearDesignCanvas()">
-                    Reset
-                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
                 </button>
             </div>
         </div>

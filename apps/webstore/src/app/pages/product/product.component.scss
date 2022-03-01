@@ -18,6 +18,10 @@
   display: inline-block;
 }
 
+.green {
+  background-color: var(--green-color);
+}
+
 .design-container {
   border: 2px solid var(--green-color);
   min-width: 50%;
