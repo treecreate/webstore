@@ -70,6 +70,7 @@
 
 .option-box-size {
   align-items: center;
+  display: block;
 }
 
 .option-tree-design,
@@ -134,11 +135,6 @@
 
 .option-questionmark {
   display: flex;
-}
-
-.box-size-plus,
-.box-size-minus {
-  margin: 0 0 0 10px;
 }
 
 /* option toggle button */
@@ -207,11 +203,12 @@
   border-radius: 3px;
   transition: 0.5s;
   transform: scale(0.9);
+  width: 300px;
   position: absolute;
   top: 100px;
   right: 13px;
   background: white;
-  padding: 10px 15px;
+  padding: 10px 25px 20px 25px;
   z-index: 100;
 }
 
@@ -281,4 +278,27 @@
   height: 100%;
   text-align: center;
   padding: 20px;
+}
+
+// slider section
+::ng-deep.ngx-slider .ngx-slider-pointer {
+  background-color: var(--second-action-color) !important;
+  outline: none !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-bar {
+  background-color: var(--second-action-color) !important;
+  opacity: 0.5;
+}
+
+::ng-deep.ngx-slider .ngx-slider-pointer:after {
+  background-color: white !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-bubble {
+  display: none !important;
+}
+
+::ng-deep.ngx-slider {
+  margin: 20px 0 0px !important;
 }

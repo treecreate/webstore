@@ -145,26 +145,7 @@
                                 : 'Du kan gøre navne boksene større og mindre. Gør dem større for et mere tydeligt print.'
                         }}"
                     ></webstore-info-popover>
-                </div>
-                <div>
-                    <button
-                        class="box-size-plus tc-button-sm-square"
-                        data-cy="box-size-plus"
-                        (click)="this.boxSize = this.boxSize + 1"
-                        [disabled]="this.boxSize >= maxSize"
-                    >
-                        <div class="button-plus"></div>
-                    </button>
-                    <button
-                        class="box-size-plus tc-button-sm-square"
-                        data-cy="box-size-minus"
-                        (click)="this.boxSize = this.boxSize - 1"
-                        [disabled]="this.boxSize <= minSize"
-                    >
-                        <div class="icon">
-                            <div class="button-minus"></div>
-                        </div>
-                    </button>
+                    <ngx-slider [(value)]="boxSize" [options]="boxSizeOptions" data-cy="box-size-slider"></ngx-slider>
                 </div>
             </div>
 

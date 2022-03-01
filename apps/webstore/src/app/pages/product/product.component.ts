@@ -46,6 +46,10 @@ export class ProductComponent implements OnInit {
   boxSize = 40;
   maxSize = 40;
   minSize = 15;
+  boxSizeOptions = {
+    floor: this.minSize,
+    ceil: this.maxSize,
+  };
   banner: IFamilyTreeBanner = undefined;
   design: IFamilyTree;
   showOptionBoxButtons = true;
