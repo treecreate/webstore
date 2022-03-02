@@ -23,7 +23,7 @@ describe('Signup to newsletter popup modal', () => {
 
   it('registers a new newsletter signup', () => {
     cy.intercept('POST', '/newsletter/test@test.com', {
-        statusCode: 200,
+      statusCode: 200,
     });
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
     cy.wait(7000);
