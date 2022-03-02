@@ -7,6 +7,8 @@ import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '@local-storage';
 import { NewsletterService } from '../../shared/services/newsletter/newsletter.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewsletterSignupModalComponent } from '../../shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
@@ -27,7 +29,8 @@ export class HomeComponent {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private newsletterService: NewsletterService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private modalService: NgbModal,
   ) {
     this.initialTop = 0;
 
@@ -42,6 +45,10 @@ export class HomeComponent {
     this.subscribeForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
     });
+  }
+
+  openNewsletterSignupModal() {
+    this.modalService.open(NewsletterSignupModalComponent);
   }
 
   submitNewsletterEmail() {
