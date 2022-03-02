@@ -1,6 +1,6 @@
 <div class="newsletter-modal-container">
     <div alt="image of a family tree" class="modal-image"></div>
-    <div class="content">
+    <div class="content-container">
         <button type="button" class="btn-close" (click)="activeModal.close()"></button>
         <form class="content" [formGroup]="newsletterSignupModalForm" (ngSubmit)="submit()">
             <h2 class="modal-title">20% Rabat</h2>
@@ -17,7 +17,7 @@
                 />
                 <label for="email" class="tc-input-label">E-mail</label>
             </div>
-            <button type="submit" class="tc-button-100">
+            <button type="submit" class="tc-button-100" [disabled]="newsletterSignupModalForm.get('email').invalid">
                 <span i18n="@@signup" *ngIf="!isLoading">Sign up</span>
                 <span
                     *ngIf="isLoading"
