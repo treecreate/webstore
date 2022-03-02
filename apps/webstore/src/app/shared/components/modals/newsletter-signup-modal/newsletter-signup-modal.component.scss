@@ -1,10 +1,12 @@
 .modal-top {
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 .btn-close:after {
     content: "\00d7";
     font-size: 1.5em;
+    color: white;
 }
 .btn-close {
     // Remove button styling
@@ -16,4 +18,22 @@
     position: absolute;
     right: 15px;
     top: 5px;
+}
+.modal-image {
+    position: relative;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    width: 250px;
+}
+.newsletter-modal-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.content {
+    padding: 0.75em;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
