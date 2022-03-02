@@ -195,8 +195,6 @@ describe('ProductPage', () => {
       cy.get('[data-cy=navbar]').should('exist');
     });
 
-    // TODO: Create tests for the boxSize slider
-
     // Font change
     it('should change the font', () => {
       cy.get('[data-cy=font]').should('have.text', 'bairol-bold-italic');
