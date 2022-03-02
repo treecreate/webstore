@@ -43,6 +43,7 @@ import { FamilyTreeIntroModalComponent } from './shared/components/modals/family
 import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
 import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
+import { NewsletterSignupModalComponent } from './shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { OrderItemComponent } from './shared/components/items/order-item/order-i
     GoToBasketModalComponent,
     OrdersComponent,
     OrderItemComponent,
+    NewsletterSignupModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
