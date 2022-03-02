@@ -30,7 +30,7 @@ export class HomeComponent {
     private authService: AuthService,
     private newsletterService: NewsletterService,
     private toastService: ToastService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {
     this.initialTop = 0;
 
@@ -45,6 +45,9 @@ export class HomeComponent {
     this.subscribeForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
     });
+
+    // Just for testing
+    this.openNewsletterSignupModal();
   }
 
   openNewsletterSignupModal() {

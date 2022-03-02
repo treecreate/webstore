@@ -1,0 +1,19 @@
+.modal-top {
+    display: flex;
+    justify-content: center;
+}
+.btn-close:after {
+    content: "\00d7";
+    font-size: 1.5em;
+}
+.btn-close {
+    // Remove button styling
+    outline: none;
+    background-color: none;
+    border: none;
+    background: none;
+
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}

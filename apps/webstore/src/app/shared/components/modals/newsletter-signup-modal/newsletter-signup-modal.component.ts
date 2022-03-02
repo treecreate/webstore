@@ -10,20 +10,15 @@ import { NewsletterService } from '../../../services/order/newsletter/newsletter
 })
 export class NewsletterSignupModalComponent implements OnInit {
   newsletterSignupModalForm: FormGroup;
-  isLoading = false; 
+  isLoading = false;
 
-  constructor(
-    public activeModal: NgbActiveModal,
-    private newsletterService: NewsletterService
-  ) {
+  constructor(public activeModal: NgbActiveModal, private newsletterService: NewsletterService) {
     this.newsletterSignupModalForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email])
-    })
+      email: new FormControl('', [Validators.required, Validators.email]),
+    });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   submit() {
     const email: string = this.newsletterSignupModalForm.get('email').value;
