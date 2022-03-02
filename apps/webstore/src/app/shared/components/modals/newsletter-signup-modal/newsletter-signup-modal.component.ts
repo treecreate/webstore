@@ -45,6 +45,7 @@ export class NewsletterSignupModalComponent {
             'danger',
             5000
           );
+          this.isLoading = false;
         }
       );
     } else {
@@ -54,6 +55,7 @@ export class NewsletterSignupModalComponent {
         'danger',
         5000
       );
+      this.isLoading = false;
     }
   }
 }

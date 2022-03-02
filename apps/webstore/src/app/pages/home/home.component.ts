@@ -45,13 +45,13 @@ export class HomeComponent {
     this.subscribeForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
     });
-    
+
     // Check if user has seen newsletter modal before
-    const hasSeenNewsletterModal = this.localStorageService.getItem<boolean>(LocalStorageVars.hasSeenNewsletterModal);    
+    const hasSeenNewsletterModal = this.localStorageService.getItem<boolean>(LocalStorageVars.hasSeenNewsletterModal);
     if (!hasSeenNewsletterModal.value) {
       setTimeout(() => {
         this.openNewsletterSignupModal();
-        this.localStorageService.setItem<boolean>(LocalStorageVars.hasSeenNewsletterModal, true);        
+        this.localStorageService.setItem<boolean>(LocalStorageVars.hasSeenNewsletterModal, true);
       }, 7000);
     }
   }
