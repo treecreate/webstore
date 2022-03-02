@@ -1,10 +1,33 @@
 <div class="newsletter-modal-container">
-    <img src="/assets/img/tc-newsletter-img.jpg" alt="image of a family tree" class="modal-image" />
+    <div alt="image of a family tree" class="modal-image"></div>
     <div class="content">
         <button type="button" class="btn-close" (click)="activeModal.close()"></button>
-        <div class="content">
-            <h2 class="modal-title">HEY hvordan går det!</h2>
-        </div>
+        <form class="content" [formGroup]="newsletterSignupModalForm" (ngSubmit)="submit()">
+            <h2 class="modal-title">20% Rabat</h2>
+            <p>Skriv dig op på vores nyhedsbrev og få 20% på dit første køb</p>
+            <div class="tc-input-group field">
+                <input
+                    type="email"
+                    class="tc-input-field"
+                    placeholder="E-mail"
+                    formControlName="email"
+                    name="email"
+                    id="email"
+                    required
+                />
+                <label for="email" class="tc-input-label">E-mail</label>
+            </div>
+            <button type="submit" class="tc-button-100">
+                <span i18n="@@signup" *ngIf="!isLoading">Sign up</span>
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm text-light"
+                    style="margin: 5px"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+            </button>
+        </form>
     </div>
 </div>
 

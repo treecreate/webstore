@@ -20,11 +20,15 @@
   top: 5px;
 }
 .modal-image {
+  background-image: url('/assets/img/tc-newsletter-img.jpg');
   position: relative;
   z-index: 0;
   top: 0;
   right: 0;
-  width: 250px;
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .newsletter-modal-container {
   display: flex;
@@ -36,4 +40,18 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 640px) {
+  .newsletter-modal-container {
+    flex-direction: column;
+  }
+  .modal-image {
+    object-fit: cover;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-position: 0px -80px;
+  }
 }

@@ -6,7 +6,7 @@ import { NewsletterService } from '../../../services/order/newsletter/newsletter
 @Component({
   selector: 'webstore-newsletter-signup-modal',
   templateUrl: './newsletter-signup-modal.component.html',
-  styleUrls: ['./newsletter-signup-modal.component.scss'],
+  styleUrls: ['./newsletter-signup-modal.component.scss', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class NewsletterSignupModalComponent {
   newsletterSignupModalForm: FormGroup;
