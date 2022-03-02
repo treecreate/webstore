@@ -3,8 +3,8 @@
     <div class="content-container">
         <button type="button" class="btn-close" (click)="activeModal.close()"></button>
         <form class="content" [formGroup]="newsletterSignupModalForm" (ngSubmit)="submit()">
-            <h2 class="modal-title">20% Rabat</h2>
-            <p>Skriv dig op på vores nyhedsbrev og få 20% på dit første køb</p>
+            <h2 class="modal-title" i18n="@@20-procent-discount">Få 20% Rabat!</h2>
+            <p i18n="@@20-procent-discount-text">Du får 20% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</p>
             <div class="tc-input-group field">
                 <input
                     type="email"
@@ -17,8 +17,8 @@
                 />
                 <label for="email" class="tc-input-label">E-mail</label>
             </div>
-            <button type="submit" class="tc-button-100" [disabled]="newsletterSignupModalForm.get('email').invalid">
-                <span i18n="@@signup" *ngIf="!isLoading">Sign up</span>
+            <button type="submit" class="tc-button-100 green">
+                <span i18n="@@subscribe" *ngIf="!isLoading">Subscribe</span>
                 <span
                     *ngIf="isLoading"
                     class="spinner-border spinner-border-sm text-light"

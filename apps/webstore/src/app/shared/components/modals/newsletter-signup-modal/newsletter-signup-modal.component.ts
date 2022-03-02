@@ -44,6 +44,13 @@ export class NewsletterSignupModalComponent {
           5000
         );
       });
+    } else {
+      this.toastService.showAlert(
+        `Please write your email and try again.`,
+        `Udfyld din email først og prøv venligst igen.`,
+        'danger',
+        5000
+      );
     }
   }
 }
