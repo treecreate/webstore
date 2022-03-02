@@ -18,6 +18,10 @@
   display: inline-block;
 }
 
+.green {
+  background-color: var(--green-color);
+}
+
 .design-container {
   border: 2px solid var(--green-color);
   min-width: 50%;
@@ -56,20 +60,16 @@
   justify-content: space-between;
 }
 
-.misc-option-actions {
-  display: flex;
-  justify-content: center;
-}
-
 .option-icon,
 .toggle-box-options-icon {
   width: 20px;
   height: 20px;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .option-box-size {
   align-items: center;
+  display: block;
 }
 
 .option-tree-design,
@@ -77,6 +77,29 @@
 .option-design-name {
   display: flex;
   flex-direction: column;
+}
+
+.font-dropdown-container {
+  text-align: center;
+  width: 100%;
+  border: 2px solid var(--second-action-color);
+  border-radius: 3px;
+}
+
+::ng-deep.dropdown-toggle {
+  width: 100%;
+}
+
+.btn {
+  padding: 0.2rem 0rem;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.dropdown-menu.show {
+  width: 100%;
 }
 
 .option-tree-design-btn {
@@ -136,30 +159,39 @@
   display: flex;
 }
 
-.box-size-plus,
-.box-size-minus {
-  margin: 0 0 0 10px;
-}
-
 /* option toggle button */
 .option-toggler,
-.toggle-box-options {
+.toggle-box-options,
+.intro-modal-option {
   background-color: var(--second-action-color);
   transition: 0.5s;
-  display: none;
-  position: absolute;
-  right: 3vw;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   border: none;
-  z-index: 10;
+  margin: 5px;
 }
+
+.intro-modal-option {
+  color: white;
+  font-size: larger;
+  font-weight: 900;
+  font-family: 'archia-medium';
+}
+
 .option-toggler {
-  top: 70px;
+  display: none;
 }
-.toggle-box-options {
-  top: 140px;
+
+.mobile-options {
+  z-index: 10;
+  top: 70px;
+  left: 10px;
+  position: sticky;
+  height: 40px;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 10px;
 }
 
 .option-icon {
@@ -207,11 +239,12 @@
   border-radius: 3px;
   transition: 0.5s;
   transform: scale(0.9);
+  width: 300px;
   position: absolute;
-  top: 100px;
-  right: 13px;
+  top: 105px;
+  right: 1px;
   background: white;
-  padding: 10px 15px;
+  padding: 10px 25px 20px 25px;
   z-index: 100;
 }
 
@@ -281,4 +314,44 @@
   height: 100%;
   text-align: center;
   padding: 20px;
+}
+
+// slider section
+::ng-deep.ngx-slider .ngx-slider-pointer {
+  background-color: var(--second-action-color) !important;
+  outline: none !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-bar {
+  background-color: var(--second-action-color) !important;
+  opacity: 0.5;
+}
+
+::ng-deep.ngx-slider .ngx-slider-pointer:after {
+  background-color: white !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-bubble {
+  display: none !important;
+}
+
+::ng-deep.ngx-slider {
+  margin: 10px 0 0px !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-pointer {
+  width: 20px !important;
+  height: 20px !important;
+  top: -8px !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-pointer:after {
+  top: 6px !important;
+  left: 6px !important;
+}
+
+.mobile-option-buttons-container {
+  top: 70px;
+  right: 0;
+  position: absolute;
 }

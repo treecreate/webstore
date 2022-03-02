@@ -5,35 +5,6 @@
         </a>
     </div>
     <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
-        <button
-            class="option-toggler"
-            data-cy="mobile-options-toggler"
-            type="button"
-            (click)="showOptions()"
-            *ngIf="isMutable"
-        >
-            <div class="option-icon" [ngClass]="!isMobileOptionOpen ? '' : 'active'">
-                <div class="bar1"></div>
-                <div class="bar2"></div>
-                <div class="bar3"></div>
-            </div>
-        </button>
-
-        <button
-            class="toggle-box-options"
-            type="button"
-            (click)="toggleBoxOptions()"
-            *ngIf="isMutable"
-            title="Hide/Show box options"
-        >
-            <img
-                class="toggle-box-options-icon"
-                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
-                alt="toggle box options"
-                [src]="toggleBoxOptionsIcon"
-            />
-        </button>
-
         <webstore-family-tree-design
             *ngIf="isMutable"
             #familyTreeDesignCanvas
@@ -84,19 +55,27 @@
                     ></webstore-info-popover>
                 </div>
                 <div class="option-tree-design-btn">
-                    <button class="design-arrow-left tc-button-sm-square" data-cy="font-prev-btn" (click)="prevFont()">
-                        <span class="arrow-left"></span>
-                    </button>
-                    <div
-                        class="display display-design"
-                        style="text-transform: capitalize"
-                        [ngStyle]="{ 'font-family': this.font }"
-                    >
-                        {{ formatFontTextForDisplay(font) }}
+                    <div ngbDropdown class="font-dropdown-container">
+                        <button
+                            class="btn"
+                            ngbDropdownToggle
+                            [ngStyle]="{ 'font-family': font }"
+                            data-cy="font-select-option"
+                        >
+                            {{ font }}
+                        </button>
+                        <div ngbDropdownMenu>
+                            <button
+                                (click)="changeFont(font.value)"
+                                ngbDropdownItem
+                                *ngFor="let font of fontOptions"
+                                [ngStyle]="{ 'font-family': font.value }"
+                                data-cy="font.value"
+                            >
+                                {{ font.key }}
+                            </button>
+                        </div>
                     </div>
-                    <button class="design-arrow-right tc-button-sm-square" data-cy="font-next-btn" (click)="nextFont()">
-                        <span class="arrow-right"></span>
-                    </button>
                 </div>
             </div>
 
@@ -145,26 +124,7 @@
                                 : 'Du kan gøre navne boksene større og mindre. Gør dem større for et mere tydeligt print.'
                         }}"
                     ></webstore-info-popover>
-                </div>
-                <div>
-                    <button
-                        class="box-size-plus tc-button-sm-square"
-                        data-cy="box-size-plus"
-                        (click)="this.boxSize = this.boxSize + 1"
-                        [disabled]="this.boxSize >= maxSize"
-                    >
-                        <div class="button-plus"></div>
-                    </button>
-                    <button
-                        class="box-size-plus tc-button-sm-square"
-                        data-cy="box-size-minus"
-                        (click)="this.boxSize = this.boxSize - 1"
-                        [disabled]="this.boxSize <= minSize"
-                    >
-                        <div class="icon">
-                            <div class="button-minus"></div>
-                        </div>
-                    </button>
+                    <ngx-slider [(value)]="boxSize" [options]="boxSizeOptions" data-cy="box-size-slider"></ngx-slider>
                 </div>
             </div>
 
@@ -220,8 +180,15 @@
                     <span i18n="@@save">Save</span>
                     <img src="/assets/icons/save-icon.svg" class="option-icon" />
                 </button>
+                <button class="tc-button-50" (click)="clearDesignCanvas()">
+                    Reset
+                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
+                </button>
+            </div>
+
+            <div class="option misc-option-actions">
                 <button
-                    class="btn-add-to-cart tc-button-50"
+                    class="btn-add-to-cart tc-button-100 green"
                     (click)="openAddToBasketModal()"
                     data-cy="add-family-tree-to-basket-button"
                     [disabled]="!isDesignValid"
@@ -230,24 +197,47 @@
                     <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
                 </button>
             </div>
-
-            <div class="option misc-option-actions">
-                <button class="tc-button-100" (click)="clearDesignCanvas()">
-                    Reset
-                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
-                </button>
-            </div>
-            <div class="option misc-option-actions" *ngIf="!isMobileOptionOpen">
-                <button
-                    class="tc-button-100"
-                    (click)="toggleBoxOptions($event)"
-                    title="Hide/Show box options"
-                    data-cy="toggle-box-options"
-                >
-                    {{ showOptionBoxButtons ? 'Hide' : 'Show' }} box options
-                    <img class="option-icon" alt="toggle box options" [src]="toggleBoxOptionsIcon" />
-                </button>
-            </div>
         </div>
     </div>
 </section>
+<div class="mobile-option-buttons-container">
+    <div class="mobile-options">
+        <button
+            class="option-toggler"
+            data-cy="mobile-options-toggler"
+            type="button"
+            (click)="showOptions()"
+            *ngIf="isMutable"
+        >
+            <div class="option-icon" [ngClass]="!isMobileOptionOpen ? '' : 'active'">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </button>
+        <button
+            class="intro-modal-option"
+            type="button"
+            (click)="openIntroModal()"
+            *ngIf="isMutable"
+            title="Hide/Show box options"
+            data-cy="family-tree-intro-modal-option-button"
+        >
+            ?
+        </button>
+        <button
+            class="toggle-box-options"
+            type="button"
+            (click)="toggleBoxOptions()"
+            *ngIf="isMutable"
+            title="Hide/Show box options"
+        >
+            <img
+                class="toggle-box-options-icon"
+                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+                alt="toggle box options"
+                [src]="toggleBoxOptionsIcon"
+            />
+        </button>
+    </div>
+</div>
