@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewsletterService } from '../../../services/order/newsletter/newsletter.service';
@@ -8,7 +8,7 @@ import { NewsletterService } from '../../../services/order/newsletter/newsletter
   templateUrl: './newsletter-signup-modal.component.html',
   styleUrls: ['./newsletter-signup-modal.component.scss'],
 })
-export class NewsletterSignupModalComponent implements OnInit {
+export class NewsletterSignupModalComponent {
   newsletterSignupModalForm: FormGroup;
   isLoading = false;
 
@@ -17,8 +17,6 @@ export class NewsletterSignupModalComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
-
-  ngOnInit(): void {}
 
   submit() {
     const email: string = this.newsletterSignupModalForm.get('email').value;
