@@ -107,27 +107,60 @@ describe('ProductPage', () => {
       });
     });
 
-    //  it('should increase box size and save it', () => {
-    //   cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
-    //   cy.get('[data-cy=box-size-plus]').click();
-    //   cy.get('[data-cy=box-size-plus]').click();
-    //   cy.get('[data-cy=save-family-tree-button]').click();
-    //   cy.visit('/product').then(() => {
-    //     const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-    //     cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 22);
-    //   });
-    // });
+    it('should be unable to increase box size since default is max', () => {
+      const arrows = '{rightarrow}'.repeat(50);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 40);
+      });
+    });
 
-    //  it('should decrease box size and save it', () => {
-    //   cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
-    //   cy.get('[data-cy=box-size-minus]').click();
-    //   cy.get('[data-cy=box-size-minus]').click();
-    //   cy.get('[data-cy=save-family-tree-button]').click();
-    //   cy.visit('/product').then(() => {
-    //     const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-    //     cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 18);
-    //   });
-    // });
+    it('should be unable to decrease box size below the minimum', () => {
+      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
+      const arrows = '{leftarrow}'.repeat(10);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 15);
+      });
+    });
+
+    it('should increase box size and save it', () => {
+      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
+      const defaultValue = 20;
+      const newValue = 30;
+      const arrows = '{rightarrow}'.repeat(newValue - defaultValue);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', newValue);
+      });
+    });
+
+    it('should decrease box size and save it', () => {
+      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
+      const defaultValue = 20;
+      const newValue = 18;
+      const arrows = '{leftarrow}'.repeat(defaultValue - newValue);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', newValue);
+      });
+    });
 
     it('should be able to change the banner', () => {
       cy.wrap(localStorageDesign).its('banner.text').should('equal', 'my tree');
