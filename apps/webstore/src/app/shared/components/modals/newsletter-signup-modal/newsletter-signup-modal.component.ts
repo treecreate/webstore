@@ -45,6 +45,7 @@ export class NewsletterSignupModalComponent {
             'danger',
             5000
           );
+          console.error(err.message);
           this.isLoading = false;
         }
       );
