@@ -3,8 +3,11 @@
     <div class="content-container">
         <button type="button" class="btn-close" (click)="activeModal.close()"></button>
         <form class="content" [formGroup]="newsletterSignupModalForm" (ngSubmit)="submit()">
-            <h2 class="modal-title" i18n="@@20-procent-discount">Få 20% Rabat!</h2>
-            <p i18n="@@20-procent-discount-text">Du får 20% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</p>
+            <h2 class="modal-title" i18n="@@20-procent-discount">Get 20% Off!</h2>
+            <p i18n="@@20-procent-discount-text">
+                When you subscribe to our newsletter we send you an email with a discount code giving you 20% your first
+                purchase.
+            </p>
             <div class="tc-input-group field">
                 <input
                     type="email"

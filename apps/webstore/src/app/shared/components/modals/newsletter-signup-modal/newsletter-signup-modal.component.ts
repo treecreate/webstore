@@ -14,9 +14,9 @@ export class NewsletterSignupModalComponent {
   isLoading = false;
 
   constructor(
-    public activeModal: NgbActiveModal, 
+    public activeModal: NgbActiveModal,
     private newsletterService: NewsletterService,
-    private toastService: ToastService,
+    private toastService: ToastService
   ) {
     this.newsletterSignupModalForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -27,23 +27,26 @@ export class NewsletterSignupModalComponent {
     const email: string = this.newsletterSignupModalForm.get('email').value;
     if (email) {
       this.isLoading = true;
-      this.newsletterService.registerNewsletterEmail(email).subscribe(() => {
-        this.toastService.showAlert(
-          `Thank you for subscribing: ${email}`,
-          `Tak for din tilmelding: ${email}`,
-          'success',
-          3000
-        );
-        this.isLoading = false;
-        this.activeModal.close();
-      }, (err) => {
-        this.toastService.showAlert(
-          `Failed to subscribe: ${email}. Please try again.`,
-          `Der skete en fejl ved tilmelding af: ${email}. Prøv venligst igen.`,
-          'danger',
-          5000
-        );
-      });
+      this.newsletterService.registerNewsletterEmail(email).subscribe(
+        () => {
+          this.toastService.showAlert(
+            `Thank you for subscribing: ${email}`,
+            `Tak for din tilmelding: ${email}`,
+            'success',
+            3000
+          );
+          this.isLoading = false;
+          this.activeModal.close();
+        },
+        (err) => {
+          this.toastService.showAlert(
+            `Failed to subscribe: ${email}. Please try again.`,
+            `Der skete en fejl ved tilmelding af: ${email}. Prøv venligst igen.`,
+            'danger',
+            5000
+          );
+        }
+      );
     } else {
       this.toastService.showAlert(
         `Please write your email and try again.`,

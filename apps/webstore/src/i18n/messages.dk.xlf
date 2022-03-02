@@ -1066,7 +1066,11 @@
         <target>Tilmeld</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home-03-title" datatype="html">
@@ -1427,6 +1431,18 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/family-tree-basket-item/family-tree-basket-item.component.html</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/family-tree-checkout-item/family-tree-checkout-item.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/family-tree-collection-item/family-tree-collection-item.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="amount" datatype="html">
@@ -1847,6 +1863,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">31,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="20-procent-discount" datatype="html">
+        <source>Get 20% Off!</source>
+        <target>Få 20% Rabat!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="20-procent-discount-text" datatype="html">
+        <source>Du får 20% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</source>
+        <target>Du får 20% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="engelsk" datatype="html">
