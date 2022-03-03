@@ -12,8 +12,6 @@ describe('Signup to newsletter popup modal', () => {
   it('should show the popup and save it in localstorage', () => {
     expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(7000);
     cy.get('[data-cy=newsletter-modal-popup]').should('exist');
     cy.get('[data-cy=newsletter-modal-close-btn]')
       .click()
@@ -27,8 +25,6 @@ describe('Signup to newsletter popup modal', () => {
       statusCode: 200,
     });
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(7000);
     cy.get('[data-cy=newsletter-modal-popup]').should('exist');
     cy.get('[data-cy=newsletter-modal-email-input]').type('test');
     cy.get('[data-cy=newsletter-modal-subscribe-btn]').click();
