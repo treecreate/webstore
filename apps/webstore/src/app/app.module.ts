@@ -44,6 +44,7 @@ import { GoToBasketModalComponent } from './shared/components/modals/go-to-baske
 import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NewsletterSignupModalComponent } from './shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     GoToBasketModalComponent,
     OrdersComponent,
     OrderItemComponent,
+    NewsletterSignupModalComponent,
   ],
   imports: [
     BrowserModule,

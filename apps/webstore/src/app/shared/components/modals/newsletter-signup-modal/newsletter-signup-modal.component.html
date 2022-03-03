@@ -1,0 +1,46 @@
+<div class="newsletter-modal-container" data-cy="newsletter-modal-popup">
+    <div alt="image of a family tree" class="modal-image"></div>
+    <div class="content-container">
+        <button
+            type="button"
+            class="btn-close"
+            (click)="activeModal.close()"
+            data-cy="newsletter-modal-close-btn"
+        ></button>
+        <form class="content" [formGroup]="newsletterSignupModalForm" (ngSubmit)="submit()">
+            <h2 class="modal-title" i18n="@@20-procent-discount">Get 20% Off!</h2>
+            <p i18n="@@20-procent-discount-text">
+                When you subscribe to our newsletter we send you an email with a discount code giving you 20% your first
+                purchase.
+            </p>
+            <div class="tc-input-group field">
+                <input
+                    type="email"
+                    class="tc-input-field"
+                    placeholder="E-mail"
+                    formControlName="email"
+                    name="email"
+                    id="email"
+                    required
+                    data-cy="newsletter-modal-email-input"
+                />
+                <label for="email" class="tc-input-label">E-mail</label>
+            </div>
+            <button
+                type="submit"
+                class="tc-button-100 green"
+                data-cy="newsletter-modal-subscribe-btn"
+                [disabled]="isLoading"
+            >
+                <span i18n="@@subscribe" *ngIf="!isLoading">Subscribe</span>
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm text-light"
+                    style="margin: 5px"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+            </button>
+        </form>
+    </div>
+</div>
