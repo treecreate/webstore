@@ -15,6 +15,11 @@ export class FamilyTreeTemplateModalComponent {
 
   constructor(public activeModal: NgbActiveModal, private localStorageService: LocalStorageService) {}
 
+  /**
+   * Sets the local storage design to the selected template
+   * 
+   * @param name 
+   */
   applyTemplate(name: string) {
     const selectedTemplate: ITemplateFamilyTree = templates.find((template) => template.name === name);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
