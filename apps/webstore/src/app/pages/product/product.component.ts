@@ -95,6 +95,13 @@ export class ProductComponent implements OnInit {
     });
     this.showOptionBoxButtons = true;
     this.getFontList();
+
+    setTimeout(() => {
+      const firstVisit = this.localStorageService.getItem<boolean>(LocalStorageVars.firstVisit).value;
+      if (firstVisit === null) {
+        this.openTemplateModal();
+      }
+    }, 500);
   }
 
   isEnglish(): boolean {
