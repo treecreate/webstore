@@ -8,7 +8,7 @@ import { AuthService } from '../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '@local-storage';
 import { NewsletterService } from '../../shared/services/newsletter/newsletter.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NewsletterSignupModalComponent } from '../../shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
+
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
@@ -45,19 +45,6 @@ export class HomeComponent {
     this.subscribeForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
     });
-
-    // Check if user has seen newsletter modal before
-    const hasSeenNewsletterModal = this.localStorageService.getItem<boolean>(LocalStorageVars.hasSeenNewsletterModal);
-    if (!hasSeenNewsletterModal.value) {
-      setTimeout(() => {
-        this.openNewsletterSignupModal();
-        this.localStorageService.setItem<boolean>(LocalStorageVars.hasSeenNewsletterModal, true);
-      }, 7000);
-    }
-  }
-
-  openNewsletterSignupModal() {
-    this.modalService.open(NewsletterSignupModalComponent);
   }
 
   submitNewsletterEmail() {
