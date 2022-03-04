@@ -8,9 +8,8 @@ describe('FamilyTreeTemplateModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FamilyTreeTemplateModalComponent ]
-    })
-    .compileComponents();
+      declarations: [FamilyTreeTemplateModalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,1 +1,46 @@
-<p>family-tree-template-modal works!</p>
+<div data-cy="family-tree-template-modal">
+    <div class="modal-header">
+        <h4 class="modal-title" i18n="@@select-a-template">Select a template</h4>
+    </div>
+    <div class="modal-body">
+        <ngb-carousel class="carousel-container">
+            <ng-template ngbSlide *ngFor="let template of templateList">
+                <div class="template-container">
+                    <div class="template-img-container">
+                        <webstore-family-tree-miniature
+                            #productDesign
+                            [design]="template.designProperties"
+                            [boxSize]="template.designProperties.boxSize"
+                            class="item-image"
+                        >
+                        </webstore-family-tree-miniature>
+                    </div>
+                    <div class="template-title-container">
+                        {{ template.title }}
+                    </div>
+                    <button type="button" class="tc-button-50" (click)="applyTemplate(template.url)">Select</button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+    </div>
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="tc-button-50"
+            (click)="activeModal.close()"
+            data-cy="family-tree-template-close-button"
+            i18n="@@start-from-scratch"
+        >
+            Start from scratch
+        </button>
+        <button
+            type="button"
+            class="tc-button-50"
+            (click)="activeModal.close()"
+            data-cy="family-tree-template-close-button"
+            i18n="@@cancel"
+        >
+            Cancel
+        </button>
+    </div>
+</div>

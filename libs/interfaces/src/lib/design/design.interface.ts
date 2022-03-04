@@ -50,3 +50,9 @@ export interface IFamilyTreeBanner {
   text: string;
   style: 'first';
 }
+
+export interface Template {
+  title: string;
+  designProperties: IFamilyTree;
+  url: string;
+}
