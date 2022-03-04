@@ -1,7 +1,7 @@
 <!-- NOTE: the top/left thing is broken since it doesn't scale -->
 <textarea
     #draggableBoxInput
-    placeholder="{{ isEnglish() ? 'Write name...' : 'Skriv navn...' }}"
+    placeholder="{{ isMutable ? (isEnglish() ? 'Write name...' : 'Skriv navn...') : '' }}"
     class="draggable-box-input"
     (keydown.enter)="$event.preventDefault()"
     (keyup.enter)="$event.preventDefault()"
