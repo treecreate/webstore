@@ -1,4 +1,4 @@
-<div data-cy="family-tree-template-modal">
+<div data-cy="family-tree-template-modal" data-cy="template-container">
     <div class="modal-header">
         <h4 class="modal-title" i18n="@@select-a-template">Select a template</h4>
     </div>
@@ -18,7 +18,14 @@
                     <div class="template-title-container">
                         {{ template.title }}
                     </div>
-                    <button type="button" class="tc-button-50" (click)="applyTemplate(template.name)">Select</button>
+                    <button
+                        type="button"
+                        class="tc-button-50"
+                        (click)="applyTemplate(template.name)"
+                        data-cy="template-select-btn"
+                    >
+                        Select
+                    </button>
                 </div>
             </ng-template>
         </ngb-carousel>
@@ -28,7 +35,7 @@
             type="button"
             class="tc-button-50"
             (click)="applyTemplate('scratch')"
-            data-cy="family-tree-template-close-button"
+            data-cy="family-tree-template-start-from-scratch-button"
             i18n="@@start-from-scratch"
         >
             Start from scratch
