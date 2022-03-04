@@ -37,6 +37,7 @@ const mockDesign = {
 describe('ProductPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.visit('/product');
   });
 
