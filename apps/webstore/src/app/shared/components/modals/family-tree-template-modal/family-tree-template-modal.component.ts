@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { IFamilyTree, ITemplateFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
@@ -13,16 +14,22 @@ import { templates } from './templates';
 export class FamilyTreeTemplateModalComponent {
   templateList: ITemplateFamilyTree[] = templates;
 
-  constructor(public activeModal: NgbActiveModal, private localStorageService: LocalStorageService) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {}
 
   /**
    * Sets the local storage design to the selected template
-   * 
-   * @param name 
+   *
+   * @param name
    */
   applyTemplate(name: string) {
     const selectedTemplate: ITemplateFamilyTree = templates.find((template) => template.name === name);
+    console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
+    this.router.navigate(['/product']);
     location.reload();
   }
 }

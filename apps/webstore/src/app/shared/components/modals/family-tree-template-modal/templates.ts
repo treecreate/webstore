@@ -5,7 +5,7 @@ const fourGenerationFamilyV1: ITemplateFamilyTree = {
   name: 'fourGenerationFamilyV1',
   title: '4 Generationer',
   designProperties: {
-    font: FamilyTreeFontEnum.argestadisplay,
+    font: FamilyTreeFontEnum.calendasItalic,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 17,
     banner: {
@@ -712,12 +712,3 @@ export const templates = [
   partnerTreeV1,
   scratch,
 ];
-
-enum ITemplateListEnum {
-  fourGenerations = 'fourGenerationFamilyV1',
-  threeGenerations = 'threeGenerationFamilyV1',
-  twoGenerations = 'twoGenerationFamily',
-  friendTree = 'friendTreeV1',
-  partnerTree = 'partnerTreeV1',
-  scratch = 'scratch',
-}
