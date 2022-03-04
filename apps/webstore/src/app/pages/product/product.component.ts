@@ -100,6 +100,7 @@ export class ProductComponent implements OnInit {
       const firstVisit = this.localStorageService.getItem<boolean>(LocalStorageVars.firstVisit).value;
       if (firstVisit === null) {
         this.openTemplateModal();
+        this.localStorageService.setItem<boolean>(LocalStorageVars.firstVisit, true);
       }
     }, 500);
   }

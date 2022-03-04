@@ -689,12 +689,28 @@ const partnerTreeV1: Template = {
   },
 };
 
+const scratch: Template = {
+  name: 'scratch',
+  title: 'Tomt design',
+  designProperties: {
+    font: FamilyTreeFontEnum.calendas,
+    backgroundTreeDesign: TreeDesignEnum.tree1,
+    boxSize: 20,
+    banner: {
+      text: '',
+      style: 'first',
+    },
+    boxes: [],
+  },
+};
+
 export const templates = [
   fourGenerationFamilyV1,
   threeGenerationFamilyV1,
   twoGenerationFamily,
   friendTreeV1,
   partnerTreeV1,
+  scratch,
 ];
 
 enum TemplateListEnum {
@@ -703,4 +719,5 @@ enum TemplateListEnum {
   twoGenerations = 'twoGenerationFamily',
   friendTree = 'friendTreeV1',
   partnerTree = 'partnerTreeV1',
+  scratch = 'scratch',
 }
