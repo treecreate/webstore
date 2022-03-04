@@ -117,10 +117,6 @@ export class ProductComponent implements OnInit {
     this.modalService.open(FamilyTreeTemplateModalComponent);
   }
 
-  selectTemplate(name: string): void {
-    alert(name);
-  }
-
   getFontList() {
     Object.entries(FamilyTreeFontEnum).forEach(([key, value]) => {
       this.fontOptions.push({ key, value });
