@@ -689,13 +689,13 @@ const partnerTreeV1: Template = {
   },
 };
 
-export const templateList = {
-  fourGenerations: fourGenerationFamilyV1,
-  threeGenerations: threeGenerationFamilyV1,
-  twoGenerations: twoGenerationFamily,
-  friendTree: friendTreeV1,
-  partnerTree: partnerTreeV1,
-};
+export const templates = [
+  fourGenerationFamilyV1,
+  threeGenerationFamilyV1,
+  twoGenerationFamily,
+  friendTreeV1,
+  partnerTreeV1,
+];
 
 enum TemplateListEnum {
   fourGenerations = 'fourGenerationFamilyV1',

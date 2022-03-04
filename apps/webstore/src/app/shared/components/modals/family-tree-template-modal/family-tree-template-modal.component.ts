@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, IDraggableBox, IFamilyTree, Template } from '@interfaces';
+import { IFamilyTree, Template } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
+import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { templateList } from './templates';
+import { templates } from './templates';
 
 @Component({
   selector: 'webstore-family-tree-template-modal',
@@ -10,17 +11,13 @@ import { templateList } from './templates';
   styleUrls: ['./family-tree-template-modal.component.scss'],
 })
 export class FamilyTreeTemplateModalComponent {
-  templateList: Template[] = [
-    templateList.twoGenerations,
-    templateList.threeGenerations,
-    templateList.fourGenerations,
-    templateList.friendTree,
-    templateList.partnerTree,
-  ];
+  templateList: Template[] = templates;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private localStorageService: LocalStorageService) {}
 
   applyTemplate(name: string) {
-    alert(name);
+    const selectedTemplate: Template = templates.find((template) => template.name === name);
+    this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
+    location.reload();
   }
 }
