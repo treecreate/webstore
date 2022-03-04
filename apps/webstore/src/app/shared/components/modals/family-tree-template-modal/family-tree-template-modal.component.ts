@@ -10,18 +10,17 @@ import { templateList } from './templates';
   styleUrls: ['./family-tree-template-modal.component.scss'],
 })
 export class FamilyTreeTemplateModalComponent {
-  templateList: Template[] = templateList;
-
-  // font: FamilyTreeFontEnum;
-  // backgroundTreeDesign: TreeDesignEnum;
-  // boxSize: number;
-  // banner: IFamilyTreeBanner;
-  // boxes: IDraggableBox[];
-  //
+  templateList: Template[] = [
+    templateList.twoGenerations,
+    templateList.threeGenerations,
+    templateList.fourGenerations,
+    templateList.friendTree,
+    templateList.partnerTree,
+  ];
 
   constructor(public activeModal: NgbActiveModal) {}
 
-  applyTemplate(url: string) {
-    alert(url);
+  applyTemplate(name: string) {
+    alert(name);
   }
 }

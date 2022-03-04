@@ -53,6 +53,7 @@ export interface IFamilyTreeBanner {
 }
 
 export interface Template {
+  name: string;
   title: string;
   designProperties: IFamilyTree;
 }

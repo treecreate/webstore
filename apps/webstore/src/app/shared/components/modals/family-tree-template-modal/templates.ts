@@ -2,14 +2,15 @@ import { TreeDesignEnum, BoxDesignEnum } from '@assets';
 import { FamilyTreeFontEnum, Template } from '@interfaces';
 
 const fourGenerationFamilyV1: Template = {
+  name: 'fourGenerationFamilyV1',
   title: '4 Generationer',
   designProperties: {
     font: FamilyTreeFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 17,
     banner: {
-        text: 'Min Familie',
-        style: 'first'
+      text: 'Min Familie',
+      style: 'first',
     },
     boxes: [
       {
@@ -170,14 +171,15 @@ const fourGenerationFamilyV1: Template = {
 };
 
 const fourGenerationFamilyV2: Template = {
+  name: 'fourGenerationFamilyV2',
   title: '4 Generationer',
   designProperties: {
     font: FamilyTreeFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 17,
     banner: {
-        text: 'Min Familie',
-        style: 'first'
+      text: 'Min Familie',
+      style: 'first',
     },
     boxes: [
       {
@@ -338,6 +340,7 @@ const fourGenerationFamilyV2: Template = {
 };
 
 const threeGenerationFamilyV1: Template = {
+  name: 'threeGenerationFamilyV1',
   title: '3 Generationer',
   designProperties: {
     font: FamilyTreeFontEnum.calendas,
@@ -434,6 +437,7 @@ const threeGenerationFamilyV1: Template = {
 };
 
 const threeGenerationFamilyV2: Template = {
+  name: 'threeGenerationFamilyV2',
   title: '3 Generationer',
   designProperties: {
     font: FamilyTreeFontEnum.calendas,
@@ -530,6 +534,7 @@ const threeGenerationFamilyV2: Template = {
 };
 
 const twoGenerationFamily: Template = {
+  name: 'twoGenerationFamily',
   title: 'Kernefamilien',
   designProperties: {
     font: FamilyTreeFontEnum.calendas,
@@ -590,102 +595,112 @@ const twoGenerationFamily: Template = {
 };
 
 const friendTreeV1: Template = {
-    title: 'Vennetræet',
-    designProperties: {
-      font: FamilyTreeFontEnum.calendas,
-      backgroundTreeDesign: TreeDesignEnum.tree1,
-      boxSize: 31,
-      banner: {
-        text: 'Vennetræet',
-        style: 'first',
-      },
-      boxes: [
-        {
-          x: 1101.2496647240985,
-          y: 1113.827387774012,
-          previousX: 0,
-          previousY: 0,
-          dragging: false,
-          boxDesign: BoxDesignEnum.box5,
-          text: "Ven"
-        },
-        {
-          x: 86.8876642851917,
-          y: 639.4180829533541,
-          previousX: 0,
-          previousY: 0,
-          dragging: false,
-          boxDesign: BoxDesignEnum.box8,
-          text: "Veninde"
-        },
-        {
-          x: 283.5178366779643,
-          y: 1113.827387774012,
-          previousX: 0,
-          previousY: 0,
-          dragging: false,
-          boxDesign: BoxDesignEnum.box1,
-          text: "Ven "
-        },
-        {
-          x: 736.0793445660918,
-          y: 321.0644705079128,
-          previousX: 0,
-          previousY: 0,
-          dragging: false,
-          boxDesign: BoxDesignEnum.box5,
-          text: "Veninde"
-        },
-        {
-          x: 1369.6654556094707,
-          y: 636.2969691058499,
-          previousX: 0,
-          previousY: 0,
-          dragging: false,
-          boxDesign: BoxDesignEnum.box5,
-          text: "Ven"
-        }
-      ],
+  name: 'friendTreeV1',
+  title: 'Vennetræet',
+  designProperties: {
+    font: FamilyTreeFontEnum.calendas,
+    backgroundTreeDesign: TreeDesignEnum.tree1,
+    boxSize: 31,
+    banner: {
+      text: 'Vennetræet',
+      style: 'first',
     },
-  };
-
-  const partnerV1: Template = {
-    title: 'Til hende',
-    designProperties: {
-      font: FamilyTreeFontEnum.calendas,
-      backgroundTreeDesign: TreeDesignEnum.tree1,
-      boxSize: 40,
-      banner: {
-        text: 'Kærligheds træet',
-        style: 'first',
+    boxes: [
+      {
+        x: 1101.2496647240985,
+        y: 1113.827387774012,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box5,
+        text: 'Ven',
       },
-      boxes: [
-        {
-          x: 285.7142857142857,
-          y: 800,
-          previousX: 0,
-          previousY: 0,
-          dragging: false,
-          boxDesign: BoxDesignEnum.box4,
-          text: "Dig"
-        },
-        {
-          x: 1000,
-          y: 800,
-          previousX: 0,
-          previousY: 0,
-          dragging: false,
-          boxDesign: BoxDesignEnum.box2,
-          text: "Partner"
-        }
-      ],
-    },
-  };
+      {
+        x: 86.8876642851917,
+        y: 639.4180829533541,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box8,
+        text: 'Veninde',
+      },
+      {
+        x: 283.5178366779643,
+        y: 1113.827387774012,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box1,
+        text: 'Ven ',
+      },
+      {
+        x: 736.0793445660918,
+        y: 321.0644705079128,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box5,
+        text: 'Veninde',
+      },
+      {
+        x: 1369.6654556094707,
+        y: 636.2969691058499,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box5,
+        text: 'Ven',
+      },
+    ],
+  },
+};
 
-export const templateList = [
-  fourGenerationFamilyV1,
-  threeGenerationFamilyV1,
-  twoGenerationFamily,
-  friendTreeV1,
-  partnerV1
-];
+const partnerTreeV1: Template = {
+  name: 'partnerTreeV1',
+  title: 'Til hende',
+  designProperties: {
+    font: FamilyTreeFontEnum.calendas,
+    backgroundTreeDesign: TreeDesignEnum.tree1,
+    boxSize: 40,
+    banner: {
+      text: 'Kærligheds træet',
+      style: 'first',
+    },
+    boxes: [
+      {
+        x: 285.7142857142857,
+        y: 800,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box4,
+        text: 'Dig',
+      },
+      {
+        x: 1000,
+        y: 800,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box2,
+        text: 'Partner',
+      },
+    ],
+  },
+};
+
+export const templateList = {
+  fourGenerations: fourGenerationFamilyV1,
+  threeGenerations: threeGenerationFamilyV1,
+  twoGenerations: twoGenerationFamily,
+  friendTree: friendTreeV1,
+  partnerTree: partnerTreeV1,
+};
+
+enum TemplateListEnum {
+  fourGenerations = 'fourGenerationFamilyV1',
+  threeGenerations = 'threeGenerationFamilyV1',
+  twoGenerations = 'twoGenerationFamily',
+  friendTree = 'friendTreeV1',
+  partnerTree = 'partnerTreeV1',
+}
