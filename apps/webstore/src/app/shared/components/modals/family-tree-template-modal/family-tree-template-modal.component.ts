@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IFamilyTree, Template } from '@interfaces';
+import { IFamilyTree, ITemplateFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,12 +11,12 @@ import { templates } from './templates';
   styleUrls: ['./family-tree-template-modal.component.scss'],
 })
 export class FamilyTreeTemplateModalComponent {
-  templateList: Template[] = templates;
+  templateList: ITemplateFamilyTree[] = templates;
 
   constructor(public activeModal: NgbActiveModal, private localStorageService: LocalStorageService) {}
 
   applyTemplate(name: string) {
-    const selectedTemplate: Template = templates.find((template) => template.name === name);
+    const selectedTemplate: ITemplateFamilyTree = templates.find((template) => template.name === name);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
     location.reload();
   }

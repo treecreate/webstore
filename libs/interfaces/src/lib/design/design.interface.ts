@@ -52,7 +52,7 @@ export interface IFamilyTreeBanner {
   style: 'first';
 }
 
-export interface Template {
+export interface ITemplateFamilyTree {
   name: string;
   title: string;
   designProperties: IFamilyTree;

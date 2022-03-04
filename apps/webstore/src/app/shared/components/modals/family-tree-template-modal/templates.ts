@@ -1,7 +1,7 @@
 import { TreeDesignEnum, BoxDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, Template } from '@interfaces';
+import { FamilyTreeFontEnum, ITemplateFamilyTree } from '@interfaces';
 
-const fourGenerationFamilyV1: Template = {
+const fourGenerationFamilyV1: ITemplateFamilyTree = {
   name: 'fourGenerationFamilyV1',
   title: '4 Generationer',
   designProperties: {
@@ -170,7 +170,7 @@ const fourGenerationFamilyV1: Template = {
   },
 };
 
-const fourGenerationFamilyV2: Template = {
+const fourGenerationFamilyV2: ITemplateFamilyTree = {
   name: 'fourGenerationFamilyV2',
   title: '4 Generationer',
   designProperties: {
@@ -339,7 +339,7 @@ const fourGenerationFamilyV2: Template = {
   },
 };
 
-const threeGenerationFamilyV1: Template = {
+const threeGenerationFamilyV1: ITemplateFamilyTree = {
   name: 'threeGenerationFamilyV1',
   title: '3 Generationer',
   designProperties: {
@@ -436,7 +436,7 @@ const threeGenerationFamilyV1: Template = {
   },
 };
 
-const threeGenerationFamilyV2: Template = {
+const threeGenerationFamilyV2: ITemplateFamilyTree = {
   name: 'threeGenerationFamilyV2',
   title: '3 Generationer',
   designProperties: {
@@ -533,7 +533,7 @@ const threeGenerationFamilyV2: Template = {
   },
 };
 
-const twoGenerationFamily: Template = {
+const twoGenerationFamily: ITemplateFamilyTree = {
   name: 'twoGenerationFamily',
   title: 'Kernefamilien',
   designProperties: {
@@ -594,7 +594,7 @@ const twoGenerationFamily: Template = {
   },
 };
 
-const friendTreeV1: Template = {
+const friendTreeV1: ITemplateFamilyTree = {
   name: 'friendTreeV1',
   title: 'Vennetræet',
   designProperties: {
@@ -655,7 +655,7 @@ const friendTreeV1: Template = {
   },
 };
 
-const partnerTreeV1: Template = {
+const partnerTreeV1: ITemplateFamilyTree = {
   name: 'partnerTreeV1',
   title: 'Til hende',
   designProperties: {
@@ -689,7 +689,7 @@ const partnerTreeV1: Template = {
   },
 };
 
-const scratch: Template = {
+const scratch: ITemplateFamilyTree = {
   name: 'scratch',
   title: 'Tomt design',
   designProperties: {
@@ -713,7 +713,7 @@ export const templates = [
   scratch,
 ];
 
-enum TemplateListEnum {
+enum ITemplateListEnum {
   fourGenerations = 'fourGenerationFamilyV1',
   threeGenerations = 'threeGenerationFamilyV1',
   twoGenerations = 'twoGenerationFamily',
