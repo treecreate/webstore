@@ -381,7 +381,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   // Draw the entire canvas with the boxes etc
-  @HostListener('window:resize', ['$event'])
   draw() {
     try {
       this.context.clearRect(
@@ -582,6 +581,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   ngOnDestroy() {
     clearInterval(this.timeInterval);
     clearInterval(this.autosaveInterval);
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  handleWindowResize(): void {
+    this.updateDraggableBoxDimensions();
+    this.frameChanged = true;
   }
 
   /**
