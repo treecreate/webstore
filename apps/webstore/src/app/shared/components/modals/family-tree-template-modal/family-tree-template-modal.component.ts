@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { TreeDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, IFamilyTree, Template } from '@interfaces';
+import { BoxDesignEnum, TreeDesignEnum } from '@assets';
+import { FamilyTreeFontEnum, IDraggableBox, IFamilyTree, Template } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { templateList } from './templates';
 
 @Component({
   selector: 'webstore-family-tree-template-modal',
@@ -9,41 +10,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./family-tree-template-modal.component.scss'],
 })
 export class FamilyTreeTemplateModalComponent {
-  templateList: Template[] = [
-    { 
-      title: 'first template', 
-      designProperties: {
-        font: FamilyTreeFontEnum.argestadisplay,
-        backgroundTreeDesign: TreeDesignEnum.tree1,
-        boxSize: 30,
-        banner: undefined,
-        boxes: [
-          
-        ]
-      }, 
-      url: '/first' 
-    },
-    { 
-      title: 'second template', 
-      designProperties: {
-        font: FamilyTreeFontEnum.argestadisplay,
-        backgroundTreeDesign: TreeDesignEnum.tree1,
-        boxSize: 30,
-        banner: undefined,
-        boxes: [
-
-        ]
-      }, 
-      url: '/second' 
-    },
-  ];
+  templateList: Template[] = templateList;
 
   // font: FamilyTreeFontEnum;
   // backgroundTreeDesign: TreeDesignEnum;
   // boxSize: number;
   // banner: IFamilyTreeBanner;
   // boxes: IDraggableBox[];
-  // 
+  //
 
   constructor(public activeModal: NgbActiveModal) {}
 
