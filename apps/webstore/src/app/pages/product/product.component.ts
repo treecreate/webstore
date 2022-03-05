@@ -142,6 +142,7 @@ export class ProductComponent implements OnInit {
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       // apply the design
       if (this.design !== null && this.design !== undefined) {
+        this.backgroundTreeDesign = this.design.backgroundTreeDesign;
         this.font = this.design.font;
         this.banner = this.design.banner;
         this.boxSize = this.design.boxSize;
