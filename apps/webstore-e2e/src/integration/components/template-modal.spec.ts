@@ -33,13 +33,4 @@ describe('Template selection modal', () => {
       cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 17);
     });
   });
-
-  it('start from scratch has no boxes', () => {
-    cy.get('[data-cy=family-tree-template-start-from-scratch-button]').click();
-    cy.visit('/product').then(() => {
-      const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-      console.warn('After design: ', localStorageDesignAfter);
-      cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 0);
-    });
-  });
 });
