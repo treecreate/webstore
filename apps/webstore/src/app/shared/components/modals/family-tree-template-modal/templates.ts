@@ -712,3 +712,5 @@ export const templates = [
   partnerTreeV1,
   scratch,
 ];
+
+export const fullTemplateList = [twoGenerationFamily, friendTreeV1, partnerTreeV1];
