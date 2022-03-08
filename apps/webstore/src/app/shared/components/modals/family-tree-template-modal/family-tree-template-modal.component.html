@@ -23,6 +23,7 @@
                         class="tc-button-50"
                         (click)="applyTemplate(template.name)"
                         data-cy="template-select-btn"
+                        i18n="@@select"
                     >
                         Select
                     </button>
@@ -36,9 +37,9 @@
             class="tc-button-50"
             (click)="returnTemplateList()"
             data-cy="family-tree-more-examples-button"
-            i18n="@@more-examples"
         >
-            More examples +
+            <span *ngIf="showMoreExamples" i18n="@@show-more">Show more</span>
+            <span *ngIf="!showMoreExamples" i18n="@@show-less">Show less</span>
         </button>
         <button
             type="button"

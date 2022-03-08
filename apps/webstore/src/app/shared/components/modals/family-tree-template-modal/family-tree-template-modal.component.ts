@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IFamilyTree, ITemplateFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -14,6 +14,7 @@ import { templateExtra } from './templatesExtra';
 })
 export class FamilyTreeTemplateModalComponent {
   templateList: ITemplateFamilyTree[];
+  showMoreExamples = false;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -37,6 +38,7 @@ export class FamilyTreeTemplateModalComponent {
   }
 
   returnTemplateList() {
-    this.templateList = this.templateList === templates ? templates.concat(templateExtra) : templates;
+    this.showMoreExamples = !this.showMoreExamples;
+    this.templateList = this.showMoreExamples ? templates : templates.concat(templateExtra);
   }
 }
