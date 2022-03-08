@@ -37,7 +37,7 @@ describe('Template selection modal', () => {
   it('displays more templates when clicking more examples button', () => {
     cy.get('[data-cy=template-option]').should('have.length', 6);
     cy.get('[data-cy=family-tree-more-examples-button]').click();
-    cy.get('[data-cy=template-option]').should('have.length', 3);
+    cy.get('[data-cy=template-option]').should('have.length', 16);
     cy.get('[data-cy=family-tree-more-examples-button]').click();
     cy.get('[data-cy=template-option]').should('have.length', 6);
   });
