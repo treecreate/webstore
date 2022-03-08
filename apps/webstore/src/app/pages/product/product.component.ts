@@ -45,9 +45,9 @@ export class ProductComponent implements OnInit {
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
   fontOptions = [];
   backgroundTreeDesign = TreeDesignEnum.tree1;
-  boxSize = 40;
-  maxSize = 40;
-  minSize = 15;
+  boxSize = 70;
+  maxSize = 70;
+  minSize = 10;
   boxSizeOptions = {
     floor: this.minSize,
     ceil: this.maxSize,
@@ -150,8 +150,8 @@ export class ProductComponent implements OnInit {
         // set the defaults
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
-        this.boxSize = 40;
-        this.maxSize = 40;
+        this.boxSize = 20;
+        this.maxSize = 70;
         this.minSize = 10;
         this.banner = { text: 'Familietræet', style: 'first' };
       }
