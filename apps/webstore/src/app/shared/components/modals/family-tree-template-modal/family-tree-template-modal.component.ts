@@ -4,7 +4,8 @@ import { IFamilyTree, ITemplateFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { templates, fullTemplateList } from './templates';
+import { templates } from './templates';
+import { templateExtra } from './templatesExtra';
 
 @Component({
   selector: 'webstore-family-tree-template-modal',
@@ -36,6 +37,6 @@ export class FamilyTreeTemplateModalComponent {
   }
 
   returnTemplateList() {
-    this.templateList = this.templateList === templates ? fullTemplateList : templates;
+    this.templateList = this.templateList === templates ? templates.concat(templateExtra) : templates;
   }
 }
