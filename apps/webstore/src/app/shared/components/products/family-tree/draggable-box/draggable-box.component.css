@@ -6,12 +6,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
-  line-height: 95%;
   overflow: hidden;
   resize: none;
   z-index: 2;
   outline: none;
   border: none;
+  line-height: 95%;
+  -webkit-text-size-adjust: none;
 }
 
 .draggable-box-input:hover {

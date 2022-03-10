@@ -583,7 +583,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     clearInterval(this.autosaveInterval);
   }
 
-
   @HostListener('window:resize', ['$event'])
   handleWindowResize(): void {
     this.updateDraggableBoxDimensions();
