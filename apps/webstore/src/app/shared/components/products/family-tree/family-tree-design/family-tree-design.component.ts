@@ -46,6 +46,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // Various sizing and position variables
   // Note - modify this variable to control option button size
   boxOptionSize = 10;
+  mobileOptionButtonMultiplier = 1.5;
   boxRawSize = 1;
   // Note - modify this variable to control the curve of box size changes
   boxSizeScalingMultiplier = 0.05;
@@ -273,10 +274,28 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     this.foregroundCanvas.nativeElement.height = this.canvasResolution.height;
     this.context = this.foregroundCanvas.nativeElement.getContext('2d');
     this.canvasScaleToBounds = this.familyTreeDesignService.getCanvasScale(this.foregroundCanvas.nativeElement);
-    this.optionButtonDimensions = {
-      height: (this.canvasResolution.height / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
-      width: (this.canvasResolution.width / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
-    };
+
+    // if the design is viewed on mobile, the buttons should be bigger
+    if (window.innerWidth <= 640) {
+      this.optionButtonDimensions = {
+        height:
+          (this.canvasResolution.height / 10) *
+          this.boxSizeScalingMultiplier *
+          this.boxOptionSize *
+          this.mobileOptionButtonMultiplier,
+        width:
+          (this.canvasResolution.width / 10) *
+          this.boxSizeScalingMultiplier *
+          this.boxOptionSize *
+          this.mobileOptionButtonMultiplier,
+      };
+    } else {
+      this.optionButtonDimensions = {
+        height: (this.canvasResolution.height / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
+        width: (this.canvasResolution.width / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
+      };
+    }
+
     // run the render loop
     clearInterval(this.timeInterval);
 
