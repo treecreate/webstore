@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,9 @@ public class AuthController
         @ApiResponse(code = 401,
             message = "Provided body is not valid, it is missing, or the email is already in use")})
     public ResponseEntity<JwtResponse> registerUser(
-        @Valid @RequestBody SignupRequest signUpRequest)
+        @Valid @RequestBody SignupRequest signUpRequest,
+        @Parameter(name="sendPasswordEmail", description = "Boolean to determine user being created on order")
+        @RequestParam(required = false, defaultValue = "false") boolean sendPasswordEmail)
     {
         if (userRepository.existsByEmail(signUpRequest.getEmail()))
         {
@@ -111,11 +114,14 @@ public class AuthController
 
         try
         {
-            mailService.sendSignupEmail(user.getEmail(), user.getToken(),
-                localeService.getLocale(null));
+            if (sendPasswordEmail) {
+                mailService.sendSignupEmailOnOrder(user.getEmail(), user.getToken(), localeService.getLocale(null));
+            } else {
+                mailService.sendSignupEmail(user.getEmail(), localeService.getLocale(null));
+            }
         } catch (Exception e)
         {
-            LOGGER.error("Failed to process a verification email", e);
+            LOGGER.error("Failed to process a signup email", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                 "Failed to send the email. Try again later");
         }

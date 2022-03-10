@@ -15,19 +15,6 @@ public class LinkService
     CustomPropertiesConfig customProperties;
 
     /**
-     * Returns link that is used for account verification
-     *
-     * @param token  user-specific UUID token
-     * @param locale what locale the redirected page should be opened in
-     * @return the verification  link with a token
-     */
-    public String generateVerificationLink(UUID token, Locale locale)
-    {
-        String route = "/verification/" + token.toString();
-        return getPath(locale, route, false);
-    }
-
-    /**
      * Returns link that is included in the reset password email
      *
      * @param token  user-specific UUID token

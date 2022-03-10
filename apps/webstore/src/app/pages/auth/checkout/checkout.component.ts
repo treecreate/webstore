@@ -242,7 +242,7 @@ export class CheckoutComponent implements OnInit {
     // register a new user, upload the items and designs from local storage and create an order
     try {
       const user = await this.authService
-        .register({
+        .registerOnOrder({
           email: this.checkoutForm.get('email').value,
           password: passwordGen,
         })

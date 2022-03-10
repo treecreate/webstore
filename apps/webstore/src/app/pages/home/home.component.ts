@@ -7,6 +7,8 @@ import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '@local-storage';
 import { NewsletterService } from '../../shared/services/newsletter/newsletter.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
@@ -27,7 +29,8 @@ export class HomeComponent {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private newsletterService: NewsletterService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private modalService: NgbModal
   ) {
     this.initialTop = 0;
 
