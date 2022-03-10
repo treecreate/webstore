@@ -78,12 +78,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   };
 
   // controls position of option buttons around the draggable box
-  // NOTE - each change needs to be replicated in ngOnChanges method
-  optionButtonOffset = {
-    dragX: this.boxDimensions.width * 0.9,
-    dragY: this.boxDimensions.height * 0.55,
-    closeX: this.boxDimensions.width * 0.9,
-    closeY: this.boxDimensions.height * 0.15,
+  // NOTE - actual values need to get adjusted in `updateDraggableBoxDimensions` method
+  optionButtonOffset: {
+    dragX: number;
+    dragY: number;
+    closeX: number;
+    closeY: number;
   };
 
   // ---------------------------------------------------------- //
@@ -329,25 +329,19 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
     // set the listeners on the new component
     draggableBoxRef.instance.mousedownEvent.subscribe((value) => {
-      console.log('yeet');
       this.mouseDownHandler(value);
     });
     draggableBoxRef.instance.mouseupEvent.subscribe((value) => {
-      console.log('yeet');
       this.mouseUpHandler(value);
     });
 
     draggableBoxRef.instance.touchmoveEvent.subscribe((value) => {
-      console.log('yeet');
       this.mouseMoveHandler(value);
     });
     draggableBoxRef.instance.touchstartEvent.subscribe((value) => {
-      console.log('yeet');
       this.mouseDownHandler(value);
     });
     draggableBoxRef.instance.touchendEvent.subscribe((value) => {
-      console.log('yeet');
-
       this.mouseUpHandler(value);
     });
     draggableBoxRef.instance.boxInitComplete.subscribe(() => {
@@ -510,6 +504,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       }
       console.log('Finished loading design');
       this.frameChanged = true;
+      this.updateDraggableBoxDimensions();
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Something went wrong while loading the design!', error);
@@ -611,9 +606,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     // controls position of option buttons around the draggable box
     this.optionButtonOffset = {
       dragX: this.boxDimensions.width * 0.9,
-      dragY: this.boxDimensions.height * 0.55,
+      dragY: this.boxDimensions.height / 2 + this.optionButtonDimensions.height * 0.1,
       closeX: this.boxDimensions.width * 0.9,
-      closeY: this.boxDimensions.height * 0.15,
+      closeY: this.boxDimensions.height / 2 - this.optionButtonDimensions.height * 1.1,
     };
 
     // update all of the boxes with new sizing information
@@ -637,6 +632,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       };
     }
   }
+
+  private calculateOptionButtonOffset(): void {}
 
   // handle canvas events
 
