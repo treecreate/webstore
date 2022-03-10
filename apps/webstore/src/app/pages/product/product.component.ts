@@ -90,7 +90,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     // The subscription will get triggered right away, loading the design
-    this.route.queryParams.subscribe((p) => {
+    this.route.queryParams.subscribe(() => {
       this.loadDesign();
     });
     this.showOptionBoxButtons = true;

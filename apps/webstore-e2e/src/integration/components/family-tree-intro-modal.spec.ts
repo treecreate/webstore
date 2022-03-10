@@ -1,8 +1,6 @@
 import { LocalStorageVars, CookieStatus } from '@models';
-import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 describe('introduction modal', () => {
-  const authMockService = new AuthenticationService();
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
