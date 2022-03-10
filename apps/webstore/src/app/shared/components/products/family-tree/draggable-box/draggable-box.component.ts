@@ -90,6 +90,8 @@ export class DraggableBoxComponent implements AfterViewInit {
   touchendEvent = new EventEmitter();
   @Output()
   newTextValue = new EventEmitter<string>();
+  @Output()
+  boxInitComplete = new EventEmitter();
 
   boxOptionsDesignEnum = BoxOptionsDesignEnum;
 
@@ -106,6 +108,7 @@ export class DraggableBoxComponent implements AfterViewInit {
    */
   ngAfterViewInit() {
     setTimeout(() => (this.textareaHeight = this.input.nativeElement.scrollHeight), 100);
+    this.boxInitComplete.emit();
   }
 
   isEnglish() {

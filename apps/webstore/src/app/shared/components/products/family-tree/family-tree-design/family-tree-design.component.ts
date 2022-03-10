@@ -280,6 +280,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     // run the render loop
     clearInterval(this.timeInterval);
 
+    // draws the design boxes on based frequecy (FPS). Only draws them if there is a change to draw
     this.timeInterval = setInterval(() => {
       if (this.frameChanged) {
         requestAnimationFrame(this.draw.bind(this));
@@ -328,20 +329,29 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
     // set the listeners on the new component
     draggableBoxRef.instance.mousedownEvent.subscribe((value) => {
+      console.log('yeet');
       this.mouseDownHandler(value);
     });
     draggableBoxRef.instance.mouseupEvent.subscribe((value) => {
+      console.log('yeet');
       this.mouseUpHandler(value);
     });
 
     draggableBoxRef.instance.touchmoveEvent.subscribe((value) => {
+      console.log('yeet');
       this.mouseMoveHandler(value);
     });
     draggableBoxRef.instance.touchstartEvent.subscribe((value) => {
+      console.log('yeet');
       this.mouseDownHandler(value);
     });
     draggableBoxRef.instance.touchendEvent.subscribe((value) => {
+      console.log('yeet');
+
       this.mouseUpHandler(value);
+    });
+    draggableBoxRef.instance.boxInitComplete.subscribe(() => {
+      this.frameChanged = true;
     });
     draggableBoxRef.instance.newTextValue.subscribe(() => {
       // We don't actually use the value yet since we can't directly apply it to the element in myBoxes (indexes change)
