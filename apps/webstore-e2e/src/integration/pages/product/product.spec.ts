@@ -116,7 +116,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 40);
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 70);
       });
     });
 
@@ -129,7 +129,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 15);
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 10);
       });
     });
 
