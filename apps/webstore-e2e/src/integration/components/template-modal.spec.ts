@@ -13,6 +13,8 @@ describe('Template selection modal', () => {
   });
 
   it('closes when clicking cancel', () => {
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
+    cy.get('[data-cy=family-tree-template-button]').click();
     cy.get('[data-cy=template-container]').should('exist');
     cy.get('[data-cy=family-tree-template-close-button]').click();
     cy.get('[data-cy=template-container]').should('not.exist');
@@ -26,6 +28,8 @@ describe('Template selection modal', () => {
   });
 
   it('selects the correct template', () => {
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
+    cy.get('[data-cy=family-tree-template-button]').click();
     cy.get('[data-cy=template-select-btn]').first().click();
     cy.visit('/product').then(() => {
       const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
@@ -35,6 +39,8 @@ describe('Template selection modal', () => {
   });
 
   it('displays more templates when clicking more examples button', () => {
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
+    cy.get('[data-cy=family-tree-template-button]').click();
     cy.get('[data-cy=template-option]').should('have.length', 6);
     cy.get('[data-cy=family-tree-more-examples-button]').click();
     cy.get('[data-cy=template-option]').should('have.length', 16);
