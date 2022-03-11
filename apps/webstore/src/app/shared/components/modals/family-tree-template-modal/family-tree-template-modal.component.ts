@@ -30,7 +30,9 @@ export class FamilyTreeTemplateModalComponent {
    * @param name
    */
   applyTemplate(name: string) {
-    const selectedTemplate: ITemplateFamilyTree = templates.concat(templateExtra).find((template) => template.name === name);
+    const selectedTemplate: ITemplateFamilyTree = templates
+      .concat(templateExtra)
+      .find((template) => template.name === name);
     console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
     this.router.navigate(['/product']);
