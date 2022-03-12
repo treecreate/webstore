@@ -110,9 +110,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   design: IFamilyTree = null;
 
   @Input()
-  showBanner: boolean;
-
-  @Input()
   banner: IFamilyTreeBanner;
 
   @Input()
@@ -514,7 +511,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         }
       } else {
         // Setup boxes based on the loaded design
-        this.showBanner = design.banner === null;
         this.boxSize = design.boxSize;
         this.backgroundTreeDesign = design.backgroundTreeDesign;
         design.boxes.forEach((box) => {
