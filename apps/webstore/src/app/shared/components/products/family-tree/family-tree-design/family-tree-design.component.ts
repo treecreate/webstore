@@ -265,7 +265,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   ngAfterViewInit(): void {
-    console.log('Setting up design area');
     // Setup canvas
     this.foregroundCanvas.nativeElement.width = this.canvasResolution.width;
     this.foregroundCanvas.nativeElement.height = this.canvasResolution.height;
@@ -302,7 +301,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         requestAnimationFrame(this.draw.bind(this));
       }
     }, 1000 / this.framesPerSecond);
-    console.log('Render loop started');
 
     // start autosave of design
     clearInterval(this.autosaveInterval);
@@ -528,7 +526,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         type: 'danger',
         dismissible: false,
       };
-      console.log('interval', this.timeInterval);
       clearInterval(this.timeInterval);
       clearInterval(this.autosaveInterval);
       this.isDesignValid = false;
