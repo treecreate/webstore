@@ -1,11 +1,15 @@
 <div class="item-container">
-    <webstore-family-tree-miniature
+    <webstore-family-tree-design
         #productDesign
+        [isMutable]="false"
         [design]="item.design.designProperties"
         [boxSize]="item.design.designProperties.boxSize"
+        [banner]="item.design.designProperties.banner"
+        [backgroundTreeDesign]="item.design.designProperties.backgroundTreeDesign"
+        [font]="item.design.designProperties.font"
+        [showOptionBoxButtons]="false"
         class="item-image"
-    >
-    </webstore-family-tree-miniature>
+    ></webstore-family-tree-design>
     <div class="item-info">
         <div class="item-title" [ngSwitch]="item.design.designType">
             <strong

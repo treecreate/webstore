@@ -6,8 +6,9 @@
     </div>
     <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
         <webstore-family-tree-design
-            *ngIf="isMutable"
             #familyTreeDesignCanvas
+            [design]="design"
+            [isMutable]="isMutable"
             [boxSize]="boxSize"
             [banner]="banner"
             [backgroundTreeDesign]="backgroundTreeDesign"
@@ -16,14 +17,6 @@
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
             data-cy="family-tree-canvas"
         ></webstore-family-tree-design>
-        <webstore-family-tree-miniature
-            *ngIf="!isMutable"
-            #productDesign
-            [design]="design"
-            [boxSize]="boxSize"
-            class="item-image"
-        >
-        </webstore-family-tree-miniature>
     </div>
 
     <!-- FOR CY TESTS -->

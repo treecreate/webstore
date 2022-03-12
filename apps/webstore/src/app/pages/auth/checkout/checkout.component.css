@@ -181,6 +181,10 @@
   align-items: center;
 }
 
+.checkout-item-list {
+  z-index: 1;
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;
