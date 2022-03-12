@@ -107,7 +107,7 @@ export class DraggableBoxComponent implements AfterViewInit {
    * Adjust input height to match its contents.
    */
   ngAfterViewInit() {
-    setTimeout(() => (this.textareaHeight = this.input.nativeElement.scrollHeight), 100);
+    setTimeout(() => this.adjustInputHeight(), 100);
     this.boxInitComplete.emit();
   }
 
