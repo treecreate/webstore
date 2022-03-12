@@ -17,6 +17,7 @@
     [maxLength]="30"
     [ngModel]="text"
     [disabled]="!isMutable"
+    data-cy="draggable-box-input"
 ></textarea>
 <img
     class="draggable-box-input"
@@ -40,6 +41,7 @@
     class="close-button-icon"
     src="{{ boxOptionsDesignEnum.closeButton1 }}"
     alt="Remove"
+    data-cy="draggable-box-close-button"
 />
 <img
     *ngIf="isMutable && showOptionButtons"
@@ -52,5 +54,6 @@
     class="drag-button-icon"
     src="{{ boxOptionsDesignEnum.dragButton1 }}"
     alt="Drag"
+    data-cy="draggable-box-drag-button"
 />
 <!-- + width * -0.3 + 'px' + height * 0.3 + 'px' + width * 0.3 + 'px' -->
