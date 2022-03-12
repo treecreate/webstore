@@ -438,10 +438,63 @@ const scratch: ITemplateFamilyTree = {
   },
 };
 
+const closeFam: ITemplateFamilyTree = {
+  name: 'closeFam',
+  title: 'De nærmeste',
+  designProperties: {
+    font: FamilyTreeFontEnum.knile,
+    backgroundTreeDesign: TreeDesignEnum.tree1,
+    boxSize: 45,
+    banner: {
+        text: 'Familien Hansen',
+        style: 'first'
+    },
+    boxes: [
+        {
+            x: 1007.2431786593841,
+            y: 982.554070859038,
+            previousX: 0,
+            previousY: 0,
+            dragging: false,
+            boxDesign: BoxDesignEnum.box6,
+            text: 'Mor'
+        },
+        {
+            x: 152.43105508278245,
+            y: 982.7406061788304,
+            previousX: 0,
+            previousY: 0,
+            dragging: false,
+            boxDesign: BoxDesignEnum.box5,
+            text: 'Far'
+        },
+        {
+            x: 152.43105508278245,
+            y: 576.9958060032675,
+            previousX: 0,
+            previousY: 0,
+            dragging: false,
+            boxDesign: BoxDesignEnum.box8,
+            text: 'Barn'
+        },
+        {
+            x: 1013.485406354393,
+            y: 570.5670429884665,
+            previousX: 0,
+            previousY: 0,
+            dragging: false,
+            boxDesign: BoxDesignEnum.box8,
+            text: 'Barn'
+        }
+    ]
+  }
+}
+
 export const templates = [
   fourGenerationFamilyV1,
   threeGenerationFamilyV1,
   twoGenerationFamily,
+  closeFam,
   friendTreeV1,
   partnerTreeV1,
   scratch,

@@ -41,10 +41,10 @@ describe('Template selection modal', () => {
   it('displays more templates when clicking more examples button', () => {
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.get('[data-cy=family-tree-template-button]').click();
-    cy.get('[data-cy=template-option]').should('have.length', 6);
+    cy.get('[data-cy=template-option]').should('have.length', 7);
     cy.get('[data-cy=family-tree-more-examples-button]').click();
     cy.get('[data-cy=template-option]').should('have.length', 16);
     cy.get('[data-cy=family-tree-more-examples-button]').click();
-    cy.get('[data-cy=template-option]').should('have.length', 6);
+    cy.get('[data-cy=template-option]').should('have.length', 7);
   });
 });
