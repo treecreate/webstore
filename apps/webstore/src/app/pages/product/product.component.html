@@ -179,7 +179,13 @@
                 </button>
             </div>
 
-            <div class="option misc-option-actions">
+            <div class="option">
+                <button class="tc-button-100" (click)="openTemplateModal()" data-cy="family-tree-template-button">
+                    <span i18n="@@use-template">Use template</span>
+                    <img src="/assets/icons/template-icon.svg" class="option-icon" />
+                </button>
+            </div>
+            <div class="option">
                 <button
                     class="btn-add-to-cart tc-button-100 green"
                     (click)="openAddToBasketModal()"

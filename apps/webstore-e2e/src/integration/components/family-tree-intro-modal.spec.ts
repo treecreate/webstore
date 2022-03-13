@@ -3,9 +3,10 @@ import { LocalStorageVars, CookieStatus } from '@models';
 describe('introduction modal', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
   });
 
-  it('should display the intro modal when user not logged in', () => {
+  it('should display the intro modal when clicking on question button', () => {
     cy.visit('/product');
     cy.get('[data-cy=family-tree-intro-modal-option-button]').click();
     cy.get('[data-cy=family-tree-intro-modal]').should('exist');
