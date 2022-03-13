@@ -27,7 +27,7 @@ export class FamilyTreeTemplateModalComponent {
   /**
    * Sets the local storage design to the selected template
    *
-   * @param name
+   * @param name describes the templates name
    */
   applyTemplate(name: string) {
     const selectedTemplate: ITemplateFamilyTree = templates
