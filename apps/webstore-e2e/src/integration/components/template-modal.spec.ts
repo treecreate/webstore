@@ -43,7 +43,7 @@ describe('Template selection modal', () => {
     cy.get('[data-cy=family-tree-template-button]').click();
     cy.get('[data-cy=template-option]').should('have.length', 7);
     cy.get('[data-cy=family-tree-more-examples-button]').click();
-    cy.get('[data-cy=template-option]').should('have.length', 16);
+    cy.get('[data-cy=template-option]').should('have.length', 17);
     cy.get('[data-cy=family-tree-more-examples-button]').click();
     cy.get('[data-cy=template-option]').should('have.length', 7);
   });
