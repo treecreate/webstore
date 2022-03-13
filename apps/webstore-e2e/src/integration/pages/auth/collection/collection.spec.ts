@@ -1,5 +1,5 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { DesignTypeEnum, FamilyTreeFontEnum, IDesign, IDraggableBox, IFamilyTreeBanner, IUser } from '@interfaces';
+import { DesignTypeEnum, DesignFontEnum, IDesign, IDraggableBox, IFamilyTreeBanner, IUser } from '@interfaces';
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
@@ -42,7 +42,7 @@ describe('CollectionPage', () => {
   const mockDesign1: IDesign = {
     designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      font: FamilyTreeFontEnum.roboto,
+      font: DesignFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
@@ -55,7 +55,7 @@ describe('CollectionPage', () => {
   const mockDesign2: IDesign = {
     designId: 'c0a121-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      font: FamilyTreeFontEnum.roboto,
+      font: DesignFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
@@ -68,7 +68,7 @@ describe('CollectionPage', () => {
   const mockDesign3: IDesign = {
     designId: 'c0a1-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      font: FamilyTreeFontEnum.roboto,
+      font: DesignFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
@@ -81,7 +81,7 @@ describe('CollectionPage', () => {
   const mockDesign4: IDesign = {
     designId: 'c0a1-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      font: FamilyTreeFontEnum.roboto,
+      font: DesignFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,

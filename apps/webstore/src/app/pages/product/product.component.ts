@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
   DesignTypeEnum,
-  FamilyTreeFontEnum,
+  DesignFontEnum,
   IAuthUser,
   IDesign,
   IFamilyTree,
@@ -41,7 +41,7 @@ export class ProductComponent implements OnInit {
   isMobileOptionOpen = false;
   showSuggestion = true;
   // set the default font
-  font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
+  font = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
   fontOptions = [];
   backgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 40;
@@ -105,7 +105,7 @@ export class ProductComponent implements OnInit {
   }
 
   getFontList() {
-    Object.entries(FamilyTreeFontEnum).forEach(([key, value]) => {
+    Object.entries(DesignFontEnum).forEach(([key, value]) => {
       this.fontOptions.push({ key, value });
     });
   }
@@ -134,7 +134,7 @@ export class ProductComponent implements OnInit {
         this.boxSize = this.design.boxSize;
       } else {
         // set the defaults
-        this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
+        this.font = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 40;
         this.maxSize = 40;

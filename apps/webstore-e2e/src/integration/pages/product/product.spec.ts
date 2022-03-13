@@ -1,5 +1,5 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { DesignTypeEnum, FamilyTreeFontEnum, IDesign } from '@interfaces';
+import { DesignTypeEnum, DesignFontEnum, IDesign } from '@interfaces';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
@@ -7,7 +7,7 @@ const authMockService = new AuthenticationService();
 const mockDesign: IDesign = {
   designId: 'MOCK_ID',
   designProperties: {
-    font: FamilyTreeFontEnum.roboto,
+    font: DesignFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
     banner: {

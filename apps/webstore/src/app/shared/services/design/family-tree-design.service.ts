@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BoxDesignEnum, Tree1BoxDesignEnum, Tree2BoxDesignEnum, Tree3BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, IDraggableBox } from '@interfaces';
+import { DesignFontEnum, IDraggableBox } from '@interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class FamilyTreeDesignService {
   drawTextInDraggableBox(
     context: CanvasRenderingContext2D,
     boxSize: number,
-    font: FamilyTreeFontEnum,
+    font: DesignFontEnum,
     box: IDraggableBox,
     boxDimensions: { height: number; width: number }
   ): void {

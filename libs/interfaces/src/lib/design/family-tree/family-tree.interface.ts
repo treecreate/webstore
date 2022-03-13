@@ -1,8 +1,9 @@
 import { TreeDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, IDraggableBox, IFamilyTreeBanner } from '.';
+import { IDraggableBox, IFamilyTreeBanner } from '.';
+import { DesignFontEnum } from '..';
 
 export interface IFamilyTree {
-  font: FamilyTreeFontEnum;
+  font: DesignFontEnum;
   backgroundTreeDesign: TreeDesignEnum;
   boxSize: number;
   banner: IFamilyTreeBanner;

@@ -24,7 +24,7 @@ import {
   Tree3BoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
-import { FamilyTreeFontEnum, IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
+import { DesignFontEnum, IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
@@ -113,7 +113,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   banner: IFamilyTreeBanner;
 
   @Input()
-  font: FamilyTreeFontEnum;
+  font: DesignFontEnum;
 
   @Input()
   backgroundTreeDesign: TreeDesignEnum;

@@ -4,7 +4,7 @@ import {
   DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
-  FamilyTreeFontEnum,
+  DesignFontEnum,
   IDesign,
   IDraggableBox,
   IFamilyTreeBanner,
@@ -61,7 +61,7 @@ const mockBanner: IFamilyTreeBanner = {
 const mockDesign: IDesign = {
   designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
   designProperties: {
-    font: FamilyTreeFontEnum.roboto,
+    font: DesignFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
     banner: mockBanner,
@@ -74,7 +74,7 @@ const mockDesign: IDesign = {
 const mockDesign2: IDesign = {
   designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
   designProperties: {
-    font: FamilyTreeFontEnum.georgia,
+    font: DesignFontEnum.georgia,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 20,
     banner: mockBanner,

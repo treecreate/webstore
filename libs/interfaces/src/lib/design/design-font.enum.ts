@@ -1,4 +1,4 @@
-export enum FamilyTreeFontEnum {
+export enum DesignFontEnum {
   argestadisplay = 'argestadisplay',
   argestadisplayItalic = 'argestadisplay-italic',
   bairolBold = 'bairol-bold',

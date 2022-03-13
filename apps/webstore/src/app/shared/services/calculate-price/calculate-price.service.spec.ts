@@ -4,7 +4,7 @@ import {
   DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
-  FamilyTreeFontEnum,
+  DesignFontEnum,
   IPricing,
   ITransactionItem,
   IUser,
@@ -36,7 +36,7 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          font: FamilyTreeFontEnum.roboto,
+          font: DesignFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: undefined,
@@ -55,7 +55,7 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          font: FamilyTreeFontEnum.roboto,
+          font: DesignFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree2,
           boxSize: 10,
           banner: undefined,
@@ -74,7 +74,7 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          font: FamilyTreeFontEnum.roboto,
+          font: DesignFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: undefined,
@@ -108,7 +108,7 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          font: FamilyTreeFontEnum.roboto,
+          font: DesignFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: undefined,
@@ -127,7 +127,7 @@ describe('CalculatePriceService', () => {
       design: {
         designId: '1',
         designProperties: {
-          font: FamilyTreeFontEnum.roboto,
+          font: DesignFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree2,
           boxSize: 10,
           banner: undefined,

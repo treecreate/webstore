@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreeDesignEnum } from '@assets';
-import { DesignDimensionEnum, DesignTypeEnum, FamilyTreeFontEnum, ITransactionItem, IUser } from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, DesignFontEnum, ITransactionItem, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars, UserRoles } from '@models';
 import { FamilyTreeBasketItemComponent } from './family-tree-basket-item.component';
@@ -36,7 +36,7 @@ describe('BasketItemComponent', () => {
       design: {
         designId: '1',
         designProperties: {
-          font: FamilyTreeFontEnum.roboto,
+          font: DesignFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: undefined,

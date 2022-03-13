@@ -2,7 +2,7 @@ import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
   DesignTypeEnum,
-  FamilyTreeFontEnum,
+  DesignFontEnum,
   IDraggableBox,
   IFamilyTreeBanner,
   CreateDesignRequest,
@@ -36,7 +36,7 @@ describe('go to basket modal', () => {
   };
   const mockCreateDesignRequest: CreateDesignRequest = {
     designProperties: {
-      font: FamilyTreeFontEnum.roboto,
+      font: DesignFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
