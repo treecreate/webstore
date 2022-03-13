@@ -1,0 +1,15 @@
+export enum FamilyTreeFontEnum {
+  argestadisplay = 'argestadisplay',
+  argestadisplayItalic = 'argestadisplay-italic',
+  bairolBold = 'bairol-bold',
+  bairolBoldItalic = 'bairol-bold-italic',
+  calendasItalic = 'calendas-italic',
+  sansita = 'sansita',
+  roboto = 'roboto',
+  georgia = 'georgia',
+  spectral = 'spectral',
+  archaLight = 'archia-light',
+  archaMedium = 'archia-medium',
+  calendas = 'calendas',
+  knile = 'knile',
+}

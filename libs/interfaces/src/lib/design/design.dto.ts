@@ -1,5 +1,5 @@
 import { DesignTypeEnum } from './design-type.enum';
-import { IFamilyTree } from './design.interface';
+import { IFamilyTree } from './family-tree';
 
 export interface UpdateDesignRequest {
   designId: string;
