@@ -3,19 +3,45 @@
   border: none;
   background: transparent;
   text-align: center;
-  color: rgba(0, 0, 0, 0); /* the input text doesn't need to actually show */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  overflow: hidden;
+  resize: none;
+  z-index: 2;
+  outline: none;
+  border: none;
+  line-height: 95%;
+  -webkit-text-size-adjust: none;
 }
 
 .draggable-box-input:hover {
   cursor: pointer;
-}
-
-.draggable-box-input:focus {
-  background: rgba(182, 102, 33, 0.04);
+  box-shadow: none;
 }
 
 .draggable-box-input::placeholder {
-  font-size: small;
   position: relative;
-  top: -5px;
+}
+
+.draggable-box-input:disabled {
+  opacity: 1;
+  color: black;
+}
+
+.drag-button-icon,
+.close-button-icon {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: fill;
+  z-index: 1;
+}
+
+/* Prevent dragging of images */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }

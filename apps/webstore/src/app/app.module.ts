@@ -37,7 +37,6 @@ import { DraggableBoxComponent } from './shared/components/products/family-tree/
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
-import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
 import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
@@ -76,7 +75,6 @@ import { FamilyTreeTemplateModalComponent } from './shared/components/modals/fam
     CheckoutComponent,
     FamilyTreeCheckoutItemComponent,
     FamilyTreeDesignComponent,
-    FamilyTreeMiniatureComponent,
     DraggableBoxComponent,
     ReviewCarouselComponent,
     ChangePasswordModalComponent,
