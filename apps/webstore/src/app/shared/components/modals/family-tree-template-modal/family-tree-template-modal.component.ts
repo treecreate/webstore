@@ -16,6 +16,11 @@ export class FamilyTreeTemplateModalComponent {
   templateList: ITemplateFamilyTree[];
   showMoreExamples = false;
 
+  /**
+   * @param activeModal 
+   * @param localStorageService 
+   * @param router 
+   */
   constructor(
     public activeModal: NgbActiveModal,
     private localStorageService: LocalStorageService,
@@ -29,7 +34,7 @@ export class FamilyTreeTemplateModalComponent {
    *
    * @param name describes the templates name
    */
-  applyTemplate(name: string) {
+  applyTemplate(name: string):void {
     const selectedTemplate: ITemplateFamilyTree = templates
       .concat(templateExtra)
       .find((template) => template.name === name);
@@ -39,7 +44,10 @@ export class FamilyTreeTemplateModalComponent {
     location.reload();
   }
 
-  returnTemplateList() {
+  /**
+   * Returns a larger template list (a list containing all)
+   */
+  returnTemplateList():void {
     this.showMoreExamples = !this.showMoreExamples;
     this.templateList = this.showMoreExamples ? templates : templates.concat(templateExtra);
   }
