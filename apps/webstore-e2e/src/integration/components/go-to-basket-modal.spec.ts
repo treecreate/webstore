@@ -48,6 +48,7 @@ describe('go to basket modal', () => {
 
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('POST', '/designs', {
       body: mockCreateDesignRequest,

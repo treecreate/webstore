@@ -1,42 +1,49 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { FamilyTreeFontEnum } from '@interfaces';
+import { DesignTypeEnum, FamilyTreeFontEnum, IDesign } from '@interfaces';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();
-const mockDesign = {
-  font: FamilyTreeFontEnum.roboto,
-  backgroundTreeDesign: TreeDesignEnum.tree1,
-  boxSize: 20,
-  banner: {
-    text: 'my tree',
-    style: 'first',
+const mockDesign: IDesign = {
+  designId: 'MOCK_ID',
+  designProperties: {
+    font: FamilyTreeFontEnum.roboto,
+    backgroundTreeDesign: TreeDesignEnum.tree1,
+    boxSize: 20,
+    banner: {
+      text: 'my tree',
+      style: 'first',
+    },
+    boxes: [
+      {
+        x: 400,
+        y: 400,
+        previousX: 0,
+        previousY: 0,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box1,
+        text: 'teo',
+      },
+      {
+        x: 200,
+        y: 200,
+        previousX: 91,
+        previousY: 91,
+        dragging: false,
+        boxDesign: BoxDesignEnum.box2,
+        text: 'teodor',
+      },
+    ],
   },
-  boxes: [
-    {
-      x: 400,
-      y: 400,
-      previousX: 0,
-      previousY: 0,
-      dragging: false,
-      boxDesign: BoxDesignEnum.box1,
-      text: 'teo',
-    },
-    {
-      x: 200,
-      y: 200,
-      previousX: 91,
-      previousY: 91,
-      dragging: false,
-      boxDesign: BoxDesignEnum.box2,
-      text: 'teodor',
-    },
-  ],
+  mutable: true,
+  user: null,
+  designType: DesignTypeEnum.familyTree,
 };
 
 describe('ProductPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.visit('/product');
   });
 
@@ -62,7 +69,7 @@ describe('ProductPage', () => {
         LocalStorageVars.authUser,
         JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
       );
-      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign));
+      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
       localStorageDesign = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
       cy.visit('/product');
 
@@ -71,24 +78,18 @@ describe('ProductPage', () => {
       });
     });
 
-    it('should be able to click on the canvas and create a new box', () => {
-      cy.wrap(localStorageDesign).its('boxes').should('have.length', 2);
-      cy.get('[data-cy=family-tree-canvas]').click();
-      cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
-        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        console.warn('After design: ', localStorageDesignAfter);
-        cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
-      });
-    });
-
     it('should be able to change the fonts', () => {
       cy.wrap(localStorageDesign).its('font').should('equal', 'roboto');
-      cy.get('[data-cy=font-next-btn]').click();
+      cy.get('[data-cy=font]').should('have.text', 'roboto');
+      cy.get('[data-cy=font-select-option]')
+        .click()
+        .then(() => {
+          cy.get('button').contains('calendasItalic').click();
+        });
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('font').should('equal', 'georgia');
+        cy.wrap(localStorageDesignAfter).its('font').should('equal', 'calendas-italic');
       });
     });
 
@@ -102,25 +103,58 @@ describe('ProductPage', () => {
       });
     });
 
-    it('should increase box size and save it', () => {
-      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
-      cy.get('[data-cy=box-size-plus]').click();
-      cy.get('[data-cy=box-size-plus]').click();
+    it('should be unable to increase box size since default is max', () => {
+      const arrows = '{rightarrow}'.repeat(50);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 22);
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 70);
+      });
+    });
+
+    it('should be unable to decrease box size below the minimum', () => {
+      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
+      const arrows = '{leftarrow}'.repeat(10);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 10);
+      });
+    });
+
+    it('should increase box size and save it', () => {
+      cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
+      const defaultValue = 20;
+      const newValue = 30;
+      const arrows = '{rightarrow}'.repeat(newValue - defaultValue);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', newValue);
       });
     });
 
     it('should decrease box size and save it', () => {
       cy.wrap(localStorageDesign).its('boxSize').should('equal', 20);
-      cy.get('[data-cy=box-size-minus]').click();
-      cy.get('[data-cy=box-size-minus]').click();
+      const defaultValue = 20;
+      const newValue = 18;
+      const arrows = '{leftarrow}'.repeat(defaultValue - newValue);
+      cy.get('[data-cy=box-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 18);
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', newValue);
       });
     });
 
@@ -134,82 +168,101 @@ describe('ProductPage', () => {
         cy.wrap(localStorageDesignAfter).its('banner.text').should('equal', 'test');
       });
     });
+  });
 
-    it('should be able to load a design via url', () => {
-      //TODO: intercept loading a design with url
-      // cy.intercept('GET', '/designs/me/c0a80121-7ac0-190b-817a-c08ab0a12345', {
-      //   body: {
-      //     designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
-      //     designProperties: mockDesign,
-      //     designType: 'FAMILY_TREE',
-      //     user: mockUser,
-      //   },
-      //   statusCode: 200,
-      // });
-      // cy.visit('/product');
-      // cy.request('/designs/me/c0a80121-7ac0-190b-817a-c08ab0a12345');
+  describe('Draggable boxes', () => {
+    it('should be able to click on the canvas and create a new box in mutable view', () => {
+      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
+      cy.visit('/product');
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=family-tree-canvas]').click();
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length + 1);
+      // persist in local storage to double check the creation
+      cy.get('[data-cy=save-family-tree-button]').click();
+      cy.visit('/product').then(() => {
+        const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
+        console.warn('After design: ', localStorageDesignAfter);
+        cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
+      });
+    });
+
+    it('should not be able to click on the canvas and create a new box in immutable view', () => {
+      localStorage.setItem(
+        LocalStorageVars.authUser,
+        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+      );
+      cy.intercept('GET', '/designs/me/IMMUTABLE_DESIGN_ID', {
+        statusCode: 200,
+        body: { ...mockDesign, designId: 'IMMUTABLE_DESIGN_ID', mutable: false },
+      });
+      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify({ ...mockDesign.designProperties }));
+      cy.visit('/product?designId=IMMUTABLE_DESIGN_ID');
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=family-tree-canvas]').click();
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+    });
+
+    it('should display two boxes with text and drag/close icons when in mutable view', () => {
+      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
+      cy.visit('/product');
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=draggable-box-input]').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=draggable-box-close-button]').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=draggable-box-drag-button]').should('have.length', mockDesign.designProperties.boxes.length);
+    });
+
+    it('should display two boxes with text but no drag/close icons when in immutable view', () => {
+      localStorage.setItem(
+        LocalStorageVars.authUser,
+        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+      );
+      cy.intercept('GET', '/designs/me/IMMUTABLE_DESIGN_ID', {
+        statusCode: 200,
+        body: { ...mockDesign, designId: 'IMMUTABLE_DESIGN_ID', mutable: false },
+      });
+      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify({ ...mockDesign.designProperties }));
+      cy.visit('/product?designId=IMMUTABLE_DESIGN_ID');
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=draggable-box-input]').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=draggable-box-close-button]').should('not.exist');
+      cy.get('[data-cy=draggable-box-drag-button]').should('not.exist');
+    });
+
+    it('should remove a box when user click on the close icon', () => {
+      localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
+      cy.visit('/product');
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('[data-cy=draggable-box-close-button]').first().click();
+      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length - 1);
     });
   });
 
   describe('Unauthorised', () => {
     beforeEach(() => {
-      cy.get('[data-cy=family-tree-intro-close-button]').click();
+      cy.visit('/product');
     });
     // box-size buttons
     it('should contain a navbar and footer', () => {
       cy.get('[data-cy=navbar]').should('exist');
     });
 
-    it.skip('should have a box-size of 20', () => {
-      cy.get('[data-cy=box-size]').should('have.text', '20');
-    });
-
-    it.skip('should increase box size when + is pressed in options', () => {
-      cy.get('[data-cy=box-size]').should('have.text', '20');
-      cy.get('[data-cy=box-size-plus]').click();
-      cy.get('[data-cy=box-size]').should('have.text', '21');
-    });
-
-    it.skip('should decrease box size when - is pressed in options', () => {
-      cy.get('[data-cy=box-size]').should('have.text', '20');
-      cy.get('[data-cy=box-size-minus]').click();
-      cy.get('[data-cy=box-size]').should('have.text', '19');
-    });
-
-    it.skip('should not increase box size above 40', () => {
-      cy.get('[data-cy=box-size-plus]').should('not.be.disabled');
-      for (let i = 0; i < 20; i++) {
-        cy.get('[data-cy=box-size-plus]').click();
-      }
-      cy.get('[data-cy=box-size]').invoke('text').then(parseFloat).should('not.be.above', 40);
-      cy.get('[data-cy=box-size-plus]').should('be.disabled');
-    });
-
-    it.skip('should not decrease box size below 10', () => {
-      cy.get('[data-cy=box-size-minus]').should('not.be.disabled');
-      for (let i = 0; i < 10; i++) {
-        cy.get('[data-cy=box-size-minus]').click();
-      }
-      cy.get('[data-cy=box-size]').invoke('text').then(parseFloat).should('not.be.lt', 10);
-      cy.get('[data-cy=box-size-minus]').should('be.disabled');
-    });
-
     // Font change
     it('should change the font', () => {
       cy.get('[data-cy=font]').should('have.text', 'bairol-bold-italic');
-      cy.get('[data-cy=font-next-btn]').click();
+      cy.get('[data-cy=font-select-option]')
+        .click()
+        .then(() => {
+          cy.get('button').contains('calendasItalic').click();
+        });
       cy.get('[data-cy=font]').should('not.have.text', 'bairol-bold-italic');
-      cy.get('[data-cy=font-prev-btn]').click();
-      cy.get('[data-cy=font-prev-btn]').click();
-      cy.get('[data-cy=font]').should('not.have.text', 'bairol-bold-italic');
+      cy.get('[data-cy=font]').should('have.text', 'calendas-italic');
     });
 
     // Banner
-    it.skip('should show/remove banner', () => {
+    it('should show/remove banner', () => {
       // for some reason, cypress reads the value with extra spaces
-      cy.get('[data-cy=banner]').should('have.text', '  ');
-      cy.get('[data-cy=checkbox-banner]').click();
-      cy.get('[data-cy=design-banner-input]').type('test');
+      cy.get('[data-cy=banner]').should('have.text', ' Familietræet ');
+      cy.get('[data-cy=design-banner-input]').clear().type('test');
       cy.get('[data-cy=banner]').should('have.text', ' test ');
       cy.get('[data-cy=checkbox-banner]').click();
       cy.get('[data-cy=banner]').should('have.text', '  ');

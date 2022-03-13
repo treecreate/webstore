@@ -163,6 +163,7 @@ const mockTransactionItemTwo: ITransactionItem = {
 describe('BasketPage using localstorage (not logged in)', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(
       LocalStorageVars.transactionItems,
       JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
@@ -172,7 +173,6 @@ describe('BasketPage using localstorage (not logged in)', () => {
   it('should add an transaction item to basket', () => {
     cy.visit('/product');
     // Create design
-    cy.get('[data-cy=family-tree-intro-close-button').click();
     cy.get('[data-cy=family-tree-canvas]').click();
     // Open add to basket modal
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
@@ -326,7 +326,6 @@ describe('BasketPage using localstorage (not logged in)', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
-        cy.get('[data-cy=family-tree-intro-close-button]').click();
         cy.url().should('contain', '/product?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
@@ -374,6 +373,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
 describe('BasketPage with a logged in user', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -484,6 +484,7 @@ describe('AddToBasketModal', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.visit('/product');
   });
 

@@ -9,6 +9,7 @@ export interface IDesign extends IBase {
   user: IUser;
   mutable: boolean;
 }
+
 export interface IFamilyTree {
   font: FamilyTreeFontEnum;
   backgroundTreeDesign: TreeDesignEnum;
@@ -49,4 +50,10 @@ export enum FamilyTreeFontEnum {
 export interface IFamilyTreeBanner {
   text: string;
   style: 'first';
+}
+
+export interface ITemplateFamilyTree {
+  name: string;
+  title: string;
+  designProperties: IFamilyTree;
 }

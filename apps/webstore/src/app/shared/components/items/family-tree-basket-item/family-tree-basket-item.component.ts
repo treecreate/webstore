@@ -2,13 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, ITransactionItem } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
-import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
+import { FamilyTreeDesignComponent } from '../../products/family-tree/family-tree-design/family-tree-design.component';
 
 @Component({
   selector: 'webstore-basket-item',
@@ -17,7 +17,7 @@ import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-
 })
 export class FamilyTreeBasketItemComponent implements OnInit {
   @ViewChild('productDesign', { static: true })
-  miniature: FamilyTreeMiniatureComponent;
+  miniature: FamilyTreeDesignComponent;
   @Output() priceChangeEvent = new EventEmitter();
   @Output() deleteItemEvent = new EventEmitter();
   @Input() item: ITransactionItem;

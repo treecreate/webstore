@@ -1,12 +1,16 @@
 <div class="design-container" data-cy="family-tree-collection-item">
     <div class="design-image">
-        <webstore-family-tree-miniature
+        <webstore-family-tree-design
             #productDesign
+            [isMutable]="false"
             [design]="design.designProperties"
             [boxSize]="design.designProperties.boxSize"
+            [banner]="design.designProperties.banner"
+            [backgroundTreeDesign]="design.designProperties.backgroundTreeDesign"
+            [font]="design.designProperties.font"
+            [showOptionBoxButtons]="false"
             class="item-image"
-        >
-        </webstore-family-tree-miniature>
+        ></webstore-family-tree-design>
     </div>
     <hr />
 
