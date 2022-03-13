@@ -1,9 +1,9 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import { FamilyTreeFontEnum, ITemplateFamilyTree } from '@interfaces';
 
-const someName: ITemplateFamilyTree = {
-  name: 'someName',
-  title: 'untitled-01',
+const massiveV1: ITemplateFamilyTree = {
+  name: 'massiveV1',
+  title: 'Stor familie',
   designProperties: {
     font: FamilyTreeFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree1,
@@ -215,9 +215,9 @@ const someName: ITemplateFamilyTree = {
   },
 };
 
-const someNameTwo: ITemplateFamilyTree = {
-  name: 'someNameTwo',
-  title: 'untitled-02',
+const massiveV2: ITemplateFamilyTree = {
+  name: 'massiveV2',
+  title: 'Stor familie 2',
   designProperties: {
     font: FamilyTreeFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree1,
@@ -1602,8 +1602,8 @@ const threeGenerationFamilyV2: ITemplateFamilyTree = {
 };
 
 export const templateExtra = [
-  someName,
-  someNameTwo,
+  massiveV1,
+  massiveV2,
   reversed,
   withYear,
   fullFamWithYear,
