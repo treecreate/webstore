@@ -5,6 +5,7 @@ import { IDiscount } from '@interfaces';
 import { ClipboardService } from 'ngx-clipboard';
 import { CreateDiscountDialogComponent } from '../../components/create-discount-dialog/create-discount-dialog.component';
 import { DiscountsService } from '../../services/discounts/discounts.service';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'webstore-discounts',
@@ -57,7 +58,48 @@ export class DiscountsComponent implements OnInit {
       next: (discounts: IDiscount[]) => {
         this.isLoading = false;
         this.discounts = discounts;
+        this.sortData({active: 'createdAt', direction: 'asc'});
       },
     });
+  }
+
+  /**
+   * Sorts the data of the table.
+   *
+   * @param sort
+   */
+   sortData(sort: Sort) {
+    const data = this.discounts.slice();
+
+    if (!sort.active || sort.direction === '') {
+      this.discounts = data;
+      return;
+    }
+
+    this.discounts = data.sort((a, b) => {      
+      const isAsc = sort.direction === 'asc';
+
+      switch (sort.active) {
+        case 'createdAt':
+          return this.compare(a.createdAt!, b.createdAt!, isAsc);
+        case 'expiresAt':
+          return this.compare(a.expiresAt!, b.expiresAt!, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+
+  /**
+   * Compares two elements.
+   *
+   * @param a element a.
+   * @param b element b.
+   * @param isAsc is sorted ascended.
+   * @returns the result of the comparison.
+   */
+  compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }
