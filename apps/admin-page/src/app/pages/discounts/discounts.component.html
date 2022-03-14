@@ -10,6 +10,38 @@
             >
                 Create new
             </button>
+            <div class="sub-header">
+                <h3>Sort by:</h3>
+                <button
+                    mat-flat-button
+                    color="primary"
+                    (click)="sortData({ active: 'expiresAt', direction: 'asc' })"
+                    class="item"
+                    data-cy="create-discount-btn"
+                >
+                    Expires at
+                </button>
+
+                <button
+                    mat-flat-button
+                    color="primary"
+                    (click)="sortData({ active: 'code', direction: 'asc' })"
+                    class="item"
+                    data-cy="create-discount-btn"
+                >
+                    Code
+                </button>
+
+                <button
+                    mat-flat-button
+                    color="primary"
+                    (click)="sortData({ active: 'createdAt', direction: 'desc' })"
+                    class="item"
+                    data-cy="create-discount-btn"
+                >
+                    Created at
+                </button>
+            </div>
         </div>
         <table mat-table [dataSource]="discounts" class="mat-elevation-z8 discounts-table" data-cy="discounts-table">
             <!-- Code Column -->
