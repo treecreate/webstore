@@ -63,6 +63,10 @@ export class DiscountsComponent implements OnInit {
     });
   }
 
+  getShortText(text: string): string {
+    return text.slice(text.length - 8);
+  }
+
   /**
    * Sorts the data of the table.
    *
@@ -70,8 +74,11 @@ export class DiscountsComponent implements OnInit {
    */
   sortData(sort: Sort) {
     const data = this.discounts.slice();
+    console.log('hit 1');
 
     if (!sort.active || sort.direction === '') {
+      console.log('hit 2');
+
       this.discounts = data;
       return;
     }
