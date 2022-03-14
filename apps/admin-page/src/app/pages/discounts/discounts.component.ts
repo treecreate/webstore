@@ -16,6 +16,9 @@ export class DiscountsComponent implements OnInit {
   isLoading = true;
   displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'createdAt', 'expiresAt', 'actions'];
   discounts!: IDiscount[];
+  discountDisplayList: IDiscount[] = [];
+  showDisabled = false;
+  showActive = true;
 
   constructor(
     private discountsService: DiscountsService,
@@ -58,7 +61,8 @@ export class DiscountsComponent implements OnInit {
       next: (discounts: IDiscount[]) => {
         this.isLoading = false;
         this.discounts = discounts;
-        this.sortData({ active: 'createdAt', direction: 'asc' });
+        this.discountDisplayList = discounts;
+        this.updateShow();
       },
     });
   }
@@ -67,23 +71,34 @@ export class DiscountsComponent implements OnInit {
     return text.slice(text.length - 8);
   }
 
+  updateShow(): void {
+    this.discountDisplayList = [];
+    const activeDiscounts = this.discounts.filter((discount) => discount.isEnabled);
+    const disabledDiscounts = this.discounts.filter((discount) => !discount.isEnabled);
+
+    if (this.showActive) {
+      this.discountDisplayList = this.discountDisplayList.concat(activeDiscounts);
+    }
+    if (this.showDisabled) {
+      this.discountDisplayList = this.discountDisplayList.concat(disabledDiscounts);
+    }
+    this.sortData({ active: 'createdAt', direction: 'asc' });
+  }
+
   /**
    * Sorts the data of the table.
    *
    * @param sort
    */
   sortData(sort: Sort) {
-    const data = this.discounts.slice();
-    console.log('hit 1');
+    const data = this.discountDisplayList.slice();
 
     if (!sort.active || sort.direction === '') {
-      console.log('hit 2');
-
-      this.discounts = data;
+      this.discountDisplayList = data;
       return;
     }
 
-    this.discounts = data.sort((a, b) => {
+    this.discountDisplayList = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
 
       switch (sort.active) {
@@ -91,6 +106,8 @@ export class DiscountsComponent implements OnInit {
           return this.compare(a.createdAt!, b.createdAt!, isAsc);
         case 'expiresAt':
           return this.compare(a.expiresAt!, b.expiresAt!, isAsc);
+        case 'code':
+          return this.compare(a.discountCode!, b.discountCode!, isAsc);
         default:
           return 0;
       }
