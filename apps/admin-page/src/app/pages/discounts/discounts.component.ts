@@ -58,7 +58,7 @@ export class DiscountsComponent implements OnInit {
       next: (discounts: IDiscount[]) => {
         this.isLoading = false;
         this.discounts = discounts;
-        this.sortData({active: 'createdAt', direction: 'asc'});
+        this.sortData({ active: 'createdAt', direction: 'asc' });
       },
     });
   }
@@ -68,7 +68,7 @@ export class DiscountsComponent implements OnInit {
    *
    * @param sort
    */
-   sortData(sort: Sort) {
+  sortData(sort: Sort) {
     const data = this.discounts.slice();
 
     if (!sort.active || sort.direction === '') {
@@ -76,7 +76,7 @@ export class DiscountsComponent implements OnInit {
       return;
     }
 
-    this.discounts = data.sort((a, b) => {      
+    this.discounts = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
 
       switch (sort.active) {
@@ -89,7 +89,6 @@ export class DiscountsComponent implements OnInit {
       }
     });
   }
-
 
   /**
    * Compares two elements.
