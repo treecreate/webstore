@@ -14,7 +14,7 @@ import { Sort } from '@angular/material/sort';
 })
 export class DiscountsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'expiresAt', 'actions'];
+  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'createdAt', 'expiresAt', 'actions'];
   discounts!: IDiscount[];
 
   constructor(
