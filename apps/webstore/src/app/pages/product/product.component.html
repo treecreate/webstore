@@ -4,7 +4,7 @@
             < <span i18n="@@back">Back</span>
         </a>
     </div>
-    <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
+    <div class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
         <webstore-family-tree-design
             #familyTreeDesignCanvas
             [design]="design"
@@ -12,7 +12,6 @@
             [boxSize]="boxSize"
             [banner]="banner"
             [backgroundTreeDesign]="backgroundTreeDesign"
-            [font]="font"
             [showOptionBoxButtons]="showOptionBoxButtons"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
             data-cy="family-tree-canvas"
@@ -20,7 +19,7 @@
     </div>
 
     <!-- FOR CY TESTS -->
-    <div class="hide" data-cy="font">{{ font }}</div>
+    <div class="hide" data-cy="font">{{ design.font }}</div>
     <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
     <div class="hide" data-cy="box-size">{{ boxSize }}</div>
     <div class="hide" data-cy="banner">
@@ -52,14 +51,14 @@
                         <button
                             class="btn"
                             ngbDropdownToggle
-                            [ngStyle]="{ 'font-family': font }"
+                            [ngStyle]="{ 'font-family': displayFont }"
                             data-cy="font-select-option"
                         >
-                            {{ font }}
+                            {{ displayFont }}
                         </button>
                         <div ngbDropdownMenu>
                             <button
-                                (click)="changeFont(font.value)"
+                                (click)="changeFont(font)"
                                 ngbDropdownItem
                                 *ngFor="let font of fontOptions"
                                 [ngStyle]="{ 'font-family': font.value }"

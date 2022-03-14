@@ -113,9 +113,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   banner: IFamilyTreeBanner;
 
   @Input()
-  font: DesignFontEnum;
-
-  @Input()
   backgroundTreeDesign: TreeDesignEnum;
 
   @Output()
@@ -426,7 +423,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
             this.bannerDimensions.height
           );
           const bannerTextFontSize = 3; // in rem
-          this.context.font = `${bannerTextFontSize}rem ${this.font}`;
+          this.context.font = `${bannerTextFontSize}rem ${this.design.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
           this.context.fillText(
@@ -558,7 +555,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     });
 
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, {
-      font: this.font,
+      font: this.design.font,
       backgroundTreeDesign: this.backgroundTreeDesign,
       boxSize: this.boxSize,
       banner: this.banner,

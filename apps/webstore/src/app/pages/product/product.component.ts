@@ -41,7 +41,8 @@ export class ProductComponent implements OnInit {
   isMobileOptionOpen = false;
   showSuggestion = true;
   // set the default font
-  font = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
+  defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
+  displayFont = this.defaultFont;
   fontOptions = [];
   backgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 40;
@@ -110,8 +111,9 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  changeFont(font: string) {
-    this.font = font;
+  changeFont(font: { key: string; value: string }) {
+    this.design.font = DesignFontEnum[font.key];
+    this.displayFont = font.value;
   }
 
   // TODO: properly assign the banner
@@ -129,12 +131,18 @@ export class ProductComponent implements OnInit {
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       // apply the design
       if (this.design !== null && this.design !== undefined) {
-        this.font = this.design.font;
         this.banner = this.design.banner;
         this.boxSize = this.design.boxSize;
       } else {
         // set the defaults
-        this.font = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
+        this.design = {
+          font: this.defaultFont,
+          backgroundTreeDesign: TreeDesignEnum.tree1,
+          banner: { text: 'Familietræet', style: 'first' },
+          boxSize: 40,
+          boxes: [],
+        };
+        this.design.font = this.defaultFont;
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 40;
         this.maxSize = 40;
@@ -162,7 +170,6 @@ export class ProductComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
-    this.font = this.design.font;
     this.banner = this.design.banner;
     this.boxSize = this.design.boxSize;
   }
@@ -182,7 +189,6 @@ export class ProductComponent implements OnInit {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
           // apply the design
           this.backgroundTreeDesign = this.design.backgroundTreeDesign;
-          this.font = this.design.font;
           this.banner = this.design.banner;
           this.boxSize = this.design.boxSize;
           this.isMutable = result.mutable;
