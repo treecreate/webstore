@@ -1,6 +1,7 @@
 import { CurrencyEnum, DiscountType, IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
+import { environment as env } from '../../../../admin-page/src/environments/environment';
 
 const authMockService = new AuthenticationService();
 
@@ -142,7 +143,7 @@ describe('Users page', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'http://localhost:5000/users', {
+    cy.intercept('GET', `${env.apiUrl}/users`, {
       body: mockUsers,
       statusCode: 200,
     }).as('fetchUsers');

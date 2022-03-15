@@ -1,6 +1,7 @@
 import { IDiscount, DiscountType } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
+import { environment as env } from '../../../../admin-page/src/environments/environment';
 
 const mockDiscount: IDiscount = {
   discountId: '123',
@@ -44,7 +45,7 @@ describe('discountsPage', () => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
     cy.intercept(
-      { method: 'GET', url: 'http://localhost:5000/discounts' },
+      { method: 'GET', url: `${env.apiUrl}/discounts` },
       {
         body: mockDiscounts,
         statusCode: 200,
@@ -79,7 +80,7 @@ describe('discountsPage', () => {
   });
 
   it('should display the correct discounts information', () => {
-    cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].discountCode).should('exist');
+    cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].discountCode.slice(0,10)).should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains('123').should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].remainingUses).should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].totalUses).should('exist');
@@ -97,7 +98,7 @@ describe('create discount dialog', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'http://localhost:5000/discounts', {
+    cy.intercept('GET', `${env.apiUrl}/discounts`, {
       body: mockDiscounts,
       statusCode: 200,
     }).as('fetchDiscounts');
