@@ -8,6 +8,12 @@
             matSort
             (matSortChange)="sortData($event)"
         >
+        <!--Orders Total amount of orders-->
+        <ng-container matColumnDef="ordersamount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Amount Of Orders</th>
+            <td mat-cell *matCellDef="let order"></td>
+
+        </ng-container>
             <!-- Payment ID Column -->
             <ng-container matColumnDef="paymentId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment ID</th>

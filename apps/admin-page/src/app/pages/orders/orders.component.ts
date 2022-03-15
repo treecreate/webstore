@@ -20,6 +20,7 @@ export class OrdersComponent implements OnInit {
     'items',
     'status',
     'actions',
+    'ordersamount'
   ];
   orderStatusOptions: OrderStatusEnum[] = [
     OrderStatusEnum.delivered,
