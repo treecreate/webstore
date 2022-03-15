@@ -163,9 +163,19 @@ export class DiscountsComponent implements OnInit {
     return new Date(date) < new Date();
   }
 
+  /**
+   * @param date 
+   * @returns boolean of whether or not the discount hasnt started yet 
+   */
+  isInTheFuture(date: Date) {
+    return new Date(date) > new Date();
+  }
+
   getDiscountState(discount: IDiscount): string {
     // Check if is active
     if (!discount.isEnabled) return 'Disabled';
+    // Check if is in the future
+    if(this.isInTheFuture(discount.startsAt!)) return 'Future';
     // Check if it expired
     if (this.hasExpired(discount.expiresAt!)) return 'Expired';
     // Check if it has uses left

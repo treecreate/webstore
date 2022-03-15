@@ -106,3 +106,8 @@
 .Disabled {
   background: red;
 }
+
+.Future {
+  background: green;
+  opacity: 0.5;
+}
