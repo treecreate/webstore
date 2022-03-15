@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DesignTypeEnum, IDesign } from '@interfaces';
-import { IFamilyTree } from 'libs/interfaces/src/lib/design/family-tree';
+import { DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
 
 @Component({
   selector: 'webstore-store-item',

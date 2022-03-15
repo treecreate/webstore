@@ -126,7 +126,7 @@ export class ProductComponent implements OnInit {
     this.displayFont = font.value;
   }
 
-  changeBoxSize($event): void {
+  changeBoxSize(): void {
     this.design = {
       ...this.design,
     };
