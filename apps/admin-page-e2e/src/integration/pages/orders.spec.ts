@@ -178,7 +178,7 @@ describe('ordersPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', 'localhost:5000/orders', {
+    cy.intercept('GET', 'http://localhost:5000/orders', {
       body: mockOrders,
       statusCode: 200,
     }).as('fetchOrders');
