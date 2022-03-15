@@ -22,7 +22,7 @@ enum DiscountSortEnum {
 })
 export class DiscountsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'startsAt', 'expiresAt', 'actions'];
+  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'startsAt', 'expiresAt', 'discount','actions'];
   discounts!: IDiscount[];
   discountDisplayList: IDiscount[] = [];
   showDisabled = false;
@@ -91,8 +91,12 @@ export class DiscountsComponent implements OnInit {
    * @param text
    * @returns a shortened string
    */
-  getShortText(text: string): string {
-    return text.slice(text.length - 8);
+  getShortText(text: string, end: boolean): string {
+    if(end) {
+      return text.slice(text.length - 8);
+    } else {
+      return text.slice(0,10);
+    }
   }
 
   /**
