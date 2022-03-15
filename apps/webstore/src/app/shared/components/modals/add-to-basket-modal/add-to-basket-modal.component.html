@@ -93,9 +93,12 @@
         <!-- Price -->
         <div class="price-container" *ngIf="!isLoading">
             <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
-                <span i18n="@@order">Order </span
-                >{{ 4 - (this.itemsInBasket + this.addToBasketForm.get('quantity').value)
-                }}<span i18n="@@more-to-save">more to save </span> {{ amountSaved().toFixed(2) }} DKK
+                <div>
+                    <span i18n="@@order">Order </span
+                    >{{ 4 - (this.itemsInBasket + this.addToBasketForm.get('quantity').value) }}
+                    <span i18n="@@more-to-save"> more to save </span>
+                </div>
+                <span style="color: green"> 25% </span>
             </div>
             <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
                 <span i18n="@@you-save-25%">You save: (-25%)</span><span>{{ amountSaved().toFixed(2) }}</span>
@@ -127,7 +130,7 @@
 
         <!-- Extra info -->
         <div class="text-container add-transition">
-            <div class="extra-info add-transition">
+            <div class="extra-info add-transition" style="color: grey; font-size: smaller">
                 <strong i18n="@@note">Note:</strong><br />
                 <span i18n="@@add-to-basket-extra-info">
                     For every design you purchase, you are automatically planting a tree. Thereby you support
