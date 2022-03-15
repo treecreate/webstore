@@ -3,8 +3,8 @@ import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
 import {
-  DesignTypeEnum,
   DesignFontEnum,
+  DesignTypeEnum,
   IAuthUser,
   IDesign,
   IFamilyTree,
@@ -44,7 +44,7 @@ export class ProductComponent implements OnInit {
   defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
   displayFont = this.defaultFont;
   fontOptions = [];
-  backgroundTreeDesign = TreeDesignEnum.tree1;
+  defaultBackgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 40;
   maxSize = 40;
   minSize = 15;
@@ -53,7 +53,13 @@ export class ProductComponent implements OnInit {
     ceil: this.maxSize,
   };
   banner: IFamilyTreeBanner = undefined;
-  design: IFamilyTree;
+  design: IFamilyTree = {
+    font: this.defaultFont,
+    backgroundTreeDesign: this.defaultBackgroundTreeDesign,
+    banner: { text: 'Familietræet', style: 'first' },
+    boxSize: 40,
+    boxes: [],
+  };
   showOptionBoxButtons = true;
   isIphone = false;
 
@@ -116,6 +122,12 @@ export class ProductComponent implements OnInit {
     this.displayFont = font.value;
   }
 
+  changeBoxSize($event): void {
+    this.design = {
+      ...this.design,
+    };
+  }
+
   // TODO: properly assign the banner
   loadDesign() {
     const queryParams = this.route.snapshot.queryParams;
@@ -137,13 +149,11 @@ export class ProductComponent implements OnInit {
         // set the defaults
         this.design = {
           font: this.defaultFont,
-          backgroundTreeDesign: TreeDesignEnum.tree1,
+          backgroundTreeDesign: this.defaultBackgroundTreeDesign,
           banner: { text: 'Familietræet', style: 'first' },
           boxSize: 40,
           boxes: [],
         };
-        this.design.font = this.defaultFont;
-        this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 40;
         this.maxSize = 40;
         this.minSize = 10;
@@ -188,7 +198,6 @@ export class ProductComponent implements OnInit {
         } else {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
           // apply the design
-          this.backgroundTreeDesign = this.design.backgroundTreeDesign;
           this.banner = this.design.banner;
           this.boxSize = this.design.boxSize;
           this.isMutable = result.mutable;
@@ -331,25 +340,38 @@ export class ProductComponent implements OnInit {
   }
 
   nextDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.design.backgroundTreeDesign);
     const nextDesign = Object.keys(TreeDesignEnum)[currentDesignIndex + 1];
+    console.log('yeet');
 
     if (nextDesign === undefined) {
       // set the first design in the enum
-      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[0]];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[Object.keys(TreeDesignEnum)[0]],
+      };
     } else {
-      this.backgroundTreeDesign = TreeDesignEnum[nextDesign];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[nextDesign],
+      };
     }
   }
 
   prevDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.design.backgroundTreeDesign);
     const previousDesign = Object.keys(TreeDesignEnum)[currentDesignIndex - 1];
     if (previousDesign === undefined) {
       // set the last design in the enum
-      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]],
+      };
     } else {
-      this.backgroundTreeDesign = TreeDesignEnum[previousDesign];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[previousDesign],
+      };
     }
   }
 

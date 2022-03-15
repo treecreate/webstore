@@ -9,9 +9,7 @@
             #familyTreeDesignCanvas
             [design]="design"
             [isMutable]="isMutable"
-            [boxSize]="boxSize"
             [banner]="banner"
-            [backgroundTreeDesign]="backgroundTreeDesign"
             [showOptionBoxButtons]="showOptionBoxButtons"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
             data-cy="family-tree-canvas"
@@ -20,8 +18,8 @@
 
     <!-- FOR CY TESTS -->
     <div class="hide" data-cy="font">{{ design.font }}</div>
-    <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
-    <div class="hide" data-cy="box-size">{{ boxSize }}</div>
+    <div class="hide" data-cy="design">{{ design.backgroundTreeDesign }}</div>
+    <div class="hide" data-cy="box-size">{{ design.boxSize }}</div>
     <div class="hide" data-cy="banner">
         {{ banner !== undefined ? banner.text : '' }}
     </div>
@@ -92,7 +90,7 @@
                         <span class="arrow-left"></span>
                     </button>
                     <div class="display display-design">
-                        {{ getDesignName(backgroundTreeDesign) }}
+                        {{ getDesignName(design.backgroundTreeDesign) }}
                     </div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
@@ -116,7 +114,12 @@
                                 : 'Du kan gøre navne boksene større og mindre. Gør dem større for et mere tydeligt print.'
                         }}"
                     ></webstore-info-popover>
-                    <ngx-slider [(value)]="boxSize" [options]="boxSizeOptions" data-cy="box-size-slider"></ngx-slider>
+                    <ngx-slider
+                        (userChange)="changeBoxSize($value)"
+                        [(value)]="design.boxSize"
+                        [options]="boxSizeOptions"
+                        data-cy="box-size-slider"
+                    ></ngx-slider>
                 </div>
             </div>
 

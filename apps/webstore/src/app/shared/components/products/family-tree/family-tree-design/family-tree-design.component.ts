@@ -24,7 +24,7 @@ import {
   Tree3BoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
-import { DesignFontEnum, IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
+import { IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
@@ -40,8 +40,20 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+  // Inputs for design settings
+
   @Input()
-  boxSize = 20;
+  isMutable = false;
+
+  @Input()
+  design: IFamilyTree = null;
+
+  @Input()
+  banner: IFamilyTreeBanner;
+
+  @Output()
+  isDesignValidEvent = new EventEmitter<boolean>();
+  isDesignValid = false;
 
   // Various sizing and position variables
   // Note - modify this variable to control option button size
@@ -72,10 +84,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     width: this.canvasResolution.width / 2,
   };
   // dimensions etc of various design elements. Control with variables at the top of the component
-  // NOTE - each change needs to be replicated in ngOnChanges method
-  boxDimensions = {
-    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
-    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+  // NOTE - the values are calculated in updateDraggableBoxDimensions method
+  boxDimensions: {
+    height: number;
+    width: number;
   };
 
   // controls position of option buttons around the draggable box
@@ -100,25 +112,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     message: string;
     dismissible: boolean;
   };
-
-  // Inputs for design settings
-
-  @Input()
-  isMutable = false;
-
-  @Input()
-  design: IFamilyTree = null;
-
-  @Input()
-  banner: IFamilyTreeBanner;
-
-  @Input()
-  backgroundTreeDesign: TreeDesignEnum;
-
-  @Output()
-  isDesignValidEvent = new EventEmitter<boolean>();
-
-  isDesignValid = false;
 
   // Design
 
@@ -186,7 +179,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     // Load and validate tree design SVGs
     for (let i = 0; i < Object.values(TreeDesignEnum).length; i++) {
       let image = new Image();
-      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
+      this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
       image.src = Object.values(TreeDesignEnum)[i];
       image.onerror = () => {
         image = null;
@@ -365,10 +358,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.frameChanged = true;
     });
     draggableBoxRef.instance.backgroundImageUri = this.familyTreeDesignService.getUriFromBoxDesign(
-      this.backgroundTreeDesign,
+      this.design.backgroundTreeDesign,
       newBox.boxDesign
     );
-    draggableBoxRef.instance.boxSize = this.boxSize;
+    draggableBoxRef.instance.boxSize = this.design.boxSize;
     draggableBoxRef.instance.width = Math.floor(this.boxDimensions.width / this.canvasScaleToBounds.scaleX);
     draggableBoxRef.instance.height = Math.floor(this.boxDimensions.height / this.canvasScaleToBounds.scaleY);
     draggableBoxRef.instance.boxOptionDimensions = {
@@ -438,7 +431,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
       // render the boxes
       // fancy magic math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-      const boxFontSize = ((0.045 * this.boxSize + 0.05) / this.canvasScaleToBounds.scaleX) * 2;
+      const boxFontSize = ((0.045 * this.design.boxSize + 0.05) / this.canvasScaleToBounds.scaleX) * 2;
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
         // Update position of the input field to match the box
@@ -506,8 +499,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         }
       } else {
         // Setup boxes based on the loaded design
-        this.boxSize = design.boxSize;
-        this.backgroundTreeDesign = design.backgroundTreeDesign;
+        this.design.boxSize = design.boxSize;
+        this.design.backgroundTreeDesign = design.backgroundTreeDesign;
         design.boxes.forEach((box) => {
           this.createBox(box.x, box.y, box.boxDesign, box.text);
         });
@@ -556,8 +549,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, {
       font: this.design.font,
-      backgroundTreeDesign: this.backgroundTreeDesign,
-      boxSize: this.boxSize,
+      backgroundTreeDesign: this.design.backgroundTreeDesign,
+      boxSize: this.design.boxSize,
       banner: this.banner,
       boxes: boxesCopy,
     });
@@ -566,22 +559,16 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // handle input value updates
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.boxSize !== undefined) {
+    console.log('changes', changes);
+    if (changes.design !== undefined) {
       this.updateDraggableBoxDimensions();
-    }
-
-    if (changes.backgroundTreeDesign !== undefined) {
-      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
-    }
-
-    if (changes.font !== undefined) {
+      this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
       setTimeout(() => {
         for (let i = 0; i < this.myBoxes.length; i++) {
           this.myBoxes[i].inputRef.instance.adjustInputHeight();
         }
       }, 50);
     }
-
     if (changes.showOptionBoxButtons !== undefined) {
       for (let i = 0; i < this.myBoxes.length; i++) {
         this.myBoxes[i].inputRef.instance.showOptionButtons = changes.showOptionBoxButtons.currentValue;
@@ -608,8 +595,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
    */
   updateDraggableBoxDimensions(): void {
     this.boxDimensions = {
-      height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
-      width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+      height:
+        (this.canvasResolution.height / 10) * (this.design.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+      width:
+        (this.canvasResolution.width / 5) * (this.design.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
     };
 
     // controls position of option buttons around the draggable box
@@ -624,7 +613,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     for (let i = 0; i < this.myBoxes.length; i++) {
       // set the input and option button dimensions, accounting for the scale between canvas and document
       // needs to occur on each frame in case of screen size changing
-      this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
+      this.myBoxes[i].inputRef.instance.boxSize = this.design.boxSize;
       this.myBoxes[i].inputRef.instance.width = Math.floor(this.boxDimensions.width / this.canvasScaleToBounds.scaleX);
       this.myBoxes[i].inputRef.instance.height = Math.floor(
         this.boxDimensions.height / this.canvasScaleToBounds.scaleY
