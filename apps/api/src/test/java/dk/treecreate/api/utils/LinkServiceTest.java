@@ -57,7 +57,7 @@ public class LinkServiceTest
     {
         return Stream.of(
             Arguments.of(Environment.DEVELOPMENT,
-                "http://localhost:5000/paymentCallback"),
+                "http://localhost:5050/paymentCallback"),
             Arguments.of(Environment.STAGING,
                 "https://api.testing.treecreate.dk/paymentCallback"),
             Arguments.of(Environment.PRODUCTION,
