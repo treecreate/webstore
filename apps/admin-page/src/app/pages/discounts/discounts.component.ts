@@ -22,7 +22,7 @@ enum DiscountSortEnum {
 })
 export class DiscountsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'createdAt', 'expiresAt', 'actions'];
+  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'startsAt', 'expiresAt', 'actions'];
   discounts!: IDiscount[];
   discountDisplayList: IDiscount[] = [];
   showDisabled = false;
@@ -133,6 +133,8 @@ export class DiscountsComponent implements OnInit {
           return this.compare(a.createdAt!, b.createdAt!, isAsc);
         case 'expiresAt':
           return this.compare(a.expiresAt!, b.expiresAt!, isAsc);
+        case 'startsAt':
+          return this.compare(a.startsAt!, b.startsAt!, isAsc);
         case 'code':
           return this.compare(a.discountCode!, b.discountCode!, isAsc);
         default:
