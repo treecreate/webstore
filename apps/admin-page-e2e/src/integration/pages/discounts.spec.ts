@@ -44,7 +44,7 @@ describe('discountsPage', () => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
     cy.intercept(
-      { method: 'GET', url: `/discounts` },
+      { method: 'GET', url: 'localhost:5500/discounts' },
       {
         body: mockDiscounts,
         statusCode: 200,
