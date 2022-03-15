@@ -27,6 +27,7 @@ export class DiscountsComponent implements OnInit {
   discountDisplayList: IDiscount[] = [];
   showDisabled = false;
   showActive = true;
+  showAsc = true;
   sortSelectForm: FormGroup;
 
   constructor(
@@ -100,19 +101,24 @@ export class DiscountsComponent implements OnInit {
     this.sortData();
   }
 
+  changeDirection() {
+    this.showAsc = !this.showAsc; 
+    this.sortData();
+  }
+
   /**
    * Sorts the data of the table.
    */
   sortData() {
     const data = this.discountDisplayList.slice();
+
     const sort: Sort = {
       active: this.sortSelectForm.get('select')?.value,
-      direction: 'asc'
+      direction: this.showAsc ? 'asc' : 'desc'
     }
+    const isAsc = sort.direction === 'asc';
 
     this.discountDisplayList = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-
       switch (sort.active) {
         case 'createdAt':
           return this.compare(a.createdAt!, b.createdAt!, isAsc);
