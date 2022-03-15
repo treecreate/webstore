@@ -156,13 +156,22 @@ export class DiscountsComponent implements OnInit {
     this.discountDisplayList = data.sort((a, b) => {
       switch (sort.active) {
         case 'createdAt':
-          return this.compare(a.createdAt!, b.createdAt!, isAsc);
+          if (a.createdAt && b.createdAt) {
+            return this.compare(a.createdAt, b.createdAt, isAsc);
+          }
+          return 0;
         case 'expiresAt':
-          return this.compare(a.expiresAt!, b.expiresAt!, isAsc);
+          if (a.expiresAt && b.expiresAt) {
+            return this.compare(a.expiresAt, b.expiresAt, isAsc);
+          }
+          return 0;
         case 'startsAt':
-          return this.compare(a.startsAt!, b.startsAt!, isAsc);
+          if (a.startsAt && b.startsAt) {
+            return this.compare(a.startsAt, b.startsAt, isAsc);
+          }
+          return 0;
         case 'code':
-          return this.compare(a.discountCode!, b.discountCode!, isAsc);
+          return this.compare(a.discountCode, b.discountCode, isAsc);
         default:
           return 0;
       }
@@ -198,14 +207,16 @@ export class DiscountsComponent implements OnInit {
   }
 
   getDiscountState(discount: IDiscount): string {
-    // Check if is active
-    if (!discount.isEnabled) return DiscountState.disabled;
-    // Check if is in the future
-    if (this.isInTheFuture(discount.startsAt!)) return DiscountState.future;
-    // Check if it expired
-    if (this.hasExpired(discount.expiresAt!)) return DiscountState.expired;
-    // Check if it has uses left
-    if (discount.remainingUses < 1) return DiscountState.runOut;
+    if (discount.startsAt && discount.expiresAt) {
+      // Check if is active
+      if (!discount.isEnabled) return DiscountState.disabled;
+      // Check if is in the future
+      if (this.isInTheFuture(discount.startsAt)) return DiscountState.future;
+      // Check if it expired
+      if (this.hasExpired(discount.expiresAt)) return DiscountState.expired;
+      // Check if it has uses left
+      if (discount.remainingUses < 1) return DiscountState.runOut;
+    }
     return DiscountState.active;
   }
 
@@ -214,26 +225,28 @@ export class DiscountsComponent implements OnInit {
    * Changes the state of isLoading variable whilst the update is on-going.
    */
   toggleDiscountState(id: string): void {
-    const discount = this.discounts.find((discount) => discount.discountId! === id);
+    const discountToToggle = this.discounts.find((discount) => discount.discountId === id);
     // validate that the request and its information is valid
-    if (discount === undefined || discount?.discountId === undefined) {
+    if (discountToToggle === undefined || discountToToggle?.discountId === undefined) {
       return;
     }
-    this.discountService.updateDiscount(discount.discountId, { isEnabled: !discount.isEnabled }).subscribe({
-      error: (error: HttpErrorResponse) => {
-        console.error(error);
-        this.snackBar.open(
-          `Failed to change discount state with error: ${error.error.error}`,
-          `Cool, Let's try again`,
-          { duration: 5000 }
-        );
-      },
-      next: (discountReturn: IDiscount) => {
-        this.snackBar.open(`Discount has been ${discount.isEnabled ? 'enabled' : 'disabled'}`, 'Ya Yeet', {
-          duration: 3500,
-        });
-        location.reload();
-      },
-    });
+    this.discountService
+      .updateDiscount(discountToToggle.discountId, { isEnabled: !discountToToggle.isEnabled })
+      .subscribe({
+        error: (error: HttpErrorResponse) => {
+          console.error(error);
+          this.snackBar.open(
+            `Failed to change discount state with error: ${error.error.error}`,
+            `Cool, Let's try again`,
+            { duration: 5000 }
+          );
+        },
+        next: (discountReturn: IDiscount) => {
+          this.snackBar.open(`Discount has been ${discountToToggle.isEnabled ? 'enabled' : 'disabled'}`, 'Ya Yeet', {
+            duration: 3500,
+          });
+          location.reload();
+        },
+      });
   }
 }
