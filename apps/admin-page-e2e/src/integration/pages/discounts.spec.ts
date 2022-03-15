@@ -1,7 +1,6 @@
 import { IDiscount, DiscountType } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
-import { environment as env } from '../../../../admin-page/src/environments/environment';
 
 const mockDiscount: IDiscount = {
   discountId: '123',
@@ -45,7 +44,7 @@ describe('discountsPage', () => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
     cy.intercept(
-      { method: 'GET', url: `${env.apiUrl}/discounts` },
+      { method: 'GET', url: `/discounts` },
       {
         body: mockDiscounts,
         statusCode: 200,

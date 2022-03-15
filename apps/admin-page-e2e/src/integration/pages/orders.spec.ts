@@ -1,7 +1,6 @@
 import { CurrencyEnum, DiscountType, IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
-import { environment as env } from '../../../../admin-page/src/environments/environment';
 
 enum LabelColorsEnum {
   red = '#FF0000',
@@ -179,7 +178,7 @@ describe('ordersPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', `${env.apiUrl}/orders`, {
+    cy.intercept('GET', `/orders`, {
       body: mockOrders,
       statusCode: 200,
     }).as('fetchOrders');
