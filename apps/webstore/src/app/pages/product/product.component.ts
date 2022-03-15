@@ -131,7 +131,6 @@ export class ProductComponent implements OnInit {
     this.design = { ...this.design, banner: { style: this.design.banner.style, text: $event.target.value } };
   }
 
-  // TODO: properly assign the banner
   loadDesign() {
     const queryParams = this.route.snapshot.queryParams;
     if (queryParams.designId !== undefined) {
@@ -338,8 +337,6 @@ export class ProductComponent implements OnInit {
   nextDesign() {
     const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.design.backgroundTreeDesign);
     const nextDesign = Object.keys(TreeDesignEnum)[currentDesignIndex + 1];
-    console.log('yeet');
-
     if (nextDesign === undefined) {
       // set the first design in the enum
       this.design = {

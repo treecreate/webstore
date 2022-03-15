@@ -556,7 +556,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // handle input value updates
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes', changes);
     if (changes.design !== undefined) {
       this.updateDraggableBoxDimensions();
       this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
