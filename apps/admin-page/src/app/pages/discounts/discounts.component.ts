@@ -83,10 +83,19 @@ export class DiscountsComponent implements OnInit {
     });
   }
 
+  /**
+   * Takes a long string and shortens it to only 8 char.
+   * 
+   * @param text 
+   * @returns a shortened string
+   */
   getShortText(text: string): string {
     return text.slice(text.length - 8);
   }
 
+  /**
+   * Updates the list of discounts based off active / disabled
+   */
   updateShow(): void {
     this.discountDisplayList = [];
     const activeDiscounts = this.discounts.filter((discount) => discount.isEnabled);
