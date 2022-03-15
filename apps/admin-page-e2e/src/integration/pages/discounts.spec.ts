@@ -80,7 +80,10 @@ describe('discountsPage', () => {
   });
 
   it('should display the correct discounts information', () => {
-    cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].discountCode.slice(0,10)).should('exist');
+    cy.get('[data-cy=discounts-table-row]')
+      .first()
+      .contains(mockDiscounts[0].discountCode.slice(0, 10))
+      .should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains('123').should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].remainingUses).should('exist');
     cy.get('[data-cy=discounts-table-row]').first().contains(mockDiscounts[0].totalUses).should('exist');

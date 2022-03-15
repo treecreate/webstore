@@ -20,7 +20,7 @@ enum DiscountState {
   expired = 'Expired',
   active = 'Active',
   runOut = 'RunOut',
-  disabled = 'Disabled'
+  disabled = 'Disabled',
 }
 
 @Component({
@@ -30,7 +30,7 @@ enum DiscountState {
 })
 export class DiscountsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'startsAt', 'expiresAt', 'discount','actions'];
+  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'startsAt', 'expiresAt', 'discount', 'actions'];
   discounts!: IDiscount[];
   discountDisplayList: IDiscount[] = [];
   showDisabled = false;
@@ -100,10 +100,10 @@ export class DiscountsComponent implements OnInit {
    * @returns a shortened string
    */
   getShortText(text: string, end: boolean): string {
-    if(end) {
+    if (end) {
       return text.slice(text.length - 8);
     } else {
-      return text.slice(0,10);
+      return text.slice(0, 10);
     }
   }
 

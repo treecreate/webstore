@@ -48,13 +48,7 @@
             <form [formGroup]="sortSelectForm" class="select-input sub-header">
                 <mat-form-field appearance="fill">
                     <mat-label>Sort by:</mat-label>
-                    <select
-                        matNativeControl
-                        required
-                        formControlName="select"
-                        (change)="sortData()"
-                        value="createAt"
-                    >
+                    <select matNativeControl required formControlName="select" (change)="sortData()" value="createAt">
                         <option value="createdAt">Created at</option>
                         <option value="expiresAt">Expires at</option>
                         <option value="startsAt">Starts at</option>
@@ -123,7 +117,9 @@
             <!-- Expires at Column -->
             <ng-container matColumnDef="discount">
                 <th mat-header-cell *matHeaderCellDef>Discount</th>
-                <td mat-cell *matCellDef="let discount">{{ discount.type === 'PERCENT' ? discount.amount + '%' : discount.amount + ' DKK' }}</td>
+                <td mat-cell *matCellDef="let discount">
+                    {{ discount.type === 'PERCENT' ? discount.amount + '%' : discount.amount + ' DKK' }}
+                </td>
             </ng-container>
 
             <!-- Actions Column -->
