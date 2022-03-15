@@ -34,8 +34,7 @@
 
                 <h3 class="item">Show only:</h3>
                 <button
-                    mat-flat-button
-                    color="accent"
+                    mat-raised-button
                     (click)="showActive = !showActive; updateShow()"
                     class="item"
                     [ngStyle]="{ opacity: showActive ? 1 : 0.5 }"
@@ -43,8 +42,7 @@
                     Active
                 </button>
                 <button
-                    mat-flat-button
-                    color="accent"
+                    mat-raised-button
                     (click)="showDisabled = !showDisabled; updateShow()"
                     class="item"
                     [ngStyle]="{ opacity: showDisabled ? 1 : 0.5 }"
@@ -91,9 +89,9 @@
             </ng-container>
 
             <!-- Expires at Column -->
-            <ng-container matColumnDef="createdAt">
-                <th mat-header-cell *matHeaderCellDef>Created at</th>
-                <td mat-cell *matCellDef="let discount">{{ discount.createdAt | date: 'hh:mm  dd/MM' }}</td>
+            <ng-container matColumnDef="startsAt">
+                <th mat-header-cell *matHeaderCellDef>Starts at</th>
+                <td mat-cell *matCellDef="let discount">{{ discount.startsAt | date: 'hh:mm  dd/MM' }}</td>
             </ng-container>
 
             <!-- Expires at Column -->
@@ -106,7 +104,7 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let discount">
-                    <div class="row">
+                    <div class="action-row">
                         <button
                             mat-flat-button
                             color="primary"
@@ -116,7 +114,6 @@
                         >
                             Edit
                         </button>
-                        <div class="spacer"></div>
                         <button
                             mat-flat-button
                             color="primary"
