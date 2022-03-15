@@ -112,13 +112,19 @@ export class DiscountsComponent implements OnInit {
    */
   updateList(): void {
     this.discountDisplayList = [];
-    const activeDiscounts = this.discounts.filter((discount) => discount.isEnabled);
-    const disabledDiscounts = this.discounts.filter((discount) => !discount.isEnabled);
 
     // Check to display active
-    if (this.showActive) this.discountDisplayList = this.discountDisplayList.concat(activeDiscounts);
+    if (this.showActive) {
+      this.discountDisplayList = this.discountDisplayList.concat(
+        this.discounts.filter((discount) => discount.isEnabled)
+      );
+    }
     // Check to display default
-    if (this.showDisabled) this.discountDisplayList = this.discountDisplayList.concat(disabledDiscounts);
+    if (this.showDisabled) {
+      this.discountDisplayList = this.discountDisplayList.concat(
+        this.discounts.filter((discount) => !discount.isEnabled)
+      );
+    }
 
     // Check to display amount and/or percent
     if (this.showAmount && this.showPercent) {
@@ -202,7 +208,7 @@ export class DiscountsComponent implements OnInit {
   }
 
   /**
-   * @param discount 
+   * @param discount
    * @returns discount state enum
    */
   getDiscountState(discount: IDiscount): string {
@@ -222,7 +228,7 @@ export class DiscountsComponent implements OnInit {
   /**
    * Performs a API call in order to either enable or disable a discount.\
    * Changes the state of isLoading variable whilst the update is on-going.
-   * 
+   *
    * @param id discount id
    */
   toggleDiscountState(id: string): void {
