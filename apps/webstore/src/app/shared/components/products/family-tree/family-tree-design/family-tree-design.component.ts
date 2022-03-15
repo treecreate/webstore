@@ -24,7 +24,7 @@ import {
   Tree3BoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
-import { IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
+import { IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
@@ -47,9 +47,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   @Input()
   design: IFamilyTree = null;
-
-  @Input()
-  banner: IFamilyTreeBanner;
 
   @Output()
   isDesignValidEvent = new EventEmitter<boolean>();
@@ -405,7 +402,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
         this.bannerDesigns.get(BannerDesignEnum.banner1).complete
       ) {
-        if (this.banner !== undefined && this.banner !== null) {
+        if (this.design.banner !== undefined && this.design.banner !== null) {
           const bannerHeightOffset = 0.96;
           // draw the banner at the bottom middle of the tree
           this.context.drawImage(
@@ -420,7 +417,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
           this.context.fillText(
-            this.banner.text,
+            this.design.banner.text,
             this.canvasResolution.width / 1.97,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
             this.canvasResolution.height * bannerHeightOffset - this.bannerDimensions.height / 1.32,
@@ -551,7 +548,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       font: this.design.font,
       backgroundTreeDesign: this.design.backgroundTreeDesign,
       boxSize: this.design.boxSize,
-      banner: this.banner,
+      banner: this.design.banner,
       boxes: boxesCopy,
     });
   }

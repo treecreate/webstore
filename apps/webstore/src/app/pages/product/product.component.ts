@@ -2,15 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
-import {
-  DesignFontEnum,
-  DesignTypeEnum,
-  IAuthUser,
-  IDesign,
-  IFamilyTree,
-  IFamilyTreeBanner,
-  ITransactionItem,
-} from '@interfaces';
+import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IFamilyTree, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -52,7 +44,6 @@ export class ProductComponent implements OnInit {
     floor: this.minSize,
     ceil: this.maxSize,
   };
-  banner: IFamilyTreeBanner = undefined;
   design: IFamilyTree = {
     font: this.defaultFont,
     backgroundTreeDesign: this.defaultBackgroundTreeDesign,
@@ -128,6 +119,18 @@ export class ProductComponent implements OnInit {
     };
   }
 
+  toggleBanner() {
+    if (this.design.banner === undefined) {
+      this.design = { ...this.design, banner: { text: '', style: 'first' } };
+    } else {
+      this.design = { ...this.design, banner: undefined };
+    }
+  }
+
+  updateBannerText($event) {
+    this.design = { ...this.design, banner: { style: this.design.banner.style, text: $event.target.value } };
+  }
+
   // TODO: properly assign the banner
   loadDesign() {
     const queryParams = this.route.snapshot.queryParams;
@@ -142,10 +145,7 @@ export class ProductComponent implements OnInit {
     } else {
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       // apply the design
-      if (this.design !== null && this.design !== undefined) {
-        this.banner = this.design.banner;
-        this.boxSize = this.design.boxSize;
-      } else {
+      if (this.design === null || this.design === undefined) {
         // set the defaults
         this.design = {
           font: this.defaultFont,
@@ -157,7 +157,6 @@ export class ProductComponent implements OnInit {
         this.boxSize = 40;
         this.maxSize = 40;
         this.minSize = 10;
-        this.banner = { text: 'Familietræet', style: 'first' };
       }
       this.isMutable = true;
       this.cdr.detectChanges();
@@ -180,7 +179,6 @@ export class ProductComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
-    this.banner = this.design.banner;
     this.boxSize = this.design.boxSize;
   }
 
@@ -198,8 +196,6 @@ export class ProductComponent implements OnInit {
         } else {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
           // apply the design
-          this.banner = this.design.banner;
-          this.boxSize = this.design.boxSize;
           this.isMutable = result.mutable;
           this.cdr.detectChanges();
           this.designCanvas.loadDesign();
@@ -373,10 +369,6 @@ export class ProductComponent implements OnInit {
         backgroundTreeDesign: TreeDesignEnum[previousDesign],
       };
     }
-  }
-
-  updateBannerText($event) {
-    this.banner.text = $event.target.value;
   }
 
   openAddToBasketModal() {

@@ -9,7 +9,6 @@
             #familyTreeDesignCanvas
             [design]="design"
             [isMutable]="isMutable"
-            [banner]="banner"
             [showOptionBoxButtons]="showOptionBoxButtons"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
             data-cy="family-tree-canvas"
@@ -21,7 +20,7 @@
     <div class="hide" data-cy="design">{{ design.backgroundTreeDesign }}</div>
     <div class="hide" data-cy="box-size">{{ design.boxSize }}</div>
     <div class="hide" data-cy="banner">
-        {{ banner !== undefined ? banner.text : '' }}
+        {{ design.banner !== undefined ? design.banner.text : '' }}
     </div>
     <!-- END CY TESTS -->
 
@@ -130,15 +129,8 @@
                             Banner
                             <input
                                 type="checkbox"
-                                [checked]="this.banner !== undefined"
-                                (change)="
-                                    this.banner === undefined
-                                        ? (this.banner = {
-                                              text: '',
-                                              style: 'first'
-                                          })
-                                        : (this.banner = undefined)
-                                "
+                                [checked]="this.design.banner !== undefined"
+                                (change)="toggleBanner()"
                             />
                             <span class="checkmark" data-cy="checkbox-banner"></span>
                             <webstore-info-popover
@@ -152,11 +144,11 @@
                         </label>
                     </div>
                 </div>
-                <div *ngIf="this.banner !== undefined" class="option-design-title banner-input">
+                <div *ngIf="this.design.banner !== undefined" class="option-design-title banner-input">
                     <input
                         type="text"
                         class="title-input"
-                        [value]="this.banner ? this.banner.text : ''"
+                        [value]="this.design.banner ? this.design.banner.text : ''"
                         (keyup)="updateBannerText($event)"
                         placeholder="Banner text"
                         data-cy="design-banner-input"
