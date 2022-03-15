@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -40,7 +40,6 @@ export class AddToBasketModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private route: ActivatedRoute,
-    private router: Router,
     private modalService: NgbModal,
     private toastService: ToastService,
     private localStorageService: LocalStorageService,
@@ -55,21 +54,23 @@ export class AddToBasketModalComponent implements OnInit {
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
+
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
+
     // Check if the user is logged in
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
-  }
 
-  ngOnInit(): void {
     this.addToBasketForm = new FormGroup({
       quantity: new FormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
       dimension: new FormControl('', [Validators.required]),
     });
+  }
 
+  ngOnInit(): void {
     this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
 
     this.addToBasketForm.setValue({
