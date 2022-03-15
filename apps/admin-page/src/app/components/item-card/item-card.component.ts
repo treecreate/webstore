@@ -17,4 +17,10 @@ export class ItemCardComponent {
 
   @Input()
   header!: TemplateRef<unknown>;
+
+  @Input()
+  amount!: number;
+
+  @Input()
+  amountDescription!: string;
 }

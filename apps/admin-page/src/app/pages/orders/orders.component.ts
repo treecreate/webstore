@@ -20,7 +20,6 @@ export class OrdersComponent implements OnInit {
     'items',
     'status',
     'actions',
-    'ordersamount'
   ];
   orderStatusOptions: OrderStatusEnum[] = [
     OrderStatusEnum.delivered,
@@ -33,6 +32,7 @@ export class OrdersComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
   orders!: IOrder[];
+  totalAmount: number = 0;
 
   constructor(public ordersService: OrdersService) {}
 
@@ -81,6 +81,7 @@ export class OrdersComponent implements OnInit {
       next: (orders: IOrder[]) => {
         this.isLoading = false;
         this.orders = orders;
+        this.totalAmount = orders.filter((order) => order.status === OrderStatusEnum.pending).length;
       },
     });
   }
