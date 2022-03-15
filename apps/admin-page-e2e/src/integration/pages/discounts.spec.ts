@@ -38,7 +38,7 @@ const mockDiscountExpired: IDiscount = {
 const authMockService = new AuthenticationService();
 
 const mockDiscounts = [mockDiscount, mockDiscountNoUsesLeft, mockDiscountExpired];
-const apiUrl = 'http://localhost:5000'
+const apiUrl = 'http://localhost:5000';
 
 describe('discountsPage', () => {
   beforeEach(() => {
