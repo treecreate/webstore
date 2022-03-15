@@ -10,9 +10,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 enum DiscountSortEnum {
-  createdAt = "createdAt",
-  expiresAt = "expiresAt",
-  code = "code"
+  createdAt = 'createdAt',
+  expiresAt = 'expiresAt',
+  code = 'code',
 }
 
 @Component({
@@ -38,8 +38,8 @@ export class DiscountsComponent implements OnInit {
     private discountService: DiscountsService
   ) {
     this.sortSelectForm = new FormGroup({
-      select: new FormControl(DiscountSortEnum.createdAt, Validators.required)
-    })
+      select: new FormControl(DiscountSortEnum.createdAt, Validators.required),
+    });
   }
 
   /**
@@ -85,8 +85,8 @@ export class DiscountsComponent implements OnInit {
 
   /**
    * Takes a long string and shortens it to only 8 char.
-   * 
-   * @param text 
+   *
+   * @param text
    * @returns a shortened string
    */
   getShortText(text: string): string {
@@ -111,7 +111,7 @@ export class DiscountsComponent implements OnInit {
   }
 
   changeDirection() {
-    this.showAsc = !this.showAsc; 
+    this.showAsc = !this.showAsc;
     this.sortData();
   }
 
@@ -123,8 +123,8 @@ export class DiscountsComponent implements OnInit {
 
     const sort: Sort = {
       active: this.sortSelectForm.get('select')?.value,
-      direction: this.showAsc ? 'asc' : 'desc'
-    }
+      direction: this.showAsc ? 'asc' : 'desc',
+    };
     const isAsc = sort.direction === 'asc';
 
     this.discountDisplayList = data.sort((a, b) => {
@@ -154,11 +154,21 @@ export class DiscountsComponent implements OnInit {
   }
 
   /**
-   * @param date 
+   * @param date
    * @returns boolean of whether or not the date has passed
    */
-  hasExpired(date: Date) {
+  hasExpired(date: Date): boolean {
     return new Date(date) < new Date();
+  }
+
+  getDiscountState(discount: IDiscount): string {
+    // Check if is active
+    if (!discount.isEnabled) return 'Disabled';
+    // Check if it expired
+    if (this.hasExpired(discount.expiresAt!)) return 'Expired';
+    // Check if it has uses left
+    if (discount.remainingUses < 1) return 'RunOut';
+    return 'Active';
   }
 
   /**
@@ -171,7 +181,6 @@ export class DiscountsComponent implements OnInit {
     if (discount === undefined || discount?.discountId === undefined) {
       return;
     }
-    this.isLoading = true;
     this.discountService.updateDiscount(discount.discountId, { isEnabled: !discount.isEnabled }).subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
@@ -180,13 +189,12 @@ export class DiscountsComponent implements OnInit {
           `Cool, Let's try again`,
           { duration: 5000 }
         );
-        this.isLoading = false;
       },
-      next: (discount: IDiscount) => {
+      next: (discountReturn: IDiscount) => {
         this.snackBar.open(`Discount has been ${discount.isEnabled ? 'enabled' : 'disabled'}`, 'Ya Yeet', {
           duration: 3500,
         });
-        this.isLoading = false;
+        location.reload();
       },
     });
   }

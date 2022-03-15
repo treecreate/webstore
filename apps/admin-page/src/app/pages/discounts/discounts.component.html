@@ -14,13 +14,21 @@
                 <form [formGroup]="sortSelectForm" class="select-input">
                     <mat-form-field appearance="fill">
                         <mat-label>Sort by:</mat-label>
-                        <select matNativeControl required formControlName="select" (change)="sortData()" value="createAt">
+                        <select
+                            matNativeControl
+                            required
+                            formControlName="select"
+                            (change)="sortData()"
+                            value="createAt"
+                        >
                             <option value="createdAt">Created at</option>
                             <option value="expiresAt">Expires at</option>
                             <option value="code">Code</option>
                         </select>
                     </mat-form-field>
-                    <mat-icon class="{{showAsc ? 'up' : 'down'}} direction-icon" (click)="changeDirection()">forward</mat-icon>
+                    <mat-icon class="{{ showAsc ? 'up' : 'down' }} direction-icon" (click)="changeDirection()"
+                        >forward</mat-icon
+                    >
                 </form>
 
                 <h3 class="item">Show only:</h3>
@@ -112,11 +120,10 @@
                             mat-flat-button
                             color="primary"
                             (click)="toggleDiscountState(discount.discountId)"
-                            class="item action-btn"
+                            class="item action-btn {{ getDiscountState(discount) }}"
                             data-cy="discounts-enable-btn"
-                            [ngStyle]="{ 'background-color': discount.isEnabled ? '#00B207' : 'red' }"
                         >
-                            {{ discount.isEnabled ? 'Active' : 'Disabled' }}
+                            {{ getDiscountState(discount) }}
                         </button>
                     </div>
                 </td>
