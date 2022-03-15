@@ -15,6 +15,14 @@ enum DiscountSortEnum {
   code = 'code',
 }
 
+enum DiscountState {
+  future = 'Future',
+  expired = 'Expired',
+  active = 'Active',
+  runOut = 'RunOut',
+  disabled = 'Disabled'
+}
+
 @Component({
   selector: 'webstore-discounts',
   templateUrl: './discounts.component.html',
@@ -191,14 +199,14 @@ export class DiscountsComponent implements OnInit {
 
   getDiscountState(discount: IDiscount): string {
     // Check if is active
-    if (!discount.isEnabled) return 'Disabled';
+    if (!discount.isEnabled) return DiscountState.disabled;
     // Check if is in the future
-    if (this.isInTheFuture(discount.startsAt!)) return 'Future';
+    if (this.isInTheFuture(discount.startsAt!)) return DiscountState.future;
     // Check if it expired
-    if (this.hasExpired(discount.expiresAt!)) return 'Expired';
+    if (this.hasExpired(discount.expiresAt!)) return DiscountState.expired;
     // Check if it has uses left
-    if (discount.remainingUses < 1) return 'RunOut';
-    return 'Active';
+    if (discount.remainingUses < 1) return DiscountState.runOut;
+    return DiscountState.active;
   }
 
   /**
