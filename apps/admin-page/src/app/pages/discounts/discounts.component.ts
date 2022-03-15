@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IDiscount } from '@interfaces';
+import { DiscountType, IDiscount } from '@interfaces';
 import { ClipboardService } from 'ngx-clipboard';
 import { CreateDiscountDialogComponent } from '../../components/create-discount-dialog/create-discount-dialog.component';
 import { DiscountsService } from '../../services/discounts/discounts.service';
@@ -28,6 +28,8 @@ export class DiscountsComponent implements OnInit {
   showDisabled = false;
   showActive = true;
   showAsc = true;
+  showAmount = true;
+  showPercent = true;
   sortSelectForm: FormGroup;
 
   constructor(
@@ -101,11 +103,20 @@ export class DiscountsComponent implements OnInit {
     const activeDiscounts = this.discounts.filter((discount) => discount.isEnabled);
     const disabledDiscounts = this.discounts.filter((discount) => !discount.isEnabled);
 
-    if (this.showActive) {
-      this.discountDisplayList = this.discountDisplayList.concat(activeDiscounts);
-    }
-    if (this.showDisabled) {
-      this.discountDisplayList = this.discountDisplayList.concat(disabledDiscounts);
+    // Check to display active
+    if (this.showActive) this.discountDisplayList = this.discountDisplayList.concat(activeDiscounts);
+    // Check to display default
+    if (this.showDisabled) this.discountDisplayList = this.discountDisplayList.concat(disabledDiscounts);
+
+    if (this.showAmount && this.showPercent) {
+      this.sortData();
+      return;
+    } else if (this.showAmount) {
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount);
+    } else if (this.showPercent) {
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent);
+    } else {
+      this.discountDisplayList = [];
     }
     this.sortData();
   }
@@ -164,8 +175,8 @@ export class DiscountsComponent implements OnInit {
   }
 
   /**
-   * @param date 
-   * @returns boolean of whether or not the discount hasnt started yet 
+   * @param date
+   * @returns boolean of whether or not the discount hasnt started yet
    */
   isInTheFuture(date: Date) {
     return new Date(date) > new Date();
@@ -175,7 +186,7 @@ export class DiscountsComponent implements OnInit {
     // Check if is active
     if (!discount.isEnabled) return 'Disabled';
     // Check if is in the future
-    if(this.isInTheFuture(discount.startsAt!)) return 'Future';
+    if (this.isInTheFuture(discount.startsAt!)) return 'Future';
     // Check if it expired
     if (this.hasExpired(discount.expiresAt!)) return 'Expired';
     // Check if it has uses left

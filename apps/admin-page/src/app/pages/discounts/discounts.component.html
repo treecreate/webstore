@@ -49,6 +49,22 @@
                 >
                     Disabled
                 </button>
+                <button
+                    mat-raised-button
+                    (click)="showAmount = !showAmount; updateShow()"
+                    class="item"
+                    [ngStyle]="{ opacity: showAmount ? 1 : 0.5 }"
+                >
+                    Amount
+                </button>
+                <button
+                    mat-raised-button
+                    (click)="showPercent = !showPercent; updateShow()"
+                    class="item"
+                    [ngStyle]="{ opacity: showPercent ? 1 : 0.5 }"
+                >
+                    Percent
+                </button>
             </div>
         </div>
         <table
