@@ -6,6 +6,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { CreateDiscountDialogComponent } from '../../components/create-discount-dialog/create-discount-dialog.component';
 import { DiscountsService } from '../../services/discounts/discounts.service';
 import { Sort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'webstore-discounts',
@@ -23,7 +24,9 @@ export class DiscountsComponent implements OnInit {
   constructor(
     private discountsService: DiscountsService,
     private clipboardService: ClipboardService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private discountService: DiscountsService
   ) {}
 
   /**
@@ -124,5 +127,35 @@ export class DiscountsComponent implements OnInit {
    */
   compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  /**
+   * Performs a API call in order to either enable or disable a discount.\
+   * Changes the state of isLoading variable whilst the update is on-going.
+   */
+  toggleDiscountState(id: string): void {
+    const discount = this.discounts.find((discount) => discount.discountId! === id);
+    // validate that the request and its information is valid
+    if (discount === undefined || discount?.discountId === undefined) {
+      return;
+    }
+    this.isLoading = true;
+    this.discountService.updateDiscount(discount.discountId, { isEnabled: !discount.isEnabled }).subscribe({
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+        this.snackBar.open(
+          `Failed to change discount state with error: ${error.error.error}`,
+          `Cool, Let's try again`,
+          { duration: 5000 }
+        );
+        this.isLoading = false;
+      },
+      next: (discount: IDiscount) => {
+        this.snackBar.open(`Discount has been ${discount.isEnabled ? 'enabled' : 'disabled'}`, 'Ya Yeet', {
+          duration: 3500,
+        });
+        this.isLoading = false;
+      },
+    });
   }
 }

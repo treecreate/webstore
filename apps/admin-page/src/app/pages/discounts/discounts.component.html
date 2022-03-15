@@ -116,24 +116,22 @@
                             mat-flat-button
                             color="primary"
                             routerLink="/discounts/{{ discount.discountId }}"
-                            class="item"
+                            class="item action-btn"
                             data-cy="discounts-edit-btn"
                         >
                             Edit
                         </button>
                         <div class="spacer"></div>
-                        <div matTooltip="Not implemented yet.">
-                            <button
-                                mat-flat-button
-                                color="primary"
-                                [disabled]="true"
-                                class="item"
-                                data-cy="discounts-enable-btn"
-                                [ngStyle]="{ 'background-color': '#00B207' }"
-                            >
-                                Active
-                            </button>
-                        </div>
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            (click)="toggleDiscountState(discount.discountId)"
+                            class="item action-btn"
+                            data-cy="discounts-enable-btn"
+                            [ngStyle]="{ 'background-color': discount.isEnabled ? '#00B207' : 'red' }"
+                        >
+                            {{ discount.isEnabled ? 'Active' : 'Disabled' }}
+                        </button>
                     </div>
                 </td>
             </ng-container>
