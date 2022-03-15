@@ -154,6 +154,14 @@ export class DiscountsComponent implements OnInit {
   }
 
   /**
+   * @param date 
+   * @returns boolean of whether or not the date has passed
+   */
+  hasExpired(date: Date) {
+    return new Date(date) < new Date();
+  }
+
+  /**
    * Performs a API call in order to either enable or disable a discount.\
    * Changes the state of isLoading variable whilst the update is on-going.
    */
