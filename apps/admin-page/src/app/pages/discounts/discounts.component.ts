@@ -7,6 +7,13 @@ import { CreateDiscountDialogComponent } from '../../components/create-discount-
 import { DiscountsService } from '../../services/discounts/discounts.service';
 import { Sort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+enum DiscountSortEnum {
+  createdAt = "createdAt",
+  expiresAt = "expiresAt",
+  code = "code"
+}
 
 @Component({
   selector: 'webstore-discounts',
@@ -20,6 +27,7 @@ export class DiscountsComponent implements OnInit {
   discountDisplayList: IDiscount[] = [];
   showDisabled = false;
   showActive = true;
+  sortSelectForm: FormGroup;
 
   constructor(
     private discountsService: DiscountsService,
@@ -27,7 +35,11 @@ export class DiscountsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private discountService: DiscountsService
-  ) {}
+  ) {
+    this.sortSelectForm = new FormGroup({
+      select: new FormControl(DiscountSortEnum.createdAt, Validators.required)
+    })
+  }
 
   /**
    * Fetches the discounts.
@@ -85,20 +97,17 @@ export class DiscountsComponent implements OnInit {
     if (this.showDisabled) {
       this.discountDisplayList = this.discountDisplayList.concat(disabledDiscounts);
     }
-    this.sortData({ active: 'createdAt', direction: 'asc' });
+    this.sortData();
   }
 
   /**
    * Sorts the data of the table.
-   *
-   * @param sort
    */
-  sortData(sort: Sort) {
+  sortData() {
     const data = this.discountDisplayList.slice();
-
-    if (!sort.active || sort.direction === '') {
-      this.discountDisplayList = data;
-      return;
+    const sort: Sort = {
+      active: this.sortSelectForm.get('select')?.value,
+      direction: 'asc'
     }
 
     this.discountDisplayList = data.sort((a, b) => {

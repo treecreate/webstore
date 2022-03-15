@@ -11,31 +11,16 @@
                 Create new
             </button>
             <div class="sub-header">
-                <h3>Sort by:</h3>
-                <button
-                    mat-flat-button
-                    color="accent"
-                    (click)="sortData({ active: 'code', direction: 'asc' })"
-                    class="item"
-                >
-                    Code
-                </button>
-                <button
-                    mat-flat-button
-                    color="accent"
-                    (click)="sortData({ active: 'expiresAt', direction: 'asc' })"
-                    class="item"
-                >
-                    Expires at
-                </button>
-                <button
-                    mat-flat-button
-                    color="accent"
-                    (click)="sortData({ active: 'createdAt', direction: 'desc' })"
-                    class="item"
-                >
-                    Created at
-                </button>
+                <form [formGroup]="sortSelectForm">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sort by:</mat-label>
+                        <select matNativeControl required formControlName="select" (change)="sortData()">
+                            <option value="createAt">Created at</option>
+                            <option value="expiresAt">Expires at</option>
+                            <option value="code">Code</option>
+                        </select>
+                    </mat-form-field>
+                </form>
 
                 <h3 class="item">Show only:</h3>
                 <button
