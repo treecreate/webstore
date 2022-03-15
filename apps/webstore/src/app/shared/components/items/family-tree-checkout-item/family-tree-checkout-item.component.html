@@ -1,11 +1,10 @@
 <div class="item-container">
-    <webstore-family-tree-design
+    <webstore-store-item
         #productDesign
         [isMutable]="false"
-        [design]="item.design.designProperties"
-        [showOptionBoxButtons]="false"
+        [design]="item.design"
         class="item-image"
-    ></webstore-family-tree-design>
+    ></webstore-store-item>
     <div class="item-info">
         <div class="item-title" [ngSwitch]="item.design.designType">
             <strong

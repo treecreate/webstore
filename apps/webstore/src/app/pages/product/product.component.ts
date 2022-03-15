@@ -202,7 +202,7 @@ export class ProductComponent implements OnInit {
           console.warn('The requested design is not a family tree!');
           return;
         }
-        this.design = result.designProperties;
+        this.design = <IFamilyTree>result.designProperties;
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {

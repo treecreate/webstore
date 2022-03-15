@@ -5,13 +5,12 @@
 <div *ngIf="!alert" class="basket-item-container" data-cy="basket-item">
     <!-- image -->
     <div class="item-image">
-        <webstore-family-tree-design
+        <webstore-store-item
             #productDesign
             [isMutable]="false"
-            [design]="item.design.designProperties"
-            [showOptionBoxButtons]="false"
+            [design]="item.design"
             class="item-image"
-        ></webstore-family-tree-design>
+        ></webstore-store-item>
         <hr class="hr-class" />
         <div class="item-type-title" data-cy="basket-item-title" [ngSwitch]="item.design.designType">
             <b *ngSwitchCase="designTypeEnum.familyTree" i18n="@@design-type-family-tree">Family tree</b>

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
+import { DesignTypeEnum, IDesign, IFamilyTree, IQoutable } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -52,7 +52,10 @@ export class FamilyTreeCollectionItemComponent {
   }
 
   addDesignToBasket() {
-    this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design.designProperties);
+    this.localStorageService.setItem<IFamilyTree>(
+      LocalStorageVars.designFamilyTree,
+      <IFamilyTree>this.design.designProperties
+    );
     this.modalService.open(AddToBasketModalComponent);
   }
 }
