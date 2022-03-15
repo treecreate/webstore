@@ -163,6 +163,7 @@ const mockTransactionItemTwo: ITransactionItem = {
 describe('BasketPage using localstorage (not logged in)', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(
       LocalStorageVars.transactionItems,
       JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
@@ -372,6 +373,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
 describe('BasketPage with a logged in user', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -482,6 +484,7 @@ describe('AddToBasketModal', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.visit('/product');
   });
 

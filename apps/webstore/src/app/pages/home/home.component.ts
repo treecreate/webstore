@@ -47,27 +47,6 @@ export class HomeComponent {
     });
   }
 
-  submitNewsletterEmail() {
-    this.isSubscribingUser = true;
-    this.newsletterService.registerNewsletterEmail(this.subscribeForm.get('email').value).subscribe(
-      (data: INewsletter) => {
-        this.toastService.showAlert(
-          `Thank you for subscribing: ${data.email}`,
-          `Tak for din tilmelding: ${data.email}`,
-          'success',
-          3000
-        );
-        this.isSubscribingUser = false;
-      },
-      (error) => {
-        // TODO: translate API errors to danish
-        this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
-        console.error(error);
-        this.isSubscribingUser = false;
-      }
-    );
-  }
-
   @HostListener('window:scroll')
   onScrollShow() {
     // For the up arrow that scrolls to top

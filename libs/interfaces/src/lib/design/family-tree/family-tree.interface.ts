@@ -9,3 +9,8 @@ export interface IFamilyTree {
   banner: IFamilyTreeBanner;
   boxes: IDraggableBox[];
 }
+export interface ITemplateFamilyTree {
+  name: string;
+  title: string;
+  designProperties: IFamilyTree;
+}

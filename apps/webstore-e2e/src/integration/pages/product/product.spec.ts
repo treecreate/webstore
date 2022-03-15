@@ -43,6 +43,8 @@ const mockDesign: IDesign = {
 describe('ProductPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
+    cy.visit('/product');
   });
 
   it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
@@ -109,7 +111,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 40);
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 70);
       });
     });
 
@@ -122,7 +124,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 15);
+        cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 10);
       });
     });
 

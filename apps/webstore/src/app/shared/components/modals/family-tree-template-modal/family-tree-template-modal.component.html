@@ -1,0 +1,53 @@
+<div data-cy="family-tree-template-modal" data-cy="template-container">
+    <div class="modal-header">
+        <h4 class="modal-title" i18n="@@select-a-template">Select a template</h4>
+    </div>
+    <div class="modal-body">
+        <ngb-carousel class="carousel-container">
+            <ng-template ngbSlide *ngFor="let template of templateList">
+                <div class="template-container">
+                    <div class="template-img-container">
+                        <img
+                            [src]="'assets/img/family-tree-template-img/' + template.name + '.png'"
+                            [alt]="'template image: ' + template.name"
+                            class="template-img"
+                        />
+                    </div>
+                    <div class="template-title-container">
+                        {{ template.title }}
+                    </div>
+                    <button
+                        type="button"
+                        class="tc-button-50"
+                        (click)="applyTemplate(template.name)"
+                        data-cy="template-select-btn"
+                        i18n="@@select"
+                    >
+                        Select
+                    </button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+    </div>
+    <div class="modal-footer">
+        <button
+            type="button"
+            class="tc-button-50"
+            (click)="returnTemplateList()"
+            data-cy="family-tree-more-examples-button"
+        >
+            <span *ngIf="showMoreExamples" i18n="@@show-more">Show more +</span>
+            <span *ngIf="!showMoreExamples" i18n="@@show-less">Show less -</span>
+        </button>
+        <button
+            type="button"
+            class="tc-button-50"
+            (click)="activeModal.close()"
+            data-cy="family-tree-template-close-button"
+            i18n="@@cancel"
+        >
+            Cancel
+        </button>
+    </div>
+</div>
+<div class="hide" data-cy="template-option" *ngFor="let template of templateList">{{ template.name }}</div>
