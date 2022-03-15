@@ -108,12 +108,15 @@ export class DiscountsComponent implements OnInit {
     // Check to display default
     if (this.showDisabled) this.discountDisplayList = this.discountDisplayList.concat(disabledDiscounts);
 
+    // Check to display amount and/or percent
     if (this.showAmount && this.showPercent) {
       this.sortData();
       return;
     } else if (this.showAmount) {
+      // Only show amount
       this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount);
     } else if (this.showPercent) {
+      // Only show percent
       this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent);
     } else {
       this.discountDisplayList = [];

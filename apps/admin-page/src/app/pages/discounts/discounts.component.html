@@ -1,37 +1,7 @@
 <webstore-item-card title="Discounts" [content]="content" [isLoading]="isLoading" data-cy="discounts-card">
     <ng-template #content>
         <div class="header">
-            <button
-                mat-flat-button
-                color="primary"
-                (click)="openCreateDiscountDialog()"
-                class="item"
-                data-cy="create-discount-btn"
-            >
-                Create new
-            </button>
             <div class="sub-header">
-                <form [formGroup]="sortSelectForm" class="select-input">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Sort by:</mat-label>
-                        <select
-                            matNativeControl
-                            required
-                            formControlName="select"
-                            (change)="sortData()"
-                            value="createAt"
-                        >
-                            <option value="createdAt">Created at</option>
-                            <option value="expiresAt">Expires at</option>
-                            <option value="startsAt">Starts at</option>
-                            <option value="code">Code</option>
-                        </select>
-                    </mat-form-field>
-                    <mat-icon class="{{ showAsc ? 'up' : 'down' }} direction-icon" (click)="changeDirection()"
-                        >forward</mat-icon
-                    >
-                </form>
-
                 <h3 class="item">Show only:</h3>
                 <button
                     mat-raised-button
@@ -65,7 +35,36 @@
                 >
                     Percent
                 </button>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="openCreateDiscountDialog()"
+                    class="item"
+                    data-cy="create-discount-btn"
+                >
+                    Create new
+                </button>
             </div>
+            <form [formGroup]="sortSelectForm" class="select-input sub-header">
+                <mat-form-field appearance="fill">
+                    <mat-label>Sort by:</mat-label>
+                    <select
+                        matNativeControl
+                        required
+                        formControlName="select"
+                        (change)="sortData()"
+                        value="createAt"
+                    >
+                        <option value="createdAt">Created at</option>
+                        <option value="expiresAt">Expires at</option>
+                        <option value="startsAt">Starts at</option>
+                        <option value="code">Code</option>
+                    </select>
+                </mat-form-field>
+                <mat-icon class="{{ showAsc ? 'up' : 'down' }} direction-icon" (click)="changeDirection()"
+                    >forward</mat-icon
+                >
+            </form>
         </div>
         <table
             mat-table
