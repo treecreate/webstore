@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IFamilyTree, ITemplateFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
@@ -24,7 +24,8 @@ export class FamilyTreeTemplateModalComponent {
   constructor(
     public activeModal: NgbActiveModal,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.returnTemplateList();
   }
@@ -40,8 +41,12 @@ export class FamilyTreeTemplateModalComponent {
       .find((template) => template.name === name);
     console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
-    this.router.navigate(['/product']);
-    location.reload();
+    if (this.activatedRoute.snapshot.queryParams.designId !== undefined) {
+      this.router.navigate(['/product']);
+      this.activeModal.close();
+    } else {
+      location.reload();
+    }
   }
 
   /**
