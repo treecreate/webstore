@@ -115,3 +115,7 @@
   background: green;
   opacity: 0.5;
 }
+
+.status-btn {
+  width: 90px;
+}
