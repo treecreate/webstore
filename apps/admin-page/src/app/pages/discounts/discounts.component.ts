@@ -30,7 +30,17 @@ enum DiscountState {
 })
 export class DiscountsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['code', 'id', 'usesLeft', 'used', 'startsAt', 'expiresAt', 'discount', 'actions', 'status'];
+  displayedColumns: string[] = [
+    'code',
+    'id',
+    'usesLeft',
+    'used',
+    'startsAt',
+    'expiresAt',
+    'discount',
+    'actions',
+    'status',
+  ];
   discounts!: IDiscount[];
   discountDisplayList: IDiscount[] = [];
   showDisabled = false;

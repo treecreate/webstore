@@ -130,14 +130,14 @@
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let discount">
                     <button
-                            mat-flat-button
-                            color="primary"
-                            routerLink="/discounts/{{ discount.discountId }}"
-                            class="item action-btn"
-                            data-cy="discounts-edit-btn"
-                        >
-                            Edit
-                        </button>
+                        mat-flat-button
+                        color="primary"
+                        routerLink="/discounts/{{ discount.discountId }}"
+                        class="item action-btn"
+                        data-cy="discounts-edit-btn"
+                    >
+                        Edit
+                    </button>
                 </td>
             </ng-container>
 
@@ -146,14 +146,14 @@
                 <th mat-header-cell *matHeaderCellDef>Status</th>
                 <td mat-cell *matCellDef="let discount">
                     <button
-                            mat-flat-button
-                            color="primary"
-                            (click)="toggleDiscountState(discount.discountId)"
-                            class="item status-btn {{ getDiscountState(discount) }}"
-                            data-cy="discounts-enable-btn"
-                        >
-                            {{ getDiscountState(discount) }}
-                        </button>
+                        mat-flat-button
+                        color="primary"
+                        (click)="toggleDiscountState(discount.discountId)"
+                        class="item status-btn {{ getDiscountState(discount) }}"
+                        data-cy="discounts-enable-btn"
+                    >
+                        {{ getDiscountState(discount) }}
+                    </button>
                 </td>
             </ng-container>
 
