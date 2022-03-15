@@ -1,5 +1,5 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { DesignTypeEnum, DesignFontEnum, IDesign } from '@interfaces';
+import { DesignFontEnum, DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
@@ -174,9 +174,12 @@ describe('ProductPage', () => {
     it('should be able to click on the canvas and create a new box in mutable view', () => {
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
       cy.visit('/product');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
       cy.get('[data-cy=family-tree-canvas]').click();
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length + 1);
+      cy.get('webstore-draggable-box').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length + 1
+      );
       // persist in local storage to double check the creation
       cy.get('[data-cy=save-family-tree-button]').click();
       cy.visit('/product').then(() => {
@@ -197,18 +200,27 @@ describe('ProductPage', () => {
       });
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify({ ...mockDesign.designProperties }));
       cy.visit('/product?designId=IMMUTABLE_DESIGN_ID');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
       cy.get('[data-cy=family-tree-canvas]').click();
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
     });
 
     it('should display two boxes with text and drag/close icons when in mutable view', () => {
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
       cy.visit('/product');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-input]').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-close-button]').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-drag-button]').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
+      cy.get('[data-cy=draggable-box-input]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
+      cy.get('[data-cy=draggable-box-close-button]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
+      cy.get('[data-cy=draggable-box-drag-button]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
     });
 
     it('should display two boxes with text but no drag/close icons when in immutable view', () => {
@@ -222,8 +234,11 @@ describe('ProductPage', () => {
       });
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify({ ...mockDesign.designProperties }));
       cy.visit('/product?designId=IMMUTABLE_DESIGN_ID');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-input]').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
+      cy.get('[data-cy=draggable-box-input]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
       cy.get('[data-cy=draggable-box-close-button]').should('not.exist');
       cy.get('[data-cy=draggable-box-drag-button]').should('not.exist');
     });
@@ -231,9 +246,12 @@ describe('ProductPage', () => {
     it('should remove a box when user click on the close icon', () => {
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
       cy.visit('/product');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
       cy.get('[data-cy=draggable-box-close-button]').first().click();
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length - 1);
+      cy.get('webstore-draggable-box').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length - 1
+      );
     });
   });
 
