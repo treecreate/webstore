@@ -5,7 +5,7 @@
                 <h3 class="item">Show only:</h3>
                 <button
                     mat-raised-button
-                    (click)="showActive = !showActive; updateShow()"
+                    (click)="showActive = !showActive; updateList()"
                     class="item"
                     [ngStyle]="{ opacity: showActive ? 1 : 0.5 }"
                 >
@@ -13,7 +13,7 @@
                 </button>
                 <button
                     mat-raised-button
-                    (click)="showDisabled = !showDisabled; updateShow()"
+                    (click)="showDisabled = !showDisabled; updateList()"
                     class="item"
                     [ngStyle]="{ opacity: showDisabled ? 1 : 0.5 }"
                 >
@@ -21,7 +21,7 @@
                 </button>
                 <button
                     mat-raised-button
-                    (click)="showAmount = !showAmount; updateShow()"
+                    (click)="showAmount = !showAmount; updateList()"
                     class="item"
                     [ngStyle]="{ opacity: showAmount ? 1 : 0.5 }"
                 >
@@ -29,7 +29,7 @@
                 </button>
                 <button
                     mat-raised-button
-                    (click)="showPercent = !showPercent; updateShow()"
+                    (click)="showPercent = !showPercent; updateList()"
                     class="item"
                     [ngStyle]="{ opacity: showPercent ? 1 : 0.5 }"
                 >
@@ -55,7 +55,7 @@
                         <option value="code">Code</option>
                     </select>
                 </mat-form-field>
-                <mat-icon class="{{ showAsc ? 'up' : 'down' }} direction-icon" (click)="changeDirection()"
+                <mat-icon class="{{ showAsc ? 'up' : 'down' }} direction-icon" (click)="showAsc = !showAsc; sortData();"
                     >forward</mat-icon
                 >
             </form>
@@ -70,7 +70,7 @@
             <ng-container matColumnDef="code">
                 <th mat-header-cell *matHeaderCellDef>Code</th>
                 <td mat-cell *matCellDef="let discount">
-                    <span class="id">{{ getShortText(discount.discountCode, false) }} ...</span>
+                    <span class="id">{{ getShortText(discount.discountCode, false) + discount.discountCode.length > 10 ? ' ...' : '' }} </span>
                     <button mat-icon-button (click)="copyToClipboard(discount.discountCode)">
                         <mat-icon class="icon">file_copy</mat-icon>
                     </button>

@@ -88,7 +88,7 @@ export class DiscountsComponent implements OnInit {
         this.isLoading = false;
         this.discounts = discounts;
         this.discountDisplayList = discounts;
-        this.updateShow();
+        this.updateList();
       },
     });
   }
@@ -110,7 +110,7 @@ export class DiscountsComponent implements OnInit {
   /**
    * Updates the list of discounts based off active / disabled
    */
-  updateShow(): void {
+  updateList(): void {
     this.discountDisplayList = [];
     const activeDiscounts = this.discounts.filter((discount) => discount.isEnabled);
     const disabledDiscounts = this.discounts.filter((discount) => !discount.isEnabled);
@@ -136,15 +136,10 @@ export class DiscountsComponent implements OnInit {
     this.sortData();
   }
 
-  changeDirection() {
-    this.showAsc = !this.showAsc;
-    this.sortData();
-  }
-
   /**
    * Sorts the data of the table.
    */
-  sortData() {
+  sortData(): void {
     const data = this.discountDisplayList.slice();
 
     const sort: Sort = {
@@ -191,7 +186,7 @@ export class DiscountsComponent implements OnInit {
   }
 
   /**
-   * @param date
+   * @param date discount expiration date
    * @returns boolean of whether or not the date has passed
    */
   hasExpired(date: Date): boolean {
@@ -199,13 +194,17 @@ export class DiscountsComponent implements OnInit {
   }
 
   /**
-   * @param date
+   * @param date discount starts at date
    * @returns boolean of whether or not the discount hasnt started yet
    */
-  isInTheFuture(date: Date) {
+  isInTheFuture(date: Date): boolean {
     return new Date(date) > new Date();
   }
 
+  /**
+   * @param discount 
+   * @returns discount state enum
+   */
   getDiscountState(discount: IDiscount): string {
     if (discount.startsAt && discount.expiresAt) {
       // Check if is active
@@ -223,6 +222,8 @@ export class DiscountsComponent implements OnInit {
   /**
    * Performs a API call in order to either enable or disable a discount.\
    * Changes the state of isLoading variable whilst the update is on-going.
+   * 
+   * @param id discount id
    */
   toggleDiscountState(id: string): void {
     const discountToToggle = this.discounts.find((discount) => discount.discountId === id);
@@ -241,7 +242,7 @@ export class DiscountsComponent implements OnInit {
             { duration: 5000 }
           );
         },
-        next: (discountReturn: IDiscount) => {
+        next: () => {
           this.snackBar.open(`Discount has been ${discountToToggle.isEnabled ? 'enabled' : 'disabled'}`, 'Ya Yeet', {
             duration: 3500,
           });
