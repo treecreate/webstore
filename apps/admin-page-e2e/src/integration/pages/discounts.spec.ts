@@ -100,7 +100,7 @@ describe('create discount dialog', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
 
-    cy.intercept('GET', `/discounts`, {
+    cy.intercept('GET', '/discounts', {
       body: mockDiscounts,
       statusCode: 200,
     }).as('fetchDiscounts');
@@ -124,7 +124,7 @@ describe('create discount dialog', () => {
   });
 
   it('should create a discount', () => {
-    cy.intercept('POST', '/discounts', {
+    cy.intercept('POST', 'http://localhost:5000/discounts', {
       statusCode: 200,
     });
     cy.get('[data-cy=discount-code-input]').clear().type('Yoyoyo');
