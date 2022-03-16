@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TreeDesignEnum, BoxDesignEnum } from '@assets';
+import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   CreateTransactionItemRequest,
   DesignDimensionEnum,
@@ -21,7 +21,11 @@ const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: '7f000001-7b0d-19bf-817b-0d0a8ec40000',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
+  roles: [
+    { name: UserRoles.user, roleId: '' },
+    { name: UserRoles.developer, roleId: '' },
+    { name: UserRoles.admin, roleId: '' },
+  ],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
@@ -55,12 +59,10 @@ const mockBanner: IFamilyTreeBanner = {
 const mockDesign: IDesign = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   designProperties: {
-    title: 'title1',
     font: FamilyTreeFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
     banner: mockBanner,
-    largeFont: false,
     boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
   },
   designType: DesignTypeEnum.familyTree,
@@ -161,6 +163,7 @@ const mockTransactionItemTwo: ITransactionItem = {
 describe('BasketPage using localstorage (not logged in)', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(
       LocalStorageVars.transactionItems,
       JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
@@ -170,13 +173,10 @@ describe('BasketPage using localstorage (not logged in)', () => {
   it('should add an transaction item to basket', () => {
     cy.visit('/product');
     // Create design
-    cy.get('[data-cy=family-tree-intro-close-button').click();
     cy.get('[data-cy=family-tree-canvas]').click();
     // Open add to basket modal
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-modal]').should('exist');
-    // Give title
-    cy.get('[data-cy=add-to-basket-title-input]').type('TestItem01');
     // Change attributes
     cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
@@ -194,7 +194,6 @@ describe('BasketPage using localstorage (not logged in)', () => {
       .within(() => {
         cy.get('[data-cy=basket-item-decrease-dimension-button]').should('not.be.disabled');
         cy.get('[data-cy=basket-item-price]').should('contain', '1390');
-        cy.get('[data-cy=basket-item-title]').should('contain', 'TestItem01');
       });
   });
 
@@ -327,7 +326,6 @@ describe('BasketPage using localstorage (not logged in)', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
-        cy.get('[data-cy=family-tree-intro-close-button]').click();
         cy.url().should('contain', '/product?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
@@ -375,6 +373,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
 describe('BasketPage with a logged in user', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('GET', '/users/me', {
       body: mockUser,
@@ -485,35 +484,13 @@ describe('AddToBasketModal', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.visit('/product');
   });
 
   it('should open add-to-basket modal when user is logged in', () => {
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-modal]').should('exist');
-  });
-
-  it('should have the title written if it is in the product page', () => {
-    cy.get('[data-cy=design-title-input]').clear({ force: true });
-    cy.get('[data-cy=design-title-input]').type('family tree', {
-      force: true,
-    });
-    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'family tree');
-  });
-
-  it('should be able to change title', () => {
-    cy.get('[data-cy=design-title-input]').type('family tree', { force: true });
-    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'family tree');
-    cy.get('[data-cy=add-to-basket-title-input]').clear();
-    cy.get('[data-cy=add-to-basket-title-input]').type('familietræ');
-    cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'familietræ');
-  });
-
-  it('it should not be able to add to basket without a title', () => {
-    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-add-to-basket-button]').should('be.disabled');
   });
 
   it('should increase / decrease quantity', () => {

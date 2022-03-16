@@ -1,23 +1,18 @@
-import { IBase } from '..';
+import { IBase, IRole } from '..';
 
 export interface IAuthUser {
   userId: string;
   email: string;
   roles: string[];
   accessToken: string;
+  refreshToken: string;
   tokenType: string;
 }
-export interface IAuthUser {
-  userId: string;
-  email: string;
-  roles: string[];
-  accessToken: string;
-  tokenType: string;
-}
+
 export interface IUser extends IBase {
   userId: string;
   email: string;
-  roles: string[];
+  roles: IRole[];
   name?: string;
   phoneNumber?: string;
   streetAddress?: string;

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TreeDesignEnum, TreeDesignNameEnum } from '@assets';
+import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameDanishEnum, TreeDesignNameEnglishEnum } from '@assets';
 import {
   DesignTypeEnum,
   FamilyTreeFontEnum,
@@ -17,6 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { FamilyTreeIntroModalComponent } from '../../shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
+import { FamilyTreeTemplateModalComponent } from '../../shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
@@ -34,20 +35,26 @@ export class ProductComponent implements OnInit {
   @ViewChild('familyTreeDesignCanvas', { static: false })
   designCanvas: FamilyTreeDesignComponent;
 
+  toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
+
   isDesignValid = false;
   isMutable = false;
   isMobileOptionOpen = false;
-  designTitle = '';
   showSuggestion = true;
   // set the default font
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
+  fontOptions = [];
   backgroundTreeDesign = TreeDesignEnum.tree1;
-  boxSize = 20;
-  maxSize = 40;
+  boxSize = 70;
+  maxSize = 70;
   minSize = 10;
+  boxSizeOptions = {
+    floor: this.minSize,
+    ceil: this.maxSize,
+  };
   banner: IFamilyTreeBanner = undefined;
-  isLargeFont = false;
   design: IFamilyTree;
+  showOptionBoxButtons = true;
   isIphone = false;
 
   public isLoggedIn: boolean;
@@ -83,24 +90,46 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     // The subscription will get triggered right away, loading the design
-    this.route.queryParams.subscribe((p) => {
-      console.warn('query paramas changed', p);
+    this.route.queryParams.subscribe(() => {
       this.loadDesign();
     });
-    console.log('logged in', this.isLoggedIn);
-    if (!this.isLoggedIn) {
-      this.modalService.open(FamilyTreeIntroModalComponent);
-    }
+    this.showOptionBoxButtons = true;
+    this.getFontList();
+
+    setTimeout(() => {
+      const firstVisit = this.localStorageService.getItem<boolean>(LocalStorageVars.firstVisit).value;
+      if (firstVisit === null) {
+        this.openTemplateModal();
+        this.localStorageService.setItem<boolean>(LocalStorageVars.firstVisit, true);
+      }
+    }, 500);
   }
 
   isEnglish(): boolean {
     return this.localeCode === 'en-US';
   }
 
+  openIntroModal() {
+    this.modalService.open(FamilyTreeIntroModalComponent);
+  }
+
+  openTemplateModal() {
+    this.modalService.open(FamilyTreeTemplateModalComponent);
+  }
+
+  getFontList() {
+    Object.entries(FamilyTreeFontEnum).forEach(([key, value]) => {
+      this.fontOptions.push({ key, value });
+    });
+  }
+
+  changeFont(font: string) {
+    this.font = font;
+  }
+
   // TODO: properly assign the banner
   loadDesign() {
     const queryParams = this.route.snapshot.queryParams;
-    console.log('queryParams', queryParams);
     if (queryParams.designId !== undefined) {
       if (this.isLoggedIn) {
         // Load the design from database
@@ -110,26 +139,21 @@ export class ProductComponent implements OnInit {
         this.loadDesignFromLocalStorage(queryParams.designId);
       }
     } else {
-      console.log('Loading design from local storage');
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
-      console.log('loaded design', this.design);
       // apply the design
       if (this.design !== null && this.design !== undefined) {
-        this.designTitle = this.design.title;
+        this.backgroundTreeDesign = this.design.backgroundTreeDesign;
         this.font = this.design.font;
         this.banner = this.design.banner;
         this.boxSize = this.design.boxSize;
-        this.isLargeFont = this.design.largeFont;
       } else {
         // set the defaults
-        this.designTitle = '';
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
         this.boxSize = 20;
-        this.maxSize = 40;
+        this.maxSize = 70;
         this.minSize = 10;
-        this.banner = undefined;
-        this.isLargeFont = false;
+        this.banner = { text: 'Familietræet', style: 'first' };
       }
       this.isMutable = true;
       this.cdr.detectChanges();
@@ -152,41 +176,32 @@ export class ProductComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
-    this.designTitle = this.design.title;
     this.font = this.design.font;
     this.banner = this.design.banner;
     this.boxSize = this.design.boxSize;
-    this.isLargeFont = this.design.largeFont;
   }
 
   loadDesignFromDB(queryParams) {
     const designId = queryParams.designId;
-    console.warn('Fetching design from database', designId);
     this.designService.getDesign(designId).subscribe(
       (result: IDesign) => {
-        console.log('Result: ', result);
         if (result.designType !== DesignTypeEnum.familyTree) {
           console.warn('The requested design is not a family tree!');
           return;
         }
         this.design = result.designProperties;
-        console.log('Fetched design: ', this.design);
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
           // apply the design
-          this.designTitle = this.design.title;
           this.backgroundTreeDesign = this.design.backgroundTreeDesign;
           this.font = this.design.font;
           this.banner = this.design.banner;
           this.boxSize = this.design.boxSize;
-          this.isLargeFont = this.design.largeFont;
           this.isMutable = result.mutable;
           this.cdr.detectChanges();
-          if (this.isMutable) {
-            this.designCanvas.loadDesign();
-          }
+          this.designCanvas.loadDesign();
         }
       },
       (err: HttpErrorResponse) => {
@@ -235,8 +250,7 @@ export class ProductComponent implements OnInit {
           designProperties: design,
         })
         .subscribe(
-          (result) => {
-            console.log('Design persisted', result);
+          () => {
             this.toastService.showAlert(
               'Your design has been updated',
               'Dit design er bleven opdateret',
@@ -264,7 +278,6 @@ export class ProductComponent implements OnInit {
         })
         .subscribe(
           (result) => {
-            console.log('Design created and persisted', result);
             this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
             this.router.navigate([], {
               relativeTo: this.route,
@@ -286,7 +299,6 @@ export class ProductComponent implements OnInit {
   }
 
   clearDesignCanvas() {
-    console.log('Clearing design canvas');
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
     if (this.route.snapshot.queryParams.designId === undefined) {
       // trigger reload of the page by switching to another page and back
@@ -315,14 +327,32 @@ export class ProductComponent implements OnInit {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }
 
-  getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameEnum {
+  getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameDanishEnum | TreeDesignNameEnglishEnum {
     switch (treeDesign) {
       case TreeDesignEnum.tree1:
-        return TreeDesignNameEnum.tree1;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree1;
+        } else {
+          return TreeDesignNameEnglishEnum.tree1;
+        }
       case TreeDesignEnum.tree2:
-        return TreeDesignNameEnum.tree2;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree2;
+        } else {
+          return TreeDesignNameEnglishEnum.tree2;
+        }
       case TreeDesignEnum.tree3:
-        return TreeDesignNameEnum.tree3;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree3;
+        } else {
+          return TreeDesignNameEnglishEnum.tree3;
+        }
+      case TreeDesignEnum.tree4:
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree4;
+        } else {
+          return TreeDesignNameEnglishEnum.tree4;
+        }
     }
   }
 
@@ -349,32 +379,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  nextFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
-    const nextFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex + 1];
-    if (nextFont === undefined) {
-      // set the first font in the enum
-      this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[0]];
-    } else {
-      this.font = FamilyTreeFontEnum[nextFont];
-    }
-  }
-
-  prevFont() {
-    const currentFontIndex = Object.values(FamilyTreeFontEnum).indexOf(this.font);
-    const previousFont = Object.keys(FamilyTreeFontEnum)[currentFontIndex - 1];
-    if (previousFont === undefined) {
-      // set the last font in the enum
-      this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[Object.values(FamilyTreeFontEnum).length - 1]];
-    } else {
-      this.font = FamilyTreeFontEnum[previousFont];
-    }
-  }
-
-  onKey(event) {
-    this.designTitle = event.target.value;
-  }
-
   updateBannerText($event) {
     this.banner.text = $event.target.value;
   }
@@ -390,21 +394,22 @@ export class ProductComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  /**
-   * Format a font name into a more readable format without dashes
-   * @param font a font to format
-   * @returns formatted font name
-   */
-  formatFontTextForDisplay(font: FamilyTreeFontEnum): string {
-    let formattedFont = font.replace('-', ' ');
-    formattedFont = formattedFont.replace('-', ' '); // double replacement because I am lazy and some fonts have multiple dashes
-    formattedFont = formattedFont.replace('display', ' display');
-    return formattedFont;
-  }
-
   iOS() {
     return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(
       navigator.platform
     );
+  }
+
+  /**
+   * Toggles between whether or not the box options like drag and close buttons should be visible.
+   * Changes the icon depending on the state.
+   */
+  toggleBoxOptions(): void {
+    this.showOptionBoxButtons = !this.showOptionBoxButtons;
+    if (this.showOptionBoxButtons) {
+      this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
+    } else {
+      this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsHidden;
+    }
   }
 }

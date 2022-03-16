@@ -29,19 +29,17 @@ describe('BasketItemComponent', () => {
     const mockUser: IUser = {
       userId: '1',
       email: 'mock@hotdeals.dev',
-      roles: [UserRoles.user],
+      roles: [{ name: UserRoles.user, roleId: '' }],
     };
 
     const mockTransactionItem: ITransactionItem = {
       design: {
         designId: '1',
         designProperties: {
-          title: 'Mock 1',
           font: FamilyTreeFontEnum.roboto,
           backgroundTreeDesign: TreeDesignEnum.tree1,
           boxSize: 10,
           banner: undefined,
-          largeFont: true,
           boxes: [],
         },
         user: mockUser,

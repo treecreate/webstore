@@ -6,4 +6,6 @@ export enum LocalStorageVars {
   discount = 'discount',
   plantedTrees = 'plantedTrees',
   transactionItems = 'transactionItems',
+  hasSeenNewsletterModal = 'hasSeenNewsletterModal',
+  firstVisit = 'firstVisit',
 }

@@ -3,6 +3,7 @@ export interface IRegisterResponse {
   email: string;
   roles: string[];
   accessToken: string;
+  refreshToken: string;
   tokenType: string;
 }
 

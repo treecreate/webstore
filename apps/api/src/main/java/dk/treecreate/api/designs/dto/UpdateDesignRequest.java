@@ -15,12 +15,10 @@ public class UpdateDesignRequest
     private UUID designId;
 
     @NotNull
-    @ApiModelProperty(example = "{ title: 'Example design'," +
-        "  font: 'Roboto'," +
+    @ApiModelProperty(example = "{ font: 'Roboto'," +
         "  design: 'first'," +
         "  boxSize: 10," +
         "  banner: false," +
-        "  largeFont: true," +
         "  boxes: []}", required = true)
     private Map<String, Object> designProperties;
 

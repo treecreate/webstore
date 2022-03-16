@@ -43,3 +43,14 @@ export enum Tree3BoxDesignEnum {
   box7 = 'assets/family-tree/box-design-3/box7.svg',
   box8 = 'assets/family-tree/box-design-3/box8.svg',
 }
+
+export enum Tree4BoxDesignEnum {
+  box1 = 'assets/family-tree/box-design-1/box1.svg',
+  box2 = 'assets/family-tree/box-design-1/box2.svg',
+  box3 = 'assets/family-tree/box-design-1/box3.svg',
+  box4 = 'assets/family-tree/box-design-1/box4.svg',
+  box5 = 'assets/family-tree/box-design-1/box5.svg',
+  box6 = 'assets/family-tree/box-design-1/box6.svg',
+  box7 = 'assets/family-tree/box-design-1/box7.svg',
+  box8 = 'assets/family-tree/box-design-1/box8.svg',
+}

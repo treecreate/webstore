@@ -18,7 +18,7 @@ import {
 import {
   BannerDesignEnum,
   BoxDesignEnum,
-  CloseBoxDesignEnum,
+  BoxOptionsDesignEnum,
   Tree1BoxDesignEnum,
   Tree2BoxDesignEnum,
   Tree3BoxDesignEnum,
@@ -40,22 +40,77 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
-  // Inputs for design settings
-
   @Input()
   boxSize = 20;
 
-  @Input()
-  title: string;
+  // Various sizing and position variables
+  // Note - modify this variable to control option button size
+  boxOptionSize = 10;
+  mobileOptionButtonMultiplier = 1.5;
+  boxRawSize = 1;
+  // Note - modify this variable to control the curve of box size changes
+  boxSizeScalingMultiplier = 0.05;
+
+  // The max chars control how much text can be put into the draggable box
+  // It is propagated to the draggable box input element
+  smallFontMaxChars = 12;
+  maxCharsPerLine = this.smallFontMaxChars;
+  maxLines = 2;
+
+  // FPS of the render loop
+  framesPerSecond = 60;
+  // design autosave frequency, in seconds
+  autosaveFrequencyInSeconds = 30;
+
+  canvasResolution = {
+    height: 2000,
+    width: 2000,
+  };
+
+  bannerDimensions = {
+    height: this.canvasResolution.height / 8,
+    width: this.canvasResolution.width / 2,
+  };
+  // dimensions etc of various design elements. Control with variables at the top of the component
+  // NOTE - each change needs to be replicated in ngOnChanges method
+  boxDimensions = {
+    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+  };
+
+  // controls position of option buttons around the draggable box
+  // NOTE - actual values need to get adjusted in `updateDraggableBoxDimensions` method
+  optionButtonOffset: {
+    dragX: number;
+    dragY: number;
+    closeX: number;
+    closeY: number;
+  };
+
+  // ---------------------------------------------------------- //
+
+  // render loop variables
+  timeInterval;
+  autosaveInterval;
+  frameChanged = true;
+
+  // alert for failed load of the design etc
+  alert: {
+    type: 'success' | 'info' | 'warning' | 'danger';
+    message: string;
+    dismissible: boolean;
+  };
+
+  // Inputs for design settings
 
   @Input()
-  showBanner: boolean;
+  isMutable = false;
+
+  @Input()
+  design: IFamilyTree = null;
 
   @Input()
   banner: IFamilyTreeBanner;
-
-  @Input()
-  isLargeFont = false;
 
   @Input()
   font: FamilyTreeFontEnum;
@@ -76,15 +131,13 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   @ViewChild('designWrapper', { read: ViewContainerRef })
   designWrapper: ViewContainerRef;
 
-  @ViewChild('designCanvas', { static: true })
-  designCanvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('foregroundCanvas', { static: true })
+  foregroundCanvas: ElementRef<HTMLCanvasElement>;
+
+  @ViewChild('backgroundImage', { static: true })
+  backgroundImage: ElementRef<HTMLImageElement>;
 
   public context: CanvasRenderingContext2D;
-
-  canvasResolution = {
-    height: 4000,
-    width: 4000,
-  };
 
   myBoxes: IDraggableBox[] = [];
   mouseCords = {
@@ -99,51 +152,31 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   };
   downEventDelay = false;
 
-  // render loop
-  timeInterval;
-  framesPerSecond = 30; // FPS of the render loop
-  // autosaving of the design
-  autosaveFrequencyInSeconds = 30;
-  autosaveInterval;
-  frameChanged = true;
-
   // SVGs
 
   treeDesigns: Map<TreeDesignEnum, HTMLImageElement> = new Map();
   bannerDesigns: Map<BannerDesignEnum, HTMLImageElement> = new Map();
-  bannerDimensions = {
-    height: this.canvasResolution.height / 8,
-    width: this.canvasResolution.width / 2,
-  };
-  tree1BoxDesigns: Map<Tree1BoxDesignEnum, HTMLImageElement> = new Map();
-  tree2BoxDesigns: Map<Tree2BoxDesignEnum, HTMLImageElement> = new Map();
-  tree3BoxDesigns: Map<Tree3BoxDesignEnum, HTMLImageElement> = new Map();
-  boxSizeScalingMultiplier = 0.05;
-  boxDimensions = {
-    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
-    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
-  };
+
+  treeBoxDesigns: Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>[] = new Array<
+    Map<Tree1BoxDesignEnum | Tree2BoxDesignEnum | Tree3BoxDesignEnum, HTMLImageElement>
+  >(
+    new Map<Tree1BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree2BoxDesignEnum, HTMLImageElement>(),
+    new Map<Tree3BoxDesignEnum, HTMLImageElement>()
+  );
+
   closeButton = new Image();
-  closeButtonDimensions = {
-    height: (this.canvasResolution.height / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
-    width: (this.canvasResolution.width / 30) * (this.boxSize * this.boxSizeScalingMultiplier),
+  dragButton = new Image();
+
+  // placeholder dimensions. Get calculated after the canvas is initialized (depend on canvasScaleToBounds)
+  optionButtonDimensions = {
+    height: 0,
+    width: 0,
   };
+  canvasScaleToBounds: { scaleX: number; scaleY: number };
 
-  // the max chars control how much text can be put into the draggable box
-  // It is propagated to the draggable box input element
-  smallFontMaxChars = 12;
-  largeFontMaxChars = 9;
-  maxCharsPerLine = this.isLargeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
-  maxLines = 2;
-
-  alert: {
-    type: 'success' | 'info' | 'warning' | 'danger';
-    message: string;
-    dismissible: boolean;
-  };
-
-  // TODO: show only for one box instead of showing it for all if any of the boxes got moused over
-  showDeleteBoxButtons = false;
+  @Input()
+  showOptionBoxButtons = true;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -156,12 +189,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     // Load and validate tree design SVGs
     for (let i = 0; i < Object.values(TreeDesignEnum).length; i++) {
       let image = new Image();
+      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
       image.src = Object.values(TreeDesignEnum)[i];
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a tree design');
       };
-      this.treeDesigns.set(Object.values(TreeDesignEnum)[i], image);
     }
     // Load and validate banner SVGs
     for (let i = 0; i < Object.values(BannerDesignEnum).length; i++) {
@@ -182,7 +215,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree1BoxDesigns.set(Object.values(Tree1BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[0].set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
     // Tree 2 designs
     for (let i = 0; i < Object.values(Tree2BoxDesignEnum).length; i++) {
@@ -192,7 +225,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree2BoxDesigns.set(Object.values(Tree2BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[1].set(Object.values(Tree2BoxDesignEnum)[i], image);
     }
     // Tree 3 designs
     for (let i = 0; i < Object.values(Tree3BoxDesignEnum).length; i++) {
@@ -202,12 +235,17 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
       };
-      this.tree3BoxDesigns.set(Object.values(Tree3BoxDesignEnum)[i], image);
+      this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
     // load and validate close button image SVG
-    this.closeButton.src = CloseBoxDesignEnum.closeButton1;
+    this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
-      this.handleFailedResourceLoading('Failed to load the tree design SVG');
+      this.handleFailedResourceLoading('Failed to load the close box SVG');
+    };
+    // load and validate drag button image SVG
+    this.dragButton.src = BoxOptionsDesignEnum.dragButton1;
+    this.dragButton.onerror = () => {
+      this.handleFailedResourceLoading('Failed to load the drag box SVG');
     };
   }
 
@@ -227,29 +265,58 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   ngAfterViewInit(): void {
-    console.log('Setting up design area');
     // Setup canvas
-    this.designCanvas.nativeElement.width = this.canvasResolution.width;
-    this.designCanvas.nativeElement.height = this.canvasResolution.height;
-    console.log('Canvas', this.designCanvas);
-    this.context = this.designCanvas.nativeElement.getContext('2d');
-    console.log('Context', this.context);
+    this.foregroundCanvas.nativeElement.width = this.canvasResolution.width;
+    this.foregroundCanvas.nativeElement.height = this.canvasResolution.height;
+    this.context = this.foregroundCanvas.nativeElement.getContext('2d');
+    this.canvasScaleToBounds = this.familyTreeDesignService.getCanvasScale(this.foregroundCanvas.nativeElement);
+
+    // if the design is viewed on mobile, the buttons should be bigger
+    if (window.innerWidth <= 640) {
+      this.optionButtonDimensions = {
+        height:
+          (this.canvasResolution.height / 10) *
+          this.boxSizeScalingMultiplier *
+          this.boxOptionSize *
+          this.mobileOptionButtonMultiplier,
+        width:
+          (this.canvasResolution.width / 10) *
+          this.boxSizeScalingMultiplier *
+          this.boxOptionSize *
+          this.mobileOptionButtonMultiplier,
+      };
+    } else {
+      this.optionButtonDimensions = {
+        height: (this.canvasResolution.height / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
+        width: (this.canvasResolution.width / 10) * this.boxSizeScalingMultiplier * this.boxOptionSize,
+      };
+    }
 
     // run the render loop
     clearInterval(this.timeInterval);
 
+    // draws the design boxes on based frequecy (FPS). Only draws them if there is a change to draw
     this.timeInterval = setInterval(() => {
       if (this.frameChanged) {
         requestAnimationFrame(this.draw.bind(this));
       }
     }, 1000 / this.framesPerSecond);
-    console.log('Render loop started');
 
     // start autosave of design
     clearInterval(this.autosaveInterval);
-    this.autosaveInterval = setInterval(() => {
-      this.saveDesign();
-    }, 1000 * this.autosaveFrequencyInSeconds);
+    if (this.isMutable) {
+      this.autosaveInterval = setInterval(() => {
+        this.saveDesign();
+      }, 1000 * this.autosaveFrequencyInSeconds);
+    }
+    // schedule a refresh in 1 second if immutable (no other triggers for refresh)
+    if (!this.isMutable) {
+      setTimeout(() => {
+        this.updateDraggableBoxDimensions();
+        this.frameChanged = true;
+      }, 1000);
+    }
+    this.loadDesign();
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
   }
@@ -291,17 +358,38 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     draggableBoxRef.instance.touchendEvent.subscribe((value) => {
       this.mouseUpHandler(value);
     });
+    draggableBoxRef.instance.boxInitComplete.subscribe(() => {
+      this.frameChanged = true;
+    });
     draggableBoxRef.instance.newTextValue.subscribe(() => {
       // We don't actually use the value yet since we can't directly apply it to the element in myBoxes (indexes change)
       // Instead, we update all of the boxes via their refs whenever there is a value change (efficient af am I rite?)
       this.updateBoxRefText();
       this.frameChanged = true;
     });
-    draggableBoxRef.instance.text = newBox.text;
-    draggableBoxRef.instance.zIndex = this.myBoxes.length;
+    draggableBoxRef.instance.backgroundImageUri = this.familyTreeDesignService.getUriFromBoxDesign(
+      this.backgroundTreeDesign,
+      newBox.boxDesign
+    );
     draggableBoxRef.instance.boxSize = this.boxSize;
-    draggableBoxRef.instance.isLargeFont = this.isLargeFont;
+    draggableBoxRef.instance.width = Math.floor(this.boxDimensions.width / this.canvasScaleToBounds.scaleX);
+    draggableBoxRef.instance.height = Math.floor(this.boxDimensions.height / this.canvasScaleToBounds.scaleY);
+    draggableBoxRef.instance.boxOptionDimensions = {
+      height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
+      width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
+    };
+    draggableBoxRef.instance.optionButtonOffset = {
+      dragX: this.optionButtonOffset.dragX / this.canvasScaleToBounds.scaleX,
+      dragY: this.optionButtonOffset.dragY / this.canvasScaleToBounds.scaleY,
+      closeX: this.optionButtonOffset.closeX / this.canvasScaleToBounds.scaleX,
+      closeY: this.optionButtonOffset.closeY / this.canvasScaleToBounds.scaleY,
+    };
+    draggableBoxRef.instance.text = newBox.text;
+    draggableBoxRef.instance.fontSize = 1;
+    draggableBoxRef.instance.zIndex = this.myBoxes.length;
     draggableBoxRef.instance.maxCharsPerLine = this.maxCharsPerLine;
+    draggableBoxRef.instance.isMutable = this.isMutable;
+    draggableBoxRef.instance.showOptionButtons = this.showOptionBoxButtons;
     // set the reference to the draggable box component instance
     newBox.inputRef = draggableBoxRef;
     this.cdr.detectChanges();
@@ -313,21 +401,15 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // Draw the entire canvas with the boxes etc
   draw() {
     try {
-      this.context.clearRect(0, 0, this.designCanvas.nativeElement.width, this.designCanvas.nativeElement.height);
+      this.context.clearRect(
+        0,
+        0,
+        this.foregroundCanvas.nativeElement.width,
+        this.foregroundCanvas.nativeElement.height
+      );
+      // recalculate the scale (screen size change etc)
+      this.canvasScaleToBounds = this.familyTreeDesignService.getCanvasScale(this.foregroundCanvas.nativeElement);
 
-      // draw the background image
-      if (
-        this.treeDesigns.get(this.backgroundTreeDesign) !== null &&
-        this.treeDesigns.get(this.backgroundTreeDesign).complete
-      ) {
-        this.context.drawImage(
-          this.treeDesigns.get(this.backgroundTreeDesign),
-          0,
-          0,
-          this.designCanvas.nativeElement.width,
-          this.designCanvas.nativeElement.height
-        );
-      }
       // render the banner
       if (
         this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
@@ -343,7 +425,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
             this.bannerDimensions.width,
             this.bannerDimensions.height
           );
-          const bannerTextFontSize = 6; // in rem
+          const bannerTextFontSize = 3; // in rem
           this.context.font = `${bannerTextFontSize}rem ${this.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
@@ -358,48 +440,21 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       }
 
       // render the boxes
+      // fancy magic math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
+      const boxFontSize = ((0.045 * this.boxSize + 0.05) / this.canvasScaleToBounds.scaleX) * 2;
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
-        this.context.drawImage(
-          this.getImageElementFromBoxDesign(this.backgroundTreeDesign, box.boxDesign),
-          box.x,
-          box.y,
-          this.boxDimensions.width,
-          this.boxDimensions.height
-        );
-        const cords = this.getRealCords(this.designCanvas.nativeElement, {
+        // Update position of the input field to match the box
+        const cords = this.familyTreeDesignService.getRealCords(this.foregroundCanvas.nativeElement, {
           x: box.x,
           y: box.y,
         });
-        // Update position of the input field to match the box
         if (this.myBoxes[i].inputRef !== undefined) {
-          const scale = this.getCanvasScale(this.designCanvas.nativeElement);
           this.myBoxes[i].inputRef.instance.x = cords.x;
           this.myBoxes[i].inputRef.instance.y = cords.y;
-          // set the input dimensions, accounting for the scale between canvas and document
-          this.myBoxes[i].inputRef.instance.width = Math.floor(this.boxDimensions.width / scale.scaleX);
-          this.myBoxes[i].inputRef.instance.height = Math.floor(this.boxDimensions.height / scale.scaleY);
           this.myBoxes[i].inputRef.instance.zIndex = i;
+          this.myBoxes[i].inputRef.instance.fontSize = boxFontSize;
           this.myBoxes[i].inputRef.instance.text = this.myBoxes[i].text;
-          this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
-          // draw the close button within the box
-          if (this.showDeleteBoxButtons) {
-            this.context.drawImage(
-              this.closeButton,
-              this.myBoxes[i].x + this.closeButtonDimensions.width / 4,
-              this.myBoxes[i].y + this.closeButtonDimensions.height / 4,
-              this.closeButtonDimensions.width,
-              this.closeButtonDimensions.height
-            );
-          }
-          this.familyTreeDesignService.drawTextInDraggableBox(
-            this.context,
-            this.boxSize,
-            this.isLargeFont,
-            this.font,
-            this.myBoxes[i],
-            this.boxDimensions
-          );
         }
       }
       this.frameChanged = false;
@@ -428,44 +483,41 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       });
       this.myBoxes = [];
       // load the design from local storage
-      const design: IFamilyTree = this.localStorageService.getItem<IFamilyTree>(
-        LocalStorageVars.designFamilyTree
-      ).value;
+      let design: IFamilyTree = null;
+      if (this.isMutable) {
+        design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+      } else {
+        design = this.design;
+      }
       // Load the design
       if (design === null || design === undefined) {
-        // Setup default boxes if there is no saved design
-        console.log('There was no saved design, generating a clean slate');
-        this.createBox(
-          this.canvasResolution.width / 8,
-          this.canvasResolution.height / 4,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
-          ''
-        );
-        this.createBox(
-          this.canvasResolution.width / 6,
-          this.canvasResolution.height / 2,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
-          ''
-        );
-        this.createBox(
-          this.canvasResolution.width / 2,
-          this.canvasResolution.height / 3,
-          Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
-          ''
-        );
+        // Setup default boxes if there is no saved design and it is not an immutable miniature etc
+        if (this.isMutable) {
+          console.log('There was no saved design, generating a clean slate');
+          this.createBox(
+            this.canvasResolution.width / 7,
+            this.canvasResolution.height / 2.5,
+            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
+            'Dig'
+          );
+          this.createBox(
+            this.canvasResolution.width / 2,
+            this.canvasResolution.height / 2.5,
+            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
+            'Partner'
+          );
+        }
       } else {
         // Setup boxes based on the loaded design
-        this.showBanner = design.banner === null;
         this.boxSize = design.boxSize;
         this.backgroundTreeDesign = design.backgroundTreeDesign;
-        this.isLargeFont = design.largeFont;
         design.boxes.forEach((box) => {
           this.createBox(box.x, box.y, box.boxDesign, box.text);
         });
       }
-      console.log('Boxes', this.myBoxes);
       console.log('Finished loading design');
       this.frameChanged = true;
+      this.updateDraggableBoxDimensions();
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Something went wrong while loading the design!', error);
@@ -474,7 +526,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         type: 'danger',
         dismissible: false,
       };
-      console.log('interval', this.timeInterval);
       clearInterval(this.timeInterval);
       clearInterval(this.autosaveInterval);
       this.isDesignValid = false;
@@ -482,6 +533,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   saveDesign() {
+    if (!this.isMutable) {
+      return;
+    }
     console.log('Saving your design...');
     if (!this.isDesignValid || this.timeInterval === null || this.timeInterval === undefined) {
       console.warn('The design is not valid, and thus it cannot get saved!');
@@ -504,40 +558,39 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     });
 
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, {
-      title: this.title,
       font: this.font,
       backgroundTreeDesign: this.backgroundTreeDesign,
       boxSize: this.boxSize,
       banner: this.banner,
-      largeFont: this.isLargeFont,
       boxes: boxesCopy,
     });
-    console.log('Design saved');
   }
 
   // handle input value updates
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.boxSize !== undefined) {
-      this.boxDimensions = {
-        height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier),
-        width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier),
-      };
-
-      this.closeButtonDimensions = {
-        height: (this.canvasResolution.height / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
-        width: (this.canvasResolution.width / 20) * (this.boxSize * this.boxSizeScalingMultiplier),
-      };
+      this.updateDraggableBoxDimensions();
     }
 
-    if (changes.isLargeFont !== undefined) {
-      this.maxCharsPerLine = this.isLargeFont ? this.largeFontMaxChars : this.smallFontMaxChars;
-      // update the box inputs
-      this.myBoxes.forEach((box) => {
-        box.inputRef.instance.maxCharsPerLine = this.maxCharsPerLine;
-        box.inputRef.instance.largeFont = this.isLargeFont;
-      });
+    if (changes.backgroundTreeDesign !== undefined) {
+      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
     }
+
+    if (changes.font !== undefined) {
+      setTimeout(() => {
+        for (let i = 0; i < this.myBoxes.length; i++) {
+          this.myBoxes[i].inputRef.instance.adjustInputHeight();
+        }
+      }, 50);
+    }
+
+    if (changes.showOptionBoxButtons !== undefined) {
+      for (let i = 0; i < this.myBoxes.length; i++) {
+        this.myBoxes[i].inputRef.instance.showOptionButtons = changes.showOptionBoxButtons.currentValue;
+      }
+    }
+
     this.frameChanged = true;
     this.cdr.detectChanges();
   }
@@ -547,61 +600,68 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     clearInterval(this.autosaveInterval);
   }
 
+  @HostListener('window:resize', ['$event'])
+  handleWindowResize(): void {
+    this.updateDraggableBoxDimensions();
+    this.frameChanged = true;
+  }
+
+  /**
+   * Update various dimensions related properties of all draggable boxes based on the state of the canvas.
+   */
+  updateDraggableBoxDimensions(): void {
+    this.boxDimensions = {
+      height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+      width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+    };
+
+    // controls position of option buttons around the draggable box
+    this.optionButtonOffset = {
+      dragX: this.boxDimensions.width * 0.9,
+      dragY: this.boxDimensions.height / 2 + this.optionButtonDimensions.height * 0.1,
+      closeX: this.boxDimensions.width * 0.9,
+      closeY: this.boxDimensions.height / 2 - this.optionButtonDimensions.height * 1.1,
+    };
+
+    // update all of the boxes with new sizing information
+    for (let i = 0; i < this.myBoxes.length; i++) {
+      // set the input and option button dimensions, accounting for the scale between canvas and document
+      // needs to occur on each frame in case of screen size changing
+      this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
+      this.myBoxes[i].inputRef.instance.width = Math.floor(this.boxDimensions.width / this.canvasScaleToBounds.scaleX);
+      this.myBoxes[i].inputRef.instance.height = Math.floor(
+        this.boxDimensions.height / this.canvasScaleToBounds.scaleY
+      );
+      this.myBoxes[i].inputRef.instance.boxOptionDimensions = {
+        height: this.optionButtonDimensions.height / this.canvasScaleToBounds.scaleY,
+        width: this.optionButtonDimensions.width / this.canvasScaleToBounds.scaleX,
+      };
+      this.myBoxes[i].inputRef.instance.optionButtonOffset = {
+        dragX: this.optionButtonOffset.dragX / this.canvasScaleToBounds.scaleX,
+        dragY: this.optionButtonOffset.dragY / this.canvasScaleToBounds.scaleY,
+        closeX: this.optionButtonOffset.closeX / this.canvasScaleToBounds.scaleX,
+        closeY: this.optionButtonOffset.closeY / this.canvasScaleToBounds.scaleY,
+      };
+    }
+  }
+
+  private calculateOptionButtonOffset(): void {}
+
   // handle canvas events
-
-  getCanvasScale(canvas): { scaleX: number; scaleY: number } {
-    const rect = canvas.getBoundingClientRect(); // abs. size of element
-    return {
-      scaleX: canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY: canvas.height / rect.height, // relationship bitmap vs. element for Y
-    };
-  }
-
-  // get current mouse position scaled to the canvas dimensions
-  getMousePosition(canvas, event) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-
-    // get coordinates based on whether it is a touch or mouse event
-    const clientX =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientX)
-        : event.clientX;
-
-    const clientY =
-      window.TouchEvent && event instanceof TouchEvent
-        ? Math.ceil(event.changedTouches[event.changedTouches.length - 1].clientY)
-        : event.clientY;
-
-    // scale mouse coordinates after they have been adjusted to be relative to element
-    return {
-      x: (clientX - rect.left) * scaleX,
-      y: (clientY - rect.top) * scaleY,
-    };
-  }
-
-  // calculate document mouse coordinates based on canvas coordinates
-  getRealCords(canvas, cords: { x: number; y: number }) {
-    const rect = canvas.getBoundingClientRect(), // abs. size of element
-      scaleX = canvas.width / rect.width, // relationship bitmap vs. element for X
-      scaleY = canvas.height / rect.height; // relationship bitmap vs. element for Y
-    return {
-      x: cords.x / scaleX + rect.left + window.pageXOffset,
-      y: cords.y / scaleY + rect.top + window.pageYOffset,
-    };
-  }
 
   mouseOutsideBoundaries(boxWidth: number, boxHeight: number): boolean {
     return (
       this.mouseCords.x - this.mouseClickOffset.x < 0 ||
-      this.mouseCords.x - this.mouseClickOffset.x > this.designCanvas.nativeElement.width - boxWidth ||
+      this.mouseCords.x - this.mouseClickOffset.x > this.foregroundCanvas.nativeElement.width - boxWidth ||
       this.mouseCords.y - this.mouseClickOffset.y < 0 ||
-      this.mouseCords.y - this.mouseClickOffset.y > this.designCanvas.nativeElement.height - boxHeight
+      this.mouseCords.y - this.mouseClickOffset.y > this.foregroundCanvas.nativeElement.height - boxHeight
     );
   }
 
   mouseDownHandler(event) {
+    if (!this.isMutable) {
+      return;
+    }
     try {
       event = event || window.event;
       // if the mouse down/touchdown event got triggered, don't allow any new down events for 100ms
@@ -612,46 +672,84 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         setTimeout(() => (this.downEventDelay = false), 100);
       }
 
-      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
-      for (let i = 0; i < this.myBoxes.length; i++) {
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
+      for (let i = this.myBoxes.length - 1; i >= 0; i--) {
         const box = this.myBoxes[i];
 
+        // check if the Close button got pressed
+        // only works if the buttons are supposed to be shown
+        if (
+          this.showOptionBoxButtons &&
+          this.familyTreeDesignService.isWithinBoxCloseOption(
+            this.mouseCords,
+            { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
+            this.optionButtonDimensions,
+            this.optionButtonOffset
+          )
+        ) {
+          // remove the box and the input component
+          this.myBoxes[i].inputRef.destroy();
+          this.myBoxes.splice(i, 1);
+          // prevent follow up click for touch events (causes new click creating a new box)
+          event.preventDefault();
+
+          return;
+        }
+        // check if the Drag button got pressed
+        // only works if the buttons are supposed to be shown
+        if (
+          this.showOptionBoxButtons &&
+          this.familyTreeDesignService.isWithinBoxDragOption(
+            this.mouseCords,
+            { x: this.myBoxes[i].x, y: this.myBoxes[i].y },
+            this.optionButtonDimensions,
+            this.optionButtonOffset
+          )
+        ) {
+          // remove the box and the input component
+          this.myBoxes[i].dragging = true;
+          this.mouseClickOffset.x = this.mouseCords.x - this.myBoxes[i].x;
+          this.mouseClickOffset.y = this.mouseCords.y - this.myBoxes[i].y;
+
+          this.bringBoxToFront(i);
+          // prevent registration of screen dragging to ensure the background doesn't move on mobile
+          event.preventDefault();
+          return;
+        }
         if (
           this.mouseCords.x > box.x &&
           this.mouseCords.x < box.x + this.boxDimensions.width &&
           this.mouseCords.y > box.y &&
           this.mouseCords.y < box.y + this.boxDimensions.height
         ) {
-          // check if the Close button got pressed
-          if (
-            this.mouseCords.x > box.x &&
-            this.mouseCords.x < box.x + this.closeButtonDimensions.width &&
-            this.mouseCords.y > box.y &&
-            this.mouseCords.y < box.y + this.closeButtonDimensions.width
-          ) {
-            // remove the box and the input component
-            this.myBoxes[i].inputRef.destroy();
-            this.myBoxes.splice(i, 1);
-            return;
-          }
-
-          this.myBoxes[i].dragging = true;
-          this.mouseClickOffset.x = this.mouseCords.x - box.x;
-          this.mouseClickOffset.y = this.mouseCords.y - box.y;
-          // swap the dragged box to the top of rending order, displaying it on top of the other boxes
-          const temp = this.myBoxes[this.myBoxes.length - 1];
-          this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[i];
-          this.myBoxes[i] = temp;
+          this.bringBoxToFront(i);
           // skip checking the other boxes
           return;
         }
       }
       // this will only be reached if none of the boxes was clicked on
+      // create a new box
+      // if part of it would end up outside of the boundries it gets moved a bit to fit
+      let createOffsetX = 0;
+      let createOffsetY = 0;
+      if (this.mouseCords.x - this.boxDimensions.width / 2 < 0) {
+        createOffsetX = this.boxDimensions.width / 2;
+      }
+      if (this.mouseCords.x + this.boxDimensions.width / 2 > this.canvasResolution.width) {
+        createOffsetX = (this.boxDimensions.width / 2) * -1;
+      }
+      if (this.mouseCords.y - this.boxDimensions.height / 2 < 0) {
+        createOffsetY = this.boxDimensions.height / 2;
+      }
+      if (this.mouseCords.y + this.boxDimensions.height / 2 > this.canvasResolution.height) {
+        createOffsetY = (this.boxDimensions.height / 2) * -1;
+      }
       // create new box
       this.createBox(
-        this.mouseCords.x - this.boxDimensions.width / 2,
-        this.mouseCords.y - this.boxDimensions.height / 2,
-        Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.tree1BoxDesigns.size)],
+        this.mouseCords.x - this.boxDimensions.width / 2 + createOffsetX,
+        this.mouseCords.y - this.boxDimensions.height / 2 + createOffsetY,
+        // assign a random design based on the amount of fetched box designs
+        Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
         ''
       );
 
@@ -667,38 +765,24 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // the mousemove event is not available as a angular attribute so it has to be declared explicitly
   @HostListener('document:mousemove', ['$event'])
   mouseMoveHandler(event) {
+    if (!this.isMutable) {
+      return;
+    }
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
-
-      let boxesGotMousedOver = false;
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       for (const box of this.myBoxes) {
-        if (!this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
-          // check if any of the boxes got moused over
-          if (
-            this.mouseCords.x > box.x &&
-            this.mouseCords.x < box.x + this.boxDimensions.width &&
-            this.mouseCords.y > box.y &&
-            this.mouseCords.y < box.y + this.boxDimensions.height
-          ) {
-            boxesGotMousedOver = true;
-            this.showDeleteBoxButtons = true;
-          }
-          if (box.dragging) {
-            {
-              // move the box with the cursor
-              box.x = this.mouseCords.x - this.mouseClickOffset.x;
-              box.y = this.mouseCords.y - this.mouseClickOffset.y;
-              // skip checking the other boxes
-              return;
-            }
+        // if the mouse is within the design boundries and the given box is supposed to be moved, move it to the cursor position
+        if (box.dragging && !this.mouseOutsideBoundaries(this.boxDimensions.width, this.boxDimensions.height)) {
+          {
+            // move the box with the cursor
+            box.x = this.mouseCords.x - this.mouseClickOffset.x;
+            box.y = this.mouseCords.y - this.mouseClickOffset.y;
+            // skip checking the other boxes, only one box should get moved at a time
+            return;
           }
         }
-      }
-      // only stop showing the delete button if none of the boxes got moused over
-      if (!boxesGotMousedOver) {
-        this.showDeleteBoxButtons = false;
       }
     } finally {
       this.frameChanged = true;
@@ -706,9 +790,12 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   }
 
   mouseUpHandler(event) {
+    if (!this.isMutable) {
+      return;
+    }
     try {
       event = event || window.event;
-      this.mouseCords = this.getMousePosition(this.designCanvas.nativeElement, event);
+      this.mouseCords = this.familyTreeDesignService.getMousePosition(this.foregroundCanvas.nativeElement, event);
 
       for (const box of this.myBoxes) {
         if (box.dragging) {
@@ -736,23 +823,16 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
   // Util methods
 
-  getImageElementFromBoxDesign(treeDesign: TreeDesignEnum, boxDesign: BoxDesignEnum): HTMLImageElement {
-    switch (treeDesign) {
-      case TreeDesignEnum.tree1: {
-        return this.tree1BoxDesigns.get(
-          Tree1BoxDesignEnum[Object.keys(Tree1BoxDesignEnum)[Object.keys(Tree1BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree2: {
-        return this.tree2BoxDesigns.get(
-          Tree2BoxDesignEnum[Object.keys(Tree2BoxDesignEnum)[Object.keys(Tree2BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-      case TreeDesignEnum.tree3: {
-        return this.tree3BoxDesigns.get(
-          Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
-        );
-      }
-    }
+  /**
+   * Swap the dragged box to the top of rending order, displaying it on top of the other boxes.
+   * Focuses on the input element of the clicked box which is now on top of the stack.
+   * @param boxIndex the index in myBoxes of the now-first box.
+   */
+  bringBoxToFront(boxIndex: number): void {
+    const clickedBox = this.myBoxes[boxIndex];
+    const temp = this.myBoxes[this.myBoxes.length - 1];
+    this.myBoxes[this.myBoxes.length - 1] = this.myBoxes[boxIndex];
+    this.myBoxes[boxIndex] = temp;
+    clickedBox.inputRef.instance.input.nativeElement.focus();
   }
 }

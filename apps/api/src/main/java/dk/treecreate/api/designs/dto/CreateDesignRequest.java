@@ -14,7 +14,6 @@ public class CreateDesignRequest
         "  design: 'first'," +
         "  boxSize: 10," +
         "  banner: false," +
-        "  largeFont: true," +
         "  boxes: []}", required = true)
     private Map<String, Object> designProperties;
 

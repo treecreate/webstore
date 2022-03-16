@@ -1,35 +1,9 @@
 <div class="modal-container add-transition" data-cy="add-to-basket-modal">
     <form [formGroup]="addToBasketForm" (ngSubmit)="addDesignToBasket()" class="modal-content">
-        <div class="option-title">
-            <div class="title">
-                <span i18n="@@title">Title</span>
-                <webstore-info-popover
-                    title="{{ isEnglish() ? 'Title' : 'Titel' }}"
-                    text="{{
-                        isEnglish()
-                            ? 'Add a good title so you can keep track of your designs.'
-                            : 'Giv dit design en god titel så den er nemmere at huske.'
-                    }}"
-                ></webstore-info-popover>
-            </div>
-            <div
-                class="option-design-title add-transition"
-                [ngClass]="this.addToBasketForm.get('title').invalid ? 'title-error' : 'title-success'"
-            >
-                <input
-                    type="text"
-                    class="title-input"
-                    placeholder="{{ isEnglish() ? 'Navngiv dit design...' : 'Name your design...' }}"
-                    formControlName="title"
-                    data-cy="add-to-basket-title-input"
-                />
-            </div>
-        </div>
-
         <!-- quantity -->
         <div class="option-quantity add-transition">
             <div class="text">
-                <span i18n="@@amount"> Amount </span>
+                <span i18n="@@amount">Amount</span>
                 <webstore-info-popover
                     title="{{ isEnglish() ? 'Quantity' : 'Antal' }}"
                     text="{{
@@ -119,9 +93,12 @@
         <!-- Price -->
         <div class="price-container" *ngIf="!isLoading">
             <div class="isnt-more-than-4 add-transition" *ngIf="!isMoreThan4">
-                <span i18n="@@order">Order </span
-                >{{ 4 - (this.itemsInBasket + this.addToBasketForm.get('quantity').value)
-                }}<span i18n="@@more-to-save">more to save </span> {{ amountSaved().toFixed(2) }} DKK
+                <div>
+                    <span i18n="@@order">Order </span
+                    >{{ 4 - (this.itemsInBasket + this.addToBasketForm.get('quantity').value) }}
+                    <span i18n="@@more-to-save"> more to save </span>
+                </div>
+                <span style="color: green"> 25% </span>
             </div>
             <div class="is-more-than-4 add-transition" *ngIf="isMoreThan4">
                 <span i18n="@@you-save-25%">You save: (-25%)</span><span>{{ amountSaved().toFixed(2) }}</span>
@@ -135,12 +112,7 @@
         <!-- Actions -->
         <div class="option-actions add-transition">
             <div class="button-container add-transition">
-                <button
-                    class="tc-button-100 green"
-                    type="submit"
-                    data-cy="add-to-basket-add-to-basket-button"
-                    [disabled]="this.addToBasketForm.get('title').invalid"
-                >
+                <button class="tc-button-100 green" type="submit" data-cy="add-to-basket-add-to-basket-button">
                     <span i18n="@@add-to-basket" *ngIf="!isLoading">Add to basket</span>
                     <span
                         *ngIf="isLoading"
@@ -158,7 +130,7 @@
 
         <!-- Extra info -->
         <div class="text-container add-transition">
-            <div class="extra-info add-transition">
+            <div class="extra-info add-transition" style="color: grey; font-size: smaller">
                 <strong i18n="@@note">Note:</strong><br />
                 <span i18n="@@add-to-basket-extra-info">
                     For every design you purchase, you are automatically planting a tree. Thereby you support

@@ -59,28 +59,6 @@
         </div>
     </div>
 
-    <div>
-        <div class="subscribe-section add-transition" id="subscribe">
-            <h1 class="subscribe-title title title-font add-transition" i18n="@@home-02-title">
-                Subscribe to our newsletter
-            </h1>
-            <p class="subscribe-subtitle add-transition" i18n="@@home-02-text">
-                Get 10% discount and a chance to win a family tree!
-            </p>
-            <form
-                [formGroup]="subscribeForm"
-                class="action-container add-transition"
-                (ngSubmit)="submitNewsletterEmail()"
-            >
-                <input type="text" placeholder="E-mail" class="email-input-field" formControlName="email" />
-                <button class="subscribe-button title-font" type="submit">
-                    <img src="/assets/icons/white-send-email-icon.svg" class="send-email-icon" />
-                    <div class="button-text" i18n="@@subscribe">Subscribe</div>
-                </button>
-            </form>
-        </div>
-    </div>
-
     <div class="descriptive-content-container reverse">
         <img src="/assets/img/description2.jpg" class="descriptive-img" />
         <div class="text-container">

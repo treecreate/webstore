@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DiscountsComponent } from './discounts.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('DiscountsComponent', () => {
   let component: DiscountsComponent;
@@ -10,7 +11,7 @@ describe('DiscountsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, MatDialogModule],
+      imports: [HttpClientModule, MatDialogModule, MatSnackBarModule],
       declarations: [DiscountsComponent],
     }).compileComponents();
   });

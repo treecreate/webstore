@@ -25,6 +25,7 @@ export class ChangePasswordDialogComponent {
   constructor(
     private snackBar: MatSnackBar,
     private userService: UserService,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog
   ) {

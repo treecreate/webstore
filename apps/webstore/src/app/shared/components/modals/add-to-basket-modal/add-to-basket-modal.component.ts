@@ -1,15 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, ITransactionItem } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
-import { LocalStorageService } from '@local-storage';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
@@ -40,7 +40,6 @@ export class AddToBasketModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private route: ActivatedRoute,
-    private router: Router,
     private modalService: NgbModal,
     private toastService: ToastService,
     private localStorageService: LocalStorageService,
@@ -55,26 +54,26 @@ export class AddToBasketModalComponent implements OnInit {
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
+
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
+
     // Check if the user is logged in
     this.authUser$.subscribe(() => {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
-  }
 
-  ngOnInit(): void {
     this.addToBasketForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(3)]),
       quantity: new FormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
       dimension: new FormControl('', [Validators.required]),
     });
+  }
 
+  ngOnInit(): void {
     this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
 
     this.addToBasketForm.setValue({
-      title: this.design ? this.design.title : '',
       quantity: 1,
       dimension: DesignDimensionEnum.small,
     });
@@ -145,7 +144,6 @@ export class AddToBasketModalComponent implements OnInit {
 
   increaseQuantity() {
     this.addToBasketForm.setValue({
-      title: this.addToBasketForm.get('title').value,
       quantity: this.addToBasketForm.get('quantity').value + 1,
       dimension: this.addToBasketForm.get('dimension').value,
     });
@@ -155,7 +153,6 @@ export class AddToBasketModalComponent implements OnInit {
   decreaseQuantity() {
     if (this.addToBasketForm.get('quantity').value > 1) {
       this.addToBasketForm.setValue({
-        title: this.addToBasketForm.get('title').value,
         quantity: this.addToBasketForm.get('quantity').value - 1,
         dimension: this.addToBasketForm.get('dimension').value,
       });
@@ -167,14 +164,12 @@ export class AddToBasketModalComponent implements OnInit {
     switch (this.addToBasketForm.get('dimension').value) {
       case DesignDimensionEnum.small:
         this.addToBasketForm.setValue({
-          title: this.addToBasketForm.get('title').value,
           quantity: this.addToBasketForm.get('quantity').value,
           dimension: DesignDimensionEnum.medium,
         });
         break;
       case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({
-          title: this.addToBasketForm.get('title').value,
           quantity: this.addToBasketForm.get('quantity').value,
           dimension: DesignDimensionEnum.large,
         });
@@ -187,14 +182,12 @@ export class AddToBasketModalComponent implements OnInit {
     switch (this.addToBasketForm.get('dimension').value) {
       case DesignDimensionEnum.medium:
         this.addToBasketForm.setValue({
-          title: this.addToBasketForm.get('title').value,
           quantity: this.addToBasketForm.get('quantity').value,
           dimension: DesignDimensionEnum.small,
         });
         break;
       case DesignDimensionEnum.large:
         this.addToBasketForm.setValue({
-          title: this.addToBasketForm.get('title').value,
           quantity: this.addToBasketForm.get('quantity').value,
           dimension: DesignDimensionEnum.medium,
         });
@@ -216,9 +209,6 @@ export class AddToBasketModalComponent implements OnInit {
 
   saveToLocalStorage(): void {
     // design id should be null
-    if (this.design.title !== this.addToBasketForm.get('title').value) {
-      this.design.title = this.addToBasketForm.get('title').value;
-    }
     this.transactionItemService.saveToLocalStorage({
       designProperties: this.design,
       dimension: this.addToBasketForm.get('dimension').value,
@@ -230,11 +220,13 @@ export class AddToBasketModalComponent implements OnInit {
     this.isLoading = false;
   }
 
+  //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design) before trying to update it
+  /**
+   * Persist the design in the database (either update or create a new entry) and, if successful, create a transaction item for it (add to basket).
+   */
   saveToDataBase(): void {
-    // Check if the desig title matches add-to-basket-modal title of design
-    // If not, update the title in the users collection
-    if (this.design.title !== this.addToBasketForm.get('title').value) {
-      this.design.title = this.addToBasketForm.get('title').value;
+    // Check if the design is loaded using a design ID (design comes from a user account ccollection)
+    if (this.route.snapshot.queryParams.designId !== undefined) {
       this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
       //Update design title in collection
       this.designService
@@ -245,7 +237,7 @@ export class AddToBasketModalComponent implements OnInit {
         })
         .subscribe(
           (result) => {
-            console.log('Design persisted', result);
+            console.log('Design updated', result);
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
@@ -253,8 +245,7 @@ export class AddToBasketModalComponent implements OnInit {
         );
     }
 
-    // Persist the design as a new one, and, if successful, create a transaction item for it
-    //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design)
+    // Add an entry for the design to the basket (transaction item). Includes creation of a immutable version of the design
     this.designService
       .createDesign({
         designType: DesignTypeEnum.familyTree,

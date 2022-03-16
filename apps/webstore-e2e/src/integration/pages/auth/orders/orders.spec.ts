@@ -23,7 +23,11 @@ const authMockService = new AuthenticationService();
 const mockUser: IUser = {
   userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   email: 'e2e@test.com',
-  roles: [UserRoles.user, UserRoles.developer, UserRoles.admin],
+  roles: [
+    { name: UserRoles.user, roleId: '' },
+    { name: UserRoles.developer, roleId: '' },
+    { name: UserRoles.admin, roleId: '' },
+  ],
   name: 'teodor jonasson',
   phoneNumber: '',
   streetAddress: '',
@@ -57,12 +61,10 @@ const mockBanner: IFamilyTreeBanner = {
 const mockDesign: IDesign = {
   designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
   designProperties: {
-    title: 'title1',
     font: FamilyTreeFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
     banner: mockBanner,
-    largeFont: false,
     boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
   },
   designType: DesignTypeEnum.familyTree,
@@ -72,12 +74,10 @@ const mockDesign: IDesign = {
 const mockDesign2: IDesign = {
   designId: 'c0a80868-7ce1-1ed0-817c-f9f1e8850001',
   designProperties: {
-    title: 'title2',
     font: FamilyTreeFontEnum.georgia,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 20,
     banner: mockBanner,
-    largeFont: false,
     boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
   },
   designType: DesignTypeEnum.familyTree,
@@ -205,7 +205,6 @@ describe('ordersPage', () => {
         cy.get('[data-cy=order-item-design-item]')
           .first()
           .within(() => {
-            cy.get('[data-cy=order-item-design-item-title]').should('contain', 'title1');
             cy.get('[data-cy=order-item-design-item-amount]').should('contain', '2');
           });
       });

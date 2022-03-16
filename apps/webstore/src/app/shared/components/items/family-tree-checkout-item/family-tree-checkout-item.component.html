@@ -1,14 +1,23 @@
 <div class="item-container">
-    <webstore-family-tree-miniature
+    <webstore-family-tree-design
         #productDesign
+        [isMutable]="false"
         [design]="item.design.designProperties"
         [boxSize]="item.design.designProperties.boxSize"
+        [banner]="item.design.designProperties.banner"
+        [backgroundTreeDesign]="item.design.designProperties.backgroundTreeDesign"
+        [font]="item.design.designProperties.font"
+        [showOptionBoxButtons]="false"
         class="item-image"
-    >
-    </webstore-family-tree-miniature>
+    ></webstore-family-tree-design>
     <div class="item-info">
-        <div class="item-title">
-            <strong data-cy="checkout-item-title">{{ item.design.designProperties.title }}</strong>
+        <div class="item-title" [ngSwitch]="item.design.designType">
+            <strong
+                *ngSwitchCase="designTypeEnum.familyTree"
+                data-cy="checkout-item-title"
+                i18n="@@design-type-family-tree"
+                >Family tree</strong
+            >
         </div>
         <div class="info-container">
             <div class="info-line">

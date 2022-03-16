@@ -9,13 +9,12 @@ export interface IDesign extends IBase {
   user: IUser;
   mutable: boolean;
 }
+
 export interface IFamilyTree {
-  title: string;
   font: FamilyTreeFontEnum;
   backgroundTreeDesign: TreeDesignEnum;
   boxSize: number;
   banner: IFamilyTreeBanner;
-  largeFont: boolean;
   boxes: IDraggableBox[];
 }
 
@@ -51,4 +50,10 @@ export enum FamilyTreeFontEnum {
 export interface IFamilyTreeBanner {
   text: string;
   style: 'first';
+}
+
+export interface ITemplateFamilyTree {
+  name: string;
+  title: string;
+  designProperties: IFamilyTree;
 }

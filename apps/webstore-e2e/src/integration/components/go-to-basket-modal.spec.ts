@@ -36,12 +36,10 @@ describe('go to basket modal', () => {
   };
   const mockCreateDesignRequest: CreateDesignRequest = {
     designProperties: {
-      title: 'title1',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
-      largeFont: false,
       boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
     },
     designType: DesignTypeEnum.familyTree,
@@ -50,6 +48,7 @@ describe('go to basket modal', () => {
 
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     cy.intercept('POST', '/designs', {
       body: mockCreateDesignRequest,
@@ -65,7 +64,6 @@ describe('go to basket modal', () => {
     });
     cy.visit('/product');
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-title-input]').type('SkrtLevels9000');
     cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
   });
 
@@ -84,6 +82,5 @@ describe('go to basket modal', () => {
     cy.url().should('not.contain', '?designId=');
     //Check the localstorage to be cleared
     const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-    cy.wrap(localStorageDesignAfter).its('title').should('contain', '');
   });
 });

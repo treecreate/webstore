@@ -8,7 +8,7 @@ describe('CollectionPage', () => {
   const mockUser: IUser = {
     userId: '1c1ca614-6600-4e61-aec5-8e6143b1',
     email: 'suckmeoff@test.com',
-    roles: [UserRoles.user],
+    roles: [{ name: UserRoles.user, roleId: '' }],
     name: 'macSackMyD*ck',
     phoneNumber: '+4512345678',
     streetAddress: 'Yo mammas house 69, 3rd floor',
@@ -42,12 +42,10 @@ describe('CollectionPage', () => {
   const mockDesign1: IDesign = {
     designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title1',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
-      largeFont: false,
       boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
     },
     designType: DesignTypeEnum.familyTree,
@@ -57,12 +55,10 @@ describe('CollectionPage', () => {
   const mockDesign2: IDesign = {
     designId: 'c0a121-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title2',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
-      largeFont: false,
       boxes: [mockDraggableBoxTwo],
     },
     designType: DesignTypeEnum.familyTree,
@@ -72,12 +68,10 @@ describe('CollectionPage', () => {
   const mockDesign3: IDesign = {
     designId: 'c0a1-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title3',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
-      largeFont: false,
       boxes: [mockDraggableBoxOne],
     },
     designType: DesignTypeEnum.familyTree,
@@ -87,12 +81,10 @@ describe('CollectionPage', () => {
   const mockDesign4: IDesign = {
     designId: 'c0a1-7ac0-190b-817a-c08ab0a12345',
     designProperties: {
-      title: 'title3',
       font: FamilyTreeFontEnum.roboto,
       backgroundTreeDesign: TreeDesignEnum.tree1,
       boxSize: 20,
       banner: mockBanner,
-      largeFont: false,
       boxes: [mockDraggableBoxOne],
     },
     designType: DesignTypeEnum.familyTree,
@@ -190,9 +182,6 @@ describe('CollectionPage', () => {
       .first()
       .within(() => {
         cy.get('[data-cy=family-tree-collection-item-add-to-basket-button]').click();
-      })
-      .then(() => {
-        cy.get('[data-cy=add-to-basket-title-input]').should('have.value', 'title1');
       });
   });
 

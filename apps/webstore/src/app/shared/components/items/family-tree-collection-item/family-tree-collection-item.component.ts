@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IDesign, IFamilyTree } from '@interfaces';
+import { DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { DesignService } from '../../../services/design/design.service';
-import { LocalStorageService } from '@local-storage';
-import { FamilyTreeMiniatureComponent } from '../../products/family-tree/family-tree-miniature/family-tree-miniature.component';
+import { FamilyTreeDesignComponent } from '../../products/family-tree/family-tree-design/family-tree-design.component';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -17,10 +17,11 @@ import { ToastService } from '../../toast/toast-service';
 })
 export class FamilyTreeCollectionItemComponent {
   @ViewChild('productDesign', { static: true })
-  miniature: FamilyTreeMiniatureComponent;
+  miniature: FamilyTreeDesignComponent;
   @Input() design: IDesign;
   isLoading = false;
   @Output() deleteEvent = new EventEmitter();
+  public designTypeEnum = DesignTypeEnum;
 
   constructor(
     private toastService: ToastService,

@@ -296,7 +296,7 @@
                                                         >
                                                             <span
                                                                 style="font-size: 24px"
-                                                                th:text="#{verify.email.title}"
+                                                                th:text="#{signup.title}"
                                                             ></span>
                                                         </p>
                                                     </div>
@@ -419,9 +419,7 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <strong
-                                                                ><span th:text="#{verify.email.sub.title}"></span
-                                                            ></strong>
+                                                            <strong><span th:text="#{signup.sub.title}"></span></strong>
                                                         </p>
                                                         <p
                                                             style="
@@ -435,21 +433,7 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <span th:text="#{verify.email.text}"></span>
-                                                        </p>
-                                                        <p
-                                                            style="
-                                                                margin: 0;
-                                                                text-align: center;
-                                                                line-height: 1.8;
-                                                                word-break: break-word;
-                                                                mso-line-height-alt: 25px;
-                                                                letter-spacing: 1px;
-                                                                margin-top: 0;
-                                                                margin-bottom: 0;
-                                                            "
-                                                        >
-                                                            <span th:text="#{signup.text2}"></span>
+                                                            <span th:text="#{signup.on.order.text1}"></span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -508,27 +492,25 @@
                                                                 display: inline-block;
                                                                 letter-spacing: undefined;
                                                             "
-                                                            ><span
-                                                                dir="rtl"
-                                                                style="
+                                                        ><span
+                                                            dir="rtl"
+                                                            style="
                                                                     font-size: 16px;
                                                                     line-height: 2;
                                                                     word-break: break-word;
                                                                     mso-line-height-alt: 32px;
                                                                 "
-                                                            >
+                                                        >
                                                                 <!-- TODO: Make the reset button not show the url in the button -->
                                                                 <a
                                                                     style="color: white; text-decoration: none"
-                                                                    th:href="${verificationLink}"
-                                                                    th:text="#{signup.verify.email}"
+                                                                    th:href="${resetPasswordLink}"
+                                                                    th:text="#{signup.set.your.password}"
                                                                 ></a> </span
                                                         ></span>
+
                                                     </div>
-                                                    <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table>
-                                                    <![endif]-->
                                                 </div>
-                                                <!--[if mso]>
                                                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
                                                         <td style="padding-right: 60px; padding-left: 60px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif">
@@ -667,6 +649,49 @@
                                                     <tr>
                                                         <td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif">
                                                 <![endif]-->
+                                                    <div
+                                                        style="
+                                                            font-size: 14px;
+                                                            mso-line-height-alt: 16.8px;
+                                                            color: #000000;
+                                                            line-height: 1.2;
+                                                            font-family: Arial, Helvetica Neue,
+                                                                Helvetica, sans-serif;
+                                                        "
+                                                    >
+                                                        <p
+                                                            style="
+                                                                margin: 0;
+                                                                font-size: 14px;
+                                                                text-align: center;
+                                                            "
+                                                        >
+                                                            <span style="font-size: 10px"
+                                                            >
+                                                                <a
+                                                                    href="https://www.facebook.com/TreeCreate.dk"
+                                                                    target="_blank"
+                                                                    style="
+                                                                        text-decoration: underline;
+                                                                        color: #000000;
+                                                                    "
+                                                                    rel="noopener"
+                                                                >Facebook</a
+                                                                >
+                                                                -
+                                                                <a
+                                                                    href="https://www.instagram.com/treecreate.dk/"
+                                                                    target="_blank"
+                                                                    style="
+                                                                        text-decoration: underline;
+                                                                        color: #000000;
+                                                                    "
+                                                                    rel="noopener"
+                                                                >Instagram</a
+                                                                >
+                                                            </span>
+                                                        </p>
+                                                    </div>
                                                 <div
                                                     style="
                                                         color: #555555;
@@ -763,10 +788,7 @@
                                                                 margin-bottom: 0;
                                                             "
                                                         >
-                                                            <span style="font-size: 10px"
-                                                                >Studiestræde 21, 3rd floor | 1455 | Copenhagen |
-                                                                Denmark</span
-                                                            >
+                                                            <span style="font-size: 10px" th:text="#{address.treecreate}"></span>
                                                         </p>
                                                         <p
                                                             style="
@@ -781,7 +803,7 @@
                                                             "
                                                         >
                                                             <span style="font-size: 10px"
-                                                                >Treecreate, All rights reserved</span
+                                                                >Treecreate, <span th:text="#{all.rights.reserved}"></span></span
                                                             >
                                                         </p>
                                                         <p
