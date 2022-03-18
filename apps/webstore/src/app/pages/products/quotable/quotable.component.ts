@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 const baconIpsum = [
@@ -19,7 +18,7 @@ const baconIpsum = [
   styleUrls: ['./quotable.component.scss'],
 })
 export class QuotableComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   quote = 'Yeet';
 
