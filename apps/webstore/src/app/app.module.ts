@@ -47,6 +47,7 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
+import { QuotableComponent } from './pages/products/quotable/quotable.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     FamilyTreeTemplateModalComponent,
     StoretItemComponent,
     ProductsComponent,
+    QuotableComponent,
   ],
   imports: [
     BrowserModule,

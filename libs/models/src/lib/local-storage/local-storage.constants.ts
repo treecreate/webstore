@@ -3,6 +3,7 @@ export enum LocalStorageVars {
   cookiesAccepted = 'cookiesAccepted',
   authUser = 'authUser',
   designFamilyTree = 'designFamilyTree',
+  designQuotable = 'designQuotable',
   discount = 'discount',
   plantedTrees = 'plantedTrees',
   transactionItems = 'transactionItems',
