@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BoxDesignEnum, Tree1BoxDesignEnum, Tree2BoxDesignEnum, Tree3BoxDesignEnum, TreeDesignEnum } from '@assets';
+import {
+  BoxDesignEnum,
+  Tree1BoxDesignEnum,
+  Tree2BoxDesignEnum,
+  Tree3BoxDesignEnum,
+  Tree4BoxDesignEnum,
+  TreeDesignEnum,
+} from '@assets';
 import { DesignFontEnum, IDraggableBox } from '@interfaces';
 
 @Injectable({
@@ -165,6 +172,11 @@ export class FamilyTreeDesignService {
           Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]]
         );
       }
+      case TreeDesignEnum.tree4: {
+        return fetchedBoxDesigns[3].get(
+          Tree4BoxDesignEnum[Object.keys(Tree4BoxDesignEnum)[Object.keys(Tree4BoxDesignEnum).indexOf(boxDesign)]]
+        );
+      }
     }
   }
 
@@ -184,6 +196,9 @@ export class FamilyTreeDesignService {
       }
       case TreeDesignEnum.tree3: {
         return Tree3BoxDesignEnum[Object.keys(Tree3BoxDesignEnum)[Object.keys(Tree3BoxDesignEnum).indexOf(boxDesign)]];
+      }
+      case TreeDesignEnum.tree4: {
+        return Tree4BoxDesignEnum[Object.keys(Tree4BoxDesignEnum)[Object.keys(Tree4BoxDesignEnum).indexOf(boxDesign)]];
       }
     }
   }
