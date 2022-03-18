@@ -20,7 +20,7 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { ProductComponent } from './pages/product/product.component';
+import { FamilyTreeComponent } from './pages/products/family-tree/family-tree.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
@@ -61,7 +61,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     TermsOfUseModalComponent,
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
-    ProductComponent,
+    FamilyTreeComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
     CollectionComponent,
