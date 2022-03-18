@@ -62,7 +62,7 @@ describe('go to basket modal', () => {
       },
       statusCode: 200,
     });
-    cy.visit('/product');
+    cy.visit('/products/family-tree');
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
   });
@@ -76,9 +76,9 @@ describe('go to basket modal', () => {
     cy.url().should('contain', '/basket');
   });
 
-  it('should redirect to product page with a reset design', () => {
+  it('should redirect to products/family-tree page with a reset design', () => {
     cy.get('[data-cy=go-to-basket-create-new-button]').click();
-    cy.url().should('contain', '/product');
+    cy.url().should('contain', '/products/family-tree');
     cy.url().should('not.contain', '?designId=');
     //Check the localstorage to be cleared
     const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));

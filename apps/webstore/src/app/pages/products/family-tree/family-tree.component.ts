@@ -20,7 +20,7 @@ import { DesignService } from '../../../shared/services/design/design.service';
   styleUrls: [
     './family-tree.component.scss',
     './family-tree.component.mobile.scss',
-    '../../../assets/styles/tc-input-field.scss',
+    '../../../../assets/styles/tc-input-field.scss',
   ],
 })
 export class FamilyTreeComponent implements OnInit {
@@ -186,7 +186,7 @@ export class FamilyTreeComponent implements OnInit {
     const id = Number(designId);
     if (isNaN(id) || id < 0 || id > itemList.length) {
       this.toastService.showAlert('Failed to load design', 'Kunne ikke loade dit design', 'danger', 10000);
-      this.router.navigate(['/product']);
+      this.router.navigate(['/products/family-tree']);
       return;
     }
     // Load design

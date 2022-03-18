@@ -14,11 +14,11 @@
             </div>
             <div class="no-content" data-cy="orders-no-items" *ngIf="orderCollection.length === 0 && !isLoading">
                 <div class="sub-title" i18n="@@no-orders">You have no orders</div>
-                <span i18n="@@no-designs-text"> Go to the product page to start creating your first design! </span>
+                <span i18n="@@no-designs-text"> Go to the products page to start creating your first design! </span>
                 <div class="button-section">
                     <button
                         class="tc-button-50"
-                        routerLink="/product"
+                        routerLink="/products"
                         i18n="@@start-designing"
                         data-cy="orders-no-items-start-button"
                     >

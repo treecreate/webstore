@@ -62,12 +62,12 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   goToDesign() {
     if (this.isLoggedIn) {
       // use design.designId for logged in users
-      this.router.navigate(['/product'], {
+      this.router.navigate(['/products/family-tree'], {
         queryParams: { designId: this.item.design.designId },
       });
     } else {
       // Go to design using index => will load from LS transactionItem list
-      this.router.navigate(['/product'], {
+      this.router.navigate(['/products/family-tree'], {
         queryParams: { designId: this.index },
       });
     }

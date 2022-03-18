@@ -21,6 +21,7 @@ import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/reject
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { FamilyTreeComponent } from './pages/products/family-tree/family-tree.component';
+import { ProductsComponent } from './pages/products/products.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
@@ -88,6 +89,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     NewsletterSignupModalComponent,
     FamilyTreeTemplateModalComponent,
     StoretItemComponent,
+    ProductsComponent,
   ],
   imports: [
     BrowserModule,

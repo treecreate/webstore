@@ -16,6 +16,7 @@ import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/reject
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { FamilyTreeComponent } from './pages/products/family-tree/family-tree.component';
+import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
@@ -56,7 +57,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },
-  { path: 'product', component: FamilyTreeComponent, canActivate: [CookieGuard] },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    canActivate: [CookieGuard],
+  },
+  { path: 'products/family-tree', component: FamilyTreeComponent, canActivate: [CookieGuard] },
+  { path: 'products/quotable', component: FamilyTreeComponent, canActivate: [CookieGuard] },
   {
     path: 'payment',
     children: [

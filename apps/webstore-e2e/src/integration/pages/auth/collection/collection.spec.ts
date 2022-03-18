@@ -110,7 +110,7 @@ describe('CollectionPage', () => {
     cy.visit('/collection');
     cy.get('[data-cy=collection-no-items]').should('exist');
     cy.get('[data-cy=collection-no-items-start-button]').click();
-    cy.url().should('contain', '/product');
+    cy.url().should('contain', '/products');
   });
 
   it('Should display all mutable deisgns properly', () => {
@@ -167,7 +167,7 @@ describe('CollectionPage', () => {
         cy.get('[data-cy=family-tree-collection-item-edit-button]').click();
       })
       .then(() => {
-        cy.url().should('contain', '/product?designId=');
+        cy.url().should('contain', '/products/family-tree?designId=');
         cy.get('[data-cy=product-options]').should('exist');
       });
   });
@@ -195,13 +195,13 @@ describe('CollectionPage', () => {
     cy.url().should('contain', '/profile');
   });
 
-  it('should redirect to product', () => {
+  it('should redirect to products paget', () => {
     cy.intercept('GET', `/designs/me`, {
       body: [mockDesign1, mockDesign2, mockDesign3, mockDesign4],
       statusCode: 200,
     });
     cy.visit('/collection');
     cy.get('[data-cy=collection-create-new-button]').click();
-    cy.url().should('contain', '/product');
+    cy.url().should('contain', '/products');
   });
 });

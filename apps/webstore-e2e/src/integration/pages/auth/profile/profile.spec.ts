@@ -139,6 +139,14 @@ describe('accountPage', () => {
       statusCode: 200,
     }).as('getUserRequest');
 
+    cy.intercept('GET', `users/logout`, {
+      statusCode: 204,
+    });
+
+    cy.intercept('GET', `users/refresh`, {
+      statusCode: 500,
+    });
+
     cy.visit('/profile');
 
     cy.intercept('PUT', '/users', {
@@ -146,11 +154,14 @@ describe('accountPage', () => {
       statusCode: 200,
     }).as('updatePasswordRequest');
 
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(200); // need to wait for the modal to fully render
     cy.get('[data-cy=account-change-password-button]').click();
-
-    cy.get('[data-cy=change-password-password-input]').type('abcDEF123');
+    cy.get('[data-cy=change-password-password-input]').focus().type('abcDEF123');
     cy.get('[data-cy=change-password-confirm-password-input]').type('abcDEF123');
     cy.get('[data-cy=update-password-btn]').click();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(300); // need to wait for the expiration logic to invalidate the user's access token
 
     cy.visit('/login');
     cy.url().should('contain', '/login');
