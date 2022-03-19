@@ -37,25 +37,30 @@ export class CalculatePriceService {
       if (discount.type === DiscountType.percent) {
         // Discount in percent
         discountedPrice = fullPrice * (1 - discount.amount / 100);
+        discountedPrice = Math.round(discountedPrice * 100) / 100;
       } else {
         // Discount in specific amount
         discountedPrice = fullPrice - discount.amount;
       }
     }
+
+    if (discountedPrice < 0) {
+      discountedPrice = 0;
+    }
     // Get discounted amount / amount saved
-    const discountAmount = fullPrice - discountedPrice;
+    const discountAmount = Math.round((fullPrice - discountedPrice) * 100) / 100;
 
     // Get delivery price
     const deliveryPrice = isHomeDelivery ? 29 : 0;
 
     // Get planted trees price
-    const extraTreesPrice = plantedTrees * 10 - 10;
+    const extraTreesPrice = plantedTrees > 0 ? plantedTrees * 10 - 10 : 0;
 
     // Get final price with delivery and donation
     const finalPrice = discountedPrice + extraTreesPrice + deliveryPrice;
 
     // Get VAT for the final price
-    const vat = finalPrice * 0.2;
+    const vat = Math.round(finalPrice * 0.2 * 100) / 100;
 
     return {
       fullPrice,
@@ -76,7 +81,7 @@ export class CalculatePriceService {
   getFullPrice(itemList: ITransactionItem[]): number {
     let priceSum = 0;
     for (let i = 0; i < itemList.length; i++) {
-      priceSum += this.calculateItemPrice(itemList[i]) * itemList[i].quantity;
+      priceSum += this.calculateItemPrice(itemList[i]);
     }
     return priceSum;
   }
