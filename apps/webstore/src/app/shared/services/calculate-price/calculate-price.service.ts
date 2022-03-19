@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DesignDimensionEnum, DiscountType, IDiscount, IPricing, ITransactionItem } from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, DiscountType, IDiscount, IPricing, ITransactionItem } from '@interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +7,14 @@ import { DesignDimensionEnum, DiscountType, IDiscount, IPricing, ITransactionIte
 export class CalculatePriceService {
   constructor() {}
 
+  /**
+   * Determine the full price with discount for all of the products in the list combined based on the dimensions, quantity and design type.
+   * @param itemList  a list of transaction items, which includes information about dimensions, quantity and design type of each item.
+   * @param discount discount information.
+   * @param isHomeDelivery type of delivery.
+   * @param plantedTrees how many trees are planted as part of the purchase.
+   * @returns calculated price with the discount and other factors applied.
+   */
   calculatePrices(
     itemList: ITransactionItem[],
     discount: IDiscount,
@@ -60,24 +68,24 @@ export class CalculatePriceService {
     };
   }
 
+  /**
+   * Determine the full price without discount for all of the products in the list combined based on the dimensions, quantity and design type.
+   * @param itemList a list of transaction items, which includes information about dimensions, quantity and design type of each item.
+   * @returns calculated price without any of the discounts applied.
+   */
   getFullPrice(itemList: ITransactionItem[]): number {
     let priceSum = 0;
     for (let i = 0; i < itemList.length; i++) {
-      switch (itemList[i].dimension) {
-        case DesignDimensionEnum.large:
-          priceSum += itemList[i].quantity * 995;
-          break;
-        case DesignDimensionEnum.medium:
-          priceSum += itemList[i].quantity * 695;
-          break;
-        case DesignDimensionEnum.small:
-          priceSum += itemList[i].quantity * 495;
-          break;
-      }
+      priceSum += this.calculateItemPrice(itemList[i]) * itemList[i].quantity;
     }
     return priceSum;
   }
 
+  /**
+   * Whether the given itemList satisfies the requirement for reduced price based on quantity purchased.
+   * @param itemList the list of transaction items that includes quantity data.
+   * @returns whether or not it satisfies the requirement.
+   */
   isMoreThan4Items(itemList: ITransactionItem[]): boolean {
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
@@ -90,42 +98,58 @@ export class CalculatePriceService {
     }
   }
 
+  /**
+   * Determine the price for the given transaction item based on its dimensions, quantity and type.
+   * @param item the transaction item with dimensions, quantity and design type information.
+   * @returns calculated price.
+   */
   calculateItemPrice(item: ITransactionItem): number {
-    switch (item.dimension) {
-      case DesignDimensionEnum.small:
-        return item.quantity * 495;
-      case DesignDimensionEnum.medium:
-        return item.quantity * 695;
-      case DesignDimensionEnum.large:
-        return item.quantity * 995;
-      default:
-        return 99999999;
-    }
+    return this.calculateItemUnitPrice(item.dimension, item.design.designType) * item.quantity;
   }
 
-  calculateItemPriceAlternative(quantity: number, dimension: DesignDimensionEnum): number {
-    switch (dimension) {
-      case DesignDimensionEnum.small:
-        return quantity * 495;
-      case DesignDimensionEnum.medium:
-        return quantity * 695;
-      case DesignDimensionEnum.large:
-        return quantity * 995;
-      default:
-        return 99999999;
-    }
+  /**
+   * Calculate the price for the given item based on its dimensions, quantity and type.
+   * @param dimension dimensions of the given item.
+   * @param quantity amount of items.
+   * @param designType design type of the given item.
+   * @returns calculated price.
+   */
+  calculateItemPriceAlternative(quantity: number, dimension: DesignDimensionEnum, designType: DesignTypeEnum): number {
+    return this.calculateItemUnitPrice(dimension, designType) * quantity;
   }
 
-  calculateItemUnitPrice(dimension: DesignDimensionEnum): number {
-    switch (dimension) {
-      case DesignDimensionEnum.small:
-        return 495;
-      case DesignDimensionEnum.medium:
-        return 695;
-      case DesignDimensionEnum.large:
-        return 995;
-      default:
-        return 99999999;
+  /**
+   * Calculate the price for the given item based on its dimensions and type.
+   * @param dimension dimensions of the given item.
+   * @param designType design type of the given item.
+   * @returns calculated price.
+   */
+  calculateItemUnitPrice(dimension: DesignDimensionEnum, designType: DesignTypeEnum): number {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return 495;
+          case DesignDimensionEnum.medium:
+            return 695;
+          case DesignDimensionEnum.large:
+            return 995;
+          default:
+            return 99999999;
+        }
+      }
+      case DesignTypeEnum.quotable: {
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return 349;
+          case DesignDimensionEnum.medium:
+            return 499;
+          case DesignDimensionEnum.large:
+            return 599;
+          default:
+            return 88888888;
+        }
+      }
     }
   }
 }

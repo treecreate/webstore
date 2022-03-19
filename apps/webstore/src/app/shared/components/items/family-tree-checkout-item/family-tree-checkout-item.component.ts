@@ -17,7 +17,10 @@ export class FamilyTreeCheckoutItemComponent implements OnInit {
   constructor(private calculatePriceService: CalculatePriceService) {}
 
   ngOnInit(): void {
-    this.itemUnitPrice = this.calculatePriceService.calculateItemUnitPrice(this.item.dimension);
+    this.itemUnitPrice = this.calculatePriceService.calculateItemUnitPrice(
+      this.item.dimension,
+      this.item.design.designType
+    );
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 

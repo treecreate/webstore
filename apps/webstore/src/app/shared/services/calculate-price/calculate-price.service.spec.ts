@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
+  DesignFontEnum,
   DesignTypeEnum,
   DiscountType,
-  DesignFontEnum,
   IPricing,
   ITransactionItem,
   IUser,
@@ -186,9 +186,9 @@ describe('CalculatePriceService', () => {
   });
 
   it('Should return the right unit prices for all design', () => {
-    expect(service.calculateItemUnitPrice(itemList[0].dimension)).toEqual(495);
-    expect(service.calculateItemUnitPrice(itemList[1].dimension)).toEqual(695);
-    expect(service.calculateItemUnitPrice(itemList[2].dimension)).toEqual(995);
+    expect(service.calculateItemUnitPrice(itemList[0].dimension, itemList[0].design.designType)).toEqual(495);
+    expect(service.calculateItemUnitPrice(itemList[1].dimension, itemList[1].design.designType)).toEqual(695);
+    expect(service.calculateItemUnitPrice(itemList[2].dimension, itemList[2].design.designType)).toEqual(995);
   });
 
   it('Should calculate the full price correctly', () => {

@@ -118,7 +118,8 @@ export class AddToBasketModalComponent implements OnInit {
   updatePrice() {
     this.price = this.calculatePriceService.calculateItemPriceAlternative(
       this.addToBasketForm.get('quantity').value,
-      this.addToBasketForm.get('dimension').value
+      this.addToBasketForm.get('dimension').value,
+      DesignTypeEnum.familyTree
     );
     this.isMoreThan4 = this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
