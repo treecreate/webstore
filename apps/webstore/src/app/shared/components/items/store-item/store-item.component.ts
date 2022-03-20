@@ -14,6 +14,7 @@ export class StoretItemComponent implements OnInit {
   isMutable!: boolean;
 
   familyTreeDesignProperties: IFamilyTree;
+  designTypeEnum = DesignTypeEnum;
 
   constructor() {}
 

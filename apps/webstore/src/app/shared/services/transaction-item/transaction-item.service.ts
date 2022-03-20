@@ -51,7 +51,7 @@ export class TransactionItemService {
     return this.http.delete<void>(`${env.apiUrl}/transaction-items/me/${transactionItemId}`);
   }
 
-  public saveToLocalStorage(data: CreateLocalStorageTransactionItem) {
+  public saveToLocalStorage(data: CreateLocalStorageTransactionItem, designType: DesignTypeEnum) {
     const transactionItem: ITransactionItem = {
       transactionItemId: null,
       orderId: null,
@@ -60,7 +60,7 @@ export class TransactionItemService {
       design: {
         designId: null,
         designProperties: data.designProperties,
-        designType: DesignTypeEnum.familyTree,
+        designType: designType,
         user: null,
         mutable: false,
       },

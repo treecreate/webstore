@@ -210,11 +210,14 @@ export class AddToBasketModalComponent implements OnInit {
 
   saveToLocalStorage(): void {
     // design id should be null
-    this.transactionItemService.saveToLocalStorage({
-      designProperties: this.design,
-      dimension: this.addToBasketForm.get('dimension').value,
-      quantity: this.addToBasketForm.get('quantity').value,
-    });
+    this.transactionItemService.saveToLocalStorage(
+      {
+        designProperties: this.design,
+        dimension: this.addToBasketForm.get('dimension').value,
+        quantity: this.addToBasketForm.get('quantity').value,
+      },
+      DesignTypeEnum.familyTree
+    );
 
     this.activeModal.close();
     this.modalService.open(GoToBasketModalComponent);

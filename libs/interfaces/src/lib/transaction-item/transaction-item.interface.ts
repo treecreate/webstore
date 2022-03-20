@@ -1,4 +1,4 @@
-import { DesignDimensionEnum, IBase, IDesign, IFamilyTree } from '..';
+import { DesignDimensionEnum, IBase, IDesign, IFamilyTree, IQoutable } from '..';
 
 export interface ITransactionItem extends IBase {
   transactionItemId: string;
@@ -9,7 +9,7 @@ export interface ITransactionItem extends IBase {
 }
 
 export interface CreateLocalStorageTransactionItem {
-  designProperties: IFamilyTree;
+  designProperties: IFamilyTree | IQoutable;
   dimension: DesignDimensionEnum;
   quantity: number;
 }

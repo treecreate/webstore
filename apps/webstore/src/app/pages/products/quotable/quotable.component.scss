@@ -29,4 +29,18 @@
   color: #6eeafa;
 }
 
+.button-i-guess {
+  margin: 20px;
+  color: #6eeafa;
+  border: none;
+  border-left: #00c2db 5px solid;
+  border-right: #00c2db 5px solid;
+  border-radius: 30%;
+  text-decoration: none;
+  background-color: transparent;
+}
+.button-i-guess:hover {
+  margin: 10px;
+  border: #00c2db 3px solid;
+}
 /*Remember to re-enable the footer*/
