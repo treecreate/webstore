@@ -11,6 +11,7 @@
 
     <div class="title" [ngSwitch]="design.designType">
         <strong *ngSwitchCase="designTypeEnum.familyTree" i18n="@@design-type-family-tree">Family tree</strong>
+        <strong *ngSwitchCase="designTypeEnum.quotable" i18n="@@design-type-quotable">Quotable</strong>
     </div>
     <button
         type="button"
@@ -27,7 +28,7 @@
             class="tc-button-50"
             i18n="@@edit"
             (click)="editDesign()"
-            (routerLink)="getEditLink"
+            (routerLink)="(getEditLink)"
             [queryParams]="{ designId: design.designId }"
             data-cy="family-tree-collection-item-edit-button"
         >
