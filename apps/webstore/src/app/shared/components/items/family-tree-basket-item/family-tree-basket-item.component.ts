@@ -62,14 +62,36 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   goToDesign() {
     if (this.isLoggedIn) {
       // use design.designId for logged in users
-      this.router.navigate(['/products/family-tree'], {
-        queryParams: { designId: this.item.design.designId },
-      });
+      switch (this.item.design.designType) {
+        case DesignTypeEnum.familyTree: {
+          this.router.navigate(['/products/family-tree'], {
+            queryParams: { designId: this.item.design.designId },
+          });
+          break;
+        }
+        case DesignTypeEnum.quotable: {
+          this.router.navigate(['/products/quotable'], {
+            queryParams: { designId: this.item.design.designId },
+          });
+          break;
+        }
+      }
     } else {
       // Go to design using index => will load from LS transactionItem list
-      this.router.navigate(['/products/family-tree'], {
-        queryParams: { designId: this.index },
-      });
+      switch (this.item.design.designType) {
+        case DesignTypeEnum.familyTree: {
+          this.router.navigate(['/products/family-tree'], {
+            queryParams: { designId: this.index },
+          });
+          break;
+        }
+        case DesignTypeEnum.quotable: {
+          this.router.navigate(['/products/quotable'], {
+            queryParams: { designId: this.index },
+          });
+          break;
+        }
+      }
     }
     this.scrollTop();
   }

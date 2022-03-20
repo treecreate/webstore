@@ -27,7 +27,7 @@
             class="tc-button-50"
             i18n="@@edit"
             (click)="editDesign()"
-            [routerLink]="'/products/family-tree'"
+            (routerLink)="getEditLink"
             [queryParams]="{ designId: design.designId }"
             data-cy="family-tree-collection-item-edit-button"
         >

@@ -58,4 +58,19 @@ export class FamilyTreeCollectionItemComponent {
     );
     this.modalService.open(AddToBasketModalComponent);
   }
+
+  /**
+   * Get the edit link for the given product based on designType
+   * @returns absolute path to the design page
+   */
+  getEditLink(): string {
+    switch (this.design.designType) {
+      case DesignTypeEnum.familyTree: {
+        return '/products/family-tree';
+      }
+      case DesignTypeEnum.quotable: {
+        return '/products/quotable';
+      }
+    }
+  }
 }
