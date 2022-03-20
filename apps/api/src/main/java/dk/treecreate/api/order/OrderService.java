@@ -230,6 +230,20 @@ public class OrderService
                             "Provided design (" + designDimension +
                                 ") dimension data is not valid");
                 }
+            case QUOTABLE:
+                switch (designDimension)
+                {
+                    case SMALL:
+                        return new BigDecimal(349);
+                    case MEDIUM:
+                        return new BigDecimal(499);
+                    case LARGE:
+                        return new BigDecimal(599);
+                    default:
+                        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                            "Provided design (" + designDimension +
+                                ") dimension data is not valid");
+                }
             default:
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Provided design (" + designType + ") type data is not valid");
