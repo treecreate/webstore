@@ -24,14 +24,36 @@ export class FamilyTreeCheckoutItemComponent implements OnInit {
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  sizeInCm(dimension: string): string {
-    switch (dimension) {
-      case DesignDimensionEnum.small:
-        return '20cm x 20cm';
-      case DesignDimensionEnum.medium:
-        return '25cm x 25cm';
-      case DesignDimensionEnum.large:
-        return '30cm x 30cm';
+  /**
+   * Translate dimensions from an Enum value into a human readble string
+   * @param dimension dimensions of the item
+   * @param designType design type of the item
+   * @returns string representing the design like '15cm x 15cm'
+   */
+  translateDimensionToCm(dimension: string, designType: DesignTypeEnum): string {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        switch (dimension) {
+          case 'SMALL':
+            return '20cm x 20cm';
+          case 'MEDIUM':
+            return '25cm x 25cm';
+          case 'LARGE':
+            return '30cm x 30cm';
+        }
+        break;
+      }
+      case DesignTypeEnum.quotable: {
+        switch (dimension) {
+          case 'SMALL':
+            return '15cm x 15cm';
+          case 'MEDIUM':
+            return '20cm x 20cm';
+          case 'LARGE':
+            return '25cm x 25cm';
+        }
+        break;
+      }
     }
   }
 }
