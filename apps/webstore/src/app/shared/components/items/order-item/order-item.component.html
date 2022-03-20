@@ -90,7 +90,7 @@
                     <button
                         class="tc-button-square button-placement"
                         (click)="scrollTop()"
-                        [routerLink]="'/products/family-tree'"
+                        routerLink="{{ getEditLink(item.design.designType) }}"
                         [queryParams]="{ designId: item.design.designId }"
                         data-cy="order-item-view-button"
                     >
