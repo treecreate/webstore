@@ -1,5 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { QuotableComponent } from './quotable.component';
 
 describe('QuotableComponent', () => {
@@ -9,6 +10,7 @@ describe('QuotableComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuotableComponent],
+      imports: [RouterTestingModule, HttpClientModule],
     }).compileComponents();
   });
 
