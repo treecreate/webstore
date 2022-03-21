@@ -1,4 +1,11 @@
-<webstore-item-card title="Orders" [content]="content" [amount]="totalAmount" [amountDescription]="'Pending'" [isLoading]="isLoading" data-cy="orders-card">
+<webstore-item-card
+    title="Orders"
+    [content]="content"
+    [amount]="totalAmount"
+    [amountDescription]="'Pending'"
+    [isLoading]="isLoading"
+    data-cy="orders-card"
+>
     <ng-template #content>
         <table
             mat-table
@@ -36,7 +43,8 @@
             <ng-container matColumnDef="daysLeft">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Days Left</th>
                 <td mat-cell *matCellDef="let order">
-                    <div *ngIf="order.status !== 'delivered' && order.status !== 'cancelled'"
+                    <div
+                        *ngIf="order.status !== 'delivered' && order.status !== 'cancelled'"
                         class="label"
                         [ngStyle]="{
                             'background-color': ordersService.getDaysLeftColor(
