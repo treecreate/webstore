@@ -138,7 +138,7 @@ export class OrdersComponent implements OnInit {
       case OrderStatusEnum.initial:
         return LabelColorsEnum.blue;
       case OrderStatusEnum.pending:
-        return LabelColorsEnum.blue;
+        return LabelColorsEnum.emp_color;
       case OrderStatusEnum.new:
         return LabelColorsEnum.red;
       case OrderStatusEnum.rejected:
@@ -148,7 +148,7 @@ export class OrdersComponent implements OnInit {
       case OrderStatusEnum.assembling:
         return LabelColorsEnum.yellow;
       case OrderStatusEnum.shipped:
-        return LabelColorsEnum.blue;
+        return LabelColorsEnum.turquoise;
       case OrderStatusEnum.delivered:
         return LabelColorsEnum.green;
       default:
@@ -211,4 +211,6 @@ enum LabelColorsEnum {
   yellow = '#F4DC00',
   grey = '#ABABAB',
   lightGrey = '#F1F1F1',
+  emp_color = '#6D7CFF',
+  turquoise = '#00DFED',
 }
