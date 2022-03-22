@@ -1,14 +1,123 @@
-<!-- I'm just having fun feel free to wipe it all-->
-
+<!-- I'm just having fun feel free to wipe this background. The footer is also disabled (need to re-enable it) -->
 <video autoplay controls [muted]="true" loop id="background-vid">
     <source src="https://pic.pikbest.com/19/68/55/49a888piC5Gm.mp4" type="video/mp4" />
 </video>
 
-<div class="temp-styling-box-wrapper">
+<!-- <div class="temp-styling-box-wrapper">
     <section id="centered-div">
         <h1>{{ quote }}</h1>
         <button class="button-i-guess" (click)="buyQuotable('small')">Add Small thingy</button>
         <button class="button-i-guess" (click)="buyQuotable('medium')">Add Medium thingy</button>
         <button class="button-i-guess" (click)="buyQuotable('large')">Add Large thingy</button>
     </section>
+</div> -->
+
+<!-- =============== Code below is copied straight from Family tree page code ==================== -->
+<section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
+    <div class="back-container" *ngIf="!isMutable">
+        <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
+            < <span i18n="@@back">Back</span>
+        </a>
+    </div>
+    <!-- Design -->
+    <div class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
+        <webstore-quotable-design
+            [isMutable]="isMutable"
+            [design]="design"
+            style="text-align: center"
+            (isDesignValidEvent)="onIsDesignValidEvent($event)"
+        ></webstore-quotable-design>
+    </div>
+
+    <!-- Options -->
+    <div
+        [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'"
+        *ngIf="isMutable"
+        data-cy="product-options"
+    >
+        <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
+        <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
+            <!-- ====== Font selection ====== -->
+            <div class="option option-font-select">
+                <div class="option-title">
+                    Font
+                    <webstore-info-popover
+                        title="Font"
+                        text="{{
+                            isEnglish()
+                                ? 'Choose the font that best suits you.'
+                                : 'Vælg hvilken font der passer dig bedst. '
+                        }}"
+                    ></webstore-info-popover>
+                </div>
+                <div class="option-tree-design-btn">
+                    <div ngbDropdown class="font-dropdown-container">
+                        <button
+                            class="btn"
+                            ngbDropdownToggle
+                            [ngStyle]="{ 'font-family': displayFont }"
+                            data-cy="font-select-option"
+                        >
+                            {{ displayFont }}
+                        </button>
+                        <div ngbDropdownMenu>
+                            <button
+                                (click)="changeFont(font)"
+                                ngbDropdownItem
+                                *ngFor="let font of fontOptions"
+                                [ngStyle]="{ 'font-family': font.value }"
+                                data-cy="font.value"
+                            >
+                                {{ font.key }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== Save and reset buttons ====== -->
+            <div class="option option-actions">
+                <button
+                    class="btn-save-design tc-button-50"
+                    (click)="saveDesign({ persists: true })"
+                    [disabled]="!isDesignValid"
+                    data-cy="save-family-tree-button"
+                >
+                    <span i18n="@@save">Save</span>
+                    <img src="/assets/icons/save-icon.svg" class="option-icon" />
+                </button>
+                <button class="tc-button-50" (click)="clearDesign()">
+                    Reset
+                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
+                </button>
+            </div>
+
+            <!-- ====== Add to Basket button ====== -->
+            <div class="option">
+                <button
+                    class="btn-add-to-cart tc-button-100 green"
+                    (click)="openAddToBasketModal()"
+                    data-cy="add-family-tree-to-basket-button"
+                    [disabled]="!isDesignValid"
+                >
+                    <span i18n="@@add">Add</span>
+                    <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Floating icons -->
+<div class="mobile-option-buttons-container">
+    <div class="mobile-options">
+        <button
+            class="option-toggler"
+            data-cy="mobile-options-toggler"
+            type="button"
+            (click)="showOptions()"
+            *ngIf="isMutable"
+        >
+            <img class="toggle-box-options-icon" alt="option" src="/assets/icons/pen-icon.svg" />
+        </button>
+    </div>
 </div>

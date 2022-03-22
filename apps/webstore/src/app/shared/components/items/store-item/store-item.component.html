@@ -4,13 +4,11 @@
         [isMutable]="isMutable"
         [design]="familyTreeDesignProperties"
     ></webstore-family-tree-design>
-    <h1
+    <webstore-quotable-design
         *ngSwitchCase="designTypeEnum.quotable"
         [isMutable]="isMutable"
-        [design]="familyTreeDesignProperties"
+        [design]="quotableTreeDesignProperties"
         style="text-align: center"
-    >
-        Qoutable WiP
-    </h1>
+    ></webstore-quotable-design>
     <h1 *NgSwitchDefault style="text-align: center">Failed to load the product</h1>
 </container-element>

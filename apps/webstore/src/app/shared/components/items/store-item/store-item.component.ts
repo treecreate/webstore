@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
+import { DesignTypeEnum, IDesign, IFamilyTree, IQoutable } from '@interfaces';
 
 @Component({
   selector: 'webstore-store-item',
@@ -14,6 +14,7 @@ export class StoretItemComponent implements OnInit {
   isMutable!: boolean;
 
   familyTreeDesignProperties: IFamilyTree;
+  quotableDesignProperties: IQoutable;
   designTypeEnum = DesignTypeEnum;
 
   constructor() {}
@@ -21,6 +22,8 @@ export class StoretItemComponent implements OnInit {
   ngOnInit(): void {
     if (this.design.designType === DesignTypeEnum.familyTree) {
       this.familyTreeDesignProperties = <IFamilyTree>this.design.designProperties;
+    } else if (this.design.designType === DesignTypeEnum.quotable) {
+      this.quotableDesignProperties = <IQoutable>this.design.designProperties;
     }
   }
 }

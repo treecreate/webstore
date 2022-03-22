@@ -48,6 +48,7 @@ import { ToastsContainerComponent } from './shared/components/toast/toast-contai
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 import { QuotableComponent } from './pages/products/quotable/quotable.component';
+import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { QuotableComponent } from './pages/products/quotable/quotable.component'
     StoretItemComponent,
     ProductsComponent,
     QuotableComponent,
+    QuotableDesignComponent,
   ],
   imports: [
     BrowserModule,
