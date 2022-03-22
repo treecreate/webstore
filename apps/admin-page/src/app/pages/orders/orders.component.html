@@ -44,7 +44,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Days Left</th>
                 <td mat-cell *matCellDef="let order">
                     <div
-                        *ngIf="order.status !== 'delivered' && order.status !== 'cancelled'"
+                        *ngIf="order.status !== 'DELIVERED' && order.status !== 'REJECTED'"
                         class="label"
                         [ngStyle]="{
                             'background-color': ordersService.getDaysLeftColor(

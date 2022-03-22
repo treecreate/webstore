@@ -117,5 +117,5 @@ export enum LabelColorsEnum {
   grey = '#ABABAB',
   lightGrey = '#F1F1F1',
   turquoise = '#00DFED',
-  purple = '#6D7CFF',
+  purple = '#6D7CFF'
 }
