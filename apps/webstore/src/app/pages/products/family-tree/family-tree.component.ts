@@ -401,7 +401,8 @@ export class FamilyTreeComponent implements OnInit {
 
   openAddToBasketModal() {
     this.saveDesign({ persist: false });
-    this.modalService.open(AddToBasketModalComponent);
+    const modalRef = this.modalService.open(AddToBasketModalComponent);
+    modalRef.componentInstance.designType = DesignTypeEnum.familyTree;
   }
 
   onIsDesignValidEvent($event) {

@@ -291,7 +291,8 @@ export class QuotableComponent implements OnInit {
   // TODO - either make addToBasket modal recognize designType or create a new modal for quotable
   openAddToBasketModal() {
     this.saveDesign({ persist: false });
-    this.modalService.open(AddToBasketModalComponent);
+    const modalRef = this.modalService.open(AddToBasketModalComponent);
+    modalRef.componentInstance.designType = DesignTypeEnum.quotable;
   }
 
   onIsDesignValidEvent($event) {
