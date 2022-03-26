@@ -22,6 +22,7 @@
     <!-- Design -->
     <div class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
         <webstore-quotable-design
+            #quotableDesign
             [isMutable]="isMutable"
             [design]="design"
             style="text-align: center"

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum } from '@assets';
 import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IQoutable, ITransactionItem } from '@interfaces';
@@ -8,6 +8,7 @@ import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { QuotableDesignComponent } from '../../../shared/components/products/quotable-design/quotable-design.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { DesignService } from '../../../shared/services/design/design.service';
@@ -30,6 +31,8 @@ const baconIpsum = [
   styleUrls: ['./quotable.component.scss', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class QuotableComponent implements OnInit {
+  @ViewChild('quotableDesign', { static: false })
+  quotableDesign: QuotableDesignComponent;
   toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
 
   isDesignValid = false;
@@ -185,6 +188,7 @@ export class QuotableComponent implements OnInit {
       return;
     }
     const persist = { params };
+    this.quotableDesign.saveDesign();
     this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn) {
