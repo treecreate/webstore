@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
+import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameDanishEnum, TreeDesignNameEnglishEnum } from '@assets';
 import {
   DesignTypeEnum,
   FamilyTreeFontEnum,
@@ -327,14 +327,32 @@ export class ProductComponent implements OnInit {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }
 
-  getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameEnum {
+  getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameDanishEnum | TreeDesignNameEnglishEnum {
     switch (treeDesign) {
       case TreeDesignEnum.tree1:
-        return TreeDesignNameEnum.tree1;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree1;
+        } else {
+          return TreeDesignNameEnglishEnum.tree1;
+        }
       case TreeDesignEnum.tree2:
-        return TreeDesignNameEnum.tree2;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree2;
+        } else {
+          return TreeDesignNameEnglishEnum.tree2;
+        }
       case TreeDesignEnum.tree3:
-        return TreeDesignNameEnum.tree3;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree3;
+        } else {
+          return TreeDesignNameEnglishEnum.tree3;
+        }
+      case TreeDesignEnum.tree4:
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree4;
+        } else {
+          return TreeDesignNameEnglishEnum.tree4;
+        }
     }
   }
 
