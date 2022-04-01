@@ -8,9 +8,8 @@ describe('MiniProductDisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MiniProductDisplayComponent ]
-    })
-    .compileComponents();
+      declarations: [MiniProductDisplayComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

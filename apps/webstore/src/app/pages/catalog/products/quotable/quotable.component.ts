@@ -7,11 +7,11 @@ import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { AddToBasketModalComponent } from '../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
-import { QuotableDesignComponent } from '../../../shared/components/products/quotable-design/quotable-design.component';
-import { ToastService } from '../../../shared/components/toast/toast-service';
-import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { DesignService } from '../../../shared/services/design/design.service';
+import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { QuotableDesignComponent } from '../../../../shared/components/products/quotable-design/quotable-design.component';
+import { ToastService } from '../../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../../shared/services/authentication/auth.service';
+import { DesignService } from '../../../../shared/services/design/design.service';
 
 @Component({
   selector: 'webstore-quotable',

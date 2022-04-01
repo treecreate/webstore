@@ -7,13 +7,13 @@ import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { AddToBasketModalComponent } from '../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
-import { FamilyTreeIntroModalComponent } from '../../../shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
-import { FamilyTreeTemplateModalComponent } from '../../../shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
-import { FamilyTreeDesignComponent } from '../../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
-import { ToastService } from '../../../shared/components/toast/toast-service';
-import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { DesignService } from '../../../shared/services/design/design.service';
+import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { FamilyTreeIntroModalComponent } from '../../../../shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
+import { FamilyTreeTemplateModalComponent } from '../../../../shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
+import { FamilyTreeDesignComponent } from '../../../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { ToastService } from '../../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../../shared/services/authentication/auth.service';
+import { DesignService } from '../../../../shared/services/design/design.service';
 @Component({
   selector: 'webstore-family-tree',
   templateUrl: './family-tree.component.html',
