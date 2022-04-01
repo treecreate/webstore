@@ -49,6 +49,8 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 import { QuotableComponent } from './pages/products/quotable/quotable.component';
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
+import { MiniProductDisplayComponent } from './pages/products/mini-product-display/mini-product-display.component';
+import { ProductDisplayComponent } from './pages/products/product-display/product-display.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,8 @@ import { QuotableDesignComponent } from './shared/components/products/quotable-d
     ProductsComponent,
     QuotableComponent,
     QuotableDesignComponent,
+    MiniProductDisplayComponent,
+    ProductDisplayComponent,
   ],
   imports: [
     BrowserModule,
