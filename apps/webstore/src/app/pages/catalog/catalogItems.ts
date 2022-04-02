@@ -38,26 +38,6 @@ const unique: CatalogItem = {
   routerLink: 'unique',
 };
 
-const unique2: CatalogItem = {
-  title: 'Special order',
-  descriptionEn: 'skrt skrt',
-  descriptionDk: 'lol lol lol',
-  prices: [],
-  imgSrc: '/assets/img/description2.jpg',
-  specialOffer: 'Lets see what we can do for you',
-  routerLink: 'unique',
-};
-
-const unique3: CatalogItem = {
-  title: 'Special order',
-  descriptionEn: 'skrt skrt',
-  descriptionDk: 'lol lol lol',
-  prices: [],
-  imgSrc: '/assets/img/description2.jpg',
-  specialOffer: 'Lets see what we can do for you',
-  routerLink: 'unique',
-};
-
-const catalogList: CatalogItem[] = [familyTree, quotable, unique, unique2, unique3];
+const catalogList: CatalogItem[] = [familyTree, quotable, unique];
 
 export default catalogList;
