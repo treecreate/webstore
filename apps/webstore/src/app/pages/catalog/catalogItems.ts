@@ -15,7 +15,7 @@ const familyTree: CatalogItem = {
   prices: [499, 699, 999],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: '30% off when purchasing 2',
-  routerLink: '/familytree',
+  routerLink: 'family-tree',
 };
 
 const quotable: CatalogItem = {
@@ -25,7 +25,7 @@ const quotable: CatalogItem = {
   prices: [349, 499, 699],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: '30% off when purchasing 2',
-  routerLink: '/quotable',
+  routerLink: 'quotable',
 };
 
 const unique: CatalogItem = {
@@ -35,7 +35,7 @@ const unique: CatalogItem = {
   prices: [],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: 'Lets see what we can do for you',
-  routerLink: '/unique',
+  routerLink: 'unique',
 };
 
 const unique2: CatalogItem = {
@@ -45,7 +45,7 @@ const unique2: CatalogItem = {
   prices: [],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: 'Lets see what we can do for you',
-  routerLink: '/unique',
+  routerLink: 'unique',
 };
 
 const unique3: CatalogItem = {
@@ -55,7 +55,7 @@ const unique3: CatalogItem = {
   prices: [],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: 'Lets see what we can do for you',
-  routerLink: '/unique',
+  routerLink: 'unique',
 };
 
 const catalogList: CatalogItem[] = [familyTree, quotable, unique, unique2, unique3];
