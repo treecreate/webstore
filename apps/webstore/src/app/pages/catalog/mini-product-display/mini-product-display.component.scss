@@ -4,6 +4,11 @@
   margin: 0.75em;
   box-shadow: 0px 1px 18px -2px rgb(0 0 0 / 15%);
   padding: 0.75em;
+  transition: 0.5s;
+}
+
+.mini-product-container:hover {
+  transform: scale(1.05);
 }
 
 .product-img {
@@ -25,5 +30,8 @@
   }
   .title {
     font-size: 1em;
+  }
+  .mini-product-container:hover {
+    transform: scale(1);
   }
 }

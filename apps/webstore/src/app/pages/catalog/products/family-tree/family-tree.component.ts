@@ -20,7 +20,7 @@ import { DesignService } from '../../../../shared/services/design/design.service
   styleUrls: [
     './family-tree.component.scss',
     './family-tree.component.mobile.scss',
-    '../../../../assets/styles/tc-input-field.scss',
+    '../../../../../assets/styles/tc-input-field.scss',
   ],
 })
 export class FamilyTreeComponent implements OnInit {
