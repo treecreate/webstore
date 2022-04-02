@@ -6,6 +6,7 @@
   padding: 0.75em;
   flex-grow: 1;
   display: flex;
+  align-items: center;
 }
 
 .product-img {
@@ -43,6 +44,12 @@
   width: 100%;
 }
 
+@media (max-width: 650px) {
+  .tc-button-50 {
+    width: 100%;
+  }
+}
+
 @media (max-width: 550px) {
   .product-container {
     flex-direction: column;
@@ -52,5 +59,6 @@
     height: auto;
     width: 100%;
     margin-right: 0;
+    margin-bottom: 0.375em;
   }
 }

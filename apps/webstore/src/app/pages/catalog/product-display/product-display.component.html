@@ -13,16 +13,12 @@
                 {{ product.specialOffer }}
             </div>
 
-            <div class="variants text-field">
-                <span *ngIf="product.prices.length > 0">{{ product.prices.length }} <span> variants </span></span>
-                <span *ngIf="product.prices.length === 0">Custom</span>
-            </div>
-
             <div class="text-field">
+                <span class="sub-title">Prices</span> <br />
                 <span *ngIf="product.prices.length > 0"
-                    ><span class="sub-title">Price for 1 </span> <br />
-                    <span> From </span> {{ product.prices[0] }} DKK</span
+                    >From {{ product.prices[0] }} DKK - {{ product.prices.length }} Variants</span
                 >
+                <span *ngIf="product.prices.length === 0">Custom</span>
             </div>
         </div>
         <button class="tc-button-50 text-field" [routerLink]="product.routerLink" (click)="scrollTop()">Buy Now</button>
