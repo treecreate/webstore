@@ -1,4 +1,26 @@
 .product-container {
-  background-color: aqua;
+  min-height: 250px;
+  background-color: white;
+  margin: 0.75em;
+  box-shadow: 0px 1px 18px -2px rgb(0 0 0 / 15%);
+  padding: 0.75em;
   flex-grow: 1;
+  display: flex;
+}
+
+.product-img {
+  height: 100%;
+  margin-right: 0.75em;
+}
+
+@media (max-width: 550px) {
+  .product-container {
+    flex-direction: column;
+    min-height: none;
+  }
+  .product-img {
+    height: auto;
+    width: 100%;
+    margin-right: 0;
+  }
 }

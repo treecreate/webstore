@@ -1,4 +1,4 @@
-<div class="mini-product-container">
+<div class="mini-product-container" [routerLink]="product.routerLink">
     <img [src]="product.imgSrc" [alt]="'image of the ' + product.title + ' product.'" class="product-img" />
     <div class="title">
         {{ product.title }}

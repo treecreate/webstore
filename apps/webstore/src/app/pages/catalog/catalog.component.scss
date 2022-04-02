@@ -24,7 +24,13 @@
   width: 100%;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 900px) {
+  .catalog-page-container {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 700px) {
   .catalog-page-container {
     width: 80vw;
   }
