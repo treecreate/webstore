@@ -13,7 +13,7 @@ const familyTree: CatalogItem = {
   descriptionEn: 'skrt skrt',
   descriptionDk: 'lol lol lol',
   prices: [499, 699, 999],
-  imgSrc: '/assets/img/description2.jpg',
+  imgSrc: '/assets/img/product-display-img/family-tree.jpg',
   specialOffer: '30% off when purchasing 2',
   routerLink: 'family-tree',
 };
