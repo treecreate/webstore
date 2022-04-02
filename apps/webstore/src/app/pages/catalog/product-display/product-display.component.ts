@@ -14,4 +14,8 @@ export class ProductDisplayComponent {
   isEnglish: boolean = false;
 
   constructor() {}
+
+  scrollTop() {
+    window.scrollTo(0, 0);
+  }
 }
