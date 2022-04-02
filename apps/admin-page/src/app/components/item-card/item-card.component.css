@@ -43,14 +43,15 @@ mat-card mat-card-content {
 }
 
 .amount {
-  /* position: absolute; */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: 300;
+  font-size: 0.6em;
   line-height: 16px;
-  display: flex;
-  align-items: center;
+}
 
-  color: #000000;
+.info-section {
+  display: flex;
+}
+
+.info-section span {
+  margin-left: 1em;
 }
