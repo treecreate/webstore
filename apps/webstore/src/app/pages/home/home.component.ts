@@ -1,20 +1,20 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser } from '@interfaces';
-import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
-import { NewsletterService } from '../../shared/services/newsletter/newsletter.service';
+import { LocalStorageService } from '@local-storage';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewsletterSignupModalComponent } from '../../shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
 @Component({
   selector: 'webstore-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   initialTop: 0;
   showUpArrow = false;
   showStartButton = false;
@@ -28,8 +28,6 @@ export class HomeComponent {
   constructor(
     private localStorageService: LocalStorageService,
     private authService: AuthService,
-    private newsletterService: NewsletterService,
-    private toastService: ToastService,
     private modalService: NgbModal
   ) {
     this.initialTop = 0;
@@ -45,6 +43,16 @@ export class HomeComponent {
     this.subscribeForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
     });
+  }
+
+  ngOnInit(): void {
+    const hasSeenNewsletterModal = this.localStorageService.getItem<boolean>(LocalStorageVars.hasSeenNewsletterModal);
+    if (!hasSeenNewsletterModal.value) {
+      setTimeout(() => {
+        this.modalService.open(NewsletterSignupModalComponent);
+        this.localStorageService.setItem<boolean>(LocalStorageVars.hasSeenNewsletterModal, true);
+      }, 5000);
+    }
   }
 
   @HostListener('window:scroll')

@@ -7,7 +7,6 @@ import { LocalStorageService } from '@local-storage';
 import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { ToastService } from '../../toast/toast-service';
-import { NewsletterSignupModalComponent } from '../newsletter-signup-modal/newsletter-signup-modal.component';
 
 @Component({
   selector: 'webstore-cookie-prompt-modal',
@@ -56,14 +55,6 @@ export class CookiePromptModalComponent implements OnInit {
       'success',
       2500
     );
-    // Check if user has seen newsletter modal before
-    const hasSeenNewsletterModal = this.localStorageService.getItem<boolean>(LocalStorageVars.hasSeenNewsletterModal);
-    if (!hasSeenNewsletterModal.value) {
-      setTimeout(() => {
-        this.modalService.open(NewsletterSignupModalComponent);
-        this.localStorageService.setItem<boolean>(LocalStorageVars.hasSeenNewsletterModal, true);
-      }, 2000);
-    }
   }
 
   rejectCookies() {
