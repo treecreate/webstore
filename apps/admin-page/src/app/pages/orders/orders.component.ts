@@ -87,7 +87,9 @@ export class OrdersComponent implements OnInit {
       },
       next: (orders: IOrder[]) => {
         this.isLoading = false;
-        this.orders = orders;
+        this.orders = orders.sort((a, b) => {
+          return compare(a.createdAt, b.createdAt, false);
+        });
         this.pendingOrders = orders.filter(
           (order) =>
             order.status === OrderStatusEnum.pending ||
