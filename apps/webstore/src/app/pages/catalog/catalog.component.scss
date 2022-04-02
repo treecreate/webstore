@@ -1,3 +1,7 @@
+.catalog {
+  display: flex;
+  justify-content: center;
+}
 .catalog-page-container {
   display: flex;
   justify-content: center;
@@ -5,8 +9,16 @@
   flex-direction: column;
   min-height: calc(100vh - 4em);
   margin-top: 4em;
+  width: 55vw;
 }
 
 .mini-product-display-container {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.product-listing-container {
+  width: 100%;
 }
