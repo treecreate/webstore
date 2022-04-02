@@ -1,19 +1,60 @@
 <!-- NOTE: the top/left thing is broken since it doesn't scale -->
-<input
+<textarea
     #draggableBoxInput
-    type="input"
-    placeholder="{{ isEnglish() ? 'Write name...' : 'Skriv navn...' }}"
-    [ngModel]="text"
+    placeholder="{{ isMutable ? (isEnglish() ? 'Write name...' : 'Skriv navn...') : '' }}"
     class="draggable-box-input"
+    autocomplete="off"
+    (keydown.enter)="$event.preventDefault()"
+    (keyup.enter)="$event.preventDefault()"
     (ngModelChange)="onInputChange($event)"
+    [ngStyle]="{
+        top: y + (height - textareaHeight) / 2 - 2 + 'px',
+        left: x + (width - calculateInputWidth()) / 2 + 'px',
+        'z-index': zIndex + 1,
+        width: calculateInputWidth() + 'px',
+        height: textareaHeight + 'px',
+        'font-size': fontSize + 'rem'
+    }"
+    [maxLength]="30"
+    [ngModel]="text"
+    [disabled]="!isMutable"
+    data-cy="draggable-box-input"
+></textarea>
+<img
+    class="draggable-box-input"
+    src="{{ backgroundImageUri }}"
     [ngStyle]="{
         top: y - 2 + 'px',
         left: x + 'px',
         'z-index': zIndex,
-        'max-width': width * 0.8 + 'px',
-        'max-height': height * 0.6 + 'px',
-        margin: height * 0.3 + 'px ' + width * 0.12 + 'px',
-        'font-size': fontSize + 'rem'
+        width: width + 'px',
+        height: height + 'px'
     }"
-    [maxlength]="maxCharsPerLine * maxLines"
 />
+<img
+    *ngIf="isMutable && showOptionButtons"
+    [ngStyle]="{
+        top: y + optionButtonOffset.closeY + 'px',
+        left: x + optionButtonOffset.closeX + 'px',
+        width: boxOptionDimensions.width + 'px',
+        height: boxOptionDimensions.height + 'px'
+    }"
+    class="close-button-icon"
+    src="{{ boxOptionsDesignEnum.closeButton1 }}"
+    alt="Remove"
+    data-cy="draggable-box-close-button"
+/>
+<img
+    *ngIf="isMutable && showOptionButtons"
+    [ngStyle]="{
+        top: y + optionButtonOffset.dragY + 'px',
+        left: x + optionButtonOffset.dragX + 'px',
+        width: boxOptionDimensions.width + 'px',
+        height: boxOptionDimensions.height + 'px'
+    }"
+    class="drag-button-icon"
+    src="{{ boxOptionsDesignEnum.dragButton1 }}"
+    alt="Drag"
+    data-cy="draggable-box-drag-button"
+/>
+<!-- + width * -0.3 + 'px' + height * 0.3 + 'px' + width * 0.3 + 'px' -->

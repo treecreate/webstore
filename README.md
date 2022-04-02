@@ -100,13 +100,13 @@ _If you install it locally, you will have to use `npx git cz` instead_
 
 ### Installation
 
-1. Clone the repo
+#### 1. Clone the repo
 
 ```sh
 git clone https://github.com/treecreate/webstore.git
 ```
 
-2. Serve the API
+#### 2. Serve the API
 
 The API requires the following Envirnonment variables to run.
 Not all variables need to have values but have to exist.
@@ -135,7 +135,25 @@ Not all variables need to have values but have to exist.
 
 > Only needed for processing shipping information
 
-3. Install NPM packages
+**Serving API with IntelliJ Idea**
+
+When run through Intellij Idea, set the variables in the run configuration.
+
+**Serving API with NX**
+
+When run with NX, create a `.env` file in the root directory and fill out values based on the [.env.template file](.env.template).
+
+Once you create and fill out the `.env` file, you can serve the api with the following command:
+
+```sh
+nx serve api
+```
+
+**Serving API with Visual Studio Code**
+
+Running through Visual Studio Code is not tested and depends on what java extension you use.
+
+#### 3. Install NPM packages
 
 ```sh
 npm install
@@ -151,7 +169,7 @@ nx serve admin-page
 ## Api Documentation
 
 The api features auto-generated documentation using Swagger UI.\
-It can be accessed at [`localhost:5000/docs`](localhost:5000/docs) when the api is running
+It can be accessed at [`localhost:5050/docs`](localhost:5050/docs) when the api is running
 
 <!-- CONTACT -->
 

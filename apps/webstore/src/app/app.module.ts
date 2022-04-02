@@ -37,7 +37,6 @@ import { DraggableBoxComponent } from './shared/components/products/family-tree/
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
-import { FamilyTreeMiniatureComponent } from './shared/components/products/family-tree/family-tree-miniature/family-tree-miniature.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
 import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
@@ -45,6 +44,7 @@ import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NewsletterSignupModalComponent } from './shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
+import { FamilyTreeTemplateModalComponent } from './shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,6 @@ import { NewsletterSignupModalComponent } from './shared/components/modals/newsl
     CheckoutComponent,
     FamilyTreeCheckoutItemComponent,
     FamilyTreeDesignComponent,
-    FamilyTreeMiniatureComponent,
     DraggableBoxComponent,
     ReviewCarouselComponent,
     ChangePasswordModalComponent,
@@ -86,6 +85,7 @@ import { NewsletterSignupModalComponent } from './shared/components/modals/newsl
     OrdersComponent,
     OrderItemComponent,
     NewsletterSignupModalComponent,
+    FamilyTreeTemplateModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,58 @@
+.modal-body {
+  padding: 0 !important;
+}
+
+::ng-deep .carousel-container:focus {
+  outline: none !important;
+}
+
+.template-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2em;
+}
+
+.template-img {
+  height: 300px;
+  width: 300px;
+}
+
+.template-title-container {
+  text-align: center;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .carousel-indicators li {
+  background-color: var(--second-action-color);
+  opacity: 0.3;
+}
+
+::ng-deep .carousel-indicators {
+  margin-bottom: 0;
+}
+
+::ng-deep .carousel-control-prev-icon {
+  background-image: url('/assets/icons/keyboard-arrow-left.svg');
+  top: 18px;
+  position: relative;
+}
+
+::ng-deep .carousel-control-next-icon {
+  background-image: url('/assets/icons/keyboard-arrow-right.svg');
+  top: 18px;
+  position: relative;
+}
+
+.template-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+}

@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { BoxOptionsDesignEnum } from '@assets';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
@@ -8,13 +18,29 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './draggable-box.component.html',
   styleUrls: ['./draggable-box.component.css'],
 })
-export class DraggableBoxComponent {
-  // NOTE: The purpose of this component is to provide a way to easily track user inputs.
-  // The text written in the input here is not actually displayed on the page
-  // The input box size still has to scale well so the mouse is caught properly
-
+export class DraggableBoxComponent implements AfterViewInit {
   @ViewChild('draggableBoxInput')
   input: ElementRef;
+
+  @Input()
+  backgroundImageUri: string;
+
+  @Input()
+  boxOptionDimensions: {
+    width: number;
+    height: number;
+  };
+
+  textWidthCalculationCanvas;
+
+  @Input()
+  isMutable = false;
+
+  @Input()
+  showOptionButtons = false;
+
+  @Input()
+  optionButtonOffset: { dragX: number; dragY: number; closeX: number; closeY: number };
 
   @Input()
   x: number;
@@ -32,7 +58,7 @@ export class DraggableBoxComponent {
   height: number;
 
   @Input()
-  font: string;
+  fontSize: number;
 
   @Input()
   text: string;
@@ -42,6 +68,13 @@ export class DraggableBoxComponent {
 
   @Input()
   maxLines = 2;
+
+  // NOTE - magic number. Represents how "wide" given text is based on the font. Used to figure out when text becomes more than one line
+  maxWidthOfText = 160;
+  singleLineInputHeight = 0.3;
+  multiLineInputHeight = 0.5;
+
+  textareaHeight = 0;
 
   private _boxSize;
 
@@ -57,8 +90,10 @@ export class DraggableBoxComponent {
   touchendEvent = new EventEmitter();
   @Output()
   newTextValue = new EventEmitter<string>();
+  @Output()
+  boxInitComplete = new EventEmitter();
 
-  fontSize = 1;
+  boxOptionsDesignEnum = BoxOptionsDesignEnum;
 
   // get locale to determine what language to display the toast in
   public locale$: BehaviorSubject<LocaleType>;
@@ -66,6 +101,14 @@ export class DraggableBoxComponent {
   constructor(private localStorageService: LocalStorageService) {
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
+  }
+
+  /**
+   * Adjust input height to match its contents.
+   */
+  ngAfterViewInit() {
+    setTimeout(() => this.adjustInputHeight(), 100);
+    this.boxInitComplete.emit();
   }
 
   isEnglish() {
@@ -97,17 +140,44 @@ export class DraggableBoxComponent {
     this.touchendEvent.emit($event);
   }
 
-  onInputChange($event) {
+  /**
+   * Adjusts input height and propagates the text change to any listener (family tree design listener)
+   * @param $event
+   */
+  onInputChange($event): void {
+    this.adjustInputHeight();
     this.text = $event;
     this.newTextValue.emit($event);
+  }
+
+  /**
+   * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
+   */
+  adjustInputHeight(): void {
+    if (this.input !== undefined && this.input.nativeElement !== undefined) {
+      this.input.nativeElement.style.height = '0px';
+      this.textareaHeight = this.input.nativeElement.scrollHeight;
+      this.input.nativeElement.style.height = this.textareaHeight + 'px';
+    }
   }
 
   public get boxSize() {
     return this._boxSize;
   }
+
+  /**
+   * Update the box size property and reclaulcate the font size and input height.
+   */
   public set boxSize(boxSize: number) {
     this._boxSize = boxSize;
-    // fancy math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-    this.fontSize = 0.0545 * this.boxSize + 0.05;
+    this.adjustInputHeight();
+  }
+
+  /**
+   * Get screen width of the text input element, in pixels.
+   * @returns screen width of the text input element, in pixels.
+   */
+  public calculateInputWidth(): number {
+    return this.width * 0.7;
   }
 }

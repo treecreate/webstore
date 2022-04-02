@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameEnum } from '@assets';
+import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameDanishEnum, TreeDesignNameEnglishEnum } from '@assets';
 import {
   DesignTypeEnum,
   FamilyTreeFontEnum,
@@ -17,6 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { FamilyTreeIntroModalComponent } from '../../shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
+import { FamilyTreeTemplateModalComponent } from '../../shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
 import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { AuthService } from '../../shared/services/authentication/auth.service';
@@ -44,9 +45,9 @@ export class ProductComponent implements OnInit {
   font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
   fontOptions = [];
   backgroundTreeDesign = TreeDesignEnum.tree1;
-  boxSize = 40;
-  maxSize = 40;
-  minSize = 15;
+  boxSize = 70;
+  maxSize = 70;
+  minSize = 10;
   boxSizeOptions = {
     floor: this.minSize,
     ceil: this.maxSize,
@@ -94,6 +95,14 @@ export class ProductComponent implements OnInit {
     });
     this.showOptionBoxButtons = true;
     this.getFontList();
+
+    setTimeout(() => {
+      const firstVisit = this.localStorageService.getItem<boolean>(LocalStorageVars.firstVisit).value;
+      if (firstVisit === null) {
+        this.openTemplateModal();
+        this.localStorageService.setItem<boolean>(LocalStorageVars.firstVisit, true);
+      }
+    }, 500);
   }
 
   isEnglish(): boolean {
@@ -102,6 +111,10 @@ export class ProductComponent implements OnInit {
 
   openIntroModal() {
     this.modalService.open(FamilyTreeIntroModalComponent);
+  }
+
+  openTemplateModal() {
+    this.modalService.open(FamilyTreeTemplateModalComponent);
   }
 
   getFontList() {
@@ -129,6 +142,7 @@ export class ProductComponent implements OnInit {
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       // apply the design
       if (this.design !== null && this.design !== undefined) {
+        this.backgroundTreeDesign = this.design.backgroundTreeDesign;
         this.font = this.design.font;
         this.banner = this.design.banner;
         this.boxSize = this.design.boxSize;
@@ -136,8 +150,8 @@ export class ProductComponent implements OnInit {
         // set the defaults
         this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
         this.backgroundTreeDesign = TreeDesignEnum.tree1;
-        this.boxSize = 40;
-        this.maxSize = 40;
+        this.boxSize = 20;
+        this.maxSize = 70;
         this.minSize = 10;
         this.banner = { text: 'Familietræet', style: 'first' };
       }
@@ -187,9 +201,7 @@ export class ProductComponent implements OnInit {
           this.boxSize = this.design.boxSize;
           this.isMutable = result.mutable;
           this.cdr.detectChanges();
-          if (this.isMutable) {
-            this.designCanvas.loadDesign();
-          }
+          this.designCanvas.loadDesign();
         }
       },
       (err: HttpErrorResponse) => {
@@ -315,14 +327,32 @@ export class ProductComponent implements OnInit {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }
 
-  getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameEnum {
+  getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameDanishEnum | TreeDesignNameEnglishEnum {
     switch (treeDesign) {
       case TreeDesignEnum.tree1:
-        return TreeDesignNameEnum.tree1;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree1;
+        } else {
+          return TreeDesignNameEnglishEnum.tree1;
+        }
       case TreeDesignEnum.tree2:
-        return TreeDesignNameEnum.tree2;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree2;
+        } else {
+          return TreeDesignNameEnglishEnum.tree2;
+        }
       case TreeDesignEnum.tree3:
-        return TreeDesignNameEnum.tree3;
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree3;
+        } else {
+          return TreeDesignNameEnglishEnum.tree3;
+        }
+      case TreeDesignEnum.tree4:
+        if (this.locale$.getValue() === LocaleType.dk) {
+          return TreeDesignNameDanishEnum.tree4;
+        } else {
+          return TreeDesignNameEnglishEnum.tree4;
+        }
     }
   }
 

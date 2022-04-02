@@ -913,7 +913,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home-04-title" datatype="html">
@@ -1058,21 +1058,28 @@
         <source>Box Size</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="save" datatype="html">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">220</context>
+          <context context-type="linenumber">180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="use-template" datatype="html">
+        <source>Use template</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
+          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add" datatype="html">
         <source>Add</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">229</context>
+          <context context-type="linenumber">202</context>
         </context-group>
       </trans-unit>
       <trans-unit id="product" datatype="html">
@@ -1390,6 +1397,10 @@
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">122,124</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="note" datatype="html">
         <source>Note:</source>
@@ -1486,6 +1497,34 @@
           <context context-type="linenumber">32,34</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="select-a-template" datatype="html">
+        <source>Select a template</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="select" datatype="html">
+        <source> Select </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="show-more" datatype="html">
+        <source>Show more +</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="show-less" datatype="html">
+        <source>Show less -</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="forgotten-password" datatype="html">
         <source>Forgotten password</source>
         <context-group purpose="location">
@@ -1546,14 +1585,14 @@
         <source>Get 20% Off!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="20-procent-discount-text" datatype="html">
-        <source>When you subscribe to our newsletter we send you an email with a discount code giving you 20% your first purchase.</source>
+        <source> When you subscribe to our newsletter we send you an email with a discount code giving you 20% your first purchase. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">12,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="engelsk" datatype="html">
