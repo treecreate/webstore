@@ -1,10 +1,30 @@
 <div class="product-container">
     <img [src]="product.imgSrc" [alt]="'image of the ' + product.title + ' product.'" class="product-img" />
-    <div class="product-info">
-        <div class="title">{{ product.title }}</div>
-        <div class="description">
-            <span class="sub-title">description</span> <br />
-            <span>{{ isEnglish ? product.descriptionEn : product.descriptionDk }}</span>
+    <div class="product-info-container">
+        <div class="product-info">
+            <div class="title">{{ product.title }}</div>
+
+            <div class="text-field first">
+                <span class="sub-title">Description</span> <br />
+                <span>{{ isEnglish ? product.descriptionEn : product.descriptionDk }}</span>
+            </div>
+
+            <div class="text-field">
+                {{ product.specialOffer }}
+            </div>
+
+            <div class="variants text-field">
+                <span *ngIf="product.prices.length > 0">{{ product.prices.length }} <span> variants </span></span>
+                <span *ngIf="product.prices.length === 0">Custom</span>
+            </div>
+
+            <div class="text-field">
+                <span *ngIf="product.prices.length > 0"
+                    ><span class="sub-title">Price for 1 </span> <br />
+                    <span> From </span> {{ product.prices[0] }} DKK</span
+                >
+            </div>
         </div>
+        <button class="tc-button-50 text-field">Buy Now</button>
     </div>
 </div>
