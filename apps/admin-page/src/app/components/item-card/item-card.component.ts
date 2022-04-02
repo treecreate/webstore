@@ -1,4 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
+import { ItemInfo } from '@interfaces';
 
 @Component({
   selector: 'webstore-item-card',
@@ -19,14 +20,5 @@ export class ItemCardComponent {
   header!: TemplateRef<unknown>;
 
   @Input()
-  amount?: number;
-
-  @Input()
-  amountDescription?: string;
-
-  @Input()
-  secondAmount?: number;
-
-  @Input()
-  secondDescription?: string;
+  amountInfo!: ItemInfo[];
 }

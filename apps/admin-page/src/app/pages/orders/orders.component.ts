@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IOrder, OrderStatusEnum } from '@interfaces';
+import { IOrder, OrderStatusEnum, ItemInfo } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
 import { Sort } from '@angular/material/sort';
 
@@ -33,6 +33,13 @@ export class OrdersComponent implements OnInit {
   ];
   orders!: IOrder[];
   pendingOrders: number = 0;
+
+  ordersTopInfo: ItemInfo[] = [
+    {
+      description: 'Pending',
+      amount: this.pendingOrders,
+    },
+  ];
 
   constructor(public ordersService: OrdersService) {}
 
@@ -87,6 +94,17 @@ export class OrdersComponent implements OnInit {
             order.status === OrderStatusEnum.new ||
             order.status === OrderStatusEnum.initial
         ).length;
+        this.ordersTopInfo = [
+          {
+            description: 'Pending',
+            amount: this.pendingOrders,
+            color: 'green',
+          },
+          {
+            description: 'Total Orders',
+            amount: orders.length,
+          },
+        ];
       },
     });
   }

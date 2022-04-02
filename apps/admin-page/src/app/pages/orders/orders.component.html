@@ -1,10 +1,7 @@
 <webstore-item-card
     title="Orders"
     [content]="content"
-    [amount]="pendingOrders"
-    [secondAmount]="orders.length"
-    [amountDescription]="'Pending'"
-    [secondDescription]="'Total Orders'"
+    [amountInfo]="ordersTopInfo"
     [isLoading]="isLoading"
     data-cy="orders-card"
 >

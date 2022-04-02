@@ -1,9 +1,10 @@
 <mat-card data-cy="card">
     <mat-card-title data-cy="card-title">
         <span>{{ title }}</span>
-        <div class="info-section">
-            <span class="amount">{{ secondDescription + '(' + secondAmount + ')' }}</span>
-            <span class="amount">{{ amountDescription + '(' + amount + ')' }}</span>
+        <div class="info-section" *ngIf="amountInfo.length > 0">
+            <span class="amount" *ngFor="let info of amountInfo" [ngStyle]="{ color: info.color }">{{
+                info.description + '(' + info.amount + ')'
+            }}</span>
         </div>
 
         <ng-container *ngTemplateOutlet="header"></ng-container>
