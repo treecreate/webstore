@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
 }
+
 .catalog-page-container {
   display: flex;
   justify-content: center;
@@ -21,4 +22,16 @@
 
 .product-listing-container {
   width: 100%;
+}
+
+@media (max-width: 650px) {
+  .catalog-page-container {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 450px) {
+  .catalog-page-container {
+    width: 90vw;
+  }
 }
