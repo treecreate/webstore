@@ -32,7 +32,7 @@ export class OrdersComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
   orders!: IOrder[];
-  totalAmount: number = 0;
+  pendingOrders: number = 0;
 
   constructor(public ordersService: OrdersService) {}
 
@@ -81,7 +81,12 @@ export class OrdersComponent implements OnInit {
       next: (orders: IOrder[]) => {
         this.isLoading = false;
         this.orders = orders;
-        this.totalAmount = orders.filter((order) => order.status === OrderStatusEnum.pending).length;
+        this.pendingOrders = orders.filter(
+          (order) =>
+            order.status === OrderStatusEnum.pending ||
+            order.status === OrderStatusEnum.new ||
+            order.status === OrderStatusEnum.initial
+        ).length;
       },
     });
   }
