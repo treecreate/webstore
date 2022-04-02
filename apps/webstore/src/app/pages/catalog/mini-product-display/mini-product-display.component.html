@@ -1,6 +1,6 @@
 <div class="mini-product-container" [routerLink]="product.routerLink">
-    <img [src]="product.imgSrc" [alt]="'image of the ' + product.title + ' product.'" class="product-img" />
+    <img [src]="product.imgSrc" [alt]="'image of the ' + product.titleEn + ' product.'" class="product-img" />
     <div class="title">
-        {{ product.title }}
+        {{ isEnglish ? product.titleEn : product.titleDk }}
     </div>
 </div>

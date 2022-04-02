@@ -1,5 +1,5 @@
 .mini-product-container {
-  width: 150px;
+  width: 175px;
   background-color: white;
   margin: 0.75em;
   box-shadow: 0px 1px 18px -2px rgb(0 0 0 / 15%);
@@ -15,4 +15,15 @@
   text-align: center;
   width: 100%;
   margin-top: 0.35em;
+  font-weight: 900;
+  font-size: 1.15em;
+}
+
+@media (max-width: 500px) {
+  .mini-product-container {
+    width: 150px;
+  }
+  .title {
+    font-size: 1em;
+  }
 }

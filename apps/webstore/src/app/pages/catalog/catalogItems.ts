@@ -1,5 +1,6 @@
 export interface CatalogItem {
-  title: string;
+  titleEn: string;
+  titleDk: string;
   descriptionEn: string;
   descriptionDk: string;
   prices: number[];
@@ -9,7 +10,8 @@ export interface CatalogItem {
 }
 
 const familyTree: CatalogItem = {
-  title: 'Family Tree',
+  titleEn: 'Family Tree',
+  titleDk: 'Familietræ',
   descriptionEn: 'Create your own family tree by adding the names of your family.',
   descriptionDk: 'Lav dit eget stamtræ ved at skrive din families navne ind.',
   prices: [499, 699, 999],
@@ -19,7 +21,8 @@ const familyTree: CatalogItem = {
 };
 
 const quotable: CatalogItem = {
-  title: 'Quotable',
+  titleEn: 'Quote frame',
+  titleDk: 'Citatramme',
   descriptionEn: 'Select a frame and write a quote to someone you care about.',
   descriptionDk: 'Vælg en ramme og skriv et citat til den du holder af.',
   prices: [349, 499, 699],
@@ -29,7 +32,8 @@ const quotable: CatalogItem = {
 };
 
 const unique: CatalogItem = {
-  title: 'Special order',
+  titleEn: 'Custom order',
+  titleDk: 'Special bestilling',
   descriptionEn:
     'Send an image or describe what you want. We will see what we can create for you and give you a price.',
   descriptionDk: 'Send et billede og bescrib hvad du vil have. We ser hvad vi kan gøre for dig og giver dig en pris.',

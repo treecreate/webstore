@@ -1,8 +1,8 @@
 <div class="product-container">
-    <img [src]="product.imgSrc" [alt]="'image of the ' + product.title + ' product.'" class="product-img" />
+    <img [src]="product.imgSrc" [alt]="'image of the ' + product.titleEn + ' product.'" class="product-img" />
     <div class="product-info-container">
         <div class="product-info">
-            <div class="title">{{ product.title }}</div>
+            <div class="title">{{ isEnglish ? product.titleEn : product.titleDk }}</div>
 
             <div class="text-field first">
                 <span class="sub-title">Description</span> <br />
