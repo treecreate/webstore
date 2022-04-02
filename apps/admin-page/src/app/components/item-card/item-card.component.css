@@ -42,15 +42,15 @@ mat-card mat-card-content {
   padding-right: 0 !important;
 }
 
-.amount{
-/* position: absolute; */
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 16px;
-display: flex;
-align-items: center;
+.amount {
+  /* position: absolute; */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
 
-color: #000000;;  
+  color: #000000;
 }

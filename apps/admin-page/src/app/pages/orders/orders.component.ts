@@ -128,35 +128,6 @@ export class OrdersComponent implements OnInit {
   }
 
   /**
-   * Gets the Label color of the Order Status based on the status.
-   *
-   * @param orderStatus the status of the order.
-   * @returns the color of the label.
-   */
-  getOrderStatusColor(orderStatus: OrderStatusEnum): LabelColorsEnum {
-    switch (orderStatus) {
-      case OrderStatusEnum.initial:
-        return LabelColorsEnum.blue;
-      case OrderStatusEnum.pending:
-        return LabelColorsEnum.emp_color;
-      case OrderStatusEnum.new:
-        return LabelColorsEnum.red;
-      case OrderStatusEnum.rejected:
-        return LabelColorsEnum.grey;
-      case OrderStatusEnum.processed:
-        return LabelColorsEnum.red;
-      case OrderStatusEnum.assembling:
-        return LabelColorsEnum.yellow;
-      case OrderStatusEnum.shipped:
-        return LabelColorsEnum.turquoise;
-      case OrderStatusEnum.delivered:
-        return LabelColorsEnum.green;
-      default:
-        return LabelColorsEnum.lightGrey;
-    }
-  }
-
-  /**
    * Sorts the data of the table.
    *
    * @param sort

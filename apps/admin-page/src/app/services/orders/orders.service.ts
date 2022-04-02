@@ -90,17 +90,17 @@ export class OrdersService {
       case OrderStatusEnum.initial:
         return LabelColorsEnum.blue;
       case OrderStatusEnum.pending:
-        return LabelColorsEnum.turquoise;
+        return LabelColorsEnum.blue;
       case OrderStatusEnum.new:
-        return LabelColorsEnum.red;
+        return LabelColorsEnum.blue;
       case OrderStatusEnum.rejected:
         return LabelColorsEnum.grey;
       case OrderStatusEnum.processed:
-        return LabelColorsEnum.red;
+        return LabelColorsEnum.grey;
       case OrderStatusEnum.assembling:
         return LabelColorsEnum.yellow;
       case OrderStatusEnum.shipped:
-        return LabelColorsEnum.purple;
+        return LabelColorsEnum.yellow;
       case OrderStatusEnum.delivered:
         return LabelColorsEnum.green;
       default:
@@ -117,5 +117,5 @@ export enum LabelColorsEnum {
   grey = '#ABABAB',
   lightGrey = '#F1F1F1',
   turquoise = '#00DFED',
-  purple = '#6D7CFF'
+  purple = '#6D7CFF',
 }
