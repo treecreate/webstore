@@ -1,6 +1,10 @@
 <div class="product-container">
     <img [src]="product.imgSrc" [alt]="'image of the ' + product.title + ' product.'" class="product-img" />
     <div class="product-info">
-        {{ product.title }}
+        <div class="title">{{ product.title }}</div>
+        <div class="description">
+            <span class="sub-title">description</span> <br />
+            <span>{{ isEnglish() ? product.descriptionEn : product.descriptionDk }}</span>
+        </div>
     </div>
 </div>
