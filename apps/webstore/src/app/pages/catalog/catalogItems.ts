@@ -13,7 +13,7 @@ const familyTree: CatalogItem = {
   descriptionEn: 'skrt skrt',
   descriptionDk: 'lol lol lol',
   prices: [499, 699, 999],
-  imgSrc: '',
+  imgSrc: '/assets/img/description2.jpg',
   specialOffer: '30% off when purchasing 2',
   routerLink: '/familytree',
 };
@@ -23,7 +23,7 @@ const quotable: CatalogItem = {
   descriptionEn: 'skrt skrt',
   descriptionDk: 'lol lol lol',
   prices: [349, 499, 699],
-  imgSrc: '',
+  imgSrc: '/assets/img/description2.jpg',
   specialOffer: '30% off when purchasing 2',
   routerLink: '/quotable',
 };
@@ -33,7 +33,7 @@ const unique: CatalogItem = {
   descriptionEn: 'skrt skrt',
   descriptionDk: 'lol lol lol',
   prices: [],
-  imgSrc: '',
+  imgSrc: '/assets/img/description2.jpg',
   specialOffer: 'Lets see what we can do for you',
   routerLink: '/unique',
 };

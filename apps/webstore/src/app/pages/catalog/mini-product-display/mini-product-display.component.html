@@ -1,3 +1,6 @@
 <div class="mini-product-container">
-    {{ product.title }}
+    <img [src]="product.imgSrc" [alt]="'image of the ' + product.title + ' product.'" class="product-img" />
+    <div class="title">
+        {{ product.title }}
+    </div>
 </div>
