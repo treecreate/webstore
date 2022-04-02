@@ -4,10 +4,15 @@
             <webstore-mini-product-display
                 *ngFor="let item of catalogList"
                 [product]="item"
+                [isEnglish]="isEnglish()"
             ></webstore-mini-product-display>
         </div>
         <div class="product-listing-container">
-            <webstore-product-display *ngFor="let item of catalogList" [product]="item"></webstore-product-display>
+            <webstore-product-display
+                *ngFor="let item of catalogList"
+                [product]="item"
+                [isEnglish]="isEnglish()"
+            ></webstore-product-display>
         </div>
     </div>
 </div>

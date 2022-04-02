@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LocalStorageService } from '@local-storage';
-import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Input } from '@angular/core';
 import { CatalogItem } from '../catalogItems';
 
 @Component({
@@ -13,15 +10,8 @@ export class ProductDisplayComponent {
   @Input()
   product!: CatalogItem;
 
-  locale$: BehaviorSubject<LocaleType>;
-  localeCode: LocaleType;
+  @Input()
+  isEnglish: boolean = false;
 
-  constructor(private localStorage: LocalStorageService) {
-    this.locale$ = this.localStorage.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-  }
-
-  isEnglish(): boolean {
-    return this.localeCode === 'en-US';
-  }
+  constructor() {}
 }

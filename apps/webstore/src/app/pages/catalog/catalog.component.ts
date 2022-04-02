@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CatalogItem } from './catalogItems';
 import catalogItems from './catalogItems';
+import { LocalStorageService } from '@local-storage';
+import { LocaleType, LocalStorageVars } from '@models';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'webstore-catalog',
@@ -10,5 +13,15 @@ import catalogItems from './catalogItems';
 export class CatalogComponent {
   catalogList: CatalogItem[] = catalogItems;
 
-  constructor() {}
+  locale$: BehaviorSubject<LocaleType>;
+  localeCode: LocaleType;
+
+  constructor(private localStorage: LocalStorageService) {
+    this.locale$ = this.localStorage.getItem<LocaleType>(LocalStorageVars.locale);
+    this.localeCode = this.locale$.getValue();
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
 }

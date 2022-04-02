@@ -10,8 +10,8 @@ export interface CatalogItem {
 
 const familyTree: CatalogItem = {
   title: 'Family Tree',
-  descriptionEn: 'skrt skrt',
-  descriptionDk: 'lol lol lol',
+  descriptionEn: 'english description',
+  descriptionDk: 'danish description',
   prices: [499, 699, 999],
   imgSrc: '/assets/img/product-display-img/family-tree.jpg',
   specialOffer: '30% off when purchasing 2',
@@ -20,8 +20,8 @@ const familyTree: CatalogItem = {
 
 const quotable: CatalogItem = {
   title: 'Quotable',
-  descriptionEn: 'skrt skrt',
-  descriptionDk: 'lol lol lol',
+  descriptionEn: 'english description',
+  descriptionDk: 'danish description',
   prices: [349, 499, 699],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: '30% off when purchasing 2',
@@ -30,8 +30,8 @@ const quotable: CatalogItem = {
 
 const unique: CatalogItem = {
   title: 'Special order',
-  descriptionEn: 'skrt skrt',
-  descriptionDk: 'lol lol lol',
+  descriptionEn: 'english description',
+  descriptionDk: 'danish description',
   prices: [],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: 'Lets see what we can do for you',
