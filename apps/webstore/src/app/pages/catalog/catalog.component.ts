@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CatalogItem } from './catalogItems';
+import catalogItems from './catalogItems';
 
 @Component({
   selector: 'webstore-catalog',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./catalog.component.scss'],
 })
 export class CatalogComponent {
+  catalogList: CatalogItem[] = catalogItems;
+
   constructor() {}
 }

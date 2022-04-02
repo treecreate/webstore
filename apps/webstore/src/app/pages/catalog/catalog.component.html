@@ -1,22 +1,11 @@
-<!-- <div class="temp-styling-box-wrapper">
-    <section id="centered-div">
-        <h1>Products works!</h1>
-        <h2>Here be the products</h2>
-        <br /><br />
-        <a routerLink="family-tree" class="stupid-link">Family Tree</a>
-        <a routerLink="quotable" class="stupid-link">Quototuabale</a>
-    </section>
-</div> -->
-
 <div class="catalog-page-container">
     <div class="mini-product-display-container">
-        <webstore-mini-product-display></webstore-mini-product-display>
-        <webstore-mini-product-display></webstore-mini-product-display>
-        <webstore-mini-product-display></webstore-mini-product-display>
+        <webstore-mini-product-display
+            *ngFor="let item of catalogList"
+            [product]="item"
+        ></webstore-mini-product-display>
     </div>
     <div class="product-listing-container">
-        <webstore-product-display></webstore-product-display>
-        <webstore-product-display></webstore-product-display>
-        <webstore-product-display></webstore-product-display>
+        <webstore-product-display *ngFor="let item of catalogList" [product]="item"></webstore-product-display>
     </div>
 </div>
