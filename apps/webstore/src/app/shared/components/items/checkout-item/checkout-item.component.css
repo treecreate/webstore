@@ -13,7 +13,8 @@
 }
 
 .item-image {
-  max-width: 150px;
+  width: 150px;
+  height: 150px;
   margin-bottom: 10px;
 }
 
@@ -34,5 +35,10 @@
 @media screen and (max-width: 450px) {
   .item-info {
     margin-left: 0;
+  }
+  .item-image {
+    width: 83vw;
+    height: 83vw;
+    margin-bottom: 10px;
   }
 }

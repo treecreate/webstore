@@ -4,10 +4,10 @@ import { CalculatePriceService } from '../../../services/calculate-price/calcula
 
 @Component({
   selector: 'webstore-checkout-item',
-  templateUrl: './family-tree-checkout-item.component.html',
-  styleUrls: ['./family-tree-checkout-item.component.css'],
+  templateUrl: './checkout-item.component.html',
+  styleUrls: ['./checkout-item.component.css'],
 })
-export class FamilyTreeCheckoutItemComponent implements OnInit {
+export class CheckoutItemComponent implements OnInit {
   @Input() item: ITransactionItem;
 
   itemPrice: number;
