@@ -95,6 +95,27 @@
                 </div>
             </div>
 
+            <!-- ====== Font size change ====== -->
+            <div class="option option-font-size">
+                <div class="option-title">
+                    <span i18n="@@font-size">Font Size</span>
+                    <webstore-info-popover
+                        title="{{ isEnglish() ? 'Font size' : 'Font størrelse' }}"
+                        text="{{
+                            isEnglish()
+                                ? 'You can increase or decrease the size of the font. Make them larger for better visibility of your design.'
+                                : 'Du kan gøre fonten større og mindre. Gør dem større for et mere tydeligt print.'
+                        }}"
+                    ></webstore-info-popover>
+                    <ngx-slider
+                        (userChange)="changeFontSize()"
+                        [(value)]="design.fontSize"
+                        [options]="fontSizeOptions"
+                        data-cy="font-size-slider"
+                    ></ngx-slider>
+                </div>
+            </div>
+
             <!-- ====== Save and reset buttons ====== -->
             <div class="option option-actions">
                 <button

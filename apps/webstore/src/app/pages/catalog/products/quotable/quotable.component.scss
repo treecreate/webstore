@@ -60,14 +60,13 @@
   justify-content: space-between;
 }
 
-.option-icon,
-.toggle-box-options-icon {
+.option-icon {
   width: 20px;
   height: 20px;
   margin-bottom: 3px;
 }
 
-.option-box-size {
+.option-font-size {
   align-items: center;
   display: block;
 }
@@ -161,7 +160,6 @@
 
 /* option toggle button */
 .option-toggler,
-.toggle-box-options,
 .intro-modal-option {
   background-color: var(--second-action-color);
   transition: 0.5s;

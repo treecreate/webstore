@@ -1,6 +1,9 @@
+import { QuotableDesignEnum } from '@assets';
 import { DesignFontEnum } from '..';
 
 export interface IQoutable {
   font: DesignFontEnum;
-  text: string;
+  fontSize: number;
+  designSrc: string;
+  text?: string;
 }

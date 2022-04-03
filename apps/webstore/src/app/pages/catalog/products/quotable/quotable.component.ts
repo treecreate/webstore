@@ -1,15 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  BoxOptionsDesignEnum,
-  QuotableDesignEnum,
-  QuotableDesignNameDanishEnum,
-  QuotableDesignNameEnglishEnum,
-  QuotableFrameInfo,
-  quotableFrames,
-  TreeDesignEnum,
-} from '@assets';
+import { BoxOptionsDesignEnum, QuotableDesignEnum, quotableFrames, TreeDesignEnum } from '@assets';
 import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IQoutable, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -40,18 +32,13 @@ export class QuotableComponent implements OnInit {
   displayFont = this.defaultFont;
   fontOptions = [];
   defaultBackgroundTreeDesign = TreeDesignEnum.tree1;
-  boxSize = 70;
-  maxSize = 70;
-  minSize = 10;
-  boxSizeOptions = {
-    floor: this.minSize,
-    ceil: this.maxSize,
-  };
-  design: IQoutable = {
-    font: this.defaultFont,
-    text: 'Lorem Ipsum',
+  fontSize = 40;
+  fontSizeOptions = {
+    floor: 70,
+    ceil: 10,
   };
   currentDesign: number = 1;
+  design: IQoutable;
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -83,27 +70,50 @@ export class QuotableComponent implements OnInit {
   }
 
   ngOnInit() {
-    // The subscription will get triggered right away, loading the design
-    this.route.queryParams.subscribe(() => {
-      this.loadDesign();
-    });
     this.getFontList();
-    this.getDesignName();
+    this.loadDesign();
   }
 
   isEnglish(): boolean {
     return this.localeCode === 'en-US';
   }
 
-  getFontList() {
+  getFontList(): void {
     Object.entries(DesignFontEnum).forEach(([key, value]) => {
       this.fontOptions.push({ key, value });
     });
   }
 
-  changeFont(font: { key: string; value: string }) {
+  changeFont(font: { key: string; value: string }): void {
     this.design.font = DesignFontEnum[font.key];
     this.displayFont = font.value;
+  }
+
+  changeFontSize(): void {
+    console.log(this.design.fontSize);
+  }
+
+  getDesignName(): string {
+    return this.isEnglish() ? quotableFrames[this.currentDesign].nameEn : quotableFrames[this.currentDesign].nameDk;
+  }
+
+  changeDesign(direction: string): void {
+    switch (direction) {
+      case 'next':
+        if (this.currentDesign < 12) {
+          this.currentDesign = this.currentDesign + 1;
+        } else {
+          this.currentDesign = 0;
+        }
+        break;
+      case 'prev':
+        if (this.currentDesign > 0) {
+          this.currentDesign = this.currentDesign - 1;
+        } else {
+          this.currentDesign = 12;
+        }
+    }
+    this.design.designSrc = quotableFrames[this.currentDesign].src;
   }
 
   loadDesign() {
@@ -123,7 +133,9 @@ export class QuotableComponent implements OnInit {
         // set the defaults
         this.design = {
           font: this.defaultFont,
-          text: 'load Design Ipsum',
+          fontSize: this.fontSize,
+          designSrc: quotableFrames[this.currentDesign].src,
+          text: 'Lorem Ipsum',
         };
       }
       this.isMutable = true;
@@ -273,28 +285,6 @@ export class QuotableComponent implements OnInit {
         queryParams: { designId: null },
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
-    }
-  }
-
-  getDesignName(): string {
-    return this.isEnglish() ? quotableFrames[this.currentDesign].nameEn : quotableFrames[this.currentDesign].nameDk;
-  }
-
-  changeDesign(direction: string): void {
-    switch (direction) {
-      case 'next':
-        if (this.currentDesign < 12) {
-          this.currentDesign = this.currentDesign + 1;
-        } else {
-          this.currentDesign = 0;
-        }
-        break;
-      case 'prev':
-        if (this.currentDesign > 0) {
-          this.currentDesign = this.currentDesign - 1;
-        } else {
-          this.currentDesign = 12;
-        }
     }
   }
 
