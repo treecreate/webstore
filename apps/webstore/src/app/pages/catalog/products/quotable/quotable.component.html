@@ -1,4 +1,3 @@
-<!-- =============== Code below is copied straight from Family tree page code ==================== -->
 <section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
     <div class="back-container" *ngIf="!isMutable">
         <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
@@ -17,11 +16,7 @@
     </div>
 
     <!-- Options -->
-    <div
-        [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'"
-        *ngIf="isMutable"
-        data-cy="product-options"
-    >
+    <div [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'" *ngIf="isMutable">
         <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <!-- ====== Font selection ====== -->
@@ -37,14 +32,9 @@
                         }}"
                     ></webstore-info-popover>
                 </div>
-                <div class="option-tree-design-btn">
+                <div class="option-frame-design-btn">
                     <div ngbDropdown class="font-dropdown-container">
-                        <button
-                            class="btn"
-                            ngbDropdownToggle
-                            [ngStyle]="{ 'font-family': displayFont }"
-                            data-cy="font-select-option"
-                        >
+                        <button class="btn" ngbDropdownToggle [ngStyle]="{ 'font-family': displayFont }">
                             {{ displayFont }}
                         </button>
                         <div ngbDropdownMenu>
@@ -53,7 +43,6 @@
                                 ngbDropdownItem
                                 *ngFor="let font of fontOptions"
                                 [ngStyle]="{ 'font-family': font.value }"
-                                data-cy="font.value"
                             >
                                 {{ font.key }}
                             </button>
@@ -63,7 +52,7 @@
             </div>
 
             <!-- ====== Design selection option ====== -->
-            <div class="option option-tree-design">
+            <div class="option option-frame-design">
                 <div class="option-title">
                     Design
                     <webstore-info-popover
@@ -73,12 +62,8 @@
                         }}"
                     ></webstore-info-popover>
                 </div>
-                <div class="option-tree-design-btn">
-                    <button
-                        class="design-arrow-left tc-button-sm-square"
-                        data-cy="design-arrow-left"
-                        (click)="changeDesign('prev')"
-                    >
+                <div class="option-frame-design-btn">
+                    <button class="design-arrow-left tc-button-sm-square" (click)="changeDesign('prev')">
                         <span class="arrow-left"></span>
                     </button>
                     <div class="display display-design">
@@ -86,7 +71,6 @@
                     </div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
-                        data-cy="design-arrow-right"
                         (click)="changeDesign('next')"
                         [disabled]="!isMutable"
                     >
@@ -107,11 +91,7 @@
                                 : 'Du kan gøre fonten større og mindre. Gør dem større for et mere tydeligt print.'
                         }}"
                     ></webstore-info-popover>
-                    <ngx-slider
-                        [(value)]="design.fontSize"
-                        [options]="fontSizeOptions"
-                        data-cy="font-size-slider"
-                    ></ngx-slider>
+                    <ngx-slider [(value)]="design.fontSize" [options]="fontSizeOptions"></ngx-slider>
                 </div>
             </div>
 
@@ -121,7 +101,6 @@
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign({ persists: true })"
                     [disabled]="!isDesignValid"
-                    data-cy="save-family-tree-button"
                 >
                     <span i18n="@@save">Save</span>
                     <img src="/assets/icons/save-icon.svg" class="option-icon" />
@@ -137,7 +116,6 @@
                 <button
                     class="btn-add-to-cart tc-button-100 green"
                     (click)="openAddToBasketModal()"
-                    data-cy="add-family-tree-to-basket-button"
                     [disabled]="!isDesignValid"
                 >
                     <span i18n="@@add">Add</span>
@@ -150,13 +128,7 @@
 <!-- Floating icons -->
 <div class="mobile-option-buttons-container">
     <div class="mobile-options">
-        <button
-            class="option-toggler"
-            data-cy="mobile-options-toggler"
-            type="button"
-            (click)="showOptions()"
-            *ngIf="isMutable"
-        >
+        <button class="option-toggler" type="button" (click)="showOptions()" *ngIf="isMutable">
             <img class="toggle-box-options-icon" alt="option" src="/assets/icons/pen-icon.svg" />
         </button>
     </div>

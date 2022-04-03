@@ -16,7 +16,11 @@ import { DesignService } from '../../../../shared/services/design/design.service
 @Component({
   selector: 'webstore-quotable',
   templateUrl: './quotable.component.html',
-  styleUrls: ['./quotable.component.scss', '../../../../../assets/styles/tc-input-field.scss'],
+  styleUrls: [
+    './quotable.component.scss',
+    './quotable.component.mobile.scss',
+    '../../../../../assets/styles/tc-input-field.scss',
+  ],
 })
 export class QuotableComponent implements OnInit {
   @ViewChild('quotableDesign', { static: false })
