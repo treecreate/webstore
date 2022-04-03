@@ -8,6 +8,7 @@
             autocomplete="off"
             [ngModel]="design.text"
             (ngModelChange)="updateText($event)"
+            [disabled]="!isMutable"
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="25"

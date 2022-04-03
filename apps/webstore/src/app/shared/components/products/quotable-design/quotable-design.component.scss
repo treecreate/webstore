@@ -11,7 +11,6 @@
   position: relative;
   height: 94%;
   width: 100%;
-  border: 1px solid black;
 }
 
 .above-canvas {
@@ -39,4 +38,13 @@
   top: 0;
   height: 100%;
   width: 100%;
+}
+
+#textField:disabled {
+  opacity: 1;
+  color: black;
+}
+
+#textField:disabled:hover {
+  box-shadow: none;
 }
