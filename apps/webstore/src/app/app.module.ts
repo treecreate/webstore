@@ -51,6 +51,7 @@ import { QuotableComponent } from './pages/catalog/products/quotable/quotable.co
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
 import { MiniProductDisplayComponent } from './pages/catalog/mini-product-display/mini-product-display.component';
 import { ProductDisplayComponent } from './pages/catalog/product-display/product-display.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { ProductDisplayComponent } from './pages/catalog/product-display/product
     ReactiveFormsModule,
     HttpClientModule,
     NgxSliderModule,
+    TextFieldModule,
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],

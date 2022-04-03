@@ -16,10 +16,19 @@
 
 .above-canvas {
   position: absolute;
-  left: 50%;
-  right: 50%;
-  top: 50%;
-  bottom: 50%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#textField {
+  width: 80%;
+  background: none;
+  border: none;
+  text-align: center;
+  text-decoration: none !important;
 }
 
 #backgroundImage {

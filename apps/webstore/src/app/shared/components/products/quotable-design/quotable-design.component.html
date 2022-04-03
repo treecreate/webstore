@@ -1,4 +1,15 @@
 <div class="design-wrapper" #designWrapper>
-    <div class="above-canvas">skrt</div>
+    <div class="above-canvas">
+        <textarea
+            matInput
+            id="textField"
+            cdkTextareaAutosize
+            [ngStyle]="{ 'font-size': design.fontSize + 'px' }"
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="25"
+            spellcheck="false"
+        ></textarea>
+    </div>
     <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" />
 </div>
