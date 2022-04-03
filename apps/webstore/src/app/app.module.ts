@@ -26,7 +26,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
 import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
-import { FamilyTreeCollectionItemComponent } from './shared/components/items/family-tree-collection-item/family-tree-collection-item.component';
+import { CollectionItemComponent } from './shared/components/items/collection-item/collection-item.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
 import { StoretItemComponent } from './shared/components/items/store-item/store-item.component';
 import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
@@ -73,7 +73,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
-    FamilyTreeCollectionItemComponent,
+    CollectionItemComponent,
     InfoPopoverComponent,
     PaymentSuccessComponent,
     AddToBasketModalComponent,

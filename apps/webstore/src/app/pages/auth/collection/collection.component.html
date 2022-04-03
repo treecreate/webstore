@@ -5,11 +5,11 @@
         </div>
         <div>
             <div class="collection-content" *ngIf="1 <= designCollection.length">
-                <webstore-family-tree-collection-item
+                <webstore-collection-item
                     *ngFor="let design of designCollection"
                     [design]="design"
                     (deleteEvent)="removeItemFromList($event)"
-                ></webstore-family-tree-collection-item>
+                ></webstore-collection-item>
                 <div class="full-width">
                     <hr class="match-button" />
                     <div class="match-section">
