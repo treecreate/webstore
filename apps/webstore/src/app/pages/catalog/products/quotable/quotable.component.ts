@@ -34,8 +34,8 @@ export class QuotableComponent implements OnInit {
   defaultBackgroundTreeDesign = TreeDesignEnum.tree1;
   fontSize = 40;
   fontSizeOptions = {
-    floor: 70,
-    ceil: 10,
+    floor: 10,
+    ceil: 70,
   };
   currentDesign: number = 1;
   design: IQoutable;
@@ -87,10 +87,6 @@ export class QuotableComponent implements OnInit {
   changeFont(font: { key: string; value: string }): void {
     this.design.font = DesignFontEnum[font.key];
     this.displayFont = font.value;
-  }
-
-  changeFontSize(): void {
-    console.log(this.design.fontSize);
   }
 
   getDesignName(): string {
