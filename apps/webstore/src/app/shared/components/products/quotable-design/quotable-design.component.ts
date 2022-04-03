@@ -17,7 +17,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy {
   design: IQoutable = {
     text: 'design temp text',
     font: DesignFontEnum.roboto,
-    fontSize: 16,
+    fontSize: 40,
     designSrc: QuotableDesignEnum.frame1,
   };
 
