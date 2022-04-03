@@ -1,14 +1,8 @@
 :host {
-  color: #00c2db;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100%;
   width: 100%;
-}
-
-/* I exist to move things above the middle of the screen so they are readable */
-#spacer {
-  height: 30vh;
 }

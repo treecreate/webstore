@@ -16,7 +16,7 @@ import { DesignService } from '../../../../shared/services/design/design.service
 @Component({
   selector: 'webstore-quotable',
   templateUrl: './quotable.component.html',
-  styleUrls: ['./quotable.component.scss', '../../../../assets/styles/tc-input-field.scss'],
+  styleUrls: ['./quotable.component.scss', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class QuotableComponent implements OnInit {
   @ViewChild('quotableDesign', { static: false })
@@ -43,7 +43,6 @@ export class QuotableComponent implements OnInit {
     font: this.defaultFont,
     text: 'Lorem Ipsum',
   };
-  isIphone = false;
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -72,8 +71,6 @@ export class QuotableComponent implements OnInit {
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
-
-    this.isIphone = this.iOS();
   }
 
   ngOnInit() {
@@ -269,6 +266,10 @@ export class QuotableComponent implements OnInit {
     }
   }
 
+  getDesignName(): string {
+    return '';
+  }
+
   @HostListener('window:resize')
   closeOptionsOnScreenResize() {
     if (window.innerWidth > 1130) {
@@ -291,11 +292,5 @@ export class QuotableComponent implements OnInit {
     console.warn('Design state has changed. Valid:', $event);
     this.isDesignValid = $event;
     this.cdr.detectChanges();
-  }
-
-  iOS() {
-    return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(
-      navigator.platform
-    );
   }
 }

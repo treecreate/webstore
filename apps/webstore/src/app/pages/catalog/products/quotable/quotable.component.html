@@ -62,6 +62,39 @@
                 </div>
             </div>
 
+            <!-- ====== Design selection option ====== -->
+            <div class="option option-tree-design">
+                <div class="option-title">
+                    Design
+                    <webstore-info-popover
+                        title="Design"
+                        text="{{
+                            isEnglish() ? 'Choose the frame you like the most.' : 'Vælg den ramme der passer dig bedst.'
+                        }}"
+                    ></webstore-info-popover>
+                </div>
+                <div class="option-tree-design-btn">
+                    <button
+                        class="design-arrow-left tc-button-sm-square"
+                        data-cy="design-arrow-left"
+                        (click)="nextDesign()"
+                    >
+                        <span class="arrow-left"></span>
+                    </button>
+                    <div class="display display-design">
+                        {{ 2 }}
+                    </div>
+                    <button
+                        class="design-arrow-right tc-button-sm-square"
+                        data-cy="design-arrow-right"
+                        (click)="prevDesign()"
+                        [disabled]="!isMutable"
+                    >
+                        <span class="arrow-right"></span>
+                    </button>
+                </div>
+            </div>
+
             <!-- ====== Save and reset buttons ====== -->
             <div class="option option-actions">
                 <button
