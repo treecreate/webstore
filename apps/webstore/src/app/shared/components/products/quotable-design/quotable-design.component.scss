@@ -6,3 +6,29 @@
   height: 100%;
   width: 100%;
 }
+
+.design-wrapper {
+  position: relative;
+  height: 94%;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.above-canvas {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  top: 50%;
+  bottom: 50%;
+}
+
+#backgroundImage {
+  z-index: -1;
+  position: absolute;
+  left: 2.5%;
+  right: 2.5%;
+  top: 2.5%;
+  bottom: 2.5%;
+  height: 95%;
+  width: 95%;
+}
