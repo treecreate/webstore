@@ -77,17 +77,17 @@
                     <button
                         class="design-arrow-left tc-button-sm-square"
                         data-cy="design-arrow-left"
-                        (click)="nextDesign()"
+                        (click)="changeDesign('prev')"
                     >
                         <span class="arrow-left"></span>
                     </button>
                     <div class="display display-design">
-                        {{ 2 }}
+                        {{ getDesignName() }}
                     </div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
                         data-cy="design-arrow-right"
-                        (click)="prevDesign()"
+                        (click)="changeDesign('next')"
                         [disabled]="!isMutable"
                     >
                         <span class="arrow-right"></span>

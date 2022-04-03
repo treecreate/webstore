@@ -1,7 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, TreeDesignEnum } from '@assets';
+import {
+  BoxOptionsDesignEnum,
+  QuotableDesignEnum,
+  QuotableDesignNameDanishEnum,
+  QuotableDesignNameEnglishEnum,
+  QuotableFrameInfo,
+  quotableFrames,
+  TreeDesignEnum,
+} from '@assets';
 import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IQoutable, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -43,6 +51,7 @@ export class QuotableComponent implements OnInit {
     font: this.defaultFont,
     text: 'Lorem Ipsum',
   };
+  currentDesign: number = 1;
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -79,6 +88,7 @@ export class QuotableComponent implements OnInit {
       this.loadDesign();
     });
     this.getFontList();
+    this.getDesignName();
   }
 
   isEnglish(): boolean {
@@ -267,7 +277,25 @@ export class QuotableComponent implements OnInit {
   }
 
   getDesignName(): string {
-    return '';
+    return this.isEnglish() ? quotableFrames[this.currentDesign].nameEn : quotableFrames[this.currentDesign].nameDk;
+  }
+
+  changeDesign(direction: string): void {
+    switch (direction) {
+      case 'next':
+        if (this.currentDesign < 12) {
+          this.currentDesign = this.currentDesign + 1;
+        } else {
+          this.currentDesign = 0;
+        }
+        break;
+      case 'prev':
+        if (this.currentDesign > 0) {
+          this.currentDesign = this.currentDesign - 1;
+        } else {
+          this.currentDesign = 12;
+        }
+    }
   }
 
   @HostListener('window:resize')
