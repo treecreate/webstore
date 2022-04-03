@@ -5,23 +5,23 @@ import { TreeDesignEnum } from '@assets';
 import { DesignDimensionEnum, DesignTypeEnum, DesignFontEnum, ITransactionItem, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars, UserRoles } from '@models';
-import { FamilyTreeBasketItemComponent } from './family-tree-basket-item.component';
+import { BasketItemComponent } from './basket-item.component';
 
 describe('BasketItemComponent', () => {
-  let component: FamilyTreeBasketItemComponent;
-  let fixture: ComponentFixture<FamilyTreeBasketItemComponent>;
+  let component: BasketItemComponent;
+  let fixture: ComponentFixture<BasketItemComponent>;
   let localStorage: LocalStorageService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule, RouterTestingModule],
-      declarations: [FamilyTreeBasketItemComponent],
+      declarations: [BasketItemComponent],
       providers: [LocalStorageService],
     });
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FamilyTreeBasketItemComponent);
+    fixture = TestBed.createComponent(BasketItemComponent);
     localStorage = TestBed.inject(LocalStorageService);
     component = fixture.componentInstance;
 

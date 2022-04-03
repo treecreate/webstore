@@ -24,7 +24,7 @@ import { FamilyTreeComponent } from './pages/catalog/products/family-tree/family
 import { CatalogComponent } from './pages/catalog/catalog.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
-import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
+import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
 import { FamilyTreeCheckoutItemComponent } from './shared/components/items/family-tree-checkout-item/family-tree-checkout-item.component';
 import { FamilyTreeCollectionItemComponent } from './shared/components/items/family-tree-collection-item/family-tree-collection-item.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
@@ -78,7 +78,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     PaymentSuccessComponent,
     AddToBasketModalComponent,
     BasketComponent,
-    FamilyTreeBasketItemComponent,
+    BasketItemComponent,
     CheckoutComponent,
     FamilyTreeCheckoutItemComponent,
     FamilyTreeDesignComponent,

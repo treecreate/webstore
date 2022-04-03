@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FamilyTreeBasketItemComponent } from '../../../shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
+import { FamilyTreeBasketItemComponent } from '../../../shared/components/items/basket-item/basket-item.component';
 import { BasketComponent } from './basket.component';
 
 describe('BasketComponent', () => {

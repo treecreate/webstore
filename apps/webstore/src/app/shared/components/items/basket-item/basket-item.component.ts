@@ -8,17 +8,16 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
-import { FamilyTreeDesignComponent } from '../../products/family-tree/family-tree-design/family-tree-design.component';
 
 @Component({
   selector: 'webstore-basket-item',
-  templateUrl: './family-tree-basket-item.component.html',
-  styleUrls: ['./family-tree-basket-item.component.css', '../../../../../assets/styles/tc-input-field.scss'],
+  templateUrl: './basket-item.component.html',
+  styleUrls: ['./basket-item.component.css', '../../../../../assets/styles/tc-input-field.scss'],
 })
-export class FamilyTreeBasketItemComponent implements OnInit {
+export class BasketItemComponent implements OnInit {
   @ViewChild('productDesign', { static: true })
-  miniature: FamilyTreeDesignComponent;
-  @Output() priceChangeEvent = new EventEmitter();
+  @Output()
+  priceChangeEvent = new EventEmitter();
   @Output() deleteItemEvent = new EventEmitter();
   @Input() item: ITransactionItem;
   @Input() index: number;
