@@ -88,6 +88,10 @@ export class QuotableComponent implements OnInit {
     });
   }
 
+  updateText($event) {
+    this.design.text = $event;
+  }
+
   changeFont(font: { key: string; value: string }): void {
     this.design.font = DesignFontEnum[font.key];
     this.displayFont = font.value;

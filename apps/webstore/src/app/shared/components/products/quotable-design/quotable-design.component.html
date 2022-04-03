@@ -5,6 +5,9 @@
             id="textField"
             cdkTextareaAutosize
             [ngStyle]="{ 'font-size': design.fontSize + 'px' }"
+            autocomplete="off"
+            [ngModel]="design.text"
+            (ngModelChange)="updateText($event)"
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="25"

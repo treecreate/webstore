@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { QuotableDesignEnum } from '@assets';
-import { DesignFontEnum, IQoutable } from '@interfaces';
+import { IQoutable } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 
@@ -14,15 +13,14 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy {
   isMutable = false;
 
   @Input()
-  design: IQoutable = {
-    text: 'design temp text',
-    font: DesignFontEnum.roboto,
-    fontSize: 40,
-    designSrc: QuotableDesignEnum.frame1,
-  };
+  design: IQoutable;
 
   @Output()
   isDesignValidEvent = new EventEmitter<boolean>();
+
+  @Output()
+  changeText = new EventEmitter<string>();
+
   isDesignValid = false;
 
   autosaveInterval;
@@ -52,6 +50,10 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy {
     this.autosaveInterval = null;
     this.isDesignValid = false;
     this.isDesignValidEvent.emit(this.isDesignValid);
+  }
+
+  updateText($event) {
+    this.changeText.emit($event);
   }
 
   saveDesign() {

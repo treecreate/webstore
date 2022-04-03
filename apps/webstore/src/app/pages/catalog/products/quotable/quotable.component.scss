@@ -13,19 +13,12 @@
   flex-direction: column;
 }
 
-.desktop-options-container,
-.design-container {
+.desktop-options-container {
   display: inline-block;
 }
 
 .green {
   background-color: var(--green-color);
-}
-
-.design-container {
-  border: 2px solid var(--green-color);
-  min-width: 50%;
-  margin: 30px 15px 30px 30px;
 }
 
 .design-screen {

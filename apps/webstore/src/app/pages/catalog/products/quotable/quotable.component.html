@@ -11,6 +11,7 @@
             [isMutable]="isMutable"
             [design]="design"
             style="text-align: center"
+            (changeText)="updateText($event)"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
         ></webstore-quotable-design>
     </div>
