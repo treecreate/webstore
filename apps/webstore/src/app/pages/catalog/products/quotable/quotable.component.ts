@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, QuotableDesignEnum, quotableFrames, TreeDesignEnum } from '@assets';
+import { BoxOptionsDesignEnum, quotableFrames, TreeDesignEnum } from '@assets';
 import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IQoutable, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -41,7 +41,7 @@ export class QuotableComponent implements OnInit {
     floor: 10,
     ceil: 70,
   };
-  currentDesign: number = 1;
+  currentDesign = 1;
   design: IQoutable;
 
   public isLoggedIn: boolean;

@@ -11,7 +11,7 @@ export class ProductDisplayComponent {
   product!: CatalogItem;
 
   @Input()
-  isEnglish: boolean = false;
+  isEnglish = false;
 
   constructor() {}
 
