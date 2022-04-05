@@ -20,5 +20,5 @@ export class ItemCardComponent {
   header!: TemplateRef<unknown>;
 
   @Input()
-  amountInfo!: ItemInfo[];
+  amountInfo?: ItemInfo[];
 }

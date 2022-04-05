@@ -1,2 +1,2 @@
 export * from './base.interface';
-export * from './itemInfo.interface';
+export * from './item-info.interface';
