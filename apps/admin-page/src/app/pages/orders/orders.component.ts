@@ -32,14 +32,8 @@ export class OrdersComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
   orders!: IOrder[];
-  pendingOrders = 0;
 
-  ordersTopInfo: ItemInfo[] = [
-    {
-      description: 'Pending',
-      amount: this.pendingOrders,
-    },
-  ];
+  ordersTopInfo: ItemInfo[] = [];
 
   constructor(public ordersService: OrdersService) {}
 
@@ -87,18 +81,28 @@ export class OrdersComponent implements OnInit {
       },
       next: (orders: IOrder[]) => {
         this.isLoading = false;
+        // Sort orders list
         this.orders = orders.sort((a, b) => compare(a.createdAt, b.createdAt, false));
-        this.pendingOrders = orders.filter(
+
+        // Get order list info
+        const pendingOrders = orders.filter(
           (order) =>
             order.status === OrderStatusEnum.pending ||
             order.status === OrderStatusEnum.new ||
             order.status === OrderStatusEnum.initial
         ).length;
+        const completedOrders = orders.filter((order) => order.status === OrderStatusEnum.delivered).length;
+
+        // Create order list info
         this.ordersTopInfo = [
           {
             description: 'Pending',
-            amount: this.pendingOrders,
+            amount: pendingOrders,
             color: 'green',
+          },
+          {
+            description: 'Completed',
+            amount: completedOrders,
           },
           {
             description: 'Total Orders',
