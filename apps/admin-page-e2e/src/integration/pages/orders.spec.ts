@@ -234,23 +234,6 @@ describe('ordersPage', () => {
     });
   });
 
-  it('should have the corresponding color for each amount of days left', () => {
-    cy.get('[data-cy=order-days-left]').each(($label, index) => {
-      cy.get('[data-cy=order-status]')
-        .eq(index)
-        .then((statusLabel) => {
-          const daysLeft = $label.contents().text().trim();
-          const status = statusLabel.text().toLowerCase();
-          if (isKeyof(status, OrderStatusEnum)) {
-            const statusEnum = OrderStatusEnum[status];
-            const expectedColor = hexToRgb(getDaysLeftColor(Number(daysLeft), statusEnum));
-            const colorInRgb = `rgb(${expectedColor?.r}, ${expectedColor?.g}, ${expectedColor?.b})`;
-            expect($label.css('background-color')).to.contain(colorInRgb);
-          }
-        });
-    });
-  });
-
   it('should display a list of options', () => {
     cy.get('.mat-select-panel').should('not.exist');
     cy.get('[data-cy=order-status]').first().click();
