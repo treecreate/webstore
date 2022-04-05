@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FamilyTreeCollectionItemComponent } from '../../../shared/components/items/collection-item/collection-item.component';
+import { CollectionItemComponent } from '../../../shared/components/items/collection-item/collection-item.component';
 import { CollectionComponent } from './collection.component';
 
 describe('CollectionComponent', () => {
@@ -8,7 +8,7 @@ describe('CollectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CollectionComponent, FamilyTreeCollectionItemComponent],
+      declarations: [CollectionComponent, CollectionItemComponent],
       imports: [HttpClientModule],
     }).compileComponents();
   });

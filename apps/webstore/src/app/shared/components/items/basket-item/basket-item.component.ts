@@ -15,12 +15,18 @@ import { TransactionItemService } from '../../../services/transaction-item/trans
   styleUrls: ['./basket-item.component.css', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class BasketItemComponent implements OnInit {
-  @ViewChild('productDesign', { static: true })
   @Output()
   priceChangeEvent = new EventEmitter();
-  @Output() deleteItemEvent = new EventEmitter();
-  @Input() item: ITransactionItem;
-  @Input() index: number;
+
+  @Output()
+  deleteItemEvent = new EventEmitter();
+
+  @Input()
+  item: ITransactionItem;
+
+  @Input()
+  index: number;
+
   itemPrice: number;
   isLoading = false;
   alert: {

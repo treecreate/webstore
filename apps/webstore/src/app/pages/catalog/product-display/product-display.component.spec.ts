@@ -1,8 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CatalogItem } from '../catalogItems';
 
 import { ProductDisplayComponent } from './product-display.component';
 
 describe('ProductDisplayComponent', () => {
+  const product: CatalogItem = {
+    titleEn: 'string',
+    titleDk: 'string',
+    descriptionEn: 'string',
+    descriptionDk: 'string',
+    prices: [1, 2, 3],
+    imgSrc: 'string',
+    specialOffer: 'string',
+    routerLink: 'string',
+  };
   let component: ProductDisplayComponent;
   let fixture: ComponentFixture<ProductDisplayComponent>;
 
@@ -15,6 +26,7 @@ describe('ProductDisplayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductDisplayComponent);
     component = fixture.componentInstance;
+    component.product = product;
     fixture.detectChanges();
   });
 
