@@ -32,7 +32,7 @@ export class OrdersComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
   orders!: IOrder[];
-  pendingOrders: number = 0;
+  pendingOrders = 0;
 
   ordersTopInfo: ItemInfo[] = [
     {
@@ -87,9 +87,7 @@ export class OrdersComponent implements OnInit {
       },
       next: (orders: IOrder[]) => {
         this.isLoading = false;
-        this.orders = orders.sort((a, b) => {
-          return compare(a.createdAt, b.createdAt, false);
-        });
+        this.orders = orders.sort((a, b) => compare(a.createdAt, b.createdAt, false));
         this.pendingOrders = orders.filter(
           (order) =>
             order.status === OrderStatusEnum.pending ||
@@ -207,6 +205,6 @@ enum LabelColorsEnum {
   yellow = '#F4DC00',
   grey = '#ABABAB',
   lightGrey = '#F1F1F1',
-  emp_color = '#6D7CFF',
+  empColor = '#6D7CFF',
   turquoise = '#00DFED',
 }
