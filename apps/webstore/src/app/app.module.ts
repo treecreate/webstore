@@ -20,7 +20,7 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { FamilyTreeComponent } from './pages/catalog/products/family-tree/family-tree.component';
+import { FamilyTreeComponent } from './pages/catalog/product-pages/family-tree/family-tree.component';
 import { CatalogComponent } from './pages/catalog/catalog.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
@@ -47,7 +47,7 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
-import { QuotableComponent } from './pages/catalog/products/quotable/quotable.component';
+import { QuotableComponent } from './pages/catalog/product-pages/quotable/quotable.component';
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
 import { MiniProductDisplayComponent } from './pages/catalog/mini-product-display/mini-product-display.component';
 import { ProductDisplayComponent } from './pages/catalog/product-display/product-display.component';

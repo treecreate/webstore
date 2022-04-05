@@ -15,9 +15,9 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { FamilyTreeComponent } from './pages/catalog/products/family-tree/family-tree.component';
+import { FamilyTreeComponent } from './pages/catalog/product-pages/family-tree/family-tree.component';
 import { CatalogComponent } from './pages/catalog/catalog.component';
-import { QuotableComponent } from './pages/catalog/products/quotable/quotable.component';
+import { QuotableComponent } from './pages/catalog/product-pages/quotable/quotable.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
