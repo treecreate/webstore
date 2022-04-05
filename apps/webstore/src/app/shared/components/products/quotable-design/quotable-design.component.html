@@ -4,11 +4,17 @@
             matInput
             id="textField"
             cdkTextareaAutosize
-            [ngStyle]="{ 'font-size': design.fontSize + 'px' }"
+            [ngStyle]="{
+                'font-size': hasInitialized
+                    ? getSizeDependingOnWidth(design.fontSize) + 'px'
+                    : this.design.fontSize + 'px',
+                height: hasInitialized ? getSizeDependingOnWidth(inputHeight) + 'px' : 'auto'
+            }"
             autocomplete="off"
             [ngModel]="design.text"
             (ngModelChange)="updateText($event)"
             [disabled]="!isMutable"
+            #inputWrapper
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="25"

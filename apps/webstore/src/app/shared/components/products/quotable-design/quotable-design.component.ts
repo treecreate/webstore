@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { IQoutable } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
@@ -8,7 +18,7 @@ import { LocalStorageVars } from '@models';
   templateUrl: './quotable-design.component.html',
   styleUrls: ['./quotable-design.component.scss'],
 })
-export class QuotableDesignComponent implements AfterViewInit, OnDestroy {
+export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit {
   @Input()
   isMutable = false;
 
@@ -21,13 +31,27 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy {
   @Output()
   changeText = new EventEmitter<string>();
 
+  @ViewChild('designWrapper') designWrapper;
+
+  @ViewChild('inputWrapper') inputWrapper;
+
+  originalFontSize: number;
+
   isDesignValid = false;
+  hasInitialized = false;
+  inputHeight: number;
 
   autosaveInterval;
   // design autosave frequency, in seconds
   autosaveFrequencyInSeconds = 30;
 
   constructor(private localStorageService: LocalStorageService) {}
+
+  ngOnInit(): void {
+    if (this.design) {
+      this.originalFontSize = this.design.fontSize;
+    }
+  }
 
   ngAfterViewInit(): void {
     if (this.isMutable) {
@@ -37,6 +61,8 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy {
     }
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
+    this.hasInitialized = true;
+    this.inputHeight = this.inputWrapper.nativeElement.offsetHeight;
   }
 
   ngOnDestroy(): void {
@@ -67,5 +93,15 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy {
     }
 
     this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
+  }
+
+  getSizeDependingOnWidth(number: number): number {
+    const scale = Math.round((this.designWrapper.nativeElement.offsetWidth / 641) * 10) / 10;
+    const displaySize = Math.round(number * scale * 10) / 10;
+    if (this.designWrapper.nativeElement.offsetWidth <= 641) {
+      return displaySize;
+    } else {
+      return number;
+    }
   }
 }
