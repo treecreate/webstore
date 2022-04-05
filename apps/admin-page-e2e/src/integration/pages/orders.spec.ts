@@ -55,15 +55,15 @@ function getOrderStatusColor(orderStatus: OrderStatusEnum): LabelColorsEnum {
     case OrderStatusEnum.pending:
       return LabelColorsEnum.blue;
     case OrderStatusEnum.new:
-      return LabelColorsEnum.red;
+      return LabelColorsEnum.blue;
     case OrderStatusEnum.rejected:
       return LabelColorsEnum.grey;
     case OrderStatusEnum.processed:
-      return LabelColorsEnum.red;
+      return LabelColorsEnum.grey;
     case OrderStatusEnum.assembling:
       return LabelColorsEnum.yellow;
     case OrderStatusEnum.shipped:
-      return LabelColorsEnum.blue;
+      return LabelColorsEnum.yellow;
     case OrderStatusEnum.delivered:
       return LabelColorsEnum.green;
     default:
@@ -231,23 +231,6 @@ describe('ordersPage', () => {
         const colorInRgb = `rgb(${expectedColor?.r}, ${expectedColor?.g}, ${expectedColor?.b})`;
         expect($label.css('background-color')).to.contain(colorInRgb);
       }
-    });
-  });
-
-  it('should have the corresponding color for each amount of days left', () => {
-    cy.get('[data-cy=order-days-left]').each(($label, index) => {
-      cy.get('[data-cy=order-status]')
-        .eq(index)
-        .then((statusLabel) => {
-          const daysLeft = $label.contents().text().trim();
-          const status = statusLabel.text().toLowerCase();
-          if (isKeyof(status, OrderStatusEnum)) {
-            const statusEnum = OrderStatusEnum[status];
-            const expectedColor = hexToRgb(getDaysLeftColor(Number(daysLeft), statusEnum));
-            const colorInRgb = `rgb(${expectedColor?.r}, ${expectedColor?.g}, ${expectedColor?.b})`;
-            expect($label.css('background-color')).to.contain(colorInRgb);
-          }
-        });
     });
   });
 

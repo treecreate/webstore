@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IOrder, OrderStatusEnum } from '@interfaces';
+import { IOrder, OrderStatusEnum, ItemInfo } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
 import { Sort } from '@angular/material/sort';
 
@@ -32,6 +32,8 @@ export class OrdersComponent implements OnInit {
     OrderStatusEnum.rejected,
   ];
   orders!: IOrder[];
+
+  ordersTopInfo: ItemInfo[] = [];
 
   constructor(public ordersService: OrdersService) {}
 
@@ -79,7 +81,34 @@ export class OrdersComponent implements OnInit {
       },
       next: (orders: IOrder[]) => {
         this.isLoading = false;
-        this.orders = orders;
+        // Sort orders list
+        this.orders = orders.sort((a, b) => compare(a.createdAt, b.createdAt, false));
+
+        // Get order list info
+        const pendingOrders = orders.filter(
+          (order) =>
+            order.status === OrderStatusEnum.pending ||
+            order.status === OrderStatusEnum.new ||
+            order.status === OrderStatusEnum.initial
+        ).length;
+        const completedOrders = orders.filter((order) => order.status === OrderStatusEnum.delivered).length;
+
+        // Create order list info
+        this.ordersTopInfo = [
+          {
+            description: 'Pending',
+            amount: pendingOrders,
+            color: 'green',
+          },
+          {
+            description: 'Completed',
+            amount: completedOrders,
+          },
+          {
+            description: 'Total Orders',
+            amount: orders.length,
+          },
+        ];
       },
     });
   }
@@ -123,35 +152,6 @@ export class OrdersComponent implements OnInit {
       return LabelColorsEnum.red;
     }
     return LabelColorsEnum.lightGrey;
-  }
-
-  /**
-   * Gets the Label color of the Order Status based on the status.
-   *
-   * @param orderStatus the status of the order.
-   * @returns the color of the label.
-   */
-  getOrderStatusColor(orderStatus: OrderStatusEnum): LabelColorsEnum {
-    switch (orderStatus) {
-      case OrderStatusEnum.initial:
-        return LabelColorsEnum.blue;
-      case OrderStatusEnum.pending:
-        return LabelColorsEnum.blue;
-      case OrderStatusEnum.new:
-        return LabelColorsEnum.red;
-      case OrderStatusEnum.rejected:
-        return LabelColorsEnum.grey;
-      case OrderStatusEnum.processed:
-        return LabelColorsEnum.red;
-      case OrderStatusEnum.assembling:
-        return LabelColorsEnum.yellow;
-      case OrderStatusEnum.shipped:
-        return LabelColorsEnum.blue;
-      case OrderStatusEnum.delivered:
-        return LabelColorsEnum.green;
-      default:
-        return LabelColorsEnum.lightGrey;
-    }
   }
 
   /**
@@ -209,4 +209,6 @@ enum LabelColorsEnum {
   yellow = '#F4DC00',
   grey = '#ABABAB',
   lightGrey = '#F1F1F1',
+  empColor = '#6D7CFF',
+  turquoise = '#00DFED',
 }
