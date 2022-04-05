@@ -55,15 +55,15 @@ function getOrderStatusColor(orderStatus: OrderStatusEnum): LabelColorsEnum {
     case OrderStatusEnum.pending:
       return LabelColorsEnum.blue;
     case OrderStatusEnum.new:
-      return LabelColorsEnum.red;
+      return LabelColorsEnum.blue;
     case OrderStatusEnum.rejected:
       return LabelColorsEnum.grey;
     case OrderStatusEnum.processed:
-      return LabelColorsEnum.red;
+      return LabelColorsEnum.grey;
     case OrderStatusEnum.assembling:
       return LabelColorsEnum.yellow;
     case OrderStatusEnum.shipped:
-      return LabelColorsEnum.blue;
+      return LabelColorsEnum.yellow;
     case OrderStatusEnum.delivered:
       return LabelColorsEnum.green;
     default:
