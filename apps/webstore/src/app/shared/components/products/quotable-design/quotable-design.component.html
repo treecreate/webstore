@@ -8,7 +8,7 @@
                 'font-size': hasInitialized
                     ? getSizeDependingOnWidth(design.fontSize) + 'px'
                     : this.design.fontSize + 'px',
-                height: hasInitialized ? getSizeDependingOnWidth(inputHeight) + 'px' : 'auto'
+                height: hasInitialized ? getSizeDependingOnWidth(inputHeight) + 'px' : inputHeight + 'px'
             }"
             autocomplete="off"
             [ngModel]="design.text"

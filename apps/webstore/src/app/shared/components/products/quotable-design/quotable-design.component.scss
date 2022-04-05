@@ -40,6 +40,10 @@
   width: 100%;
 }
 
+#textField {
+  overflow: hidden;
+}
+
 #textField:disabled {
   opacity: 1;
   color: black;
