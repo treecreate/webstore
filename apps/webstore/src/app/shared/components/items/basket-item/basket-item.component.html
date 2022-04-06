@@ -4,22 +4,23 @@
 >
 <div *ngIf="!alert" class="basket-item-container" data-cy="basket-item">
     <!-- image -->
-    <div class="item-image">
+    <div class="item-image-container">
         <webstore-store-item
             #productDesign
             [isMutable]="false"
             [design]="item.design"
             class="item-image"
         ></webstore-store-item>
-        <hr class="hr-class" />
-        <div class="item-type-title" data-cy="basket-item-title" [ngSwitch]="item.design.designType">
-            <b *ngSwitchCase="designTypeEnum.familyTree" i18n="@@design-type-family-tree">Family tree</b>
-            <b *ngSwitchCase="designTypeEnum.quotable" i18n="@@design-type-quotable">Quotable</b>
-        </div>
     </div>
     <div class="item-container">
-        <!-- quantity -->
-        <div class="option-quantity">
+        <div class="info-col">
+            <span i18n="@@product">Product</span><span>{{ item.design.designType }}</span>
+        </div>
+        <div class="info-col">
+            <span i18n="@@price">Price</span><span>{{ itemPrice.toFixed(2) }} DKK</span>
+        </div>
+
+        <div class="option-container">
             <div class="text">
                 <span i18n="@@amount">Amount</span>
             </div>
@@ -63,7 +64,7 @@
         </div>
 
         <!-- size -->
-        <div class="option-size">
+        <div class="option-container">
             <div class="text">
                 <span i18n="@@size">Size</span>
             </div>
@@ -106,13 +107,6 @@
             </div>
         </div>
 
-        <!-- price -->
-        <div class="option-price">
-            <div class="text">
-                <span i18n="@@price">Price</span>
-            </div>
-            <div class="option price-text" data-cy="basket-item-price">{{ itemPrice.toFixed(2) }} DKK</div>
-        </div>
         <hr class="margin-top" />
         <!-- actions -->
         <div class="option-actions">

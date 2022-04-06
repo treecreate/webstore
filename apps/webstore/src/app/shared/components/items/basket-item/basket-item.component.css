@@ -13,16 +13,24 @@ hr {
   margin: 0;
   padding: 0;
   position: relative;
-  top: -15px;
+  top: -25px;
 }
 
 .design-image {
   width: 200px;
 }
 
-.item-image {
-  margin-right: 20px;
+.info-col {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.item-image-container {
+  margin: 10px;
   width: 60%;
+  min-height: 200px;
 }
 
 .item-container {
@@ -63,10 +71,8 @@ hr {
   margin-top: 10px;
 }
 
-.option,
-.option-quantity,
-.option-size,
-.option-price {
+.option-container,
+.option {
   display: flex;
   margin-top: 7px;
 }
@@ -74,6 +80,7 @@ hr {
 .option {
   width: 60%;
 }
+
 .text {
   width: 40%;
   display: flex;

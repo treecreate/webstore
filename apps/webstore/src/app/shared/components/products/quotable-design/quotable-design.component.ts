@@ -72,11 +72,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     window.dispatchEvent(new Event('resize'));
   }
 
-  @HostListener('window:resize')
-  lol() {
-    console.log('height', this.inputWrapper.nativeElement.offsetHeight);
-  }
-
   ngOnDestroy(): void {
     clearInterval(this.autosaveInterval);
   }
