@@ -372,4 +372,14 @@ export class CheckoutComponent implements OnInit {
   showTermsOfSale() {
     this.modalService.open(TermsOfSaleModalComponent, { size: 'lg' });
   }
+
+  getParcelshopDeliveryPrice(): number {
+    if (this.priceInfo.discountedPrice > 350) return 0;
+    else return 45;
+  }
+
+  getHomeDeliveryPrice(): number {
+    if (this.priceInfo.discountedPrice > 350) return 10;
+    else return 55;
+  }
 }

@@ -15,13 +15,7 @@ export class CalculatePriceService {
   ): IPricing {
     // Get full price of items in basket
     let sum = 0;
-    if (itemList != null) {
-      for (let i = 0; i < itemList.length; i++) {
-        const item = itemList[i];
-        sum += this.calculateItemPrice(item);
-      }
-    }
-    const fullPrice = sum;
+    const fullPrice = this.getFullPrice(itemList);
 
     // Get discounted price of all items
     let discountedPrice = fullPrice;
@@ -38,7 +32,12 @@ export class CalculatePriceService {
     const discountAmount = fullPrice - discountedPrice;
 
     // Get delivery price
-    const deliveryPrice = isHomeDelivery ? 29 : 0;
+    let deliveryPrice = 0;
+    if (discountedPrice > 350) {
+      deliveryPrice = isHomeDelivery ? 10 : 0;
+    } else {
+      deliveryPrice = isHomeDelivery ? 55 : 45;
+    }
 
     // Get planted trees price
     const extraTreesPrice = plantedTrees * 10 - 10;
