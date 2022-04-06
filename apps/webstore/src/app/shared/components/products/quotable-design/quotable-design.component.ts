@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  Host,
   HostListener,
   Input,
   OnDestroy,
@@ -37,6 +38,8 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   originalFontSize: number;
 
+  rows: number;
+
   isDesignValid = false;
   hasInitialized = false;
   inputHeight: number;
@@ -62,7 +65,16 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
     this.hasInitialized = true;
-    this.inputHeight = this.inputWrapper.nativeElement.offsetHeight;
+    // This will throw an ExpressionChangedAfterItHasBeenCheckedError if it is not set in an async method.
+    setTimeout(() => {
+      this.inputHeight = this.inputWrapper.nativeElement.offsetHeight;
+    }, 0);
+    window.dispatchEvent(new Event('resize'));
+  }
+
+  @HostListener('window:resize')
+  lol() {
+    console.log('height', this.inputWrapper.nativeElement.offsetHeight);
   }
 
   ngOnDestroy(): void {
