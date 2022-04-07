@@ -14,7 +14,6 @@ export class CalculatePriceService {
     plantedTrees: number
   ): IPricing {
     // Get full price of items in basket
-    let sum = 0;
     const fullPrice = this.getFullPrice(itemList);
 
     // Get discounted price of all items
