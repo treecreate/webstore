@@ -25,7 +25,6 @@ describe('QuotableDesignComponent', () => {
     fixture = TestBed.createComponent(QuotableDesignComponent);
     component = fixture.componentInstance;
     component.design = design;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
