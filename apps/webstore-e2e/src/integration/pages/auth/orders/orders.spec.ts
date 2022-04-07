@@ -222,7 +222,7 @@ describe('ordersPage', () => {
           .first()
           .within(() => {
             cy.get('[data-cy=order-item-view-button]').click({ force: true });
-            cy.url().should('contain', '/products/family-tree?designId=' + mockDesign.designId);
+            cy.url().should('contain', '/catalog/family-tree?designId=' + mockDesign.designId);
           });
       });
   });

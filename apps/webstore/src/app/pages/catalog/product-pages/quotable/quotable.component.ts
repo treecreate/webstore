@@ -156,7 +156,7 @@ export class QuotableComponent implements OnInit {
     const id = Number(designId);
     if (isNaN(id) || id < 0 || id > itemList.length) {
       this.toastService.showAlert('Failed to load design', 'Kunne ikke loade dit design', 'danger', 10000);
-      this.router.navigate(['/products/family-tree']);
+      this.router.navigate(['/catalog/family-tree']);
       return;
     }
     // Load design

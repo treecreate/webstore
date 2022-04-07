@@ -256,7 +256,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   getDesignViewOnlyUrl(id: string): string {
-    return `${env.webstoreUrl}/products/family-tree?designId=${id}`;
+    return `${env.webstoreUrl}/catalog/family-tree?designId=${id}`;
   }
 
   /**

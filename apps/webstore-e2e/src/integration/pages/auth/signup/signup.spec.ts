@@ -32,7 +32,7 @@ describe('Signup Page', () => {
       cy.get('[data-cy=signup-btn]').should('be.enabled').click();
       cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('exist');
-      cy.url().should('contain', '/products');
+      cy.url().should('contain', '/catalog');
     });
 
     it('should refuse signup for user with incorrect credentials', () => {
