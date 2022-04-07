@@ -93,9 +93,25 @@ public class OrderService
         switch (order.getShippingMethod())
         {
             case PICK_UP_POINT:
-                break; // is free
+                if (total.compareTo(new BigDecimal(350)) > 0)
+                {
+                    // is free
+                } else
+                {
+                    total = total.add(new BigDecimal(45));
+                }
+
+                break;
             case HOME_DELIVERY:
-                total = total.add(new BigDecimal(29));
+                if (total.compareTo(new BigDecimal(350)) > 0)
+                {
+
+                    total = total.add(new BigDecimal(10));
+                } else
+                {
+                    total = total.add(new BigDecimal(55));
+                }
+
                 break; // 29 kr
             case OWN_DELIVERY:
                 total = total.add(new BigDecimal(100));
