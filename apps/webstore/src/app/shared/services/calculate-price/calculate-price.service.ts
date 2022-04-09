@@ -8,7 +8,7 @@ export class CalculatePriceService {
   constructor() {}
 
   calculatePrices(
-    itemList: ITransactionItem[],
+    itemList: ITransactionItem[] = [],
     discount: IDiscount,
     isHomeDelivery: boolean,
     plantedTrees: number
@@ -58,7 +58,8 @@ export class CalculatePriceService {
     };
   }
 
-  getFullPrice(itemList: ITransactionItem[]): number {
+  getFullPrice(itemList: ITransactionItem[] = []): number {
+    if (itemList === null) return 0;
     let priceSum = 0;
     for (let i = 0; i < itemList.length; i++) {
       switch (itemList[i].dimension) {
@@ -76,7 +77,7 @@ export class CalculatePriceService {
     return priceSum;
   }
 
-  isMoreThan4Items(itemList: ITransactionItem[]): boolean {
+  isMoreThan4Items(itemList: ITransactionItem[] = []): boolean {
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
       sum += itemList[i].quantity;

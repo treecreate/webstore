@@ -214,14 +214,14 @@ describe('CalculatePriceService', () => {
 
   it('Should calculate the finalPrice correctly', () => {
     // ( 2680 * 0.9 ) + 29 + 0
-    expect(priceInfo.finalPrice).toEqual(2441);
+    expect(priceInfo.finalPrice).toEqual(2422);
     // ( 2385 - 495 ) + 0 + 30
     expect(secondPriceInfo.finalPrice).toEqual(1910);
   });
 
   it('Should calculate the right delivery price', () => {
     // isHomeDelivery = true
-    expect(priceInfo.deliveryPrice).toEqual(29);
+    expect(priceInfo.deliveryPrice).toEqual(10);
     // isHomeDelivery = false
     expect(secondPriceInfo.deliveryPrice).toEqual(0);
   });
@@ -235,7 +235,7 @@ describe('CalculatePriceService', () => {
 
   it('Should calculate the right VAT price', () => {
     // 2441 * 0.2
-    expect(priceInfo.vat.toFixed(2)).toEqual('488.20');
+    expect(priceInfo.vat.toFixed(2)).toEqual('484.40');
     // 1910 * 0.2
     expect(secondPriceInfo.vat).toEqual(382);
   });
