@@ -62,7 +62,7 @@ class OrderServiceTest
             Arguments.of(1, new BigDecimal(990), new BigDecimal(990), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(1019), 0, null, true, true, true, 2,
+            Arguments.of(1, new BigDecimal(990), new BigDecimal(1000), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.HOME_DELIVERY,
                 null),
             Arguments.of(1, new BigDecimal(990), new BigDecimal(1090), 0, null, true, true, true, 2,
@@ -86,7 +86,7 @@ class OrderServiceTest
                 DesignDimension.LARGE, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // Discount - Amount, 1000 (more than subtotal)
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(-10), 1000, DiscountType.AMOUNT,
+            Arguments.of(1, new BigDecimal(990), new BigDecimal(35), 1000, DiscountType.AMOUNT,
                 true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
@@ -120,7 +120,8 @@ class OrderServiceTest
                 DesignDimension.LARGE, 69, DesignType.FAMILY_TREE, ShippingMethod.OWN_DELIVERY,
                 null),
             // Discount - Percent, 100
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(0), 100, DiscountType.PERCENT, true,
+            Arguments.of(1, new BigDecimal(990), new BigDecimal(45), 100, DiscountType.PERCENT,
+                true,
                 true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
@@ -166,7 +167,7 @@ class OrderServiceTest
                 DesignType.FAMILY_TREE,
                 ShippingMethod.PICK_UP_POINT, null),
             // no transaction items
-            Arguments.of(1, new BigDecimal(0), new BigDecimal(0), 0,
+            Arguments.of(1, new BigDecimal(0), new BigDecimal(45), 0,
                 null, true, true, true, 0, DesignDimension.SMALL, 1, DesignType.FAMILY_TREE,
                 ShippingMethod.PICK_UP_POINT, null),
             // fail scenarios
