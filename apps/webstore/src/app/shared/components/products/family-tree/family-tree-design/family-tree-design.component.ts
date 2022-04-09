@@ -494,18 +494,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         // Setup default boxes if there is no saved design and it is not an immutable miniature etc
         if (this.isMutable) {
           console.log('There was no saved design, generating a clean slate');
-          this.createBox(
-            this.canvasResolution.width / 7,
-            this.canvasResolution.height / 2.5,
-            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
-            'Dig'
-          );
-          this.createBox(
-            this.canvasResolution.width / 2,
-            this.canvasResolution.height / 2.5,
-            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
-            'Partner'
-          );
         }
       } else {
         // Setup boxes based on the loaded design

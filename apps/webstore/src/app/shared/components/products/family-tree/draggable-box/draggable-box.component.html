@@ -3,6 +3,7 @@
     #draggableBoxInput
     placeholder="{{ isMutable ? (isEnglish() ? 'Write name...' : 'Skriv navn...') : '' }}"
     class="draggable-box-input"
+    autocomplete="off"
     (keydown.enter)="$event.preventDefault()"
     (keyup.enter)="$event.preventDefault()"
     (ngModelChange)="onInputChange($event)"
