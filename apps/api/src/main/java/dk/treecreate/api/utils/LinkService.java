@@ -80,7 +80,7 @@ public class LinkService
             case STAGING:
                 return "https://" + (isApi ? "api." : "") + "testing.treecreate.dk" + lang + route;
             default:
-                return "http://localhost:" + (isApi ? "5000" : "4200") + route;
+                return "http://localhost:" + (isApi ? "5050" : "4200") + route;
         }
     }
 }
