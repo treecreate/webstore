@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
-  CreateTransactionItemRequest,
   DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
@@ -12,7 +11,7 @@ import {
   IFamilyTreeBanner,
   ITransactionItem,
   IUser,
-  UpdateTransactionItemRequest,
+  IFamilyTree,
 } from '@interfaces';
 import { CookieStatus, LocalStorageVars, UserRoles } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
@@ -34,6 +33,8 @@ const mockUser: IUser = {
   postcode: '',
   country: '',
 };
+
+// Family tree properties
 const mockDraggableBoxOne: IDraggableBox = {
   x: 400,
   y: 400,
@@ -56,19 +57,22 @@ const mockBanner: IFamilyTreeBanner = {
   text: 'my tree 1',
   style: 'first',
 };
-const mockDesign: IDesign = {
+const familyTreeDesignProperties: IFamilyTree = {
+  font: DesignFontEnum.roboto,
+  backgroundTreeDesign: TreeDesignEnum.tree1,
+  boxSize: 20,
+  banner: mockBanner,
+  boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
+};
+const mockFamilyTreeDesign: IDesign = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
-  designProperties: {
-    font: DesignFontEnum.roboto,
-    backgroundTreeDesign: TreeDesignEnum.tree1,
-    boxSize: 20,
-    banner: mockBanner,
-    boxes: [mockDraggableBoxOne, mockDraggableBoxTwo],
-  },
+  designProperties: familyTreeDesignProperties,
   designType: DesignTypeEnum.familyTree,
   user: mockUser,
   mutable: true,
 };
+
+// Mock discount items
 const mockDiscount: IDiscount = {
   discountId: '123',
   discountCode: 'yeet10percent',
@@ -99,65 +103,37 @@ const mockDiscountExpired: IDiscount = {
   isEnabled: true,
   expiresAt: new Date('2021-11-20T00:00:00'),
 };
-const mockCreateTransactionItemRequest: CreateTransactionItemRequest = {
-  designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
-  dimension: DesignDimensionEnum.medium,
-  quantity: 1,
-};
-const mockCreateTransactionItemRequestUpdatedQuantity: UpdateTransactionItemRequest = {
-  dimension: DesignDimensionEnum.medium,
-  quantity: 2,
-};
-const mockCreateTransactionItemRequestUpdatedDimension: UpdateTransactionItemRequest = {
-  dimension: DesignDimensionEnum.large,
-  quantity: 1,
-};
-const mockContact = {
-  name: 'teodor jonasson',
-  email: 'test@test.test',
-  phoneNumber: '12341234',
-  streetAddress: 'yeeting anus 69',
-  city: 'lolcity',
-  postcode: '6969',
-  country: 'DisSonBitch',
-};
 
-// Dimension change
-const mockTransactionItem: ITransactionItem = {
+// Mock family tree Transaction items
+const mockFamilyTreeTransactionItem: ITransactionItem = {
   transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   dimension: DesignDimensionEnum.medium,
   quantity: 1,
-  design: mockDesign,
+  design: mockFamilyTreeDesign,
 };
-const mockTransactionItemMedium: ITransactionItem = {
-  transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a1',
-  orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
-  dimension: DesignDimensionEnum.medium,
-  quantity: 1,
-  design: mockDesign,
-};
-const mockTransactionItemLarge: ITransactionItem = {
+const mockFamilyTreeTransactionItemLarge: ITransactionItem = {
   transactionItemId: 'c0a80121-7ac0-190b-08ab0a1',
   orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   dimension: DesignDimensionEnum.large,
   quantity: 1,
-  design: mockDesign,
+  design: mockFamilyTreeDesign,
 };
-// Quantity change
-const mockTransactionItemOne: ITransactionItem = {
-  transactionItemId: 'c0a80121-190b-817a-c08ab0a12345',
-  orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
-  dimension: DesignDimensionEnum.medium,
-  quantity: 1,
-  design: mockDesign,
-};
-const mockTransactionItemTwo: ITransactionItem = {
+
+// Mock quotable transaction items
+const mockQuotableTransactionItem: ITransactionItem = {
   transactionItemId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   dimension: DesignDimensionEnum.medium,
-  quantity: 2,
-  design: mockDesign,
+  quantity: 1,
+  design: mockFamilyTreeDesign,
+};
+const mockQuotableTransactionItemLarge: ITransactionItem = {
+  transactionItemId: 'c0a80121-7ac0-190b-08ab0a1',
+  orderId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
+  dimension: DesignDimensionEnum.large,
+  quantity: 1,
+  design: mockFamilyTreeDesign,
 };
 
 describe('BasketPage using localstorage (not logged in)', () => {
@@ -166,7 +142,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     localStorage.setItem(
       LocalStorageVars.transactionItems,
-      JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
+      JSON.stringify([mockFamilyTreeTransactionItem, mockFamilyTreeTransactionItemLarge])
     );
   });
 
@@ -398,13 +374,13 @@ describe('BasketPage with an authenticated user', () => {
   });
 
   it('should display the transaction items in the basket', () => {
-    cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
-      body: [mockTransactionItem],
+    cy.intercept('PUT', '/transaction-items/me/' + mockFamilyTreeTransactionItem.transactionItemId, {
+      body: [mockFamilyTreeTransactionItem],
       statusCode: 200,
     });
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem],
+      body: [mockFamilyTreeTransactionItem],
       statusCode: 200,
     });
     cy.visit('/basket');
@@ -414,7 +390,7 @@ describe('BasketPage with an authenticated user', () => {
   it('should go to checkout', () => {
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem],
+      body: [mockFamilyTreeTransactionItem],
       statusCode: 200,
     });
     cy.visit('/basket');
@@ -426,11 +402,11 @@ describe('BasketPage with an authenticated user', () => {
   it.skip('should update price when changing dimention of a product', () => {
     //Retrieve all transaction items LIST
     cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem],
+      body: [mockFamilyTreeTransactionItem],
       statusCode: 200,
     });
-    cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
-      body: [mockTransactionItemLarge],
+    cy.intercept('PUT', '/transaction-items/me/' + mockFamilyTreeTransactionItem.transactionItemId, {
+      body: [mockFamilyTreeTransactionItemLarge],
       statusCode: 200,
     });
     cy.visit('/basket');
@@ -453,7 +429,7 @@ describe('BasketPage with an authenticated user', () => {
   // TODO: Fix this test intercept
   it.skip('should update price when changing quantity of a product', () => {
     cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem],
+      body: [mockFamilyTreeTransactionItem],
       statusCode: 200,
     });
     cy.visit('/basket');
@@ -475,11 +451,11 @@ describe('BasketPage with an authenticated user', () => {
   // TODO: Fix this basket delete intercept
   it.skip('should remove the product from basket when pressing delete', () => {
     cy.intercept('GET', '/transaction-items/me', {
-      body: [mockTransactionItem],
+      body: [mockFamilyTreeTransactionItem],
       statusCode: 200,
     });
-    cy.intercept('PUT', '/transaction-items/me/' + mockTransactionItem.transactionItemId, {
-      body: [mockTransactionItem],
+    cy.intercept('PUT', '/transaction-items/me/' + mockFamilyTreeTransactionItem.transactionItemId, {
+      body: [mockFamilyTreeTransactionItem],
       statusCode: 200,
     });
     cy.visit('/basket');
@@ -493,51 +469,5 @@ describe('BasketPage with an authenticated user', () => {
       .then(() => {
         cy.get('[data-cy=no-items-in-basket]').should('exist');
       });
-  });
-});
-
-describe('AddToBasketModal', () => {
-  beforeEach(() => {
-    localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
-    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
-    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
-  });
-
-  it('should open add-to-basket modal when user is authenticated', () => {
-    cy.visit('/products/family-tree');
-    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-modal]').should('exist');
-    cy.visit('/products/quotable');
-    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-modal]').should('exist');
-  });
-
-  it('should increase / decrease quantity', () => {
-    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should('be.disabled');
-    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '1');
-    cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').should('not.be.disabled');
-    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '2');
-    cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
-    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '3');
-    cy.get('[data-cy=add-to-basket-increase-quantity-button]').click();
-    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '4');
-    cy.get('[data-cy=add-to-basket-decrease-quantity-button]').click();
-    cy.get('[data-cy=add-to-basket-quantity]').should('contain', '3');
-  });
-
-  it('should increase / decrease dimensions', () => {
-    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should('be.disabled');
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '20cm x 20cm');
-    cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').should('not.be.disabled');
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
-    cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '30cm x 30cm');
-    cy.get('[data-cy=add-to-basket-increase-dimension-button]').should('be.disabled');
-    cy.get('[data-cy=add-to-basket-decrease-dimension-button]').click();
-    cy.get('[data-cy=add-to-basket-dimension]').should('contain', '25cm x 25cm');
   });
 });
