@@ -1,4 +1,4 @@
-export interface CatalogItem {
+export interface ProductsItem {
   titleEn: string;
   titleDk: string;
   descriptionEn: string;
@@ -9,7 +9,7 @@ export interface CatalogItem {
   routerLink: string;
 }
 
-const familyTree: CatalogItem = {
+const familyTree: ProductsItem = {
   titleEn: 'Family Tree',
   titleDk: 'Familietræ',
   descriptionEn: 'Create your own family tree by adding the names of your family.',
@@ -20,7 +20,7 @@ const familyTree: CatalogItem = {
   routerLink: 'family-tree',
 };
 
-const quotable: CatalogItem = {
+const quotable: ProductsItem = {
   titleEn: 'Quote frame',
   titleDk: 'Citatramme',
   descriptionEn: 'Select a frame and write a quote to someone you care about.',
@@ -31,7 +31,7 @@ const quotable: CatalogItem = {
   routerLink: 'quotable',
 };
 
-const unique: CatalogItem = {
+const unique: ProductsItem = {
   titleEn: 'Custom order',
   titleDk: 'Special bestilling',
   descriptionEn:
@@ -43,6 +43,6 @@ const unique: CatalogItem = {
   routerLink: 'unique',
 };
 
-const catalogList: CatalogItem[] = [familyTree, quotable, unique];
+const productsList: ProductsItem[] = [familyTree, quotable, unique];
 
-export default catalogList;
+export default productsList;

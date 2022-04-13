@@ -22,12 +22,12 @@ describe('QuotableProductPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
-    cy.visit('/catalog/quotable');
+    cy.visit('/products/quotable');
   });
 
   describe('Unauthenticated user actions', () => {
     it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
-      cy.visit('/catalog/quotable');
+      cy.visit('/products/quotable');
       // TODO: Create an intercept
       // TODO: Check that id doesnt display the design
     });

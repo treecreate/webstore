@@ -42,7 +42,7 @@ export class FamilyTreeTemplateModalComponent {
     console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
     if (this.activatedRoute.snapshot.queryParams.designId !== undefined) {
-      this.router.navigate(['/catalog/family-tree']);
+      this.router.navigate(['/products/family-tree']);
       this.activeModal.close();
     } else {
       location.reload();

@@ -62,10 +62,10 @@ export class CollectionItemComponent {
   getEditLink(): string {
     switch (this.design.designType) {
       case DesignTypeEnum.familyTree: {
-        return '/catalog/family-tree';
+        return '/products/family-tree';
       }
       case DesignTypeEnum.quotable: {
-        return '/catalog/quotable';
+        return '/products/quotable';
       }
     }
   }

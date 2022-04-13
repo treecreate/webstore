@@ -171,7 +171,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
   });
 
   it('should add an transaction with family tree item to basket', () => {
-    cy.visit('/catalog/family-tree');
+    cy.visit('/products/family-tree');
     // Create design
     cy.get('[data-cy=family-tree-canvas]').click();
     // Open add to basket modal
@@ -182,7 +182,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
     // Add to basket
     cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
-    cy.url().should('contain', '/catalog/family-tree');
+    cy.url().should('contain', '/products/family-tree');
 
     //Check that the new item has been added
     cy.visit('/basket');
@@ -326,7 +326,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
-        cy.url().should('contain', '/catalog/family-tree?designId=0');
+        cy.url().should('contain', '/products/family-tree?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
         cy.get('[data-cy=view-only-back-button]').click({ force: true });
@@ -342,7 +342,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
-        cy.url().should('contain', '/catalog/quotable?designId=0');
+        cy.url().should('contain', '/products/quotable?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
         cy.get('[data-cy=view-only-back-button]').click({ force: true });
@@ -504,10 +504,10 @@ describe('AddToBasketModal', () => {
   });
 
   it('should open add-to-basket modal when user is authenticated', () => {
-    cy.visit('/catalog/family-tree');
+    cy.visit('/products/family-tree');
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-modal]').should('exist');
-    cy.visit('/catalog/quotable');
+    cy.visit('/products/quotable');
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-modal]').should('exist');
   });

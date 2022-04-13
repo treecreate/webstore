@@ -26,9 +26,9 @@
                     </div>
                     <!-- If there are not items in basket -->
                     <div class="no-items" *ngIf="itemList.length <= 0 && !isLoading" data-cy="no-items-in-basket">
-                        <img src="/assets/icons/no-design-icon.svg" routerLink="/catalog" class="no-design-icon" />
+                        <img src="/assets/icons/no-design-icon.svg" routerLink="/products" class="no-design-icon" />
                         <div class="no-items-text" i18n="@@no-items-text">You have no items in your basket</div>
-                        <button class="tc-button-50" routerLink="/catalog" i18n="@@start-creating">
+                        <button class="tc-button-50" routerLink="/products" i18n="@@start-creating">
                             Start Creating
                         </button>
                     </div>

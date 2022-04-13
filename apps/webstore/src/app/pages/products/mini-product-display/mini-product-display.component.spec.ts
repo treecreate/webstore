@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CatalogItem } from '../catalogItems';
+import { ProductsItem } from '../productsItems';
 
-import { ProductDisplayComponent } from './product-display.component';
+import { MiniProductDisplayComponent } from './mini-product-display.component';
 
-describe('ProductDisplayComponent', () => {
-  const product: CatalogItem = {
+describe('MiniProductDisplayComponent', () => {
+  const product: ProductsItem = {
     titleEn: 'string',
     titleDk: 'string',
     descriptionEn: 'string',
@@ -14,17 +14,17 @@ describe('ProductDisplayComponent', () => {
     specialOffer: 'string',
     routerLink: 'string',
   };
-  let component: ProductDisplayComponent;
-  let fixture: ComponentFixture<ProductDisplayComponent>;
+  let component: MiniProductDisplayComponent;
+  let fixture: ComponentFixture<MiniProductDisplayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProductDisplayComponent],
+      declarations: [MiniProductDisplayComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductDisplayComponent);
+    fixture = TestBed.createComponent(MiniProductDisplayComponent);
     component = fixture.componentInstance;
     component.product = product;
     fixture.detectChanges();

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CatalogItem } from '../catalogItems';
+import { ProductsItem } from '../productsItems';
 
 @Component({
   selector: 'webstore-mini-product-display',
@@ -8,7 +8,7 @@ import { CatalogItem } from '../catalogItems';
 })
 export class MiniProductDisplayComponent {
   @Input()
-  product!: CatalogItem;
+  product!: ProductsItem;
 
   @Input()
   isEnglish = false;

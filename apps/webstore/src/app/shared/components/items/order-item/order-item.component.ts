@@ -59,10 +59,10 @@ export class OrderItemComponent implements OnInit {
   getEditLink(designType: DesignTypeEnum): string {
     switch (designType) {
       case DesignTypeEnum.familyTree: {
-        return '/catalog/family-tree';
+        return '/products/family-tree';
       }
       case DesignTypeEnum.quotable: {
-        return '/catalog/quotable';
+        return '/products/quotable';
       }
     }
   }

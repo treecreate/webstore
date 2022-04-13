@@ -20,8 +20,8 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { FamilyTreeComponent } from './pages/catalog/product-pages/family-tree/family-tree.component';
-import { CatalogComponent } from './pages/catalog/catalog.component';
+import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
+import { ProductsComponent } from './pages/products/products.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
@@ -47,10 +47,10 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
-import { QuotableComponent } from './pages/catalog/product-pages/quotable/quotable.component';
+import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
-import { MiniProductDisplayComponent } from './pages/catalog/mini-product-display/mini-product-display.component';
-import { ProductDisplayComponent } from './pages/catalog/product-display/product-display.component';
+import { MiniProductDisplayComponent } from './pages/products/mini-product-display/mini-product-display.component';
+import { ProductDisplayComponent } from './pages/products/product-display/product-display.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
@@ -94,7 +94,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     NewsletterSignupModalComponent,
     FamilyTreeTemplateModalComponent,
     StoretItemComponent,
-    CatalogComponent,
+    ProductsComponent,
     QuotableComponent,
     QuotableDesignComponent,
     MiniProductDisplayComponent,

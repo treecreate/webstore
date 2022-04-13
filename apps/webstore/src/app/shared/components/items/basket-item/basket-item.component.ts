@@ -69,13 +69,13 @@ export class BasketItemComponent implements OnInit {
       // use design.designId for logged in users
       switch (this.item.design.designType) {
         case DesignTypeEnum.familyTree: {
-          this.router.navigate(['/catalog/family-tree'], {
+          this.router.navigate(['/products/family-tree'], {
             queryParams: { designId: this.item.design.designId },
           });
           break;
         }
         case DesignTypeEnum.quotable: {
-          this.router.navigate(['/catalog/quotable'], {
+          this.router.navigate(['/products/quotable'], {
             queryParams: { designId: this.item.design.designId },
           });
           break;
@@ -85,13 +85,13 @@ export class BasketItemComponent implements OnInit {
       // Go to design using index => will load from LS transactionItem list
       switch (this.item.design.designType) {
         case DesignTypeEnum.familyTree: {
-          this.router.navigate(['/catalog/family-tree'], {
+          this.router.navigate(['/products/family-tree'], {
             queryParams: { designId: this.index },
           });
           break;
         }
         case DesignTypeEnum.quotable: {
-          this.router.navigate(['/catalog/quotable'], {
+          this.router.navigate(['/products/quotable'], {
             queryParams: { designId: this.index },
           });
           break;

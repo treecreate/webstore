@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // if user is already logged in redirect to products page
     if (this.authService.isAccessTokenValid()) {
-      this.router.navigate(['/catalog']);
+      this.router.navigate(['/products']);
     }
 
     this.loginForm = new FormGroup({
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
                   this.isLoading = false;
                   this.isLoginFailed = false;
                   this.isLoggedIn = true;
-                  this.router.navigate(['/catalog']);
+                  this.router.navigate(['/products']);
                   this.reloadPage();
                 },
                 (error: HttpErrorResponse) => {
@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
             this.isLoading = false;
             this.isLoginFailed = false;
             this.isLoggedIn = true;
-            this.router.navigate(['/catalog']);
+            this.router.navigate(['/products']);
             this.reloadPage();
           }
         },

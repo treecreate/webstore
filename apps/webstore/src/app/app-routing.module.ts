@@ -15,9 +15,9 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { FamilyTreeComponent } from './pages/catalog/product-pages/family-tree/family-tree.component';
-import { CatalogComponent } from './pages/catalog/catalog.component';
-import { QuotableComponent } from './pages/catalog/product-pages/quotable/quotable.component';
+import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
@@ -59,12 +59,12 @@ const routes: Routes = [
     data: { roles: [UserRoles.user] },
   },
   {
-    path: 'catalog',
-    component: CatalogComponent,
+    path: 'products',
+    component: ProductsComponent,
     canActivate: [CookieGuard],
   },
-  { path: 'catalog/family-tree', component: FamilyTreeComponent, canActivate: [CookieGuard] },
-  { path: 'catalog/quotable', component: QuotableComponent, canActivate: [CookieGuard] },
+  { path: 'products/family-tree', component: FamilyTreeComponent, canActivate: [CookieGuard] },
+  { path: 'products/quotable', component: QuotableComponent, canActivate: [CookieGuard] },
   {
     path: 'payment',
     children: [

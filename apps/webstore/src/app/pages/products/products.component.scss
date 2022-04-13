@@ -1,9 +1,9 @@
-.catalog {
+.products {
   display: flex;
   justify-content: center;
 }
 
-.catalog-page-container {
+.products-page-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,19 +25,19 @@
 }
 
 @media (max-width: 900px) {
-  .catalog-page-container {
+  .products-page-container {
     width: 70vw;
   }
 }
 
 @media (max-width: 720px) {
-  .catalog-page-container {
+  .products-page-container {
     width: 80vw;
   }
 }
 
 @media (max-width: 450px) {
-  .catalog-page-container {
+  .products-page-container {
     width: 93vw;
   }
 }

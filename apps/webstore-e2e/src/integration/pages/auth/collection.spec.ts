@@ -110,7 +110,7 @@ describe('CollectionPage', () => {
     cy.visit('/collection');
     cy.get('[data-cy=collection-no-items]').should('exist');
     cy.get('[data-cy=collection-no-items-start-button]').click();
-    cy.url().should('contain', '/catalog');
+    cy.url().should('contain', '/products');
   });
 
   it('Should display all mutable deisgns properly', () => {
@@ -167,7 +167,7 @@ describe('CollectionPage', () => {
         cy.get('[data-cy=family-tree-collection-item-edit-button]').click();
       })
       .then(() => {
-        cy.url().should('contain', '/catalog/family-tree?designId=');
+        cy.url().should('contain', '/products/family-tree?designId=');
         cy.get('[data-cy=product-options]').should('exist');
       });
   });
@@ -202,6 +202,6 @@ describe('CollectionPage', () => {
     });
     cy.visit('/collection');
     cy.get('[data-cy=collection-create-new-button]').click();
-    cy.url().should('contain', '/catalog');
+    cy.url().should('contain', '/products');
   });
 });

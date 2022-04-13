@@ -7,19 +7,19 @@ describe('introduction modal', () => {
   });
 
   it('should display the intro modal when clicking on question button', () => {
-    cy.visit('/catalog/family-tree');
+    cy.visit('/products/family-tree');
     cy.get('[data-cy=family-tree-intro-modal-option-button]').click();
     cy.get('[data-cy=family-tree-intro-modal]').should('exist');
   });
 
   it('should have img describing how to use the design', () => {
-    cy.visit('/catalog/family-tree');
+    cy.visit('/products/family-tree');
     cy.get('[data-cy=family-tree-intro-modal-option-button]').click();
     cy.get('[data-cy=intro-img-01]').should('exist');
   });
 
   it('should close modal when clicking the close button', () => {
-    cy.visit('/catalog/family-tree');
+    cy.visit('/products/family-tree');
     cy.get('[data-cy=family-tree-intro-modal-option-button]').click();
     cy.get('[data-cy=intro-img-01]').should('exist');
     cy.get('[data-cy=family-tree-intro-close-button]').click();
