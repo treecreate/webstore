@@ -1,5 +1,5 @@
-import { BoxDesignEnum, QuotableDesignEnum, TreeDesignEnum } from '@assets';
-import { DesignFontEnum, DesignTypeEnum, IDesign, IFamilyTree, IQoutable } from '@interfaces';
+import { QuotableDesignEnum } from '@assets';
+import { DesignFontEnum, DesignTypeEnum, IDesign, IQoutable } from '@interfaces';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
@@ -25,8 +25,41 @@ describe('QuotableProductPage', () => {
     cy.visit('/catalog/quotable');
   });
 
-  it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
-    localStorage.setItem(LocalStorageVars.designQuotable, JSON.stringify(quotableDesing));
-    cy.visit('/catalog/quotable');
+  describe('Unauthenticated user actions', () => {
+    it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
+      cy.visit('/catalog/quotable');
+      // TODO: Create an intercept
+      // TODO: Check that id doesnt display the design
+    });
+
+    it('should get quotable design from localstorage', () => {
+      localStorage.setItem(LocalStorageVars.designQuotable, JSON.stringify(quotableDesing));
+      // TODO: Check that the design is set
+    });
+  });
+
+  describe('Logged in user actions', () => {
+    beforeEach(() => {
+      localStorage.setItem(
+        LocalStorageVars.authUser,
+        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+      );
+    });
+
+    it('Fetches design based of id in url', () => {
+      // TODO: Create intercept with id
+      // TODO: Check that the desing is set
+    });
+
+    it('Fetches design from localstorage when there is no id in url', () => {
+      localStorage.setItem(LocalStorageVars.designQuotable, JSON.stringify(quotableDesing));
+      // TODO: Check that the design is set
+    });
+
+    it('Saves design to user account and localstorage when logged in', () => {
+      // TODO: Create intercept for saving design
+      // TODO: Go to collection page
+      // TODO: Check that design has been saved properly
+    });
   });
 });

@@ -170,7 +170,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
     );
   });
 
-  it('should add an transaction item to basket', () => {
+  it('should add an transaction with family tree item to basket', () => {
     cy.visit('/catalog/family-tree');
     // Create design
     cy.get('[data-cy=family-tree-canvas]').click();
@@ -318,7 +318,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
         cy.get('[data-cy=basket-item]').should('have.length', 1);
       });
   });
-  it('should show a viewOnly version of the design', () => {
+  it('should show a viewOnly version of the family tree design', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-item]')
       .first()
@@ -327,6 +327,22 @@ describe('BasketPage using localstorage (not logged in)', () => {
       })
       .then(() => {
         cy.url().should('contain', '/catalog/family-tree?designId=0');
+        cy.get('[data-cy=product-options]').should('not.exist');
+        cy.get('[data-cy=view-only-back-button]').should('exist');
+        cy.get('[data-cy=view-only-back-button]').click({ force: true });
+        cy.url().should('contain', '/basket');
+      });
+  });
+
+  it('should show a viewOnly version of the quotable design', () => {
+    cy.visit('/basket');
+    cy.get('[data-cy=basket-item]')
+      .first()
+      .within(() => {
+        cy.get('[data-cy=basket-item-view-button]').click({ force: true });
+      })
+      .then(() => {
+        cy.url().should('contain', '/catalog/quotable?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
         cy.get('[data-cy=view-only-back-button]').click({ force: true });
@@ -370,7 +386,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
   });
 });
 
-describe('BasketPage with a logged in user', () => {
+describe('BasketPage with an authenticated user', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
@@ -485,10 +501,13 @@ describe('AddToBasketModal', () => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
-    cy.visit('/catalog/family-tree');
   });
 
-  it('should open add-to-basket modal when user is logged in', () => {
+  it('should open add-to-basket modal when user is authenticated', () => {
+    cy.visit('/catalog/family-tree');
+    cy.get('[data-cy=add-family-tree-to-basket-button]').click();
+    cy.get('[data-cy=add-to-basket-modal]').should('exist');
+    cy.visit('/catalog/quotable');
     cy.get('[data-cy=add-family-tree-to-basket-button]').click();
     cy.get('[data-cy=add-to-basket-modal]').should('exist');
   });
