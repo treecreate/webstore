@@ -257,8 +257,28 @@ export class AccountComponent {
       });
   }
 
+  /**
+   * Remove, if present, the newsletter entry for the given user.
+   */
   unsubscribe(): void {
-    console.log('WIP, here be newsletter info', this.newsletter);
+    if (!this.newsletter) {
+      console.warn(
+        `An unsubscribe button was pressed even though the user is not subscriber. Something went wrong, the button shouldn't be visible!`
+      );
+      return;
+    }
+    this.isLoading = true;
+    this.newsletterService.unsubscribe(this.newsletter?.newsletterId).subscribe({
+      next: () => {
+        this.snackBar.open('The user has been unsubscribed');
+        this.newsletter = undefined;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.snackBar.open('Failed to unsubscribe the user', 'Why??');
+        this.isLoading = false;
+      },
+    });
   }
 
   /**

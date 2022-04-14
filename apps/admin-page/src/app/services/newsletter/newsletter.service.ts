@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateUpdateOrderRequest, INewsletter, IOrder, OrderStatusEnum } from '@interfaces';
+import { INewsletter } from '@interfaces';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 
@@ -18,5 +18,14 @@ export class NewsletterService {
    */
   public getNewsletter(email: string): Observable<INewsletter> {
     return this.http.get<INewsletter>(`${env.apiUrl}/newsletter/${email}`);
+  }
+
+  /**
+   * Remove the given newsletter entry.
+   * @param newsletterId id of the newsletter entry.
+   * @returns observable of the confirmation response.
+   */
+  unsubscribe(newsletterId: string): Observable<void> {
+    return this.http.delete<void>(`${env.apiUrl}/newsletter/${newsletterId}`, {});
   }
 }
