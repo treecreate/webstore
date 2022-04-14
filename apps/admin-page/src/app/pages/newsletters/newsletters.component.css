@@ -55,3 +55,18 @@ button {
   border-radius: 2px;
   margin-left: 1vw;
 }
+
+.sub-header-option {
+  width: 9em;
+  height: 1em;
+  font-size: larger;
+  justify-content: space-between;
+  display: flex;
+  font-weight: 400;
+  align-items: center;
+}
+
+.sub-header {
+  display: flex;
+  justify-content: end;
+}

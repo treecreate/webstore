@@ -15,6 +15,7 @@ export class NewslettersComponent {
   orderList: IOrder[] = [];
   isLoading = false;
   displayedColumns: string[] = ['newsletterEmail', 'date', 'hasOrdered', 'actions'];
+  isSafeMode = true;
 
   constructor(
     private newsletterService: NewsletterService,
@@ -77,6 +78,14 @@ export class NewslettersComponent {
    */
   unsubscribe(newsletterId: string): void {
     this.isLoading = true;
+
+    if (this.isSafeMode) {
+      if (!confirm('are you sure?')) {
+        this.isLoading = false;
+        return;
+      }
+    }
+
     this.newsletterService.unsubscribe(newsletterId).subscribe({
       next: () => {
         this.snackBar.open('The user has been unsubscribed');

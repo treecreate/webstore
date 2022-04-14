@@ -1,5 +1,10 @@
 <webstore-item-card title="Newsletters" [content]="content" [isLoading]="isLoading" data-cy="newsletters-card">
     <ng-template #content>
+        <div class="sub-header">
+            <div class="sub-header-option">
+                Safe mode <mat-slide-toggle color="primary" [(ngModel)]="isSafeMode"></mat-slide-toggle>
+            </div>
+        </div>
         <table
             mat-table
             [dataSource]="newsletterList"
