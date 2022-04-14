@@ -1,6 +1,6 @@
 <webstore-item-card title="Users" [content]="content" [isLoading]="isLoading" data-cy="users-card">
     <ng-template #content>
-        <table mat-table [dataSource]="userList" class="mat-elevation-z8 users-table" data-cy="users-table">
+        <table mat-table [dataSource]="userList" class="mat-elevation-z8 table" data-cy="users-table">
             <!-- Email Column -->
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef>E-mail</th>
