@@ -5,12 +5,7 @@
                 Safe mode <mat-slide-toggle color="primary" [(ngModel)]="isSafeMode"></mat-slide-toggle>
             </div>
         </div>
-        <table
-            mat-table
-            [dataSource]="newsletterList"
-            class="mat-elevation-z8 newsletters-table"
-            data-cy="newsletters-table"
-        >
+        <table mat-table [dataSource]="newsletterList" class="mat-elevation-z8 table" data-cy="newsletters-table">
             <!-- Email Column -->
             <ng-container matColumnDef="newsletterEmail">
                 <th mat-header-cell *matHeaderCellDef>Newsletter email</th>
