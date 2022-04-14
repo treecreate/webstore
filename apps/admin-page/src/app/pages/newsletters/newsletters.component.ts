@@ -69,8 +69,6 @@ export class NewslettersComponent {
         amount: amountOfNewsletters,
       },
     ];
-
-    console.log(this.tableTopInfo);
   }
 
   /**
