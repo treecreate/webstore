@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { INewsletter, IOrder } from '@interfaces';
+import { INewsletter, IOrder, ItemInfo } from '@interfaces';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { OrdersService } from '../../services/orders/orders.service';
 
@@ -16,6 +16,7 @@ export class NewslettersComponent {
   isLoading = false;
   displayedColumns: string[] = ['newsletterEmail', 'date', 'hasOrdered', 'actions'];
   isSafeMode = true;
+  tableTopInfo: ItemInfo[] = [];
 
   constructor(
     private newsletterService: NewsletterService,
@@ -35,6 +36,7 @@ export class NewslettersComponent {
       next: (response: INewsletter[]) => {
         this.newsletterList = response;
         this.isLoading = false;
+        this.setTableInfo();
       },
       error: (err) => {
         console.error(err);
@@ -44,6 +46,31 @@ export class NewslettersComponent {
         this.isLoading = false;
       },
     });
+  }
+
+  /**
+   * Get top table info
+   */
+  setTableInfo(): void {
+    const timeStamp = new Date().getTime() - 2592000000;
+    const amountOfNewsletters = this.newsletterList.length;
+    const newSubscribers = this.newsletterList.filter(
+      (newsletter) => timeStamp < new Date(newsletter.createdAt).getTime()
+    ).length;
+
+    this.tableTopInfo = [
+      {
+        description: 'New',
+        amount: newSubscribers,
+        color: 'green',
+      },
+      {
+        description: 'Total subscribers',
+        amount: amountOfNewsletters,
+      },
+    ];
+
+    console.log(this.tableTopInfo);
   }
 
   /**
