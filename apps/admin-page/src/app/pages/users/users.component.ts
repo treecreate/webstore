@@ -10,7 +10,7 @@ import { UserService } from '../../services/user/user.service';
 @Component({
   selector: 'webstore-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  styleUrls: ['./users.component.css', '../../../assets/styling/table.css'],
 })
 export class UsersComponent {
   userList!: IUser[];

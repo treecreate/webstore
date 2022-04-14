@@ -8,7 +8,7 @@ import { OrdersService } from '../../services/orders/orders.service';
 @Component({
   selector: 'webstore-newsletters',
   templateUrl: './newsletters.component.html',
-  styleUrls: ['./newsletters.component.css'],
+  styleUrls: ['./newsletters.component.css', '../../../assets/styling/table.css'],
 })
 export class NewslettersComponent {
   newsletterList!: INewsletter[];
