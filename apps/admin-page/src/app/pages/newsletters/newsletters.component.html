@@ -28,7 +28,11 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let newsletter" class="actions">
-                    <button mat-flat-button color="primary" data-cy="send-email-newsletter-btn">WiP Send Email</button>
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="below">
+                        <button mat-flat-button color="primary" [disabled]="true" data-cy="send-email-newsletter-btn">
+                            Send email
+                        </button></span
+                    >
                     <button
                         mat-flat-button
                         color="primary"
