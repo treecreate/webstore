@@ -29,8 +29,13 @@
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let newsletter" class="actions">
                     <button mat-flat-button color="primary" data-cy="send-email-newsletter-btn">WiP Send Email</button>
-                    <button mat-flat-button color="primary" data-cy="unsubscribe-newsletter-btn">
-                        WiP UnSubscribe
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="unsubscribe(newsletter.newsletterId)"
+                        data-cy="unsubscribe-newsletter-btn"
+                    >
+                        Unsubscribe
                     </button>
                 </td>
             </ng-container>
