@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { INewsletter } from '@interfaces';
+import { INewsletter, IOrder } from '@interfaces';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
+import { OrdersService } from '../../services/orders/orders.service';
 
 @Component({
   selector: 'webstore-newsletters',
@@ -10,11 +12,17 @@ import { NewsletterService } from '../../services/newsletter/newsletter.service'
 })
 export class NewslettersComponent {
   newsletterList!: INewsletter[];
+  orderList: IOrder[] = [];
   isLoading = false;
   displayedColumns: string[] = ['newsletterEmail', 'date', 'hasOrdered', 'actions'];
 
-  constructor(private newsletterService: NewsletterService, private snackBar: MatSnackBar) {
+  constructor(
+    private newsletterService: NewsletterService,
+    private ordersService: OrdersService,
+    private snackBar: MatSnackBar
+  ) {
     this.fetchNewsletters();
+    this.fetchOrders();
   }
 
   /**
@@ -35,6 +43,33 @@ export class NewslettersComponent {
         this.isLoading = false;
       },
     });
+  }
+
+  /**
+   * Fetch all orders through the api.
+   */
+  fetchOrders(): void {
+    this.isLoading = true;
+    this.ordersService.getOrders().subscribe(
+      (listData: IOrder[]) => {
+        this.orderList = listData;
+        this.isLoading = false;
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err.message);
+        this.snackBar.open('Failed to fetch orders', 'Doggo!', { duration: 10000 });
+        this.isLoading = false;
+      }
+    );
+  }
+
+  /**
+   * Check if the given email is associated with any orders.
+   * @param email the email to check.
+   * @returns whether or not it is associated with order.
+   */
+  hasOrdered(email: string): boolean {
+    return this.orderList.filter((order) => order.contactInfo.email.toLowerCase() === email.toLowerCase()).length !== 0;
   }
 
   /**
