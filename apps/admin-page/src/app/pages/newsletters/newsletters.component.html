@@ -21,7 +21,22 @@
             <!-- Date created Column -->
             <ng-container matColumnDef="hasOrdered">
                 <th mat-header-cell *matHeaderCellDef>Has ordered</th>
-                <td mat-cell *matCellDef="let newsletter">{{ hasOrdered(newsletter.email) }}</td>
+                <td mat-cell *matCellDef="let newsletter">
+                    <div
+                        *ngIf="hasOrdered(newsletter.email)"
+                        class="label"
+                        [ngStyle]="{ 'background-color': '#00B207' }"
+                    >
+                        Yes
+                    </div>
+                    <div
+                        *ngIf="!hasOrdered(newsletter.email)"
+                        class="label"
+                        [ngStyle]="{ 'background-color': '#FF0000' }"
+                    >
+                        No
+                    </div>
+                </td>
             </ng-container>
 
             <!-- Actions Column -->

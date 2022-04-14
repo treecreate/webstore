@@ -41,3 +41,17 @@ button {
   position: relative;
   top: -7px;
 }
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: fit-content;
+  min-width: 30px;
+  height: 2.3vh;
+  min-height: 15px;
+  padding: 0 6px;
+  border-radius: 2px;
+  margin-left: 1vw;
+}
