@@ -1,0 +1,42 @@
+<webstore-item-card title="Newsletters" [content]="content" [isLoading]="isLoading" data-cy="newsletters-card">
+    <ng-template #content>
+        <table
+            mat-table
+            [dataSource]="newsletterList"
+            class="mat-elevation-z8 newsletters-table"
+            data-cy="newsletters-table"
+        >
+            <!-- Email Column -->
+            <ng-container matColumnDef="newsletterEmail">
+                <th mat-header-cell *matHeaderCellDef>Newsletter email</th>
+                <td mat-cell *matCellDef="let newsletter" data-cy="newsletter-email">{{ newsletter.email }}</td>
+            </ng-container>
+
+            <!-- Date created Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let newsletter">{{ newsletter.createdAt | date }}</td>
+            </ng-container>
+
+            <!-- Date created Column -->
+            <ng-container matColumnDef="hasOrdered">
+                <th mat-header-cell *matHeaderCellDef>Has ordered</th>
+                <td mat-cell *matCellDef="let newsletter">WiP</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let newsletter" class="actions">
+                    <button mat-flat-button color="primary" data-cy="send-email-newsletter-btn">WiP Send Email</button>
+                    <button mat-flat-button color="primary" data-cy="unsubscribe-newsletter-btn">
+                        WiP UnSubscribe
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="newsletters-table-header"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="newsletters-table-row"></tr>
+        </table>
+    </ng-template>
+</webstore-item-card>

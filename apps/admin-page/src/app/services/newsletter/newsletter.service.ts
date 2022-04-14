@@ -11,7 +11,16 @@ export class NewsletterService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Calls the API to fetch a specific newsletter entry.
+   * Fetch all newsletters
+   *
+   * @returns an observable with the newsletter list.
+   */
+  public getNewsletters(): Observable<INewsletter[]> {
+    return this.http.get<INewsletter[]>(`${env.apiUrl}/newsletter`);
+  }
+
+  /**
+   * Fetch a specific newsletter entry.
    *
    * @param email the email of the newsletter entry
    * @returns an observable with the newsletter object.
