@@ -167,6 +167,9 @@
                 </button>
                 <button mat-raised-button type="button" color="primary" *ngIf="isOnlyCustomer()">Reset password</button>
                 <button mat-raised-button type="button" color="primary" *ngIf="isOnlyCustomer()">Send email</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="newsletter" (click)="unsubscribe()">
+                    Unsubscribe
+                </button>
             </div>
         </div>
     </div>
