@@ -42,7 +42,12 @@ export class QuotableComponent implements OnInit {
     ceil: 70,
   };
   currentDesign = 1;
-  design: IQoutable;
+  design: IQoutable = {
+    font: this.defaultFont,
+    fontSize: this.fontSize,
+    designSrc: quotableFrames[this.currentDesign].src,
+    text: 'Lorem Ipsum',
+  };
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -156,7 +161,7 @@ export class QuotableComponent implements OnInit {
     const id = Number(designId);
     if (isNaN(id) || id < 0 || id > itemList.length) {
       this.toastService.showAlert('Failed to load design', 'Kunne ikke loade dit design', 'danger', 10000);
-      this.router.navigate(['/products/family-tree']);
+      this.router.navigate(['/products/quotable']);
       return;
     }
     // Load design
