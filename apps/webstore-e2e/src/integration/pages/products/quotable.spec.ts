@@ -110,9 +110,61 @@ describe('QuotableProductPage', () => {
       cy.get('[data-cy=text]').should('contain', 'skrt skrt');
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame2.svg');
     });
-  });
 
-  describe('Option settings', () => {});
+    it('saves to localstorage properly', () => {
+      // Assert
+      cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame1.svg');
+      cy.get('[data-cy=font-size]').should('contain', '40');
+      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
+
+      // Act
+      // Change design
+      cy.get('[data-cy=next-design-button]').click({ force: true });
+      cy.get('[data-cy=font-select-option]')
+        .click()
+        .then(() => {
+          cy.get('button').contains('calendasItalic').click();
+        });
+      const arrows = '{rightarrow}'.repeat(20);
+      cy.get('[data-cy=font-size-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(arrows);
+      });
+      cy.get('[data-cy=text-input-field]').clear().type('skrt skrt skrt');
+      // Save to localstorage
+      cy.get('[data-cy=save-button]').click({ force: true });
+      // Leave page and return to page
+      cy.visit('/basket');
+      cy.visit('/products/quotable');
+
+      // Expect
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame2.svg');
+      cy.get('[data-cy=font-size]').should('contain', '60');
+      cy.get('[data-cy=font]').should('have.text', 'calendas-italic');
+      cy.get('[data-cy=text]').should('contain', 'skrt skrt skrt');
+    });
+
+    it('resets design properly', () => {
+      // Assert
+      cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame1.svg');
+
+      // Act
+      cy.get('[data-cy=prev-design-button]').click({ force: true });
+      cy.get('[data-cy=font-select-option]')
+        .click()
+        .then(() => {
+          cy.get('button').contains('calendasItalic').click();
+        });
+      cy.get('[data-cy=font]').should('have.text', 'calendas-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame0-no-design.svg');
+      cy.get('[data-cy=reset-button]').click({ force: true });
+
+      // Expect
+      cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame1.svg');
+    });
+  });
 
   describe.skip('Logged in user actions', () => {
     beforeEach(() => {
