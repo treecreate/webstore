@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';

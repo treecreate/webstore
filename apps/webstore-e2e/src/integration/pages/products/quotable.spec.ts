@@ -7,7 +7,7 @@ const authMockService = new AuthenticationService();
 const quotableDesing: IQoutable = {
   font: DesignFontEnum.archaMedium,
   fontSize: 40,
-  designSrc: QuotableDesignEnum.frame1,
+  designSrc: QuotableDesignEnum.frame2,
   text: 'skrt skrt',
 };
 const mockQuotableDesign: IDesign = {
@@ -28,14 +28,19 @@ describe('QuotableProductPage', () => {
   describe('Unauthenticated user actions', () => {
     it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
       cy.visit('/products/quotable?designId=c0a80121-7ac0-190b-817a-c08ab0a12345');
-      // TODO: Check that id doesnt display the design
+      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame1.svg');
     });
 
     it('should get quotable design from localstorage', () => {
       localStorage.setItem(LocalStorageVars.designQuotable, JSON.stringify(quotableDesing));
-      // TODO: Check that the design is set
+      cy.visit('/products/quotable');
+      cy.get('[data-cy=text]').should('contain', 'skrt skrt');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame2.svg');
     });
   });
+
+  describe('Option settings', () => {});
 
   describe.skip('Logged in user actions', () => {
     beforeEach(() => {

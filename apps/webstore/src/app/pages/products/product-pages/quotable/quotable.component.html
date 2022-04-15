@@ -14,6 +14,13 @@
             (changeText)="updateText($event)"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
         ></webstore-quotable-design>
+
+        <!-- FOR CY TESTS -->
+        <div class="hide" data-cy="font">{{ design.font }}</div>
+        <div class="hide" data-cy="design">{{ design.designSrc }}</div>
+        <div class="hide" data-cy="fontSize">{{ design.fontSize }}</div>
+        <div class="hide" data-cy="text">{{ design.text }}</div>
+        <!-- END CY TESTS -->
     </div>
 
     <!-- Options -->

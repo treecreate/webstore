@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, quotableFrames, TreeDesignEnum } from '@assets';
+import { BoxOptionsDesignEnum, quotableFrames } from '@assets';
 import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IQoutable, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -35,7 +35,6 @@ export class QuotableComponent implements OnInit {
   defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
   displayFont = this.defaultFont;
   fontOptions = [];
-  defaultBackgroundTreeDesign = TreeDesignEnum.tree1;
   fontSize = 40;
   fontSizeOptions = {
     floor: 10,

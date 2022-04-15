@@ -31,7 +31,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   isDesignValid = false;
   hasInitialized = false;
-  inputHeight: number = 10;
+  inputHeight = 10;
 
   autosaveInterval;
   // design autosave frequency, in seconds
