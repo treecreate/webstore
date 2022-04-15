@@ -1,6 +1,7 @@
 package dk.treecreate.api.mail;
 
 import dk.treecreate.api.order.Order;
+import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.utils.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +16,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.UUID;
@@ -30,6 +30,8 @@ public class MailService
 
     @Autowired
     LinkService linkService;
+    @Autowired
+    OrderService orderService;
 
     public MailService(TemplateEngine templateEngine,
                        @Qualifier("getJavaInfoMailSender") JavaMailSender infoMailSender,
@@ -45,7 +47,8 @@ public class MailService
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
-        String subject = locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+        String subject = locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" :
+            "Welcome to Treecreate";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
     }
 
@@ -56,17 +59,21 @@ public class MailService
         context.setVariable("email", to);
         context.setVariable("resetPasswordLink",
             linkService.generateResetPasswordLink(token, locale));
-        String subject = locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+        String subject = locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" :
+            "Welcome to Treecreate";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP_ON_ORDER);
     }
 
-    public void sendNewsletterDiscountEmail(String to, Locale locale, String unsubscribeNewsletterUrl)
+    public void sendNewsletterDiscountEmail(String to, Locale locale,
+                                            String unsubscribeNewsletterUrl)
         throws UnsupportedEncodingException, MessagingException
     {
         Context context = new Context(locale);
         context.setVariable("email", to);
         context.setVariable("unsubscribeNewsletterUrl", unsubscribeNewsletterUrl);
-        String subject = locale.getLanguage().equals("dk") ? "Her er din rabatkode - Team Treecreate!" : "Here's your discount - Team Treecreate!";
+        String subject =
+            locale.getLanguage().equals("dk") ? "Her er din rabatkode - Team Treecreate!" :
+                "Here's your discount - Team Treecreate!";
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT);
     }
 
@@ -84,34 +91,16 @@ public class MailService
     public void sendOrderConfirmationEmail(String to, Order order)
         throws UnsupportedEncodingException, MessagingException
     {
-        // Get delivery price
-        float shippingPrice = 0;
-        String shippingMethod = order.getShippingMethod().toString();
-        BigDecimal orderPrice = order.getSubtotal();
-        switch (shippingMethod) {
-            case "home_delivery":
-                if (orderPrice.intValue() > 350) {
-                    shippingPrice = 25;
-                } else {
-                    shippingPrice = 65;
-                }
-                break;
-            case "pick_up_point":
-                if (orderPrice.intValue() > 350) {
-                    shippingPrice = 0;
-                } else {
-                    shippingPrice = 45;
-                }
-                break;
-            default:
-                shippingPrice = 0;
-        }
+        // Calculate delivery price. Calulcations return total + delivery price, so we substract the total
+        BigDecimal deliveryPrice =
+            orderService.calculateDeliveryPrice(order.getShippingMethod(), order.getTotal())
+                .subtract(order.getTotal());
 
         // Set Variables
         Context context = new Context(new Locale("dk"));
         context.setVariable("email", to);
         context.setVariable("order", order);
-        context.setVariable("deliveryPrice", shippingPrice);
+        context.setVariable("deliveryPrice", deliveryPrice);
         String subject = "Treecreate - Order Confirmation";
 
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.ORDER_CONFIRMATION);
