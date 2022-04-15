@@ -387,7 +387,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getHomeDeliveryPrice(): number {
-    if (this.priceInfo !== undefined && this.priceInfo.discountedPrice > 350) return 10;
-    else return 55;
+    if (this.priceInfo !== undefined && this.priceInfo.discountedPrice > 350) return 25;
+    else return 65;
   }
 }

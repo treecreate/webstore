@@ -33,9 +33,9 @@ export class CalculatePriceService {
     // Get delivery price
     let deliveryPrice = 0;
     if (discountedPrice > 350) {
-      deliveryPrice = isHomeDelivery ? 10 : 0;
+      deliveryPrice = isHomeDelivery ? 25 : 0;
     } else {
-      deliveryPrice = isHomeDelivery ? 55 : 45;
+      deliveryPrice = isHomeDelivery ? 65 : 45;
     }
 
     // Get planted trees price

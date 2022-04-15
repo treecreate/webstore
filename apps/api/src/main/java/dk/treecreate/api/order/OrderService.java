@@ -105,14 +105,13 @@ public class OrderService
             case HOME_DELIVERY:
                 if (total.compareTo(new BigDecimal(350)) > 0)
                 {
-
-                    total = total.add(new BigDecimal(10));
+                    total = total.add(new BigDecimal(25));
                 } else
                 {
-                    total = total.add(new BigDecimal(55));
+                    total = total.add(new BigDecimal(65));
                 }
 
-                break; // 29 kr
+                break;
             case OWN_DELIVERY:
                 total = total.add(new BigDecimal(100));
                 break; // 100 kr

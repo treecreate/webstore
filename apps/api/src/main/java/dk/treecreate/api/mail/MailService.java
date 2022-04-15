@@ -14,6 +14,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.UUID;
@@ -82,11 +84,36 @@ public class MailService
     public void sendOrderConfirmationEmail(String to, Order order)
         throws UnsupportedEncodingException, MessagingException
     {
-        // TODO: Add locale change so it can also be in english
+        // Get delivery price
+        float shippingPrice = 0;
+        String shippingMethod = order.getShippingMethod().toString();
+        BigDecimal orderPrice = order.getSubtotal();
+        switch (shippingMethod) {
+            case "home_delivery":
+                if (orderPrice.intValue() > 350) {
+                    shippingPrice = 25;
+                } else {
+                    shippingPrice = 65;
+                }
+                break;
+            case "pick_up_point":
+                if (orderPrice.intValue() > 350) {
+                    shippingPrice = 0;
+                } else {
+                    shippingPrice = 45;
+                }
+                break;
+            default:
+                shippingPrice = 0;
+        }
+
+        // Set Variables
         Context context = new Context(new Locale("dk"));
         context.setVariable("email", to);
         context.setVariable("order", order);
+        context.setVariable("deliveryPrice", shippingPrice);
         String subject = "Treecreate - Order Confirmation";
+
         sendMail(to, MailDomain.INFO, subject, context, MailTemplate.ORDER_CONFIRMATION);
         sendMail(MailDomain.ORDER.label, MailDomain.INFO, subject, context,
             MailTemplate.ORDER_CONFIRMATION);

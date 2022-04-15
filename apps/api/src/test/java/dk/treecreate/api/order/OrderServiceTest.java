@@ -62,7 +62,7 @@ class OrderServiceTest
             Arguments.of(1, new BigDecimal(990), new BigDecimal(990), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(1000), 0, null, true, true, true, 2,
+            Arguments.of(1, new BigDecimal(990), new BigDecimal(1015), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.HOME_DELIVERY,
                 null),
             Arguments.of(1, new BigDecimal(990), new BigDecimal(1090), 0, null, true, true, true, 2,
