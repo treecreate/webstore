@@ -18,7 +18,7 @@
         <!-- FOR CY TESTS -->
         <div class="hide" data-cy="font">{{ design.font }}</div>
         <div class="hide" data-cy="design">{{ design.designSrc }}</div>
-        <div class="hide" data-cy="fontSize">{{ design.fontSize }}</div>
+        <div data-cy="font-size">{{ design.fontSize }}</div>
         <div class="hide" data-cy="text">{{ design.text }}</div>
         <!-- END CY TESTS -->
     </div>
@@ -41,7 +41,7 @@
                     ></webstore-info-popover>
                 </div>
                 <div class="option-frame-design-btn">
-                    <div ngbDropdown class="font-dropdown-container">
+                    <div ngbDropdown class="font-dropdown-container" data-cy="font-select-option">
                         <button class="btn" ngbDropdownToggle [ngStyle]="{ 'font-family': displayFont }">
                             {{ displayFont }}
                         </button>
@@ -71,7 +71,11 @@
                     ></webstore-info-popover>
                 </div>
                 <div class="option-frame-design-btn">
-                    <button class="design-arrow-left tc-button-sm-square" (click)="changeDesign('prev')">
+                    <button
+                        class="design-arrow-left tc-button-sm-square"
+                        (click)="changeDesign('prev')"
+                        data-cy="prev-design-button"
+                    >
                         <span class="arrow-left"></span>
                     </button>
                     <div class="display display-design">
@@ -81,6 +85,7 @@
                         class="design-arrow-right tc-button-sm-square"
                         (click)="changeDesign('next')"
                         [disabled]="!isMutable"
+                        data-cy="next-design-button"
                     >
                         <span class="arrow-right"></span>
                     </button>
@@ -99,7 +104,11 @@
                                 : 'Du kan gøre fonten større og mindre. Gør dem større for et mere tydeligt print.'
                         }}"
                     ></webstore-info-popover>
-                    <ngx-slider [(value)]="design.fontSize" [options]="fontSizeOptions"></ngx-slider>
+                    <ngx-slider
+                        [(value)]="design.fontSize"
+                        [options]="fontSizeOptions"
+                        data-cy="font-size-slider"
+                    ></ngx-slider>
                 </div>
             </div>
 
@@ -109,11 +118,12 @@
                     class="btn-save-design tc-button-50"
                     (click)="saveDesign({ persists: true })"
                     [disabled]="!isDesignValid"
+                    data-cy="save-button"
                 >
                     <span i18n="@@save">Save</span>
                     <img src="/assets/icons/save-icon.svg" class="option-icon" />
                 </button>
-                <button class="tc-button-50" (click)="clearDesign()">
+                <button class="tc-button-50" (click)="clearDesign()" data-cy="reset-button">
                     Reset
                     <img src="/assets/icons/reset-icon.svg" class="option-icon" />
                 </button>
