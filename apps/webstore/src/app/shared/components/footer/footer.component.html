@@ -12,8 +12,8 @@
                                 <a routerLink="/home">Home</a>
                             </li>
                             <li>
-                                <a routerLink="{{ isLoggedIn ? '/product' : '/notSignedIn' }}" i18n="@@product"
-                                    >Product</a
+                                <a routerLink="{{ isLoggedIn ? '/products' : '/notSignedIn' }}" i18n="@@product"
+                                    >Products</a
                                 >
                             </li>
                             <li *ngIf="!isLoggedIn">

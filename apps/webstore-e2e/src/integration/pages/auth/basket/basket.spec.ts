@@ -5,7 +5,7 @@ import {
   DesignDimensionEnum,
   DesignTypeEnum,
   DiscountType,
-  FamilyTreeFontEnum,
+  DesignFontEnum,
   IDesign,
   IDiscount,
   IDraggableBox,
@@ -59,7 +59,7 @@ const mockBanner: IFamilyTreeBanner = {
 const mockDesign: IDesign = {
   designId: 'c0a80121-7ac0-190b-817a-c08ab0a12345',
   designProperties: {
-    font: FamilyTreeFontEnum.roboto,
+    font: DesignFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
     banner: mockBanner,
@@ -171,7 +171,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
   });
 
   it('should add an transaction item to basket', () => {
-    cy.visit('/product');
+    cy.visit('/products/family-tree');
     // Create design
     cy.get('[data-cy=family-tree-canvas]').click();
     // Open add to basket modal
@@ -182,7 +182,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
     cy.get('[data-cy=add-to-basket-increase-dimension-button]').click();
     // Add to basket
     cy.get('[data-cy=add-to-basket-add-to-basket-button]').click();
-    cy.url().should('contain', '/product');
+    cy.url().should('contain', '/products/family-tree');
 
     //Check that the new item has been added
     cy.visit('/basket');
@@ -326,7 +326,7 @@ describe('BasketPage using localstorage (not logged in)', () => {
         cy.get('[data-cy=basket-item-view-button]').click({ force: true });
       })
       .then(() => {
-        cy.url().should('contain', '/product?designId=0');
+        cy.url().should('contain', '/products/family-tree?designId=0');
         cy.get('[data-cy=product-options]').should('not.exist');
         cy.get('[data-cy=view-only-back-button]').should('exist');
         cy.get('[data-cy=view-only-back-button]').click({ force: true });
@@ -485,7 +485,7 @@ describe('AddToBasketModal', () => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
-    cy.visit('/product');
+    cy.visit('/products/family-tree');
   });
 
   it('should open add-to-basket modal when user is logged in', () => {

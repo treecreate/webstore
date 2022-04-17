@@ -4,15 +4,11 @@
             < <span i18n="@@back">Back</span>
         </a>
     </div>
-    <div class="design-screen" [ngStyle]="{ 'font-family': this.font }">
+    <div class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
         <webstore-family-tree-design
             #familyTreeDesignCanvas
             [design]="design"
             [isMutable]="isMutable"
-            [boxSize]="boxSize"
-            [banner]="banner"
-            [backgroundTreeDesign]="backgroundTreeDesign"
-            [font]="font"
             [showOptionBoxButtons]="showOptionBoxButtons"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
             data-cy="family-tree-canvas"
@@ -20,11 +16,11 @@
     </div>
 
     <!-- FOR CY TESTS -->
-    <div class="hide" data-cy="font">{{ font }}</div>
-    <div class="hide" data-cy="design">{{ backgroundTreeDesign }}</div>
-    <div class="hide" data-cy="box-size">{{ boxSize }}</div>
+    <div class="hide" data-cy="font">{{ design.font }}</div>
+    <div class="hide" data-cy="design">{{ design.backgroundTreeDesign }}</div>
+    <div class="hide" data-cy="box-size">{{ design.boxSize }}</div>
     <div class="hide" data-cy="banner">
-        {{ banner !== undefined ? banner.text : '' }}
+        {{ design.banner !== undefined ? design.banner.text : '' }}
     </div>
     <!-- END CY TESTS -->
 
@@ -52,14 +48,14 @@
                         <button
                             class="btn"
                             ngbDropdownToggle
-                            [ngStyle]="{ 'font-family': font }"
+                            [ngStyle]="{ 'font-family': displayFont }"
                             data-cy="font-select-option"
                         >
-                            {{ font }}
+                            {{ displayFont }}
                         </button>
                         <div ngbDropdownMenu>
                             <button
-                                (click)="changeFont(font.value)"
+                                (click)="changeFont(font)"
                                 ngbDropdownItem
                                 *ngFor="let font of fontOptions"
                                 [ngStyle]="{ 'font-family': font.value }"
@@ -93,7 +89,7 @@
                         <span class="arrow-left"></span>
                     </button>
                     <div class="display display-design">
-                        {{ getDesignName(backgroundTreeDesign) }}
+                        {{ getDesignName(design.backgroundTreeDesign) }}
                     </div>
                     <button
                         class="design-arrow-right tc-button-sm-square"
@@ -117,7 +113,12 @@
                                 : 'Du kan gøre navne boksene større og mindre. Gør dem større for et mere tydeligt print.'
                         }}"
                     ></webstore-info-popover>
-                    <ngx-slider [(value)]="boxSize" [options]="boxSizeOptions" data-cy="box-size-slider"></ngx-slider>
+                    <ngx-slider
+                        (userChange)="changeBoxSize()"
+                        [(value)]="design.boxSize"
+                        [options]="boxSizeOptions"
+                        data-cy="box-size-slider"
+                    ></ngx-slider>
                 </div>
             </div>
 
@@ -128,15 +129,8 @@
                             Banner
                             <input
                                 type="checkbox"
-                                [checked]="this.banner !== undefined"
-                                (change)="
-                                    this.banner === undefined
-                                        ? (this.banner = {
-                                              text: '',
-                                              style: 'first'
-                                          })
-                                        : (this.banner = undefined)
-                                "
+                                [checked]="this.design.banner !== undefined"
+                                (change)="toggleBanner()"
                             />
                             <span class="checkmark" data-cy="checkbox-banner"></span>
                             <webstore-info-popover
@@ -150,11 +144,11 @@
                         </label>
                     </div>
                 </div>
-                <div *ngIf="this.banner !== undefined" class="option-design-title banner-input">
+                <div *ngIf="this.design.banner !== undefined" class="option-design-title banner-input">
                     <input
                         type="text"
                         class="title-input"
-                        [value]="this.banner ? this.banner.text : ''"
+                        [value]="this.design.banner ? this.design.banner.text : ''"
                         (keyup)="updateBannerText($event)"
                         placeholder="Banner text"
                         data-cy="design-banner-input"

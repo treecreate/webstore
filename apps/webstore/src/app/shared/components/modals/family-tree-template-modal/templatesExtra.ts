@@ -1,11 +1,11 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, ITemplateFamilyTree } from '@interfaces';
+import { DesignFontEnum, ITemplateFamilyTree } from '@interfaces';
 
 const massiveV1: ITemplateFamilyTree = {
   name: 'massiveV1',
   title: 'Stor familie',
   designProperties: {
-    font: FamilyTreeFontEnum.argestadisplay,
+    font: DesignFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 15,
     banner: {
@@ -219,7 +219,7 @@ const massiveV2: ITemplateFamilyTree = {
   name: 'massiveV2',
   title: 'Stor familie 2',
   designProperties: {
-    font: FamilyTreeFontEnum.argestadisplay,
+    font: DesignFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 15,
     banner: {
@@ -442,7 +442,7 @@ const reversed: ITemplateFamilyTree = {
   name: 'reversed',
   title: 'Omvendt',
   designProperties: {
-    font: FamilyTreeFontEnum.bairolBoldItalic,
+    font: DesignFontEnum.bairolBoldItalic,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 15,
     banner: {
@@ -593,7 +593,7 @@ const withYear: ITemplateFamilyTree = {
   name: 'withYear',
   title: 'Årstal',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 23,
     banner: {
@@ -690,7 +690,7 @@ const fullFamWithYear: ITemplateFamilyTree = {
   name: 'fullFamWithYear',
   title: 'Hele familien',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 19,
     banner: {
@@ -859,7 +859,7 @@ const fullFamWithYearRev: ITemplateFamilyTree = {
   name: 'fullFamWithYearRev',
   title: 'Hele familien v2',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 19,
     banner: {
@@ -1028,7 +1028,7 @@ const fatherFamWithYear: ITemplateFamilyTree = {
   name: 'fatherFamWithYear',
   title: 'Forældre stamtræet med årstal',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 19,
     banner: {
@@ -1188,7 +1188,7 @@ const ancestors: ITemplateFamilyTree = {
   name: 'ancestors',
   title: 'Stamtræ',
   designProperties: {
-    font: FamilyTreeFontEnum.argestadisplay,
+    font: DesignFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 17,
     banner: {
@@ -1339,7 +1339,7 @@ const fourGenerationFamilyV2: ITemplateFamilyTree = {
   name: 'fourGenerationFamilyV2',
   title: '4 Generationer',
   designProperties: {
-    font: FamilyTreeFontEnum.argestadisplay,
+    font: DesignFontEnum.argestadisplay,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 17,
     banner: {
@@ -1508,7 +1508,7 @@ const threeGenerationFamilyV2: ITemplateFamilyTree = {
   name: 'threeGenerationFamilyV2',
   title: '3 Generationer',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 23,
     banner: {

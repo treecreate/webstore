@@ -1,50 +1,54 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
-import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
-import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { AppComponent } from './app.component';
+import { BasketComponent } from './pages/auth/basket/basket.component';
+import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
-import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
-import { FamilyTreeCollectionItemComponent } from './shared/components/items/family-tree-collection-item/family-tree-collection-item.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { OrdersComponent } from './pages/auth/orders/orders.component';
+import { ProfileComponent } from './pages/auth/profile/profile.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
+import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
+import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
+import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { FamilyTreeComponent } from './pages/products/family-tree/family-tree.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
+import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
 import { FamilyTreeCheckoutItemComponent } from './shared/components/items/family-tree-checkout-item/family-tree-checkout-item.component';
+import { FamilyTreeCollectionItemComponent } from './shared/components/items/family-tree-collection-item/family-tree-collection-item.component';
+import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
+import { StoretItemComponent } from './shared/components/items/store-item/store-item.component';
+import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
+import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
+import { FamilyTreeTemplateModalComponent } from './shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
+import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
+import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
+import { NewsletterSignupModalComponent } from './shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
+import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from './shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
-import { PrivacyNoticeModalComponent } from './shared/components/modals/privacy-notice-modal/privacy-notice-modal.component';
-import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
-import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
-import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
-import { HomeComponent } from './pages/home/home.component';
-import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
-import { SignupComponent } from './pages/auth/signup/signup.component';
-import { LoginComponent } from './pages/auth/login/login.component';
-import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
-import { ProfileComponent } from './pages/auth/profile/profile.component';
-import { ProductComponent } from './pages/product/product.component';
-import { BasketComponent } from './pages/auth/basket/basket.component';
-import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
-import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
-import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
+import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
-import { ChangePasswordModalComponent } from './shared/components/modals/change-password-modal/change-password-modal.component';
-import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
-import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
-import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
-import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
-import { OrdersComponent } from './pages/auth/orders/orders.component';
-import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
-import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import { NewsletterSignupModalComponent } from './shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
-import { FamilyTreeTemplateModalComponent } from './shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
+import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
+import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
+import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
+import { QuotableComponent } from './pages/products/quotable/quotable.component';
+import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,7 @@ import { FamilyTreeTemplateModalComponent } from './shared/components/modals/fam
     TermsOfUseModalComponent,
     PrivacyNoticeModalComponent,
     RejectedCookiesComponent,
-    ProductComponent,
+    FamilyTreeComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
     CollectionComponent,
@@ -86,6 +90,10 @@ import { FamilyTreeTemplateModalComponent } from './shared/components/modals/fam
     OrderItemComponent,
     NewsletterSignupModalComponent,
     FamilyTreeTemplateModalComponent,
+    StoretItemComponent,
+    ProductsComponent,
+    QuotableComponent,
+    QuotableDesignComponent,
   ],
   imports: [
     BrowserModule,

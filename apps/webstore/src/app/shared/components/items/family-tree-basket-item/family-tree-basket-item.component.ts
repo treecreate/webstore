@@ -62,14 +62,36 @@ export class FamilyTreeBasketItemComponent implements OnInit {
   goToDesign() {
     if (this.isLoggedIn) {
       // use design.designId for logged in users
-      this.router.navigate(['/product'], {
-        queryParams: { designId: this.item.design.designId },
-      });
+      switch (this.item.design.designType) {
+        case DesignTypeEnum.familyTree: {
+          this.router.navigate(['/products/family-tree'], {
+            queryParams: { designId: this.item.design.designId },
+          });
+          break;
+        }
+        case DesignTypeEnum.quotable: {
+          this.router.navigate(['/products/quotable'], {
+            queryParams: { designId: this.item.design.designId },
+          });
+          break;
+        }
+      }
     } else {
       // Go to design using index => will load from LS transactionItem list
-      this.router.navigate(['/product'], {
-        queryParams: { designId: this.index },
-      });
+      switch (this.item.design.designType) {
+        case DesignTypeEnum.familyTree: {
+          this.router.navigate(['/products/family-tree'], {
+            queryParams: { designId: this.index },
+          });
+          break;
+        }
+        case DesignTypeEnum.quotable: {
+          this.router.navigate(['/products/quotable'], {
+            queryParams: { designId: this.index },
+          });
+          break;
+        }
+      }
     }
     this.scrollTop();
   }
@@ -157,14 +179,36 @@ export class FamilyTreeBasketItemComponent implements OnInit {
       );
   }
 
-  translateDimension(dimension: string): string {
-    switch (dimension) {
-      case 'SMALL':
-        return '20cm x 20cm';
-      case 'MEDIUM':
-        return '25cm x 25cm';
-      case 'LARGE':
-        return '30cm x 30cm';
+  /**
+   * Translate dimensions from an Enum value into a human readble string
+   * @param dimension dimensions of the item
+   * @param designType design type of the item
+   * @returns string representing the design like '15cm x 15cm'
+   */
+  translateDimensionToCm(dimension: string, designType: DesignTypeEnum): string {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        switch (dimension) {
+          case 'SMALL':
+            return '20cm x 20cm';
+          case 'MEDIUM':
+            return '25cm x 25cm';
+          case 'LARGE':
+            return '30cm x 30cm';
+        }
+        break;
+      }
+      case DesignTypeEnum.quotable: {
+        switch (dimension) {
+          case 'SMALL':
+            return '15cm x 15cm';
+          case 'MEDIUM':
+            return '20cm x 20cm';
+          case 'LARGE':
+            return '25cm x 25cm';
+        }
+        break;
+      }
     }
   }
 

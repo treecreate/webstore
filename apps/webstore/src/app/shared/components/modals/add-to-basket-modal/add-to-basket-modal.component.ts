@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, ITransactionItem } from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, IQoutable, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +19,10 @@ import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-mod
   templateUrl: './add-to-basket-modal.component.html',
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
-export class AddToBasketModalComponent implements OnInit {
+export class AddToBasketModalComponent implements OnInit, OnChanges {
+  @Input()
+  designType?: DesignTypeEnum;
+
   addToBasketForm: FormGroup;
   price = 0;
   isMoreThan4 = false;
@@ -27,7 +30,7 @@ export class AddToBasketModalComponent implements OnInit {
   totalPrice = 0;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
-  design: IFamilyTree;
+  design: IFamilyTree | IQoutable;
   isLoading = false;
   authUser$: BehaviorSubject<IAuthUser>;
   isLoggedIn = false;
@@ -71,7 +74,16 @@ export class AddToBasketModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+    // default the designType to Fmaily tree if it's null
+    if (this.designType === undefined || this.designType === null) {
+      this.designType = DesignTypeEnum.familyTree;
+    }
+
+    if (this.designType === DesignTypeEnum.familyTree) {
+      this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+    } else if (this.designType === DesignTypeEnum.quotable) {
+      this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    }
 
     this.addToBasketForm.setValue({
       quantity: 1,
@@ -115,10 +127,18 @@ export class AddToBasketModalComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    // if the design type gets updated, recalculate all product information
+    if (changes.designType !== undefined) {
+      this.ngOnInit();
+    }
+  }
+
   updatePrice() {
     this.price = this.calculatePriceService.calculateItemPriceAlternative(
       this.addToBasketForm.get('quantity').value,
-      this.addToBasketForm.get('dimension').value
+      this.addToBasketForm.get('dimension').value,
+      this.designType
     );
     this.isMoreThan4 = this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
@@ -127,14 +147,36 @@ export class AddToBasketModalComponent implements OnInit {
     return (this.price + this.totalPrice) * 0.25;
   }
 
-  translateDimension(dimension: string): string {
-    switch (dimension) {
-      case 'SMALL':
-        return '20cm x 20cm';
-      case 'MEDIUM':
-        return '25cm x 25cm';
-      case 'LARGE':
-        return '30cm x 30cm';
+  /**
+   * Translate dimensions from an Enum value into a human readble string
+   * @param dimension dimensions of the item
+   * @param designType design type of the item
+   * @returns string representing the design like '15cm x 15cm'
+   */
+  translateDimensionToCm(dimension: string, designType: DesignTypeEnum): string {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        switch (dimension) {
+          case 'SMALL':
+            return '20cm x 20cm';
+          case 'MEDIUM':
+            return '25cm x 25cm';
+          case 'LARGE':
+            return '30cm x 30cm';
+        }
+        break;
+      }
+      case DesignTypeEnum.quotable: {
+        switch (dimension) {
+          case 'SMALL':
+            return '15cm x 15cm';
+          case 'MEDIUM':
+            return '20cm x 20cm';
+          case 'LARGE':
+            return '25cm x 25cm';
+        }
+        break;
+      }
     }
   }
 
@@ -209,11 +251,14 @@ export class AddToBasketModalComponent implements OnInit {
 
   saveToLocalStorage(): void {
     // design id should be null
-    this.transactionItemService.saveToLocalStorage({
-      designProperties: this.design,
-      dimension: this.addToBasketForm.get('dimension').value,
-      quantity: this.addToBasketForm.get('quantity').value,
-    });
+    this.transactionItemService.saveToLocalStorage(
+      {
+        designProperties: this.design,
+        dimension: this.addToBasketForm.get('dimension').value,
+        quantity: this.addToBasketForm.get('quantity').value,
+      },
+      this.designType
+    );
 
     this.activeModal.close();
     this.modalService.open(GoToBasketModalComponent);
@@ -227,12 +272,19 @@ export class AddToBasketModalComponent implements OnInit {
   saveToDataBase(): void {
     // Check if the design is loaded using a design ID (design comes from a user account ccollection)
     if (this.route.snapshot.queryParams.designId !== undefined) {
-      this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
+      if (this.designType === DesignTypeEnum.familyTree) {
+        this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, <IFamilyTree>this.design);
+      } else if (this.designType === DesignTypeEnum.quotable) {
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, <IQoutable>this.design);
+      } else {
+        console.warn('Aborting, tried to save a design with invalid design type: ', this.designType);
+        return;
+      }
       //Update design title in collection
       this.designService
         .updateDesign({
           designId: this.route.snapshot.queryParams.designId,
-          designType: DesignTypeEnum.familyTree,
+          designType: this.designType,
           designProperties: this.design,
         })
         .subscribe(
@@ -248,7 +300,7 @@ export class AddToBasketModalComponent implements OnInit {
     // Add an entry for the design to the basket (transaction item). Includes creation of a immutable version of the design
     this.designService
       .createDesign({
-        designType: DesignTypeEnum.familyTree,
+        designType: this.designType,
         designProperties: this.design,
         mutable: false, // the transaction-item related designs are immutable
       })

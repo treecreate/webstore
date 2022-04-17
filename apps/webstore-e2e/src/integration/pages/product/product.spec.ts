@@ -1,5 +1,5 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
-import { DesignTypeEnum, FamilyTreeFontEnum, IDesign } from '@interfaces';
+import { DesignFontEnum, DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
@@ -7,7 +7,7 @@ const authMockService = new AuthenticationService();
 const mockDesign: IDesign = {
   designId: 'MOCK_ID',
   designProperties: {
-    font: FamilyTreeFontEnum.roboto,
+    font: DesignFontEnum.roboto,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
     banner: {
@@ -40,11 +40,11 @@ const mockDesign: IDesign = {
   designType: DesignTypeEnum.familyTree,
 };
 
-describe('ProductPage', () => {
+describe('FamilyTreeProductPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
-    cy.visit('/product');
+    cy.visit('/products/family-tree');
   });
 
   it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
@@ -52,7 +52,7 @@ describe('ProductPage', () => {
       LocalStorageVars.authUser,
       JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserInvalid))
     );
-    cy.visit('/product');
+    cy.visit('/products/family-tree');
 
     cy.intercept('GET', '/designs/me/c0a80121-7ac0-190b-817a-c08ab0a12345', {
       statusCode: 401,
@@ -71,7 +71,7 @@ describe('ProductPage', () => {
       );
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
       localStorageDesign = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
-      cy.visit('/product');
+      cy.visit('/products/family-tree');
 
       cy.intercept('POST', '/designs', {
         statusCode: 200,
@@ -87,7 +87,7 @@ describe('ProductPage', () => {
           cy.get('button').contains('calendasItalic').click();
         });
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('font').should('equal', 'calendas-italic');
       });
@@ -97,7 +97,7 @@ describe('ProductPage', () => {
       cy.wrap(localStorageDesign).its('backgroundTreeDesign').should('equal', TreeDesignEnum.tree1);
       cy.get('[data-cy=design-arrow-left]').click();
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('backgroundTreeDesign').should('equal', TreeDesignEnum.tree2);
       });
@@ -109,7 +109,7 @@ describe('ProductPage', () => {
         cy.get('[role=slider]').focus().type(arrows);
       });
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 70);
       });
@@ -122,7 +122,7 @@ describe('ProductPage', () => {
         cy.get('[role=slider]').focus().type(arrows);
       });
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', 10);
       });
@@ -137,7 +137,7 @@ describe('ProductPage', () => {
         cy.get('[role=slider]').focus().type(arrows);
       });
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', newValue);
       });
@@ -152,7 +152,7 @@ describe('ProductPage', () => {
         cy.get('[role=slider]').focus().type(arrows);
       });
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('boxSize').should('equal', newValue);
       });
@@ -163,7 +163,7 @@ describe('ProductPage', () => {
       cy.get('[data-cy=design-banner-input]').clear();
       cy.get('[data-cy=design-banner-input]').type('test');
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         cy.wrap(localStorageDesignAfter).its('banner.text').should('equal', 'test');
       });
@@ -173,13 +173,16 @@ describe('ProductPage', () => {
   describe('Draggable boxes', () => {
     it('should be able to click on the canvas and create a new box in mutable view', () => {
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
-      cy.visit('/product');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.visit('/products/family-tree');
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
       cy.get('[data-cy=family-tree-canvas]').click();
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length + 1);
+      cy.get('webstore-draggable-box').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length + 1
+      );
       // persist in local storage to double check the creation
       cy.get('[data-cy=save-family-tree-button]').click();
-      cy.visit('/product').then(() => {
+      cy.visit('/products/family-tree').then(() => {
         const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
         console.warn('After design: ', localStorageDesignAfter);
         cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 3);
@@ -196,19 +199,28 @@ describe('ProductPage', () => {
         body: { ...mockDesign, designId: 'IMMUTABLE_DESIGN_ID', mutable: false },
       });
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify({ ...mockDesign.designProperties }));
-      cy.visit('/product?designId=IMMUTABLE_DESIGN_ID');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.visit('/products/family-tree?designId=IMMUTABLE_DESIGN_ID');
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
       cy.get('[data-cy=family-tree-canvas]').click();
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
     });
 
     it('should display two boxes with text and drag/close icons when in mutable view', () => {
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
-      cy.visit('/product');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-input]').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-close-button]').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-drag-button]').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.visit('/products/family-tree');
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
+      cy.get('[data-cy=draggable-box-input]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
+      cy.get('[data-cy=draggable-box-close-button]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
+      cy.get('[data-cy=draggable-box-drag-button]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
     });
 
     it('should display two boxes with text but no drag/close icons when in immutable view', () => {
@@ -221,25 +233,31 @@ describe('ProductPage', () => {
         body: { ...mockDesign, designId: 'IMMUTABLE_DESIGN_ID', mutable: false },
       });
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify({ ...mockDesign.designProperties }));
-      cy.visit('/product?designId=IMMUTABLE_DESIGN_ID');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
-      cy.get('[data-cy=draggable-box-input]').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.visit('/products/family-tree?designId=IMMUTABLE_DESIGN_ID');
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
+      cy.get('[data-cy=draggable-box-input]').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length
+      );
       cy.get('[data-cy=draggable-box-close-button]').should('not.exist');
       cy.get('[data-cy=draggable-box-drag-button]').should('not.exist');
     });
 
     it('should remove a box when user click on the close icon', () => {
       localStorage.setItem(LocalStorageVars.designFamilyTree, JSON.stringify(mockDesign.designProperties));
-      cy.visit('/product');
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length);
+      cy.visit('/products/family-tree');
+      cy.get('webstore-draggable-box').should('have.length', (<IFamilyTree>mockDesign.designProperties).boxes.length);
       cy.get('[data-cy=draggable-box-close-button]').first().click();
-      cy.get('webstore-draggable-box').should('have.length', mockDesign.designProperties.boxes.length - 1);
+      cy.get('webstore-draggable-box').should(
+        'have.length',
+        (<IFamilyTree>mockDesign.designProperties).boxes.length - 1
+      );
     });
   });
 
   describe('Unauthorised', () => {
     beforeEach(() => {
-      cy.visit('/product');
+      cy.visit('/products/family-tree');
     });
     // box-size buttons
     it('should contain a navbar and footer', () => {

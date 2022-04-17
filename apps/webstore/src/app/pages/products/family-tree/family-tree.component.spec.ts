@@ -1,22 +1,21 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FamilyTreeComponent } from './family-tree.component';
 
-import { ProductComponent } from './product.component';
-
-describe('ProductComponent', () => {
-  let component: ProductComponent;
-  let fixture: ComponentFixture<ProductComponent>;
+describe('FamilyTreeComponent', () => {
+  let component: FamilyTreeComponent;
+  let fixture: ComponentFixture<FamilyTreeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProductComponent],
+      declarations: [FamilyTreeComponent],
       imports: [RouterTestingModule, HttpClientModule],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductComponent);
+    fixture = TestBed.createComponent(FamilyTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

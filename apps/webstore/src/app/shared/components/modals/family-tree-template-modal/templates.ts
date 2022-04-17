@@ -1,11 +1,11 @@
 import { TreeDesignEnum, BoxDesignEnum } from '@assets';
-import { FamilyTreeFontEnum, ITemplateFamilyTree } from '@interfaces';
+import { DesignFontEnum, ITemplateFamilyTree } from '@interfaces';
 
 const fourGenerationFamilyV1: ITemplateFamilyTree = {
   name: 'fourGenerationFamilyV1',
   title: '4 Generationer',
   designProperties: {
-    font: FamilyTreeFontEnum.calendasItalic,
+    font: DesignFontEnum.calendasItalic,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 17,
     banner: {
@@ -174,7 +174,7 @@ const threeGenerationFamilyV1: ITemplateFamilyTree = {
   name: 'threeGenerationFamilyV1',
   title: '3 Generationer',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 23,
     banner: {
@@ -271,7 +271,7 @@ const twoGenerationFamily: ITemplateFamilyTree = {
   name: 'twoGenerationFamily',
   title: 'Kernefamilien',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 31,
     banner: {
@@ -332,7 +332,7 @@ const friendTreeV1: ITemplateFamilyTree = {
   name: 'friendTreeV1',
   title: 'Vennetræet',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 31,
     banner: {
@@ -393,7 +393,7 @@ const partnerTreeV1: ITemplateFamilyTree = {
   name: 'partnerTreeV1',
   title: 'Til hende',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 40,
     banner: {
@@ -427,7 +427,7 @@ const scratch: ITemplateFamilyTree = {
   name: 'scratch',
   title: 'Tomt design',
   designProperties: {
-    font: FamilyTreeFontEnum.calendas,
+    font: DesignFontEnum.calendas,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 20,
     banner: {
@@ -442,7 +442,7 @@ const closeFam: ITemplateFamilyTree = {
   name: 'closeFam',
   title: 'De nærmeste',
   designProperties: {
-    font: FamilyTreeFontEnum.knile,
+    font: DesignFontEnum.knile,
     backgroundTreeDesign: TreeDesignEnum.tree1,
     boxSize: 45,
     banner: {

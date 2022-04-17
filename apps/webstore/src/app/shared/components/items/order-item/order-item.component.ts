@@ -51,4 +51,19 @@ export class OrderItemComponent implements OnInit {
   scrollTop() {
     window.scrollTo(0, 0);
   }
+
+  /**
+   * Get the edit link for the given product based on designType
+   * @returns absolute path to the design page
+   */
+  getEditLink(designType: DesignTypeEnum): string {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        return '/products/family-tree';
+      }
+      case DesignTypeEnum.quotable: {
+        return '/products/quotable';
+      }
+    }
+  }
 }

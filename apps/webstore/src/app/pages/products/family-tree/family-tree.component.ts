@@ -2,36 +2,28 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameDanishEnum, TreeDesignNameEnglishEnum } from '@assets';
-import {
-  DesignTypeEnum,
-  FamilyTreeFontEnum,
-  IAuthUser,
-  IDesign,
-  IFamilyTree,
-  IFamilyTreeBanner,
-  ITransactionItem,
-} from '@interfaces';
+import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IFamilyTree, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { AddToBasketModalComponent } from '../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
-import { FamilyTreeIntroModalComponent } from '../../shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
-import { FamilyTreeTemplateModalComponent } from '../../shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
-import { FamilyTreeDesignComponent } from '../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
-import { ToastService } from '../../shared/components/toast/toast-service';
-import { AuthService } from '../../shared/services/authentication/auth.service';
-import { DesignService } from '../../shared/services/design/design.service';
+import { AddToBasketModalComponent } from '../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { FamilyTreeIntroModalComponent } from '../../../shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
+import { FamilyTreeTemplateModalComponent } from '../../../shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
+import { FamilyTreeDesignComponent } from '../../../shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { ToastService } from '../../../shared/components/toast/toast-service';
+import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { DesignService } from '../../../shared/services/design/design.service';
 @Component({
-  selector: 'webstore-product',
-  templateUrl: './product.component.html',
+  selector: 'webstore-family-tree',
+  templateUrl: './family-tree.component.html',
   styleUrls: [
-    './product.component.scss',
-    './product.component.mobile.scss',
-    '../../../assets/styles/tc-input-field.scss',
+    './family-tree.component.scss',
+    './family-tree.component.mobile.scss',
+    '../../../../assets/styles/tc-input-field.scss',
   ],
 })
-export class ProductComponent implements OnInit {
+export class FamilyTreeComponent implements OnInit {
   @ViewChild('familyTreeDesignCanvas', { static: false })
   designCanvas: FamilyTreeDesignComponent;
 
@@ -42,9 +34,10 @@ export class ProductComponent implements OnInit {
   isMobileOptionOpen = false;
   showSuggestion = true;
   // set the default font
-  font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
+  defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
+  displayFont = this.defaultFont;
   fontOptions = [];
-  backgroundTreeDesign = TreeDesignEnum.tree1;
+  defaultBackgroundTreeDesign = TreeDesignEnum.tree1;
   boxSize = 70;
   maxSize = 70;
   minSize = 10;
@@ -52,8 +45,13 @@ export class ProductComponent implements OnInit {
     floor: this.minSize,
     ceil: this.maxSize,
   };
-  banner: IFamilyTreeBanner = undefined;
-  design: IFamilyTree;
+  design: IFamilyTree = {
+    font: this.defaultFont,
+    backgroundTreeDesign: this.defaultBackgroundTreeDesign,
+    banner: { text: 'Familietræet', style: 'first' },
+    boxSize: 40,
+    boxes: [],
+  };
   showOptionBoxButtons = true;
   isIphone = false;
 
@@ -118,16 +116,34 @@ export class ProductComponent implements OnInit {
   }
 
   getFontList() {
-    Object.entries(FamilyTreeFontEnum).forEach(([key, value]) => {
+    Object.entries(DesignFontEnum).forEach(([key, value]) => {
       this.fontOptions.push({ key, value });
     });
   }
 
-  changeFont(font: string) {
-    this.font = font;
+  changeFont(font: { key: string; value: string }) {
+    this.design.font = DesignFontEnum[font.key];
+    this.displayFont = font.value;
   }
 
-  // TODO: properly assign the banner
+  changeBoxSize(): void {
+    this.design = {
+      ...this.design,
+    };
+  }
+
+  toggleBanner() {
+    if (this.design.banner === undefined) {
+      this.design = { ...this.design, banner: { text: '', style: 'first' } };
+    } else {
+      this.design = { ...this.design, banner: undefined };
+    }
+  }
+
+  updateBannerText($event) {
+    this.design = { ...this.design, banner: { style: this.design.banner.style, text: $event.target.value } };
+  }
+
   loadDesign() {
     const queryParams = this.route.snapshot.queryParams;
     if (queryParams.designId !== undefined) {
@@ -141,19 +157,18 @@ export class ProductComponent implements OnInit {
     } else {
       this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
       // apply the design
-      if (this.design !== null && this.design !== undefined) {
-        this.backgroundTreeDesign = this.design.backgroundTreeDesign;
-        this.font = this.design.font;
-        this.banner = this.design.banner;
-        this.boxSize = this.design.boxSize;
-      } else {
+      if (this.design === null || this.design === undefined) {
         // set the defaults
-        this.font = FamilyTreeFontEnum[Object.keys(FamilyTreeFontEnum)[3]];
-        this.backgroundTreeDesign = TreeDesignEnum.tree1;
+        this.design = {
+          font: this.defaultFont,
+          backgroundTreeDesign: this.defaultBackgroundTreeDesign,
+          banner: { text: 'Familietræet', style: 'first' },
+          boxSize: 20,
+          boxes: [],
+        };
         this.boxSize = 20;
         this.maxSize = 70;
         this.minSize = 10;
-        this.banner = { text: 'Familietræet', style: 'first' };
       }
       this.isMutable = true;
       this.cdr.detectChanges();
@@ -171,13 +186,11 @@ export class ProductComponent implements OnInit {
     const id = Number(designId);
     if (isNaN(id) || id < 0 || id > itemList.length) {
       this.toastService.showAlert('Failed to load design', 'Kunne ikke loade dit design', 'danger', 10000);
-      this.router.navigate(['/product']);
+      this.router.navigate(['/products/family-tree']);
       return;
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
-    this.font = this.design.font;
-    this.banner = this.design.banner;
     this.boxSize = this.design.boxSize;
   }
 
@@ -189,16 +202,12 @@ export class ProductComponent implements OnInit {
           console.warn('The requested design is not a family tree!');
           return;
         }
-        this.design = result.designProperties;
+        this.design = <IFamilyTree>result.designProperties;
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
           // apply the design
-          this.backgroundTreeDesign = this.design.backgroundTreeDesign;
-          this.font = this.design.font;
-          this.banner = this.design.banner;
-          this.boxSize = this.design.boxSize;
           this.isMutable = result.mutable;
           this.cdr.detectChanges();
           this.designCanvas.loadDesign();
@@ -357,35 +366,43 @@ export class ProductComponent implements OnInit {
   }
 
   nextDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.design.backgroundTreeDesign);
     const nextDesign = Object.keys(TreeDesignEnum)[currentDesignIndex + 1];
-
     if (nextDesign === undefined) {
       // set the first design in the enum
-      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[0]];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[Object.keys(TreeDesignEnum)[0]],
+      };
     } else {
-      this.backgroundTreeDesign = TreeDesignEnum[nextDesign];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[nextDesign],
+      };
     }
   }
 
   prevDesign() {
-    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.backgroundTreeDesign);
+    const currentDesignIndex = Object.values(TreeDesignEnum).indexOf(this.design.backgroundTreeDesign);
     const previousDesign = Object.keys(TreeDesignEnum)[currentDesignIndex - 1];
     if (previousDesign === undefined) {
       // set the last design in the enum
-      this.backgroundTreeDesign = TreeDesignEnum[Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[Object.keys(TreeDesignEnum)[Object.values(TreeDesignEnum).length - 1]],
+      };
     } else {
-      this.backgroundTreeDesign = TreeDesignEnum[previousDesign];
+      this.design = {
+        ...this.design,
+        backgroundTreeDesign: TreeDesignEnum[previousDesign],
+      };
     }
-  }
-
-  updateBannerText($event) {
-    this.banner.text = $event.target.value;
   }
 
   openAddToBasketModal() {
     this.saveDesign({ persist: false });
-    this.modalService.open(AddToBasketModalComponent);
+    const modalRef = this.modalService.open(AddToBasketModalComponent);
+    modalRef.componentInstance.designType = DesignTypeEnum.familyTree;
   }
 
   onIsDesignValidEvent($event) {

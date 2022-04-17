@@ -1,15 +1,10 @@
 <div class="item-container">
-    <webstore-family-tree-design
+    <webstore-store-item
         #productDesign
         [isMutable]="false"
-        [design]="item.design.designProperties"
-        [boxSize]="item.design.designProperties.boxSize"
-        [banner]="item.design.designProperties.banner"
-        [backgroundTreeDesign]="item.design.designProperties.backgroundTreeDesign"
-        [font]="item.design.designProperties.font"
-        [showOptionBoxButtons]="false"
+        [design]="item.design"
         class="item-image"
-    ></webstore-family-tree-design>
+    ></webstore-store-item>
     <div class="item-info">
         <div class="item-title" [ngSwitch]="item.design.designType">
             <strong
@@ -26,7 +21,7 @@
 
             <div class="info-line">
                 <span i18n="@@size">Size:</span>
-                <span> {{ sizeInCm(item.dimension) }} </span>
+                <span> {{ translateDimensionToCm(item.dimension, item.design.designType) }} </span>
             </div>
             <div class="info-line">
                 <span i18n="@@price">Price:</span>
