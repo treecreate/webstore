@@ -91,11 +91,42 @@ public class MailService
     public void sendOrderConfirmationEmail(String to, Order order)
         throws UnsupportedEncodingException, MessagingException
     {
+        // Calculate the total (subtotal + discount) before the delivery price
+        BigDecimal calculatedTotal = order.getTotal();
+        switch (order.getShippingMethod())
+        {
+            case PICK_UP_POINT: // delivery price is either 0 or 25
+            {
+                BigDecimal substratedTotal = order.getTotal().subtract(new BigDecimal(25));
+                if (substratedTotal.compareTo(new BigDecimal(350)) <= 0)
+                {
+                    calculatedTotal = substratedTotal;
+                }
+                break;
+            }
+            case HOME_DELIVERY: // delivery price is either 25 or 65
+            {
+                BigDecimal substratedTotal = order.getTotal().subtract(new BigDecimal(65));
+                if (substratedTotal.compareTo(new BigDecimal(350)) <= 0)
+                {
+                    calculatedTotal = substratedTotal;
+                } else
+                {
+                    calculatedTotal = order.getTotal().subtract(new BigDecimal(25));
+                }
+                break;
+            }
+
+            case OWN_DELIVERY:
+            {
+                calculatedTotal = order.getTotal().subtract(new BigDecimal(100));
+                break;
+            }
+        }
         // Calculate delivery price. Calulcations return total + delivery price, so we substract the total
         BigDecimal deliveryPrice =
-            orderService.calculateDeliveryPrice(order.getShippingMethod(), order.getTotal())
-                .subtract(order.getTotal());
-
+            orderService.calculateDeliveryPrice(order.getShippingMethod(), calculatedTotal)
+                .subtract(calculatedTotal);
         // Set Variables
         Context context = new Context(new Locale("dk"));
         context.setVariable("email", to);
