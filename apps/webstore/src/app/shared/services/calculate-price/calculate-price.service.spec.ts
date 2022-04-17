@@ -68,46 +68,4 @@ describe('CalculatePriceService', () => {
       ).toStrictEqual(params.expectedPrice);
     });
   });
-
-  it('Should calculate the right discountedPrice', () => {
-    // 2680 * 0.9
-    expect(priceInfo.discountedPrice).toEqual(2412);
-    // 2395 - 495
-    expect(secondPriceInfo.discountedPrice).toEqual(1890);
-  });
-
-  it('Should calculate the right discountAmount', () => {
-    // 2680 * 0.1
-    expect(priceInfo.discountAmount).toEqual(268);
-    // 495
-    expect(secondPriceInfo.discountAmount).toEqual(495);
-  });
-
-  it('Should calculate the finalPrice correctly', () => {
-    // ( 2680 * 0.9 ) + 25 + 0
-    expect(priceInfo.finalPrice).toEqual(2437);
-    // ( 2385 - 495 ) + 0 + 30
-    expect(secondPriceInfo.finalPrice).toEqual(1910);
-  });
-
-  it('Should calculate the right delivery price', () => {
-    // isHomeDelivery = true
-    expect(priceInfo.deliveryPrice).toEqual(25);
-    // isHomeDelivery = false
-    expect(secondPriceInfo.deliveryPrice).toEqual(0);
-  });
-
-  it('Should calculate the right donation price', () => {
-    // 1 planted tree
-    expect(priceInfo.extraTreesPrice).toEqual(0);
-    // 3 planted trees
-    expect(secondPriceInfo.extraTreesPrice).toEqual(20);
-  });
-
-  it('Should calculate the right VAT price', () => {
-    // 2437 * 0.2
-    expect(priceInfo.vat.toFixed(2)).toEqual('487.40');
-    // 1910 * 0.2
-    expect(secondPriceInfo.vat).toEqual(382);
-  });
 });

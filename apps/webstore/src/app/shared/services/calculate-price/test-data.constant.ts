@@ -353,6 +353,15 @@ const discountAmount100: IDiscount = {
   isEnabled: true,
 };
 
+const discountAmount200: IDiscount = {
+  discountCode: null,
+  type: DiscountType.amount,
+  amount: 200,
+  remainingUses: 1,
+  totalUses: 0,
+  isEnabled: true,
+};
+
 const discountPercent10: IDiscount = {
   discountCode: null,
   type: DiscountType.percent,
@@ -467,6 +476,68 @@ export const calculatePricesParams: {
   expectedPrice: IPricing;
 }[] = [
   // =================================================== //
+  // DiscountedPrice - less than 350 (special delivery pricing)
+  {
+    itemList: singleTreeItemList,
+    isHomeDelivery: true,
+    plantedTrees: 1,
+    discount: discountAmount200,
+    expectedPrice: {
+      deliveryPrice: 65,
+      discountAmount: 200,
+      discountedPrice: 295,
+      extraTreesPrice: 0,
+      finalPrice: 360,
+      fullPrice: 495,
+      vat: 72,
+    },
+  },
+  {
+    itemList: singleTreeItemList,
+    isHomeDelivery: false,
+    plantedTrees: 1,
+    discount: discountAmount200,
+    expectedPrice: {
+      deliveryPrice: 45,
+      discountAmount: 200,
+      discountedPrice: 295,
+      extraTreesPrice: 0,
+      finalPrice: 340,
+      fullPrice: 495,
+      vat: 68,
+    },
+  },
+  {
+    itemList: singleQuoteItemList,
+    isHomeDelivery: true,
+    plantedTrees: 1,
+    discount: discountAmount100,
+    expectedPrice: {
+      deliveryPrice: 65,
+      discountAmount: 100,
+      discountedPrice: 249,
+      extraTreesPrice: 0,
+      finalPrice: 314,
+      fullPrice: 349,
+      vat: 62.8,
+    },
+  },
+  {
+    itemList: singleQuoteItemList,
+    isHomeDelivery: false,
+    plantedTrees: 1,
+    discount: discountAmount100,
+    expectedPrice: {
+      deliveryPrice: 45,
+      discountAmount: 100,
+      discountedPrice: 249,
+      extraTreesPrice: 0,
+      finalPrice: 294,
+      fullPrice: 349,
+      vat: 58.8,
+    },
+  },
+  // =================================================== //
   // Less than 4 - Combined Products
   {
     itemList: multipleCombinedLessThan4ItemList,
@@ -474,13 +545,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: null,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 0,
       discountedPrice: 844,
       extraTreesPrice: 0,
-      finalPrice: 873,
+      finalPrice: 869,
       fullPrice: 844,
-      vat: 174.6,
+      vat: 173.8,
     },
   },
   {
@@ -504,13 +575,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: null,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 0,
       discountedPrice: 844,
       extraTreesPrice: 10,
-      finalPrice: 883,
+      finalPrice: 879,
       fullPrice: 844,
-      vat: 176.6,
+      vat: 175.8,
     },
   },
   {
@@ -534,13 +605,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: discountAmount100,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 100,
       discountedPrice: 744,
       extraTreesPrice: 0,
-      finalPrice: 773,
+      finalPrice: 769,
       fullPrice: 844,
-      vat: 154.6,
+      vat: 153.8,
     },
   },
   {
@@ -564,13 +635,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: discountAmount100,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 100,
       discountedPrice: 744,
       extraTreesPrice: 10,
-      finalPrice: 783,
+      finalPrice: 779,
       fullPrice: 844,
-      vat: 156.6,
+      vat: 155.8,
     },
   },
   {
@@ -594,13 +665,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: discountPercent10,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 84.4,
       discountedPrice: 759.6,
       extraTreesPrice: 0,
-      finalPrice: 788.6,
+      finalPrice: 784.6,
       fullPrice: 844,
-      vat: 157.72,
+      vat: 156.92,
     },
   },
   {
@@ -624,13 +695,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: discountPercent10,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 84.4,
       discountedPrice: 759.6,
       extraTreesPrice: 10,
-      finalPrice: 798.6,
+      finalPrice: 794.6,
       fullPrice: 844,
-      vat: 159.72,
+      vat: 158.92,
     },
   },
   {
@@ -656,13 +727,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: null,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 0,
       discountedPrice: 6018,
       extraTreesPrice: 0,
-      finalPrice: 6047,
+      finalPrice: 6043,
       fullPrice: 6018,
-      vat: 1209.4,
+      vat: 1208.6,
     },
   },
   {
@@ -686,13 +757,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: null,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 0,
       discountedPrice: 6018,
       extraTreesPrice: 10,
-      finalPrice: 6057,
+      finalPrice: 6053,
       fullPrice: 6018,
-      vat: 1211.4,
+      vat: 1210.6,
     },
   },
   {
@@ -716,13 +787,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: discountAmount100,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 100,
       discountedPrice: 5918,
       extraTreesPrice: 0,
-      finalPrice: 5947,
+      finalPrice: 5943,
       fullPrice: 6018,
-      vat: 1189.4,
+      vat: 1188.6,
     },
   },
   {
@@ -746,13 +817,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: discountAmount100,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 100,
       discountedPrice: 5918,
       extraTreesPrice: 10,
-      finalPrice: 5957,
+      finalPrice: 5953,
       fullPrice: 6018,
-      vat: 1191.4,
+      vat: 1190.6,
     },
   },
   {
@@ -776,13 +847,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: discountPercent10,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 601.8,
       discountedPrice: 5416.2,
       extraTreesPrice: 0,
-      finalPrice: 5445.2,
+      finalPrice: 5441.2,
       fullPrice: 6018,
-      vat: 1089.04,
+      vat: 1088.24,
     },
   },
   {
@@ -806,13 +877,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: discountPercent10,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 25,
       discountAmount: 601.8,
       discountedPrice: 5416.2,
       extraTreesPrice: 10,
-      finalPrice: 5455.2,
+      finalPrice: 5451.2,
       fullPrice: 6018,
-      vat: 1091.04,
+      vat: 1090.24,
     },
   },
   {
@@ -837,13 +908,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: discountPercent10,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 65,
       discountAmount: 0,
       discountedPrice: 0,
       extraTreesPrice: 10,
-      finalPrice: 39,
+      finalPrice: 75,
       fullPrice: 0,
-      vat: 7.8,
+      vat: 15,
     },
   },
   {
@@ -852,13 +923,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: discountPercent10,
     expectedPrice: {
-      deliveryPrice: 0,
+      deliveryPrice: 45,
       discountAmount: 0,
       discountedPrice: 0,
       extraTreesPrice: 0,
-      finalPrice: 0,
+      finalPrice: 45,
       fullPrice: 0,
-      vat: 0,
+      vat: 9,
     },
   },
   // No items, discountAmount100
@@ -868,13 +939,13 @@ export const calculatePricesParams: {
     plantedTrees: 2,
     discount: discountAmount100,
     expectedPrice: {
-      deliveryPrice: 29,
+      deliveryPrice: 65,
       discountAmount: 0,
       discountedPrice: 0,
       extraTreesPrice: 10,
-      finalPrice: 39,
+      finalPrice: 75,
       fullPrice: 0,
-      vat: 7.8,
+      vat: 15,
     },
   },
   {
@@ -883,13 +954,13 @@ export const calculatePricesParams: {
     plantedTrees: 1,
     discount: discountAmount100,
     expectedPrice: {
-      deliveryPrice: 0,
+      deliveryPrice: 45,
       discountAmount: 0,
       discountedPrice: 0,
       extraTreesPrice: 0,
-      finalPrice: 0,
+      finalPrice: 45,
       fullPrice: 0,
-      vat: 0,
+      vat: 9,
     },
   },
   // special impossible use case: planted trees = 0
@@ -899,13 +970,13 @@ export const calculatePricesParams: {
     plantedTrees: 0,
     discount: null,
     expectedPrice: {
-      deliveryPrice: 0,
+      deliveryPrice: 45,
       discountAmount: 0,
       discountedPrice: 0,
       extraTreesPrice: 0,
-      finalPrice: 0,
+      finalPrice: 45,
       fullPrice: 0,
-      vat: 0,
+      vat: 9,
     },
   },
 ];
