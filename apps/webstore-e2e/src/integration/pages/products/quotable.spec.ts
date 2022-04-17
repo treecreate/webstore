@@ -166,28 +166,32 @@ describe('QuotableProductPage', () => {
     });
   });
 
-  describe.skip('Logged in user actions', () => {
+  describe('Logged in user actions', () => {
     beforeEach(() => {
       localStorage.setItem(
         LocalStorageVars.authUser,
-        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser))
+        JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUserRoleDeveloper))
       );
     });
 
     it('Fetches design based of id in url', () => {
-      // TODO: Create intercept with id
-      // TODO: Check that the desing is set
+      cy.intercept('GET', '/designs/me/c0a80121-7ac0-190b-817a-c08ab0a12345', {
+        body: mockQuotableDesign,
+        statusCode: 200,
+      });
+      cy.visit('/products/quotable?designId=c0a80121-7ac0-190b-817a-c08ab0a12345');
+
+      cy.get('[data-cy=font]').should('contain', 'archia-medium');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame2.svg');
     });
 
     it('Fetches design from localstorage when there is no id in url', () => {
       localStorage.setItem(LocalStorageVars.designQuotable, JSON.stringify(quotableDesing));
-      // TODO: Check that the design is set
-    });
-
-    it('Saves design to user account and localstorage when logged in', () => {
-      // TODO: Create intercept for saving design
-      // TODO: Go to collection page
-      // TODO: Check that design has been saved properly
+      cy.visit('/products/quotable');
+      cy.get('[data-cy=font]').should('contain', 'archia-medium');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame2.svg');
+      cy.get('[data-cy=font-size]').should('contain', '40');
+      cy.get('[data-cy=text]').should('contain', 'skrt skrt');
     });
   });
 });
