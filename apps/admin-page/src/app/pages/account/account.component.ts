@@ -4,10 +4,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUser } from '@interfaces';
+import { INewsletter, IUser } from '@interfaces';
 import { UserRoles } from '@models';
+import { catchError, of } from 'rxjs';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
 import { AuthService } from '../../services/authentication/auth.service';
+import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -22,6 +24,7 @@ export class AccountComponent {
   public isLoading = false;
   public isUpdatingInfo = false;
   public panelOpenState = false;
+  newsletter?: INewsletter = undefined;
 
   /**
    * Gets the current user.
@@ -35,6 +38,7 @@ export class AccountComponent {
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private newsletterService: NewsletterService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -51,6 +55,7 @@ export class AccountComponent {
         (user: IUser) => {
           this.user = user;
           console.log(user);
+          this.fetchNewsletter();
           this.updateForm();
           this.isLoading = false;
         },
@@ -232,6 +237,48 @@ export class AccountComponent {
           }
         );
     }
+  }
+
+  /**
+   * Fetch the newsletter object for the given user. Only fetches if the user exists.\
+   * Fetched newsletter is assigned to the component
+   */
+  async fetchNewsletter(): Promise<void> {
+    if (this.user === null || this.user === undefined) {
+      return;
+    }
+    this.newsletterService
+      .getNewsletter(this.user.email)
+      .pipe(catchError(() => of()))
+      .subscribe({
+        next: (response: INewsletter) => {
+          this.newsletter = response;
+        },
+      });
+  }
+
+  /**
+   * Remove, if present, the newsletter entry for the given user.
+   */
+  unsubscribe(): void {
+    if (!this.newsletter) {
+      console.warn(
+        `An unsubscribe button was pressed even though the user is not subscriber. Something went wrong, the button shouldn't be visible!`
+      );
+      return;
+    }
+    this.isLoading = true;
+    this.newsletterService.unsubscribe(this.newsletter?.newsletterId).subscribe({
+      next: () => {
+        this.snackBar.open('The user has been unsubscribed');
+        this.newsletter = undefined;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.snackBar.open('Failed to unsubscribe the user', 'Why??');
+        this.isLoading = false;
+      },
+    });
   }
 
   /**

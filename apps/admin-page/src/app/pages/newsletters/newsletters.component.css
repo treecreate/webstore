@@ -1,0 +1,35 @@
+.icon {
+  transform: scale(0.8);
+  opacity: 0.7;
+  position: relative;
+  top: -7px;
+}
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: fit-content;
+  min-width: 30px;
+  height: 2.3vh;
+  min-height: 15px;
+  padding: 0 6px;
+  border-radius: 2px;
+  margin-left: 1vw;
+}
+
+.sub-header-option {
+  width: 9em;
+  height: 1em;
+  font-size: larger;
+  justify-content: space-between;
+  display: flex;
+  font-weight: 400;
+  align-items: center;
+}
+
+.sub-header {
+  display: flex;
+  justify-content: end;
+}

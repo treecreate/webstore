@@ -16,20 +16,13 @@ export class CalculatePriceService {
    * @returns calculated price with the discount and other factors applied.
    */
   calculatePrices(
-    itemList: ITransactionItem[],
+    itemList: ITransactionItem[] = [],
     discount: IDiscount,
     isHomeDelivery: boolean,
     plantedTrees: number
   ): IPricing {
     // Get full price of items in basket
-    let sum = 0;
-    if (itemList != null) {
-      for (let i = 0; i < itemList.length; i++) {
-        const item = itemList[i];
-        sum += this.calculateItemPrice(item);
-      }
-    }
-    const fullPrice = sum;
+    const fullPrice = this.getFullPrice(itemList);
 
     // Get discounted price of all items
     let discountedPrice = fullPrice;
@@ -51,7 +44,12 @@ export class CalculatePriceService {
     const discountAmount = Math.round((fullPrice - discountedPrice) * 100) / 100;
 
     // Get delivery price
-    const deliveryPrice = isHomeDelivery ? 29 : 0;
+    let deliveryPrice = 0;
+    if (discountedPrice > 350) {
+      deliveryPrice = isHomeDelivery ? 25 : 0;
+    } else {
+      deliveryPrice = isHomeDelivery ? 65 : 45;
+    }
 
     // Get planted trees price
     const extraTreesPrice = plantedTrees > 0 ? plantedTrees * 10 - 10 : 0;
@@ -78,7 +76,8 @@ export class CalculatePriceService {
    * @param itemList a list of transaction items, which includes information about dimensions, quantity and design type of each item.
    * @returns calculated price without any of the discounts applied.
    */
-  getFullPrice(itemList: ITransactionItem[]): number {
+  getFullPrice(itemList: ITransactionItem[] = []): number {
+    if (itemList === null) return 0;
     let priceSum = 0;
     for (let i = 0; i < itemList.length; i++) {
       priceSum += this.calculateItemPrice(itemList[i]);
@@ -91,7 +90,7 @@ export class CalculatePriceService {
    * @param itemList the list of transaction items that includes quantity data.
    * @returns whether or not it satisfies the requirement.
    */
-  isMoreThan4Items(itemList: ITransactionItem[]): boolean {
+  isMoreThan4Items(itemList: ITransactionItem[] = []): boolean {
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
       sum += itemList[i].quantity;

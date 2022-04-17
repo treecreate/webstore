@@ -26,7 +26,7 @@ enum DiscountState {
 @Component({
   selector: 'webstore-discounts',
   templateUrl: './discounts.component.html',
-  styleUrls: ['./discounts.component.css'],
+  styleUrls: ['./discounts.component.css', '../../../assets/styling/table.css'],
 })
 export class DiscountsComponent implements OnInit {
   isLoading = true;
