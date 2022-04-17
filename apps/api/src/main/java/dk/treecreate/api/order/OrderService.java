@@ -18,6 +18,7 @@ import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.OrderStatus;
+import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,17 +91,8 @@ public class OrderService
         total = total.add(new BigDecimal(plantedTreesPrice));
 
         // add shipping cost
-        switch (order.getShippingMethod())
-        {
-            case PICK_UP_POINT:
-                break; // is free
-            case HOME_DELIVERY:
-                total = total.add(new BigDecimal(29));
-                break; // 29 kr
-            case OWN_DELIVERY:
-                total = total.add(new BigDecimal(100));
-                break; // 100 kr
-        }
+        total = calculateDeliveryPrice(order.getShippingMethod(), total).setScale(2,
+            RoundingMode.HALF_EVEN);
 
         LOGGER.info("Verify price | Calculated Total: " + total);
         if (!total.equals(order.getTotal().setScale(2, RoundingMode.HALF_EVEN)))
@@ -248,6 +240,37 @@ public class OrderService
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Provided design (" + designType + ") type data is not valid");
         }
+    }
+
+    public BigDecimal calculateDeliveryPrice(ShippingMethod shippingMethod, BigDecimal total)
+    {
+        switch (shippingMethod)
+        {
+            case PICK_UP_POINT:
+                if (total.compareTo(new BigDecimal(350)) > 0)
+                {
+                    // is free
+                } else
+                {
+                    total = total.add(new BigDecimal(45));
+                }
+
+                break;
+            case HOME_DELIVERY:
+                if (total.compareTo(new BigDecimal(350)) > 0)
+                {
+                    total = total.add(new BigDecimal(25));
+                } else
+                {
+                    total = total.add(new BigDecimal(65));
+                }
+
+                break;
+            case OWN_DELIVERY:
+                total = total.add(new BigDecimal(100));
+                break; // 100 kr
+        }
+        return total;
     }
 
     public void sendOrderConfirmationEmail(String paymentId)
