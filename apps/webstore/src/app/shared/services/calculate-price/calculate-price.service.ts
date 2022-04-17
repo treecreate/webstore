@@ -8,20 +8,13 @@ export class CalculatePriceService {
   constructor() {}
 
   calculatePrices(
-    itemList: ITransactionItem[],
+    itemList: ITransactionItem[] = [],
     discount: IDiscount,
     isHomeDelivery: boolean,
     plantedTrees: number
   ): IPricing {
     // Get full price of items in basket
-    let sum = 0;
-    if (itemList != null) {
-      for (let i = 0; i < itemList.length; i++) {
-        const item = itemList[i];
-        sum += this.calculateItemPrice(item);
-      }
-    }
-    const fullPrice = sum;
+    const fullPrice = this.getFullPrice(itemList);
 
     // Get discounted price of all items
     let discountedPrice = fullPrice;
@@ -38,7 +31,12 @@ export class CalculatePriceService {
     const discountAmount = fullPrice - discountedPrice;
 
     // Get delivery price
-    const deliveryPrice = isHomeDelivery ? 29 : 0;
+    let deliveryPrice = 0;
+    if (discountedPrice > 350) {
+      deliveryPrice = isHomeDelivery ? 25 : 0;
+    } else {
+      deliveryPrice = isHomeDelivery ? 65 : 45;
+    }
 
     // Get planted trees price
     const extraTreesPrice = plantedTrees * 10 - 10;
@@ -60,7 +58,8 @@ export class CalculatePriceService {
     };
   }
 
-  getFullPrice(itemList: ITransactionItem[]): number {
+  getFullPrice(itemList: ITransactionItem[] = []): number {
+    if (itemList === null) return 0;
     let priceSum = 0;
     for (let i = 0; i < itemList.length; i++) {
       switch (itemList[i].dimension) {
@@ -78,7 +77,7 @@ export class CalculatePriceService {
     return priceSum;
   }
 
-  isMoreThan4Items(itemList: ITransactionItem[]): boolean {
+  isMoreThan4Items(itemList: ITransactionItem[] = []): boolean {
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
       sum += itemList[i].quantity;

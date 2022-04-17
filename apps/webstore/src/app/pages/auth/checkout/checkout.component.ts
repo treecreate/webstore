@@ -46,7 +46,15 @@ export class CheckoutComponent implements OnInit {
   isTermsAndConditionsAccepted = false;
   locale;
 
-  priceInfo: IPricing;
+  priceInfo: IPricing = {
+    fullPrice: 0,
+    discountedPrice: 0,
+    finalPrice: 0,
+    discountAmount: 0,
+    deliveryPrice: 0,
+    extraTreesPrice: 0,
+    vat: 0,
+  };
   discount: IDiscount = null;
 
   itemList: ITransactionItem[] = [];
@@ -371,5 +379,15 @@ export class CheckoutComponent implements OnInit {
 
   showTermsOfSale() {
     this.modalService.open(TermsOfSaleModalComponent, { size: 'lg' });
+  }
+
+  getParcelshopDeliveryPrice(): number {
+    if (this.priceInfo !== undefined && this.priceInfo.discountedPrice > 350) return 0;
+    else return 45;
+  }
+
+  getHomeDeliveryPrice(): number {
+    if (this.priceInfo !== undefined && this.priceInfo.discountedPrice > 350) return 25;
+    else return 65;
   }
 }

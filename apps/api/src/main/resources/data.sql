@@ -589,7 +589,7 @@ FROM ((
              , 1                                      AS shipping_method
              , 0                                      AS status
              , 495.00                                 AS subtotal
-             , 445.50                                 AS total
+             , 465.50                                 AS total
              , now()                                  AS updated_at
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82cff3ca0013' AS billing_info_contact_info_id

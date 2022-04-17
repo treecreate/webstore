@@ -290,7 +290,17 @@ export class OrderDetailsComponent implements OnInit {
    */
   getDeliveryPrice(): number {
     if (this.order?.shippingMethod === ShippingMethodEnum.homeDelivery) {
-      return 25;
+      if (this.order.total > 350) {
+        return 25;
+      } else {
+        return 65;
+      }
+    } else if (this.order?.shippingMethod === ShippingMethodEnum.pickUpPoint) {
+      if (this.order.total > 350) {
+        return 0;
+      } else {
+        return 45;
+      }
     }
     return 0;
   }
