@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductsItem } from '../productsItems';
+import { ProductsItem } from '../products-items.constant';
 
 import { MiniProductDisplayComponent } from './mini-product-display.component';
 

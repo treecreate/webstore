@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProductsItem } from '../productsItems';
+import { ProductsItem } from '../products-items.constant';
 
 @Component({
   selector: 'webstore-product-display',
