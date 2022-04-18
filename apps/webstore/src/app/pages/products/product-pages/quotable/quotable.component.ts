@@ -124,6 +124,15 @@ export class QuotableComponent implements OnInit {
     this.design.designSrc = quotableFrames[this.currentDesign].src;
   }
 
+  /**
+   * Recreates the design object so it gets detected by ngOnChanges in the design component
+   */
+  changeFontSize(): void {
+    this.design = {
+      ...this.design,
+    };
+  }
+
   loadDesign() {
     const queryParams = this.route.snapshot.queryParams;
     if (queryParams.designId !== undefined) {

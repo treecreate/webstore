@@ -4,22 +4,18 @@
             matInput
             id="textField"
             cdkTextareaAutosize
-            [ngStyle]="{
-                'font-size': hasInitialized
-                    ? getSizeDependingOnWidth(design.fontSize) + 'px'
-                    : this.design.fontSize + 'px',
-                height: hasInitialized ? getSizeDependingOnWidth(inputHeight) + 'px' : inputHeight + 'px'
-            }"
+            #quotableInput
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="25"
+            spellcheck="false"
+            [rows]="rows"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            [maxlength]="1000"
             autocomplete="off"
             [ngModel]="design.text"
             (ngModelChange)="updateText($event)"
             [disabled]="!isMutable"
-            #inputWrapper
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            [rows]="rows"
-            cdkAutosizeMaxRows="25"
-            spellcheck="false"
             data-cy="text-input-field"
         ></textarea>
     </div>

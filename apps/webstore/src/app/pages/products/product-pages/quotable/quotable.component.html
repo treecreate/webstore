@@ -18,7 +18,7 @@
         <!-- FOR CY TESTS -->
         <div class="hide" data-cy="font">{{ design.font }}</div>
         <div class="hide" data-cy="design">{{ design.designSrc }}</div>
-        <div data-cy="font-size">{{ design.fontSize }}</div>
+        <div class="hide" data-cy="font-size">{{ design.fontSize }}</div>
         <div class="hide" data-cy="text">{{ design.text }}</div>
         <!-- END CY TESTS -->
     </div>
@@ -105,6 +105,7 @@
                         }}"
                     ></webstore-info-popover>
                     <ngx-slider
+                        (userChange)="changeFontSize()"
                         [(value)]="design.fontSize"
                         [options]="fontSizeOptions"
                         data-cy="font-size-slider"
