@@ -1,12 +1,5 @@
 <div class="products">
     <div class="products-page-container">
-        <div class="mini-product-display-container">
-            <webstore-mini-product-display
-                *ngFor="let item of productsList"
-                [product]="item"
-                [isEnglish]="isEnglish()"
-            ></webstore-mini-product-display>
-        </div>
         <div class="product-listing-container">
             <webstore-product-display
                 *ngFor="let item of productsList"
