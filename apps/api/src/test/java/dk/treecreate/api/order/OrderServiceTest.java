@@ -47,51 +47,51 @@ class OrderServiceTest
     {
         return Stream.of(
             // no discount, no more than 3. All valid sizes
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(990), 0, null, true, true, true, 2,
+            Arguments.of(1, new BigDecimal(998), new BigDecimal(998), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(1390), new BigDecimal(1390), 0, null, true, true, true,
+            Arguments.of(1, new BigDecimal(1398), new BigDecimal(1398), 0, null, true, true, true,
                 2,
                 DesignDimension.MEDIUM, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(1990), new BigDecimal(1990), 0, null, true, true, true,
+            Arguments.of(1, new BigDecimal(1998), new BigDecimal(1998), 0, null, true, true, true,
                 2,
                 DesignDimension.LARGE, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // no discount, no more than 3. All shipping options
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(990), 0, null, true, true, true, 2,
+            Arguments.of(1, new BigDecimal(998), new BigDecimal(998), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(1015), 0, null, true, true, true, 2,
+            Arguments.of(1, new BigDecimal(998), new BigDecimal(1023), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.HOME_DELIVERY,
                 null),
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(1090), 0, null, true, true, true, 2,
+            Arguments.of(1, new BigDecimal(998), new BigDecimal(1098), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.OWN_DELIVERY,
                 null),
             // no discount, no more than 3, extra 5 planted trees
-            Arguments.of(6, new BigDecimal(990), new BigDecimal(1040), 0, null, true, true, true, 2,
+            Arguments.of(6, new BigDecimal(998), new BigDecimal(1048), 0, null, true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // Discount - Amount, 500. All sizes
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(490), 500, DiscountType.AMOUNT,
+            Arguments.of(1, new BigDecimal(998), new BigDecimal(498), 500, DiscountType.AMOUNT,
                 true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(1390), new BigDecimal(890), 500, DiscountType.AMOUNT,
+            Arguments.of(1, new BigDecimal(1398), new BigDecimal(898), 500, DiscountType.AMOUNT,
                 true, true, true, 2,
                 DesignDimension.MEDIUM, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
-            Arguments.of(1, new BigDecimal(1990), new BigDecimal(1490), 500, DiscountType.AMOUNT,
+            Arguments.of(1, new BigDecimal(1998), new BigDecimal(1498), 500, DiscountType.AMOUNT,
                 true, true, true, 2,
                 DesignDimension.LARGE, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // Discount - Amount, 1000 (more than subtotal)
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(35), 1000, DiscountType.AMOUNT,
+            Arguments.of(1, new BigDecimal(998), new BigDecimal(35), 1000, DiscountType.AMOUNT,
                 true, true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
             // Discount - Amount, 0
-            Arguments.of(1, new BigDecimal(990), new BigDecimal(990), 0, DiscountType.AMOUNT, true,
+            Arguments.of(1, new BigDecimal(998), new BigDecimal(990), 0, DiscountType.AMOUNT, true,
                 true, true, 2,
                 DesignDimension.SMALL, 1, DesignType.FAMILY_TREE, ShippingMethod.PICK_UP_POINT,
                 null),
@@ -172,7 +172,7 @@ class OrderServiceTest
                 ShippingMethod.PICK_UP_POINT, null),
             // fail scenarios
             // Subtotal mismatch
-            Arguments.of(1, new BigDecimal(666), new BigDecimal(495), 1,
+            Arguments.of(1, new BigDecimal(666), new BigDecimal(499), 1,
                 null, true, true, true, 0, DesignDimension.SMALL, 1, DesignType.FAMILY_TREE,
                 ShippingMethod.PICK_UP_POINT,
                 "does not match calculated subtotal"),
@@ -214,22 +214,22 @@ class OrderServiceTest
     private static Stream<Arguments> calculateTotalArguments()
     {
         return Stream.of(
-            Arguments.of(new BigDecimal(495), 100, DiscountType.AMOUNT, false,
-                new BigDecimal("395.00"), null),
-            Arguments.of(new BigDecimal(495), 100, DiscountType.PERCENT, false,
+            Arguments.of(new BigDecimal(499), 100, DiscountType.AMOUNT, false,
+                new BigDecimal("399.00"), null),
+            Arguments.of(new BigDecimal(499), 100, DiscountType.PERCENT, false,
                 new BigDecimal("0.00"), null),
-            Arguments.of(new BigDecimal(495), 50, DiscountType.PERCENT, false,
-                new BigDecimal("247.50"), null),
-            Arguments.of(new BigDecimal(495), 0, null, false, new BigDecimal("495.00"), null),
-            Arguments.of(new BigDecimal(495), 0, null, true, new BigDecimal("371.25"), null));
+            Arguments.of(new BigDecimal(499), 50, DiscountType.PERCENT, false,
+                new BigDecimal("249.50"), null),
+            Arguments.of(new BigDecimal(499), 0, null, false, new BigDecimal("499.00"), null),
+            Arguments.of(new BigDecimal(499), 0, null, true, new BigDecimal("374.25"), null));
     }
 
     private static Stream<Arguments> pricePerItemArguments()
     {
         return Stream.of(
-            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.SMALL, new BigDecimal(495), null),
-            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.MEDIUM, new BigDecimal(695), null),
-            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.LARGE, new BigDecimal(995), null),
+            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.SMALL, new BigDecimal(499), null),
+            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.MEDIUM, new BigDecimal(699), null),
+            Arguments.of(DesignType.FAMILY_TREE, DesignDimension.LARGE, new BigDecimal(999), null),
             Arguments.of(DesignType.FAMILY_TREE, DesignDimension.ONE_SIZE, null,
                 "dimension data is not valid"));
     }

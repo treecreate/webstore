@@ -349,13 +349,13 @@ describe('BasketPage using localstorage (unauthorized)', () => {
       .first()
       .within(() => {
         cy.get('[data-cy=basket-item-decrease-dimension-button]').should('not.be.disabled');
-        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-price]').should('contain', '699');
         cy.get('[data-cy=basket-item-increase-dimension-button]').click({
           force: true,
         });
       })
       .then(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '995');
+        cy.get('[data-cy=basket-item-price]').should('contain', '999');
         cy.get('[data-cy=total-price-basket]').should('contain', '2489');
       });
   });
@@ -391,13 +391,13 @@ describe('BasketPage using localstorage (unauthorized)', () => {
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-price]').should('contain', '699');
         cy.get('[data-cy=basket-item-increase-quantity-button]').click({
           force: true,
         });
       })
       .then(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '1390');
+        cy.get('[data-cy=basket-item-price]').should('contain', '1398');
         cy.get('[data-cy=total-price-basket]').should('contain', '2163');
       });
   });
@@ -451,19 +451,19 @@ describe('BasketPage with an authenticated user', () => {
       statusCode: 200,
     });
     cy.visit('/basket');
-    cy.get('[data-cy=total-price-basket]').should('contain', '695');
+    cy.get('[data-cy=total-price-basket]').should('contain', '699');
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
         cy.get('[data-cy=basket-item-decrease-dimension-button]').should('not.be.disabled');
-        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-price]').should('contain', '699');
         cy.get('[data-cy=basket-item-increase-dimension-button]').click({
           force: true,
         });
       })
       .then(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '995');
-        cy.get('[data-cy=total-price-basket]').should('contain', '995');
+        cy.get('[data-cy=basket-item-price]').should('contain', '999');
+        cy.get('[data-cy=total-price-basket]').should('contain', '999');
       });
   });
 
@@ -474,18 +474,18 @@ describe('BasketPage with an authenticated user', () => {
       statusCode: 200,
     });
     cy.visit('/basket');
-    cy.get('[data-cy=total-price-basket]').should('contain', '695');
+    cy.get('[data-cy=total-price-basket]').should('contain', '699');
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '695');
+        cy.get('[data-cy=basket-item-price]').should('contain', '699');
         cy.get('[data-cy=basket-item-increase-quantity-button]').click({
           force: true,
         });
       })
       .then(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '1390');
-        cy.get('[data-cy=total-price-basket]').should('contain', '1390');
+        cy.get('[data-cy=basket-item-price]').should('contain', '1398');
+        cy.get('[data-cy=total-price-basket]').should('contain', '1398');
       });
   });
 

@@ -25,7 +25,7 @@ const quotable: ProductsItem = {
   titleDk: 'Citatramme',
   descriptionEn: 'Select a frame and write a quote to someone you care about.',
   descriptionDk: 'Vælg en ramme og skriv et citat til den du holder af.',
-  prices: [349, 499, 699],
+  prices: [299, 399, 499],
   imgSrc: '/assets/img/description2.jpg',
   specialOffer: '- 30% off when purchasing 2',
   routerLink: 'quotable',

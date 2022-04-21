@@ -133,11 +133,11 @@ export class CalculatePriceService {
       case DesignTypeEnum.familyTree: {
         switch (dimension) {
           case DesignDimensionEnum.small:
-            return 495;
+            return 499;
           case DesignDimensionEnum.medium:
-            return 695;
+            return 699;
           case DesignDimensionEnum.large:
-            return 995;
+            return 999;
           default:
             return 99999999;
         }
@@ -145,11 +145,11 @@ export class CalculatePriceService {
       case DesignTypeEnum.quotable: {
         switch (dimension) {
           case DesignDimensionEnum.small:
-            return 349;
+            return 299;
           case DesignDimensionEnum.medium:
-            return 499;
+            return 399;
           case DesignDimensionEnum.large:
-            return 599;
+            return 499;
           default:
             return 88888888;
         }

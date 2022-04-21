@@ -212,11 +212,11 @@ public class OrderService
                 switch (designDimension)
                 {
                     case SMALL:
-                        return new BigDecimal(495);
+                        return new BigDecimal(499);
                     case MEDIUM:
-                        return new BigDecimal(695);
+                        return new BigDecimal(699);
                     case LARGE:
-                        return new BigDecimal(995);
+                        return new BigDecimal(999);
                     default:
                         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                             "Provided design (" + designDimension +
@@ -226,11 +226,11 @@ public class OrderService
                 switch (designDimension)
                 {
                     case SMALL:
-                        return new BigDecimal(349);
+                        return new BigDecimal(299);
                     case MEDIUM:
-                        return new BigDecimal(499);
+                        return new BigDecimal(399);
                     case LARGE:
-                        return new BigDecimal(599);
+                        return new BigDecimal(499);
                     default:
                         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                             "Provided design (" + designDimension +

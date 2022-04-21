@@ -245,11 +245,11 @@ export class OrderDetailsComponent implements OnInit {
   getItemPrice(quantity: number, dimension: DesignDimensionEnum): number {
     switch (dimension) {
       case DesignDimensionEnum.small:
-        return quantity * 495;
+        return quantity * 499;
       case DesignDimensionEnum.medium:
-        return quantity * 695;
+        return quantity * 699;
       case DesignDimensionEnum.large:
-        return quantity * 995;
+        return quantity * 999;
       default:
         return 99999999;
     }

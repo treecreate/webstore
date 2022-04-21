@@ -373,7 +373,7 @@ FROM ((
              , 'København'                            AS city
              , null                                   AS country
              , now()                                  AS created_at
-             , 'example.495Base@treecreate.dk'        AS email
+             , 'example.499Base@treecreate.dk'        AS email
              , 'Example User'                         AS name
              , null                                   AS phone_number
              , '2200'                                 AS postcode
@@ -386,7 +386,7 @@ FROM ((
              , 'København'                            AS city
              , null                                   AS country
              , now()                                  AS created_at
-             , 'example.495Base@treecreate.dk'        AS email
+             , 'example.499Base@treecreate.dk'        AS email
              , 'Example User'                         AS name
              , null                                   AS phone_number
              , '2200'                                 AS postcode
@@ -540,8 +540,8 @@ FROM ((
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
-             , 495.00                                 AS subtotal
-             , 495.00                                 AS total
+             , 499.00                                 AS subtotal
+             , 499.00                                 AS total
              , now()                                  AS updated_at
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82cc11180004' AS billing_info_contact_info_id
@@ -556,7 +556,7 @@ FROM ((
              , 1                                      AS planted_trees
              , 0                                      AS shipping_method
              , 0                                      AS status
-             , 495.00                                 AS subtotal
+             , 499.00                                 AS subtotal
              , 524.00                                 AS total
              , now()                                  AS updated_at
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
@@ -572,8 +572,8 @@ FROM ((
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
-             , 495.00                                 AS subtotal
-             , 395.00                                 AS total
+             , 499.00                                 AS subtotal
+             , 399.00                                 AS total
              , now()                                  AS updated_at
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82ce4595000e' AS billing_info_contact_info_id
@@ -588,7 +588,7 @@ FROM ((
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
-             , 495.00                                 AS subtotal
+             , 499.00                                 AS subtotal
              , 465.50                                 AS total
              , now()                                  AS updated_at
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
