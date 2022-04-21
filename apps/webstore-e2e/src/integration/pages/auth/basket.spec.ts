@@ -185,7 +185,7 @@ describe('BasketPage using localstorage (unauthorized)', () => {
       .last()
       .within(() => {
         cy.get('[data-cy=basket-item-decrease-dimension-button]').should('not.be.disabled');
-        cy.get('[data-cy=basket-item-price]').should('contain', '1390');
+        cy.get('[data-cy=basket-item-price]').should('contain', '1398');
       });
   });
 
@@ -219,14 +219,14 @@ describe('BasketPage using localstorage (unauthorized)', () => {
     });
     cy.visit('/basket');
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');
-    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2189');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2097');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     cy.get('[data-cy=basket-apply-discount-input]').type('yeet10percent', {
       force: true,
     });
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
-    cy.get('[data-cy=discount-price-amount-basket]').should('contain', '218.90');
-    cy.get('[data-cy=total-price-basket]').should('contain', '1970.10');
+    cy.get('[data-cy=discount-price-amount-basket]').should('contain', '209.70');
+    cy.get('[data-cy=total-price-basket]').should('contain', '1887.30');
   });
 
   it('should not apply discount with no remaining uses', () => {
@@ -236,14 +236,14 @@ describe('BasketPage using localstorage (unauthorized)', () => {
     });
     cy.visit('/basket');
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');
-    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2189');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2097');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     cy.get('[data-cy=basket-apply-discount-input]').type('yeet20percent', {
       force: true,
     });
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
     cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
   });
 
   it('should not apply discount that has expired', () => {
@@ -253,14 +253,14 @@ describe('BasketPage using localstorage (unauthorized)', () => {
     });
     cy.visit('/basket');
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');
-    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2189');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2097');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
       force: true,
     });
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
     cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
   });
 
   it('should not apply discount that is not enabled', () => {
@@ -270,14 +270,14 @@ describe('BasketPage using localstorage (unauthorized)', () => {
     });
     cy.visit('/basket');
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');
-    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2189');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2097');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
       force: true,
     });
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
     cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
   });
 
   it('should not apply discount that has not started yet', () => {
@@ -289,14 +289,14 @@ describe('BasketPage using localstorage (unauthorized)', () => {
     });
     cy.visit('/basket');
     cy.get('[data-cy=discount-amount-basket]').should('not.exist');
-    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2189');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=subtotal-price-basket]').should('contain', '2097');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     cy.get('[data-cy=basket-apply-discount-input]').type('yeet30percent', {
       force: true,
     });
     cy.get('[data-cy=basket-apply-discount-button]').click({ force: true });
     cy.get('[data-cy=discount-price-amount-basket]').should('not.exist');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
   });
 
   it('should remove the product from basket when pressing delete', () => {
@@ -344,7 +344,7 @@ describe('BasketPage using localstorage (unauthorized)', () => {
 
   it('should update price when changing dimention of a product', () => {
     cy.visit('/basket');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
@@ -356,13 +356,13 @@ describe('BasketPage using localstorage (unauthorized)', () => {
       })
       .then(() => {
         cy.get('[data-cy=basket-item-price]').should('contain', '999');
-        cy.get('[data-cy=total-price-basket]').should('contain', '2489');
+        cy.get('[data-cy=total-price-basket]').should('contain', '2397');
       });
   });
 
   it('should update price when changing quantity of a product', () => {
     cy.visit('/basket');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     // basket-item-delete-button
     cy.get('[data-cy=basket-item]')
       .first()
@@ -374,20 +374,20 @@ describe('BasketPage using localstorage (unauthorized)', () => {
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '499');
+        cy.get('[data-cy=basket-item-price]').should('contain', '399');
         cy.get('[data-cy=basket-item-increase-quantity-button]').click({
           force: true,
         });
       })
       .then(() => {
-        cy.get('[data-cy=basket-item-price]').should('contain', '998');
-        cy.get('[data-cy=total-price-basket]').should('contain', '1993');
+        cy.get('[data-cy=basket-item-price]').should('contain', '999');
+        cy.get('[data-cy=total-price-basket]').should('contain', '1797');
       });
   });
 
   it('should update discount when changing quantity to 4', () => {
     cy.visit('/basket');
-    cy.get('[data-cy=total-price-basket]').should('contain', '2189');
+    cy.get('[data-cy=total-price-basket]').should('contain', '2097');
     cy.get('[data-cy=basket-item]')
       .first()
       .within(() => {
@@ -398,7 +398,7 @@ describe('BasketPage using localstorage (unauthorized)', () => {
       })
       .then(() => {
         cy.get('[data-cy=basket-item-price]').should('contain', '1398');
-        cy.get('[data-cy=total-price-basket]').should('contain', '2163');
+        cy.get('[data-cy=total-price-basket]').should('contain', '2097');
       });
   });
 });
