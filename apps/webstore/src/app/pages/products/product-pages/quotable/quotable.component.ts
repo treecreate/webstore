@@ -88,7 +88,7 @@ export class QuotableComponent implements OnInit {
   }
 
   openQuotableTemplateModal(): void {
-    this.modalService.open(QuotableTemplateModalComponent, { size: 'lg' });
+    this.modalService.open(QuotableTemplateModalComponent);
   }
 
   getFontList(): void {

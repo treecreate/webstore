@@ -7,3 +7,8 @@ export interface IQoutable {
   designSrc: string;
   text?: string;
 }
+
+export interface IQuotableTemplate {
+  name: string;
+  text: string;
+}
