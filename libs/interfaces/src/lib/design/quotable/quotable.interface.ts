@@ -11,4 +11,5 @@ export interface IQoutable {
 export interface IQuotableTemplate {
   name: string;
   text: string;
+  fontSize: number;
 }

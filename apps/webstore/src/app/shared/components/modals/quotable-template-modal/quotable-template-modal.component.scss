@@ -26,6 +26,8 @@
 .template-title-container {
   text-align: center;
   margin: 1rem 0 1.5rem 0;
+  font-weight: 900;
+  font-size: 1.5em;
 }
 
 .modal-footer {
@@ -63,8 +65,15 @@
 }
 
 .template-text-container {
-  min-height: 100px;
+  min-height: 250px;
+  width: 250px;
+  border-radius: 3px;
+  border: 1px solid var(--second-action-color);
   display: flex;
+  font-size: 0.75em;
   justify-content: center;
   align-items: center;
+  white-space: pre-line;
+  text-align: center;
+  font-family: 'calendas-italic';
 }
