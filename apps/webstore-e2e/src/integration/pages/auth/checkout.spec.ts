@@ -1,9 +1,9 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
   DesignDimensionEnum,
+  DesignFontEnum,
   DesignTypeEnum,
   DiscountType,
-  DesignFontEnum,
   IDesign,
   IDiscount,
   IDraggableBox,
@@ -126,8 +126,8 @@ describe('logged in user functionality', () => {
     cy.visit('/basket');
     cy.get('[data-cy=basket-checkout-button]').click();
     cy.get('[data-cy=checkout-subtotal]').should('contain', '4495.00');
-    cy.get('[data-cy=checkout-save]').should('contain', '1118.75');
-    cy.get('[data-cy=checkout-total]').should('contain', '3356.25');
+    cy.get('[data-cy=checkout-save]').should('contain', '1123.75');
+    cy.get('[data-cy=checkout-total]').should('contain', '3371.25');
   });
 
   it('should have the correct discount apply', () => {
@@ -135,8 +135,8 @@ describe('logged in user functionality', () => {
     localStorage.setItem(LocalStorageVars.discount, JSON.stringify(mockDiscount));
     cy.visit('/checkout');
     cy.get('[data-cy=checkout-subtotal]').should('contain', '4495.00');
-    cy.get('[data-cy=checkout-save]').should('contain', '447.50');
-    cy.get('[data-cy=checkout-total]').should('contain', '4027.50');
+    cy.get('[data-cy=checkout-save]').should('contain', '449.50');
+    cy.get('[data-cy=checkout-total]').should('contain', '4045.50');
   });
 });
 
