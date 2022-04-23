@@ -51,6 +51,7 @@ import { QuotableComponent } from './pages/products/product-pages/quotable/quota
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
 import { ProductDisplayComponent } from './pages/products/product-display/product-display.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { QuotableTemplateModalComponent } from './shared/components/modals/quotable-template-modal/quotable-template-modal.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     QuotableComponent,
     QuotableDesignComponent,
     ProductDisplayComponent,
+    QuotableTemplateModalComponent,
   ],
   imports: [
     BrowserModule,

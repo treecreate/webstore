@@ -6,6 +6,7 @@ import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IQoutable, ITransac
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { QuotableTemplateModalComponent } from 'apps/webstore/src/app/shared/components/modals/quotable-template-modal/quotable-template-modal.component';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { QuotableDesignComponent } from '../../../../shared/components/products/quotable-design/quotable-design.component';
@@ -84,6 +85,10 @@ export class QuotableComponent implements OnInit {
 
   isEnglish(): boolean {
     return this.localeCode === 'en-US';
+  }
+
+  openQuotableTemplateModal(): void {
+    this.modalService.open(QuotableTemplateModalComponent, { size: 'lg' });
   }
 
   getFontList(): void {
