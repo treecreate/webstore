@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IQuotableTemplate } from '@interfaces';
+import { QuotableDesignEnum } from '@assets';
+import { DesignFontEnum, IQoutable, IQuotableTemplate, ITransactionItem } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
+import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -42,9 +45,30 @@ export class QuotableTemplateModalComponent implements OnInit {
     },
   ];
 
-  constructor(private activatedRoute: ActivatedRoute, public activeModal: NgbActiveModal) {}
+  constructor(private localStorageService: LocalStorageService, public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {}
 
-  applyTemplate(templateName: string): void {}
+  applyTemplate(templateName: string): void {
+    const template: IQuotableTemplate = this.templateList.find((template) => template.name === templateName);
+    console.log(template);
+
+    // Get transactionItems from localstorage
+    let quotableDesign: IQoutable = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+
+    if (quotableDesign) {
+      quotableDesign.fontSize = template.fontSize;
+      quotableDesign.text = template.text;
+    } else {
+      quotableDesign = {
+        font: DesignFontEnum.calendasItalic,
+        fontSize: template.fontSize,
+        designSrc: QuotableDesignEnum.frame1,
+        text: template.text,
+      };
+    }
+
+    this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, quotableDesign);
+    location.reload();
+  }
 }
