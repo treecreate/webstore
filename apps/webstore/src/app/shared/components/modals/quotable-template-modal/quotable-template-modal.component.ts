@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { QuotableDesignEnum } from '@assets';
-import { DesignFontEnum, IQoutable, IQuotableTemplate, ITransactionItem } from '@interfaces';
+import { DesignFontEnum, IQoutable, IQuotableTemplate } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './quotable-template-modal.component.html',
   styleUrls: ['./quotable-template-modal.component.scss', '../../../../../assets/styles/terms-and-conditions.css'],
 })
-export class QuotableTemplateModalComponent implements OnInit {
+export class QuotableTemplateModalComponent {
   templateList: IQuotableTemplate[] = [
     {
       name: 'Til Farmor/Farfar',
@@ -51,11 +51,10 @@ export class QuotableTemplateModalComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
-
   applyTemplate(templateName: string): void {
-    const template: IQuotableTemplate = this.templateList.find((template) => template.name === templateName);
-    console.log(template);
+    const template: IQuotableTemplate = this.templateList.find(
+      (selectedTemplate) => selectedTemplate.name === templateName
+    );
 
     // Get transactionItems from localstorage
     let quotableDesign: IQoutable = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
