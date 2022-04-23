@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'webstore-quotable-template-modal',
   templateUrl: './quotable-template-modal.component.html',
-  styleUrls: ['./quotable-template-modal.component.scss'],
+  styleUrls: ['./quotable-template-modal.component.scss', '../../../../../assets/styles/terms-and-conditions.css'],
 })
 export class QuotableTemplateModalComponent implements OnInit {
   templateList: IQuotableTemplate[] = [

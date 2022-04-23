@@ -1,8 +1,14 @@
 <div data-cy="quotable-template-modal">
     <div class="modal-header">
         <h4 class="modal-title" i18n="@@select-a-template">Select a template</h4>
+        <div data-cy="quotable-template-modal-x-btn" class="tc-button-square" (click)="activeModal.close()">
+            <div class="icon">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" id="quotable-template">
         <ngb-carousel class="carousel-container">
             <ng-template ngbSlide *ngFor="let template of templateList">
                 <div class="template-container">
@@ -24,17 +30,6 @@
                 </div>
             </ng-template>
         </ngb-carousel>
-    </div>
-    <div class="modal-footer">
-        <button
-            type="button"
-            class="tc-button-50"
-            (click)="activeModal.close()"
-            data-cy="quotable-template-close-button"
-            i18n="@@cancel"
-        >
-            Cancel
-        </button>
     </div>
 </div>
 <div class="hide" data-cy="template-option" *ngFor="let template of templateList">{{ template.name }}</div>
