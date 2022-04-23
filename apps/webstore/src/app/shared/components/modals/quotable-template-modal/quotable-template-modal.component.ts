@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuotableDesignEnum } from '@assets';
 import { DesignFontEnum, IQoutable, IQuotableTemplate, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -45,7 +45,11 @@ export class QuotableTemplateModalComponent implements OnInit {
     },
   ];
 
-  constructor(private localStorageService: LocalStorageService, public activeModal: NgbActiveModal) {}
+  constructor(
+    private localStorageService: LocalStorageService,
+    public activeModal: NgbActiveModal,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -69,6 +73,7 @@ export class QuotableTemplateModalComponent implements OnInit {
     }
 
     this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, quotableDesign);
+    this.router.navigate(['/products/quotable']);
     location.reload();
   }
 }
