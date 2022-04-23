@@ -244,10 +244,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@delivery-price">Delivery price </span>
-                    <span *ngIf="order.shippingMethod === 'PICK_UP_POINT' || order.shippingMethod === 'OWN_DELIVERY'"
-                        >0 DKK</span
-                    >
-                    <span *ngIf="order.shippingMethod === 'HOME_DELIVERY'">65 DKK</span>
+                    <span>{{ getDeliveryPrice() }} DKK</span>
                 </div>
             </div>
             <div class="section-row">
