@@ -90,6 +90,8 @@ hr {
 .quantity {
   border: 1px solid var(--second-action-color);
   display: flex;
+  border-radius: 3px;
+  padding: 3px;
   margin: 0 5px;
   justify-content: center;
   align-items: center;
@@ -112,6 +114,7 @@ hr {
     flex-wrap: wrap;
     justify-content: center;
     min-width: 100%;
+    width: 80vw;
   }
   .item-image {
     margin: 0 0 10px 0;

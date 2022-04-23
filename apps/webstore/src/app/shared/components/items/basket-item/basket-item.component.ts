@@ -195,22 +195,22 @@ export class BasketItemComponent implements OnInit {
       case DesignTypeEnum.familyTree: {
         switch (dimension) {
           case 'SMALL':
-            return '20cm x 20cm';
+            return '20x20cm';
           case 'MEDIUM':
-            return '25cm x 25cm';
+            return '25x25cm';
           case 'LARGE':
-            return '30cm x 30cm';
+            return '30x30cm';
         }
         break;
       }
       case DesignTypeEnum.quotable: {
         switch (dimension) {
           case 'SMALL':
-            return '15cm x 15cm';
+            return '15x15cm';
           case 'MEDIUM':
-            return '20cm x 20cm';
+            return '20x20cm';
           case 'LARGE':
-            return '25cm x 25cm';
+            return '25x25cm';
         }
         break;
       }
