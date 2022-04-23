@@ -5,7 +5,7 @@
             <div class="title">{{ isEnglish ? product.titleEn : product.titleDk }}</div>
 
             <div class="text-field first">
-                <span class="sub-title">Description</span> <br />
+                <span class="sub-title" i18n="@@description">Description</span> <br />
                 <span>{{ isEnglish ? product.descriptionEn : product.descriptionDk }}</span>
             </div>
 
@@ -14,13 +14,21 @@
             </div>
 
             <div class="text-field">
-                <span class="sub-title">Prices</span> <br />
+                <span class="sub-title" i18n="@@prices">Prices</span> <br />
                 <span *ngIf="product.prices.length > 0"
-                    >From {{ product.prices[0] }} DKK - {{ product.prices.length }} Variants</span
+                    ><span i18n="@@from">From </span> {{ product.prices[0] }} DKK - {{ product.prices.length }}
+                    <span i18n="@@variants">Variants</span></span
                 >
                 <span *ngIf="product.prices.length === 0">Custom</span>
             </div>
         </div>
-        <button class="tc-button-50 text-field" [routerLink]="product.routerLink" (click)="scrollTop()">Buy Now</button>
+        <button
+            class="tc-button-50 text-field"
+            [routerLink]="product.routerLink"
+            (click)="scrollTop()"
+            i18n="@@buy-now"
+        >
+            Buy Now
+        </button>
     </div>
 </div>
