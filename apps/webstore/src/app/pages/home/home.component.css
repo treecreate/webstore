@@ -246,11 +246,11 @@
 .start-button-text {
   transition: 0.5s;
   position: relative;
-  left: -19px;
   opacity: 1;
 }
 
-.start-creating-button {
+.start-creating-button,
+.main-start-button {
   transition: 0.3s;
   background-color: var(--second-action-color);
   color: white;
@@ -265,19 +265,6 @@
   width: 25vw;
 }
 
-.start-creating-button:hover {
-  opacity: 1;
-}
-
-.start-creating-button:hover > .start-creating-icon {
-  opacity: 1;
-  left: 28px;
-}
-.start-creating-button:hover > .start-button-text {
-  opacity: 0;
-  left: 30px;
-}
-
 .start-creating-button-container {
   position: fixed;
   width: 100vw;
@@ -285,6 +272,12 @@
   justify-content: center;
   bottom: 20px;
 }
+.main-start-button:hover,
+.start-creating-button-container:hover {
+  transform: scale(0.9);
+  transition: 0.5s;
+}
+
 /* END Start design button */
 
 .delivery-estimate {
