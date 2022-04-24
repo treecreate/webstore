@@ -1,5 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DesignTypeEnum, IOrder, ITransactionItem, OrderStatusDisplayNameEnum, OrderStatusEnum } from '@interfaces';
+import {
+  DesignTypeEnum,
+  IOrder,
+  ITransactionItem,
+  OrderStatusDisplayNameEnum,
+  OrderStatusEnum,
+  ShippingMethodEnum,
+} from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 
 @Component({
@@ -50,5 +57,42 @@ export class OrderItemComponent implements OnInit {
 
   scrollTop() {
     window.scrollTo(0, 0);
+  }
+
+  /**
+   * Get the edit link for the given product based on designType
+   * @returns absolute path to the design page
+   */
+  getEditLink(designType: DesignTypeEnum): string {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        return '/products/family-tree';
+      }
+      case DesignTypeEnum.quotable: {
+        return '/products/quotable';
+      }
+    }
+  }
+
+  /**
+   * Gets the delivery price based on the shipping method.
+   *
+   * @returns the delivery price.
+   */
+  getDeliveryPrice(): number {
+    if (this.order?.shippingMethod === ShippingMethodEnum.homeDelivery) {
+      if (this.order.total > 350) {
+        return 25;
+      } else {
+        return 65;
+      }
+    } else if (this.order?.shippingMethod === ShippingMethodEnum.pickUpPoint) {
+      if (this.order.subtotal > 350) {
+        return 0;
+      } else {
+        return 45;
+      }
+    }
+    return 0;
   }
 }

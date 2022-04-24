@@ -1,0 +1,233 @@
+<section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
+    <div class="back-container" *ngIf="!isMutable">
+        <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
+            < <span i18n="@@back">Back</span>
+        </a>
+    </div>
+    <div class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
+        <webstore-family-tree-design
+            #familyTreeDesignCanvas
+            [design]="design"
+            [isMutable]="isMutable"
+            [showOptionBoxButtons]="showOptionBoxButtons"
+            (isDesignValidEvent)="onIsDesignValidEvent($event)"
+            data-cy="family-tree-canvas"
+        ></webstore-family-tree-design>
+    </div>
+
+    <!-- FOR CY TESTS -->
+    <div class="hide" data-cy="font">{{ design.font }}</div>
+    <div class="hide" data-cy="design">{{ design.backgroundTreeDesign }}</div>
+    <div class="hide" data-cy="box-size">{{ design.boxSize }}</div>
+    <div class="hide" data-cy="banner">
+        {{ design.banner !== undefined ? design.banner.text : '' }}
+    </div>
+    <!-- END CY TESTS -->
+
+    <div
+        [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'"
+        *ngIf="isMutable"
+        data-cy="product-options"
+    >
+        <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
+        <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
+            <div class="option option-font-select">
+                <div class="option-title">
+                    Font
+                    <webstore-info-popover
+                        title="Font"
+                        text="{{
+                            isEnglish()
+                                ? 'Choose the font that best suits you.'
+                                : 'Vælg hvilken font der passer dig bedst. '
+                        }}"
+                    ></webstore-info-popover>
+                </div>
+                <div class="option-tree-design-btn">
+                    <div ngbDropdown class="font-dropdown-container">
+                        <button
+                            class="btn"
+                            ngbDropdownToggle
+                            [ngStyle]="{ 'font-family': displayFont }"
+                            data-cy="font-select-option"
+                        >
+                            {{ displayFont }}
+                        </button>
+                        <div ngbDropdownMenu>
+                            <button
+                                (click)="changeFont(font)"
+                                ngbDropdownItem
+                                *ngFor="let font of fontOptions"
+                                [ngStyle]="{ 'font-family': font.value }"
+                                data-cy="font.value"
+                            >
+                                {{ font.key }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option option-tree-design">
+                <div class="option-title">
+                    Design
+                    <webstore-info-popover
+                        title="Design"
+                        text="{{
+                            isEnglish()
+                                ? 'Change the design of the tree and find the one you like the most.'
+                                : 'Vælg det design der passer dig bedst.'
+                        }}"
+                    ></webstore-info-popover>
+                </div>
+                <div class="option-tree-design-btn">
+                    <button
+                        class="design-arrow-left tc-button-sm-square"
+                        data-cy="design-arrow-left"
+                        (click)="nextDesign()"
+                    >
+                        <span class="arrow-left"></span>
+                    </button>
+                    <div class="display display-design">
+                        {{ getDesignName(design.backgroundTreeDesign) }}
+                    </div>
+                    <button
+                        class="design-arrow-right tc-button-sm-square"
+                        data-cy="design-arrow-right"
+                        (click)="prevDesign()"
+                        [disabled]="!isMutable"
+                    >
+                        <span class="arrow-right"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="option option-box-size">
+                <div class="option-title">
+                    <span i18n="@@box-size">Box Size</span>
+                    <webstore-info-popover
+                        title="{{ isEnglish() ? 'Box size' : 'Boks størrelse' }}"
+                        text="{{
+                            isEnglish()
+                                ? 'You can increase or decrease the size of the name boxes on your tree. Make them larger for better visibility of your design.'
+                                : 'Du kan gøre navne boksene større og mindre. Gør dem større for et mere tydeligt print.'
+                        }}"
+                    ></webstore-info-popover>
+                    <ngx-slider
+                        (userChange)="changeBoxSize()"
+                        [(value)]="design.boxSize"
+                        [options]="boxSizeOptions"
+                        data-cy="box-size-slider"
+                    ></ngx-slider>
+                </div>
+            </div>
+
+            <div>
+                <div class="option option-checkboxes">
+                    <div class="option-banner">
+                        <label class="checkbox-container option-title">
+                            Banner
+                            <input
+                                type="checkbox"
+                                [checked]="this.design.banner !== undefined"
+                                (change)="toggleBanner()"
+                            />
+                            <span class="checkmark" data-cy="checkbox-banner"></span>
+                            <webstore-info-popover
+                                title="Banner"
+                                text="{{
+                                    isEnglish()
+                                        ? 'Add or remove the banner from your design.'
+                                        : 'Tillæg eller fjern banneret fra dit design.'
+                                }}"
+                            ></webstore-info-popover>
+                        </label>
+                    </div>
+                </div>
+                <div *ngIf="this.design.banner !== undefined" class="option-design-title banner-input">
+                    <input
+                        type="text"
+                        class="title-input"
+                        [value]="this.design.banner ? this.design.banner.text : ''"
+                        (keyup)="updateBannerText($event)"
+                        placeholder="Banner text"
+                        data-cy="design-banner-input"
+                        maxlength="50"
+                    />
+                </div>
+            </div>
+
+            <div class="option option-actions">
+                <button
+                    class="btn-save-design tc-button-50"
+                    (click)="saveDesign({ persists: true })"
+                    [disabled]="!isDesignValid"
+                    data-cy="save-family-tree-button"
+                >
+                    <span i18n="@@save">Save</span>
+                    <img src="/assets/icons/save-icon.svg" class="option-icon" />
+                </button>
+                <button class="tc-button-50" (click)="clearDesignCanvas()">
+                    Reset
+                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
+                </button>
+            </div>
+
+            <div class="option">
+                <button class="tc-button-100" (click)="openTemplateModal()" data-cy="family-tree-template-button">
+                    <span i18n="@@use-template">Use template</span>
+                    <img src="/assets/icons/template-icon.svg" class="option-icon" />
+                </button>
+            </div>
+            <div class="option">
+                <button
+                    class="btn-add-to-cart tc-button-100 green"
+                    (click)="openAddToBasketModal()"
+                    data-cy="add-family-tree-to-basket-button"
+                    [disabled]="!isDesignValid"
+                >
+                    <span i18n="@@add">Add</span>
+                    <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="mobile-option-buttons-container">
+    <div class="mobile-options">
+        <button
+            class="option-toggler"
+            data-cy="mobile-options-toggler"
+            type="button"
+            (click)="showOptions()"
+            *ngIf="isMutable"
+        >
+            <img class="toggle-box-options-icon" alt="option" src="/assets/icons/pen-icon.svg" />
+        </button>
+        <button
+            class="intro-modal-option"
+            type="button"
+            (click)="openIntroModal()"
+            *ngIf="isMutable"
+            title="Hide/Show box options"
+            data-cy="family-tree-intro-modal-option-button"
+        >
+            ?
+        </button>
+        <button
+            class="toggle-box-options"
+            type="button"
+            (click)="toggleBoxOptions()"
+            *ngIf="isMutable"
+            title="Hide/Show box options"
+        >
+            <img
+                class="toggle-box-options-icon"
+                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+                alt="toggle box options"
+                [src]="toggleBoxOptionsIcon"
+            />
+        </button>
+    </div>
+</div>

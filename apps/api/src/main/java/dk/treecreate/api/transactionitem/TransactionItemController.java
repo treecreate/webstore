@@ -145,6 +145,13 @@ public class TransactionItemController
                         "Design of type 'FAMILY_TREE' can't be saved with dimension 'ONE_SIZE'");
                 }
                 break;
+            case QUOTABLE:
+                if (createTransactionItemRequest.getDimension().equals(DesignDimension.ONE_SIZE))
+                {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Design of type 'QUOTABLE' can't be saved with dimension 'ONE_SIZE'");
+                }
+                break;
             default:
                 break;
         }

@@ -246,11 +246,11 @@
 .start-button-text {
   transition: 0.5s;
   position: relative;
-  left: -19px;
   opacity: 1;
 }
 
-.start-creating-button {
+.start-creating-button,
+.main-start-button {
   transition: 0.3s;
   background-color: var(--second-action-color);
   color: white;
@@ -258,24 +258,12 @@
   border-radius: 3px;
   border: none;
   letter-spacing: 3px;
-  padding: 8px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25vw;
-}
-
-.start-creating-button:hover {
-  opacity: 1;
-}
-
-.start-creating-button:hover > .start-creating-icon {
-  opacity: 1;
-  left: 28px;
-}
-.start-creating-button:hover > .start-button-text {
-  opacity: 0;
-  left: 30px;
+  margin-top: 1em;
+  max-width: none;
 }
 
 .start-creating-button-container {
@@ -285,6 +273,12 @@
   justify-content: center;
   bottom: 20px;
 }
+.main-start-button:hover,
+.start-creating-button-container:hover {
+  transform: scale(0.9);
+  transition: 0.5s;
+}
+
 /* END Start design button */
 
 .delivery-estimate {

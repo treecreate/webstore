@@ -1,0 +1,35 @@
+<div data-cy="quotable-template-modal">
+    <div class="modal-header">
+        <h4 class="modal-title" i18n="@@select-a-template">Select a template</h4>
+        <div data-cy="quotable-template-modal-x-btn" class="tc-button-square" (click)="activeModal.close()">
+            <div class="icon">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body" id="quotable-template">
+        <ngb-carousel class="carousel-container">
+            <ng-template ngbSlide *ngFor="let template of templateList">
+                <div class="template-container">
+                    <div class="template-text-container">
+                        {{ template.text }}
+                    </div>
+                    <div class="template-title-container">
+                        {{ template.name }}
+                    </div>
+                    <button
+                        type="button"
+                        class="tc-button-50"
+                        (click)="applyTemplate(template.name)"
+                        data-cy="template-select-btn"
+                        i18n="@@select"
+                    >
+                        Select
+                    </button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+    </div>
+</div>
+<div class="hide" data-cy="template-option" *ngFor="let template of templateList">{{ template.name }}</div>

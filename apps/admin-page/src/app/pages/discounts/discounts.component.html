@@ -60,16 +60,11 @@
                 >
             </form>
         </div>
-        <table
-            mat-table
-            [dataSource]="discountDisplayList"
-            class="mat-elevation-z8 discounts-table"
-            data-cy="discounts-table"
-        >
+        <table mat-table [dataSource]="discountDisplayList" class="mat-elevation-z8 table" data-cy="discounts-table">
             <!-- Code Column -->
             <ng-container matColumnDef="code">
                 <th mat-header-cell *matHeaderCellDef>Code</th>
-                <td mat-cell *matCellDef="let discount">
+                <td mat-cell *matCellDef="let discount" class="id-container">
                     <span class="id"
                         >{{ getShortText(discount.discountCode, false) }}
                         {{ discount.discountCode.length > 10 ? ' ...' : '' }}

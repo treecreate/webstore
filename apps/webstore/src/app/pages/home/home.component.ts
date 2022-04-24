@@ -2,10 +2,10 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser } from '@interfaces';
 import { LocalStorageVars } from '@models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '@local-storage';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewsletterSignupModalComponent } from '../../shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
 @Component({

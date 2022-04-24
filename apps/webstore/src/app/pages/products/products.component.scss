@@ -1,0 +1,35 @@
+.products {
+  display: flex;
+  justify-content: center;
+}
+
+.products-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 4em);
+  margin-top: 4em;
+  width: 55vw;
+}
+.product-listing-container {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .products-page-container {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 720px) {
+  .products-page-container {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 450px) {
+  .products-page-container {
+    width: 93vw;
+  }
+}

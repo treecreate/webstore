@@ -7,7 +7,7 @@ import { Sort } from '@angular/material/sort';
 @Component({
   selector: 'webstore-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css'],
+  styleUrls: ['./orders.component.css', '../../../assets/styling/table.css'],
 })
 export class OrdersComponent implements OnInit {
   isLoading = true;

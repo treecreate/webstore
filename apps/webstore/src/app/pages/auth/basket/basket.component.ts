@@ -248,6 +248,6 @@ export class BasketComponent implements OnInit {
       // update list from localstorage
       this.itemList = this.localStorageService.getItem<ITransactionItem[]>(LocalStorageVars.transactionItems).value;
     }
-    this.updatePrices();
+    location.reload();
   }
 }

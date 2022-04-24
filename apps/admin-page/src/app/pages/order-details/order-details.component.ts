@@ -245,18 +245,18 @@ export class OrderDetailsComponent implements OnInit {
   getItemPrice(quantity: number, dimension: DesignDimensionEnum): number {
     switch (dimension) {
       case DesignDimensionEnum.small:
-        return quantity * 495;
+        return quantity * 499;
       case DesignDimensionEnum.medium:
-        return quantity * 695;
+        return quantity * 699;
       case DesignDimensionEnum.large:
-        return quantity * 995;
+        return quantity * 999;
       default:
         return 99999999;
     }
   }
 
   getDesignViewOnlyUrl(id: string): string {
-    return `${env.webstoreUrl}/product?designId=${id}`;
+    return `${env.webstoreUrl}/products/family-tree?designId=${id}`;
   }
 
   /**
@@ -290,7 +290,17 @@ export class OrderDetailsComponent implements OnInit {
    */
   getDeliveryPrice(): number {
     if (this.order?.shippingMethod === ShippingMethodEnum.homeDelivery) {
-      return 25;
+      if (this.order.total > 350) {
+        return 25;
+      } else {
+        return 65;
+      }
+    } else if (this.order?.shippingMethod === ShippingMethodEnum.pickUpPoint) {
+      if (this.order.total > 350) {
+        return 0;
+      } else {
+        return 45;
+      }
     }
     return 0;
   }
