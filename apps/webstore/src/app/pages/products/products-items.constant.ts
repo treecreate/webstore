@@ -15,7 +15,7 @@ const familyTree: ProductsItem = {
   descriptionEn: 'Create your own family tree by adding the names of your family.',
   descriptionDk: 'Lav dit eget stamtræ ved at skrive din families navne ind.',
   prices: [499, 699, 999],
-  imgSrc: '/assets/img/product-display-img/family-tree-2.jpg',
+  imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
   specialOffer: '- 25% off when purchasing 4',
   routerLink: 'family-tree',
 };
@@ -26,7 +26,7 @@ const quotable: ProductsItem = {
   descriptionEn: 'Select a frame and write a quote to someone you care about.',
   descriptionDk: 'Vælg en ramme og vælg et citat til den du holder af.',
   prices: [299, 399, 499],
-  imgSrc: '/assets/img/quotable-img/Q-img-02.jpg',
+  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
   specialOffer: '- 25% off when purchasing 4',
   routerLink: 'quotable',
 };
