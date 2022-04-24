@@ -1860,7 +1860,15 @@
         <source>Select a template</source>
         <target>Vælg en skabelon</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/quotable-template-modal/quotable-template-modal.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
