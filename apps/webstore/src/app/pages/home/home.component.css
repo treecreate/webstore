@@ -258,11 +258,12 @@
   border-radius: 3px;
   border: none;
   letter-spacing: 3px;
-  padding: 8px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25vw;
+  margin-top: 1em;
+  max-width: none;
 }
 
 .start-creating-button-container {
