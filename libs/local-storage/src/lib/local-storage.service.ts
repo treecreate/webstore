@@ -109,8 +109,10 @@ export class LocalStorageService implements OnDestroy {
    * @param obj object to be copied
    * @returns a deep copy of the object.
    */
-  private deepCopy(obj) {
-    let copy;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private deepCopy(obj: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let copy: any;
 
     // Handle the 3 simple types, and null or undefined
     if (null == obj || 'object' != typeof obj) return obj;
