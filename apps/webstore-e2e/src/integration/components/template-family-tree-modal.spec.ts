@@ -1,4 +1,4 @@
-import { LocalStorageVars, CookieStatus } from '@models';
+import { CookieStatus, LocalStorageVars } from '@models';
 
 describe('Template selection modal', () => {
   beforeEach(() => {
@@ -7,24 +7,24 @@ describe('Template selection modal', () => {
   });
 
   it('shows up on first visit and not on second', () => {
-    cy.get('[data-cy=template-container]').should('exist');
+    cy.get('[data-cy=family-tree-template-modal]').should('exist');
     cy.visit('/products/family-tree');
-    cy.get('[data-cy=template-container]').should('not.exist');
+    cy.get('[data-cy=family-tree-template-modal]').should('not.exist');
   });
 
   it('closes when clicking cancel', () => {
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.get('[data-cy=family-tree-template-button]').click({ force: true });
-    cy.get('[data-cy=template-container]').should('exist');
+    cy.get('[data-cy=family-tree-template-modal]').should('exist');
     cy.get('[data-cy=family-tree-template-close-button]').click({ force: true });
-    cy.get('[data-cy=template-container]').should('not.exist');
+    cy.get('[data-cy=family-tree-template-modal]').should('not.exist');
   });
 
   it('opens when clicking template button', () => {
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
-    cy.get('[data-cy=template-container]').should('not.exist');
+    cy.get('[data-cy=family-tree-template-modal').should('not.exist');
     cy.get('[data-cy=family-tree-template-button]').click({ force: true });
-    cy.get('[data-cy=template-container]').should('exist');
+    cy.get('[data-cy=family-tree-template-modal]').should('exist');
   });
 
   it('selects the correct template', () => {
