@@ -24,9 +24,6 @@ describe('Template selection modal', () => {
     cy.get('[data-cy=template-select-btn]').first().click({ force: true });
     cy.get('[data-cy=save-button]').click({ force: true });
     cy.visit('/products/quotable');
-    const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designQuotable));
-    console.log(localStorageDesignAfter);
-
     cy.get('[data-cy=text]').should('contain', 'Det eneste bedre');
   });
 });
