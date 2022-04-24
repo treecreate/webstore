@@ -1,4 +1,23 @@
-<h1>Qoutable WiP</h1>
-<h2>Font: {{ design.font }}</h2>
-<h2>Text: {{ design.text }}</h2>
-<div id="spacer"></div>
+<div class="design-wrapper" #designWrapper>
+    <div class="above-canvas">
+        <textarea
+            matInput
+            id="textField"
+            cdkTextareaAutosize
+            #quotableInput
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="25"
+            spellcheck="false"
+            [rows]="rows"
+            [ngStyle]="{ 'font-size': fontSize + 'px' }"
+            [maxlength]="1000"
+            autocomplete="off"
+            [ngModel]="design.text"
+            (ngModelChange)="updateText($event)"
+            [disabled]="!isMutable"
+            data-cy="text-input-field"
+        ></textarea>
+    </div>
+    <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" />
+</div>

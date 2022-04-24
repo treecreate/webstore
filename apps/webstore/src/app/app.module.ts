@@ -20,13 +20,13 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { FamilyTreeComponent } from './pages/products/family-tree/family-tree.component';
+import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
-import { FamilyTreeBasketItemComponent } from './shared/components/items/family-tree-basket-item/family-tree-basket-item.component';
-import { FamilyTreeCheckoutItemComponent } from './shared/components/items/family-tree-checkout-item/family-tree-checkout-item.component';
-import { FamilyTreeCollectionItemComponent } from './shared/components/items/family-tree-collection-item/family-tree-collection-item.component';
+import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
+import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
+import { CollectionItemComponent } from './shared/components/items/collection-item/collection-item.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
 import { StoretItemComponent } from './shared/components/items/store-item/store-item.component';
 import { AddToBasketModalComponent } from './shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
@@ -47,8 +47,11 @@ import { ReviewCarouselComponent } from './shared/components/review-carousel/rev
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
-import { QuotableComponent } from './pages/products/quotable/quotable.component';
+import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
+import { ProductDisplayComponent } from './pages/products/product-display/product-display.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { QuotableTemplateModalComponent } from './shared/components/modals/quotable-template-modal/quotable-template-modal.component';
 
 @NgModule({
   declarations: [
@@ -70,14 +73,14 @@ import { QuotableDesignComponent } from './shared/components/products/quotable-d
     CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
-    FamilyTreeCollectionItemComponent,
+    CollectionItemComponent,
     InfoPopoverComponent,
     PaymentSuccessComponent,
     AddToBasketModalComponent,
     BasketComponent,
-    FamilyTreeBasketItemComponent,
+    BasketItemComponent,
     CheckoutComponent,
-    FamilyTreeCheckoutItemComponent,
+    CheckoutItemComponent,
     FamilyTreeDesignComponent,
     DraggableBoxComponent,
     ReviewCarouselComponent,
@@ -94,6 +97,8 @@ import { QuotableDesignComponent } from './shared/components/products/quotable-d
     ProductsComponent,
     QuotableComponent,
     QuotableDesignComponent,
+    ProductDisplayComponent,
+    QuotableTemplateModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,6 +108,7 @@ import { QuotableDesignComponent } from './shared/components/products/quotable-d
     ReactiveFormsModule,
     HttpClientModule,
     NgxSliderModule,
+    TextFieldModule,
   ],
   providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],

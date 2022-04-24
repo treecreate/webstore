@@ -1,5 +1,4 @@
 :host {
-  color: #00c2db;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,7 +7,52 @@
   width: 100%;
 }
 
-/* I exist to move things above the middle of the screen so they are readable */
-#spacer {
-  height: 30vh;
+.design-wrapper {
+  position: relative;
+  height: 94%;
+  width: 100%;
+}
+
+.above-canvas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#textField {
+  width: 80%;
+  background: none;
+  border: none;
+  text-align: center;
+  text-decoration: none !important;
+  resize: none;
+  -webkit-text-size-adjust: none;
+}
+
+#backgroundImage {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#textField {
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+#textField:disabled {
+  opacity: 1;
+  color: black;
+  resize: none;
+}
+
+#textField:disabled:hover {
+  box-shadow: none;
 }

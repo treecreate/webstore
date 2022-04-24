@@ -62,11 +62,11 @@ export class LocalStorageService implements OnDestroy {
     }
 
     if (this.cache[key]) {
-      this.cache[key].next(value);
+      this.cache[key].next(this.deepCopy(value));
       return this.cache[key] as BehaviorSubject<T>;
     }
 
-    return (this.cache[key] = new BehaviorSubject(value));
+    return (this.cache[key] = new BehaviorSubject(this.deepCopy(value)));
   }
 
   /**
@@ -102,5 +102,47 @@ export class LocalStorageService implements OnDestroy {
       localStorage.removeItem(key);
     }
     if (this.cache[key]) this.cache[key].next(undefined);
+  }
+
+  /**
+   * Perform a deep copy of the given object, including the nested object. Does not copy methods.
+   * @param obj object to be copied
+   * @returns a deep copy of the object.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private deepCopy(obj: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let copy: any;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || 'object' != typeof obj) return obj;
+
+    // Handle Date
+    if (obj instanceof Date) {
+      copy = new Date();
+      copy.setTime(obj.getTime());
+      return copy;
+    }
+
+    // Handle Array
+    if (obj instanceof Array) {
+      copy = [];
+      for (let i = 0, len = obj.length; i < len; i++) {
+        copy[i] = this.deepCopy(obj[i]);
+      }
+      return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+      copy = {};
+      for (const attr in obj) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (obj.hasOwnProperty(attr)) copy[attr] = this.deepCopy(obj[attr]);
+      }
+      return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
   }
 }

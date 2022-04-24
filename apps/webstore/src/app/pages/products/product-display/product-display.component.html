@@ -1,0 +1,34 @@
+<div class="product-container">
+    <img [src]="product.imgSrc" [alt]="'image of the ' + product.titleEn + ' product.'" class="product-img" />
+    <div class="product-info-container">
+        <div class="product-info">
+            <div class="title">{{ isEnglish ? product.titleEn : product.titleDk }}</div>
+
+            <div class="text-field first">
+                <span class="sub-title" i18n="@@description">Description</span> <br />
+                <span>{{ isEnglish ? product.descriptionEn : product.descriptionDk }}</span>
+            </div>
+
+            <div class="text-field">
+                {{ product.specialOffer }}
+            </div>
+
+            <div class="text-field">
+                <span class="sub-title" i18n="@@prices">Prices</span> <br />
+                <span *ngIf="product.prices.length > 0"
+                    ><span i18n="@@from">From </span> {{ product.prices[0] }} DKK - {{ product.prices.length }}
+                    <span i18n="@@variants">Variants</span></span
+                >
+                <span *ngIf="product.prices.length === 0">Custom</span>
+            </div>
+        </div>
+        <button
+            class="tc-button-50 text-field"
+            [routerLink]="product.routerLink"
+            (click)="scrollTop()"
+            i18n="@@buy-now"
+        >
+            Buy Now
+        </button>
+    </div>
+</div>

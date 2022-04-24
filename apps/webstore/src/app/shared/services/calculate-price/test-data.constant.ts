@@ -9,29 +9,29 @@ import {
 } from '@interfaces';
 
 export const calculateItemUnitPriceParams = [
-  { dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.familyTree, expectedPrice: 495 },
-  { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.familyTree, expectedPrice: 695 },
-  { dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.familyTree, expectedPrice: 995 },
+  { dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.familyTree, expectedPrice: 499 },
+  { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.familyTree, expectedPrice: 699 },
+  { dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.familyTree, expectedPrice: 999 },
   { dimension: DesignDimensionEnum.oneSize, designType: DesignTypeEnum.familyTree, expectedPrice: 99999999 },
-  { dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.quotable, expectedPrice: 349 },
-  { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.quotable, expectedPrice: 499 },
-  { dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.quotable, expectedPrice: 599 },
+  { dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.quotable, expectedPrice: 299 },
+  { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.quotable, expectedPrice: 399 },
+  { dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.quotable, expectedPrice: 499 },
   { dimension: DesignDimensionEnum.oneSize, designType: DesignTypeEnum.quotable, expectedPrice: 88888888 },
 ];
 
 export const calculateItemPriceAlternativeParams = [
-  { quantity: 1, dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.familyTree, expectedPrice: 495 },
-  { quantity: 1, dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.familyTree, expectedPrice: 695 },
-  { quantity: 1, dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.familyTree, expectedPrice: 995 },
+  { quantity: 1, dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.familyTree, expectedPrice: 499 },
+  { quantity: 1, dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.familyTree, expectedPrice: 699 },
+  { quantity: 1, dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.familyTree, expectedPrice: 999 },
   {
     quantity: 1,
     dimension: DesignDimensionEnum.oneSize,
     designType: DesignTypeEnum.familyTree,
     expectedPrice: 99999999,
   },
-  { quantity: 1, dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.quotable, expectedPrice: 349 },
-  { quantity: 1, dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.quotable, expectedPrice: 499 },
-  { quantity: 1, dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.quotable, expectedPrice: 599 },
+  { quantity: 1, dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.quotable, expectedPrice: 299 },
+  { quantity: 1, dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.quotable, expectedPrice: 399 },
+  { quantity: 1, dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.quotable, expectedPrice: 499 },
   {
     quantity: 1,
     dimension: DesignDimensionEnum.oneSize,
@@ -42,19 +42,19 @@ export const calculateItemPriceAlternativeParams = [
     quantity: 2,
     dimension: DesignDimensionEnum.small,
     designType: DesignTypeEnum.familyTree,
-    expectedPrice: 495 * 2,
+    expectedPrice: 499 * 2,
   },
   {
     quantity: 2,
     dimension: DesignDimensionEnum.medium,
     designType: DesignTypeEnum.familyTree,
-    expectedPrice: 695 * 2,
+    expectedPrice: 699 * 2,
   },
   {
     quantity: 2,
     dimension: DesignDimensionEnum.large,
     designType: DesignTypeEnum.familyTree,
-    expectedPrice: 995 * 2,
+    expectedPrice: 999 * 2,
   },
   {
     quantity: 2,
@@ -66,19 +66,19 @@ export const calculateItemPriceAlternativeParams = [
     quantity: 2,
     dimension: DesignDimensionEnum.small,
     designType: DesignTypeEnum.quotable,
-    expectedPrice: 349 * 2,
+    expectedPrice: 299 * 2,
   },
   {
     quantity: 2,
     dimension: DesignDimensionEnum.medium,
     designType: DesignTypeEnum.quotable,
-    expectedPrice: 499 * 2,
+    expectedPrice: 399 * 2,
   },
   {
     quantity: 2,
     dimension: DesignDimensionEnum.large,
     designType: DesignTypeEnum.quotable,
-    expectedPrice: 599 * 2,
+    expectedPrice: 499 * 2,
   },
   {
     quantity: 2,
@@ -438,33 +438,35 @@ const multipleQuoteItemList: ITransactionItem[] = [
   },
 ];
 
+// 499 + 299
 const multipleCombinedLessThan4ItemList: ITransactionItem[] = [...singleTreeItemList, ...singleQuoteItemList];
+// [499 + 699 + 999 + 999] + [299 + 399 + 499 + 499]
 const multipleCombinedMoreThan4ItemList: ITransactionItem[] = [...multipleTreeItemList, ...multipleQuoteItemList];
 
 export const getFullPriceParams: { itemList: ITransactionItem[]; expectedPrice: number }[] = [
   {
     itemList: singleTreeItemList,
-    expectedPrice: 495,
+    expectedPrice: 499,
   },
   {
     itemList: singleQuoteItemList,
-    expectedPrice: 349,
+    expectedPrice: 299,
   },
   {
     itemList: multipleTreeItemList,
-    expectedPrice: 3180,
+    expectedPrice: 3196,
   },
   {
     itemList: multipleQuoteItemList,
-    expectedPrice: 2838,
+    expectedPrice: 2696,
   },
   {
     itemList: multipleCombinedLessThan4ItemList,
-    expectedPrice: 844,
+    expectedPrice: 798,
   },
   {
     itemList: multipleCombinedMoreThan4ItemList,
-    expectedPrice: 6018,
+    expectedPrice: 5892,
   },
 ];
 
@@ -485,11 +487,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 65,
       discountAmount: 200,
-      discountedPrice: 295,
+      discountedPrice: 299,
       extraTreesPrice: 0,
-      finalPrice: 360,
-      fullPrice: 495,
-      vat: 72,
+      finalPrice: 364,
+      fullPrice: 499,
+      vat: 72.8,
     },
   },
   {
@@ -500,11 +502,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 45,
       discountAmount: 200,
-      discountedPrice: 295,
+      discountedPrice: 299,
       extraTreesPrice: 0,
-      finalPrice: 340,
-      fullPrice: 495,
-      vat: 68,
+      finalPrice: 344,
+      fullPrice: 499,
+      vat: 68.8,
     },
   },
   {
@@ -515,11 +517,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 65,
       discountAmount: 100,
-      discountedPrice: 249,
+      discountedPrice: 199,
       extraTreesPrice: 0,
-      finalPrice: 314,
-      fullPrice: 349,
-      vat: 62.8,
+      finalPrice: 264,
+      fullPrice: 299,
+      vat: 52.8,
     },
   },
   {
@@ -530,11 +532,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 45,
       discountAmount: 100,
-      discountedPrice: 249,
+      discountedPrice: 199,
       extraTreesPrice: 0,
-      finalPrice: 294,
-      fullPrice: 349,
-      vat: 58.8,
+      finalPrice: 244,
+      fullPrice: 299,
+      vat: 48.8,
     },
   },
   // =================================================== //
@@ -547,11 +549,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 0,
-      discountedPrice: 844,
+      discountedPrice: 798,
       extraTreesPrice: 0,
-      finalPrice: 869,
-      fullPrice: 844,
-      vat: 173.8,
+      finalPrice: 823,
+      fullPrice: 798,
+      vat: 164.6,
     },
   },
   {
@@ -562,11 +564,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 0,
-      discountedPrice: 844,
+      discountedPrice: 798,
       extraTreesPrice: 0,
-      finalPrice: 844,
-      fullPrice: 844,
-      vat: 168.8,
+      finalPrice: 798,
+      fullPrice: 798,
+      vat: 159.6,
     },
   },
   {
@@ -577,11 +579,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 0,
-      discountedPrice: 844,
+      discountedPrice: 798,
       extraTreesPrice: 10,
-      finalPrice: 879,
-      fullPrice: 844,
-      vat: 175.8,
+      finalPrice: 833,
+      fullPrice: 798,
+      vat: 166.6,
     },
   },
   {
@@ -592,11 +594,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 0,
-      discountedPrice: 844,
+      discountedPrice: 798,
       extraTreesPrice: 10,
-      finalPrice: 854,
-      fullPrice: 844,
-      vat: 170.8,
+      finalPrice: 808,
+      fullPrice: 798,
+      vat: 161.6,
     },
   },
   {
@@ -607,11 +609,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 100,
-      discountedPrice: 744,
+      discountedPrice: 698,
       extraTreesPrice: 0,
-      finalPrice: 769,
-      fullPrice: 844,
-      vat: 153.8,
+      finalPrice: 723,
+      fullPrice: 798,
+      vat: 144.6,
     },
   },
   {
@@ -622,11 +624,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 100,
-      discountedPrice: 744,
+      discountedPrice: 698,
       extraTreesPrice: 0,
-      finalPrice: 744,
-      fullPrice: 844,
-      vat: 148.8,
+      finalPrice: 698,
+      fullPrice: 798,
+      vat: 139.6,
     },
   },
   {
@@ -637,11 +639,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 100,
-      discountedPrice: 744,
+      discountedPrice: 698,
       extraTreesPrice: 10,
-      finalPrice: 779,
-      fullPrice: 844,
-      vat: 155.8,
+      finalPrice: 733,
+      fullPrice: 798,
+      vat: 146.6,
     },
   },
   {
@@ -652,11 +654,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 100,
-      discountedPrice: 744,
+      discountedPrice: 698,
       extraTreesPrice: 10,
-      finalPrice: 754,
-      fullPrice: 844,
-      vat: 150.8,
+      finalPrice: 708,
+      fullPrice: 798,
+      vat: 141.6,
     },
   },
   {
@@ -666,12 +668,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 25,
-      discountAmount: 84.4,
-      discountedPrice: 759.6,
+      discountAmount: 79.8,
+      discountedPrice: 718.2,
       extraTreesPrice: 0,
-      finalPrice: 784.6,
-      fullPrice: 844,
-      vat: 156.92,
+      finalPrice: 743.2,
+      fullPrice: 798,
+      vat: 148.64,
     },
   },
   {
@@ -681,12 +683,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 0,
-      discountAmount: 84.4,
-      discountedPrice: 759.6,
+      discountAmount: 79.8,
+      discountedPrice: 718.2,
       extraTreesPrice: 0,
-      finalPrice: 759.6,
-      fullPrice: 844,
-      vat: 151.92,
+      finalPrice: 718.2,
+      fullPrice: 798,
+      vat: 143.64,
     },
   },
   {
@@ -696,12 +698,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 25,
-      discountAmount: 84.4,
-      discountedPrice: 759.6,
+      discountAmount: 79.8,
+      discountedPrice: 718.2,
       extraTreesPrice: 10,
-      finalPrice: 794.6,
-      fullPrice: 844,
-      vat: 158.92,
+      finalPrice: 753.2,
+      fullPrice: 798,
+      vat: 150.64,
     },
   },
   {
@@ -711,12 +713,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 0,
-      discountAmount: 84.4,
-      discountedPrice: 759.6,
+      discountAmount: 79.8,
+      discountedPrice: 718.2,
       extraTreesPrice: 10,
-      finalPrice: 769.6,
-      fullPrice: 844,
-      vat: 153.92,
+      finalPrice: 728.2,
+      fullPrice: 798,
+      vat: 145.64,
     },
   },
   // =================================================== //
@@ -729,11 +731,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 0,
-      discountedPrice: 6018,
+      discountedPrice: 5892,
       extraTreesPrice: 0,
-      finalPrice: 6043,
-      fullPrice: 6018,
-      vat: 1208.6,
+      finalPrice: 5917,
+      fullPrice: 5892,
+      vat: 1183.4,
     },
   },
   {
@@ -744,11 +746,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 0,
-      discountedPrice: 6018,
+      discountedPrice: 5892,
       extraTreesPrice: 0,
-      finalPrice: 6018,
-      fullPrice: 6018,
-      vat: 1203.6,
+      finalPrice: 5892,
+      fullPrice: 5892,
+      vat: 1178.4,
     },
   },
   {
@@ -759,11 +761,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 0,
-      discountedPrice: 6018,
+      discountedPrice: 5892,
       extraTreesPrice: 10,
-      finalPrice: 6053,
-      fullPrice: 6018,
-      vat: 1210.6,
+      finalPrice: 5927,
+      fullPrice: 5892,
+      vat: 1185.4,
     },
   },
   {
@@ -774,11 +776,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 0,
-      discountedPrice: 6018,
+      discountedPrice: 5892,
       extraTreesPrice: 10,
-      finalPrice: 6028,
-      fullPrice: 6018,
-      vat: 1205.6,
+      finalPrice: 5902,
+      fullPrice: 5892,
+      vat: 1180.4,
     },
   },
   {
@@ -789,11 +791,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 100,
-      discountedPrice: 5918,
+      discountedPrice: 5792,
       extraTreesPrice: 0,
-      finalPrice: 5943,
-      fullPrice: 6018,
-      vat: 1188.6,
+      finalPrice: 5817,
+      fullPrice: 5892,
+      vat: 1163.4,
     },
   },
   {
@@ -804,11 +806,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 100,
-      discountedPrice: 5918,
+      discountedPrice: 5792,
       extraTreesPrice: 0,
-      finalPrice: 5918,
-      fullPrice: 6018,
-      vat: 1183.6,
+      finalPrice: 5792,
+      fullPrice: 5892,
+      vat: 1158.4,
     },
   },
   {
@@ -819,11 +821,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 25,
       discountAmount: 100,
-      discountedPrice: 5918,
+      discountedPrice: 5792,
       extraTreesPrice: 10,
-      finalPrice: 5953,
-      fullPrice: 6018,
-      vat: 1190.6,
+      finalPrice: 5827,
+      fullPrice: 5892,
+      vat: 1165.4,
     },
   },
   {
@@ -834,11 +836,11 @@ export const calculatePricesParams: {
     expectedPrice: {
       deliveryPrice: 0,
       discountAmount: 100,
-      discountedPrice: 5918,
+      discountedPrice: 5792,
       extraTreesPrice: 10,
-      finalPrice: 5928,
-      fullPrice: 6018,
-      vat: 1185.6,
+      finalPrice: 5802,
+      fullPrice: 5892,
+      vat: 1160.4,
     },
   },
   {
@@ -848,12 +850,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 25,
-      discountAmount: 601.8,
-      discountedPrice: 5416.2,
+      discountAmount: 589.2,
+      discountedPrice: 5302.8,
       extraTreesPrice: 0,
-      finalPrice: 5441.2,
-      fullPrice: 6018,
-      vat: 1088.24,
+      finalPrice: 5327.8,
+      fullPrice: 5892,
+      vat: 1065.56,
     },
   },
   {
@@ -863,12 +865,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 0,
-      discountAmount: 601.8,
-      discountedPrice: 5416.2,
+      discountAmount: 589.2,
+      discountedPrice: 5302.8,
       extraTreesPrice: 0,
-      finalPrice: 5416.2,
-      fullPrice: 6018,
-      vat: 1083.24,
+      finalPrice: 5302.8,
+      fullPrice: 5892,
+      vat: 1060.56,
     },
   },
   {
@@ -878,12 +880,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 25,
-      discountAmount: 601.8,
-      discountedPrice: 5416.2,
+      discountAmount: 589.2,
+      discountedPrice: 5302.8,
       extraTreesPrice: 10,
-      finalPrice: 5451.2,
-      fullPrice: 6018,
-      vat: 1090.24,
+      finalPrice: 5337.8,
+      fullPrice: 5892,
+      vat: 1067.56,
     },
   },
   {
@@ -893,12 +895,12 @@ export const calculatePricesParams: {
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 0,
-      discountAmount: 601.8,
-      discountedPrice: 5416.2,
+      discountAmount: 589.2,
+      discountedPrice: 5302.8,
       extraTreesPrice: 10,
-      finalPrice: 5426.2,
-      fullPrice: 6018,
-      vat: 1085.24,
+      finalPrice: 5312.8,
+      fullPrice: 5892,
+      vat: 1062.56,
     },
   },
   // No items, discountPercent10
