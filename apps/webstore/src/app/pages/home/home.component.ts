@@ -18,30 +18,13 @@ export class HomeComponent implements OnInit {
   showUpArrow = false;
   showStartButton = false;
   public isLoggedIn: boolean;
-  private authUser$: BehaviorSubject<IAuthUser>;
   subscribeForm: FormGroup;
   isSubscribingUser = false;
 
   title = 'homeComponent';
 
-  constructor(
-    private localStorageService: LocalStorageService,
-    private authService: AuthService,
-    private modalService: NgbModal
-  ) {
+  constructor(private localStorageService: LocalStorageService, private modalService: NgbModal) {
     this.initialTop = 0;
-
-    // Listen to changes to login status
-    this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
-
-    this.authUser$.subscribe(() => {
-      // Check if the access token is still valid
-      this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
-    });
-
-    this.subscribeForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-    });
   }
 
   ngOnInit(): void {
