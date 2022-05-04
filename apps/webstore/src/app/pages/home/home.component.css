@@ -2,10 +2,12 @@
   font-size: 36px !important;
   text-shadow: 0px 0px 10px #0000;
 }
+
 .main-subtext {
   font-size: 18px;
   text-shadow: 0px 0px 10px #0000;
 }
+
 .main-section {
   min-height: 500px;
   height: 100vh;
@@ -33,162 +35,38 @@
   letter-spacing: 2px;
   color: white;
 }
-.review-section {
-  margin-top: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-.review-container {
-  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  background-color: white;
-  width: 350px;
-  padding-top: 8px !important;
-  padding: 15px;
-  margin: 15px;
-  color: var(--second-action-color);
-}
-.star-icon {
-  margin: 0 3px;
-}
-.rating {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-.quotation-mark {
-  position: relative;
-  top: 13px;
-  left: 13px;
-}
-.review-text {
-  min-height: 100px;
-  padding: 0 5px;
-}
-.review-author {
-  font-size: 18px;
-}
-.review-author,
-.review-text {
-  font-family: 'argestadisplay-italic' !important;
-  text-align: center;
-  margin-bottom: 15px;
-}
-.subscribe-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 50px 0;
-}
-.subscribe-title {
-  font-size: 56px;
-  margin: 15px 0;
-  width: 60vw;
-  text-align: center;
-  letter-spacing: 2px;
-}
-.subscribe-subtitle {
-  width: 40vw;
-  text-align: center;
-  margin-bottom: 25px;
-}
-.action-container {
-  display: flex;
-  flex-direction: column;
-  width: 40vw;
-}
-.email-input-field::placeholder {
-  color: var(--second-action-color);
-  opacity: 0.8;
-}
-.email-input-field {
-  font-size: 24px;
-  border-radius: 3px;
-  border: 2px solid var(--second-action-color);
-  margin-bottom: 10px;
-  text-align: center;
-  color: #874d32;
-  padding-left: 6px;
-  padding: 8px;
-}
-.email-input-field:focus {
-  outline: none;
-}
-.subscribe-button {
-  transition: 0.2s;
-  background-color: var(--second-action-color);
-  color: white;
-  font-size: 24px;
-  border-radius: 3px;
-  border: none;
-  letter-spacing: 3px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.button-text {
-  transition: 0.5s;
-  position: relative;
-  left: -20px;
-  opacity: 1;
-}
-.send-email-icon {
-  width: 50px;
-  transition: 0.5s;
-  opacity: 0;
-  position: relative;
-  left: -35px;
-  top: -2px;
-}
-.subscribe-button:hover > .send-email-icon {
-  left: 50px;
-  opacity: 1;
-}
-.subscribe-button:hover > .button-text {
-  left: 60px;
-  opacity: 0;
-}
+
 .descriptive-content-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   margin: 40px 10px;
 }
+
 .text-container {
   min-width: 300px;
   width: 30vw;
   margin: 15px 30px;
 }
+
 .descriptive-img {
   width: 450px;
   height: 450px;
   border-radius: 5px;
   filter: drop-shadow(0px 5px 35px rgba(0, 0, 0, 0.2));
 }
-.reverse {
-  flex-direction: row-reverse;
-}
-.carousel {
-  width: 100vw;
-  height: 200px;
-  background-color: var(--second-action-color);
-}
-.is-mobile {
-  display: none;
-}
+
 .hide .arrow-up-item,
 .hide {
   transition: 0.4s;
   opacity: 0 !important;
   bottom: 30px;
 }
+
 .remove {
   bottom: 100px;
 }
+
 .show {
   transition: 0.4s;
   opacity: 1;
@@ -229,59 +107,8 @@
   -webkit-transform: rotate(45deg) translate(6px, -4px);
   transform: rotate(45deg) translate(6px, -4px);
 }
-.down {
-  bottom: 20px;
-}
 
-/* Start design button */
-.start-creating-icon {
-  width: 40px;
-  transition: 0.7s;
-  opacity: 0;
-  position: relative;
-  left: -35px;
-  top: 0;
-}
-
-.start-button-text {
-  transition: 0.5s;
-  position: relative;
-  opacity: 1;
-}
-
-.start-creating-button,
-.main-start-button {
-  transition: 0.3s;
-  background-color: var(--second-action-color);
-  color: white;
-  font-size: 18px;
-  border-radius: 3px;
-  border: none;
-  letter-spacing: 3px;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1em;
-  max-width: none;
-}
-
-.start-creating-button-container {
-  position: fixed;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  bottom: 20px;
-}
-.main-start-button:hover,
-.start-creating-button-container:hover {
-  transform: scale(0.9);
-  transition: 0.5s;
-}
-
-/* END Start design button */
-
-.delivery-estimate {
+.purchase-info {
   color: white;
   background-color: rgba(175, 121, 73, 0.7);
   height: 40px;
@@ -304,35 +131,16 @@
     width: 70vw;
     margin-top: 12vw;
   }
-  .subscribe-subtitle,
-  .action-container {
-    width: 60vw;
-  }
-  .subscribe-title {
-    width: 80vw;
-  }
+
   .text-container {
     width: 60vw;
     text-align: center;
+    margin-top: 20px;
   }
+
   .descriptive-img {
     width: 60vw;
     height: 60vw;
-  }
-  .text-container {
-    margin-top: 20px;
-  }
-  .align-right {
-    text-align: center;
-  }
-  .is-mobile {
-    display: block;
-  }
-  .is-desktop {
-    display: none;
-  }
-  .bottom-fade {
-    bottom: -18px;
   }
 }
 
@@ -341,9 +149,11 @@
     font-size: 28px;
     font-weight: 400;
   }
+
   .main-subtext {
     font-size: 18px;
   }
+
   .main-text-container {
     height: 45vh;
     display: flex;
@@ -354,28 +164,18 @@
     margin: 0;
     text-align: center;
   }
+
   .main-section {
     background-image: url('apps/webstore/src/assets/img/main-background-mobile.jpg');
     background-position: bottom center;
     justify-content: center;
   }
 
-  .subscribe-subtitle,
-  .action-container,
-  .subscribe-title {
-    width: 80vw;
-  }
-  .subscribe-title {
-    font-size: 36px;
-  }
-  .email-input-field,
-  .subscribe-button {
-    font-size: 18px;
-  }
   .descriptive-img {
     width: 80vw;
     height: 80vw;
   }
+
   .text-container {
     width: 80vw;
   }
@@ -385,12 +185,10 @@
   .remove {
     display: none;
   }
+
   .main-text-container {
     height: 35vh;
     margin-top: 50px;
-  }
-  .start-creating-button {
-    width: 40vw;
   }
 }
 
@@ -398,17 +196,15 @@
   .main-text-container {
     margin-top: 80px;
   }
+
   .title {
     font-size: 20px !important;
     margin-bottom: 4px;
   }
-  .main-subtext,
-  .subscribe-subtitle {
+
+  .main-subtext {
     font-size: 12px;
     line-height: 20px;
-  }
-  .bottom-fade {
-    bottom: 0px;
   }
 }
 
