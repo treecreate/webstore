@@ -1,5 +1,5 @@
 <div class="page-container">
-    <div class="main-section add-transition">
+    <section class="main-section add-transition">
         <div class="darkener"></div>
         <div class="main-text-container add-transition">
             <h1 class="title title-font">
@@ -11,7 +11,7 @@
                 <div i18n="@@start-creating">Start creating</div>
             </button>
         </div>
-    </div>
+    </section>
 
     <div class="purchase-info">
         <span class="info-text">
@@ -28,20 +28,19 @@
         </span>
     </div>
 
-    <div class="descriptive-content-container">
-        <div class="left-content">
+    <section class="descriptive-content-container">
+        <figure class="left-content">
             <img src="/assets/img/description1.jpg" id="image" />
             <div id="background-image"></div>
-        </div>
+        </figure>
 
-        <div class="right-content">
-            <h1 class="discriptive-title title title-font">The quote frame</h1>
-            <div class="descriptive-text">
-                <span>Tell the one you care about how much they mean to you in a unique and environmental way.</span>
-                <br />
-            </div>
-        </div>
-    </div>
+        <article class="right-content">
+            <h2 class="discriptive-title title title-font">We want our products to be personal</h2>
+            <p class="descriptive-text">
+                Tell the one you care about how much they mean to you in a unique and environmental way.
+            </p>
+        </article>
+    </section>
 
     <div class="arrow-up-container" [ngClass]="showUpArrow ? 'show' : 'hide'">
         <div class="arrow-up-item" (click)="scrollTop()">
