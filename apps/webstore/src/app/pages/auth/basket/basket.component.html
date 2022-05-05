@@ -124,9 +124,17 @@
                         <span i18n="@@subtotal">Subtotal</span>
                         <span data-cy="subtotal-price-basket"> {{ priceInfo.fullPrice.toFixed(2) }} DKK <br /> </span>
                     </div>
-                    <div class="line-container" [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''">
+                    <div
+                        *ngIf="priceInfo.discountAmount > 0"
+                        class="line-container"
+                        [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''"
+                    >
                         <span i18n="@@you-save">You save</span>
                         <span> - {{ priceInfo.discountAmount.toFixed(2) }} DKK </span>
+                    </div>
+                    <div class="line-container" [ngClass]="priceInfo.deliveryPrice === 0 ? 'green-text' : ''">
+                        <span i18n="@@delivery">Delivery</span>
+                        <span> {{ priceInfo.deliveryPrice.toFixed(2) }} DKK </span>
                     </div>
                     <div class="line-container weight">
                         <span>
