@@ -21,30 +21,30 @@ export class HomeComponent implements OnInit {
   public localeCode: LocaleType;
   reviews = [
     {
-      url: "",
-      name: "Maria Sotskova",
+      url: '',
+      name: 'Maria Sotskova',
       textEn: `"I LOVE your beautiful way of perpetuating the family, and have gotten countless compliments on the beautiful family tree. You are so sweet to helpfull to your customers."`,
       textDk: `“Fantastisk fint og helt unikt produkt, som rammer lige i 'skabet'. Vi købte stamtræer til begge hold bedsteforældre som gaver, hvilket var en stor succes.”`,
     },
     {
-      url: "",
-      name: "Stine Olsen",
+      url: '',
+      name: 'Stine Olsen',
       textEn: `"10/10 and more .. It gets praise every time we have guests, and many ask about it. Very nice product, top quality and we are more than satisfied."`,
       textDk: `“10/10! Og mere til .. det for ros hvergang vi har gæster, og mange spørg til det. Meget lækkert produkt, kvalitet i top, vi er mere end tilfredse.”`,
     },
     {
-      url: "",
-      name: "Sabrine Dam",
+      url: '',
+      name: 'Sabrine Dam',
       textEn: `"My family was incredibly happy for their family tree, i think that it is nice to have the family be part of the house decorations."`,
       textDk: `“Min familie blev utroligt glade for deres gave, jeg synes at det er fedt at kunne få familien med ind i indretning!”`,
     },
     {
-      url: "",
-      name: "Birgitte Hansson",
+      url: '',
+      name: 'Birgitte Hansson',
       textEn: `"A fantastic and completely unique product, that is always on point. We bought the family tree for both pairs of grandparent as a gift, which was a big success"`,
       textDk: `“Fantastisk fint og helt unikt produkt, som rammer lige i 'skabet'. Vi købte stamtræer til begge hold bedsteforældre som gaver, hvilket var en stor succes.”`,
-    }
-  ]
+    },
+  ];
 
   title = 'homeComponent';
 

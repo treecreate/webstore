@@ -5,7 +5,7 @@
             <h1 class="title title-font">
                 <strong i18n="@@home-01-title">A gift with care</strong>
             </h1>
-            <h5 class="main-subtext" i18n="@@home-01-text">Create something environmental, unique and personal.</h5>
+            <h2 class="main-subtext" i18n="@@home-01-text">Create something environmental, unique and personal.</h2>
             <h5><span i18n="@@prices-from">From </span> 299 DKK</h5>
             <button class="tc-button-static title-font" routerLink="/products" (click)="scrollTop()">
                 <div i18n="@@start-creating">Start creating</div>
@@ -30,7 +30,7 @@
 
     <section class="descriptive-content-container">
         <figure class="left-content">
-            <img src="/assets/img/description1.jpg" id="image" />
+            <img src="/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg" id="image" />
             <div id="background-image"></div>
         </figure>
 
@@ -46,8 +46,8 @@
         <h2>Reviews</h2>
         <div class="reviews-container">
             <div class="review-wrapper" *ngFor="let review of reviews">
-                <img [src]="review.url" alt="">
-                <h3>{{ review.name }}</h3>
+                <img [src]="review.url" alt="" />
+                <p class="review-name">{{ review.name }}</p>
                 <p>{{ isEnglish() ? review.textEn : review.textDk }}</p>
             </div>
         </div>

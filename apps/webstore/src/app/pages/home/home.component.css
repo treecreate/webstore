@@ -64,7 +64,7 @@
 #background-image {
   height: 100%;
   -webkit-filter: blur(8px);
-  background-image: url('/assets/img/description1.jpg');
+  background-image: url('/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg');
   background-size: cover;
   background-position: bottom center;
   position: absolute;
@@ -160,8 +160,9 @@
   flex-direction: column;
 }
 
-.review-section h2 {
-  padding-bottom: 1em;
+.review-name {
+  font-size: 1.75em;
+  font-weight: 900;
 }
 
 .reviews-container {
@@ -171,17 +172,23 @@
 .review-wrapper {
   width: 100%;
   justify-content: center;
-  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.15));
   margin: 1.5em;
   padding: 1em;
   background-color: white;
   border-radius: 5px;
+  font-size: 0.75em;
+}
+
+.review-wrapper p {
+  margin-bottom: 0;
 }
 
 .reviews-container img {
-  width: 200px;
-  height: 200px;
-  margin-bottom: .5em;
+  width: 220px;
+  height: 220px;
+  margin-bottom: 0.5em;
+  margin: auto;
 }
 
 @media screen and (max-width: 945px) {
