@@ -28,6 +28,17 @@
         </span>
     </div>
 
+    <section class="review-section">
+        <h2>Reviews</h2>
+        <div class="reviews-container">
+            <div class="review-wrapper" *ngFor="let review of reviews">
+                <img [src]="review.url" [alt]="review.alt" />
+                <p class="review-name">{{ review.name }}</p>
+                <p>{{ isEnglish() ? review.textEn : review.textDk }}</p>
+            </div>
+        </div>
+    </section>
+
     <section class="descriptive-content-container">
         <figure class="left-content">
             <img
@@ -39,20 +50,30 @@
         </figure>
 
         <article class="right-content">
-            <h2 class="discriptive-title title title-font">We want our products to be personal</h2>
+            <h2 class="discriptive-title title-font">We want our products to be personal</h2>
             <p class="descriptive-text">
                 Tell the one you care about how much they mean to you in a unique and environmental way.
             </p>
         </article>
     </section>
 
-    <section class="review-section">
-        <h2>Reviews</h2>
-        <div class="reviews-container">
-            <div class="review-wrapper" *ngFor="let review of reviews">
-                <img [src]="review.url" [alt]="review.alt" />
-                <p class="review-name">{{ review.name }}</p>
-                <p>{{ isEnglish() ? review.textEn : review.textDk }}</p>
+    <section class="values-container">
+        <h2 class="title title-font">Values</h2>
+        <div class="values">
+            <div class="value-wrapper">
+                <img src="/assets/icons/home-page-icons/personal-icon.svg" alt="personal icon" />
+                <h3>Personal</h3>
+                <p>Tell the one you care about how much they mean to you in a unique and environmental way.</p>
+            </div>
+            <div class="value-wrapper">
+                <img src="/assets/icons/home-page-icons/unique-icon.svg" alt="unique icon" />
+                <h3>Unique</h3>
+                <p>Tell the one you care about how much they mean to you in a unique and environmental way.</p>
+            </div>
+            <div class="value-wrapper">
+                <img src="/assets/icons/home-page-icons/environmental-icon.svg" alt="environmental icon" />
+                <h3>Environmental</h3>
+                <p>Tell the one you care about how much they mean to you in a unique and environmental way.</p>
             </div>
         </div>
     </section>

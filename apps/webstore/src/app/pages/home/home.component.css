@@ -195,6 +195,43 @@
   margin-bottom: 0.5em;
 }
 
+.values-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 3em;
+  background-color: white;
+}
+
+.value-wrapper {
+  text-align: center;
+  margin: 1em 2em;
+  width: 200px;
+}
+
+.value-wrapper h3 {
+  font-size: 1.25em;
+  font-weight: 900;
+}
+
+.values-container img {
+  height: 70px;
+  width: 70px;
+  margin-bottom: 0.5em;
+}
+
+.values {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0.5em 0 1em 0;
+}
+
 @media screen and (max-width: 945px) {
   /* new */
   .descriptive-content-container {
