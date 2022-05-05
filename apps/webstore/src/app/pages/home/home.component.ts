@@ -1,10 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAuthUser } from '@interfaces';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService } from '../../shared/services/authentication/auth.service';
 import { LocalStorageService } from '@local-storage';
 import { NewsletterSignupModalComponent } from '../../shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
@@ -22,7 +19,7 @@ export class HomeComponent implements OnInit {
   reviews = [
     {
       id: 1,
-      alt: '',
+      alt: '3 personlige gaver',
       url: '/assets/img/review-img/review-img-04.jpg',
       name: 'Maria',
       textEn: `"I LOVE your beautiful way of perpetuating the family, and have gotten countless compliments on the beautiful family tree. You are so sweet to helpfull to your customers."`,
@@ -30,7 +27,7 @@ export class HomeComponent implements OnInit {
     },
     {
       id: 2,
-      alt: '',
+      alt: 'en gave til farmor',
       url: '/assets/img/review-img/review-img-01.jpg',
       name: 'Stine',
       textEn: `"10/10 and more .. It gets praise every time we have guests, and many ask about it. Very nice product, top quality and we are more than satisfied."`,
@@ -38,7 +35,7 @@ export class HomeComponent implements OnInit {
     },
     {
       id: 3,
-      alt: '',
+      alt: 'en gave til mor',
       url: '/assets/img/review-img/review-img-03.jpg',
       name: 'Sabrine',
       textEn: `"My family was incredibly happy for their family tree, i think that it is nice to have the family be part of the house decorations."`,
@@ -46,7 +43,7 @@ export class HomeComponent implements OnInit {
     },
     {
       id: 4,
-      alt: '',
+      alt: 'familien samlet om gaven',
       url: '/assets/img/review-img/review-img-02.jpg',
       name: 'Birgitte',
       textEn: `"A fantastic and completely unique product, that is always on point. We bought the family tree for both pairs of grandparent as a gift, which was a big success"`,
