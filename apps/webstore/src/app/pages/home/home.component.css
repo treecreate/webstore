@@ -135,7 +135,7 @@
 
 .purchase-info {
   color: white;
-  background-color: rgba(175, 121, 73, 0.7);
+  background-color: rgb(197, 158, 118);
   height: 40px;
   display: flex;
   justify-content: center;
@@ -149,6 +149,39 @@
 .check-icon {
   width: 20px;
   margin: 5px;
+}
+
+.review-section {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5em;
+  flex-direction: column;
+}
+
+.review-section h2 {
+  padding-bottom: 1em;
+}
+
+.reviews-container {
+  display: flex;
+}
+
+.review-wrapper {
+  width: 100%;
+  justify-content: center;
+  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
+  margin: 1.5em;
+  padding: 1em;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.reviews-container img {
+  width: 200px;
+  height: 200px;
+  margin-bottom: .5em;
 }
 
 @media screen and (max-width: 945px) {

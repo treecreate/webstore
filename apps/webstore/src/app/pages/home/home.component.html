@@ -42,6 +42,17 @@
         </article>
     </section>
 
+    <section class="review-section">
+        <h2>Reviews</h2>
+        <div class="reviews-container">
+            <div class="review-wrapper" *ngFor="let review of reviews">
+                <img [src]="review.url" alt="">
+                <h3>{{ review.name }}</h3>
+                <p>{{ isEnglish() ? review.textEn : review.textDk }}</p>
+            </div>
+        </div>
+    </section>
+
     <div class="arrow-up-container" [ngClass]="showUpArrow ? 'show' : 'hide'">
         <div class="arrow-up-item" (click)="scrollTop()">
             <button class="up-arrow">
