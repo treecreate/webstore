@@ -405,6 +405,10 @@
           <context context-type="linenumber">423</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">602</context>
         </context-group>
