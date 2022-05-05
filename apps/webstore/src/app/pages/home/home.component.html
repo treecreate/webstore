@@ -49,7 +49,7 @@
     <section class="review-section">
         <h2>Reviews</h2>
         <div class="reviews-container">
-            <div class="review-wrapper" *ngFor="let review of reviews" [ngClass]="review.id % 2 === 0 ? 'remove' : ''">
+            <div class="review-wrapper" *ngFor="let review of reviews">
                 <img [src]="review.url" [alt]="review.alt" />
                 <p class="review-name">{{ review.name }}</p>
                 <p>{{ isEnglish() ? review.textEn : review.textDk }}</p>
