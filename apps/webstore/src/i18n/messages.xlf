@@ -375,6 +375,10 @@
           <context context-type="linenumber">345</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">488</context>
         </context-group>
@@ -854,7 +858,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="free-delivery" datatype="html">
-        <source>Free over 300,-</source>
+        <source>Free over 350,-</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">23</context>
