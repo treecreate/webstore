@@ -1034,8 +1034,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="free-delivery" datatype="html">
-        <source>Free over 300,-</source>
-        <target>Gratis over 300,-</target>
+        <source>Free over 350,-</source>
+        <target>Gratis over 350,-</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">23</context>
