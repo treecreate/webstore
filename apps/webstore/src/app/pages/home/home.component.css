@@ -75,7 +75,6 @@
   background-position: bottom center;
   position: absolute;
   width: 50%;
-  transform: scale(1.1);
   z-index: -10;
   filter: brightness(70%) blur(8px);
 }
@@ -157,7 +156,7 @@
   align-items: center;
   padding: 2.5em;
   flex-direction: column;
-  height: 80vh;
+  height: 90vh;
 }
 
 .review-name {
@@ -246,7 +245,7 @@
 
 .trustpilot-rating-number {
   margin-left: 0.5em;
-  font-family: TrustpilotDefaultFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 1.5em;
   font-weight: 700;
 }
@@ -289,8 +288,10 @@
   }
 
   #background-image {
-    width: 100%;
     background-position: top;
+    width: 100%;
+    background-size: cover;
+    overflow: hidden;
   }
   /* Old */
   .main-text-container {
@@ -355,6 +356,24 @@
   .main-text-container {
     height: 35vh;
     margin-top: 50px;
+  }
+
+  .trustpilot-section {
+    margin-top: 2em;
+  }
+
+  .trustpilot-rating {
+    margin-left: 0.5em;
+    height: 20px;
+  }
+
+  .trustpilot-rating-number {
+    margin-left: 0.25em;
+    font-size: 1em;
+  }
+
+  .trustpilot-rating-text {
+    font-size: 0.7em;
   }
 }
 
