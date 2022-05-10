@@ -203,7 +203,7 @@
 }
 
 .values-container {
-  min-height: 100vh;
+  min-height: 55vh;
   display: flex;
   align-items: center;
   flex-direction: column;
