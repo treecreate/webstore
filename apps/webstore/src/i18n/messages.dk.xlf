@@ -886,8 +886,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="signup-for-newsletter-subtitle" datatype="html">
-        <source>Sign up for newsletter and get 20% off your first purchase!</source>
-        <target>Tilmeld dig nyhedsbrevet og få 20% rabat på dit første køb!</target> 
+        <source>Sign up for newsletter and get 10% off your first purchase!</source>
+        <target>Tilmeld dig nyhedsbrevet og få 10% rabat på dit første køb!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
           <context context-type="linenumber">121,122</context>
@@ -1433,8 +1433,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="subscribe-to-newsletter-subtitle" datatype="html">
-        <source>Get 20% off your first purchase.</source>
-        <target>Få 20% rabat på dit første køb. </target> 
+        <source>Get 10% off your first purchase.</source>
+        <target>Få 10% rabat på dit første køb. </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">101,102</context>
@@ -1961,16 +1961,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="20-procent-discount" datatype="html">
-        <source>Get 20% Off!</source>
-        <target>Få 20% Rabat!</target>
+        <source>Get 10% Off!</source>
+        <target>Få 10% Rabat!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="20-procent-discount-text" datatype="html">
-        <source>Du får 20% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</source>
-        <target>Du får 20% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</target>
+        <source>Du får 10% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</source>
+        <target>Du får 10% rabat på dit første køb hos Treecreate når du skriver dig op på vores nyhedsbrev.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
           <context context-type="linenumber">7</context>
