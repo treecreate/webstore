@@ -48,13 +48,7 @@
 .navbar-toggler {
   outline: none;
 }
-.navbar-language {
-  position: relative;
-  bottom: 1px;
-}
 .language-icon {
-  position: relative;
-  top: -2px;
   padding: 10px 15px;
 }
 .language-dropdown {
