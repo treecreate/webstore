@@ -22,7 +22,7 @@ const familyTree: ProductsItem = {
 
 const quotable: ProductsItem = {
   titleEn: 'Quotable',
-  titleDk: 'Citatramme',
+  titleDk: 'Citat ramme',
   descriptionEn: 'Select a frame and write a quote to someone you care about.',
   descriptionDk: 'Vælg en ramme og vælg et citat til den du holder af.',
   prices: [299, 399, 499],

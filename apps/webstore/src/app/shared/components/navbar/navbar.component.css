@@ -177,6 +177,10 @@
   position: relative;
   top: -2px;
 }
+.buy-button-text {
+  font-size: 0.8em;
+  padding: 0 0.2em 0 0.4em;
+}
 
 @media all and (max-width: 992px) {
   .remove-on-mobile {

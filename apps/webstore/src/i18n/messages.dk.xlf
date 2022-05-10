@@ -1047,7 +1047,7 @@
       </trans-unit>
       <trans-unit id="the-quote-frame" datatype="html">
         <source>The quote frame</source>
-        <target>Den unikke Citatramme</target>
+        <target>Den unikke Citat ramme</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">40</context>
