@@ -67,14 +67,22 @@
   filter: drop-shadow(0px 5px 35px rgba(0, 0, 0, 0.2));
 }
 
+.background-image-container {
+  width: 50%;
+  position: absolute;
+  height: 100%;
+  overflow: hidden;
+}
+
 #background-image {
   height: 100%;
   -webkit-filter: blur(8px);
   background-image: url('/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg');
   background-size: cover;
-  background-position: bottom center;
+  background-position: center center;
   position: absolute;
-  width: 50%;
+  transform: scale(1.1);
+  width: 100%;
   z-index: -10;
   filter: brightness(70%) blur(8px);
 }
@@ -280,8 +288,10 @@
 
   #image {
     max-width: 300px;
+    min-width: 200px;
     width: 80vw;
     max-height: 300px;
+    min-height: 200px;
     height: 80vw;
     position: relative;
     top: 100px;
@@ -289,9 +299,12 @@
 
   #background-image {
     background-position: top;
-    width: 100%;
     background-size: cover;
-    overflow: hidden;
+  }
+
+  .background-image-container {
+    width: 100%;
+    min-width: 350px;
   }
   /* Old */
   .main-text-container {
