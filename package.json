@@ -74,7 +74,7 @@
     "@nrwl/cli": "13.7.1",
     "@nrwl/nx-cloud": "13.1.2",
     "@nrwl/workspace": "13.7.1",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^5.0.0",
     "ngx-clipboard": "^15.1.0",
     "rxjs": "^7.4.0",
     "tslib": "^2.0.0",
