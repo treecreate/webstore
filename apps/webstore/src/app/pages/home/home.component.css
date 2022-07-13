@@ -43,7 +43,7 @@
 
 .descriptive-content-container {
   display: flex;
-  height: 100vh;
+  height: 90vh;
 }
 
 .left-content,
@@ -276,6 +276,18 @@
 .trustpilot-rating-text {
   font-size: 1em;
   font-weight: 400;
+}
+
+.video-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3em 0;
+}
+
+.i-frame-video {
+  width: 90vw;
+  height: 49vw;
 }
 
 @media screen and (max-width: 945px) {
