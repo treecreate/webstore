@@ -1,78 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Treecreate | En unik og personlig gave</title>
+        <base href="/" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="En personlig gave, der får folk tættere på hinanden. For kun 299 kr, kan du bestille en helt unik og miljøvenlig gave til én, du holder af."
+        />
+        <meta
+            name="keywords"
+            content="gave, unik, personlig, miljøvenlig, interiør, bryllup, barnedåb, fødselsdagsgave, kunst, design, dekoration, gaveide"
+        />
+        <meta name="author" content="Teodor Jonasson" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta property="og:title" content="Treecreate | En unik og personlig gave" />
+        <meta
+            property="og:description"
+            content="En gave, der får folk tættere på hinanden. For kun 299 kr, kan du bestille en helt unik gave til én, du holder af."
+        />
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="assets/styles/tc-buttons.css" />
 
-<head>
-    <meta charset="utf-8" />
-    <title>Treecreate | En unik og personlig gave</title>
-    <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-        content="En personlig gave, der får folk tættere på hinanden. For kun 299 kr, kan du bestille en helt unik og miljøvenlig gave til én, du holder af." />
-    <meta name="keywords"
-        content="gave, unik, personlig, miljøvenlig, interiør, bryllup, barnedåb, fødselsdagsgave, kunst, design, dekoration, gaveide" />
-    <meta name="author" content="Teodor Jonasson" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta property="og:title" content="Treecreate | En unik og personlig gave" />
-    <meta property="og:description"
-        content="En gave, der får folk tættere på hinanden. For kun 299 kr, kan du bestille en helt unik gave til én, du holder af." />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-    <link rel="stylesheet" href="assets/styles/tc-buttons.css" />
+        <!-- load fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sansita" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap%27" />
+        <!-- end font -->
 
-    <!-- load fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sansita" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap%27" />
-    <!-- end font -->
+        <!-- Load environment variables -->
+        <script src="assets/env.js"></script>
 
-    <!-- Load environment variables -->
-    <script src="assets/env.js"></script>
+        <!-- Google analytics -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-182084333-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'UA-182084333-1');
+        </script>
+        <!-- End google analytics -->
 
-    <!-- Google analytics -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-182084333-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-182084333-1');
-    </script>
-    <!-- End google analytics -->
+        <!-- Meta Pixel Code -->
+        <script>
+            !(function (f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function () {
+                    n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s);
+            })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1050174159116278');
+            fbq('track', 'PageView');
+        </script>
+        <noscript
+            ><img
+                height="1"
+                width="1"
+                style="display: none"
+                src="https://www.facebook.com/tr?id=1050174159116278&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Meta Pixel Code -->
+    </head>
 
-    <!-- Meta Pixel Code -->
-    <script>
-        !(function (f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function () {
-                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s);
-        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1050174159116278');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display: none"
-            src="https://www.facebook.com/tr?id=1050174159116278&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
-</head>
-
-<body>
-    <webstore-root></webstore-root>
-</body>
-
+    <body>
+        <webstore-root></webstore-root>
+    </body>
 </html>

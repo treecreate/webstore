@@ -22,7 +22,8 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         try {
           if (environment.production) {
-            gtag('config', 'UA-182084333-1', { // could use environment.gtag as well but am lazy
+            gtag('config', 'UA-182084333-1', {
+              // could use environment.gtag as well but am lazy
               // eslint-disable-next-line @typescript-eslint/naming-convention
               page_path: event.urlAfterRedirects,
             });
