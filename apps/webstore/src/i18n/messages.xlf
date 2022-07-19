@@ -26,14 +26,6 @@
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
           <context context-type="linenumber">31,33</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">91</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="plant-extra-trees" datatype="html">
         <source>Plant an extra tree - 10kr</source>
@@ -82,18 +74,37 @@
         <source>You save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">132</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">484</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="delivery" datatype="html">
+        <source>Delivery</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">345</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">488</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
+          <context context-type="linenumber">240</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="total" datatype="html">
         <source>Total</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">141</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -112,7 +123,7 @@
         <source>VAT</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">148</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -127,7 +138,7 @@
         <source> Go to checkout </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">150,152</context>
+          <context context-type="linenumber">158,160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-basket" datatype="html">
@@ -202,6 +213,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
           <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">151</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -368,25 +383,6 @@
           <context context-type="linenumber">150</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="delivery" datatype="html">
-        <source>Delivery</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">345</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">136</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">488</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
-          <context context-type="linenumber">240</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="parcel-shop-delivery" datatype="html">
         <source>Parcelshop delivery</source>
         <context-group purpose="location">
@@ -477,11 +473,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">117</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">148</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="no-designs" datatype="html">
@@ -529,7 +525,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="password" datatype="html">
@@ -587,7 +583,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact" datatype="html">
@@ -833,84 +829,123 @@
         <source>A gift with care</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home-01-text" datatype="html">
         <source>Create something environmental, unique and personal.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="prices-from" datatype="html">
         <source>From </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="buy-now" datatype="html">
+        <source>Buy now</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-display/product-display.component.html</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delivery-4-7" datatype="html">
         <source>7 days delivery</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="free-delivery" datatype="html">
         <source>Free over 350,-</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plant-a-tree" datatype="html">
         <source>1 purchase = 1 tree</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="the-quote-frame" datatype="html">
-        <source>The quote frame</source>
+      <trans-unit id="home-main-text-title" datatype="html">
+        <source> A completely unique gift, exactly as you want it </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">77,79</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="quote-text" datatype="html">
-        <source>Tell the one you care about how much they mean to you in a unique and environmental way.</source>
+      <trans-unit id="home-main-text-subtitle" datatype="html">
+        <source> At Treecreate you get to create something completely unique in high quality. You can create a Quote table with your own personal message for the one you care about, create your family tree or make something completely custom. All products are carved into a beautiful piece of oak wood and varnished. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">80,84</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="give-with-care" datatype="html">
-        <source>Give with care</source>
+      <trans-unit id="values" datatype="html">
+        <source>Values</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="give-with-care-text" datatype="html">
-        <source>For each product you order from Treecreate, we plant a tree. That way we can help each other protect our nature and thereby make the world a greener place.</source>
+      <trans-unit id="personal" datatype="html">
+        <source>Personal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">56,57</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="the-personal-present" datatype="html">
-        <source>The personal present</source>
+      <trans-unit id="personal-subtext" datatype="html">
+        <source> Gifts created personally are often the best, and with Treecreate you kan be sure to always bring something personal back home. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">102,105</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="personal-present-text" datatype="html">
-        <source>When you give something you created, you can be sure to surprise your nearest every time. Your gift is completely unique to the person you give it to.</source>
+      <trans-unit id="environmental" datatype="html">
+        <source>Environmental</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
-          <context context-type="linenumber">70,71</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="environmental-subtext" datatype="html">
+        <source> One of the most important things for us at Treecreate is to watch out for our planet. Therefore, we go the extra mile to make sure that our wood comes from reliable sources and by with planting a tree for each product sold. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">110,114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="quality" datatype="html">
+        <source>Quality</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="quality-subtext" datatype="html">
+        <source> At Treecreate we care about quality. So much so, that we create and varnish all products ourselves to maintain the highest quality possible. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">119,122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="who-are-we" datatype="html">
+        <source>Who are we</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="page-not-found" datatype="html">
@@ -1062,13 +1097,6 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="buy-now" datatype="html">
-        <source> Buy Now </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-display/product-display.component.html</context>
-          <context context-type="linenumber">30,32</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="box-size" datatype="html">
         <source>Box Size</source>
         <context-group purpose="location">
@@ -1139,7 +1167,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="collection" datatype="html">
@@ -1150,11 +1178,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">107</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket" datatype="html">
@@ -1540,21 +1568,21 @@
         <source> Click anywhere on the tree to create a box </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component.html</context>
-          <context context-type="linenumber">12,14</context>
+          <context context-type="linenumber">17,19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro-start-typing" datatype="html">
         <source>Start typing the name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro-click-and-hold" datatype="html">
         <source> Click and hold to drag the box around </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component.html</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">37,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="select" datatype="html">
@@ -1673,26 +1701,37 @@
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="buy" datatype="html">
+        <source>Buy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">193</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orders" datatype="html">
         <source>Orders</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">127</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout" datatype="html">
         <source>Log out</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">138</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.alert.close" datatype="html">
