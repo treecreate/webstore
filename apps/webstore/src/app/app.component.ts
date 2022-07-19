@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { environment } from '../environments/environment';
-import { LocalStorageService } from '@local-storage';
 
 // Google analytics-specific syntax
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -22,7 +22,7 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         try {
           if (environment.production) {
-            gtag('config', environment.gtag, {
+            gtag('config', 'UA-182084333-1', { // could use environment.gtag as well but am lazy
               // eslint-disable-next-line @typescript-eslint/naming-convention
               page_path: event.urlAfterRedirects,
             });
