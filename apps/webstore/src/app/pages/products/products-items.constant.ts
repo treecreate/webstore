@@ -22,7 +22,7 @@ const familyTree: ProductsItem = {
 
 const quotable: ProductsItem = {
   titleEn: 'Quotable',
-  titleDk: 'Citatramme',
+  titleDk: 'Citat ramme',
   descriptionEn: 'Select a frame and write a quote to someone you care about.',
   descriptionDk: 'Vælg en ramme og vælg et citat til den du holder af.',
   prices: [299, 399, 499],
@@ -37,7 +37,7 @@ const quotable: ProductsItem = {
 //   descriptionEn:
 //     'Send an image or describe what you want. We will see what we can create for you and give you a price.',
 //   descriptionDk: 'Send et billede og bescrib hvad du vil have. We ser hvad vi kan gøre for dig og giver dig en pris.',
-//   prices: [],
+//   prices: [399, 499, 599, 699, 799, 899, 999],
 //   imgSrc: '/assets/img/description2.jpg',
 //   specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
 //   routerLink: 'unique',
