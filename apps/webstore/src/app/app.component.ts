@@ -30,22 +30,25 @@ export class AppComponent {
     });
 
     // Third party cookies and tracking
-    // Meta Pixel - only in production if cookies are accepted
-    if (environment.production) {
-      if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
-        this.initMetaPixel();
+    // Trigger the cookies logic whenever the cookie state changes for the exmple the user accepts them
+    this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).subscribe(() => {
+      // Meta Pixel - only in production if cookies are accepted
+      if (environment.production) {
+        if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
+          this.initMetaPixel();
+        } else {
+          console.log('Not logging Meta Pixel since cookies were not accepted');
+        }
       } else {
-        console.log('Not logging Meta Pixel since cookies were not accepted');
+        console.log('Not logging Meta Pixel since this is not the production environment');
       }
-    } else {
-      console.log('Not logging Meta Pixel since this is not the production environment');
-    }
-    // Any environment, only if cookies are accepted
-    if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
-      this.initGoogleAnalytics();
-    } else {
-      console.log('Not logging Google Analytics and Meta Pixel since cookies were not accepted');
-    }
+      // Any environment, only if cookies are accepted
+      if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
+        this.initGoogleAnalytics();
+      } else {
+        console.log('Not logging Google Analytics and Meta Pixel since cookies were not accepted');
+      }
+    });
   }
 
   initGoogleAnalytics() {
