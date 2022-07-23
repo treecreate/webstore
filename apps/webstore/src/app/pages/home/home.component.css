@@ -177,6 +177,7 @@ figure {
   padding: 2.5em;
   flex-direction: column;
   height: 90vh;
+  max-height: 800px;
 }
 
 .review-name {
@@ -222,6 +223,10 @@ figure {
   flex-direction: column;
   padding: 2em;
   background-color: white;
+}
+
+.values-container {
+  justify-content: center;
 }
 
 .value-wrapper {
