@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { LocalStorageService } from '@local-storage';
@@ -67,6 +68,7 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         try {
           gtag('config', gtagId, {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             page_path: event.urlAfterRedirects,
           });
           console.log('Google Analytics Page Redirect event fired');
@@ -83,6 +85,7 @@ export class AppComponent {
     (function (f: any, b, e, v, n, t, s) {
       if (f.fbq) return;
       n = f.fbq = function () {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions, prefer-spread, prefer-rest-params
         n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
       };
       if (!f._fbq) f._fbq = n;
