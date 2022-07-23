@@ -1,6 +1,7 @@
-<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg mb-3 add-transition">
-    <div class="container min-width">
+<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg add-transition">
+    <div class="container">
         <div class="nav-start">
+            <!-- Dropdown => not shown on desktop -->
             <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
                 <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
                     <div class="bar1"></div>
@@ -9,10 +10,12 @@
                 </div>
             </button>
 
+            <!-- Logo, always shown -->
             <a class="navbar-brand" routerLink="/">
                 <img data-cy="navbar-logo-img" src="/assets/logos/tc-black-text-logo.svg" class="logo" />
             </a>
-            <!-- localization -->
+            
+            <!-- Dropdown => language change, always shown -->
             <div
                 ngbDropdown
                 class="d-inline-block language-icon"
@@ -49,6 +52,7 @@
             </div>
         </div>
 
+        <!-- Buy / Basket button => only shown on mobile, changes depending on items being in basket -->
         <div class="nav-section">
             <button
                 class="navbar-basket-icon tc-button-100 show-on-mobile"
@@ -76,6 +80,7 @@
             </button>
         </div>
 
+        <!-- Links section => changes to dropdown depending on screensize -->
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -167,6 +172,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Buy button => changes between showing basket and buyNow -->
                 <div class="nav-section remove-on-mobile">
                     <button
                         class="navbar-basket-icon"
@@ -190,7 +197,7 @@
                         "
                     >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
-                        <span class="buy-button-text" i18n="@@buy">Buy tf</span>
+                        <span class="buy-button-text" i18n="@@buy">Buy</span>
                     </button>
                 </div>
             </ul>

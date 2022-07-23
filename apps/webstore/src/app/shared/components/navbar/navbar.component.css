@@ -1,3 +1,6 @@
+.navbar-collapse {
+  justify-content: flex-end;
+}
 .nav-link {
   transition-duration: 0.5s;
   padding-bottom: 5px;
