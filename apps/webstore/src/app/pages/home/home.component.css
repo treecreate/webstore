@@ -43,13 +43,20 @@
 
 .descriptive-content-container {
   display: flex;
-  min-height: 90vh;
+  height: 90vh;
+  max-height: 800px;
+  align-items: center;
+}
+
+figure {
+  margin: 0;
 }
 
 .left-content,
 .right-content {
-  height: 100%;
+  height: 90vh;
   width: 50%;
+  max-height: 800px;
   display: flex;
   justify-content: center;
 }
@@ -340,14 +347,13 @@
   }
 
   .left-content {
-    height: 30%;
+    height: 40%;
     justify-content: center;
   }
   .right-content {
     height: 100%;
     text-align: center;
-    justify-content: start;
-    padding-top: 160px;
+    justify-content: center;
   }
 
   #image {
@@ -459,8 +465,18 @@
     margin-top: 70px;
   }
 
+  .left-content {
+    height: 30%;
+    justify-content: center;
+  }
+
   .right-content {
-    padding: 7em 2em 2em 2em;
+    padding: 10em 2em 2em 2em;
+    height: 100vh;
+  }
+
+  .descriptive-content-container {
+    height: 115vh;
   }
 
   .main-subtext {
