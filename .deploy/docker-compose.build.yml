@@ -31,29 +31,29 @@ services:
 
   api-prod:
     profiles: [prod]
-    environment:
-      - ENV=prod
     build:
       dockerfile: .deploy/api/Dockerfile
       context: ../.
+      args:
+        ENV: 'prod'
     image: kwandes/treecreate-v2:api-prod
 
   webstore-prod:
     profiles: [prod]
-    environment:
-      - ENV=prod
     build:
       dockerfile: .deploy/webstore/Dockerfile
       context: ../.
+      args:
+        ENV: 'prod'
     image: kwandes/treecreate-v2:webstore-prod
 
   admin-page-prod:
     profiles: [prod]
-    environment:
-      - ENV=prod
     build:
       dockerfile: .deploy/admin-page/Dockerfile
       context: ../.
+      args:
+        ENV: 'prod'
     image: kwandes/treecreate-v2:admin-page-prod
 
   #### PROD END ####
