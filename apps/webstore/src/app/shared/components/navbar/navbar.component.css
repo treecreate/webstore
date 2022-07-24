@@ -9,6 +9,9 @@
   padding: 0 10px;
   transition-duration: 0.5s;
 }
+.container {
+  padding: .5em 1em;
+}
 .nav-item:hover > .nav-link {
   background: none;
   transform: scale(0.95);
@@ -40,7 +43,9 @@
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   transition: 0.4s;
-  padding: 0.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 .navbar-brand:hover > .logo {
   transform: scale(1.05);
@@ -176,6 +181,25 @@
   padding: 0 0.2em 0 0.4em;
 }
 
+.purchase-info {
+  width: 100%;
+  color: white;
+  background-color: rgb(197, 158, 118);
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-text {
+  padding: 0 10px;
+}
+
+.check-icon {
+  width: 20px;
+  margin: 5px;
+}
+
 @media all and (max-width: 992px) {
   .remove-on-mobile {
     display: none;
@@ -188,5 +212,11 @@
   }
   .nav-item:hover {
     border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .remove {
+    display: none;
   }
 }

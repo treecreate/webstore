@@ -151,24 +151,6 @@ figure {
   transform: rotate(45deg) translate(6px, -4px);
 }
 
-.purchase-info {
-  color: white;
-  background-color: rgb(197, 158, 118);
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.info-text {
-  padding: 0 10px;
-}
-
-.check-icon {
-  width: 20px;
-  margin: 5px;
-}
-
 .review-section {
   background-color: white;
   display: flex;

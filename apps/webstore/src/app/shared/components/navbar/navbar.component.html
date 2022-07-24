@@ -1,4 +1,20 @@
 <nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg add-transition">
+    
+    <div class="purchase-info" *ngIf="router.url === '/home'">
+        <span class="info-text">
+            <span i18n="@@delivery-4-7">7 days delivery</span>
+            <img src="/assets/icons/check-white-icon.svg" class="check-icon" alt="Hurtig levering icon" />
+        </span>
+        <span class="info-text">
+            <span i18n="@@free-delivery">Free over 350,-</span>
+            <img src="/assets/icons/check-white-icon.svg" class="check-icon" alt="Gratis fragt icon" />
+        </span>
+        <span class="info-text remove">
+            <span i18n="@@plant-a-tree">1 purchase = 1 tree</span>
+            <img src="/assets/icons/check-white-icon.svg" class="check-icon" alt="Plant et træ gratis icon" />
+        </span>
+    </div>
+
     <div class="container">
         <div class="nav-start">
             <!-- Dropdown => not shown on desktop -->
