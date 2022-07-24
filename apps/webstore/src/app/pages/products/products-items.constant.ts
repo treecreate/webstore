@@ -5,6 +5,7 @@ export interface ProductsItem {
   descriptionDk: string;
   prices: number[];
   imgSrc: string;
+  altText: string;
   specialOffer?: string;
   routerLink: string;
 }
@@ -12,10 +13,13 @@ export interface ProductsItem {
 const familyTree: ProductsItem = {
   titleEn: 'Family Tree',
   titleDk: 'Familietræ',
-  descriptionEn: 'Create your own family tree by adding the names of your family.',
-  descriptionDk: 'Lav dit eget stamtræ ved at skrive din families navne ind.',
+  descriptionEn:
+    'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+  descriptionDk:
+    'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
   prices: [499, 699, 999],
   imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+  altText: 'Et helt unikt familietræ perfekt som gave.',
   specialOffer: '- 25% off when purchasing 4',
   routerLink: 'family-tree',
 };
@@ -23,10 +27,13 @@ const familyTree: ProductsItem = {
 const quotable: ProductsItem = {
   titleEn: 'Quotable',
   titleDk: 'Citat ramme',
-  descriptionEn: 'Select a frame and write a quote to someone you care about.',
-  descriptionDk: 'Vælg en ramme og vælg et citat til den du holder af.',
+  descriptionEn:
+    'Select a frame and select a quote or write one yourself to someone you care about. Perfect for birthday, valentines day, chirsmas and other events.',
+  descriptionDk:
+    'Vælg en ramme og vælg et citat eller skriv selv hvad du vil sige til den du holder af. Perfect til fødselsdage, valentins dag, jul og andre begivenheder.',
   prices: [299, 399, 499],
   imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  altText: 'En smuk citat ramme med dit personlige citat på. Perfekt som gave.',
   specialOffer: '- 25% off when purchasing 4',
   routerLink: 'quotable',
 };
@@ -39,6 +46,7 @@ const quotable: ProductsItem = {
 //   descriptionDk: 'Send et billede og bescrib hvad du vil have. We ser hvad vi kan gøre for dig og giver dig en pris.',
 //   prices: [],
 //   imgSrc: '/assets/img/description2.jpg',
+//   altText: 'Dit unikke produkt. Præcis som du vil have det.',
 //   specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
 //   routerLink: 'unique',
 // };

@@ -11,6 +11,7 @@ describe('ProductDisplayComponent', () => {
     descriptionDk: 'string',
     prices: [1, 2, 3],
     imgSrc: 'string',
+    altText: 'string',
     specialOffer: 'string',
     routerLink: 'string',
   };
