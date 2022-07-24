@@ -1,6 +1,22 @@
-<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg mb-3 add-transition">
-    <div class="container min-width">
+<nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg add-transition">
+    <div class="purchase-info" *ngIf="router.url === '/home'">
+        <span class="info-text">
+            <span i18n="@@delivery-4-7">7 days delivery</span>
+            <img src="/assets/icons/check-white-icon.svg" class="check-icon" alt="Hurtig levering icon" />
+        </span>
+        <span class="info-text">
+            <span i18n="@@free-delivery">Free over 350,-</span>
+            <img src="/assets/icons/check-white-icon.svg" class="check-icon" alt="Gratis fragt icon" />
+        </span>
+        <span class="info-text remove">
+            <span i18n="@@plant-a-tree">1 purchase = 1 tree</span>
+            <img src="/assets/icons/check-white-icon.svg" class="check-icon" alt="Plant et træ gratis icon" />
+        </span>
+    </div>
+
+    <div class="container">
         <div class="nav-start">
+            <!-- Dropdown => not shown on desktop -->
             <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
                 <div class="icon" [ngClass]="isMenuCollapsed ? '' : 'active'">
                     <div class="bar1"></div>
@@ -9,10 +25,12 @@
                 </div>
             </button>
 
+            <!-- Logo, always shown -->
             <a class="navbar-brand" routerLink="/">
                 <img data-cy="navbar-logo-img" src="/assets/logos/tc-black-text-logo.svg" class="logo" />
             </a>
-            <!-- localization -->
+
+            <!-- Dropdown => language change, always shown -->
             <div
                 ngbDropdown
                 class="d-inline-block language-icon"
@@ -21,7 +39,7 @@
                 data-cy="navbar-localization"
             >
                 <a class="nav-item" ngbDropdownToggle class="waves-light">
-                    <img src="/assets/icons/globe.svg" width="15px" />
+                    {{ localeCode }}
                 </a>
                 <div
                     class="dropdown-menu-container language-dropdown dropdown-item-list"
@@ -47,32 +65,31 @@
                     >
                 </div>
             </div>
-
-            <!-- <a
-                class="navbar-language"
-                href="/{{ localeCode }}/"
-                data-cy="navbar-localization"
-            >
-                <img
-                    class="language-icon"
-                    [ngClass]="isDanish() ? 'dk' : 'en'"
-                    attr.data-cy="{{ environment.locale }}"
-                    i18n-src
-                    i18n-alt
-                    i18n="@@language"
-                    alt="Language"
-                    (click)="changeLocale()"
-                />
-            </a> -->
         </div>
 
+        <!-- Buy / Basket button => only shown on mobile, changes depending on items being in basket -->
         <div class="nav-section">
-            <button class="navbar-basket-icon show-on-mobile" (click)="autoCollapse()" routerLink="/basket">
+            <button
+                class="navbar-basket-icon tc-button-100 show-on-mobile"
+                (click)="autoCollapse()"
+                routerLink="/basket"
+                *ngIf="itemsInBasket !== 0"
+            >
                 <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                 <span class="item-number">{{ itemsInBasket }}</span>
             </button>
+            <button
+                class="tc-button-100 show-on-mobile"
+                (click)="autoCollapse()"
+                routerLink="/products"
+                *ngIf="itemsInBasket === 0"
+            >
+                <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
+                <span class="buy-button-text" i18n="@@buy">Buy</span>
+            </button>
         </div>
 
+        <!-- Links section => changes to dropdown depending on screensize -->
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -164,15 +181,27 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Buy button => changes between showing basket and buyNow -->
                 <div class="nav-section remove-on-mobile">
                     <button
                         class="navbar-basket-icon"
                         (click)="autoCollapse()"
                         routerLink="/basket"
-                        data-cy="navbar-basket-link"
+                        *ngIf="itemsInBasket !== 0"
                     >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                         <span class="item-number">{{ itemsInBasket }}</span>
+                    </button>
+                    <button
+                        class="tc-button-100"
+                        (click)="autoCollapse()"
+                        routerLink="/products"
+                        data-cy="navbar-basket-link"
+                        *ngIf="itemsInBasket === 0"
+                    >
+                        <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
+                        <span class="buy-button-text" i18n="@@buy">Buy</span>
                     </button>
                 </div>
             </ul>

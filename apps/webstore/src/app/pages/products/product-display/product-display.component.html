@@ -1,8 +1,8 @@
-<div class="product-container">
-    <img [src]="product.imgSrc" [alt]="'image of the ' + product.titleEn + ' product.'" class="product-img" />
+<article class="product-container">
+    <img [src]="product.imgSrc" [alt]="product.altText" class="product-img" />
     <div class="product-info-container">
         <div class="product-info">
-            <div class="title">{{ isEnglish ? product.titleEn : product.titleDk }}</div>
+            <h2 class="title">{{ isEnglish ? product.titleEn : product.titleDk }}</h2>
 
             <div class="text-field first">
                 <span class="sub-title" i18n="@@description">Description</span> <br />
@@ -14,8 +14,7 @@
             </div>
 
             <div class="text-field">
-                <span class="sub-title" i18n="@@prices">Prices</span> <br />
-                <span *ngIf="product.prices.length > 0"
+                <span *ngIf="product.prices.length > 0" class="price-container"
                     ><span i18n="@@from">From </span> {{ product.prices[0] }} DKK - {{ product.prices.length }}
                     <span i18n="@@variants">Variants</span></span
                 >
@@ -31,4 +30,4 @@
             Buy Now
         </button>
     </div>
-</div>
+</article>
