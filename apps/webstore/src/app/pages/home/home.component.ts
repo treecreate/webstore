@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     },
     {
       id: 2,
-      alt: 'en gave til farmor',
+      alt: 'En gave til farmor',
       url: '/assets/img/review-img/review-img-01.jpg',
       name: 'Stine',
       textEn: `"10/10 and more .. It gets praise every time we have guests, and many ask about it. Very nice product, top quality and we are more than satisfied."`,
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     },
     {
       id: 3,
-      alt: 'en gave til mor',
+      alt: 'En gave til mor',
       url: '/assets/img/review-img/review-img-03.jpg',
       name: 'Sabrine',
       textEn: `"My family was incredibly happy for their family tree, i think that it is nice to have the family be part of the house decorations."`,
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
     },
     {
       id: 4,
-      alt: 'familien samlet om gaven',
+      alt: 'Familien samlet om gaven',
       url: '/assets/img/review-img/review-img-02.jpg',
       name: 'Birgitte',
       textEn: `"A fantastic and completely unique product, that is always on point. We bought the family tree for both pairs of grandparent as a gift, which was a big success"`,
