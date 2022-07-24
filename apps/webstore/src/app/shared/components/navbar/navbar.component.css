@@ -10,7 +10,7 @@
   transition-duration: 0.5s;
 }
 .container {
-  padding: .5em 1em;
+  padding: 0.5em 1em;
 }
 .nav-item:hover > .nav-link {
   background: none;

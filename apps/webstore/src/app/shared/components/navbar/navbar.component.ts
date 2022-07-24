@@ -50,8 +50,6 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     this.environment = environment;
-    console.log(router.url);
-    
   }
 
   changeLocale(language: string) {

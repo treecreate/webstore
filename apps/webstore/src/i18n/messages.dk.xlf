@@ -18,6 +18,14 @@
           <context context-type="linenumber">80,84</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="create-my-family-tree" datatype="html">
+        <source>Create my family tree</source>
+        <target>Lav mit familietræ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="values" datatype="html">
         <source>Values</source>
         <target>Værdier</target>
