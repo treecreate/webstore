@@ -384,7 +384,7 @@
               "localize": ["dk"]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
