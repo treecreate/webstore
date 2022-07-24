@@ -58,7 +58,7 @@
                 class="navbar-basket-icon tc-button-100 show-on-mobile"
                 (click)="autoCollapse()"
                 routerLink="/basket"
-                *ngIf="itemsInBasket !== 0 || (router.url !== '/home' && router.url !== '/products')"
+                *ngIf="itemsInBasket !== 0"
             >
                 <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                 <span class="item-number">{{ itemsInBasket }}</span>
@@ -67,13 +67,7 @@
                 class="tc-button-100 show-on-mobile"
                 (click)="autoCollapse()"
                 routerLink="/products"
-                *ngIf="
-                    itemsInBasket === 0 &&
-                    router.url !== '/checkout' &&
-                    router.url !== '/basket' &&
-                    router.url !== '/products/family-tree' &&
-                    router.url !== '/products/quotable'
-                "
+                *ngIf="itemsInBasket === 0"
             >
                 <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                 <span class="buy-button-text" i18n="@@buy">Buy</span>
@@ -179,7 +173,7 @@
                         class="navbar-basket-icon"
                         (click)="autoCollapse()"
                         routerLink="/basket"
-                        *ngIf="itemsInBasket !== 0 || (router.url !== '/home' && router.url !== '/products')"
+                        *ngIf="itemsInBasket !== 0"
                     >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                         <span class="item-number">{{ itemsInBasket }}</span>
@@ -188,13 +182,8 @@
                         class="tc-button-100"
                         (click)="autoCollapse()"
                         routerLink="/products"
-                        *ngIf="
-                            itemsInBasket === 0 &&
-                            router.url !== '/checkout' &&
-                            router.url !== '/basket' &&
-                            router.url !== '/products/family-tree' &&
-                            router.url !== '/products/quotable'
-                        "
+                        data-cy="navbar-basket-link"
+                        *ngIf="itemsInBasket === 0"
                     >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
                         <span class="buy-button-text" i18n="@@buy">Buy</span>

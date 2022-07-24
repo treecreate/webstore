@@ -16,7 +16,7 @@
   opacity: 0.5;
 }
 .nav-section:hover > .navbar-basket-icon {
-  transform: scale(1.05);
+  transform: scale(0.95);
 }
 .nav-start {
   display: flex;
@@ -118,13 +118,10 @@
   display: flex;
 }
 .navbar-basket-icon {
-  background-color: transparent;
+  background-color: var(--green-color);
   border: none;
   transition: 0.5s;
-}
-.navbar-basket-icon {
-  background-color: var(--green-color);
-  transition: 0.4s;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   color: white;
   padding: 0 8px 3px 8px;
