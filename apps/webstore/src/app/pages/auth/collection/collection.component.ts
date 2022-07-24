@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IDesign } from '@interfaces';
+import { DesignTypeEnum, IDesign } from '@interfaces';
 import { DesignService } from '../../../shared/services/design/design.service';
 
 @Component({
@@ -35,6 +35,7 @@ export class CollectionComponent implements OnInit {
       (designList: IDesign[]) => {
         this.designCollection = designList.filter((design) => design.mutable);
         this.isLoading = false;
+        console.log(this.designCollection.filter((design) => design.designType === DesignTypeEnum.quotable));
       },
       (error: HttpErrorResponse) => {
         console.log(error);
