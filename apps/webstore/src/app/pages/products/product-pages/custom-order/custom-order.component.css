@@ -43,6 +43,16 @@
   margin: 10px 0px;
 }
 
+.custom-order-uploaded-files-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.custom-order-uploaded-files-container li {
+  font-size: var(--extra-small-font);
+}
+
 .actions {
   display: flex;
   flex-direction: column;

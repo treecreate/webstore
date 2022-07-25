@@ -23,6 +23,8 @@ export class CustomOrderComponent implements OnInit {
   isLoading = false;
   isImageRequirementsRead = false;
 
+  uploadedFiles;
+
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -73,12 +75,23 @@ export class CustomOrderComponent implements OnInit {
     });
   }
 
+  uploadImage($event) {
+    console.log('Image stuff', $event.target.files);
+    this.uploadedFiles = Object.values($event.target.files);
+    console.log(this.uploadedFiles);
+  }
+
   submitCustomOrder() {
     this.createCustomOrder();
   }
 
   isDisabled() {
-    return this.isImageRequirementsRead && this.customOrderForm.valid;
+    return (
+      this.isImageRequirementsRead &&
+      this.customOrderForm.valid &&
+      this.uploadedFiles &&
+      this.uploadedFiles.length !== 0
+    );
   }
 
   createCustomOrder() {
