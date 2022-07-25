@@ -115,7 +115,7 @@
                         #fileUpload
                         type="file"
                         multiple
-                        (change)="uploadImage($event)"
+                        (change)="uploadImages($event)"
                         accept="image/png, image/jpeg, image/svg"
                     />
                     <button
@@ -136,9 +136,11 @@
                     </button>
                     <!-- TODO - make the uploaded files list pretty -->
                     <div class="custom-order-uploaded-files-container">
-                        <span *ngIf="!uploadedFiles || uploadedFiles.length === 0">No files uploaded</span>
+                        <span *ngIf="!uploadedFiles || convertFileListToArray(uploadedFiles).length === 0"
+                            >No files uploaded</span
+                        >
                         <ul *ngIf="uploadedFiles">
-                            <li *ngFor="let file of uploadedFiles">
+                            <li *ngFor="let file of convertFileListToArray(uploadedFiles)">
                                 {{ file.name }}
                             </li>
                         </ul>

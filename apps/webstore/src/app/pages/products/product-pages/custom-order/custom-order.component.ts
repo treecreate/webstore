@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
+import { ToastService } from '../../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
 import { OrderService } from '../../../../shared/services/order/order.service';
 import { UserService } from '../../../../shared/services/user/user.service';
@@ -23,7 +25,7 @@ export class CustomOrderComponent implements OnInit {
   isLoading = false;
   isImageRequirementsRead = false;
 
-  uploadedFiles;
+  uploadedFiles: FileList;
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -35,7 +37,8 @@ export class CustomOrderComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private userService: UserService,
     private authService: AuthService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private toastService: ToastService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -67,6 +70,7 @@ export class CustomOrderComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       description: new FormControl('', [Validators.maxLength(1000), Validators.minLength(1), Validators.required]),
     });
+    this.uploadedFiles = undefined;
   }
 
   updateFormValues() {
@@ -75,10 +79,8 @@ export class CustomOrderComponent implements OnInit {
     });
   }
 
-  uploadImage($event) {
-    console.log('Image stuff', $event.target.files);
-    this.uploadedFiles = Object.values($event.target.files);
-    console.log(this.uploadedFiles);
+  uploadImages($event) {
+    this.uploadedFiles = $event.target.files;
   }
 
   submitCustomOrder() {
@@ -100,7 +102,38 @@ export class CustomOrderComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    // TODO Add the API call via ordersService
-    console.log('Request submitted');
+    this.orderService
+      .createCustomOrder({
+        name: this.customOrderForm.get('name').value,
+        email: this.customOrderForm.get('email').value,
+        description: this.customOrderForm.get('description').value,
+        files: this.uploadedFiles,
+      })
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.toastService.showAlert(
+            'Custom order registered',
+            'TODO - danish custom order success toast text',
+            'success',
+            10000
+          );
+          this.initForms();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.isLoading = false;
+          console.error('Failed to submit custom order request', error);
+          this.toastService.showAlert(
+            'Failed to submit your custom order, please try again',
+            'TODO - danish custom order error toast text',
+            'danger',
+            20000
+          );
+        },
+      });
+  }
+
+  convertFileListToArray(files: FileList): File[] {
+    return Object.values(files);
   }
 }
