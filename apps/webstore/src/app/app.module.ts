@@ -52,6 +52,7 @@ import { QuotableDesignComponent } from './shared/components/products/quotable-d
 import { ProductDisplayComponent } from './pages/products/product-display/product-display.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { QuotableTemplateModalComponent } from './shared/components/modals/quotable-template-modal/quotable-template-modal.component';
+import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { QuotableTemplateModalComponent } from './shared/components/modals/quota
     QuotableDesignComponent,
     ProductDisplayComponent,
     QuotableTemplateModalComponent,
+    CustomOrderComponent,
   ],
   imports: [
     BrowserModule,
