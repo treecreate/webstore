@@ -79,6 +79,10 @@ export class CustomOrderComponent implements OnInit {
     });
   }
 
+  /**
+   * Sets the uploaded files to a variable. Does not send them to the API yet
+   * @param $event
+   */
   uploadImages($event) {
     this.uploadedFiles = $event.target.files;
   }
@@ -133,6 +137,8 @@ export class CustomOrderComponent implements OnInit {
       });
   }
 
+  /** Converts the object obtained from the file input and converts it into an array
+   * that then can be used to display the selected files */
   convertFileListToArray(files: FileList): File[] {
     return Object.values(files);
   }
