@@ -1,1 +1,119 @@
-<p>Custom order works!</p>
+<!-- Code stolen from checkout.component.html etc -->
+<div class="custom-order-container">
+    <div class="custom-order-content-container">
+        <form
+            class="custom-order-content"
+            name="customOrderForm"
+            [formGroup]="customOrderForm"
+            (ngSubmit)="submitCustomOrder()"
+        >
+            <div class="section-container">
+                <!-- Contact Info and order description -->
+                <div class="custom-order-section no-strech">
+                    <div class="title-container" style="margin-bottom: 5px">
+                        <span class="title" i18n="@@custom-order-request">Custom order request</span>
+                        <hr />
+                    </div>
+
+                    <div class="tc-input-group field">
+                        <input
+                            type="text"
+                            class="tc-input-field"
+                            formControlName="name"
+                            placeholder="Your name"
+                            id="name"
+                            autocomplete="name"
+                            data-cy="custom-order-form-name-input"
+                        />
+                        <label for="name" class="tc-input-label"> <span i18n="@@name">Name</span> *</label>
+                    </div>
+
+                    <div
+                        class="error-message"
+                        *ngIf="this.customOrderForm.get('name').dirty && this.customOrderForm.get('name').invalid"
+                        i18n="@@invalid-name"
+                        data-cy="custom-order-form-name-error-message"
+                    >
+                        Invalid name.
+                    </div>
+
+                    <div class="tc-input-group field">
+                        <input
+                            type="email"
+                            class="tc-input-field"
+                            placeholder="E-mail"
+                            formControlName="email"
+                            name="email"
+                            id="profileEmail"
+                            autocomplete="email"
+                            data-cy="custom-order-form-email-input"
+                        />
+                        <label for="email" class="tc-input-label">E-mail *</label>
+                    </div>
+
+                    <div class="tc-input-group field">
+                        <textarea
+                            type="text"
+                            class="tc-textarea-field"
+                            name="description"
+                            formControlName="description"
+                            id="description"
+                            placeholder="description"
+                            i18n="@@description-placeholder"
+                            data-cy="custom-order-form-description-input"
+                        >
+                        </textarea>
+                        <label for="description" class="tc-input-label"
+                            ><span i18n="@@description">Describe your product wishes</span> *
+                        </label>
+                        <div
+                            class="error-message offset"
+                            *ngIf="
+                                this.customOrderForm.get('description').dirty &&
+                                this.customOrderForm.get('description').invalid
+                            "
+                            i18n="@@invalid-description"
+                            data-cy="custom-order-form-description-error-message"
+                        >
+                            The description is too long.
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <!-- Actions -->
+                <div class="actions">
+                    <!-- Accept T&C for sale checkbox -->
+                    <div class="read-requriements-container">
+                        <label class="checkbox-container">
+                            <input
+                                type="checkbox"
+                                [checked]="isImageRequirementsRead"
+                                (change)="isImageRequirementsRead = !isImageRequirementsRead"
+                                data-cy="custom-order-form-read-requirements-checkbox"
+                            />
+                            <span class="checkmark" data-cy="custom-order-form-read-requirements-button"></span>
+                        </label>
+                        <div class="option-title">
+                            <span i18n="@@confirm-image-requirements">I have read the image requirements</span>
+                        </div>
+                    </div>
+                    <button
+                        class="tc-button-100 green margin-top"
+                        type="submit"
+                        [disabled]="!isDisabled()"
+                        data-cy="custom-order-send-button"
+                    >
+                        <span i18n="@@send-custom-order" *ngIf="!isLoading">Send</span>
+                        <span
+                            *ngIf="isLoading"
+                            class="spinner-border spinner-border-sm text-light"
+                            style="margin: 5px"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
