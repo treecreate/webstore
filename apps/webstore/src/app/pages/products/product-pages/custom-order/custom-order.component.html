@@ -136,7 +136,9 @@
                     </button>
                     <!-- TODO - make the uploaded files list pretty -->
                     <div class="custom-order-uploaded-files-container">
-                        <span *ngIf="!uploadedFiles || convertFileListToArray(uploadedFiles).length === 0"
+                        <span
+                            *ngIf="!uploadedFiles || convertFileListToArray(uploadedFiles).length === 0"
+                            i18n="@@custom-order-not-files-uploaded"
                             >No files uploaded</span
                         >
                         <ul *ngIf="uploadedFiles">
