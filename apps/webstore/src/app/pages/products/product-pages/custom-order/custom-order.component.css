@@ -30,6 +30,27 @@
   align-self: flex-start;
 }
 
+.custom-order-requirements-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.custom-order-upload-image-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 10px 0px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0px;
+}
+
 .offset {
   margin-top: 9px;
 }
@@ -58,7 +79,13 @@
   margin: 0;
   margin-left: 40px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+}
+
+/* TODO: remove the overwriting of the styling from tc-input-field.scss styles */
+/* I had to do it because otherwise the checkbox text was misaligned */
+.checkbox-container {
+  margin-bottom: 0 !important;
 }
 
 .checkmark {

@@ -51,6 +51,15 @@
                         <label for="email" class="tc-input-label">E-mail *</label>
                     </div>
 
+                    <div
+                        class="error-message"
+                        *ngIf="this.customOrderForm.get('email').dirty && this.customOrderForm.get('email').invalid"
+                        i18n="@@invalid-email"
+                        data-cy="checkout-form-email-error-message"
+                    >
+                        Invalid email.
+                    </div>
+
                     <div class="tc-input-group field">
                         <textarea
                             type="text"
@@ -75,11 +84,48 @@
                             i18n="@@invalid-description"
                             data-cy="custom-order-form-description-error-message"
                         >
-                            The description is too long.
+                            The description is required.
                         </div>
                     </div>
                 </div>
-                <hr />
+                <!-- Requirements -->
+                <div class="custom-order-requirements-section">
+                    <div class="description-requirements">
+                        <span>In the description please include:</span>
+                        <ul>
+                            <li>Product Size</li>
+                            <li>The image you want printed</li>
+                            <li>Any specification or questions you might have</li>
+                        </ul>
+                    </div>
+
+                    <div class="image-requirements">
+                        <span>Image requirements:</span>
+                        <ul>
+                            <li>Black and white</li>
+                            <li>No shadows / fading colors</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Upload Image -->
+                <div class="custom-order-upload-image-section">
+                    <button
+                        class="tc-button-25 brown margin-top"
+                        type="button"
+                        data-cy="custom-order-upload-image-button"
+                    >
+                        <span i18n="@@custom-order-upload-image" *ngIf="!isLoading">Upload image +</span>
+                        <span
+                            *ngIf="isLoading"
+                            class="spinner-border spinner-border-sm text-light"
+                            style="margin: 5px"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                    </button>
+                    <!-- TODO - figure out file upload -->
+                    <input type="text" placeholder="No file uploaded" />
+                </div>
                 <!-- Actions -->
                 <div class="actions">
                     <!-- Accept T&C for sale checkbox -->
@@ -98,7 +144,7 @@
                         </div>
                     </div>
                     <button
-                        class="tc-button-100 green margin-top"
+                        class="tc-button-50 brown margin-top"
                         type="submit"
                         [disabled]="!isDisabled()"
                         data-cy="custom-order-send-button"
@@ -115,5 +161,9 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="custom-order-examples-container">
+        <br /><br />
+        <p>TODO - display Examples of custom orders</p>
     </div>
 </div>
