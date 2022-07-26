@@ -32,21 +32,11 @@ export class AppComponent {
     // Third party cookies and tracking
     // Trigger the cookies logic whenever the cookie state changes for the exmple the user accepts them
     this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).subscribe(() => {
-      // Meta Pixel - only in production if cookies are accepted
-      if (environment.production) {
-        if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
-          this.initMetaPixel();
-        } else {
-          console.log('Not logging Meta Pixel since cookies were not accepted');
-        }
-      } else {
-        console.log('Not logging Meta Pixel since this is not the production environment');
-      }
-      // Any environment, only if cookies are accepted
       if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
         this.initGoogleAnalytics();
+        this.initMetaPixel();
       } else {
-        console.log('Not logging Google Analytics and Meta Pixel since cookies were not accepted');
+        console.log('Not logging Google analytics nor Meta Pixel since cookies were not accepted');
       }
     });
   }
@@ -84,7 +74,12 @@ export class AppComponent {
 
   initMetaPixel() {
     console.log('Initializing Meta Pixel');
-    const metaPixelId = '1050174159116278';
+    let metaPixelId = '1050174159116278';
+    if (environment.production) {
+      metaPixelId = '1050174159116278';
+    } else {
+      metaPixelId = '2714892398657269';
+    }
     (function (f: any, b, e, v, n, t, s) {
       if (f.fbq) return;
       n = f.fbq = function () {
