@@ -1,10 +1,13 @@
 package dk.treecreate.api.order.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class CreateCustomOrderRequest
 {
@@ -25,6 +28,10 @@ public class CreateCustomOrderRequest
     @ApiModelProperty(name = "The custom order decription",
         example = "The plate that displays an achievement like in the picture", required = true)
     private String description;
+
+    @NotEmpty
+    @ApiModelProperty(name = "Images of the custom request")
+    private List<MultipartFile> images;
 
     public String getName()
     {
@@ -56,12 +63,36 @@ public class CreateCustomOrderRequest
         this.description = description;
     }
 
+    public List<MultipartFile> getImages()
+    {
+        return images;
+    }
+
+    public void setImages(List<MultipartFile> images)
+    {
+        this.images = images;
+    }
+
     public String toJsonString()
     {
+        // convert the MultipartFile information into a siplified JSON string
+        StringBuilder imagesString = new StringBuilder();
+        for (MultipartFile image : images)
+        {
+            String imageInfo = "{" +
+                "\"name\": \"" + image.getOriginalFilename() + "\"" +
+                ",\"size\": \"" + image.getSize() + "\"" +
+                "},";
+            imagesString.append(imageInfo);
+        }
+        // Remove the last ',' since it makes the JSON invalid
+        imagesString.deleteCharAt(imagesString.length() - 1);
+        // Return request JSON string
         return "{" +
-            "\"name\": \"" + name + '\"' +
-            ",\"email\": \"" + email + '\"' +
-            ",\"description\": \"" + description + '\"' +
+            "\"name\": \"" + name + "\"" +
+            ",\"email\": \"" + email + "\"" +
+            ",\"description\": \"" + description + "\"" +
+            ",\"images\": [" + imagesString + ']' +
             '}';
     }
 }

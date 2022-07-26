@@ -212,10 +212,10 @@ public class OrderController
     @ResponseStatus(HttpStatus.ACCEPTED)
     @Operation(summary = "Create a custom order entry")
     public void createCustomOrder(
-        @RequestBody() @Valid CreateCustomOrderRequest createCustomOrderRequest)
+        @Valid CreateCustomOrderRequest request)
     {
-        LOGGER.info("Custom order request receieved from " + createCustomOrderRequest.getEmail());
-        Sentry.setExtra("request", createCustomOrderRequest.toJsonString());
+        LOGGER.info("Custom order request receieved from " + request.getEmail());
+        Sentry.setExtra("request", request.toJsonString());
         Sentry.captureMessage("New order has been created");
     }
 
