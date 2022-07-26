@@ -62,8 +62,8 @@ export class CustomOrderComponent implements OnInit {
   initForms() {
     this.customOrderForm = new FormGroup({
       name: new FormControl('', [
-        Validators.maxLength(50),
-        Validators.minLength(3),
+        Validators.maxLength(100),
+        Validators.minLength(1),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
