@@ -96,7 +96,11 @@ public class AuthController
         @Valid @RequestBody SignupRequest signUpRequest,
         @Parameter(name = "sendPasswordEmail",
             description = "Boolean to determine user being created on order")
-        @RequestParam(required = false, defaultValue = "false") boolean sendPasswordEmail)
+        @RequestParam(required = false, defaultValue = "false") boolean sendPasswordEmail,
+        @Parameter(name = "eventLogUserId",
+            description = "Event userId of not logged in user, to be replaced with logged in user id",
+            example = "c0a80121-7ac0-190b-817a-c08ab0a12345") @RequestParam(
+            required = false) UUID eventLogUserId)
     {
         if (userRepository.existsByEmail(signUpRequest.getEmail()))
         {
@@ -136,7 +140,8 @@ public class AuthController
         }
 
         return ResponseEntity.ok(authUserService
-            .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
+            .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword(),
+                eventLogUserId));
     }
 
     /**
