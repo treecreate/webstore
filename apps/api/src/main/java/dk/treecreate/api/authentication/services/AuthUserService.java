@@ -3,6 +3,7 @@ package dk.treecreate.api.authentication.services;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.repository.RoleRepository;
+import dk.treecreate.api.events.EventService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,8 +33,15 @@ public class AuthUserService
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    private EventService eventService;
 
     public JwtResponse authenticateUser(final String email, final String password)
+    {
+        return authenticateUser(email, password, null);
+    }
+
+    public JwtResponse authenticateUser(final String email, final String password, UUID oldUserId)
     {
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(email,
@@ -48,6 +57,11 @@ public class AuthUserService
         List<String> roles = userDetails.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
             .collect(Collectors.toList());
+
+        if (oldUserId != null)
+        {
+            eventService.updateEventUserId(oldUserId, userDetails.getUsedId());
+        }
 
         return new JwtResponse(jwt,
             jwtRefresh,
