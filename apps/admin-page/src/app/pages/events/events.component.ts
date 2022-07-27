@@ -11,7 +11,7 @@ import { EventsService } from '../../services/events/events.service';
 })
 export class EventsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['name', 'userId', 'updatedAt'];
+  displayedColumns: string[] = ['name', 'updatedAt', 'userId'];
   events!: IEvent[];
 
   constructor(private eventsService: EventsService, private snackBar: MatSnackBar) {}

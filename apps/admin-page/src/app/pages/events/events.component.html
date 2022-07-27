@@ -1,22 +1,22 @@
 <webstore-item-card title="Events" [content]="content" [isLoading]="isLoading" data-cy="events-card">
     <ng-template #content>
         <table mat-table [dataSource]="events" class="mat-elevation-z8 table" data-cy="events-table">
-            <!-- Uses left Column -->
+            <!-- Name Column -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
                 <td mat-cell *matCellDef="let event">{{ event.name }}</td>
             </ng-container>
 
-            <!-- Uses left Column -->
+            <!-- Updated at Column -->
+            <ng-container matColumnDef="updatedAt">
+                <th mat-header-cell *matHeaderCellDef>Updated At</th>
+                <td mat-cell *matCellDef="let event">{{ event.updatedAt | date }}</td>
+            </ng-container>
+
+            <!-- User Id Column -->
             <ng-container matColumnDef="userId">
                 <th mat-header-cell *matHeaderCellDef>User Id</th>
                 <td mat-cell *matCellDef="let event">{{ event.userId }}</td>
-            </ng-container>
-
-            <!-- Uses left Column -->
-            <ng-container matColumnDef="updatedAt">
-                <th mat-header-cell *matHeaderCellDef>UUpdated At</th>
-                <td mat-cell *matCellDef="let event">{{ event.updatedAt }}</td>
             </ng-container>
 
             <!-- Edit Column -->
