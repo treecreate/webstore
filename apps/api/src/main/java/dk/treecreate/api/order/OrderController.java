@@ -214,6 +214,7 @@ public class OrderController
     public void createCustomOrder(
         @Valid CreateCustomOrderRequest request)
     {
+        this.orderService.sendCustomOrderRequestEmail(request);
         LOGGER.info("Custom order request receieved from " + request.getEmail());
         Sentry.setExtra("request", request.toJsonString());
         Sentry.captureMessage("New order has been created");
