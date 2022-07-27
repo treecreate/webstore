@@ -2,12 +2,14 @@ package dk.treecreate.api.mail;
 
 import dk.treecreate.api.order.Order;
 import dk.treecreate.api.order.OrderService;
+import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
 import dk.treecreate.api.utils.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -17,6 +19,7 @@ import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -139,6 +142,16 @@ public class MailService
             MailTemplate.ORDER_CONFIRMATION);
     }
 
+    public void sendCustomOrderRequestEmail(CreateCustomOrderRequest orderInfo)
+        throws UnsupportedEncodingException, MessagingException
+    {
+        Context context = new Context(Locale.ENGLISH);
+        context.setVariable("order", orderInfo);
+        String subject = "Custom order request";
+        sendMail(MailDomain.INFO.label, MailDomain.INFO, subject, context,
+            MailTemplate.CUSTOM_ORDER_REQUEST, orderInfo.getImages());
+    }
+
     private void sendMail(String to, MailDomain from, String subject, Context context,
                           MailTemplate template)
         throws MessagingException, UnsupportedEncodingException
@@ -153,6 +166,27 @@ public class MailService
         helper.setSubject(subject);
         helper.setText(process, true);
         helper.setTo(to);
+        mailSender.send(mimeMessage);
+    }
+
+    private void sendMail(String to, MailDomain from, String subject, Context context,
+                          MailTemplate template, List<MultipartFile> attachmentFiles)
+        throws MessagingException, UnsupportedEncodingException
+    {
+        String process = templateEngine.process("emails/" + template.label, context);
+        JavaMailSender mailSender = getMailSender(from);
+        javax.mail.internet.MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper =
+            new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                StandardCharsets.UTF_8.name());
+        helper.setFrom(new InternetAddress(from.label, "Treecreate"));
+        helper.setSubject(subject);
+        helper.setText(process, true);
+        helper.setTo(to);
+        for (MultipartFile file : attachmentFiles)
+        {
+            helper.addAttachment(file.getOriginalFilename(), file);
+        }
         mailSender.send(mimeMessage);
     }
 
