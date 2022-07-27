@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateCustomOrderRequest, CreateOrderRequest, IOrder, IPaymentLink } from '@interfaces';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 
 @Injectable({
@@ -23,8 +23,14 @@ export class OrderService {
    * @param params custom order information
    */
   // eslint-disable-next-line @typescript-eslint/ban-types
-  public createCustomOrder(params: CreateCustomOrderRequest): Observable<{}> {
-    console.warn('NOT IMPLEMENTED - Create Custom Order API request', params);
-    return of({});
+  public createCustomOrder(params: CreateCustomOrderRequest): Observable<void> {
+    const formData = new FormData();
+    formData.append('name', params.name);
+    formData.append('email', params.email);
+    formData.append('description', params.description);
+    Object.values(params.files).forEach((file) => {
+      formData.append('images', file);
+    });
+    return this.http.post<void>(`${env.apiUrl}/orders/custom`, formData);
   }
 }
