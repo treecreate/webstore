@@ -103,10 +103,10 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-discounts-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
-      it('should contain an activity-log item', () => {
-        cy.get('[data-cy=sidebar-activity-log-btn]').should('exist');
-        cy.get('[data-cy=sidebar-activity-log-btn]').contains('Activity Log').should('exist');
-        cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon]').should('be.visible');
+      it('should contain an event-log item', () => {
+        cy.get('[data-cy=sidebar-event-log-btn]').should('exist');
+        cy.get('[data-cy=sidebar-event-log-btn]').contains('Event Log').should('exist');
+        cy.get('[data-cy=sidebar-event-log-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a newsletter item', () => {
@@ -178,11 +178,11 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-discounts-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
-      it('should contain a collapsed activity-log item', () => {
+      it('should contain a collapsed event-log item', () => {
         cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
-        cy.get('[data-cy=sidebar-activity-log-btn]').should('exist');
-        cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=item-desc').should('not.be.visible');
-        cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon]').should('be.visible');
+        cy.get('[data-cy=sidebar-event-log-btn]').should('exist');
+        cy.get('[data-cy=sidebar-event-log-btn]').get('[data-cy=item-desc').should('not.be.visible');
+        cy.get('[data-cy=sidebar-event-log-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed newsletter item', () => {
@@ -192,5 +192,6 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-newsletter-btn]').get('[data-cy=icon]').should('be.visible');
       });
     });
+    // TODO - write e2e test for admin-page /event-log page
   });
 });
