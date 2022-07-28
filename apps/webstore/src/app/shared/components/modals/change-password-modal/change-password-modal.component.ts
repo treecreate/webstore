@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/authentication/auth.service';
+import { EventsService } from '../../../services/events/events.service';
 import { UserService } from '../../../services/user/user.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -23,7 +24,8 @@ export class ChangePasswordModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private userService: UserService,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private eventsService: EventsService
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class ChangePasswordModalComponent implements OnInit {
           this.activeModal.close();
           this.isLoading = false;
           window.scrollTo(0, 0);
+          this.eventsService.create('webstore.change-password-modal.password-updated');
         },
         (err) => {
           console.log('Failed to update user');

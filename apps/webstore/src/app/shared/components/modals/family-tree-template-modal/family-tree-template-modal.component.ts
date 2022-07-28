@@ -4,6 +4,7 @@ import { IFamilyTree, ITemplateFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventsService } from '../../../services/events/events.service';
 import { templates } from './templates';
 import { templateExtra } from './templatesExtra';
 
@@ -25,7 +26,8 @@ export class FamilyTreeTemplateModalComponent {
     public activeModal: NgbActiveModal,
     private localStorageService: LocalStorageService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private eventsService: EventsService
   ) {
     this.returnTemplateList();
   }
@@ -41,6 +43,7 @@ export class FamilyTreeTemplateModalComponent {
       .find((template) => template.name === name);
     console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
+    this.eventsService.create(`webstore.family-tree-template-modal.applied-template.${name}`);
     if (this.activatedRoute.snapshot.queryParams.designId !== undefined) {
       this.router.navigate(['/products/family-tree']);
       this.activeModal.close();

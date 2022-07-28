@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventsService } from '../../../services/events/events.service';
 import { UserService } from '../../../services/user/user.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -24,7 +25,8 @@ export class ForgotPasswordModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private router: Router,
     private toastService: ToastService,
-    private userService: UserService
+    private userService: UserService,
+    private eventsService: EventsService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class ForgotPasswordModalComponent implements OnInit {
           3500
         );
         this.isLoading = false;
+        this.eventsService.create('webstore.forgot-password-modal.reset-password-email-sent');
       },
       (err) => {
         this.toastService.showAlert(

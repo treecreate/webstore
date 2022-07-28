@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class ResetPasswordComponent implements OnInit {
   isUpdateSuccessful = false;
   isLoading = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {}
+  constructor(private userService: UserService, private route: ActivatedRoute, private eventsService: EventsService) {}
 
   ngOnInit(): void {
     this.changePasswordForm = new FormGroup({
@@ -57,6 +58,7 @@ export class ResetPasswordComponent implements OnInit {
           this.alertMessage = 'Your password has been reset!';
           this.isUpdateSuccessful = true;
           this.isLoading = false;
+          this.eventsService.create('webstore.reset-password.password-reset');
         },
         (error: HttpErrorResponse) => {
           console.error(error);
