@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventsService } from '../../../services/events/events.service';
 import { NewsletterService } from '../../../services/order/newsletter/newsletter.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -16,7 +17,8 @@ export class NewsletterSignupModalComponent {
   constructor(
     public activeModal: NgbActiveModal,
     private newsletterService: NewsletterService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private eventsService: EventsService
   ) {
     this.newsletterSignupModalForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -37,6 +39,7 @@ export class NewsletterSignupModalComponent {
           );
           this.isLoading = false;
           this.activeModal.close();
+          this.eventsService.create('webstore.newsletter-modal.newsletter-signup');
         },
         (err) => {
           this.toastService.showAlert(
@@ -58,5 +61,10 @@ export class NewsletterSignupModalComponent {
       );
       this.isLoading = false;
     }
+  }
+
+  closeModal(): void {
+    this.eventsService.create('webstore.newsletter-modal.newsletter-rejected');
+    this.activeModal.close();
   }
 }

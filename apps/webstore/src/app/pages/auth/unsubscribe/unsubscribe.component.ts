@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 
 @Component({
@@ -13,7 +14,11 @@ export class UnsubscribeComponent implements OnInit {
   isUnsubscribeSuccessful = false;
   errorMessage = '';
 
-  constructor(private route: ActivatedRoute, private newsletterService: NewsletterService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private newsletterService: NewsletterService,
+    private eventsService: EventsService
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -25,6 +30,7 @@ export class UnsubscribeComponent implements OnInit {
       () => {
         this.isUnsubscribeSuccessful = true;
         this.isLoading = false;
+        this.eventsService.create('webstore.unsubscribe.newsletter-unsubscribe');
       },
       (error: HttpErrorResponse) => {
         console.error(error);

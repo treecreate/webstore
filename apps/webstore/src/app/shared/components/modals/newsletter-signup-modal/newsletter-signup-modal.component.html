@@ -4,7 +4,7 @@
         <button
             type="button"
             class="btn-close"
-            (click)="activeModal.close()"
+            (click)="closeModal()"
             data-cy="newsletter-modal-close-btn"
         ></button>
         <form class="content" [formGroup]="newsletterSignupModalForm" (ngSubmit)="submit()">

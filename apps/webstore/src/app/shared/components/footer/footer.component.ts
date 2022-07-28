@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, INewsletter } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
-import { LocalStorageService } from '@local-storage';
+import { EventsService } from '../../services/events/events.service';
 import { NewsletterService } from '../../services/order/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
@@ -29,7 +30,8 @@ export class FooterComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private newsletterService: NewsletterService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private eventsService: EventsService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -56,6 +58,7 @@ export class FooterComponent implements OnInit {
           3000
         );
         this.isLoading = false;
+        this.eventsService.create('webstore.footer.newsletter-signup');
       },
       (error) => {
         this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
