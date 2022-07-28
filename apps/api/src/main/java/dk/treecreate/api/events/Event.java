@@ -1,17 +1,23 @@
 package dk.treecreate.api.events;
 
-import io.swagger.annotations.ApiModelProperty;
+import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "events")
@@ -30,7 +36,7 @@ public class Event
     private UUID eventId;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 80)
     @ApiModelProperty(name = "The name of the event", example = "webstore.cookies-accepted",
         required = true)
     private String name;
