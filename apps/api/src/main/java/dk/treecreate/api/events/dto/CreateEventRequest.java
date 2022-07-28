@@ -10,7 +10,7 @@ import java.util.UUID;
 public class CreateEventRequest
 {
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 80)
     @ApiModelProperty(example = "webstore.example.com", required = true)
     private String name;
 
