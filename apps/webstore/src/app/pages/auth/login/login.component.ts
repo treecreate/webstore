@@ -3,12 +3,13 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginResponse, ITransactionItem } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordModalComponent } from '../../../shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '@local-storage';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastService: ToastService,
     private localStorageService: LocalStorageService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private errorlogService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -88,7 +90,7 @@ export class LoginComponent implements OnInit {
                 },
                 (error: HttpErrorResponse) => {
                   console.log(error.error);
-
+                  this.errorlogService.create('webstore.login.upload-designs-failed', error);
                   this.isLoading = false;
                   this.isLoginFailed = true;
                   this.errorMessage = error.error.message;
@@ -110,6 +112,7 @@ export class LoginComponent implements OnInit {
             5000
           );
           console.error(err);
+          this.errorlogService.create('webstore.login.login-failed', err);
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
           this.isLoading = false;
