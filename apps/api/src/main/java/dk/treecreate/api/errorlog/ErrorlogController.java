@@ -69,6 +69,7 @@ public class ErrorlogController
         errorlog.setBrowser(request.getBrowser());
         errorlog.setUrl(request.getUrl());
         errorlog.setProduction(request.getProduction());
+        errorlog.setPriority(request.getPriority());
         if (request.getError() != null)
         {
             errorlog.setError(request.getError());

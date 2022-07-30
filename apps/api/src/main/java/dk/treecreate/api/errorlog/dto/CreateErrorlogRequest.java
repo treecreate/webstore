@@ -1,5 +1,6 @@
 package dk.treecreate.api.errorlog.dto;
 
+import dk.treecreate.api.errorlog.ErrorPriority;
 import dk.treecreate.api.utils.HashMapConverter;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -36,6 +37,10 @@ public class CreateErrorlogRequest
     @ApiModelProperty(name = "Whether the client is running in production mode or not",
         example = "true", required = true)
     private Boolean production;
+
+    @NotNull
+    @ApiModelProperty(notes = "Error priority", example = "HIGH", required = true)
+    private ErrorPriority priority;
 
     @ApiModelProperty(notes = "The actual error, as a JSON string", required = false)
     @Convert(converter = HashMapConverter.class)
@@ -89,6 +94,16 @@ public class CreateErrorlogRequest
     public void setProduction(Boolean production)
     {
         this.production = production;
+    }
+
+    public ErrorPriority getPriority()
+    {
+        return priority;
+    }
+
+    public void setPriority(ErrorPriority priority)
+    {
+        this.priority = priority;
     }
 
     public Map<String, Object> getError()

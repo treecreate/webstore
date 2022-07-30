@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IErrorlog } from '@interfaces';
+import { ErrorlogPriorityEnum, IErrorlog } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { environment as env } from '../../../../environments/environment';
@@ -21,7 +21,7 @@ export class ErrorlogsService {
    * @param name the name of the errorlog, for example 'webstore.login.login-failed'.
    * @returns the created errorlog entry.
    */
-  public create(name: string, error: any): void {
+  public create(name: string, priority: ErrorlogPriorityEnum = ErrorlogPriorityEnum.medium, error: any = null): void {
     try {
       const authUser = this.authService.getAuthUser();
       const browserInfo = this.getBrowserVersion();
@@ -29,7 +29,7 @@ export class ErrorlogsService {
       const production = env.production;
 
       // If logged in, use the actual UserId
-      if (authUser) {
+      if (authUser != null && this.authService.isAccessTokenValid()) {
         this.http
           .post<IErrorlog>(`${env.apiUrl}/errorlogs`, {
             name,
@@ -38,6 +38,7 @@ export class ErrorlogsService {
             url,
             production,
             error,
+            priority,
           })
           .subscribe();
       } else {
@@ -52,6 +53,7 @@ export class ErrorlogsService {
               url,
               production,
               error,
+              priority,
             })
             .subscribe();
         } else {
@@ -66,6 +68,7 @@ export class ErrorlogsService {
               url,
               production,
               error,
+              priority,
             })
             .subscribe();
         }

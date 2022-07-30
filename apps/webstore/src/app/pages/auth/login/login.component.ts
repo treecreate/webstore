@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ILoginResponse, ITransactionItem } from '@interfaces';
+import { ErrorlogPriorityEnum, ILoginResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -90,7 +90,11 @@ export class LoginComponent implements OnInit {
                 },
                 (error: HttpErrorResponse) => {
                   console.log(error.error);
-                  this.errorlogService.create('webstore.login.upload-designs-failed', error);
+                  this.errorlogService.create(
+                    'webstore.login.upload-designs-failed',
+                    ErrorlogPriorityEnum.critical, // The users may lose their created designs
+                    error
+                  );
                   this.isLoading = false;
                   this.isLoginFailed = true;
                   this.errorMessage = error.error.message;
@@ -112,7 +116,7 @@ export class LoginComponent implements OnInit {
             5000
           );
           console.error(err);
-          this.errorlogService.create('webstore.login.login-failed', err);
+          this.errorlogService.create('webstore.login.login-failed', ErrorlogPriorityEnum.low, err);
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
           this.isLoading = false;

@@ -60,6 +60,11 @@ public class Errorlog
         example = "false", required = true)
     private Boolean resolved = false;
 
+    @NotNull
+    @Column(name = "priority", nullable = false)
+    @ApiModelProperty(notes = "Error priority", example = "HIGH", required = true)
+    private ErrorPriority priority = ErrorPriority.MEDIUM;
+
     @Column(name = "error", nullable = true, columnDefinition = "longtext")
     @ApiModelProperty(notes = "The actual error, as a JSON string", required = false)
     @Convert(converter = HashMapConverter.class)
@@ -144,6 +149,17 @@ public class Errorlog
     {
         this.resolved = resolved;
     }
+
+    public ErrorPriority getPriority()
+    {
+        return priority;
+    }
+
+    public void setPriority(ErrorPriority priority)
+    {
+        this.priority = priority;
+    }
+
 
     public Map<String, Object> getError()
     {
