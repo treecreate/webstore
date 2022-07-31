@@ -2,7 +2,7 @@ export enum LocalStorageVars {
   locale = 'locale',
   cookiesAccepted = 'cookiesAccepted',
   authUser = 'authUser',
-  eventlogLogUserId = 'eventlogLogUserId',
+  eventLogUserId = 'eventLogUserId',
   designFamilyTree = 'designFamilyTree',
   designQuotable = 'designQuotable',
   discount = 'discount',

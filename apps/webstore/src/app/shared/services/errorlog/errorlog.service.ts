@@ -44,7 +44,7 @@ export class ErrorlogsService {
           .subscribe();
       } else {
         // When not logged in, use a locally stored random UUID as the user Id
-        const userId = this.localStorageService.getItem<string>(LocalStorageVars.eventlogLogUserId).value;
+        const userId = this.localStorageService.getItem<string>(LocalStorageVars.eventLogUserId).value;
         if (userId) {
           this.http
             .post<IErrorlog>(`${env.apiUrl}/errorlogs`, {
@@ -60,7 +60,7 @@ export class ErrorlogsService {
         } else {
           // If userId was not present in the local storage before, create it and set it.
           const newUserId = this.createErrorlogLogUserId();
-          this.localStorageService.setItem(LocalStorageVars.eventlogLogUserId, newUserId);
+          this.localStorageService.setItem(LocalStorageVars.eventLogUserId, newUserId);
           this.http
             .post<IErrorlog>(`${env.apiUrl}/errorlogs`, {
               name,
