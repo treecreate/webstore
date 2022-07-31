@@ -2,7 +2,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, IQoutable, ITransactionItem } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IFamilyTree,
+  IQoutable,
+  ITransactionItem,
+} from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +18,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
@@ -49,7 +58,8 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
     private transactionItemService: TransactionItemService,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
@@ -107,6 +117,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         },
         (error: HttpErrorResponse) => {
           console.error(error);
+          this.errorlogsService.create(
+            'webstore.add-to-basket-modal.fetch-transaction-items-failed',
+            ErrorlogPriorityEnum.high,
+            error
+          );
           this.isLoading = false;
         }
       );
@@ -278,6 +293,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, <IQoutable>this.design);
       } else {
         console.warn('Aborting, tried to save a design with invalid design type: ', this.designType);
+        this.errorlogsService.create(
+          `webstore.add-to-basket-modal.save-design-is-invalid.${this.designType}`,
+          ErrorlogPriorityEnum.high,
+          null
+        );
         return;
       }
       //Update design title in collection
@@ -293,6 +313,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
+            this.errorlogsService.create(
+              'webstore.add-to-basket-modal.update-design-failed',
+              ErrorlogPriorityEnum.high,
+              error
+            );
           }
         );
     }
@@ -328,6 +353,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
               },
               (error: HttpErrorResponse) => {
                 console.error(error);
+                this.errorlogsService.create(
+                  'webstore.add-to-basket-modal.add-design-to-basket-failed',
+                  ErrorlogPriorityEnum.high,
+                  error
+                );
                 this.toastService.showAlert(
                   'Failed to add design to basket, please try again',
                   'Der skete en fejl, prøv venligst igen',
@@ -340,6 +370,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         },
         (error: HttpErrorResponse) => {
           console.error('Failed to save design', error);
+          this.errorlogsService.create(
+            'webstore.add-to-basket-modal.save-design-failed',
+            ErrorlogPriorityEnum.high,
+            error
+          );
           this.toastService.showAlert('Failed to save your design', 'Kunne ikke gemme dit design', 'danger', 10000);
         }
       );

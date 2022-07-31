@@ -17,6 +17,7 @@ import { IQoutable } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { take } from 'rxjs';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 
 @Component({
   selector: 'webstore-quotable-design',
@@ -59,7 +60,11 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   // design autosave frequency, in seconds
   autosaveFrequencyInSeconds = 30;
 
-  constructor(private localStorageService: LocalStorageService, private _ngZone: NgZone) {}
+  constructor(
+    private localStorageService: LocalStorageService,
+    private _ngZone: NgZone,
+    private errorlogsService: ErrorlogsService
+  ) {}
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
@@ -123,6 +128,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     console.log('Saving your design...');
     if (!this.isDesignValid) {
       console.warn('The design is not valid, and thus it cannot get saved!');
+      this.errorlogsService.create('webstore.quotable-design.save-design-because-invalid');
       return false;
     }
 

@@ -1,12 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, ITransactionItem } from '@interfaces';
+import { DesignDimensionEnum, DesignTypeEnum, ErrorlogPriorityEnum, IAuthUser, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 
 @Component({
@@ -43,7 +44,8 @@ export class BasketItemComponent implements OnInit {
     private transactionItemService: TransactionItemService,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -173,7 +175,11 @@ export class BasketItemComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           console.error(error);
-
+          this.errorlogsService.create(
+            'webstore.basket-item.update-transaction-item-failed',
+            ErrorlogPriorityEnum.high,
+            error
+          );
           this.alert = {
             message: 'Failed to display the transaction item',
             type: 'danger',
@@ -254,7 +260,11 @@ export class BasketItemComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-
+        this.errorlogsService.create(
+          'webstore.basket-item.delete-transaction-item-failed',
+          ErrorlogPriorityEnum.high,
+          error
+        );
         this.alert = {
           message: 'Failed to fully delete the transaction item',
           type: 'danger',
