@@ -1,8 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IErrorlog } from '@interfaces';
+import { ErrorlogPriorityEnum, IErrorlog } from '@interfaces';
 import { ClipboardService } from 'ngx-clipboard';
 import { ErrorlogsService } from '../../services/errorlogs/errorlogs.service';
+
+enum LabelColorsEnum {
+  critical = '#dc143c',
+  high = '#ff4500',
+  medium = '#ffa500',
+  low = '#8b0000',
+}
 
 @Component({
   selector: 'webstore-errorlogs',
@@ -40,6 +47,21 @@ export class ErrorlogsComponent implements OnInit {
         this.errorlogs = errorlogs;
       },
     });
+  }
+
+  getErrorTextColor(priority: ErrorlogPriorityEnum): string {
+    switch (priority) {
+      case ErrorlogPriorityEnum.critical:
+        return LabelColorsEnum.critical;
+      case ErrorlogPriorityEnum.high:
+        return LabelColorsEnum.high;
+      case ErrorlogPriorityEnum.medium:
+        return LabelColorsEnum.medium;
+      case ErrorlogPriorityEnum.low:
+        return LabelColorsEnum.low;
+      default:
+        return 'gray';
+    }
   }
 
   copyToClipboard(content: string): void {
