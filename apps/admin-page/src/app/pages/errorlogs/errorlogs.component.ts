@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IErrorlog } from '@interfaces';
+import { ClipboardService } from 'ngx-clipboard';
 import { ErrorlogsService } from '../../services/errorlogs/errorlogs.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class ErrorlogsComponent implements OnInit {
   displayedColumns: string[] = ['name', 'priority', 'createdAt', 'userId', 'extra'];
   errorlogs!: IErrorlog[];
 
-  constructor(private errorlogsService: ErrorlogsService) {}
+  constructor(private errorlogsService: ErrorlogsService, private clipboardService: ClipboardService) {}
 
   /**
    * Fetches the errorlogs.
@@ -39,5 +40,9 @@ export class ErrorlogsComponent implements OnInit {
         this.errorlogs = errorlogs;
       },
     });
+  }
+
+  copyToClipboard(content: string): void {
+    this.clipboardService.copyFromContent(content);
   }
 }

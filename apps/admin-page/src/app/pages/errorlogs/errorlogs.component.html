@@ -19,10 +19,17 @@
                 <td mat-cell *matCellDef="let errorlog">{{ errorlog.createdAt | date }}</td>
             </ng-container>
 
-            <!-- User Id Column -->
+            <!-- User id Column -->
             <ng-container matColumnDef="userId">
-                <th mat-header-cell *matHeaderCellDef>User Id</th>
-                <td mat-cell *matCellDef="let errorlog">{{ errorlog.userId }}</td>
+                <th mat-header-cell *matHeaderCellDef>User id</th>
+                <td mat-cell *matCellDef="let errorlog">
+                    <div class="id-container">
+                        <span> ...{{ errorlog.userId.slice(errorlog.userId.length - 8) }} </span>
+                        <button mat-icon-button (click)="copyToClipboard(errorlog.userId)">
+                            <mat-icon class="icon">file_copy</mat-icon>
+                        </button>
+                    </div>
+                </td>
             </ng-container>
 
             <!-- Extra information Column -->
@@ -33,6 +40,9 @@
                         <mat-expansion-panel-header>
                             <mat-panel-title> Error information </mat-panel-title>
                         </mat-expansion-panel-header>
+                        <p>URL: {{ errorlog.url }}</p>
+                        <p>Browser: {{ errorlog.browser }}</p>
+                        <p>Production: {{ errorlog.production }}</p>
                         <pre class="error-info-json">{{ errorlog.error | json }}</pre>
                     </mat-expansion-panel>
                 </td>
