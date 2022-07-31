@@ -63,7 +63,7 @@ export class ErrorlogsService {
           this.http
             .post<IErrorlog>(`${env.apiUrl}/errorlogs`, {
               name,
-              userId: authUser.userId,
+              userId: newUserId,
               browser: browserInfo,
               url,
               production,
@@ -75,6 +75,17 @@ export class ErrorlogsService {
       }
     } catch (err) {
       console.error(err);
+      this.http
+        .post<IErrorlog>(`${env.apiUrl}/errorlogs`, {
+          name: 'webstore.error-logs.failed-to-log',
+          userId: '00000000-0000-0000-0000-000000000000',
+          browser: 'N/A',
+          url: 'N/A',
+          production: 'N/A',
+          error: error,
+          priority: ErrorlogPriorityEnum.critical,
+        })
+        .subscribe();
     }
   }
 
