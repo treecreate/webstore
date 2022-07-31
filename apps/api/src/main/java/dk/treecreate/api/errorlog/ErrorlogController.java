@@ -41,16 +41,16 @@ public class ErrorlogController
     {
         if (name != null && userId != null)
         {
-            return errorlogRepository.findByNameAndUserId(name, userId);
+            return errorlogRepository.findByNameAndUserIdOrderByCreatedAtDesc(name, userId);
         } else if (name != null && userId == null)
         {
-            return errorlogRepository.findByName(name);
+            return errorlogRepository.findByNameOrderByCreatedAtDesc(name);
         } else if (name == null && userId != null)
         {
-            return errorlogRepository.findByUserId(userId);
+            return errorlogRepository.findByUserIdOrderByCreatedAtDesc(userId);
         } else
         {
-            return errorlogRepository.findAll();
+            return errorlogRepository.findAllByOrderByCreatedAtDesc();
         }
     }
 

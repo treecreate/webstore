@@ -9,9 +9,11 @@ import java.util.UUID;
 @Repository
 public interface ErrorlogRepository extends JpaRepository<Errorlog, Long>
 {
-    List<Errorlog> findByName(String name);
+    List<Errorlog> findAllByOrderByCreatedAtDesc();
 
-    List<Errorlog> findByUserId(UUID userId);
+    List<Errorlog> findByNameOrderByCreatedAtDesc(String name);
 
-    List<Errorlog> findByNameAndUserId(String name, UUID userId);
+    List<Errorlog> findByUserIdOrderByCreatedAtDesc(UUID userId);
+
+    List<Errorlog> findByNameAndUserIdOrderByCreatedAtDesc(String name, UUID userId);
 }
