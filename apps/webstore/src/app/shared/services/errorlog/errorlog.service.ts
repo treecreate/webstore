@@ -21,6 +21,7 @@ export class ErrorlogsService {
    * @param name the name of the errorlog, for example 'webstore.login.login-failed'.
    * @returns the created errorlog entry.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public create(name: string, priority: ErrorlogPriorityEnum = ErrorlogPriorityEnum.medium, error: any = null): void {
     try {
       const authUser = this.authService.getAuthUser();
