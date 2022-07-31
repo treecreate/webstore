@@ -10,7 +10,7 @@ import { ErrorlogsService } from '../../services/errorlogs/errorlogs.service';
 })
 export class ErrorlogsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['name', 'priority', 'createdAt', 'userId'];
+  displayedColumns: string[] = ['name', 'priority', 'createdAt', 'userId', 'extra'];
   errorlogs!: IErrorlog[];
 
   constructor(private errorlogsService: ErrorlogsService) {}

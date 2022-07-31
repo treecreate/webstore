@@ -25,6 +25,19 @@
                 <td mat-cell *matCellDef="let errorlog">{{ errorlog.userId }}</td>
             </ng-container>
 
+            <!-- Extra information Column -->
+            <ng-container matColumnDef="extra">
+                <th mat-header-cell *matHeaderCellDef>Extra Information</th>
+                <td mat-cell *matCellDef="let errorlog">
+                    <mat-expansion-panel class="error-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Error information </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <pre class="error-info-json">{{ errorlog.error | json }}</pre>
+                    </mat-expansion-panel>
+                </td>
+            </ng-container>
+
             <!-- Edit Column -->
             <!-- <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
