@@ -21,6 +21,12 @@ export class ErrorlogsComponent implements OnInit {
   displayedColumns: string[] = ['name', 'priority', 'createdAt', 'userId', 'extra'];
   errorlogs!: IErrorlog[];
 
+  errorlogsDisplayList: IErrorlog[] = [];
+  showCritical = true;
+  showHigh = true;
+  showMedium = true;
+  showLow = true;
+
   constructor(private errorlogsService: ErrorlogsService, private clipboardService: ClipboardService) {}
 
   /**
@@ -45,8 +51,39 @@ export class ErrorlogsComponent implements OnInit {
       next: (errorlogs: IErrorlog[]) => {
         this.isLoading = false;
         this.errorlogs = errorlogs;
+        this.errorlogsDisplayList = errorlogs;
       },
     });
+  }
+
+  /**
+   * Updates the list of discounts based off active / disabled
+   */
+  updateList(): void {
+    this.errorlogsDisplayList = [];
+
+    if (this.showCritical) {
+      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
+        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.critical)
+      );
+    }
+    if (this.showHigh) {
+      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
+        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.high)
+      );
+    }
+
+    if (this.showMedium) {
+      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
+        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.medium)
+      );
+    }
+
+    if (this.showLow) {
+      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
+        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.low)
+      );
+    }
   }
 
   getErrorTextColor(priority: ErrorlogPriorityEnum): string {

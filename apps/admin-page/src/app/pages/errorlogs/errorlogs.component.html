@@ -1,6 +1,41 @@
 <webstore-item-card title="Error Log" [content]="content" [isLoading]="isLoading" data-cy="errorlogs-card">
     <ng-template #content>
-        <table mat-table [dataSource]="errorlogs" class="mat-elevation-z8 table" data-cy="errorlogs-table">
+        <div class="sub-header">
+            <h3 class="item">Show only:</h3>
+            <button
+                mat-raised-button
+                (click)="showCritical = !showCritical; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showCritical ? 1 : 0.5 }"
+            >
+                Critical
+            </button>
+            <button
+                mat-raised-button
+                (click)="showHigh = !showHigh; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showHigh ? 1 : 0.5 }"
+            >
+                High
+            </button>
+            <button
+                mat-raised-button
+                (click)="showMedium = !showMedium; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showMedium ? 1 : 0.5 }"
+            >
+                Medium
+            </button>
+            <button
+                mat-raised-button
+                (click)="showLow = !showLow; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showLow ? 1 : 0.5 }"
+            >
+                Low
+            </button>
+        </div>
+        <table mat-table [dataSource]="errorlogsDisplayList" class="mat-elevation-z8 table" data-cy="errorlogs-table">
             <!-- Name Column -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
