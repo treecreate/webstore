@@ -27,6 +27,7 @@ export class ErrorlogsComponent implements OnInit {
   showHigh = true;
   showMedium = true;
   showLow = true;
+  showResolved = false; // don't show resolved logs by default
 
   constructor(
     private errorlogsService: ErrorlogsService,
@@ -57,6 +58,7 @@ export class ErrorlogsComponent implements OnInit {
         this.isLoading = false;
         this.errorlogs = errorlogs;
         this.errorlogsDisplayList = errorlogs;
+        this.updateList();
       },
     });
   }
@@ -66,28 +68,18 @@ export class ErrorlogsComponent implements OnInit {
    */
   updateList(): void {
     this.errorlogsDisplayList = [];
+    this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
+      this.errorlogs.filter(
+        (errorlog) =>
+          (this.showCritical && errorlog.priority === ErrorlogPriorityEnum.critical) ||
+          (this.showHigh && errorlog.priority === ErrorlogPriorityEnum.high) ||
+          (this.showMedium && errorlog.priority === ErrorlogPriorityEnum.medium) ||
+          (this.showLow && errorlog.priority === ErrorlogPriorityEnum.low)
+      )
+    );
 
-    if (this.showCritical) {
-      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
-        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.critical)
-      );
-    }
-    if (this.showHigh) {
-      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
-        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.high)
-      );
-    }
-
-    if (this.showMedium) {
-      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
-        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.medium)
-      );
-    }
-
-    if (this.showLow) {
-      this.errorlogsDisplayList = this.errorlogsDisplayList.concat(
-        this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.low)
-      );
+    if (!this.showResolved) {
+      this.errorlogsDisplayList = this.errorlogsDisplayList.filter((errorlog) => errorlog.resolved === false);
     }
   }
 
@@ -101,7 +93,6 @@ export class ErrorlogsComponent implements OnInit {
       next: () => {
         this.isLoading = false;
         this.fetchErrorlogs();
-        this.updateList();
       },
       error: (error) => {
         console.error(error);

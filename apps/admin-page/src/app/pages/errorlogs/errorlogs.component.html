@@ -34,6 +34,14 @@
             >
                 Low
             </button>
+            <button
+                mat-raised-button
+                (click)="showResolved = !showResolved; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showResolved ? 1 : 0.5 }"
+            >
+                Resolved
+            </button>
         </div>
         <table mat-table [dataSource]="errorlogsDisplayList" class="mat-elevation-z8 table" data-cy="errorlogs-table">
             <!-- Name Column -->
