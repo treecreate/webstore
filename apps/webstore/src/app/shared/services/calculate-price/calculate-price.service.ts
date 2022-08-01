@@ -151,7 +151,7 @@ export class CalculatePriceService {
             this.errorlogsService.create(
               'webstore.calculate-price-service.calculate-item-unit-price-default-value',
               ErrorlogPriorityEnum.high,
-              { message: 'Price set to 88888888', dimension: DesignDimensionEnum, designType: DesignTypeEnum }
+              { message: 'Price set to 99999999', dimension, designType }
             );
             return 99999999;
         }
@@ -168,7 +168,7 @@ export class CalculatePriceService {
             this.errorlogsService.create(
               'webstore.calculate-price-service.calculate-item-unit-price-default-value',
               ErrorlogPriorityEnum.high,
-              { message: 'Price set to 88888888', dimension: DesignDimensionEnum, designType: DesignTypeEnum }
+              { message: 'Price set to 88888888', dimension, designType }
             );
             return 88888888;
         }
