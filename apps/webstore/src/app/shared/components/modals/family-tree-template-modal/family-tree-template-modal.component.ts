@@ -9,7 +9,7 @@ import { templates } from './templates';
 @Component({
   selector: 'webstore-family-tree-template-modal',
   templateUrl: './family-tree-template-modal.component.html',
-  styleUrls: ['./family-tree-template-modal.component.scss'],
+  styleUrls: ['./family-tree-template-modal.component.scss', '../../../../../assets/styles/terms-and-conditions.css'],
 })
 export class FamilyTreeTemplateModalComponent {
   templateList: ITemplateFamilyTree[] = templates;
