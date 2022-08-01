@@ -5,11 +5,10 @@
             <h2 class="title">{{ isEnglish ? product.titleEn : product.titleDk }}</h2>
 
             <div class="text-field first">
-                <span class="sub-title" i18n="@@description">Description</span> <br />
                 <span>{{ isEnglish ? product.descriptionEn : product.descriptionDk }}</span>
             </div>
 
-            <div class="text-field">
+            <div class="text-field" style="display: none">
                 {{ product.specialOffer }}
             </div>
 
