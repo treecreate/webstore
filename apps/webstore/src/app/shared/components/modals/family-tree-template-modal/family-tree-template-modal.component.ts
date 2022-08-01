@@ -5,7 +5,6 @@ import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { templates } from './templates';
-import { templateExtra } from './templatesExtra';
 
 @Component({
   selector: 'webstore-family-tree-template-modal',
@@ -34,9 +33,7 @@ export class FamilyTreeTemplateModalComponent {
    * @param name describes the templates name
    */
   applyTemplate(name: string): void {
-    const selectedTemplate: ITemplateFamilyTree = templates
-      .concat(templateExtra)
-      .find((template) => template.name === name);
+    const selectedTemplate: ITemplateFamilyTree = templates.find((template) => template.name === name);
     console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
     if (this.activatedRoute.snapshot.queryParams.designId !== undefined) {
