@@ -85,21 +85,22 @@
                 </td>
             </ng-container>
 
-            <!-- Edit Column -->
-            <!-- <ng-container matColumnDef="actions">
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let errorlog">
                     <button
                         mat-flat-button
                         color="primary"
-                        routerLink="/discounts/{{ discount.discountId }}"
                         class="item action-btn"
-                        data-cy="discounts-edit-btn"
+                        (click)="markAsResolved(errorlog)"
+                        [disabled]="errorlog.resolved || isLoading"
+                        data-cy="errorlog-resolve-btn"
                     >
-                        Edit
+                        {{ errorlog.resolved ? 'Resolved' : 'Resolve' }}
                     </button>
                 </td>
-            </ng-container> -->
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="errorlogs-table-header"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="errorlogs-table-row"></tr>

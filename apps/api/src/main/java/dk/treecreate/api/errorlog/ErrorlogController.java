@@ -2,7 +2,9 @@ package dk.treecreate.api.errorlog;
 
 import dk.treecreate.api.errorlog.dto.CreateErrorlogRequest;
 import dk.treecreate.api.errorlog.dto.GetErrorlogsResponse;
+import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,5 +77,18 @@ public class ErrorlogController
             errorlog.setError(request.getError());
         }
         return errorlogRepository.save(errorlog);
+    }
+
+    @PatchMapping("resolve/{errorlogId}")
+    @Operation(summary = "Mark give errorlog as resolved")
+    @ApiResponse(code = 200, message = "Errorlog information", response = Errorlog.class)
+    public Errorlog markAsResolved(
+        @ApiParam(name = "errorlogId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+        @PathVariable UUID errorlogId)
+    {
+        Errorlog foundErrorlog = errorlogRepository.findByErrorlogId(errorlogId)
+            .orElseThrow(() -> new ResourceNotFoundException("Errorlog not found"));
+        foundErrorlog.setResolved(true);
+        return errorlogRepository.save(foundErrorlog);
     }
 }

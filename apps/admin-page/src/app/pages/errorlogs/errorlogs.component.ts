@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorlogPriorityEnum, IErrorlog } from '@interfaces';
 import { ClipboardService } from 'ngx-clipboard';
 import { ErrorlogsService } from '../../services/errorlogs/errorlogs.service';
@@ -18,7 +19,7 @@ enum LabelColorsEnum {
 })
 export class ErrorlogsComponent implements OnInit {
   isLoading = true;
-  displayedColumns: string[] = ['name', 'priority', 'createdAt', 'userId', 'extra'];
+  displayedColumns: string[] = ['name', 'priority', 'createdAt', 'userId', 'extra', 'actions'];
   errorlogs!: IErrorlog[];
 
   errorlogsDisplayList: IErrorlog[] = [];
@@ -27,7 +28,11 @@ export class ErrorlogsComponent implements OnInit {
   showMedium = true;
   showLow = true;
 
-  constructor(private errorlogsService: ErrorlogsService, private clipboardService: ClipboardService) {}
+  constructor(
+    private errorlogsService: ErrorlogsService,
+    private clipboardService: ClipboardService,
+    private snackBar: MatSnackBar
+  ) {}
 
   /**
    * Fetches the errorlogs.
@@ -84,6 +89,30 @@ export class ErrorlogsComponent implements OnInit {
         this.errorlogs.filter((errorlog) => errorlog.priority === ErrorlogPriorityEnum.low)
       );
     }
+  }
+
+  /**
+   * Marks the given errorlog as resolved and refetches the list.
+   * @param errorlogId the errorlog id.
+   */
+  markAsResolved(errorlog: IErrorlog): void {
+    this.isLoading = true;
+    this.errorlogsService.markAsResolved(errorlog.errorlogId).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.fetchErrorlogs();
+        this.updateList();
+      },
+      error: (error) => {
+        console.error(error);
+        this.snackBar.open(
+          `This errorlog is so bad it even failed to get resolved: ${error.error.error}`,
+          `The hell, I said RESOLVE!`,
+          { duration: 15000 }
+        );
+        this.isLoading = false;
+      },
+    });
   }
 
   getErrorTextColor(priority: ErrorlogPriorityEnum): string {

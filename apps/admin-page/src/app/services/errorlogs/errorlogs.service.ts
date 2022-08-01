@@ -27,4 +27,13 @@ export class ErrorlogsService {
       return this.http.get<IErrorlog[]>(`${env.apiUrl}/errorlogs`);
     }
   }
+
+  /**
+   * Marks the given errorlog as resolved.
+   * @param errorlogId the errorlog id.
+   * @returns updated errorlog object.
+   */
+  public markAsResolved(errorlogId: string): Observable<IErrorlog> {
+    return this.http.patch<IErrorlog>(`${env.apiUrl}/errorlogs/resolve/${errorlogId}`, {});
+  }
 }

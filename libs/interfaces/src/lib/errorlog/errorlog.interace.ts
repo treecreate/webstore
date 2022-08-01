@@ -2,11 +2,12 @@ import { IBase } from '../util';
 import { ErrorlogPriorityEnum } from './errorlog-priority.enum';
 
 export interface IErrorlog extends IBase {
-  errorLogId: string;
+  errorlogId: string;
   name: string;
   userId: string;
   browser: string;
-  produciton: boolean;
+  production: boolean;
+  resolved: boolean;
   url: string;
   priority: ErrorlogPriorityEnum;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
