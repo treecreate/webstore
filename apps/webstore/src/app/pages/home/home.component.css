@@ -235,6 +235,8 @@ figure {
 
 .member-wrapper img {
   margin-bottom: 1em;
+  object-fit: cover;
+  height: 268px;
 }
 
 .member-info a {
