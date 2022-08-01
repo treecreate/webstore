@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private transactionItemService: TransactionItemService,
-    private router: Router
+    public router: Router
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
