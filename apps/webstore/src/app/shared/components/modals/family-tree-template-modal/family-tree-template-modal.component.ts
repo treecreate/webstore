@@ -13,7 +13,7 @@ import { templateExtra } from './templatesExtra';
   styleUrls: ['./family-tree-template-modal.component.scss'],
 })
 export class FamilyTreeTemplateModalComponent {
-  templateList: ITemplateFamilyTree[];
+  templateList: ITemplateFamilyTree[] = templates;
   showMoreExamples = false;
 
   /**
@@ -26,9 +26,7 @@ export class FamilyTreeTemplateModalComponent {
     private localStorageService: LocalStorageService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {
-    this.returnTemplateList();
-  }
+  ) {}
 
   /**
    * Sets the local storage design to the selected template
@@ -47,13 +45,5 @@ export class FamilyTreeTemplateModalComponent {
     } else {
       location.reload();
     }
-  }
-
-  /**
-   * Returns a larger template list (a list containing all)
-   */
-  returnTemplateList(): void {
-    this.showMoreExamples = !this.showMoreExamples;
-    this.templateList = this.showMoreExamples ? templates : templates.concat(templateExtra);
   }
 }
