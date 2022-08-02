@@ -134,19 +134,18 @@
                     ></span>
                 </button>
                 <!-- TODO - make the uploaded files list pretty -->
-                <div class="custom-order-uploaded-files-container">
+                <div
+                    [ngClass]="[
+                        uploadedFiles.length > 0 ? 'file-list-styling' : 'custom-order-uploaded-files-container'
+                    ]"
+                >
                     <span *ngIf="!uploadedFiles || uploadedFiles.length === 0" i18n="@@custom-order-not-files-uploaded"
                         >No files uploaded</span
                     >
                     <ul *ngIf="uploadedFiles">
                         <li *ngFor="let file of uploadedFiles" class="uploaded-files-list-item">
-                            <span>{{ file.name }}</span>
-                            <button
-                                style="color: red; border: none; background-color: none"
-                                (click)="removeUploadedFile(file)"
-                            >
-                                X
-                            </button>
+                            <span>{{ file.name.slice(0, 20) }} {{ file.name.length < 20 ? '' : '...' }}</span>
+                            <button class="tc-button-square" (click)="removeUploadedFile(file)">X</button>
                         </li>
                     </ul>
                 </div>

@@ -41,7 +41,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  margin: 10px 0px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
@@ -61,6 +61,27 @@
 
 .custom-order-uploaded-files-container li {
   font-size: var(--extra-small-font);
+}
+
+.custom-order-uploaded-files-container span {
+  padding-top: 15px;
+}
+
+.file-list-styling {
+  width: 47%;
+}
+
+.tc-button-square {
+  height: 30px;
+  min-width: 30px;
+}
+
+.file-list-styling ul {
+  padding-left: 0.5em;
+}
+
+.file-list-styling li {
+  padding-top: 5px;
 }
 
 .actions {
@@ -149,6 +170,7 @@
   }
 
   .custom-order-uploaded-files-container,
+  .file-list-styling,
   .image-requirements,
   .description-requirements,
   .custom-order-content-container,
