@@ -107,6 +107,15 @@
   margin-top: 15px;
 }
 
+.tc-textarea-field {
+  height: 200px;
+  border-radius: 3px;
+}
+
+.textarea-label {
+  padding-left: 8px;
+}
+
 @media screen and (max-width: 600px) {
   .custom-order-content-container {
     width: 90vw;
