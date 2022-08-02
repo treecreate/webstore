@@ -32,7 +32,9 @@
 .custom-order-requirements-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  font-size: small;
+  width: 100%;
 }
 
 .custom-order-upload-image-section {
@@ -40,12 +42,21 @@
   flex-direction: row;
   justify-content: space-evenly;
   margin: 10px 0px;
+  width: 100%;
 }
 
 .custom-order-uploaded-files-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  border: var(--gray-color) 1px solid;
+  width: 50%;
+  padding: 1em;
+  height: 35px;
+  margin-top: 15px;
+  border-radius: 5px;
+  color: var(--gray-color);
 }
 
 .custom-order-uploaded-files-container li {
@@ -58,7 +69,7 @@
   align-items: center;
   flex-grow: 1;
   justify-content: center;
-  margin: 20px 0px;
+  margin: 10px 0px;
 }
 
 .offset {
@@ -116,11 +127,14 @@
   padding-left: 8px;
 }
 
-.custom-order-requirements-section {
-  font-size: small;
+.description-requirements,
+.image-requirements {
+  width: 47%;
 }
 
-.description-requirements {
+.description-requirements strong,
+.image-requirements strong {
+  font-size: larger;
 }
 
 @media screen and (max-width: 600px) {
@@ -129,6 +143,9 @@
     flex-direction: column;
   }
 
+  .custom-order-uploaded-files-container,
+  .image-requirements,
+  .description-requirements,
   .custom-order-content-container,
   .custom-order-upload-image-section,
   .tc-button-50,

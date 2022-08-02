@@ -116,12 +116,7 @@ export class CustomOrderComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastService.showAlert(
-            'Custom order registered',
-            'TODO - danish custom order success toast text',
-            'success',
-            10000
-          );
+          this.toastService.showAlert('Custom order registered', 'Special bestilling regristreret', 'success', 10000);
           this.initForms();
         },
         error: (error: HttpErrorResponse) => {
@@ -129,7 +124,7 @@ export class CustomOrderComponent implements OnInit {
           console.error('Failed to submit custom order request', error);
           this.toastService.showAlert(
             'Failed to submit your custom order, please try again',
-            'TODO - danish custom order error toast text',
+            'Der skete en fejl, prøv venligst igen.',
             'danger',
             20000
           );
