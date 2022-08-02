@@ -25,7 +25,7 @@ export class CustomOrderComponent implements OnInit {
   isLoading = false;
   isImageRequirementsRead = false;
 
-  uploadedFiles: File[];
+  uploadedFiles: File[] = [];
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -70,7 +70,7 @@ export class CustomOrderComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       description: new FormControl('', [Validators.maxLength(1000), Validators.minLength(1), Validators.required]),
     });
-    this.uploadedFiles = undefined;
+    this.uploadedFiles = [];
   }
 
   updateFormValues() {
@@ -84,7 +84,7 @@ export class CustomOrderComponent implements OnInit {
    * @param $event
    */
   uploadImages($event) {
-    this.uploadedFiles = this.convertFileListToArray($event.target.files);
+    this.uploadedFiles = this.uploadedFiles.concat(this.convertFileListToArray($event.target.files));
   }
 
   submitCustomOrder() {
@@ -136,5 +136,9 @@ export class CustomOrderComponent implements OnInit {
    * that then can be used to display the selected files */
   convertFileListToArray(files: FileList): File[] {
     return Object.values(files);
+  }
+
+  removeUploadedFile(fileToRemove: File): void {
+    this.uploadedFiles = this.uploadedFiles.filter((file) => file !== fileToRemove);
   }
 }

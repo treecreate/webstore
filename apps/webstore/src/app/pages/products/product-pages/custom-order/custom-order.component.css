@@ -137,6 +137,11 @@
   font-size: larger;
 }
 
+.uploaded-files-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media screen and (max-width: 600px) {
   .custom-order-requirements-section {
     display: flex;

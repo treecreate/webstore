@@ -139,8 +139,14 @@
                         >No files uploaded</span
                     >
                     <ul *ngIf="uploadedFiles">
-                        <li *ngFor="let file of uploadedFiles">
-                            {{ file.name }}
+                        <li *ngFor="let file of uploadedFiles" class="uploaded-files-list-item">
+                            <span>{{ file.name }}</span>
+                            <button
+                                style="color: red; border: none; background-color: none"
+                                (click)="removeUploadedFile(file)"
+                            >
+                                X
+                            </button>
                         </li>
                     </ul>
                 </div>
