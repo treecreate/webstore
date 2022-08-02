@@ -17,7 +17,7 @@ export interface CreateCustomOrderRequest {
   name: string;
   email: string;
   description: string;
-  files: FileList;
+  files: File[];
 }
 
 export interface CreateContactInfoRequest {

@@ -25,7 +25,7 @@ export class CustomOrderComponent implements OnInit {
   isLoading = false;
   isImageRequirementsRead = false;
 
-  uploadedFiles: FileList;
+  uploadedFiles: File[];
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -84,7 +84,7 @@ export class CustomOrderComponent implements OnInit {
    * @param $event
    */
   uploadImages($event) {
-    this.uploadedFiles = $event.target.files;
+    this.uploadedFiles = this.convertFileListToArray($event.target.files);
   }
 
   submitCustomOrder() {
