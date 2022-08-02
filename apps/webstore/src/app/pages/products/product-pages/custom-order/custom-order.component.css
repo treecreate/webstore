@@ -77,6 +77,7 @@
   margin: 2px 0 2px 0;
   border-top: 1px solid rgba(0, 0, 0, 1);
 }
+
 .title {
   font-size: var(--regular-font);
   margin-left: 5px;
@@ -107,43 +108,11 @@
 }
 
 @media screen and (max-width: 600px) {
-  .custom-order-logo {
-    width: 150px;
-  }
-
   .custom-order-content-container {
     width: 90vw;
   }
 
   .custom-order-section {
     width: 90vw;
-  }
-
-  .remove-mobile {
-    display: none;
-  }
-
-  .trees-planted-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .trees-planted-price {
-    min-width: 80px;
-  }
-
-  .trees-planted {
-    margin-top: 10px;
-    align-self: stretch;
-  }
-
-  .show-mobile {
-    display: block;
-  }
-
-  .no-margin {
-    margin: 5px 0;
   }
 }
