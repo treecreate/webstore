@@ -35,7 +35,6 @@ export class CollectionComponent implements OnInit {
       (designList: IDesign[]) => {
         this.designCollection = designList.filter((design) => design.mutable);
         this.isLoading = false;
-        console.log(this.designCollection.filter((design) => design.designType === DesignTypeEnum.quotable));
       },
       (error: HttpErrorResponse) => {
         console.log(error);
