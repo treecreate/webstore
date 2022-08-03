@@ -1,10 +1,16 @@
 .design-container {
   width: 250px;
   margin: 10px;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .design-image {
   width: 100%;
+  min-height: 240px;
+  padding: 0.5em;
 }
 
 .action-container {

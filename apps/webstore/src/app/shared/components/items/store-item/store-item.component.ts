@@ -4,7 +4,6 @@ import { DesignTypeEnum, IDesign, IFamilyTree, IQoutable } from '@interfaces';
 @Component({
   selector: 'webstore-store-item',
   templateUrl: './store-item.component.html',
-  styleUrls: ['./store-item.component.css'],
 })
 export class StoretItemComponent implements OnInit {
   @Input()
