@@ -2,12 +2,12 @@
     <img [src]="customOrderExample.imgSrc" [alt]="customOrderExample.altText" class="custom-order-img" />
     <div class="custom-order-info-container">
         <div class="custom-order-info">
-            <h4><span i18n="@@customer">Customer</span>: {{ customOrderExample.customer }}</h4>
+            <h4>{{ customOrderExample.customer }}</h4>
 
             <div class="text-field first">
                 <span>{{ isEnglish ? customOrderExample.descriptionEn : customOrderExample.descriptionDk }}</span>
             </div>
         </div>
-        <div class="price"><span i18n="@@price">Price</span> {{ customOrderExample.price }}</div>
+        <div class="price"><span i18n="@@price">Price</span>: {{ customOrderExample.price }}</div>
     </div>
 </article>

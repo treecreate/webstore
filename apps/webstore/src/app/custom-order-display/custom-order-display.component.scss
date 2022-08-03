@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1em;
+  margin: 0.5em;
 }
 
 .custom-order-img {
@@ -31,17 +31,26 @@
 }
 
 @media (max-width: 550px) {
-  .custom-order-info-container,
-  .custom-order-img {
-    width: 250px;
-  }
-  .custom-order-img {
-    height: 250px;
-  }
   .custom-order-container {
-    width: 80vw;
-    flex-direction: column;
+    width: 90vw;
   }
+
+  .custom-order-container {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin: 0;
+  }
+
+  .custom-order-info-container {
+    padding: 0 0 0 0.5em;
+  }
+
+  .custom-order-img {
+    width: 150px;
+    height: 150px;
+  }
+
   .price {
     margin-top: 1em;
   }
