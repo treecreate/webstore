@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CustomOrderExampleType } from './CustomOrderExampleType';
 
 @Component({
@@ -6,7 +6,7 @@ import { CustomOrderExampleType } from './CustomOrderExampleType';
   templateUrl: './custom-order-display.component.html',
   styleUrls: ['./custom-order-display.component.scss'],
 })
-export class CustomOrderDisplayComponent implements OnInit {
+export class CustomOrderDisplayComponent {
   @Input()
   customOrderExample!: CustomOrderExampleType;
 
@@ -14,6 +14,4 @@ export class CustomOrderDisplayComponent implements OnInit {
   isEnglish!: boolean;
 
   constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -31,17 +31,18 @@
 }
 
 @media (max-width: 550px) {
-    .custom-order-info-container, .custom-order-img {
-        width: 250px;
-    }
-    .custom-order-img {
-        height: 250px;
-    }
-    .custom-order-container {
-        width: 80vw;
-        flex-direction: column;
-    }
-    .price {
-        margin-top: 1em;
-    }
+  .custom-order-info-container,
+  .custom-order-img {
+    width: 250px;
+  }
+  .custom-order-img {
+    height: 250px;
+  }
+  .custom-order-container {
+    width: 80vw;
+    flex-direction: column;
+  }
+  .price {
+    margin-top: 1em;
+  }
 }
