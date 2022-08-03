@@ -1,11 +1,11 @@
-<section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
+<main class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
     <div class="back-container" *ngIf="!isMutable">
         <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
             < <span i18n="@@back">Back</span>
         </a>
     </div>
     <!-- Design -->
-    <div class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
+    <section class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
         <webstore-quotable-design
             #quotableDesign
             [isMutable]="isMutable"
@@ -16,17 +16,19 @@
         ></webstore-quotable-design>
 
         <!-- FOR CY TESTS -->
-        <div class="hide" data-cy="font">{{ design.font }}</div>
-        <div class="hide" data-cy="design">{{ design.designSrc }}</div>
-        <div class="hide" data-cy="font-size">{{ design.fontSize }}</div>
-        <div class="hide" data-cy="text">{{ design.text }}</div>
+        <div class="hide">
+            <div data-cy="font">{{ design.font }}</div>
+            <div data-cy="design">{{ design.designSrc }}</div>
+            <div data-cy="font-size">{{ design.fontSize }}</div>
+            <div data-cy="text">{{ design.text }}</div>
+        </div>
         <!-- END CY TESTS -->
-    </div>
+    </section>
 
     <!-- Options -->
-    <div [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'" *ngIf="isMutable">
+    <aside [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'" *ngIf="isMutable">
         <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
-        <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
+        <menu [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <!-- ====== Font selection ====== -->
             <div class="option option-font-select">
                 <div class="option-title">
@@ -148,9 +150,9 @@
                     <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
                 </button>
             </div>
-        </div>
-    </div>
-</section>
+        </menu>
+    </aside>
+</main>
 <!-- Floating icons -->
 <div class="mobile-option-buttons-container">
     <div class="mobile-options">

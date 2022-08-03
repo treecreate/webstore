@@ -348,3 +348,15 @@
   right: 0;
   position: absolute;
 }
+
+::ng-deep .design-wrapper {
+  border: 2px solid rgba(175, 121, 73, 0.3);
+  border-radius: 3px;
+}
+
+.option-icon,
+.toggle-box-options-icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 3px;
+}

@@ -1,4 +1,4 @@
-<section class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
+<main class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
     <div class="back-container" *ngIf="!isMutable">
         <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
             < <span i18n="@@back">Back</span>
@@ -24,13 +24,13 @@
     </div>
     <!-- END CY TESTS -->
 
-    <div
+    <aside
         [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'"
         *ngIf="isMutable"
         data-cy="product-options"
     >
         <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
-        <div [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
+        <menu [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <div class="option option-font-select">
                 <div class="option-title">
                     Font
@@ -190,9 +190,9 @@
                     <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
                 </button>
             </div>
-        </div>
-    </div>
-</section>
+        </menu>
+    </aside>
+</main>
 
 <div class="mobile-option-buttons-container">
     <div class="mobile-options">
