@@ -6,15 +6,14 @@ import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../services/events/events.service';
 import { templates } from './templates';
-import { templateExtra } from './templatesExtra';
 
 @Component({
   selector: 'webstore-family-tree-template-modal',
   templateUrl: './family-tree-template-modal.component.html',
-  styleUrls: ['./family-tree-template-modal.component.scss'],
+  styleUrls: ['./family-tree-template-modal.component.scss', '../../../../../assets/styles/terms-and-conditions.css'],
 })
 export class FamilyTreeTemplateModalComponent {
-  templateList: ITemplateFamilyTree[];
+  templateList: ITemplateFamilyTree[] = templates;
   showMoreExamples = false;
 
   /**
@@ -32,15 +31,13 @@ export class FamilyTreeTemplateModalComponent {
     this.returnTemplateList();
   }
 
-  /**
+/**
    * Sets the local storage design to the selected template
    *
    * @param name describes the templates name
    */
   applyTemplate(name: string): void {
-    const selectedTemplate: ITemplateFamilyTree = templates
-      .concat(templateExtra)
-      .find((template) => template.name === name);
+    const selectedTemplate: ITemplateFamilyTree = templates.find((template) => template.name === name);
     console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
     this.eventsService.create(`webstore.family-tree-template-modal.applied-template.${name}`);
@@ -50,13 +47,5 @@ export class FamilyTreeTemplateModalComponent {
     } else {
       location.reload();
     }
-  }
-
-  /**
-   * Returns a larger template list (a list containing all)
-   */
-  returnTemplateList(): void {
-    this.showMoreExamples = !this.showMoreExamples;
-    this.templateList = this.showMoreExamples ? templates : templates.concat(templateExtra);
   }
 }
