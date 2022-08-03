@@ -186,7 +186,10 @@
         </form>
     </div>
     <div class="custom-order-examples-container">
-        <br /><br />
-        <p>TODO - display Examples of custom orders</p>
+        <webstore-custom-order-display
+            *ngFor="let customOrderExample of customOrderExampleList"
+            [customOrderExample]="customOrderExample"
+            [isEnglish]="isEnglish()"
+        ></webstore-custom-order-display>
     </div>
 </div>

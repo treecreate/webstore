@@ -53,6 +53,7 @@ import { ProductDisplayComponent } from './pages/products/product-display/produc
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { QuotableTemplateModalComponent } from './shared/components/modals/quotable-template-modal/quotable-template-modal.component';
 import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
+import { CustomOrderDisplayComponent } from './custom-order-display/custom-order-display.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { CustomOrderComponent } from './pages/products/product-pages/custom-orde
     ProductDisplayComponent,
     QuotableTemplateModalComponent,
     CustomOrderComponent,
+    CustomOrderDisplayComponent,
   ],
   imports: [
     BrowserModule,
