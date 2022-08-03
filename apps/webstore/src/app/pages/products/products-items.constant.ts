@@ -44,7 +44,7 @@ const unique: ProductsItem = {
   descriptionEn:
     'Send an image or describe what you want. We will see what we can create for you and give you a price.',
   descriptionDk: 'Send et billede og bescrib hvad du vil have. We ser hvad vi kan gøre for dig og giver dig en pris.',
-  prices: [],
+  prices: [399],
   imgSrc: '/assets/img/description2.jpg',
   altText: 'Dit unikke produkt. Præcis som du vil have det.',
   specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
