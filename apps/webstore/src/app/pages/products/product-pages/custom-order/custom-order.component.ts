@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
+import { CustomOrderExampleType } from 'apps/webstore/src/app/custom-order-display/CustomOrderExampleType';
 import { BehaviorSubject } from 'rxjs';
 import { ToastService } from '../../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
@@ -16,10 +17,21 @@ import { UserService } from '../../../../shared/services/user/user.service';
   styleUrls: ['./custom-order.component.css', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class CustomOrderComponent implements OnInit {
+  customOrderExample: CustomOrderExampleType = {
+    customer: 'Penneo',
+    descriptionEn:
+      'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+    descriptionDk:
+      'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
+    price: 123,
+    altText: '',
+    imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+  };
   customOrderForm: FormGroup;
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
+  localeCode: LocaleType;
 
   isLoggedIn = false;
   isLoading = false;
@@ -46,6 +58,10 @@ export class CustomOrderComponent implements OnInit {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === LocaleType.en;
   }
 
   ngOnInit(): void {
