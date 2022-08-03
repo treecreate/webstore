@@ -17,16 +17,38 @@ import { UserService } from '../../../../shared/services/user/user.service';
   styleUrls: ['./custom-order.component.css', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class CustomOrderComponent implements OnInit {
-  customOrderExample: CustomOrderExampleType = {
-    customer: 'Penneo',
-    descriptionEn:
-      'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
-    descriptionDk:
-      'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
-    price: 123,
-    altText: '',
-    imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
-  };
+  customOrderExampleList: CustomOrderExampleType[] = [
+    {
+      customer: 'Penneo',
+      descriptionEn:
+        'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+      descriptionDk:
+        'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
+      price: 123,
+      altText: '',
+      imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+    },
+    {
+      customer: 'Penneo',
+      descriptionEn:
+        'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+      descriptionDk:
+        'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
+      price: 123,
+      altText: '',
+      imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+    },
+    {
+      customer: 'Penneo',
+      descriptionEn:
+        'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+      descriptionDk:
+        'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
+      price: 123,
+      altText: '',
+      imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+    },
+  ];
   customOrderForm: FormGroup;
 
   currentUser: IUser;
