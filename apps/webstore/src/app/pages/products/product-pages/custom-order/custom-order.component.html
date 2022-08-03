@@ -52,7 +52,10 @@
 
                 <div
                     class="error-message"
-                    *ngIf="this.customOrderForm.get('customerEmail').dirty && this.customOrderForm.get('customerEmail').invalid"
+                    *ngIf="
+                        this.customOrderForm.get('customerEmail').dirty &&
+                        this.customOrderForm.get('customerEmail').invalid
+                    "
                     i18n="@@invalid-email"
                     data-cy="checkout-form-email-error-message"
                 >

@@ -32,13 +32,12 @@
 }
 
 @media (max-width: 550px) {
-
   .custom-order-container {
     width: 90vw;
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: row;
-    margin: .5em;
+    margin: 0.5em;
     min-height: 0;
   }
 
