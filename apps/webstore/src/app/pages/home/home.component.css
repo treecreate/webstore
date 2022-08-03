@@ -472,7 +472,7 @@ figure {
 
 @media screen and (max-width: 470px) {
   .main-text-container {
-    margin-top: 70px;
+    margin-top: 7em;
   }
 
   .left-content {
