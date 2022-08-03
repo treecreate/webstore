@@ -1,6 +1,12 @@
 <div data-cy="family-tree-template-modal">
     <div class="modal-header">
         <h4 class="modal-title" i18n="@@select-a-template">Select a template</h4>
+        <div data-cy="family-tree-template-close-button" class="tc-button-square" (click)="activeModal.close()">
+            <div class="icon">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+            </div>
+        </div>
     </div>
     <div class="modal-body">
         <ngb-carousel class="carousel-container">
@@ -28,26 +34,7 @@
                 </div>
             </ng-template>
         </ngb-carousel>
-    </div>
-    <div class="modal-footer">
-        <button
-            type="button"
-            class="tc-button-50"
-            (click)="returnTemplateList()"
-            data-cy="family-tree-more-examples-button"
-        >
-            <span *ngIf="showMoreExamples" i18n="@@show-more">Show more +</span>
-            <span *ngIf="!showMoreExamples" i18n="@@show-less">Show less -</span>
-        </button>
-        <button
-            type="button"
-            class="tc-button-50"
-            (click)="activeModal.close()"
-            data-cy="family-tree-template-close-button"
-            i18n="@@cancel"
-        >
-            Cancel
-        </button>
+        <span></span>
     </div>
 </div>
 <div class="hide" data-cy="template-option" *ngFor="let template of templateList">{{ template.name }}</div>

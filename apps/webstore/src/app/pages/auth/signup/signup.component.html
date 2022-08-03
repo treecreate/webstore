@@ -1,4 +1,4 @@
-<div class="flex-container-signup">
+<main class="flex-container-signup">
     <form (ngSubmit)="onSubmit()" name="signupForm" class="signup-form" [formGroup]="signupForm">
         <h1 class="page-title" i18n="@@signup">Sign up</h1>
         <div class="tc-input-group field">
@@ -50,6 +50,7 @@
                     src="/assets/icons/error-icon.svg"
                     class="password-icon"
                     [ngClass]="signupPassword.type === 'text' ? 'password-show-icon' : 'password-hide-icon'"
+                    alt="Vis din adgangskode icon"
                 />
             </button>
         </div>
@@ -91,6 +92,7 @@
                     src="/assets/icons/error-icon.svg"
                     class="password-icon"
                     [ngClass]="signupConfirmPassword.type === 'text' ? 'password-show-icon' : 'password-hide-icon'"
+                    alt="Vis din adgangskode icon"
                 />
             </button>
         </div>
@@ -145,4 +147,4 @@
             Back to login
         </button>
     </form>
-</div>
+</main>
