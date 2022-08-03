@@ -21,32 +21,52 @@ export class CustomOrderComponent implements OnInit {
     {
       customer: 'Penneo',
       descriptionEn:
-        'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+        'A unique display of the Penneo logo combined with the Nasdaq name in celebration of being listed on the main market.',
       descriptionDk:
-        'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
-      price: 123,
+        'Et unik plade med Penneos logo på, combineret med Nasdaq navnet. Lavet i en fejring af at blive en del af main market.',
+      price: 700,
       altText: '',
-      imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+      imgSrc: '/assets/img/custom-order-example/custom-order-img-2.png',
     },
     {
-      customer: 'Penneo',
+      customer: 'We Do Agency',
       descriptionEn:
-        'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+        '4 unique prices at a BMW event, where the prises gifted to the winners.',
       descriptionDk:
-        'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
-      price: 123,
+        '4 personlige præmier til et BMW event, hvor prierne blev uddelt til vinderne. ',
+      price: 1400,
       altText: '',
-      imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+      imgSrc: '/assets/img/custom-order-example/custom-order-img-3.png',
     },
     {
-      customer: 'Penneo',
+      customer: 'Jakobsen',
       descriptionEn:
-        'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+        'A beautiful display in the memory of the family\'s golden retriever named Bella.',
       descriptionDk:
-        'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
-      price: 123,
+        'En flot tavle i minde om familiens golden retriever ved navn Bella.',
+      price: 400,
       altText: '',
-      imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
+      imgSrc: '/assets/img/custom-order-example/custom-order-img-1.png',
+    },
+    {
+      customer: 'Helene',
+      descriptionEn:
+        'A gift from Helene to her boyfriend for their 2 year anniversary.',
+      descriptionDk:
+        'En gave fra Helene til hendes kæreste til deres 2 års dag sammen.',
+      price: 700,
+      altText: '',
+      imgSrc: '/assets/img/custom-order-example/custom-order-img-4.png',
+    },
+    {
+      customer: 'Sara',
+      descriptionEn:
+        'A display for Saras dog named Buster, with the addition of some puppy paws by the name.',
+      descriptionDk:
+        'En smuk tavle for Saras hund ved navn Buster. Navnet buster fik nogle hundepoter over sit navn.',
+      price: 400,
+      altText: '',
+      imgSrc: '/assets/img/custom-order-example/custom-order-img-5.png',
     },
   ];
   customOrderForm: FormGroup;
