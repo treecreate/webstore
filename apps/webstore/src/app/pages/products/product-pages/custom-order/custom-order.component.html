@@ -195,11 +195,14 @@
             </div>
         </form>
     </div>
-    <div class="custom-order-examples-container">
-        <webstore-custom-order-display
-            *ngFor="let customOrderExample of customOrderExampleList"
-            [customOrderExample]="customOrderExample"
-            [isEnglish]="isEnglish()"
-        ></webstore-custom-order-display>
+    <div class="custom-order-examples">
+        <h2>Examples of custom orders</h2>
+        <div class="custom-order-examples-container">
+            <webstore-custom-order-display
+                *ngFor="let customOrderExample of customOrderExampleList"
+                [customOrderExample]="customOrderExample"
+                [isEnglish]="isEnglish()"
+            ></webstore-custom-order-display>
+        </div>
     </div>
 </div>
