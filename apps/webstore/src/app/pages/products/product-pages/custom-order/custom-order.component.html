@@ -104,6 +104,7 @@
                     <ul>
                         <li>Black and white</li>
                         <li>No shadows / fading colors</li>
+                        <li>Total file size less than 20MB</li>
                     </ul>
                 </div>
             </div>
@@ -148,6 +149,15 @@
                             <button class="tc-button-square" (click)="removeUploadedFile(file)">X</button>
                         </li>
                     </ul>
+
+                    <div
+                        class="error-message offset"
+                        *ngIf="getTotalFileSize() > maxFileSize"
+                        i18n="@@filesize-too-high"
+                        data-cy="custom-order-form-filesize-error-message"
+                    >
+                        The uploaded files are too big.
+                    </div>
                 </div>
             </div>
             <!-- Actions -->

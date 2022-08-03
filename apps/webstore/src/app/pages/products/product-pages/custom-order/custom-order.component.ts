@@ -60,6 +60,7 @@ export class CustomOrderComponent implements OnInit {
   isImageRequirementsRead = false;
 
   uploadedFiles: File[] = [];
+  maxFileSize = 20971520; // in bytes
 
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
@@ -134,7 +135,8 @@ export class CustomOrderComponent implements OnInit {
       this.isImageRequirementsRead &&
       this.customOrderForm.valid &&
       this.uploadedFiles &&
-      this.uploadedFiles.length !== 0
+      this.uploadedFiles.length !== 0 &&
+      this.getTotalFileSize() <= this.maxFileSize
     );
   }
 
@@ -178,5 +180,16 @@ export class CustomOrderComponent implements OnInit {
 
   removeUploadedFile(fileToRemove: File): void {
     this.uploadedFiles = this.uploadedFiles.filter((file) => file !== fileToRemove);
+  }
+
+  /**
+   * Calculates the total file size of the uploaded images
+   */
+  getTotalFileSize(): number {
+    let size = 0;
+    this.uploadedFiles.forEach((file) => {
+      size += file.size;
+    });
+    return size;
   }
 }
