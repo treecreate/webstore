@@ -41,18 +41,18 @@
                         type="email"
                         class="tc-input-field"
                         placeholder="E-mail"
-                        formControlName="email"
-                        name="email"
-                        id="profileEmail"
+                        formControlName="customerEmail"
+                        name="customerEmail"
+                        id="customerEmail"
                         autocomplete="email"
                         data-cy="custom-order-form-email-input"
                     />
-                    <label for="email" class="tc-input-label">E-mail *</label>
+                    <label for="customerEmail" class="tc-input-label">E-mail *</label>
                 </div>
 
                 <div
                     class="error-message"
-                    *ngIf="this.customOrderForm.get('email').dirty && this.customOrderForm.get('email').invalid"
+                    *ngIf="this.customOrderForm.get('customerEmail').dirty && this.customOrderForm.get('customerEmail').invalid"
                     i18n="@@invalid-email"
                     data-cy="checkout-form-email-error-message"
                 >

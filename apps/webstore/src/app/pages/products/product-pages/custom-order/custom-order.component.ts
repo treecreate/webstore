@@ -106,7 +106,7 @@ export class CustomOrderComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      customerEmail: new FormControl('', [Validators.required, Validators.email]),
       description: new FormControl('', [Validators.maxLength(1000), Validators.minLength(1), Validators.required]),
     });
     this.uploadedFiles = [];
@@ -114,7 +114,7 @@ export class CustomOrderComponent implements OnInit {
 
   updateFormValues() {
     this.customOrderForm.setValue({
-      email: this.currentUser.email,
+      customerEmail: this.currentUser.email,
     });
   }
 
@@ -149,7 +149,7 @@ export class CustomOrderComponent implements OnInit {
     this.orderService
       .createCustomOrder({
         name: this.customOrderForm.get('name').value,
-        email: this.customOrderForm.get('email').value,
+        email: this.customOrderForm.get('customerEmail').value,
         description: this.customOrderForm.get('description').value,
         files: this.uploadedFiles,
       })
