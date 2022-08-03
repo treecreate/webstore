@@ -5,7 +5,7 @@ import { IAuthUser, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
-import { CustomOrderExampleType } from '../../../../custom-order-display/CustomOrderExampleType';
+import { CustomOrderExampleType } from '../../../../shared/components/items/custom-order-display/CustomOrderExampleType';
 import { ToastService } from '../../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
 import { OrderService } from '../../../../shared/services/order/order.service';
