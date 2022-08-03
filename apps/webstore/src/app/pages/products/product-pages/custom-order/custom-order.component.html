@@ -10,7 +10,7 @@
             <!-- Contact Info and order description -->
             <div class="custom-order-section no-strech">
                 <div class="title-container" style="margin-bottom: 5px">
-                    <span class="title" i18n="@@custom-order-request">Custom order request</span>
+                    <span class="title" i18n="@@custom-order">Custom order</span>
                     <hr />
                 </div>
 
@@ -70,7 +70,6 @@
                         formControlName="description"
                         id="description"
                         placeholder="description"
-                        i18n="@@description-placeholder"
                         maxlength="1000"
                         data-cy="custom-order-form-description-input"
                     >
@@ -94,20 +93,20 @@
             <!-- Requirements -->
             <div class="custom-order-requirements-section">
                 <div class="description-requirements">
-                    <span><strong> In the description please include: </strong></span>
+                    <span><strong i18n="@@include-description"> In the description please include: </strong></span>
                     <ul>
-                        <li>Product Size</li>
-                        <li>The image you want printed</li>
-                        <li>Specification and questions</li>
+                        <li i18n="@@product-size">Product Size</li>
+                        <li i18n="@@image-printed-text">The image you want printed</li>
+                        <li i18n="@@specification-and-questions">Specification and questions</li>
                     </ul>
                 </div>
 
                 <div class="image-requirements">
-                    <span><strong>Image requirements:</strong></span>
+                    <span><strong i18n="@@image-requirements">Image requirements:</strong></span>
                     <ul>
-                        <li>Black and white</li>
-                        <li>No shadows / fading colors</li>
-                        <li>Total file size less than 20MB</li>
+                        <li i18n="@@black-and-white">Black and white</li>
+                        <li i18n="@@dont-include">No shadows / fading colors</li>
+                        <li i18n="@@total-file-size">Total file size less than 20MB</li>
                     </ul>
                 </div>
             </div>
@@ -199,7 +198,7 @@
         </form>
     </div>
     <div class="custom-order-examples">
-        <h2>Examples of custom orders</h2>
+        <h2 i18n="@@other-examples">Other examples</h2>
         <div class="custom-order-examples-container">
             <webstore-custom-order-display
                 *ngFor="let customOrderExample of customOrderExampleList"
