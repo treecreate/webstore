@@ -136,7 +136,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   getSizeDependingOnWidth(number: number): number {
-    const scale = Math.round((this.designWrapper.nativeElement.offsetWidth / 641) * 10) / 10;
+    const scale = Math.round((this.designWrapper.nativeElement.offsetWidth / 641) * 6) / 10;
     const displaySize = Math.round(number * scale * 10) / 10;
     if (this.designWrapper.nativeElement.offsetWidth <= 641) {
       return displaySize;
