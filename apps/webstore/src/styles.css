@@ -54,6 +54,8 @@
   --extra-massive-font: 6rem;
   --thin-font: 200;
   --thick-font: 700;
+  --blue-color: #71a1ff;
+  --red-color: #f84f4f;
 }
 
 body {
