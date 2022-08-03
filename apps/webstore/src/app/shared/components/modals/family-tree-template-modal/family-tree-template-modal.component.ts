@@ -27,11 +27,9 @@ export class FamilyTreeTemplateModalComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private eventsService: EventsService
-  ) {
-    this.returnTemplateList();
-  }
+  ) {}
 
-/**
+  /**
    * Sets the local storage design to the selected template
    *
    * @param name describes the templates name
