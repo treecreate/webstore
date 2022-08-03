@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 370px;
 }
 
 .custom-order-img {
@@ -17,12 +18,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.5em 0;
+  padding-top: 0.5em;
   width: 200px;
 }
 
 .custom-order-info {
   font-size: 0.75em;
+  height: 115px;
 }
 
 .text-field {
@@ -30,15 +32,14 @@
 }
 
 @media (max-width: 550px) {
-  .custom-order-container {
-    width: 90vw;
-  }
 
   .custom-order-container {
+    width: 90vw;
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: row;
-    margin: 0;
+    margin: .5em;
+    min-height: 0;
   }
 
   .custom-order-info-container {
