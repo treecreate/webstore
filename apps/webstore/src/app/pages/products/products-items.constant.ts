@@ -38,19 +38,19 @@ const quotable: ProductsItem = {
   routerLink: 'quotable',
 };
 
-// const unique: ProductsItem = {
-//   titleEn: 'Custom order',
-//   titleDk: 'Special bestilling',
-//   descriptionEn:
-//     'Send an image or describe what you want. We will see what we can create for you and give you a price.',
-//   descriptionDk: 'Send et billede og bescrib hvad du vil have. We ser hvad vi kan gøre for dig og giver dig en pris.',
-//   prices: [399, 499, 599, 699, 799, 899, 999],
-//   imgSrc: '/assets/img/description2.jpg',
-//   altText: 'Dit unikke produkt. Præcis som du vil have det.',
-//   specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
-//   routerLink: 'unique',
-// };
+const unique: ProductsItem = {
+  titleEn: 'Custom order',
+  titleDk: 'Special bestilling',
+  descriptionEn:
+    'Send an image or describe what you want. We will see what we can create for you and give you a price.',
+  descriptionDk: 'Send et billede og bescrib hvad du vil have. We ser hvad vi kan gøre for dig og giver dig en pris.',
+  prices: [399],
+  imgSrc: '/assets/img/description2.jpg',
+  altText: 'Dit unikke produkt. Præcis som du vil have det.',
+  specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
+  routerLink: 'custom-order',
+};
 
-const productsList: ProductsItem[] = [quotable, familyTree];
+const productsList: ProductsItem[] = [quotable, familyTree, unique];
 
 export default productsList;

@@ -27,6 +27,29 @@
   }
 }
 
+.tc-textarea-field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border: 1px solid var(--gray-color);
+  outline: 0;
+  font-size: var(--small-font);
+  color: black;
+  padding: 5px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .tc-input-label {
+    font-size: var(--small-font);
+    cursor: text;
+    top: 22px;
+  }
+}
+
 .tc-input-label {
   position: absolute;
   top: 0;

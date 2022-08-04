@@ -13,15 +13,11 @@
             </div>
 
             <div class="text-field">
-                <span *ngIf="product.prices.length > 0" class="price-container"
-                    ><span i18n="@@from">From </span> {{ product.prices[0] }} DKK - {{ product.prices.length }}
-                    <span i18n="@@variants">Variants</span></span
-                >
-                <span *ngIf="product.prices.length === 0">Custom</span>
+                <span class="price-container"><span i18n="@@from">From </span> {{ product.prices[0] }} DKK </span>
             </div>
         </div>
         <button
-            class="tc-button-50 text-field"
+            class="tc-button-100 text-field"
             [routerLink]="product.routerLink"
             (click)="scrollTop()"
             i18n="@@buy-now"

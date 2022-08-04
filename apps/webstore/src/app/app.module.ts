@@ -49,9 +49,11 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
-import { ProductDisplayComponent } from './pages/products/product-display/product-display.component';
+import { ProductDisplayComponent } from './shared/components/items/product-display/product-display.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { QuotableTemplateModalComponent } from './shared/components/modals/quotable-template-modal/quotable-template-modal.component';
+import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
+import { CustomOrderDisplayComponent } from './shared/components/items/custom-order-display/custom-order-display.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,8 @@ import { QuotableTemplateModalComponent } from './shared/components/modals/quota
     QuotableDesignComponent,
     ProductDisplayComponent,
     QuotableTemplateModalComponent,
+    CustomOrderComponent,
+    CustomOrderDisplayComponent,
   ],
   imports: [
     BrowserModule,

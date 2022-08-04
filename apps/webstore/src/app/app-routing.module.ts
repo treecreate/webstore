@@ -15,9 +15,10 @@ import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-fo
 import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
 import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
-import { ProductsComponent } from './pages/products/products.component';
 import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
+import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
@@ -65,6 +66,7 @@ const routes: Routes = [
   },
   { path: 'products/family-tree', component: FamilyTreeComponent, canActivate: [CookieGuard] },
   { path: 'products/quotable', component: QuotableComponent, canActivate: [CookieGuard] },
+  { path: 'products/custom-order', component: CustomOrderComponent, canActivate: [CookieGuard] },
   {
     path: 'payment',
     children: [

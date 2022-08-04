@@ -5,10 +5,10 @@ import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.designs.ContactInfoService;
 import dk.treecreate.api.discount.DiscountRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
+import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetAllOrdersResponse;
 import dk.treecreate.api.order.dto.UpdateOrderRequest;
-import dk.treecreate.api.order.dto.UpdateOrderStatusRequest;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -69,16 +69,17 @@ public class OrderController
     /**
      * Get a list of orders
      *
-     * @param userId <i>Optional</i> query param user to filer orders for the given user
+     * @param userId <i>Optional</i> query param user to filer orders for the given
+     *               user
      * @return a list of orders
      */
     @GetMapping()
     @Operation(summary = "Get all orders")
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
-    public List<Order> getAll(@Parameter(name = "userId",
-        description = "Id of the user the listed orders belong to",
-        example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = false)
-                              @RequestParam(required = false) UUID userId)
+    public List<Order> getAll(
+        @Parameter(name = "userId", description = "Id of the user the listed orders belong to",
+            example = "c0a80121-7ac0-190b-817a-c08ab0a12345", required = false) @RequestParam(
+            required = false) UUID userId)
     {
         if (userId == null)
         {
@@ -108,8 +109,8 @@ public class OrderController
     @Operation(summary = "Get an order")
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Order getOne(
-        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-        @PathVariable UUID orderId)
+        @ApiParam(name = "orderId",
+            example = "c0a80121-7ac0-190b-817a-c08ab0a12345") @PathVariable UUID orderId)
     {
         return orderRepository.findByOrderId(orderId)
             .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
@@ -124,10 +125,9 @@ public class OrderController
     @Transactional()
     public CreatePaymentLinkResponse createPayment(
         @RequestBody() @Valid CreateOrderRequest createOrderRequest,
-        @Parameter(name = "lang",
-            description = "Language of the email. Defaults to danish (dk)." +
-                "\nValid values: 'en', 'dk'", example = "en") @RequestParam(required = false)
-            String lang)
+        @Parameter(name = "lang", description = "Language of the email. Defaults to danish (dk)." +
+            "\nValid values: 'en', 'dk'", example = "en") @RequestParam(
+            required = false) String lang)
     {
         // Get the language
         Locale language = localeService.getLocale(lang);
@@ -151,7 +151,8 @@ public class OrderController
             String paymentId = quickpayService.sendCreatePaymentRequest(order);
             order.setPaymentId(paymentId);
             createPaymentLinkResponse =
-                quickpayService.sendCreatePaymentLinkRequest(paymentId, order.getTotal(), language);
+                quickpayService.sendCreatePaymentLinkRequest(paymentId, order.getTotal(),
+                    language);
         } catch (URISyntaxException e)
         {
             e.printStackTrace();
@@ -188,7 +189,8 @@ public class OrderController
 
     /**
      * Update the given order with select information.
-     * Will return a response with the full order if it is successful or 404 - Not Found
+     * Will return a response with the full order if it is successful or 404 - Not
+     * Found
      * if there is no order with specified id.
      *
      * @param updateOrderRequest DTO for the request.
@@ -200,10 +202,22 @@ public class OrderController
     @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public Order updateOrder(
         @RequestBody(required = false) @Valid UpdateOrderRequest updateOrderRequest,
-        @ApiParam(name = "orderId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
-        @PathVariable UUID orderId)
+        @ApiParam(name = "orderId",
+            example = "c0a80121-7ac0-190b-817a-c08ab0a12345") @PathVariable UUID orderId)
     {
         return orderService.updateOrder(orderId, updateOrderRequest);
+    }
+
+    @PostMapping("custom")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @Operation(summary = "Create a custom order entry")
+    public void createCustomOrder(
+        @Valid CreateCustomOrderRequest request)
+    {
+        this.orderService.sendCustomOrderRequestEmail(request);
+        LOGGER.info("Custom order request receieved from " + request.getEmail());
+        Sentry.setExtra("request", request.toJsonString());
+        Sentry.captureMessage("New order has been created");
     }
 
 }
