@@ -24,10 +24,11 @@ import {
   Tree3BoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
-import { IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
+import { ErrorlogPriorityEnum, IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
+import { ErrorlogsService } from '../../../../services/errorlog/errorlog.service';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({
@@ -169,7 +170,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     private resolver: ComponentFactoryResolver,
     private cdr: ChangeDetectorRef,
     private localStorageService: LocalStorageService,
-    private familyTreeDesignService: FamilyTreeDesignService
+    private familyTreeDesignService: FamilyTreeDesignService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -181,6 +183,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a tree design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-tree-design-failed.${Object.values(TreeDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
     }
     // Load and validate banner SVGs
@@ -190,6 +196,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a banner design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-banner-design-failed.${Object.values(BannerDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
       this.bannerDesigns.set(Object.values(BannerDesignEnum)[i], image);
     }
@@ -201,6 +211,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-box-design-failed.${Object.values(Tree1BoxDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
       this.treeBoxDesigns[0].set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
@@ -211,6 +225,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-box-design-failed.${Object.values(Tree2BoxDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
       this.treeBoxDesigns[1].set(Object.values(Tree2BoxDesignEnum)[i], image);
     }
@@ -221,6 +239,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-box-design-failed.${Object.values(Tree3BoxDesignEnum)[i]}`
+        );
       };
       this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
@@ -228,11 +249,19 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the close box SVG');
+      this.errorlogsService.create(
+        `webstore.family-tree-design.load-box-design-failed.close-box-svg`,
+        ErrorlogPriorityEnum.low
+      );
     };
     // load and validate drag button image SVG
     this.dragButton.src = BoxOptionsDesignEnum.dragButton1;
     this.dragButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the drag box SVG');
+      this.errorlogsService.create(
+        `webstore.family-tree-design.load-box-design-failed.drag-box-svg`,
+        ErrorlogPriorityEnum.low
+      );
     };
   }
 
@@ -447,6 +476,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.frameChanged = false;
     } catch (error) {
       console.error('An error has occurred while drawing the tree', error);
+      this.errorlogsService.create(`webstore.family-tree-design.draw-design-failed`, ErrorlogPriorityEnum.low, error);
       // disable autosave and the drawing loop
       clearInterval(this.timeInterval);
       clearInterval(this.autosaveInterval);
@@ -496,6 +526,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Something went wrong while loading the design!', error);
+      this.errorlogsService.create(
+        'webstore.family-tree-design.load-design-failed',
+        ErrorlogPriorityEnum.medium,
+        error
+      );
       this.alert = {
         message: 'Something went wrong while loading the design!',
         type: 'danger',
@@ -514,6 +549,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     console.log('Saving your design...');
     if (!this.isDesignValid || this.timeInterval === null || this.timeInterval === undefined) {
       console.warn('The design is not valid, and thus it cannot get saved!');
+      this.errorlogsService.create('webstore.family-tree-design.save-design-failed-because-invalid');
       return false;
     }
     // deep copy the boxes by value (since it modifies the array)

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser } from '@interfaces';
+import { ErrorlogPriorityEnum, IUser } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/authentication/auth.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 import { UserService } from '../../../services/user/user.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -23,7 +24,8 @@ export class ChangePasswordModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private userService: UserService,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -65,14 +67,18 @@ export class ChangePasswordModalComponent implements OnInit {
           window.scrollTo(0, 0);
         },
         (err) => {
-          console.log('Failed to update user');
+          console.error('Failed to update user', err);
+          this.errorlogsService.create(
+            'webstore.change-password-modal.update-password-failed',
+            ErrorlogPriorityEnum.medium,
+            err
+          );
           this.toastService.showAlert(
             'Something went wrong, please try again.',
             'Noget gik galt, prøv igen',
             'danger',
             2500
           );
-          console.log(err.error.message);
           this.activeModal.close();
           this.isLoading = false;
         }

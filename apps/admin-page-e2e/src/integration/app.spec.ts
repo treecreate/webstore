@@ -109,6 +109,12 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
+      it('should contain an error-log item', () => {
+        cy.get('[data-cy=sidebar-errorlogs-btn]').should('exist');
+        cy.get('[data-cy=sidebar-errorlogs-btn]').contains('Error Log').should('exist');
+        cy.get('[data-cy=sidebar-errorlogs-btn]').get('[data-cy=icon]').should('be.visible');
+      });
+
       it('should contain a newsletter item', () => {
         cy.get('[data-cy=sidebar-newsletter-btn]').should('exist');
         cy.get('[data-cy=sidebar-newsletter-btn]').contains('Newsletter').should('exist');
@@ -183,6 +189,13 @@ describe('admin-page', () => {
         cy.get('[data-cy=sidebar-activity-log-btn]').should('exist');
         cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=item-desc').should('not.be.visible');
         cy.get('[data-cy=sidebar-activity-log-btn]').get('[data-cy=icon]').should('be.visible');
+      });
+
+      it('should contain a collapsed error-log item', () => {
+        cy.get('[data-cy=sidebar-collapse-btn]').click({ force: true });
+        cy.get('[data-cy=sidebar-errorlogs-btn]').should('exist');
+        cy.get('[data-cy=sidebar-errorlogs-btn]').get('[data-cy=item-desc').should('not.be.visible');
+        cy.get('[data-cy=sidebar-errorlogs-btn]').get('[data-cy=icon]').should('be.visible');
       });
 
       it('should contain a collapsed newsletter item', () => {

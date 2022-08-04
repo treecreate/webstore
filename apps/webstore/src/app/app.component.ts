@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { ErrorlogPriorityEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { CookieStatus, LocaleType, LocalStorageVars } from '@models';
 import { environment } from '../environments/environment';
+import { ErrorlogsService } from './shared/services/errorlog/errorlog.service';
 
 // Google analytics-specific syntax
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -17,7 +19,11 @@ declare let gtag: Function;
 export class AppComponent {
   title = 'Treecreate';
 
-  constructor(public router: Router, private localStorageService: LocalStorageService) {
+  constructor(
+    public router: Router,
+    private localStorageService: LocalStorageService,
+    private errorlogsService: ErrorlogsService
+  ) {
     // Setup localization language
     this.router.events.subscribe(() => {
       const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
@@ -67,6 +73,11 @@ export class AppComponent {
           console.log('Google Analytics Page Redirect event fired');
         } catch (error) {
           console.warn('Failed to log to Google Analytics', error);
+          this.errorlogsService.create(
+            'webstore.google-analytics.page-redirect-event-failed',
+            ErrorlogPriorityEnum.low,
+            error
+          );
         }
       }
     });
@@ -108,6 +119,11 @@ export class AppComponent {
           console.log('Meta Pixel PageView event fired');
         } catch (error) {
           console.warn('Failed to fire Meta Pixel PageView event', error);
+          this.errorlogsService.create(
+            'webstore.facebook-pixel.page-view-event-failed',
+            ErrorlogPriorityEnum.low,
+            error
+          );
         }
       }
     });

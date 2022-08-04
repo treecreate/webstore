@@ -36,6 +36,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -74,10 +75,14 @@ public class AuthController
         @ApiResponse(code = 400, message = "Provided body is invalid or it is missing"),
         @ApiResponse(code = 401, message = "The login credentials are invalid")})
     public ResponseEntity<JwtResponse> authenticateUser(
-        @Valid @RequestBody LoginRequest loginRequest)
+        @Valid @RequestBody LoginRequest loginRequest,
+        @Parameter(name = "eventLogUserId",
+            description = "Event userId of not logged in user, to be replaced with logged in user id",
+            example = "c0a80121-7ac0-190b-817a-c08ab0a12345") @RequestParam(
+            required = false) UUID eventLogUserId)
     {
         return ResponseEntity.ok(authUserService
-            .authenticateUser(loginRequest.getEmail(), loginRequest.getPassword()));
+            .authenticateUser(loginRequest.getEmail(), loginRequest.getPassword(), eventLogUserId));
     }
 
     @PostMapping("/signup")
@@ -89,8 +94,13 @@ public class AuthController
             message = "Provided body is not valid, it is missing, or the email is already in use")})
     public ResponseEntity<JwtResponse> registerUser(
         @Valid @RequestBody SignupRequest signUpRequest,
-        @Parameter(name="sendPasswordEmail", description = "Boolean to determine user being created on order")
-        @RequestParam(required = false, defaultValue = "false") boolean sendPasswordEmail)
+        @Parameter(name = "sendPasswordEmail",
+            description = "Boolean to determine user being created on order")
+        @RequestParam(required = false, defaultValue = "false") boolean sendPasswordEmail,
+        @Parameter(name = "eventLogUserId",
+            description = "Event userId of not logged in user, to be replaced with logged in user id",
+            example = "c0a80121-7ac0-190b-817a-c08ab0a12345") @RequestParam(
+            required = false) UUID eventLogUserId)
     {
         if (userRepository.existsByEmail(signUpRequest.getEmail()))
         {
@@ -114,9 +124,12 @@ public class AuthController
 
         try
         {
-            if (sendPasswordEmail) {
-                mailService.sendSignupEmailOnOrder(user.getEmail(), user.getToken(), localeService.getLocale(null));
-            } else {
+            if (sendPasswordEmail)
+            {
+                mailService.sendSignupEmailOnOrder(user.getEmail(), user.getToken(),
+                    localeService.getLocale(null));
+            } else
+            {
                 mailService.sendSignupEmail(user.getEmail(), localeService.getLocale(null));
             }
         } catch (Exception e)
@@ -127,7 +140,8 @@ public class AuthController
         }
 
         return ResponseEntity.ok(authUserService
-            .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword()));
+            .authenticateUser(signUpRequest.getEmail(), signUpRequest.getPassword(),
+                eventLogUserId));
     }
 
     /**

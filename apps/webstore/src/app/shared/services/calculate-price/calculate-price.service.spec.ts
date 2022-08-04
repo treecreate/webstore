@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ITransactionItem } from '@interfaces';
 import { CalculatePriceService } from './calculate-price.service';
 import {
@@ -14,7 +16,9 @@ describe('CalculatePriceService', () => {
   let service: CalculatePriceService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule, HttpClientModule],
+    });
     service = TestBed.inject(CalculatePriceService);
   });
 

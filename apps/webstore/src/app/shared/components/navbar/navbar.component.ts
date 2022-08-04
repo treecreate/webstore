@@ -1,13 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IAuthUser, ITransactionItem } from '@interfaces';
+import { ErrorlogPriorityEnum, IAuthUser, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IEnvironment } from '../../../../environments/ienvironment';
 import { AuthService } from '../../services/authentication/auth.service';
+import { ErrorlogsService } from '../../services/errorlog/errorlog.service';
 import { TransactionItemService } from '../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../toast/toast-service';
 
@@ -35,7 +36,8 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private transactionItemService: TransactionItemService,
-    public router: Router
+    public router: Router,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
@@ -75,7 +77,12 @@ export class NavbarComponent implements OnInit {
           this.itemsInBasket = sum;
         },
         (error: HttpErrorResponse) => {
-          console.log(error.error);
+          console.error(error.error);
+          this.errorlogsService.create(
+            'webstore.navbar.fetch-transaction-items-failed',
+            ErrorlogPriorityEnum.medium,
+            error
+          );
         }
       );
     } else {

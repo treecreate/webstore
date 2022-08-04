@@ -78,6 +78,12 @@
                         >Activity Log</span
                     >
                 </button>
+                <button mat-list-item data-cy="sidebar-errorlogs-btn" routerLink="/error-logs">
+                    <mat-icon aria-hidden="false" data-cy="icon">errorlogs</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Error Log</span
+                    >
+                </button>
                 <button mat-list-item data-cy="sidebar-newsletter-btn" routerLink="newsletters">
                     <mat-icon aria-hidden="false" data-cy="icon">markunread</mat-icon>
                     <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
