@@ -14,9 +14,9 @@ const familyTree: ProductsItem = {
   titleEn: 'Family Tree',
   titleDk: 'Familietræ',
   descriptionEn:
-    'Create your own unique family tree by adding the names of your family. Give a completely unique present to the one you care about.',
+    'The Treecreate family tree is for you if you want to give your family a gift to remember. Design your own family tree and have it carved in beautiful oak wood. If you are looking for this years best christmas gift, this if for you.',
   descriptionDk:
-    'Lav dit personlige stamtræ ved at skrive din families navne ind. Giv en helt unik gave til den du holder af.',
+    'Treecreate Familietræet er for dig, der vil give din familie en gave de aldrig glemmer. Design dit eget familietræ i bæredygtigt træ (eg). Hvis du leder efter årets julegave 2022, så er Treecreate familietræet noget for dig',
   prices: [499, 699, 999],
   imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
   altText: 'Et helt unikt familietræ perfekt som gave.',
@@ -28,9 +28,9 @@ const quotable: ProductsItem = {
   titleEn: 'Quotable',
   titleDk: 'Citat ramme',
   descriptionEn:
-    'Select a frame and select a quote or write one yourself to someone you care about. Perfect for birthday, valentines day, chirsmas and other events.',
+    "With the Treecreate Quotable you get the opportunity to write a special message carved in oak wood to the one you love. Quotable is a unique and personal way of giving the perfect gift. Its even environmental like Treecreate's other products.",
   descriptionDk:
-    'Vælg en ramme og vælg et citat eller skriv selv hvad du vil sige til den du holder af. Perfect til fødselsdage, valentins dag, jul og andre begivenheder.',
+    "Med Treecreate's citat ramme, får du muligheden for at skrive en hilsen eller en tekst i egetræ til en du elsker. Quotable er en unik og personlig måde at give en hilsen eller gave på. Og så er den endda miljøvenlig ligesom Treecreate's andre produkter.",
   prices: [299, 399, 499],
   imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
   altText: 'En smuk citat ramme med dit personlige citat på. Perfekt som gave.',
@@ -38,18 +38,19 @@ const quotable: ProductsItem = {
   routerLink: 'quotable',
 };
 
-// const unique: ProductsItem = {
-//   titleEn: 'Custom order',
-//   titleDk: 'Special bestilling',
-//   descriptionEn:
-//     'Send an image or describe what you want. We will see what we can create for you and give you a price.',
-//   descriptionDk: 'Send et billede og bescrib hvad du vil have. We ser hvad vi kan gøre for dig og giver dig en pris.',
-//   prices: [399, 499, 599, 699, 799, 899, 999],
-//   imgSrc: '/assets/img/description2.jpg',
-//   altText: 'Dit unikke produkt. Præcis som du vil have det.',
-//   specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
-//   routerLink: 'unique',
-// };
+const unique: ProductsItem = {
+  titleEn: 'Custom order',
+  titleDk: 'Special bestilling',
+  descriptionEn:
+    'A unique chance to bring out your message in your own way. Get a completely user defined engraved peice of wood. Your own images and descriptions to what the design should be.',
+  descriptionDk:
+    'En enestående mulighed for at bringe dit billede eller design ud på. Få lavet en fuldkommen brugerdefineret design skåret i egetræ. Med Treecreate kan du skabe noget helt unikt på dine egne vilkår.',
+  prices: [399],
+  imgSrc: '/assets/img/description2.jpg',
+  altText: 'Dit unikke produkt. Præcis som du vil have det.',
+  specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
+  routerLink: 'custom-order',
+};
 
 const productsList: ProductsItem[] = [quotable, familyTree];
 
