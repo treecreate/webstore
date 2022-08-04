@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { DesignTypeEnum, IDesign } from '@interfaces';
+import { IDesign } from '@interfaces';
 import { DesignService } from '../../../shared/services/design/design.service';
 
 @Component({

@@ -1,0 +1,13 @@
+<article class="custom-order-container">
+    <img [src]="customOrderExample.imgSrc" [alt]="customOrderExample.altText" class="custom-order-img" />
+    <div class="custom-order-info-container">
+        <div class="custom-order-info">
+            <h4>{{ customOrderExample.customer }}</h4>
+
+            <div class="text-field first">
+                <span>{{ isEnglish ? customOrderExample.descriptionEn : customOrderExample.descriptionDk }}</span>
+            </div>
+        </div>
+        <div class="price"><span i18n="@@price">Price</span>: {{ customOrderExample.price }}</div>
+    </div>
+</article>
