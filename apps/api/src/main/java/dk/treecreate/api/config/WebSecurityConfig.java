@@ -77,6 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .antMatchers("/newsletter/me").authenticated()
             .antMatchers("/newsletter/**").permitAll()
             .antMatchers(HttpMethod.POST, "/events").permitAll()
+            .antMatchers(HttpMethod.POST, "/orders/custom").permitAll()
             .antMatchers("/healthcheck").permitAll()
             .antMatchers("/docs", // Swagger docs endpoints
                 "/v2/api-docs",

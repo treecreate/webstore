@@ -13,6 +13,13 @@ export interface CreateOrderRequest {
   transactionItemIds: string[];
 }
 
+export interface CreateCustomOrderRequest {
+  name: string;
+  email: string;
+  description: string;
+  files: File[];
+}
+
 export interface CreateContactInfoRequest {
   name: string;
   email: string;

@@ -42,7 +42,7 @@ const unique: ProductsItem = {
   titleEn: 'Custom order',
   titleDk: 'Special bestilling',
   descriptionEn:
-    'A unique chance to bring out your message in your own way. Get a completely user defined engraved peice of wood. Your own images and descriptions to what the design should be.',
+    'A unique chance to bring out your message in your own way. Get a completely user defined engraved piece of wood. Your own images and descriptions to what the design should be.',
   descriptionDk:
     'En enestående mulighed for at bringe dit billede eller design ud på. Få lavet en fuldkommen brugerdefineret design skåret i egetræ. Med Treecreate kan du skabe noget helt unikt på dine egne vilkår.',
   prices: [399],
@@ -52,6 +52,6 @@ const unique: ProductsItem = {
   routerLink: 'custom-order',
 };
 
-const productsList: ProductsItem[] = [quotable, familyTree];
+const productsList: ProductsItem[] = [quotable, familyTree, unique];
 
 export default productsList;

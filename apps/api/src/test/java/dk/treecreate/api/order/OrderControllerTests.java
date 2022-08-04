@@ -5,6 +5,8 @@ import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfo;
 import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.contactinfo.dto.UpdateContactInfoRequest;
+import dk.treecreate.api.mail.MailService;
+import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
 import dk.treecreate.api.order.dto.UpdateOrderRequest;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -19,6 +21,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,8 +33,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,6 +51,8 @@ class OrderControllerTests
     private UserRepository userRepository;
     @MockBean
     private OrderRepository orderRepository;
+    @MockBean
+    private MailService mailService;
 
     @Nested
     class AuthenticationTests
@@ -162,6 +166,9 @@ class OrderControllerTests
     @Nested
     class UpdateOrderTests
     {
+        @MockBean
+        ContactInfoRepository contactInfoRepository;
+
         @Test
         @DisplayName(
             "PATCH /orders/:orderId endpoint returns 403: Forbidden when called by ROLE_USER")
@@ -196,9 +203,6 @@ class OrderControllerTests
             mvc.perform(patch("/orders/" + uuid))
                 .andExpect(status().isNotFound());
         }
-
-        @MockBean
-        ContactInfoRepository contactInfoRepository;
 
         @Test
         @DisplayName(
@@ -297,6 +301,67 @@ class OrderControllerTests
                     .content(TestUtilsService.asJsonString(updateOrderRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(TestUtilsService.asJsonString(updatedOrder)));
+        }
+    }
+
+    @Nested
+    class CreateCustomOrder
+    {
+        @Test
+        @DisplayName(
+            "POST /orders/custom endpoint returns 400: Bad Request on missing request body")
+        void getOrdersReturnsBadRequestToMissingRequestBody() throws Exception
+        {
+            mvc.perform(post("/orders/custom"))
+                .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName(
+            "POST /orders/custom endpoint returns 400: Bad Request on invalid request body")
+        void getOrdersReturnsBadRequestToInvalidRequestBody() throws Exception
+        {
+            CreateCustomOrderRequest request = new CreateCustomOrderRequest();
+
+            mvc.perform(post("/orders/custom")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtilsService.asJsonString(request)))
+                .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("POST /orders/custom endpoint returns 204: Accepted on valid request")
+        void getOrdersReturnsAcceptedOnValidRequestBody() throws Exception
+        {
+            Mockito.doNothing().when(mailService)
+                .sendCustomOrderRequestEmail(any());
+            ;
+
+            String name = "Api Test custom order";
+            String email = "test@example.com";
+            String description = "getOrdersReturnsAcceptedOnValidRequestBody";
+
+            MockMultipartFile image1 = new MockMultipartFile(
+                "images",
+                "test.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                "Hello, World!".getBytes()
+            );
+            MockMultipartFile image2 = new MockMultipartFile(
+                "images",
+                "test.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                "Hello, World!".getBytes()
+            );
+
+            mvc.perform(multipart("/orders/custom")
+                    .file(image1)
+                    .file(image1)
+                    .param("name", name)
+                    .param("email", email)
+                    .param("description", description)
+                    .accept(MediaType.MULTIPART_FORM_DATA))
+                .andExpect(status().isAccepted());
         }
     }
 }
