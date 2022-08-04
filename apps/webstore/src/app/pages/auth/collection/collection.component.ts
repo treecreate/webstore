@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ErrorlogPriorityEnum, DesignTypeEnum, IDesign } from '@interfaces';
+import { ErrorlogPriorityEnum, IDesign } from '@interfaces';
 import { DesignService } from '../../../shared/services/design/design.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 
