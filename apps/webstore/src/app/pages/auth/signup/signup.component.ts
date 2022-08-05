@@ -1,13 +1,14 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
+import { ErrorlogPriorityEnum, INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { EventsService } from '../../../shared/services/events/events.service';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
@@ -33,7 +34,8 @@ export class SignupComponent implements OnInit {
     private newsletterService: NewsletterService,
     private localStorageService: LocalStorageService,
     private transactionItemService: TransactionItemService,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -79,8 +81,8 @@ export class SignupComponent implements OnInit {
                 this.eventsService.create('webstore.signup.newsletter-signup');
               },
               (error) => {
-                this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
                 console.error(error);
+                this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
               }
             );
           }
@@ -115,6 +117,7 @@ export class SignupComponent implements OnInit {
           window.location.reload();
         },
         (err) => {
+          this.errorlogsService.create('webstore.signup.signup-failed', ErrorlogPriorityEnum.medium, err);
           this.toastService.showAlert(
             // TODO: make errormessages both danish and english
             err.error.message,

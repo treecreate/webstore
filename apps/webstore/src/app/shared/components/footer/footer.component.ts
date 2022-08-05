@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAuthUser, INewsletter } from '@interfaces';
+import { ErrorlogPriorityEnum, IAuthUser, INewsletter } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
+import { ErrorlogsService } from '../../services/errorlog/errorlog.service';
 import { EventsService } from '../../services/events/events.service';
 import { NewsletterService } from '../../services/order/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
@@ -31,7 +32,8 @@ export class FooterComponent implements OnInit {
     private authService: AuthService,
     private newsletterService: NewsletterService,
     private toastService: ToastService,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -61,8 +63,9 @@ export class FooterComponent implements OnInit {
         this.eventsService.create('webstore.footer.newsletter-signup');
       },
       (error) => {
-        this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
         console.error(error);
+        this.errorlogsService.create('webstore.footer.newsletter-signup-failed', ErrorlogPriorityEnum.high, error);
+        this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
         this.isLoading = false;
       }
     );

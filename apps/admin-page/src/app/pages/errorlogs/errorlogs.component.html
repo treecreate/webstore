@@ -1,0 +1,117 @@
+<webstore-item-card title="Error Log" [content]="content" [isLoading]="isLoading" data-cy="errorlogs-card">
+    <ng-template #content>
+        <div class="sub-header">
+            <h3 class="item">Show only:</h3>
+            <button
+                mat-raised-button
+                (click)="showCritical = !showCritical; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showCritical ? 1 : 0.5 }"
+            >
+                Critical
+            </button>
+            <button
+                mat-raised-button
+                (click)="showHigh = !showHigh; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showHigh ? 1 : 0.5 }"
+            >
+                High
+            </button>
+            <button
+                mat-raised-button
+                (click)="showMedium = !showMedium; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showMedium ? 1 : 0.5 }"
+            >
+                Medium
+            </button>
+            <button
+                mat-raised-button
+                (click)="showLow = !showLow; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showLow ? 1 : 0.5 }"
+            >
+                Low
+            </button>
+            <button
+                mat-raised-button
+                (click)="showResolved = !showResolved; updateList()"
+                class="item"
+                [ngStyle]="{ opacity: showResolved ? 1 : 0.5 }"
+            >
+                Resolved
+            </button>
+        </div>
+        <table mat-table [dataSource]="errorlogsDisplayList" class="mat-elevation-z8 table" data-cy="errorlogs-table">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let errorlog">{{ errorlog.name }}</td>
+            </ng-container>
+
+            <!-- Priority Column -->
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef>Priority</th>
+                <td mat-cell *matCellDef="let errorlog" [ngStyle]="{ color: getErrorTextColor(errorlog.priority) }">
+                    {{ errorlog.priority }}
+                </td>
+            </ng-container>
+
+            <!-- Updated at Column -->
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>Created At</th>
+                <td mat-cell *matCellDef="let errorlog">{{ errorlog.createdAt | date }}</td>
+            </ng-container>
+
+            <!-- User id Column -->
+            <ng-container matColumnDef="userId">
+                <th mat-header-cell *matHeaderCellDef>User id</th>
+                <td mat-cell *matCellDef="let errorlog">
+                    <div class="id-container">
+                        <span> ...{{ errorlog.userId.slice(errorlog.userId.length - 8) }} </span>
+                        <button mat-icon-button (click)="copyToClipboard(errorlog.userId)">
+                            <mat-icon class="icon">file_copy</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Extra information Column -->
+            <ng-container matColumnDef="extra">
+                <th mat-header-cell *matHeaderCellDef>Extra Information</th>
+                <td mat-cell *matCellDef="let errorlog">
+                    <mat-expansion-panel class="error-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Error information </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>URL: {{ errorlog.url }}</p>
+                        <p>Browser: {{ errorlog.browser }}</p>
+                        <p>Production: {{ errorlog.production }}</p>
+                        <pre class="error-info-json">{{ errorlog.error | json }}</pre>
+                    </mat-expansion-panel>
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let errorlog">
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        class="item action-btn"
+                        (click)="markAsResolved(errorlog)"
+                        [disabled]="errorlog.resolved || isLoading"
+                        data-cy="errorlog-resolve-btn"
+                    >
+                        {{ errorlog.resolved ? 'Resolved' : 'Resolve' }}
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="errorlogs-table-header"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="errorlogs-table-row"></tr>
+        </table>
+    </ng-template>
+</webstore-item-card>

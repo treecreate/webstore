@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ErrorlogPriorityEnum } from '@interfaces';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { EventsService } from '../../../shared/services/events/events.service';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 
@@ -17,7 +19,8 @@ export class UnsubscribeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private newsletterService: NewsletterService,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +37,11 @@ export class UnsubscribeComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
+        this.errorlogsService.create(
+          'webstore.unsubscribe.newsletter-unsubscribe-failed',
+          ErrorlogPriorityEnum.medium,
+          error
+        );
         this.isUnsubscribeSuccessful = false;
         this.isLoading = false;
         if (error.error.status === 400) {

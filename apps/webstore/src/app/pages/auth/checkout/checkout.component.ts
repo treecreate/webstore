@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
+  ErrorlogPriorityEnum,
   IAuthUser,
   IDiscount,
   IPaymentLink,
@@ -11,13 +12,14 @@ import {
   IUser,
   ShippingMethodEnum,
 } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '@local-storage';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -72,7 +74,8 @@ export class CheckoutComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
@@ -187,6 +190,7 @@ export class CheckoutComponent implements OnInit {
       })
       .catch((error) => {
         console.error(error);
+        this.errorlogsService.create('webstore.checkout.fetch-transaction-items-failed');
         this.alert = {
           message: 'Failed to get a list of items',
           type: 'danger',
@@ -236,6 +240,7 @@ export class CheckoutComponent implements OnInit {
 
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
+      this.errorlogsService.create('webstore.checkout.create-order-new-user-attempted-with-invalid-data');
       console.warn('You are not able to add an order without valid information');
       return;
     }
@@ -270,6 +275,11 @@ export class CheckoutComponent implements OnInit {
     } catch (error) {
       console.warn(error);
       if (error.error.message === 'Error: Email is already in use!') {
+        this.errorlogsService.create(
+          'webstore.checkout.order-create-failed-email-in-use',
+          ErrorlogPriorityEnum.low,
+          null
+        );
         this.alert = {
           message: this.isEnglish()
             ? 'Failed to create your order, email is already in use. Please log in to finish your order.'
@@ -278,6 +288,11 @@ export class CheckoutComponent implements OnInit {
           dismissible: false,
         };
       } else {
+        this.errorlogsService.create(
+          'webstore.checkout.order-create-new-user-failed',
+          ErrorlogPriorityEnum.critical,
+          error
+        );
         this.alert = {
           message: this.isEnglish()
             ? 'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk'
@@ -301,6 +316,7 @@ export class CheckoutComponent implements OnInit {
 
   createOrder() {
     if (!this.isDisabled()) {
+      this.errorlogsService.create('webstore.checkout.create-order-attempted-with-invalid-data');
       console.warn('You are not able to add an order without valid information');
       return;
     }
@@ -366,6 +382,7 @@ export class CheckoutComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           console.error(error);
+          this.errorlogsService.create('webstore.checkout.order-create-failed', ErrorlogPriorityEnum.critical, error);
           this.alert = {
             message: 'Failed to create an order. Try again later',
             type: 'danger',

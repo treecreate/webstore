@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser } from '@interfaces';
+import { ErrorlogPriorityEnum, IUser } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { EventsService } from '../../../shared/services/events/events.service';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private modalService: NgbModal,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,7 @@ export class ProfileComponent implements OnInit {
       });
     } catch (error) {
       console.error(error);
+      this.errorlogsService.create('webstore.profile.load-user-info-failed', ErrorlogPriorityEnum.medium, error);
       // TODO: add an alert on the page, not just a toast message
     }
   }
@@ -117,14 +120,14 @@ export class ProfileComponent implements OnInit {
           this.eventsService.create('webstore.profile.profile-updated');
         },
         (err) => {
-          console.log('Failed to update user');
+          console.error('Failed to update user', err);
+          this.errorlogsService.create('webstore.profile.update-user-failed', ErrorlogPriorityEnum.medium, err);
           this.toastService.showAlert(
             'Something went wrong, please try again.',
             'Noget gik galt, prøv igen',
             'danger',
             2500
           );
-          console.log(err.error.message);
           this.isUpdatingUserInfo = false;
         }
       );

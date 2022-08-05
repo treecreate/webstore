@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IDesign } from '@interfaces';
+import { ErrorlogPriorityEnum, IDesign } from '@interfaces';
 import { DesignService } from '../../../shared/services/design/design.service';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 
 @Component({
   selector: 'webstore-collection',
@@ -18,7 +19,7 @@ export class CollectionComponent implements OnInit {
     dismissible: boolean;
   };
 
-  constructor(private designService: DesignService) {}
+  constructor(private designService: DesignService, private errorlogsService: ErrorlogsService) {}
 
   ngOnInit(): void {
     this.getDesigns();
@@ -37,7 +38,8 @@ export class CollectionComponent implements OnInit {
         this.isLoading = false;
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        console.error(error);
+        this.errorlogsService.create('webstore.collection.designs-load-failed', ErrorlogPriorityEnum.medium, error);
         this.alert = {
           message: 'Failed to get a list of items',
           type: 'danger',
