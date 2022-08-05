@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { UserService } from '../../../shared/services/user/user.service';
 
@@ -27,6 +28,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private modalService: NgbModal,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -115,6 +117,7 @@ export class ProfileComponent implements OnInit {
             );
           }
           this.isUpdatingUserInfo = false;
+          this.eventsService.create('webstore.profile.profile-updated');
         },
         (err) => {
           console.error('Failed to update user', err);

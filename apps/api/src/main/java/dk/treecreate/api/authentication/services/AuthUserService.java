@@ -3,6 +3,7 @@ package dk.treecreate.api.authentication.services;
 import dk.treecreate.api.authentication.dto.response.JwtResponse;
 import dk.treecreate.api.authentication.jwt.JwtUtils;
 import dk.treecreate.api.authentication.repository.RoleRepository;
+import dk.treecreate.api.events.EventService;
 import dk.treecreate.api.errorlog.ErrorlogService;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.user.User;
@@ -34,6 +35,8 @@ public class AuthUserService
     @Autowired
     JwtUtils jwtUtils;
     @Autowired
+    private EventService eventService;
+    @Autowired
     private ErrorlogService errorlogService;
 
     public JwtResponse authenticateUser(final String email, final String password)
@@ -60,8 +63,10 @@ public class AuthUserService
 
         if (oldUserId != null)
         {
+            eventService.updateEventUserId(oldUserId, userDetails.getUsedId());
             errorlogService.updateErrorlogUserId(oldUserId, userDetails.getUsedId());
         }
+
 
         return new JwtResponse(jwt,
             jwtRefresh,

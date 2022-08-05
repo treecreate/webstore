@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
 import { ErrorlogsService } from '../../services/errorlog/errorlog.service';
+import { EventsService } from '../../services/events/events.service';
 import { NewsletterService } from '../../services/order/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
@@ -31,6 +32,7 @@ export class FooterComponent implements OnInit {
     private authService: AuthService,
     private newsletterService: NewsletterService,
     private toastService: ToastService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
@@ -58,6 +60,7 @@ export class FooterComponent implements OnInit {
           3000
         );
         this.isLoading = false;
+        this.eventsService.create('webstore.footer.newsletter-signup');
       },
       (error) => {
         console.error(error);

@@ -1,5 +1,6 @@
 export * from './auth';
 export * from './design';
+export * from './events';
 export * from './errorlog';
 export * from './newsletter';
 export * from './order';

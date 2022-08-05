@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ErrorlogPriorityEnum } from '@interfaces';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class UnsubscribeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private newsletterService: NewsletterService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -31,6 +33,7 @@ export class UnsubscribeComponent implements OnInit {
       () => {
         this.isUnsubscribeSuccessful = true;
         this.isLoading = false;
+        this.eventsService.create('webstore.unsubscribe.newsletter-unsubscribe');
       },
       (error: HttpErrorResponse) => {
         console.error(error);

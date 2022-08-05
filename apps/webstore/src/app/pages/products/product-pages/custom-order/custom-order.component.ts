@@ -1,13 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAuthUser, IUser } from '@interfaces';
+import { ErrorlogPriorityEnum, IAuthUser, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { CustomOrderExampleType } from '../../../../shared/components/items/custom-order-display/CustomOrderExampleType';
 import { ToastService } from '../../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
+import { ErrorlogsService } from '../../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../../shared/services/events/events.service';
 import { OrderService } from '../../../../shared/services/order/order.service';
 import { UserService } from '../../../../shared/services/user/user.service';
 
@@ -85,7 +87,9 @@ export class CustomOrderComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private orderService: OrderService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -169,11 +173,23 @@ export class CustomOrderComponent implements OnInit {
         next: () => {
           this.isLoading = false;
           this.toastService.showAlert('Custom order registered', 'Special bestilling regristreret', 'success', 10000);
+          this.eventsService.create(
+            `webstore.custom-order.custom-order-request-submitted.${
+              this.customOrderForm.get('name').value.length <= 20
+                ? this.customOrderForm.get('name').value
+                : this.customOrderForm.get('name').value.substring(0, 20) + '...'
+            }`
+          );
           this.initForms();
         },
         error: (error: HttpErrorResponse) => {
           this.isLoading = false;
           console.error('Failed to submit custom order request', error);
+          this.errorlogsService.create(
+            'webstore.custom-order.create-custom-order-failed',
+            ErrorlogPriorityEnum.critical,
+            error
+          );
           this.toastService.showAlert(
             'Failed to submit your custom order, please try again',
             'Der skete en fejl, prøv venligst igen.',

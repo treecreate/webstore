@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ErrorlogPriorityEnum } from '@interfaces';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -63,6 +65,7 @@ export class ResetPasswordComponent implements OnInit {
           this.alertMessage = 'Your password has been reset!';
           this.isUpdateSuccessful = true;
           this.isLoading = false;
+          this.eventsService.create('webstore.reset-password.password-reset');
         },
         (error: HttpErrorResponse) => {
           console.error(error);

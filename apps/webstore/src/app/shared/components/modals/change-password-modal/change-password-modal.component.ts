@@ -4,6 +4,7 @@ import { ErrorlogPriorityEnum, IUser } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { UserService } from '../../../services/user/user.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -25,6 +26,7 @@ export class ChangePasswordModalComponent implements OnInit {
     private userService: UserService,
     private toastService: ToastService,
     private authService: AuthService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -65,6 +67,7 @@ export class ChangePasswordModalComponent implements OnInit {
           this.activeModal.close();
           this.isLoading = false;
           window.scrollTo(0, 0);
+          this.eventsService.create('webstore.change-password-modal.password-updated');
         },
         (err) => {
           console.error('Failed to update user', err);

@@ -76,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .antMatchers("/newsletter").authenticated()
             .antMatchers("/newsletter/me").authenticated()
             .antMatchers("/newsletter/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/events").permitAll()
             .antMatchers(HttpMethod.POST, "/errorlogs").permitAll()
             .antMatchers(HttpMethod.POST, "/orders/custom").permitAll()
             .antMatchers("/healthcheck").permitAll()

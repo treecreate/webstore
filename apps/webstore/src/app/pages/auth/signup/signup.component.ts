@@ -9,6 +9,7 @@ import { TermsOfUseModalComponent } from '../../../shared/components/modals/term
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 @Component({
@@ -33,6 +34,7 @@ export class SignupComponent implements OnInit {
     private newsletterService: NewsletterService,
     private localStorageService: LocalStorageService,
     private transactionItemService: TransactionItemService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -76,6 +78,7 @@ export class SignupComponent implements OnInit {
                   'success',
                   3000
                 );
+                this.eventsService.create('webstore.signup.newsletter-signup');
               },
               (error) => {
                 console.error(error);

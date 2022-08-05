@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PaymentCancelledComponent } from './payment-cancelled.component';
 
@@ -9,6 +11,7 @@ describe('PaymentCancelledComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PaymentCancelledComponent],
+      imports: [RouterTestingModule, HttpClientModule],
     }).compileComponents();
   });
 
