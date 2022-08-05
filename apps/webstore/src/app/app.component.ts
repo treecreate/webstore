@@ -48,7 +48,6 @@ export class AppComponent {
   }
 
   initGoogleAnalytics() {
-    console.log('Initializing Google Analytics');
     // Could use environment.gtag as well but am lazy so it is hardcoded
     let gtagId;
     if (environment.production) {
@@ -62,7 +61,6 @@ export class AppComponent {
     customGtagScriptEle.async = true;
     customGtagScriptEle.src = 'https://www.googletagmanager.com/gtag/js?id=' + gtagId;
     document.head.prepend(customGtagScriptEle);
-    console.log('Google Analytics initialized');
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         try {
@@ -70,7 +68,6 @@ export class AppComponent {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             page_path: event.urlAfterRedirects,
           });
-          console.log('Google Analytics Page Redirect event fired');
         } catch (error) {
           console.warn('Failed to log to Google Analytics', error);
           this.errorlogsService.create(
@@ -84,7 +81,6 @@ export class AppComponent {
   }
 
   initMetaPixel() {
-    console.log('Initializing Meta Pixel');
     let metaPixelId = '1050174159116278';
     if (environment.production) {
       metaPixelId = '1050174159116278';
@@ -110,13 +106,10 @@ export class AppComponent {
     })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
     (window as any).fbq('init', metaPixelId);
     (window as any).fbq('track', 'PageView');
-    console.log('Meta Pixel initialized');
-
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         try {
           (window as any).fbq('track', 'PageView');
-          console.log('Meta Pixel PageView event fired');
         } catch (error) {
           console.warn('Failed to fire Meta Pixel PageView event', error);
           this.errorlogsService.create(

@@ -30,7 +30,6 @@ describe('BasketComponent', () => {
       extraTreesPrice: 0,
       vat: 900 * 0.2,
     };
-    console.log(component.plantedTrees);
     fixture.detectChanges();
   });
 

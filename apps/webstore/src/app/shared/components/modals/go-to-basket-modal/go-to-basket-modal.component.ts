@@ -78,7 +78,7 @@ export class GoToBasketModalComponent implements OnInit {
         this.isLoading = false;
       },
       (error: HttpErrorResponse) => {
-        console.log(error.error);
+        console.error(error.error);
       }
     );
   }

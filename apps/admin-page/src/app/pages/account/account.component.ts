@@ -54,13 +54,12 @@ export class AccountComponent {
       this.userService.getUser(queryParams.userId).subscribe(
         (user: IUser) => {
           this.user = user;
-          console.log(user);
           this.fetchNewsletter();
           this.updateForm();
           this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
-          console.log(err.message);
+          console.error(err.message);
           this.router.navigate(['/dashboad']);
           this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
           this.isLoading = false;
@@ -75,7 +74,7 @@ export class AccountComponent {
           this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
-          console.log(err.message);
+          console.error(err.message);
           this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
           this.isLoading = false;
         }
@@ -192,13 +191,12 @@ export class AccountComponent {
         })
         .subscribe(
           (data: IUser) => {
-            console.log(data);
             this.snackBar.open('Your account has been updated!', `I'm the best`, { duration: 5000 });
             this.user = data;
             this.isUpdatingInfo = false;
           },
           (err: HttpErrorResponse) => {
-            console.log(err.message);
+            console.error(err.message);
             this.snackBar.open('Updating the user data failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
           }
@@ -231,7 +229,7 @@ export class AccountComponent {
             this.isUpdatingInfo = false;
           },
           (err: HttpErrorResponse) => {
-            console.log(err.message);
+            console.error(err.message);
             this.snackBar.open('Updating the user ' + this.user?.email + ' has failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
           }

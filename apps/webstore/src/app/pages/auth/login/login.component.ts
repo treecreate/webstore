@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
                   this.reloadPage();
                 },
                 (error: HttpErrorResponse) => {
-                  console.log(error.error);
+                  console.error(error.error);
                   this.errorlogService.create(
                     'webstore.login.upload-designs-failed',
                     ErrorlogPriorityEnum.critical, // The users may lose their created designs

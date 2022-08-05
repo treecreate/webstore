@@ -185,7 +185,6 @@ export class CheckoutComponent implements OnInit {
       .then((itemList) => {
         this.isLoading = false;
         this.itemList = itemList;
-        console.log('Fetched transaction items', itemList);
         this.updatePrices();
       })
       .catch((error) => {

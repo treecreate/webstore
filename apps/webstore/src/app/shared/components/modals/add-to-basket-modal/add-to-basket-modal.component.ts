@@ -309,7 +309,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         })
         .subscribe(
           (result) => {
-            console.log('Design updated', result);
+          error: (error: HttpErrorResponse) => {
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
@@ -331,12 +331,6 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
       })
       .subscribe(
         (result) => {
-          console.log('Design created and persisted', result);
-          console.log('design properties', {
-            designId: result.designId,
-            dimension: this.addToBasketForm.get('dimension').value,
-            quantity: this.addToBasketForm.get('quantity').value,
-          });
           this.transactionItemService
             .createTransactionItem({
               designId: result.designId,

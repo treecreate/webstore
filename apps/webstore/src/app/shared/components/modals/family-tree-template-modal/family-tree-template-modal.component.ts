@@ -36,7 +36,6 @@ export class FamilyTreeTemplateModalComponent {
    */
   applyTemplate(name: string): void {
     const selectedTemplate: ITemplateFamilyTree = templates.find((template) => template.name === name);
-    console.log(selectedTemplate.designProperties);
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, selectedTemplate.designProperties);
     this.eventsService.create(`webstore.family-tree-template-modal.applied-template.${name}`);
     if (this.activatedRoute.snapshot.queryParams.designId !== undefined) {

@@ -41,7 +41,7 @@ export class CookiePromptModalComponent implements OnInit {
           },
           () => {
             // this shouldn't happen and means that the user has closed the prompt in an unexpected manner
-            console.log(
+            console.warn(
               'Wow, you have managed to bypass the cookie prompt. Guess you have rejected them, off to the cookie gulag you go'
             );
           }

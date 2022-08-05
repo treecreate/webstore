@@ -30,11 +30,9 @@ export class CollectionItemComponent {
   ) {}
 
   deleteDesign() {
-    console.log('deleting item');
     this.isLoading = true;
     this.designService.deleteDesign(this.design.designId).subscribe(
       () => {
-        console.log('deleting item 2');
         this.toastService.showAlert('The design has been deleted', 'Designet er slettet', 'danger', 5000);
         this.isLoading = false;
         this.deleteEvent.emit(this.design.designId);

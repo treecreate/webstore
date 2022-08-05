@@ -216,7 +216,6 @@ export class BasketComponent implements OnInit {
               4000
             );
             this.discount = discount;
-            console.log('Discount changed to: ', this.discount);
           }
           this.discountIsLoading = false;
         },

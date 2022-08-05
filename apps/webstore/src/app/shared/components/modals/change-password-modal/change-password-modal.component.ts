@@ -61,7 +61,6 @@ export class ChangePasswordModalComponent implements OnInit {
       })
       .subscribe(
         (data: IUser) => {
-          console.log('password updated for user: ', data);
           this.toastService.showAlert('Your password has been updated!', 'Din kode er ændret!', 'success', 2500);
           this.authService.logout();
           this.activeModal.close();

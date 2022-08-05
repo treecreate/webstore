@@ -99,7 +99,6 @@ export class ProfileComponent implements OnInit {
       })
       .subscribe(
         (data: IUser) => {
-          console.log('User updated');
           this.toastService.showAlert(
             'Your profile has been updated!',
             'Din konto er bleven opdateret!',
