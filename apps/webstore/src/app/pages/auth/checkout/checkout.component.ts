@@ -370,16 +370,15 @@ export class CheckoutComponent implements OnInit {
         billingInfo: billingInfo,
         transactionItemIds: itemIds,
       })
-      .subscribe(
-        (paymentLink: IPaymentLink) => {
+      .subscribe({
+        next: (paymentLink: IPaymentLink) => {
           this.isLoading = false;
-          console.log('Created order and got a payment link', paymentLink);
           this.localStorageService.removeItem(LocalStorageVars.discount);
           this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
           // Go to payment link
           window.location.href = paymentLink.url;
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error(error);
           this.errorlogsService.create('webstore.checkout.order-create-failed', ErrorlogPriorityEnum.critical, error);
           this.alert = {
@@ -389,8 +388,8 @@ export class CheckoutComponent implements OnInit {
           };
 
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   showTermsOfSale() {

@@ -307,19 +307,17 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
           designType: this.designType,
           designProperties: this.design,
         })
-        .subscribe(
-          (result) => {
+        .subscribe({
+          next: () => {},
           error: (error: HttpErrorResponse) => {
-          },
-          (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.errorlogsService.create(
               'webstore.add-to-basket-modal.update-design-failed',
               ErrorlogPriorityEnum.high,
               error
             );
-          }
-        );
+          },
+        });
     }
 
     // Add an entry for the design to the basket (transaction item). Includes creation of a immutable version of the design
@@ -329,23 +327,22 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         designProperties: this.design,
         mutable: false, // the transaction-item related designs are immutable
       })
-      .subscribe(
-        (result) => {
+      .subscribe({
+        next: (result) => {
           this.transactionItemService
             .createTransactionItem({
               designId: result.designId,
               dimension: this.addToBasketForm.get('dimension').value,
               quantity: this.addToBasketForm.get('quantity').value,
             })
-            .subscribe(
-              (newItem: ITransactionItem) => {
+            .subscribe({
+              next: () => {
                 this.isLoading = false;
-                console.log('added design to basket', newItem);
                 this.toastService.showAlert('Design added to basket', 'Design er lagt i kurven', 'success', 5000);
                 this.activeModal.close();
                 this.modalService.open(GoToBasketModalComponent);
               },
-              (error: HttpErrorResponse) => {
+              error: (error: HttpErrorResponse) => {
                 console.error(error);
                 this.errorlogsService.create(
                   'webstore.add-to-basket-modal.add-design-to-basket-failed',
@@ -359,10 +356,10 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
                   5000
                 );
                 this.isLoading = false;
-              }
-            );
+              },
+            });
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Failed to save design', error);
           this.errorlogsService.create(
             'webstore.add-to-basket-modal.save-design-failed',
@@ -370,7 +367,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
             error
           );
           this.toastService.showAlert('Failed to save your design', 'Kunne ikke gemme dit design', 'danger', 10000);
-        }
-      );
+        },
+      });
   }
 }

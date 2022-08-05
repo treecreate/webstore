@@ -77,9 +77,8 @@ export class LoginComponent implements OnInit {
               .createBulkTransactionItem({
                 transactionItems: localStorageItems,
               })
-              .subscribe(
-                (items) => {
-                  console.log('Uploaded designs', items);
+              .subscribe({
+                next: () => {
                   this.localStorageService.removeItem(LocalStorageVars.transactionItems);
 
                   this.isLoading = false;
@@ -88,7 +87,7 @@ export class LoginComponent implements OnInit {
                   this.router.navigate(['/products']);
                   this.reloadPage();
                 },
-                (error: HttpErrorResponse) => {
+                error: (error: HttpErrorResponse) => {
                   console.error(error.error);
                   this.errorlogService.create(
                     'webstore.login.upload-designs-failed',
@@ -98,8 +97,8 @@ export class LoginComponent implements OnInit {
                   this.isLoading = false;
                   this.isLoginFailed = true;
                   this.errorMessage = error.error.message;
-                }
-              );
+                },
+              });
           } else {
             this.isLoading = false;
             this.isLoginFailed = false;

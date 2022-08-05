@@ -221,19 +221,18 @@ export class AccountComponent {
           },
           this.user.userId
         )
-        .subscribe(
-          (data: IUser) => {
-            console.log(data);
+        .subscribe({
+          next: (data: IUser) => {
             this.snackBar.open('User ' + this.user?.email + ' has been updated!', `I'm the best`, { duration: 5000 });
             this.user = data;
             this.isUpdatingInfo = false;
           },
-          (err: HttpErrorResponse) => {
+          error: (err: HttpErrorResponse) => {
             console.error(err.message);
             this.snackBar.open('Updating the user ' + this.user?.email + ' has failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
-          }
-        );
+          },
+        });
     }
   }
 
