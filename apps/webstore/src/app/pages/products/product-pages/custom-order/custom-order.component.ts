@@ -173,7 +173,13 @@ export class CustomOrderComponent implements OnInit {
         next: () => {
           this.isLoading = false;
           this.toastService.showAlert('Custom order registered', 'Special bestilling regristreret', 'success', 10000);
-          this.eventsService.create('webstore.custom-order.custom-order-request-submitted');
+          this.eventsService.create(
+            `webstore.custom-order.custom-order-request-submitted.${
+              this.customOrderForm.get('name').value.length <= 20
+                ? this.customOrderForm.get('name').value
+                : this.customOrderForm.get('name').value.substring(0, 20) + '...'
+            }`
+          );
           this.initForms();
         },
         error: (error: HttpErrorResponse) => {
