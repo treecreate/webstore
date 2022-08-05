@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../services/user/user.service';
@@ -11,7 +11,7 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./change-password-dialog.component.css'],
 })
 export class ChangePasswordDialogComponent {
-  public changePasswordForm: FormGroup;
+  public changePasswordForm: UntypedFormGroup;
   public isLoading = false;
 
   /**
@@ -29,13 +29,13 @@ export class ChangePasswordDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog
   ) {
-    this.changePasswordForm = new FormGroup({
-      password: new FormControl('', [
+    this.changePasswordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
-      confirmPassword: new FormControl('', [
+      confirmPassword: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorlogPriorityEnum, IAuthUser, INewsletter } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
@@ -23,7 +23,7 @@ export class FooterComponent implements OnInit {
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
   public currentYear = new Date().getFullYear();
-  signupNewsletterForm: FormGroup;
+  signupNewsletterForm: UntypedFormGroup;
   isLoading = false;
 
   constructor(
@@ -44,8 +44,8 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.signupNewsletterForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+    this.signupNewsletterForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
   }
 

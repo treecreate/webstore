@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ErrorlogPriorityEnum } from '@interfaces';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
@@ -13,7 +13,7 @@ import { UserService } from '../../../shared/services/user/user.service';
   styleUrls: ['./reset-password.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
-  changePasswordForm: FormGroup;
+  changePasswordForm: UntypedFormGroup;
 
   alertMessage = '';
   isUpdateSuccessful = false;
@@ -27,13 +27,13 @@ export class ResetPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.changePasswordForm = new FormGroup({
-      password: new FormControl('', [
+    this.changePasswordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
-      confirmPassword: new FormControl('', [
+      confirmPassword: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),

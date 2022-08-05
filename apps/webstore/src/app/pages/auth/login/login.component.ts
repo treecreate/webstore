@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum, ILoginResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -18,7 +18,7 @@ import { TransactionItemService } from '../../../shared/services/transaction-ite
   styleUrls: ['./login.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   @ViewChild('successfulLogin') successfulLogin: ElementRef;
 
   isLoggedIn = false;
@@ -43,9 +43,9 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/products']);
     }
 
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required]),
     });
   }
 

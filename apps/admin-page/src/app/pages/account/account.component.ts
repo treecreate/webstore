@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,7 @@ import { UserService } from '../../services/user/user.service';
 export class AccountComponent {
   public user!: IUser;
   public authUser;
-  public accountForm: FormGroup;
+  public accountForm: UntypedFormGroup;
   public isLoading = false;
   public isUpdatingInfo = false;
   public panelOpenState = false;
@@ -81,18 +81,22 @@ export class AccountComponent {
       );
     }
 
-    this.accountForm = new FormGroup({
-      name: new FormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
-      phoneNumber: new FormControl('', [
+    this.accountForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
+      phoneNumber: new UntypedFormControl('', [
         Validators.minLength(3),
         Validators.maxLength(15),
         Validators.pattern('^[0-9+ ]*$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
-      city: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[^0-9]+$')]),
-      postcode: new FormControl('', [
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      streetAddress: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      streetAddress2: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      city: new UntypedFormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.pattern('^[^0-9]+$'),
+      ]),
+      postcode: new UntypedFormControl('', [
         Validators.minLength(3),
         Validators.maxLength(15),
         Validators.pattern('^[0-9]*$'),

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
   DesignDimensionEnum,
@@ -32,7 +32,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   @Input()
   designType?: DesignTypeEnum;
 
-  addToBasketForm: FormGroup;
+  addToBasketForm: UntypedFormGroup;
   price = 0;
   isMoreThan4 = false;
   itemsInBasket = 0;
@@ -77,9 +77,9 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
 
-    this.addToBasketForm = new FormGroup({
-      quantity: new FormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
-      dimension: new FormControl('', [Validators.required]),
+    this.addToBasketForm = new UntypedFormGroup({
+      quantity: new UntypedFormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
+      dimension: new UntypedFormControl('', [Validators.required]),
     });
   }
 
