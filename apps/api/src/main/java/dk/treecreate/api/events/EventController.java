@@ -36,16 +36,16 @@ import java.util.UUID;
     {
         if (name != null && userId != null)
         {
-            return eventRepository.findByNameAndUserId(name, userId);
+            return eventRepository.findByNameAndUserIdOrderByCreatedAtDesc(name, userId);
         } else if (name != null && userId == null)
         {
-            return eventRepository.findByName(name);
+            return eventRepository.findByNameOrderByCreatedAtDesc(name);
         } else if (name == null && userId != null)
         {
-            return eventRepository.findByUserId(userId);
+            return eventRepository.findByUserIdOrderByCreatedAtDesc(userId);
         } else
         {
-            return eventRepository.findAll();
+            return eventRepository.findAllByOrderByCreatedAtDesc();
         }
     }
 

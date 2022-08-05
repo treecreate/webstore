@@ -9,9 +9,11 @@ import java.util.UUID;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long>
 {
-    List<Event> findByName(String name);
+    List<Event> findAllByOrderByCreatedAtDesc();
 
-    List<Event> findByUserId(UUID userId);
+    List<Event> findByNameOrderByCreatedAtDesc(String name);
 
-    List<Event> findByNameAndUserId(String name, UUID userId);
+    List<Event> findByUserIdOrderByCreatedAtDesc(UUID userId);
+
+    List<Event> findByNameAndUserIdOrderByCreatedAtDesc(String name, UUID userId);
 }

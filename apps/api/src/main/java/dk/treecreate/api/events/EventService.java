@@ -17,7 +17,7 @@ public class EventService
 
     public List<Event> updateEventUserId(UUID oldUserId, UUID newUserId)
     {
-        List<Event> foundEvents = eventRepository.findByUserId(oldUserId);
+        List<Event> foundEvents = eventRepository.findByUserIdOrderByCreatedAtDesc(oldUserId);
         foundEvents.forEach(event -> event.setUserId(newUserId));
         eventRepository.saveAll(foundEvents);
         return foundEvents;
