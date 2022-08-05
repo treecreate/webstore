@@ -192,6 +192,7 @@ describe('orderDetailsPage', () => {
 
   it('should have the corresponding color for amount of days left', () => {
     cy.get('[data-cy=order-details-days]').should('exist');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     cy.get('[data-cy=order-details-days]').each(($label, index) => {
       const daysLeft = $label.contents().text().trim();
       const status = mockOrders[0].status;

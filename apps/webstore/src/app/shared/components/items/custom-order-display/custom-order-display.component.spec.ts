@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomOrderDisplayComponent } from './custom-order-display.component';
-import { CustomOrderExampleType } from './CustomOrderExampleType';
 
 describe('CustomOrderDisplayComponent', () => {
   let component: CustomOrderDisplayComponent;
