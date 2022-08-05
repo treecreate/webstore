@@ -5,8 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { EventsService } from '../../../shared/services/events/events.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -97,9 +97,8 @@ export class ProfileComponent implements OnInit {
         city: this.accountInfoForm.get('city').value,
         postcode: this.accountInfoForm.get('postcode').value,
       })
-      .subscribe(
-        (data: IUser) => {
-          console.log('User updated');
+      .subscribe({
+        next: (data: IUser) => {
           this.toastService.showAlert(
             'Your profile has been updated!',
             'Din konto er bleven opdateret!',
@@ -119,7 +118,7 @@ export class ProfileComponent implements OnInit {
           this.isUpdatingUserInfo = false;
           this.eventsService.create('webstore.profile.profile-updated');
         },
-        (err) => {
+        error: (err) => {
           console.error('Failed to update user', err);
           this.errorlogsService.create('webstore.profile.update-user-failed', ErrorlogPriorityEnum.medium, err);
           this.toastService.showAlert(
@@ -129,8 +128,8 @@ export class ProfileComponent implements OnInit {
             2500
           );
           this.isUpdatingUserInfo = false;
-        }
-      );
+        },
+      });
   }
 
   scrollTop() {

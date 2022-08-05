@@ -349,8 +349,7 @@ export class OrderDetailsComponent implements OnInit {
         console.error(error);
         // TODO - display error via snackbar
       },
-      next: (shipmondoOrder: unknown) => {
-        console.log('Order Info:', shipmondoOrder);
+      next: () => {
         this.snackbar.open('Order was created successfully!', "I'm big UwU", { duration: 1500 });
       },
     });

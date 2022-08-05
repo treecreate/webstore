@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ErrorlogPriorityEnum, IUser } from '@interfaces';
+import { ErrorlogPriorityEnum } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
@@ -59,9 +59,8 @@ export class ChangePasswordModalComponent implements OnInit {
       .updateUser({
         password: this.changePasswordForm.get('password').value,
       })
-      .subscribe(
-        (data: IUser) => {
-          console.log('password updated for user: ', data);
+      .subscribe({
+        next: () => {
           this.toastService.showAlert('Your password has been updated!', 'Din kode er ændret!', 'success', 2500);
           this.authService.logout();
           this.activeModal.close();
@@ -69,7 +68,7 @@ export class ChangePasswordModalComponent implements OnInit {
           window.scrollTo(0, 0);
           this.eventsService.create('webstore.change-password-modal.password-updated');
         },
-        (err) => {
+        error: (err) => {
           console.error('Failed to update user', err);
           this.errorlogsService.create(
             'webstore.change-password-modal.update-password-failed',
@@ -84,7 +83,7 @@ export class ChangePasswordModalComponent implements OnInit {
           );
           this.activeModal.close();
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 }
