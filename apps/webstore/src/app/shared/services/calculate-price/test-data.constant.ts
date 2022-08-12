@@ -8,6 +8,124 @@ import {
   ITransactionItem,
 } from '@interfaces';
 
+// ======================================================================== //
+// ============================== Constants =============================== //
+// ======================================================================== //
+
+const treeDesign: IDesign = {
+  designType: DesignTypeEnum.familyTree,
+  designId: null,
+  designProperties: null,
+  mutable: true,
+  user: null,
+};
+
+const quotableDesign: IDesign = {
+  designType: DesignTypeEnum.quotable,
+  designId: null,
+  designProperties: null,
+  mutable: true,
+  user: null,
+};
+
+const discountAmount100: IDiscount = {
+  discountCode: null,
+  type: DiscountType.amount,
+  amount: 100,
+  remainingUses: 1,
+  totalUses: 0,
+  isEnabled: true,
+};
+
+const discountAmount200: IDiscount = {
+  discountCode: null,
+  type: DiscountType.amount,
+  amount: 200,
+  remainingUses: 1,
+  totalUses: 0,
+  isEnabled: true,
+};
+
+const discountPercent10: IDiscount = {
+  discountCode: null,
+  type: DiscountType.percent,
+  amount: 10,
+  remainingUses: 1,
+  totalUses: 0,
+  isEnabled: true,
+};
+
+const singleTreeItemList: ITransactionItem[] = [
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+const multipleTreeItemList: ITransactionItem[] = [
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.medium,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.large,
+    quantity: 2,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+
+const singleQuoteItemList: ITransactionItem[] = [
+  {
+    design: quotableDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+
+const multipleQuoteItemList: ITransactionItem[] = [
+  {
+    design: quotableDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: quotableDesign,
+    dimension: DesignDimensionEnum.medium,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.large,
+    quantity: 2,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+
+// ======================================================================== //
+// ============================= Test Params ============================== //
+// ======================================================================== //
+
 export const calculateItemUnitPriceParams = [
   { dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.familyTree, expectedPrice: 499 },
   { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.familyTree, expectedPrice: 699 },
@@ -17,6 +135,34 @@ export const calculateItemUnitPriceParams = [
   { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.quotable, expectedPrice: 399 },
   { dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.quotable, expectedPrice: 499 },
   { dimension: DesignDimensionEnum.oneSize, designType: DesignTypeEnum.quotable, expectedPrice: 88888888 },
+];
+
+export const getExtraTreesPriceParams = [
+  { plantedTrees: 0, expectedPrice: 0 },
+  { plantedTrees: 1, expectedPrice: 0 },
+  { plantedTrees: 2, expectedPrice: 10 },
+  { plantedTrees: 2.2, expectedPrice: 12 },
+];
+
+export const calculateDiscountedPriceParams = [
+  { fullPrice: 1000, discount: discountAmount100, expectedPrice: 900, expectedDiscountedAmount: 100 },
+  { fullPrice: 1000, discount: discountPercent10, expectedPrice: 900, expectedDiscountedAmount: 100 },
+  { fullPrice: 1000, discount: discountAmount200, expectedPrice: 800, expectedDiscountedAmount: 200 },
+  { fullPrice: 1000.69, discount: discountAmount100, expectedPrice: 900.69, expectedDiscountedAmount: 100 },
+  { fullPrice: 1000.69, discount: discountPercent10, expectedPrice: 900.62, expectedDiscountedAmount: 100.07 },
+  { fullPrice: 100, discount: discountAmount100, expectedPrice: 0, expectedDiscountedAmount: 100 },
+  { fullPrice: 0, discount: discountAmount100, expectedPrice: 0, expectedDiscountedAmount: 0 },
+  { fullPrice: 50, discount: discountAmount100, expectedPrice: 0, expectedDiscountedAmount: 50 },
+  { fullPrice: 100, discount: discountPercent10, expectedPrice: 90, expectedDiscountedAmount: 10 },
+  { fullPrice: 0, discount: discountPercent10, expectedPrice: 0, expectedDiscountedAmount: 0 },
+  { fullPrice: 50, discount: discountPercent10, expectedPrice: 45, expectedDiscountedAmount: 5 },
+];
+
+export const getDeliveryPriceParams = [
+  { discountedPrice: 1000, isHomeDelivery: true, expectedPrice: 25 },
+  { discountedPrice: 1000, isHomeDelivery: false, expectedPrice: 0 },
+  { discountedPrice: 100, isHomeDelivery: true, expectedPrice: 65 },
+  { discountedPrice: 100, isHomeDelivery: false, expectedPrice: 45 },
 ];
 
 export const calculateItemPriceAlternativeParams = [
@@ -327,116 +473,6 @@ export const isMoreThan4ItemsParams = [
 // ======================================================================== //
 // ========== Get Full Price Params and Calculate Prices Params  ========== //
 // ======================================================================== //
-
-const treeDesign: IDesign = {
-  designType: DesignTypeEnum.familyTree,
-  designId: null,
-  designProperties: null,
-  mutable: true,
-  user: null,
-};
-
-const quotableDesign: IDesign = {
-  designType: DesignTypeEnum.quotable,
-  designId: null,
-  designProperties: null,
-  mutable: true,
-  user: null,
-};
-
-const discountAmount100: IDiscount = {
-  discountCode: null,
-  type: DiscountType.amount,
-  amount: 100,
-  remainingUses: 1,
-  totalUses: 0,
-  isEnabled: true,
-};
-
-const discountAmount200: IDiscount = {
-  discountCode: null,
-  type: DiscountType.amount,
-  amount: 200,
-  remainingUses: 1,
-  totalUses: 0,
-  isEnabled: true,
-};
-
-const discountPercent10: IDiscount = {
-  discountCode: null,
-  type: DiscountType.percent,
-  amount: 10,
-  remainingUses: 1,
-  totalUses: 0,
-  isEnabled: true,
-};
-
-const singleTreeItemList: ITransactionItem[] = [
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
-const multipleTreeItemList: ITransactionItem[] = [
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.medium,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.large,
-    quantity: 2,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
-
-const singleQuoteItemList: ITransactionItem[] = [
-  {
-    design: quotableDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
-
-const multipleQuoteItemList: ITransactionItem[] = [
-  {
-    design: quotableDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: quotableDesign,
-    dimension: DesignDimensionEnum.medium,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.large,
-    quantity: 2,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
 
 // 499 + 299
 const multipleCombinedLessThan4ItemList: ITransactionItem[] = [...singleTreeItemList, ...singleQuoteItemList];
