@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 import { EventsService } from '../../../services/events/events.service';
@@ -12,7 +12,7 @@ import { ToastService } from '../../toast/toast-service';
   styleUrls: ['./newsletter-signup-modal.component.scss', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class NewsletterSignupModalComponent {
-  newsletterSignupModalForm: FormGroup;
+  newsletterSignupModalForm: UntypedFormGroup;
   isLoading = false;
 
   constructor(
@@ -22,8 +22,8 @@ export class NewsletterSignupModalComponent {
     private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
-    this.newsletterSignupModalForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+    this.newsletterSignupModalForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
   }
 

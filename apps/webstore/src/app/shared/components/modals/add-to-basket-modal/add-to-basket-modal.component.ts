@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
   DesignDimensionEnum,
@@ -19,6 +19,7 @@ import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
@@ -32,7 +33,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   @Input()
   designType?: DesignTypeEnum;
 
-  addToBasketForm: FormGroup;
+  addToBasketForm: UntypedFormGroup;
   price = 0;
   isMoreThan4 = false;
   itemsInBasket = 0;
@@ -59,6 +60,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     private designService: DesignService,
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
@@ -77,9 +79,9 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
 
-    this.addToBasketForm = new FormGroup({
-      quantity: new FormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
-      dimension: new FormControl('', [Validators.required]),
+    this.addToBasketForm = new UntypedFormGroup({
+      quantity: new UntypedFormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
+      dimension: new UntypedFormControl('', [Validators.required]),
     });
   }
 
@@ -278,6 +280,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     this.activeModal.close();
     this.modalService.open(GoToBasketModalComponent);
     this.isLoading = false;
+    this.eventsService.create('webstore.add-to-basket-modal.add.local-storage');
   }
 
   //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design) before trying to update it
@@ -341,6 +344,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
                 this.toastService.showAlert('Design added to basket', 'Design er lagt i kurven', 'success', 5000);
                 this.activeModal.close();
                 this.modalService.open(GoToBasketModalComponent);
+                this.eventsService.create(`webstore.add-to-basket-modal.add.${this.designType}`);
               },
               error: (error: HttpErrorResponse) => {
                 console.error(error);

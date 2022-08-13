@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorlogPriorityEnum, IAuthUser, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -63,7 +63,7 @@ export class CustomOrderComponent implements OnInit {
       imgSrc: '/assets/img/custom-order-example/custom-order-img-5.png',
     },
   ];
-  customOrderForm: FormGroup;
+  customOrderForm: UntypedFormGroup;
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
@@ -115,15 +115,19 @@ export class CustomOrderComponent implements OnInit {
   }
 
   initForms() {
-    this.customOrderForm = new FormGroup({
-      name: new FormControl('', [
+    this.customOrderForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [
         Validators.maxLength(100),
         Validators.minLength(1),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      customerEmail: new FormControl('', [Validators.required, Validators.email]),
-      description: new FormControl('', [Validators.maxLength(1000), Validators.minLength(1), Validators.required]),
+      customerEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
+      description: new UntypedFormControl('', [
+        Validators.maxLength(1000),
+        Validators.minLength(1),
+        Validators.required,
+      ]),
     });
     this.uploadedFiles = [];
   }

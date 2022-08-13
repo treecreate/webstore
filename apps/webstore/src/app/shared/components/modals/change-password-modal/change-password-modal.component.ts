@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorlogPriorityEnum } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/authentication/auth.service';
@@ -18,7 +18,7 @@ import { ToastService } from '../../toast/toast-service';
   ],
 })
 export class ChangePasswordModalComponent implements OnInit {
-  changePasswordForm: FormGroup;
+  changePasswordForm: UntypedFormGroup;
   isLoading = false;
 
   constructor(
@@ -31,13 +31,13 @@ export class ChangePasswordModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.changePasswordForm = new FormGroup({
-      password: new FormControl('', [
+    this.changePasswordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
-      confirmPassword: new FormControl('', [
+      confirmPassword: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),

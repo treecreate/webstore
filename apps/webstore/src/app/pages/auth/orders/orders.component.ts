@@ -17,16 +17,16 @@ export class OrdersComponent implements OnInit {
 
   getOrders(): void {
     this.isLoading = true;
-    this.orderService.getOrders().subscribe(
-      (orderCollection: IOrder[]) => {
+    this.orderService.getOrders().subscribe({
+      next: (orderCollection: IOrder[]) => {
         this.orderCollection = orderCollection;
         this.isLoading = false;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         console.error(error.error);
         this.errorlogsService.create('webstore.orders.orders-load-failed', ErrorlogPriorityEnum.medium, error);
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

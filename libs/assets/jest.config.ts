@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'models',
+/* eslint-disable */
+export default {
+  displayName: 'assets',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
@@ -8,5 +9,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/models',
+  coverageDirectory: '../../coverage/libs/assets',
 };

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorlogPriorityEnum, IUser } from '@interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordModalComponent } from '../../../shared/components/modals/change-password-modal/change-password-modal.component';
@@ -16,7 +16,7 @@ import { UserService } from '../../../shared/services/user/user.service';
 })
 export class ProfileComponent implements OnInit {
   currentUser: IUser;
-  accountInfoForm: FormGroup;
+  accountInfoForm: UntypedFormGroup;
   oldEmail: string;
   isLoading = false;
 
@@ -33,18 +33,22 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.accountInfoForm = new FormGroup({
-      name: new FormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
-      phoneNumber: new FormControl('', [
+    this.accountInfoForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
+      phoneNumber: new UntypedFormControl('', [
         Validators.minLength(8),
         Validators.maxLength(11),
         Validators.pattern('^[0-9+]*$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(7)]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
-      city: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[^0-9]+$')]),
-      postcode: new FormControl('', [Validators.max(9999), Validators.min(555), Validators.pattern('^[0-9]*$')]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      streetAddress: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(7)]),
+      streetAddress2: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      city: new UntypedFormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.pattern('^[^0-9]+$'),
+      ]),
+      postcode: new UntypedFormControl('', [Validators.max(9999), Validators.min(555), Validators.pattern('^[0-9]*$')]),
     });
     try {
       this.isLoading = true;

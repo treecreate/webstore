@@ -93,7 +93,7 @@
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/admin-page"],
           "options": {
-            "jestConfig": "apps/admin-page/jest.config.js",
+            "jestConfig": "apps/admin-page/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -134,14 +134,8 @@
       "root": "apps/api",
       "sourceRoot": "apps/api/src",
       "targets": {
-        "run": {
-          "executor": "@nxrocks/nx-spring-boot:run",
-          "options": {
-            "root": "apps/api"
-          }
-        },
-        "serve": {
-          "executor": "@nxrocks/nx-spring-boot:serve",
+        "build": {
+          "executor": "@nxrocks/nx-spring-boot:build",
           "options": {
             "root": "apps/api"
           }
@@ -158,14 +152,26 @@
             "root": "apps/api"
           }
         },
-        "buildJar": {
-          "executor": "@nxrocks/nx-spring-boot:buildJar",
+        "format": {
+          "executor": "@nxrocks/nx-spring-boot:format",
           "options": {
             "root": "apps/api"
           }
         },
-        "buildWar": {
-          "executor": "@nxrocks/nx-spring-boot:buildWar",
+        "format-check": {
+          "executor": "@nxrocks/nx-spring-boot:format-check",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "run": {
+          "executor": "@nxrocks/nx-spring-boot:run",
+          "options": {
+            "root": "apps/api"
+          }
+        },
+        "serve": {
+          "executor": "@nxrocks/nx-spring-boot:serve",
           "options": {
             "root": "apps/api"
           }
@@ -201,7 +207,7 @@
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/assets"],
           "options": {
-            "jestConfig": "libs/assets/jest.config.js",
+            "jestConfig": "libs/assets/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -224,7 +230,7 @@
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/interfaces"],
           "options": {
-            "jestConfig": "libs/interfaces/jest.config.js",
+            "jestConfig": "libs/interfaces/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -247,7 +253,7 @@
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/local-storage"],
           "options": {
-            "jestConfig": "libs/local-storage/jest.config.js",
+            "jestConfig": "libs/local-storage/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -271,7 +277,7 @@
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/mocks"],
           "options": {
-            "jestConfig": "libs/mocks/jest.config.js",
+            "jestConfig": "libs/mocks/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -294,7 +300,7 @@
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/models"],
           "options": {
-            "jestConfig": "libs/models/jest.config.js",
+            "jestConfig": "libs/models/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -419,7 +425,7 @@
           "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/webstore"],
           "options": {
-            "jestConfig": "apps/webstore/jest.config.js",
+            "jestConfig": "apps/webstore/jest.config.ts",
             "passWithNoTests": true
           }
         }
