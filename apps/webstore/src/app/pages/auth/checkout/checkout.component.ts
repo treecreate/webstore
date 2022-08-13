@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
   ErrorlogPriorityEnum,
@@ -31,8 +31,8 @@ import { UserService } from '../../../shared/services/user/user.service';
   styleUrls: ['./checkout.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class CheckoutComponent implements OnInit {
-  checkoutForm: FormGroup;
-  billingAddressForm: FormGroup;
+  checkoutForm: UntypedFormGroup;
+  billingAddressForm: UntypedFormGroup;
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
@@ -110,28 +110,32 @@ export class CheckoutComponent implements OnInit {
   }
 
   initForms() {
-    this.checkoutForm = new FormGroup({
-      name: new FormControl('', [
+    this.checkoutForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      phoneNumber: new FormControl('', [
+      phoneNumber: new UntypedFormControl('', [
         Validators.maxLength(11),
         Validators.minLength(8),
         Validators.pattern('^[0-9+]*$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      city: new FormControl('', [
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      streetAddress: new UntypedFormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.required,
+      ]),
+      streetAddress2: new UntypedFormControl('', [Validators.maxLength(50)]),
+      city: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(2),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      postcode: new FormControl('', [
+      postcode: new UntypedFormControl('', [
         Validators.max(9999),
         Validators.min(555),
         Validators.pattern('^[0-9]*$'),
@@ -139,26 +143,26 @@ export class CheckoutComponent implements OnInit {
       ]),
     });
 
-    this.billingAddressForm = new FormGroup({
-      billingName: new FormControl('', [
+    this.billingAddressForm = new UntypedFormGroup({
+      billingName: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      billingStreetAddress: new FormControl('', [
+      billingStreetAddress: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
       ]),
-      billingStreetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      billingCity: new FormControl('', [
+      billingStreetAddress2: new UntypedFormControl('', [Validators.maxLength(50)]),
+      billingCity: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      billingPostcode: new FormControl('', [
+      billingPostcode: new UntypedFormControl('', [
         Validators.max(9999),
         Validators.min(555),
         Validators.pattern('^[0-9]*$'),

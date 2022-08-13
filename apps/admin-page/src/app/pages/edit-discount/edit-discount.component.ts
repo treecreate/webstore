@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { DiscountType, IDiscount } from '@interfaces';
@@ -24,7 +24,7 @@ export class EditDiscountComponent implements OnInit {
   discountStatusColorsEnum = DiscountStatusColorsEnum;
 
   // Discount information
-  discountForm: FormGroup;
+  discountForm: UntypedFormGroup;
 
   /**
    * Initliaze the disocunt form
@@ -39,13 +39,13 @@ export class EditDiscountComponent implements OnInit {
     private location: Location,
     private snackBar: MatSnackBar
   ) {
-    this.discountForm = new FormGroup({
-      discountCode: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      usesLeft: new FormControl('', [Validators.required, Validators.min(0)]),
-      expiresAt: new FormControl(''),
-      startsAt: new FormControl(''),
-      amount: new FormControl('', [Validators.required, Validators.min(0)]),
-      type: new FormControl('', [Validators.required]),
+    this.discountForm = new UntypedFormGroup({
+      discountCode: new UntypedFormControl('', [Validators.required, Validators.maxLength(50)]),
+      usesLeft: new UntypedFormControl('', [Validators.required, Validators.min(0)]),
+      expiresAt: new UntypedFormControl(''),
+      startsAt: new UntypedFormControl(''),
+      amount: new UntypedFormControl('', [Validators.required, Validators.min(0)]),
+      type: new UntypedFormControl('', [Validators.required]),
     });
   }
 
@@ -97,7 +97,7 @@ export class EditDiscountComponent implements OnInit {
    */
   updateDiscount(): void {
     // validate that the request and its information is valid
-    if (!this.isFormValid && this.isFormDirty()) {
+    if (!this.isFormValid() && this.isFormDirty()) {
       return;
     }
     if (this.discount === undefined || this.discount?.discountId === undefined) {

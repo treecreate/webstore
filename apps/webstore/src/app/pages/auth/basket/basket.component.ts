@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   DiscountType,
@@ -42,7 +42,7 @@ export class BasketComponent implements OnInit {
   discount: IDiscount = null;
   discountIsLoading = false;
 
-  discountForm: FormGroup;
+  discountForm: UntypedFormGroup;
   priceInfo: IPricing;
 
   constructor(
@@ -56,8 +56,8 @@ export class BasketComponent implements OnInit {
     private errorlogsService: ErrorlogsService
   ) {
     // Create discount form
-    this.discountForm = new FormGroup({
-      discountCode: new FormControl('', [Validators.required, Validators.pattern('^\\S*$')]),
+    this.discountForm = new UntypedFormGroup({
+      discountCode: new UntypedFormControl('', [Validators.required, Validators.pattern('^\\S*$')]),
     });
 
     // Get discount from localstorage

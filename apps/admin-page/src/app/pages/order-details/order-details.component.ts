@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -29,22 +29,22 @@ export class OrderDetailsComponent implements OnInit {
   isLoading = true;
   isUpdating = false;
 
-  statusControl!: FormControl;
+  statusControl!: UntypedFormControl;
   // Customer information
-  emailControl!: FormControl;
-  phoneNumberControl!: FormControl;
+  emailControl!: UntypedFormControl;
+  phoneNumberControl!: UntypedFormControl;
   // Contact information
-  nameControl!: FormControl;
-  cityControl!: FormControl;
-  postcodeControl!: FormControl;
-  addressOneControl!: FormControl;
-  addressTwoControl!: FormControl;
+  nameControl!: UntypedFormControl;
+  cityControl!: UntypedFormControl;
+  postcodeControl!: UntypedFormControl;
+  addressOneControl!: UntypedFormControl;
+  addressTwoControl!: UntypedFormControl;
   // Billing information
-  billingNameControl!: FormControl;
-  billingCityControl!: FormControl;
-  billingPostcodeControl!: FormControl;
-  billingAddressOneControl!: FormControl;
-  billingAddressTwoControl!: FormControl;
+  billingNameControl!: UntypedFormControl;
+  billingCityControl!: UntypedFormControl;
+  billingPostcodeControl!: UntypedFormControl;
+  billingAddressOneControl!: UntypedFormControl;
+  billingAddressTwoControl!: UntypedFormControl;
 
   items!: ITransactionItem[];
   itemsColumns: string[] = ['title', 'quantity', 'dimensions', 'price', 'actions'];
@@ -181,46 +181,52 @@ export class OrderDetailsComponent implements OnInit {
         this.order = orders.find((order) => order.orderId === id);
         // Setting the page title.
         this.title = `Order by: ${this.order?.contactInfo.name}`;
-        this.statusControl = new FormControl(this.order?.status);
+        this.statusControl = new UntypedFormControl(this.order?.status);
         // Customer Information
-        this.emailControl = new FormControl(this.order?.contactInfo.email, [Validators.email, Validators.required]);
-        this.phoneNumberControl = new FormControl(this.order?.contactInfo.phoneNumber, [
+        this.emailControl = new UntypedFormControl(this.order?.contactInfo.email, [
+          Validators.email,
+          Validators.required,
+        ]);
+        this.phoneNumberControl = new UntypedFormControl(this.order?.contactInfo.phoneNumber, [
           Validators.minLength(3),
           Validators.maxLength(15),
           Validators.pattern('^[0-9+ ]*$'),
         ]);
         // Contact Information
-        this.nameControl = new FormControl(this.order?.contactInfo.name, [
+        this.nameControl = new UntypedFormControl(this.order?.contactInfo.name, [
           Validators.maxLength(50),
           Validators.pattern('^[^0-9]+$'),
         ]);
-        this.cityControl = new FormControl(this.order?.contactInfo.city, [
+        this.cityControl = new UntypedFormControl(this.order?.contactInfo.city, [
           Validators.maxLength(50),
           Validators.minLength(3),
           Validators.pattern('^[^0-9]+$'),
         ]);
-        this.postcodeControl = new FormControl(this.order?.contactInfo.postcode, [
+        this.postcodeControl = new UntypedFormControl(this.order?.contactInfo.postcode, [
           Validators.minLength(3),
           Validators.maxLength(15),
           Validators.pattern('^[0-9]*$'),
         ]);
-        this.addressOneControl = new FormControl(this.order?.contactInfo.streetAddress, [
+        this.addressOneControl = new UntypedFormControl(this.order?.contactInfo.streetAddress, [
           Validators.maxLength(50),
           Validators.minLength(3),
         ]);
-        this.addressTwoControl = new FormControl(this.order?.contactInfo.streetAddress2, [
+        this.addressTwoControl = new UntypedFormControl(this.order?.contactInfo.streetAddress2, [
           Validators.maxLength(50),
           Validators.minLength(3),
         ]);
         // Billing Information
-        this.billingNameControl = new FormControl({ value: this.order?.billingInfo.name, disabled: true });
-        this.billingCityControl = new FormControl({ value: this.order?.billingInfo.city, disabled: true });
-        this.billingPostcodeControl = new FormControl({ value: this.order?.billingInfo.postcode, disabled: true });
-        this.billingAddressOneControl = new FormControl({
+        this.billingNameControl = new UntypedFormControl({ value: this.order?.billingInfo.name, disabled: true });
+        this.billingCityControl = new UntypedFormControl({ value: this.order?.billingInfo.city, disabled: true });
+        this.billingPostcodeControl = new UntypedFormControl({
+          value: this.order?.billingInfo.postcode,
+          disabled: true,
+        });
+        this.billingAddressOneControl = new UntypedFormControl({
           value: this.order?.billingInfo.streetAddress,
           disabled: true,
         });
-        this.billingAddressTwoControl = new FormControl({
+        this.billingAddressTwoControl = new UntypedFormControl({
           value: this.order?.billingInfo.streetAddress2,
           disabled: true,
         });
