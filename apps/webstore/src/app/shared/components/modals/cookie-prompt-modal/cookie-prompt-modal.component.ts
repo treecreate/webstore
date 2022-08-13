@@ -32,7 +32,6 @@ export class CookiePromptModalComponent implements OnInit {
       this.modalService
         .open(this.content, {
           ariaLabelledBy: 'modal-basic-title',
-          backdrop: 'static',
           keyboard: false,
         })
         .result.then(

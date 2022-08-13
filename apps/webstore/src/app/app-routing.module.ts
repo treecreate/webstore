@@ -20,15 +20,13 @@ import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/
 import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
-import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
-  { path: 'login', component: LoginComponent, canActivate: [CookieGuard] },
+  { path: 'home', component: HomeComponent, }, // CookieGuard ensures that the user has accepted cookies
+  { path: 'login', component: LoginComponent, },
   {
     path: 'resetPassword/:token',
     component: ResetPasswordComponent,
-    canActivate: [CookieGuard],
   },
   {
     path: 'newsletter',
@@ -36,11 +34,10 @@ const routes: Routes = [
       {
         path: 'unsubscribe/:newsletterId',
         component: UnsubscribeComponent,
-        canActivate: [CookieGuard],
       },
     ],
   },
-  { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
+  { path: 'signup', component: SignupComponent, },
   {
     path: 'profile',
     component: ProfileComponent,
@@ -62,11 +59,11 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsComponent,
-    canActivate: [CookieGuard],
+    
   },
-  { path: 'products/family-tree', component: FamilyTreeComponent, canActivate: [CookieGuard] },
-  { path: 'products/quotable', component: QuotableComponent, canActivate: [CookieGuard] },
-  { path: 'products/custom-order', component: CustomOrderComponent, canActivate: [CookieGuard] },
+  { path: 'products/family-tree', component: FamilyTreeComponent,  },
+  { path: 'products/quotable', component: QuotableComponent,  },
+  { path: 'products/custom-order', component: CustomOrderComponent,  },
   {
     path: 'payment',
     children: [
@@ -78,12 +75,12 @@ const routes: Routes = [
   {
     path: 'basket',
     component: BasketComponent,
-    canActivate: [CookieGuard],
+    
   },
   {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [CookieGuard],
+    
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
