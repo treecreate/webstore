@@ -10,6 +10,7 @@ import { ForgotPasswordModalComponent } from '../../../shared/components/modals/
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
     private toastService: ToastService,
     private localStorageService: LocalStorageService,
     private transactionItemService: TransactionItemService,
+    private eventsService: EventsService,
     private errorlogService: ErrorlogsService
   ) {}
 
@@ -56,8 +58,8 @@ export class LoginComponent implements OnInit {
         email: this.loginForm.get('email').value,
         password: this.loginForm.get('password').value,
       })
-      .subscribe(
-        (data: ILoginResponse) => {
+      .subscribe({
+        next: (data: ILoginResponse) => {
           this.authService.saveAuthUser(data);
 
           this.toastService.showAlert(
@@ -71,6 +73,9 @@ export class LoginComponent implements OnInit {
           const localStorageItems = this.localStorageService.getItem<ITransactionItem[]>(
             LocalStorageVars.transactionItems
           ).value;
+
+          this.eventsService.create('webstore.login.logged-in');
+
           // Create the transaction items in DB / user
           if (localStorageItems !== null) {
             this.transactionItemService
@@ -107,7 +112,7 @@ export class LoginComponent implements OnInit {
             this.reloadPage();
           }
         },
-        (err) => {
+        error: (err) => {
           this.toastService.showAlert(
             'Failed to login, please try again.',
             'Fejl ved login, prøv igen.',
@@ -119,8 +124,8 @@ export class LoginComponent implements OnInit {
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   openForgotPasswordModal() {
