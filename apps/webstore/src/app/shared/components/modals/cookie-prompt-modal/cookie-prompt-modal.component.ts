@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LocalStorageService } from '@local-storage';
 import { CookieStatus, LocalStorageVars } from '@models';
@@ -13,10 +13,11 @@ import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-mod
   templateUrl: './cookie-prompt-modal.component.html',
   styleUrls: ['./cookie-prompt-modal.component.css', '../../../../../assets/styles/modals.css'],
 })
-export class CookiePromptModalComponent {
+export class CookiePromptModalComponent implements OnInit {
   closeResult = '';
   @ViewChild('content', { static: true }) private content;
   cookiesAccepted$: BehaviorSubject<CookieStatus>;
+  showCookiePrompt: Boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -25,6 +26,16 @@ export class CookiePromptModalComponent {
     private eventsService: EventsService
   ) {
     this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(LocalStorageVars.cookiesAccepted);
+  }
+
+  ngOnInit(): void {
+    console.log(this.showCookiePrompt);
+    
+    if (this.cookiesAccepted$.value !== undefined) {
+      this.showCookiePrompt = true;
+    } else {
+      this.showCookiePrompt = false;
+    }
   }
 
   close(acceptance: string) {
