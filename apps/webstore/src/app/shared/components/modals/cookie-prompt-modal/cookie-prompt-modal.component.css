@@ -8,6 +8,7 @@
   margin-top: 0 !important;
   display: flex;
   flex-direction: column;
+  width: 20% !important;
 }
 
 h2 {
@@ -66,7 +67,7 @@ a {
     width: 100%;
   }
 
-  .tc-button-50 {
+  .modal-footer .tc-button-50 {
     right: 0;
     width: 48% !important;
   }
