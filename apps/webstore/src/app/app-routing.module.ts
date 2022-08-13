@@ -12,7 +12,6 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
-import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
@@ -71,7 +70,6 @@ const routes: Routes = [
       { path: 'cancelled', component: PaymentCancelledComponent },
     ],
   },
-  { path: 'rejectedCookies', component: RejectedCookiesComponent },
   {
     path: 'basket',
     component: BasketComponent,
