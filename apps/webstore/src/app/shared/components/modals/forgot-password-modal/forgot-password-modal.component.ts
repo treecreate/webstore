@@ -1,7 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ErrorlogPriorityEnum } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { UserService } from '../../../services/user/user.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -24,7 +27,9 @@ export class ForgotPasswordModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private router: Router,
     private toastService: ToastService,
-    private userService: UserService
+    private userService: UserService,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -45,15 +50,21 @@ export class ForgotPasswordModalComponent implements OnInit {
           3500
         );
         this.isLoading = false;
+        this.eventsService.create('webstore.forgot-password-modal.reset-password-email-sent');
       },
       (err) => {
+        console.error(err.error.message);
+        this.errorlogsService.create(
+          'webstore.forgot-password-modal.send-reset-password-email-failed',
+          ErrorlogPriorityEnum.medium,
+          err
+        );
         this.toastService.showAlert(
           'We have failed to send an e-mail. Try again or contact us at info@treecreate.dk.',
           'Der skete en fejl da vi skulle sende e-mailen. Prøv igen senere eller skriv til os på info@treecreate.dk',
           'danger',
           10000
         );
-        console.log(err.error.message);
         this.isLoading = false;
       }
     );

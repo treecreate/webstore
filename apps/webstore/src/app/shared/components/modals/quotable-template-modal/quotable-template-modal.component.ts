@@ -5,6 +5,7 @@ import { DesignFontEnum, IQoutable, IQuotableTemplate } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventsService } from '../../../services/events/events.service';
 
 @Component({
   selector: 'webstore-quotable-template-modal',
@@ -48,7 +49,8 @@ export class QuotableTemplateModalComponent {
   constructor(
     private localStorageService: LocalStorageService,
     public activeModal: NgbActiveModal,
-    private router: Router
+    private router: Router,
+    private eventsService: EventsService
   ) {}
 
   applyTemplate(templateName: string): void {
@@ -72,6 +74,7 @@ export class QuotableTemplateModalComponent {
     }
 
     this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, quotableDesign);
+    this.eventsService.create(`webstore.quotable-template-modal.applied-template.${templateName}`);
     this.router.navigate(['/products/quotable']);
     location.reload();
   }

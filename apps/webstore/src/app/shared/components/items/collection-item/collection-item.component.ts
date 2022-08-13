@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DesignTypeEnum, IDesign, IFamilyTree } from '@interfaces';
+import { DesignTypeEnum, ErrorlogPriorityEnum, IDesign, IFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddToBasketModalComponent } from '../../modals/add-to-basket-modal/add-to-basket-modal.component';
 import { DesignService } from '../../../services/design/design.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { AddToBasketModalComponent } from '../../modals/add-to-basket-modal/add-to-basket-modal.component';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({
@@ -24,23 +25,27 @@ export class CollectionItemComponent {
     private toastService: ToastService,
     private designService: DesignService,
     private modalService: NgbModal,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   deleteDesign() {
-    console.log('deleting item');
     this.isLoading = true;
-    this.designService.deleteDesign(this.design.designId).subscribe(
-      () => {
-        console.log('deleting item 2');
+    this.designService.deleteDesign(this.design.designId).subscribe({
+      next: () => {
         this.toastService.showAlert('The design has been deleted', 'Designet er slettet', 'danger', 5000);
         this.isLoading = false;
         this.deleteEvent.emit(this.design.designId);
       },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+        this.errorlogsService.create(
+          'webstore.collection-item.delete-design-item-failed',
+          ErrorlogPriorityEnum.high,
+          error
+        );
+      },
+    });
   }
 
   editDesign() {

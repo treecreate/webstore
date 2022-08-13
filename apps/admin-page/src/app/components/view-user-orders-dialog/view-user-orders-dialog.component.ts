@@ -70,7 +70,7 @@ export class ViewUserOrdersDialogComponent implements OnInit {
         this.isLoading = false;
       },
       (err: HttpErrorResponse) => {
-        console.log(err.message);
+        console.error(err.message);
         this.snackBar.open('Failed to fetch orders', 'Doggo!', { duration: 4000 });
         this.isLoading = false;
       }

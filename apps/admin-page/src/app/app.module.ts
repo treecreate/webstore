@@ -18,6 +18,8 @@ import { AccountComponent } from './pages/account/account.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { EditDiscountComponent } from './pages/edit-discount/edit-discount.component';
+import { EventsComponent } from './pages/events/events.component';
+import { ErrorlogsComponent } from './pages/errorlogs/errorlogs.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NewslettersComponent } from './pages/newsletters/newsletters.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
@@ -44,6 +46,8 @@ registerLocaleData(en);
     EditDiscountComponent,
     OrderDetailsComponent,
     CreateDiscountDialogComponent,
+    EventsComponent,
+    ErrorlogsComponent,
   ],
   imports: [
     BrowserModule,

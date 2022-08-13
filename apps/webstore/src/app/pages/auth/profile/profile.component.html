@@ -1,4 +1,4 @@
-<div class="account-info-container">
+<main class="account-info-container">
     <form
         class="account-info-form"
         [formGroup]="accountInfoForm"
@@ -149,7 +149,7 @@
                 The address is too long
             </div>
 
-            <div class="city-code-section">
+            <section class="city-code-section">
                 <div class="tc-input-group field">
                     <input
                         type="text"
@@ -193,9 +193,9 @@
                         Invalid danish postcode
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="actions">
+            <section class="actions">
                 <div class="button-section">
                     <button type="button" class="tc-button-50 loading-spinner-btn" *ngIf="isUpdatingUserInfo" disabled>
                         <span
@@ -226,7 +226,7 @@
                         Change password
                     </button>
                 </div>
-            </div>
+            </section>
         </div>
     </form>
-</div>
+</main>

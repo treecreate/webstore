@@ -2,17 +2,26 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, quotableFrames } from '@assets';
-import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IQoutable, ITransactionItem } from '@interfaces';
+import {
+  DesignFontEnum,
+  DesignTypeEnum,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IDesign,
+  IQoutable,
+  ITransactionItem,
+} from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { QuotableTemplateModalComponent } from '../../../../shared/components/modals/quotable-template-modal/quotable-template-modal.component';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
+import { QuotableTemplateModalComponent } from '../../../../shared/components/modals/quotable-template-modal/quotable-template-modal.component';
 import { QuotableDesignComponent } from '../../../../shared/components/products/quotable-design/quotable-design.component';
 import { ToastService } from '../../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
 import { DesignService } from '../../../../shared/services/design/design.service';
+import { ErrorlogsService } from '../../../../shared/services/errorlog/errorlog.service';
 
 @Component({
   selector: 'webstore-quotable',
@@ -62,7 +71,8 @@ export class QuotableComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorlogService: ErrorlogsService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -173,6 +183,7 @@ export class QuotableComponent implements OnInit {
     // Check if id is a number and if number is in transactionItems
     const id = Number(designId);
     if (isNaN(id) || id < 0 || id > itemList.length) {
+      this.errorlogService.create('webstore.quotable.design-load-local-storage-failed', ErrorlogPriorityEnum.high);
       this.toastService.showAlert('Failed to load design', 'Kunne ikke loade dit design', 'danger', 10000);
       this.router.navigate(['/products/quotable']);
       return;
@@ -200,6 +211,7 @@ export class QuotableComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         console.error('Failed to fetch the', err);
+        this.errorlogService.create('webstore.quotable.design-load-database-failed', ErrorlogPriorityEnum.medium, err);
         this.toastService.showAlert('Failed to load your design', 'Vi kunne ikke loade dit design', 'danger', 10000);
         this.router.navigate([], {
           relativeTo: this.route,
@@ -254,6 +266,7 @@ export class QuotableComponent implements OnInit {
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
+            this.errorlogService.create('webstore.quotable.design-update-db-failed', ErrorlogPriorityEnum.high, error);
             this.toastService.showAlert(
               'Failed to update your design',
               'Der skete en fejl ved opdateringen af dit design',
@@ -281,6 +294,7 @@ export class QuotableComponent implements OnInit {
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
+            this.errorlogService.create('webstore.quotable.design-save-db-failed', ErrorlogPriorityEnum.high, error);
             this.toastService.showAlert(
               'Failed to save your design, please try again',
               'Der skete en fejl, prøv venligst igen',

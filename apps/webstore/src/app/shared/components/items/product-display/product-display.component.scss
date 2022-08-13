@@ -1,12 +1,17 @@
 .product-container {
   min-height: 250px;
+  max-width: 500px;
   background-color: white;
-  margin: 0.75em;
   box-shadow: 0px 1px 18px -2px rgb(0 0 0 / 15%);
   padding: 0.75em;
-  flex-grow: 1;
+  margin-top: 1em;
   display: flex;
-  align-items: center;
+  margin: 1em;
+}
+
+.price-container {
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
 .product-img {
@@ -44,12 +49,6 @@
   width: 100%;
 }
 
-@media (max-width: 650px) {
-  .tc-button-50 {
-    width: 100%;
-  }
-}
-
 @media (max-width: 550px) {
   .product-container {
     flex-direction: column;
@@ -60,5 +59,8 @@
     width: 100%;
     margin-right: 0;
     margin-bottom: 0.375em;
+  }
+  .product-container {
+    width: 70vw;
   }
 }

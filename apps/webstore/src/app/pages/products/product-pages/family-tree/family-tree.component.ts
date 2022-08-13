@@ -2,7 +2,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameDanishEnum, TreeDesignNameEnglishEnum } from '@assets';
-import { DesignFontEnum, DesignTypeEnum, IAuthUser, IDesign, IFamilyTree, ITransactionItem } from '@interfaces';
+import {
+  DesignFontEnum,
+  DesignTypeEnum,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IDesign,
+  IFamilyTree,
+  ITransactionItem,
+} from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +22,7 @@ import { FamilyTreeDesignComponent } from '../../../../shared/components/product
 import { ToastService } from '../../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
 import { DesignService } from '../../../../shared/services/design/design.service';
+import { ErrorlogsService } from '../../../../shared/services/errorlog/errorlog.service';
 @Component({
   selector: 'webstore-family-tree',
   templateUrl: './family-tree.component.html',
@@ -68,7 +77,8 @@ export class FamilyTreeComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -186,6 +196,7 @@ export class FamilyTreeComponent implements OnInit {
     const id = Number(designId);
     if (isNaN(id) || id < 0 || id > itemList.length) {
       this.toastService.showAlert('Failed to load design', 'Kunne ikke loade dit design', 'danger', 10000);
+      this.errorlogsService.create('webstore.family-tree.design-load-local-storage-failed', ErrorlogPriorityEnum.high);
       this.router.navigate(['/products/family-tree']);
       return;
     }
@@ -199,11 +210,19 @@ export class FamilyTreeComponent implements OnInit {
     this.designService.getDesign(designId).subscribe(
       (result: IDesign) => {
         if (result.designType !== DesignTypeEnum.familyTree) {
+          this.errorlogsService.create(
+            'webstore.family-tree.design-load-db-design-not-family-tree',
+            ErrorlogPriorityEnum.high
+          );
           console.warn('The requested design is not a family tree!');
           return;
         }
         this.design = <IFamilyTree>result.designProperties;
         if (result.designProperties === undefined) {
+          this.errorlogsService.create(
+            'webstore.family-tree.design-load-local-storage-data-undefined',
+            ErrorlogPriorityEnum.high
+          );
           console.warn('Fetched data was invalid!');
         } else {
           this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
@@ -215,6 +234,7 @@ export class FamilyTreeComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         console.error('Failed to fetch the', err);
+        this.errorlogsService.create('webstore.family-tree.design-load-db-failed', ErrorlogPriorityEnum.high, err);
         this.toastService.showAlert('Failed to load your design', 'Vi kunne ikke loade dit design', 'danger', 10000);
         this.router.navigate([], {
           relativeTo: this.route,
@@ -269,6 +289,12 @@ export class FamilyTreeComponent implements OnInit {
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
+
+            this.errorlogsService.create(
+              'webstore.family-tree.design-update-db-failed',
+              ErrorlogPriorityEnum.high,
+              error
+            );
             this.toastService.showAlert(
               'Failed to update your design',
               'Der skete en fejl ved opdateringen af dit design',
@@ -296,6 +322,12 @@ export class FamilyTreeComponent implements OnInit {
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
+
+            this.errorlogsService.create(
+              'webstore.family-tree.design-save-db-failed',
+              ErrorlogPriorityEnum.high,
+              error
+            );
             this.toastService.showAlert(
               'Failed to save your design, please try again',
               'Der skete en fejl, prøv venligst igen',

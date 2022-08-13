@@ -1,5 +1,20 @@
 package dk.treecreate.api.order;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
 import dk.treecreate.api.authentication.services.AuthUserService;
 import dk.treecreate.api.contactinfo.ContactInfo;
 import dk.treecreate.api.contactinfo.ContactInfoRepository;
@@ -11,6 +26,7 @@ import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.discount.DiscountRepository;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.mail.MailService;
+import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.UpdateOrderRequest;
 import dk.treecreate.api.transactionitem.TransactionItem;
@@ -19,20 +35,6 @@ import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -380,4 +382,16 @@ public class OrderService
 
         return order;
     }
+
+    public void sendCustomOrderRequestEmail(CreateCustomOrderRequest order) {
+        try
+        {
+            this.mailService.sendCustomOrderRequestEmail(order);
+        } catch (Exception e)
+        {
+            LOGGER.error("Failed to process custom order request email", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                "Failed to send custom order request email. Try again later");
+        }
+    } 
 }

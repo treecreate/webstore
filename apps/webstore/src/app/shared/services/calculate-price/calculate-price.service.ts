@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
-import { DesignDimensionEnum, DesignTypeEnum, DiscountType, IDiscount, IPricing, ITransactionItem } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  DiscountType,
+  ErrorlogPriorityEnum,
+  IDiscount,
+  IPricing,
+  ITransactionItem,
+} from '@interfaces';
+import { ErrorlogsService } from '../errorlog/errorlog.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalculatePriceService {
-  constructor() {}
+  constructor(private errorlogsService: ErrorlogsService) {}
 
   /**
    * Determine the full price with discount for all of the products in the list combined based on the dimensions, quantity and design type.
@@ -139,6 +148,11 @@ export class CalculatePriceService {
           case DesignDimensionEnum.large:
             return 999;
           default:
+            this.errorlogsService.create(
+              'webstore.calculate-price-service.calculate-item-unit-price-default-value',
+              ErrorlogPriorityEnum.high,
+              { message: 'Price set to 99999999', dimension, designType }
+            );
             return 99999999;
         }
       }
@@ -151,6 +165,11 @@ export class CalculatePriceService {
           case DesignDimensionEnum.large:
             return 499;
           default:
+            this.errorlogsService.create(
+              'webstore.calculate-price-service.calculate-item-unit-price-default-value',
+              ErrorlogPriorityEnum.high,
+              { message: 'Price set to 88888888', dimension, designType }
+            );
             return 88888888;
         }
       }

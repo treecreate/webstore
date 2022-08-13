@@ -82,7 +82,7 @@ export class NewslettersComponent {
         this.isLoading = false;
       },
       (err: HttpErrorResponse) => {
-        console.log(err.message);
+        console.error(err.message);
         this.snackBar.open('Failed to fetch orders', 'Doggo!', { duration: 10000 });
         this.isLoading = false;
       }

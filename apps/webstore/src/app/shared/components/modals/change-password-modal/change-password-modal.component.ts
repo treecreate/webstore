@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IUser } from '@interfaces';
+import { ErrorlogPriorityEnum } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/authentication/auth.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { UserService } from '../../../services/user/user.service';
 import { ToastService } from '../../toast/toast-service';
 
@@ -23,7 +25,9 @@ export class ChangePasswordModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private userService: UserService,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
@@ -55,27 +59,31 @@ export class ChangePasswordModalComponent implements OnInit {
       .updateUser({
         password: this.changePasswordForm.get('password').value,
       })
-      .subscribe(
-        (data: IUser) => {
-          console.log('password updated for user: ', data);
+      .subscribe({
+        next: () => {
           this.toastService.showAlert('Your password has been updated!', 'Din kode er ændret!', 'success', 2500);
           this.authService.logout();
           this.activeModal.close();
           this.isLoading = false;
           window.scrollTo(0, 0);
+          this.eventsService.create('webstore.change-password-modal.password-updated');
         },
-        (err) => {
-          console.log('Failed to update user');
+        error: (err) => {
+          console.error('Failed to update user', err);
+          this.errorlogsService.create(
+            'webstore.change-password-modal.update-password-failed',
+            ErrorlogPriorityEnum.medium,
+            err
+          );
           this.toastService.showAlert(
             'Something went wrong, please try again.',
             'Noget gik galt, prøv igen',
             'danger',
             2500
           );
-          console.log(err.error.message);
           this.activeModal.close();
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 }

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductsItem } from '../products-items.constant';
+import { ProductsItem } from '../../../../pages/products/products-items.constant';
 
 import { ProductDisplayComponent } from './product-display.component';
 
@@ -11,6 +11,7 @@ describe('ProductDisplayComponent', () => {
     descriptionDk: 'string',
     prices: [1, 2, 3],
     imgSrc: 'string',
+    altText: 'string',
     specialOffer: 'string',
     routerLink: 'string',
   };

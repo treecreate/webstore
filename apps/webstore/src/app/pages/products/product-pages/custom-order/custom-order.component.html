@@ -1,0 +1,210 @@
+<!-- Code stolen from checkout.component.html etc -->
+<div class="custom-order-container">
+    <div class="custom-order-content-container">
+        <form
+            class="custom-order-content"
+            name="customOrderForm"
+            [formGroup]="customOrderForm"
+            (ngSubmit)="submitCustomOrder()"
+        >
+            <!-- Contact Info and order description -->
+            <div class="custom-order-section no-strech">
+                <div class="title-container" style="margin-bottom: 5px">
+                    <span class="title" i18n="@@custom-order">Custom order</span>
+                    <hr />
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="text"
+                        class="tc-input-field"
+                        formControlName="name"
+                        placeholder="Your name"
+                        id="name"
+                        autocomplete="name"
+                        data-cy="custom-order-form-name-input"
+                    />
+                    <label for="name" class="tc-input-label"> <span i18n="@@name">Name</span> *</label>
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="this.customOrderForm.get('name').dirty && this.customOrderForm.get('name').invalid"
+                    i18n="@@invalid-name"
+                    data-cy="custom-order-form-name-error-message"
+                >
+                    Invalid name.
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="email"
+                        class="tc-input-field"
+                        placeholder="E-mail"
+                        formControlName="customerEmail"
+                        name="customerEmail"
+                        id="customerEmail"
+                        autocomplete="email"
+                        data-cy="custom-order-form-email-input"
+                    />
+                    <label for="customerEmail" class="tc-input-label">E-mail *</label>
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.customOrderForm.get('customerEmail').dirty &&
+                        this.customOrderForm.get('customerEmail').invalid
+                    "
+                    i18n="@@invalid-email"
+                    data-cy="checkout-form-email-error-message"
+                >
+                    Invalid email.
+                </div>
+
+                <div class="tc-input-group field">
+                    <textarea
+                        type="text"
+                        class="tc-textarea-field"
+                        name="description"
+                        formControlName="description"
+                        id="description"
+                        placeholder="description"
+                        maxlength="1000"
+                        data-cy="custom-order-form-description-input"
+                    >
+                    </textarea>
+                    <label for="description" class="tc-input-label textarea-label"
+                        ><span i18n="@@description">Describe your product wishes</span> *
+                    </label>
+                    <div
+                        class="error-message offset"
+                        *ngIf="
+                            this.customOrderForm.get('description').dirty &&
+                            this.customOrderForm.get('description').invalid
+                        "
+                        i18n="@@invalid-description"
+                        data-cy="custom-order-form-description-error-message"
+                    >
+                        The description is required.
+                    </div>
+                </div>
+            </div>
+            <!-- Requirements -->
+            <div class="custom-order-requirements-section">
+                <div class="description-requirements">
+                    <span><strong i18n="@@include-description"> In the description please include: </strong></span>
+                    <ul>
+                        <li i18n="@@product-size">Product Size</li>
+                        <li i18n="@@image-printed-text">The image you want printed</li>
+                        <li i18n="@@specification-and-questions">Specification and questions</li>
+                    </ul>
+                </div>
+
+                <div class="image-requirements">
+                    <span><strong i18n="@@image-requirements">Image requirements:</strong></span>
+                    <ul>
+                        <li i18n="@@black-and-white">Black and white</li>
+                        <li i18n="@@dont-include">No shadows / fading colors</li>
+                        <li i18n="@@total-file-size">Total file size less than 20MB</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Upload Image -->
+            <div class="custom-order-upload-image-section">
+                <input
+                    style="display: none"
+                    #fileUpload
+                    type="file"
+                    multiple
+                    (change)="uploadImages($event)"
+                    accept="image/png, image/jpeg, image/svg"
+                />
+                <button
+                    class="tc-button-50 brown margin-top"
+                    (click)="fileUpload.click()"
+                    type="button"
+                    accept="image/png, image/jpeg, image/svg"
+                    data-cy="custom-order-upload-image-button"
+                >
+                    <span i18n="@@custom-order-upload-image" *ngIf="!isLoading">Upload image</span>
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                </button>
+                <!-- TODO - make the uploaded files list pretty -->
+                <div
+                    [ngClass]="[
+                        uploadedFiles.length > 0 ? 'file-list-styling' : 'custom-order-uploaded-files-container'
+                    ]"
+                >
+                    <span *ngIf="!uploadedFiles || uploadedFiles.length === 0" i18n="@@custom-order-not-files-uploaded"
+                        >No files uploaded</span
+                    >
+                    <ul *ngIf="uploadedFiles">
+                        <li *ngFor="let file of uploadedFiles" class="uploaded-files-list-item">
+                            <span>{{ file.name.slice(0, 20) }} {{ file.name.length < 20 ? '' : '...' }}</span>
+                            <button class="tc-button-square" (click)="removeUploadedFile(file)">X</button>
+                        </li>
+                    </ul>
+
+                    <div
+                        class="error-message offset"
+                        *ngIf="getTotalFileSize() > maxFileSize"
+                        i18n="@@filesize-too-high"
+                        data-cy="custom-order-form-filesize-error-message"
+                    >
+                        The uploaded files are too big.
+                    </div>
+                </div>
+            </div>
+            <!-- Actions -->
+            <div class="actions">
+                <!-- Accept T&C for sale checkbox -->
+                <div class="read-requriements-container">
+                    <label class="checkbox-container">
+                        <input
+                            type="checkbox"
+                            [checked]="isImageRequirementsRead"
+                            (change)="isImageRequirementsRead = !isImageRequirementsRead"
+                            data-cy="custom-order-form-read-requirements-checkbox"
+                        />
+                        <span class="checkmark" data-cy="custom-order-form-read-requirements-button"></span>
+                    </label>
+                    <div class="option-title">
+                        <span i18n="@@confirm-image-requirements">I have read the image requirements</span>
+                    </div>
+                </div>
+                <button
+                    class="tc-button-50 brown margin-top"
+                    type="submit"
+                    [disabled]="!isDisabled()"
+                    data-cy="custom-order-send-button"
+                >
+                    <span i18n="@@send-custom-order" *ngIf="!isLoading">Send</span>
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="custom-order-examples">
+        <h2 i18n="@@other-examples">Other examples</h2>
+        <div class="custom-order-examples-container">
+            <webstore-custom-order-display
+                *ngFor="let customOrderExample of customOrderExampleList"
+                [customOrderExample]="customOrderExample"
+                [isEnglish]="isEnglish()"
+            ></webstore-custom-order-display>
+        </div>
+    </div>
+</div>

@@ -1,13 +1,13 @@
 import { BoxDesignEnum, TreeDesignEnum } from '@assets';
 import {
+  CreateDesignRequest,
   DesignDimensionEnum,
-  DesignTypeEnum,
   DesignFontEnum,
+  DesignTypeEnum,
   IDraggableBox,
   IFamilyTreeBanner,
-  CreateDesignRequest,
 } from '@interfaces';
-import { LocalStorageVars, CookieStatus } from '@models';
+import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 describe('go to basket modal', () => {
@@ -80,7 +80,5 @@ describe('go to basket modal', () => {
     cy.get('[data-cy=go-to-basket-create-new-button]').click();
     cy.url().should('contain', '/products/family-tree');
     cy.url().should('not.contain', '?designId=');
-    //Check the localstorage to be cleared
-    const localStorageDesignAfter = JSON.parse(localStorage.getItem(LocalStorageVars.designFamilyTree));
   });
 });
