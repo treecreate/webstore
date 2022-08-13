@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 
 @Component({
@@ -45,6 +46,7 @@ export class BasketItemComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private router: Router,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
@@ -168,12 +170,12 @@ export class BasketItemComponent implements OnInit {
         quantity: this.item.quantity,
         dimension: this.item.dimension,
       })
-      .subscribe(
-        (item: ITransactionItem) => {
+      .subscribe({
+        next: (item: ITransactionItem) => {
           this.item = item;
           this.isLoading = false;
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error(error);
           this.errorlogsService.create(
             'webstore.basket-item.update-transaction-item-failed',
@@ -186,8 +188,8 @@ export class BasketItemComponent implements OnInit {
             dismissible: false,
           };
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   /**
@@ -242,6 +244,9 @@ export class BasketItemComponent implements OnInit {
       this.localStorageService.setItem(LocalStorageVars.transactionItems, currentItemsList);
       this.deleteItemEvent.emit(this.index);
       this.isLoading = false;
+
+      // Log the removal
+      this.eventsService.create('webstore.basket-item.basket-item-removed.local-storage');
     }
   }
 
@@ -257,6 +262,7 @@ export class BasketItemComponent implements OnInit {
         };
         this.item = null;
         this.deleteItemEvent.emit(this.index);
+        this.eventsService.create('webstore.basket-item.basket-item-removed.db');
       },
       (error: HttpErrorResponse) => {
         console.error(error);

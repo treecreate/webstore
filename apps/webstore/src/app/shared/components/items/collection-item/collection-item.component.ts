@@ -6,6 +6,7 @@ import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DesignService } from '../../../services/design/design.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { AddToBasketModalComponent } from '../../modals/add-to-basket-modal/add-to-basket-modal.component';
 import { ToastService } from '../../toast/toast-service';
 
@@ -26,6 +27,7 @@ export class CollectionItemComponent {
     private designService: DesignService,
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -36,6 +38,7 @@ export class CollectionItemComponent {
         this.toastService.showAlert('The design has been deleted', 'Designet er slettet', 'danger', 5000);
         this.isLoading = false;
         this.deleteEvent.emit(this.design.designId);
+        this.eventsService.create('webstore.collection-item.collection-item-removed');
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
@@ -58,6 +61,7 @@ export class CollectionItemComponent {
       <IFamilyTree>this.design.designProperties
     );
     this.modalService.open(AddToBasketModalComponent);
+    this.eventsService.create('webstore.collection-item.item-added-to-basket');
   }
 
   /**
