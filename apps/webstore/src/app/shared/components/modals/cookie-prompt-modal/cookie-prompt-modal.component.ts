@@ -42,9 +42,9 @@ export class CookiePromptModalComponent {
       case 'reject':
         this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.rejected);
         this.toastService.showAlert(
-          'You wont be able to access the page without accepting our cookies. :( ',
-          'Du kan desværre ikke bruge siden uden at accepterer vores cookies. :( ',
-          'danger',
+          'You will only be storing minimal information locally in your browser. :) ',
+          'Du gemmer kun essentielle informationer localt i din browser. :) ',
+          'success',
           2500
         );
         this.eventsService.create('webstore.cookies-prompt.cookies-rejected');
