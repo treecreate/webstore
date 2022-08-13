@@ -21,8 +21,8 @@ import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, }, // CookieGuard ensures that the user has accepted cookies
-  { path: 'login', component: LoginComponent, },
+  { path: 'home', component: HomeComponent }, // CookieGuard ensures that the user has accepted cookies
+  { path: 'login', component: LoginComponent },
   {
     path: 'resetPassword/:token',
     component: ResetPasswordComponent,
@@ -36,7 +36,7 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'signup', component: SignupComponent, },
+  { path: 'signup', component: SignupComponent },
   {
     path: 'profile',
     component: ProfileComponent,
@@ -58,11 +58,10 @@ const routes: Routes = [
   {
     path: 'products',
     component: ProductsComponent,
-    
   },
-  { path: 'products/family-tree', component: FamilyTreeComponent,  },
-  { path: 'products/quotable', component: QuotableComponent,  },
-  { path: 'products/custom-order', component: CustomOrderComponent,  },
+  { path: 'products/family-tree', component: FamilyTreeComponent },
+  { path: 'products/quotable', component: QuotableComponent },
+  { path: 'products/custom-order', component: CustomOrderComponent },
   {
     path: 'payment',
     children: [
@@ -73,12 +72,10 @@ const routes: Routes = [
   {
     path: 'basket',
     component: BasketComponent,
-    
   },
   {
     path: 'checkout',
     component: CheckoutComponent,
-    
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
