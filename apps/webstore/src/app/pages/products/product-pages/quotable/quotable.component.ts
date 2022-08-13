@@ -287,8 +287,8 @@ export class QuotableComponent implements OnInit {
           designProperties: design,
           mutable: true,
         })
-        .subscribe(
-          (result) => {
+        .subscribe({
+          next: (result) => {
             this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
             this.eventsService.create(`webstore.quotable.design-created.db`);
             this.router.navigate([], {
@@ -297,7 +297,7 @@ export class QuotableComponent implements OnInit {
               queryParamsHandling: 'merge', // remove to replace all query params by provided
             });
           },
-          (error: HttpErrorResponse) => {
+          error: (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
             this.errorlogService.create('webstore.quotable.design-save-db-failed', ErrorlogPriorityEnum.high, error);
             this.toastService.showAlert(
@@ -306,8 +306,8 @@ export class QuotableComponent implements OnInit {
               'danger',
               10000
             );
-          }
-        );
+          },
+        });
     }
   }
 

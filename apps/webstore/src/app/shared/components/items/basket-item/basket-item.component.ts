@@ -170,12 +170,12 @@ export class BasketItemComponent implements OnInit {
         quantity: this.item.quantity,
         dimension: this.item.dimension,
       })
-      .subscribe(
-        (item: ITransactionItem) => {
+      .subscribe({
+        next: (item: ITransactionItem) => {
           this.item = item;
           this.isLoading = false;
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error(error);
           this.errorlogsService.create(
             'webstore.basket-item.update-transaction-item-failed',
@@ -188,8 +188,8 @@ export class BasketItemComponent implements OnInit {
             dismissible: false,
           };
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   /**

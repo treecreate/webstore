@@ -315,8 +315,8 @@ export class FamilyTreeComponent implements OnInit {
           designProperties: design,
           mutable: true,
         })
-        .subscribe(
-          (result) => {
+        .subscribe({
+          next: (result) => {
             this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
             this.eventsService.create(`webstore.family-tree.design-created.db`);
             this.router.navigate([], {
@@ -325,7 +325,7 @@ export class FamilyTreeComponent implements OnInit {
               queryParamsHandling: 'merge', // remove to replace all query params by provided
             });
           },
-          (error: HttpErrorResponse) => {
+          error: (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
 
             this.errorlogsService.create(
@@ -339,8 +339,8 @@ export class FamilyTreeComponent implements OnInit {
               'danger',
               10000
             );
-          }
-        );
+          },
+        });
     }
   }
 

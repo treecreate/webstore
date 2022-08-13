@@ -70,8 +70,8 @@ export class SignupComponent implements OnInit {
         (data: IRegisterResponse) => {
           // Subscribe to newsletter
           if (this.signUpForNewletter) {
-            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe(
-              (newsletterData: INewsletter) => {
+            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe({
+              next: (newsletterData: INewsletter) => {
                 this.toastService.showAlert(
                   `Thank you for subscribing: ${newsletterData.email}`,
                   `Tak for din tilmelding: ${newsletterData.email}`,
@@ -80,11 +80,11 @@ export class SignupComponent implements OnInit {
                 );
                 this.eventsService.create('webstore.signup.newsletter-signup');
               },
-              (error) => {
+              error: (error) => {
                 console.error(error);
                 this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
-              }
-            );
+              },
+            });
           }
           // Check for transaction items in localstorage and add them to user
           // Dont remove them in case user regrets logging in

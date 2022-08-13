@@ -97,7 +97,7 @@ export class EditDiscountComponent implements OnInit {
    */
   updateDiscount(): void {
     // validate that the request and its information is valid
-    if (!this.isFormValid && this.isFormDirty) {
+    if (!this.isFormValid && this.isFormDirty()) {
       return;
     }
     if (this.discount === undefined || this.discount?.discountId === undefined) {
