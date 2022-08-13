@@ -237,7 +237,7 @@ export class QuotableComponent implements OnInit {
         'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
         'Dit design er bleven midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
         'success',
-        10000
+        7000
       );
       return;
     }
