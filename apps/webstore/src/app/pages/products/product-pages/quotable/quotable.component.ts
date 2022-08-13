@@ -22,6 +22,7 @@ import { ToastService } from '../../../../shared/components/toast/toast-service'
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
 import { DesignService } from '../../../../shared/services/design/design.service';
 import { ErrorlogsService } from '../../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../../shared/services/events/events.service';
 
 @Component({
   selector: 'webstore-quotable',
@@ -72,6 +73,7 @@ export class QuotableComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
     private authService: AuthService,
+    private eventsService: EventsService,
     private errorlogService: ErrorlogsService
   ) {
     // Listen to changes to login status
@@ -239,6 +241,7 @@ export class QuotableComponent implements OnInit {
         'success',
         10000
       );
+      this.eventsService.create(`webstore.quotable.design-updated.local-storage`);
       return;
     }
     // Don't save the tree to the collection/database. Used in combindation with the addToBasketModal
@@ -263,6 +266,7 @@ export class QuotableComponent implements OnInit {
               'success',
               5000
             );
+            this.eventsService.create(`webstore.quotable.design-updated.db`);
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
@@ -286,6 +290,7 @@ export class QuotableComponent implements OnInit {
         .subscribe(
           (result) => {
             this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
+            this.eventsService.create(`webstore.quotable.design-created.db`);
             this.router.navigate([], {
               relativeTo: this.route,
               queryParams: { designId: result.designId },
@@ -322,6 +327,7 @@ export class QuotableComponent implements OnInit {
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
     }
+    this.eventsService.create(`webstore.quotable.design-cleared`);
   }
 
   @HostListener('window:resize')

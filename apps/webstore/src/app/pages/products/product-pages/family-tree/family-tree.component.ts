@@ -23,6 +23,7 @@ import { ToastService } from '../../../../shared/components/toast/toast-service'
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
 import { DesignService } from '../../../../shared/services/design/design.service';
 import { ErrorlogsService } from '../../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../../shared/services/events/events.service';
 @Component({
   selector: 'webstore-family-tree',
   templateUrl: './family-tree.component.html',
@@ -78,6 +79,7 @@ export class FamilyTreeComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
     private authService: AuthService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
@@ -262,6 +264,7 @@ export class FamilyTreeComponent implements OnInit {
         'success',
         10000
       );
+      this.eventsService.create('webstore.family-tree.save-design.local-storage');
       return;
     }
     // Don't save the tree to the collection/database. Used in combindation with the addToBasketModal
@@ -286,6 +289,7 @@ export class FamilyTreeComponent implements OnInit {
               'success',
               5000
             );
+            this.eventsService.create(`webstore.family-tree.design-updated.db`);
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
@@ -314,6 +318,7 @@ export class FamilyTreeComponent implements OnInit {
         .subscribe(
           (result) => {
             this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
+            this.eventsService.create(`webstore.family-tree.design-created.db`);
             this.router.navigate([], {
               relativeTo: this.route,
               queryParams: { designId: result.designId },
@@ -355,6 +360,7 @@ export class FamilyTreeComponent implements OnInit {
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
     }
+    this.eventsService.create(`webstore.family-tree.design-cleared`);
   }
 
   @HostListener('window:resize')

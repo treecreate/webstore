@@ -20,6 +20,7 @@ import { TermsOfSaleModalComponent } from '../../../shared/components/modals/ter
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -75,6 +76,7 @@ export class CheckoutComponent implements OnInit {
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
     private orderService: OrderService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
@@ -259,7 +261,7 @@ export class CheckoutComponent implements OnInit {
           password: passwordGen,
         })
         .toPromise();
-
+      this.eventsService.create('webstore.checkout.registered-on-order');
       // set the new user logged in data
       this.authService.saveAuthUser(user);
       await this.transactionItemService.createBulkTransactionItem({ transactionItems: this.itemList }).toPromise();
@@ -375,6 +377,7 @@ export class CheckoutComponent implements OnInit {
           this.isLoading = false;
           this.localStorageService.removeItem(LocalStorageVars.discount);
           this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
+          this.eventsService.create('webstore.checkout.payment-initiated');
           // Go to payment link
           window.location.href = paymentLink.url;
         },

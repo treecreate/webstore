@@ -113,6 +113,7 @@ export class SignupComponent implements OnInit {
           this.isSignUpFailed = false;
           this.isLoading = false;
           this.authService.saveAuthUser(data);
+          this.eventsService.create('webstore.signup.signup');
           this.router.navigate(['/products']);
           window.location.reload();
         },

@@ -6,6 +6,7 @@ import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
+import { EventsService } from '../events/events.service';
 
 const httpOptions = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -16,7 +17,12 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
+    private router: Router,
+    private eventsService: EventsService
+  ) {}
 
   private refreshingTokens = false;
 
@@ -85,6 +91,7 @@ export class AuthService {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
     this.localStorageService.removeItem(LocalStorageVars.transactionItems);
+    this.eventsService.create('webstore.auth-service.logout');
     this.router.navigate(['/home']);
   }
 
