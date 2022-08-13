@@ -1,8 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, IQoutable, ITransactionItem } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IFamilyTree,
+  IQoutable,
+  ITransactionItem,
+} from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +18,8 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
@@ -23,7 +33,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   @Input()
   designType?: DesignTypeEnum;
 
-  addToBasketForm: FormGroup;
+  addToBasketForm: UntypedFormGroup;
   price = 0;
   isMoreThan4 = false;
   itemsInBasket = 0;
@@ -49,7 +59,9 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
     private transactionItemService: TransactionItemService,
-    private authService: AuthService
+    private authService: AuthService,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
@@ -67,9 +79,9 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
 
-    this.addToBasketForm = new FormGroup({
-      quantity: new FormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
-      dimension: new FormControl('', [Validators.required]),
+    this.addToBasketForm = new UntypedFormGroup({
+      quantity: new UntypedFormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
+      dimension: new UntypedFormControl('', [Validators.required]),
     });
   }
 
@@ -107,6 +119,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         },
         (error: HttpErrorResponse) => {
           console.error(error);
+          this.errorlogsService.create(
+            'webstore.add-to-basket-modal.fetch-transaction-items-failed',
+            ErrorlogPriorityEnum.high,
+            error
+          );
           this.isLoading = false;
         }
       );
@@ -263,6 +280,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     this.activeModal.close();
     this.modalService.open(GoToBasketModalComponent);
     this.isLoading = false;
+    this.eventsService.create('webstore.add-to-basket-modal.add.local-storage');
   }
 
   //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design) before trying to update it
@@ -278,6 +296,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, <IQoutable>this.design);
       } else {
         console.warn('Aborting, tried to save a design with invalid design type: ', this.designType);
+        this.errorlogsService.create(
+          `webstore.add-to-basket-modal.save-design-is-invalid.${this.designType}`,
+          ErrorlogPriorityEnum.high,
+          null
+        );
         return;
       }
       //Update design title in collection
@@ -287,14 +310,17 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
           designType: this.designType,
           designProperties: this.design,
         })
-        .subscribe(
-          (result) => {
-            console.log('Design updated', result);
-          },
-          (error: HttpErrorResponse) => {
+        .subscribe({
+          next: () => {},
+          error: (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
-          }
-        );
+            this.errorlogsService.create(
+              'webstore.add-to-basket-modal.update-design-failed',
+              ErrorlogPriorityEnum.high,
+              error
+            );
+          },
+        });
     }
 
     // Add an entry for the design to the basket (transaction item). Includes creation of a immutable version of the design
@@ -304,30 +330,29 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         designProperties: this.design,
         mutable: false, // the transaction-item related designs are immutable
       })
-      .subscribe(
-        (result) => {
-          console.log('Design created and persisted', result);
-          console.log('design properties', {
-            designId: result.designId,
-            dimension: this.addToBasketForm.get('dimension').value,
-            quantity: this.addToBasketForm.get('quantity').value,
-          });
+      .subscribe({
+        next: (result) => {
           this.transactionItemService
             .createTransactionItem({
               designId: result.designId,
               dimension: this.addToBasketForm.get('dimension').value,
               quantity: this.addToBasketForm.get('quantity').value,
             })
-            .subscribe(
-              (newItem: ITransactionItem) => {
+            .subscribe({
+              next: () => {
                 this.isLoading = false;
-                console.log('added design to basket', newItem);
                 this.toastService.showAlert('Design added to basket', 'Design er lagt i kurven', 'success', 5000);
                 this.activeModal.close();
                 this.modalService.open(GoToBasketModalComponent);
+                this.eventsService.create(`webstore.add-to-basket-modal.add.${this.designType}`);
               },
-              (error: HttpErrorResponse) => {
+              error: (error: HttpErrorResponse) => {
                 console.error(error);
+                this.errorlogsService.create(
+                  'webstore.add-to-basket-modal.add-design-to-basket-failed',
+                  ErrorlogPriorityEnum.high,
+                  error
+                );
                 this.toastService.showAlert(
                   'Failed to add design to basket, please try again',
                   'Der skete en fejl, prøv venligst igen',
@@ -335,13 +360,18 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
                   5000
                 );
                 this.isLoading = false;
-              }
-            );
+              },
+            });
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Failed to save design', error);
+          this.errorlogsService.create(
+            'webstore.add-to-basket-modal.save-design-failed',
+            ErrorlogPriorityEnum.high,
+            error
+          );
           this.toastService.showAlert('Failed to save your design', 'Kunne ikke gemme dit design', 'danger', 10000);
-        }
-      );
+        },
+      });
   }
 }

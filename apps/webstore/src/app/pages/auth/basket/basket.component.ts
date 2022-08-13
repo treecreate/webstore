@@ -1,15 +1,24 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DiscountType, IAuthUser, IDiscount, IPricing, ITransactionItem, IUser } from '@interfaces';
+import {
+  DiscountType,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IDiscount,
+  IPricing,
+  ITransactionItem,
+  IUser,
+} from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { DiscountService } from '../../../shared/services/discount/discount.service';
-import { LocalStorageService } from '@local-storage';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
@@ -33,7 +42,7 @@ export class BasketComponent implements OnInit {
   discount: IDiscount = null;
   discountIsLoading = false;
 
-  discountForm: FormGroup;
+  discountForm: UntypedFormGroup;
   priceInfo: IPricing;
 
   constructor(
@@ -43,11 +52,12 @@ export class BasketComponent implements OnInit {
     private discountService: DiscountService,
     private localStorageService: LocalStorageService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Create discount form
-    this.discountForm = new FormGroup({
-      discountCode: new FormControl('', [Validators.required, Validators.pattern('^\\S*$')]),
+    this.discountForm = new UntypedFormGroup({
+      discountCode: new UntypedFormControl('', [Validators.required, Validators.pattern('^\\S*$')]),
     });
 
     // Get discount from localstorage
@@ -113,6 +123,11 @@ export class BasketComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         console.error(error);
+        this.errorlogsService.create(
+          'webstore.basket.fetch-transaction-items-failed',
+          ErrorlogPriorityEnum.medium,
+          error
+        );
         this.alert = {
           message: 'Failed to get a list of items',
           type: 'danger',
@@ -201,12 +216,12 @@ export class BasketComponent implements OnInit {
               4000
             );
             this.discount = discount;
-            console.log('Discount changed to: ', this.discount);
           }
           this.discountIsLoading = false;
         },
         (error: HttpErrorResponse) => {
           console.error(error);
+          this.errorlogsService.create('webstore.basket.apply-discount-failed', ErrorlogPriorityEnum.high, error);
           this.toastService.showAlert('Invalid discount code', 'Ugyldig rabatkode', 'danger', 4000);
           this.discount = null;
           this.discountForm.get('discountCode').setValue(null);

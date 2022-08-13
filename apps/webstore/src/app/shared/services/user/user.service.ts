@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUser, UpdateUserPasswordRequest, UpdateUserRequest } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
-import { LocalStorageService } from '@local-storage';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,6 @@ export class UserService {
   }
 
   public updatePassword(params: UpdateUserPasswordRequest) {
-    console.log('params', params);
     return this.http.put<IUser>(`${env.apiUrl}/users/updatePassword`, params);
   }
 

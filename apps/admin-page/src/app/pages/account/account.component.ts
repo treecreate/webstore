@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,7 @@ import { UserService } from '../../services/user/user.service';
 export class AccountComponent {
   public user!: IUser;
   public authUser;
-  public accountForm: FormGroup;
+  public accountForm: UntypedFormGroup;
   public isLoading = false;
   public isUpdatingInfo = false;
   public panelOpenState = false;
@@ -54,13 +54,12 @@ export class AccountComponent {
       this.userService.getUser(queryParams.userId).subscribe(
         (user: IUser) => {
           this.user = user;
-          console.log(user);
           this.fetchNewsletter();
           this.updateForm();
           this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
-          console.log(err.message);
+          console.error(err.message);
           this.router.navigate(['/dashboad']);
           this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
           this.isLoading = false;
@@ -75,25 +74,29 @@ export class AccountComponent {
           this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
-          console.log(err.message);
+          console.error(err.message);
           this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
           this.isLoading = false;
         }
       );
     }
 
-    this.accountForm = new FormGroup({
-      name: new FormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
-      phoneNumber: new FormControl('', [
+    this.accountForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
+      phoneNumber: new UntypedFormControl('', [
         Validators.minLength(3),
         Validators.maxLength(15),
         Validators.pattern('^[0-9+ ]*$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
-      city: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[^0-9]+$')]),
-      postcode: new FormControl('', [
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      streetAddress: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      streetAddress2: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      city: new UntypedFormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.pattern('^[^0-9]+$'),
+      ]),
+      postcode: new UntypedFormControl('', [
         Validators.minLength(3),
         Validators.maxLength(15),
         Validators.pattern('^[0-9]*$'),
@@ -192,13 +195,12 @@ export class AccountComponent {
         })
         .subscribe(
           (data: IUser) => {
-            console.log(data);
             this.snackBar.open('Your account has been updated!', `I'm the best`, { duration: 5000 });
             this.user = data;
             this.isUpdatingInfo = false;
           },
           (err: HttpErrorResponse) => {
-            console.log(err.message);
+            console.error(err.message);
             this.snackBar.open('Updating the user data failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
           }
@@ -223,19 +225,18 @@ export class AccountComponent {
           },
           this.user.userId
         )
-        .subscribe(
-          (data: IUser) => {
-            console.log(data);
+        .subscribe({
+          next: (data: IUser) => {
             this.snackBar.open('User ' + this.user?.email + ' has been updated!', `I'm the best`, { duration: 5000 });
             this.user = data;
             this.isUpdatingInfo = false;
           },
-          (err: HttpErrorResponse) => {
-            console.log(err.message);
+          error: (err: HttpErrorResponse) => {
+            console.error(err.message);
             this.snackBar.open('Updating the user ' + this.user?.email + ' has failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
-          }
-        );
+          },
+        });
     }
   }
 

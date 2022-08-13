@@ -1,4 +1,4 @@
-import { LocalStorageVars, CookieStatus } from '@models';
+import { LocalStorageVars } from '@models';
 
 describe('Signup to newsletter popup modal', () => {
   beforeEach(() => {
@@ -8,9 +8,9 @@ describe('Signup to newsletter popup modal', () => {
   it('should show the popup and save it in localstorage', () => {
     expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
     cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
+    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
     // eslint-disable-next-line
     cy.wait(4000);
-    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
     cy.get('[data-cy=newsletter-modal-popup]').should('exist');
     cy.get('[data-cy=newsletter-modal-close-btn]')
       .click()

@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ErrorlogPriorityEnum } from '@interfaces';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { UserService } from '../../../shared/services/user/user.service';
 
 @Component({
@@ -10,22 +13,27 @@ import { UserService } from '../../../shared/services/user/user.service';
   styleUrls: ['./reset-password.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
-  changePasswordForm: FormGroup;
+  changePasswordForm: UntypedFormGroup;
 
   alertMessage = '';
   isUpdateSuccessful = false;
   isLoading = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
+  ) {}
 
   ngOnInit(): void {
-    this.changePasswordForm = new FormGroup({
-      password: new FormControl('', [
+    this.changePasswordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
-      confirmPassword: new FormControl('', [
+      confirmPassword: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
@@ -57,9 +65,15 @@ export class ResetPasswordComponent implements OnInit {
           this.alertMessage = 'Your password has been reset!';
           this.isUpdateSuccessful = true;
           this.isLoading = false;
+          this.eventsService.create('webstore.reset-password.password-reset');
         },
         (error: HttpErrorResponse) => {
           console.error(error);
+          this.errorlogsService.create(
+            'webstore.reset-password.password-reset-failed',
+            ErrorlogPriorityEnum.medium,
+            error
+          );
           if (error.error.status === 400) {
             this.alertMessage = 'The provided data is invalid';
           } else if (error.error.status === 404) {

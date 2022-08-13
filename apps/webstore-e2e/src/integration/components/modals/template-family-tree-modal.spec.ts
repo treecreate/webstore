@@ -37,14 +37,4 @@ describe('Template selection modal', () => {
       cy.wrap(localStorageDesignAfter).its('boxes').should('have.length', 17);
     });
   });
-
-  it('displays more templates when clicking more examples button', () => {
-    localStorage.setItem(LocalStorageVars.firstVisit, 'true');
-    cy.get('[data-cy=family-tree-template-button]').click({ force: true });
-    cy.get('[data-cy=template-option]').should('have.length', 7);
-    cy.get('[data-cy=family-tree-more-examples-button]').click({ force: true });
-    cy.get('[data-cy=template-option]').should('have.length', 17);
-    cy.get('[data-cy=family-tree-more-examples-button]').click({ force: true });
-    cy.get('[data-cy=template-option]').should('have.length', 7);
-  });
 });

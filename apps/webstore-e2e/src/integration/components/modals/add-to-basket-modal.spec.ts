@@ -1,4 +1,4 @@
-import { LocalStorageVars, CookieStatus } from '@models';
+import { CookieStatus, LocalStorageVars } from '@models';
 import { AuthenticationService, AuthUserEnum } from '@webstore/mocks';
 
 const authMockService = new AuthenticationService();

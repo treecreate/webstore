@@ -1,5 +1,10 @@
 .modal-body {
   padding: 0 !important;
+  height: fit-content !important;
+}
+
+.modal-body span {
+  margin: 2em;
 }
 
 ::ng-deep .carousel-container:focus {

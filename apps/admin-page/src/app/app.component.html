@@ -72,10 +72,16 @@
                         >Discounts</span
                     >
                 </button>
-                <button mat-list-item data-cy="sidebar-activity-log-btn">
-                    <mat-icon aria-hidden="false" data-cy="icon">timeline</mat-icon>
+                <button mat-list-item data-cy="sidebar-event-log-btn" routerLink="/event-log">
+                    <mat-icon aria-hidden="false" data-cy="icon">events</mat-icon>
                     <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
-                        >Activity Log</span
+                        >Event Log</span
+                    >
+                </button>
+                <button mat-list-item data-cy="sidebar-errorlogs-btn" routerLink="/error-logs">
+                    <mat-icon aria-hidden="false" data-cy="icon">errorlogs</mat-icon>
+                    <span class="item-desc" [ngClass]="{ collapsible: sidebarCollapsed }" data-cy="item-desc"
+                        >Error Log</span
                     >
                 </button>
                 <button mat-list-item data-cy="sidebar-newsletter-btn" routerLink="newsletters">

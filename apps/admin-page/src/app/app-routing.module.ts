@@ -6,6 +6,8 @@ import { AccountComponent } from './pages/account/account.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { EditDiscountComponent } from './pages/edit-discount/edit-discount.component';
+import { EventsComponent } from './pages/events/events.component';
+import { ErrorlogsComponent } from './pages/errorlogs/errorlogs.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NewslettersComponent } from './pages/newsletters/newsletters.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
@@ -65,6 +67,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.developer, UserRoles.admin] },
     component: NewslettersComponent,
+  },
+  {
+    path: 'event-log',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: EventsComponent,
+  },
+  {
+    path: 'error-logs',
+    canActivate: [AuthGuard],
+    data: { roles: [UserRoles.developer, UserRoles.admin] },
+    component: ErrorlogsComponent,
   },
   { path: '404', component: PageNotFoundComponent }, // PageNotFound for all other page requests
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' }, // Redirect to dashboard page

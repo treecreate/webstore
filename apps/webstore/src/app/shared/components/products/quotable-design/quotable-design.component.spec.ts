@@ -1,5 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { QuotableDesignEnum } from '@assets';
 import { DesignFontEnum, IQoutable } from '@interfaces';
 import { QuotableDesignComponent } from './quotable-design.component';
@@ -17,7 +19,7 @@ describe('QuotableDesignComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuotableDesignComponent],
-      imports: [TextFieldModule],
+      imports: [RouterTestingModule, HttpClientModule, TextFieldModule],
     }).compileComponents();
   });
 

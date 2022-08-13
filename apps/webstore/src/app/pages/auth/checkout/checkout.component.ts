@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
+  ErrorlogPriorityEnum,
   IAuthUser,
   IDiscount,
   IPaymentLink,
@@ -11,13 +12,15 @@ import {
   IUser,
   ShippingMethodEnum,
 } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
-import { LocalStorageService } from '@local-storage';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 import { UserService } from '../../../shared/services/user/user.service';
@@ -28,8 +31,8 @@ import { UserService } from '../../../shared/services/user/user.service';
   styleUrls: ['./checkout.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class CheckoutComponent implements OnInit {
-  checkoutForm: FormGroup;
-  billingAddressForm: FormGroup;
+  checkoutForm: UntypedFormGroup;
+  billingAddressForm: UntypedFormGroup;
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
@@ -72,7 +75,9 @@ export class CheckoutComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
@@ -105,28 +110,32 @@ export class CheckoutComponent implements OnInit {
   }
 
   initForms() {
-    this.checkoutForm = new FormGroup({
-      name: new FormControl('', [
+    this.checkoutForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      phoneNumber: new FormControl('', [
+      phoneNumber: new UntypedFormControl('', [
         Validators.maxLength(11),
         Validators.minLength(8),
         Validators.pattern('^[0-9+]*$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      city: new FormControl('', [
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      streetAddress: new UntypedFormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.required,
+      ]),
+      streetAddress2: new UntypedFormControl('', [Validators.maxLength(50)]),
+      city: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(2),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      postcode: new FormControl('', [
+      postcode: new UntypedFormControl('', [
         Validators.max(9999),
         Validators.min(555),
         Validators.pattern('^[0-9]*$'),
@@ -134,26 +143,26 @@ export class CheckoutComponent implements OnInit {
       ]),
     });
 
-    this.billingAddressForm = new FormGroup({
-      billingName: new FormControl('', [
+    this.billingAddressForm = new UntypedFormGroup({
+      billingName: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      billingStreetAddress: new FormControl('', [
+      billingStreetAddress: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
       ]),
-      billingStreetAddress2: new FormControl('', [Validators.maxLength(50)]),
-      billingCity: new FormControl('', [
+      billingStreetAddress2: new UntypedFormControl('', [Validators.maxLength(50)]),
+      billingCity: new UntypedFormControl('', [
         Validators.maxLength(50),
         Validators.minLength(3),
         Validators.required,
         Validators.pattern('^[^0-9]+$'),
       ]),
-      billingPostcode: new FormControl('', [
+      billingPostcode: new UntypedFormControl('', [
         Validators.max(9999),
         Validators.min(555),
         Validators.pattern('^[0-9]*$'),
@@ -182,11 +191,11 @@ export class CheckoutComponent implements OnInit {
       .then((itemList) => {
         this.isLoading = false;
         this.itemList = itemList;
-        console.log('Fetched transaction items', itemList);
         this.updatePrices();
       })
       .catch((error) => {
         console.error(error);
+        this.errorlogsService.create('webstore.checkout.fetch-transaction-items-failed');
         this.alert = {
           message: 'Failed to get a list of items',
           type: 'danger',
@@ -236,6 +245,7 @@ export class CheckoutComponent implements OnInit {
 
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
+      this.errorlogsService.create('webstore.checkout.create-order-new-user-attempted-with-invalid-data');
       console.warn('You are not able to add an order without valid information');
       return;
     }
@@ -255,7 +265,7 @@ export class CheckoutComponent implements OnInit {
           password: passwordGen,
         })
         .toPromise();
-
+      this.eventsService.create('webstore.checkout.registered-on-order');
       // set the new user logged in data
       this.authService.saveAuthUser(user);
       await this.transactionItemService.createBulkTransactionItem({ transactionItems: this.itemList }).toPromise();
@@ -270,6 +280,11 @@ export class CheckoutComponent implements OnInit {
     } catch (error) {
       console.warn(error);
       if (error.error.message === 'Error: Email is already in use!') {
+        this.errorlogsService.create(
+          'webstore.checkout.order-create-failed-email-in-use',
+          ErrorlogPriorityEnum.low,
+          null
+        );
         this.alert = {
           message: this.isEnglish()
             ? 'Failed to create your order, email is already in use. Please log in to finish your order.'
@@ -278,6 +293,11 @@ export class CheckoutComponent implements OnInit {
           dismissible: false,
         };
       } else {
+        this.errorlogsService.create(
+          'webstore.checkout.order-create-new-user-failed',
+          ErrorlogPriorityEnum.critical,
+          error
+        );
         this.alert = {
           message: this.isEnglish()
             ? 'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk'
@@ -301,6 +321,7 @@ export class CheckoutComponent implements OnInit {
 
   createOrder() {
     if (!this.isDisabled()) {
+      this.errorlogsService.create('webstore.checkout.create-order-attempted-with-invalid-data');
       console.warn('You are not able to add an order without valid information');
       return;
     }
@@ -355,17 +376,18 @@ export class CheckoutComponent implements OnInit {
         billingInfo: billingInfo,
         transactionItemIds: itemIds,
       })
-      .subscribe(
-        (paymentLink: IPaymentLink) => {
+      .subscribe({
+        next: (paymentLink: IPaymentLink) => {
           this.isLoading = false;
-          console.log('Created order and got a payment link', paymentLink);
           this.localStorageService.removeItem(LocalStorageVars.discount);
           this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
+          this.eventsService.create('webstore.checkout.payment-initiated');
           // Go to payment link
           window.location.href = paymentLink.url;
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error(error);
+          this.errorlogsService.create('webstore.checkout.order-create-failed', ErrorlogPriorityEnum.critical, error);
           this.alert = {
             message: 'Failed to create an order. Try again later',
             type: 'danger',
@@ -373,8 +395,8 @@ export class CheckoutComponent implements OnInit {
           };
 
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   showTermsOfSale() {

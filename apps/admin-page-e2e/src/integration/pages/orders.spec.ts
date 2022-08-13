@@ -79,6 +79,7 @@ function getOrderStatusColor(orderStatus: OrderStatusEnum): LabelColorsEnum {
  * @param orderStatus the status of the order.
  * @returns the color of the label.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDaysLeftColor(daysLeft: number, orderStatus: OrderStatusEnum): LabelColorsEnum {
   // Order status is NOT: Delivered, Shipped or Rejected.
   if (

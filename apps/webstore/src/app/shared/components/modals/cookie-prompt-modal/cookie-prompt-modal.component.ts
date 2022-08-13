@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { LocalStorageService } from '@local-storage';
+import { CookieStatus, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '@local-storage';
-import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
-import { CookieStatus, LocalStorageVars } from '@models';
+import { EventsService } from '../../../services/events/events.service';
 import { ToastService } from '../../toast/toast-service';
+import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 
 @Component({
   selector: 'webstore-cookie-prompt-modal',
@@ -21,7 +21,8 @@ export class CookiePromptModalComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private eventsService: EventsService
   ) {
     this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(LocalStorageVars.cookiesAccepted);
   }
@@ -40,7 +41,7 @@ export class CookiePromptModalComponent implements OnInit {
           },
           () => {
             // this shouldn't happen and means that the user has closed the prompt in an unexpected manner
-            console.log(
+            console.warn(
               'Wow, you have managed to bypass the cookie prompt. Guess you have rejected them, off to the cookie gulag you go'
             );
           }
@@ -55,6 +56,7 @@ export class CookiePromptModalComponent implements OnInit {
       'success',
       2500
     );
+    this.eventsService.create('webstore.cookies-prompt.cookies-accepted');
   }
 
   rejectCookies() {
@@ -65,6 +67,7 @@ export class CookiePromptModalComponent implements OnInit {
       'danger',
       2500
     );
+    this.eventsService.create('webstore.cookies-prompt.cookies-rejected');
   }
 
   showTermsOfUse() {
