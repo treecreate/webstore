@@ -90,6 +90,7 @@ a {
     position: relative;
     width: 80% !important;
     right: 0px;
+    margin-bottom: .5em;
   }
 
   .cookie-text-section {
