@@ -75,7 +75,7 @@ a {
   .modal-footer {
     flex-direction: row;
     width: 89% !important;
-    margin: 0 !important;
+    margin: 0 auto 0 auto !important;
   }
 }
 
@@ -90,7 +90,7 @@ a {
     position: relative;
     width: 80% !important;
     right: 0px;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5em !important;
   }
 
   .cookie-text-section {
