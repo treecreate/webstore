@@ -11,22 +11,21 @@ describe('CookiePromptModal', () => {
     cy.get('[data-cy=cookie-prompt-modal-reject-cookies-btn]').should('exist');
   });
 
-  it('should redirect to /rejectedCookies and not allow the user to use Treecreate when cookies are rejected', () => {
+  it('should close the moda, update LocalStorage, and not open the prompt again on page reload when cookies are rejected', () => {
     cy.get('[data-cy=cookie-prompt-modal-reject-cookies-btn]')
       .click()
       .then(() => {
-        cy.url().should('contain', '/rejectedCookies');
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
         expect(localStorage.getItem(LocalStorageVars.cookiesAccepted).replace(new RegExp('"', 'g'), '')).to.equal(
           CookieStatus.rejected
         );
-        // shouldn't allow to directly visit home
+        // shouldn't open the prompt when re-visiting the website
         cy.visit('/home');
-        cy.url().should('contain', '/rejectedCookies');
+        cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
       });
   });
 
-  it('should close the modal, update LocalStorage, and never open the prompt again when cookies are accepted.', () => {
+  it('should close the modal, update LocalStorage, and not open the prompt again on page reload when cookies are accepted', () => {
     cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]')
       .click()
       .then(() => {
@@ -40,20 +39,13 @@ describe('CookiePromptModal', () => {
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
       });
   });
-  it("shouldn't allow to close the popup by clicking on the background", () => {
-    cy.get('.fade').click({
+  it('should allow clicking on the background without closing the modal', () => {
+    cy.get('[data-cy=home-title]').click({
       multiple: true,
       force: true,
     });
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(100); // the modal takes around 50 milliseconds to fade away
-    cy.get('[data-cy=cookie-prompt-modal]').should('exist');
-  });
-
-  it("shouldn't allow to close the popup by pressing escape", () => {
-    cy.get('[data-cy=cookie-prompt-modal]').type('Cypress.io{esc}');
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(250); // the modal takes around 200 milliseconds to fade away
     cy.get('[data-cy=cookie-prompt-modal]').should('exist');
   });
 
