@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '@local-storage';
 import { CookieStatus, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject } from 'rxjs';
 import { EventsService } from '../../../services/events/events.service';
 import { ToastService } from '../../toast/toast-service';
 import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
@@ -14,28 +12,24 @@ import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-mod
   styleUrls: ['./cookie-prompt-modal.component.css', '../../../../../assets/styles/modals.css'],
 })
 export class CookiePromptModalComponent implements OnInit {
-  closeResult = '';
-  @ViewChild('content', { static: true }) private content;
-  cookiesAccepted$: BehaviorSubject<CookieStatus>;
-  showCookiePrompt: Boolean = false;
+  showCookiePrompt = false;
 
   constructor(
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
     private toastService: ToastService,
     private eventsService: EventsService
-  ) {
-    this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(LocalStorageVars.cookiesAccepted);
-  }
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.showCookiePrompt);
-    
-    if (this.cookiesAccepted$.value !== undefined) {
-      this.showCookiePrompt = true;
-    } else {
-      this.showCookiePrompt = false;
-    }
+    // Automatically show and hide the cookies prompt depending on the status of cookies
+    this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).subscribe(() => {
+      if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.undefined) {
+        this.showCookiePrompt = true;
+      } else {
+        this.showCookiePrompt = false;
+      }
+    });
   }
 
   close(acceptance: string) {
