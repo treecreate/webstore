@@ -989,52 +989,6 @@
           <context context-type="linenumber">23,25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="rejected-cookies-title" datatype="html">
-        <source>You have rejected cookies</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="rejected-cookies-text" datatype="html">
-        <source> We&apos;ve baked some cookies for you and we are very sad that you don&apos;t like them. This means that you cannot access Treecreate until you do accept them. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
-          <context context-type="linenumber">5,8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="rejected-cookies-text2" datatype="html">
-        <source>If you wish to see the cookies that we store, you can go to this link:</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="terms-of-use" datatype="html">
-        <source>Terms of use</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="accept-all-cookies" datatype="html">
-        <source> Accept all Cookies </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
-          <context context-type="linenumber">22,24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="if-you-have-questions" datatype="html">
-        <source>If you have any questions, feel free to send us an e-mail at:</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/issues/rejected-cookies/rejected-cookies.component.html</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="back-to-home" datatype="html">
         <source>Back to home page </source>
         <context-group purpose="location">
@@ -1636,28 +1590,35 @@
         <source>Accept cookies</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cookie-prompt-text" datatype="html">
-        <source> Hey there, Treecreate uses cookies to save anonymous information through google analytics to continuously improve the page. Without accepting these cookies, you will sadly not be able to use the page. If you wish to see the cookies that we store, you can go to this link: </source>
+        <source> Hey there, Treecreate uses cookies to save anonymous information through google analytics to continuously improve the page. Without accepting these cookies, we will only save your design and language preferrence in your browser. If you wish to see the cookies that we store, you can go to this link: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
-          <context context-type="linenumber">9,13</context>
+          <context context-type="linenumber">5,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="terms-of-use" datatype="html">
+        <source>Terms of use</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reject" datatype="html">
         <source> Reject </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
-          <context context-type="linenumber">30,32</context>
+          <context context-type="linenumber">26,28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accept" datatype="html">
         <source> Accept </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
-          <context context-type="linenumber">39,41</context>
+          <context context-type="linenumber">35,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro-how-it-works" datatype="html">
@@ -1759,21 +1720,21 @@
         <source>Get 10% Off!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="20-procent-discount-text" datatype="html">
         <source> When you subscribe to our newsletter we send you an email with a discount code giving you 10% your first purchase. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
-          <context context-type="linenumber">12,15</context>
+          <context context-type="linenumber">7,10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subscribe" datatype="html">
         <source>Subscribe</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delivery-4-7" datatype="html">
