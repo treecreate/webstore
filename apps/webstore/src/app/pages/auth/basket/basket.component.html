@@ -1,7 +1,7 @@
-<div class="basket-page-container">
+<main class="basket-page-container">
     <div class="basket-content-wrapper">
         <div class="basket-content">
-            <div class="wrapper">
+            <section class="wrapper">
                 <h2 class="desktop-title" i18n="@@basket-upper">BASKET</h2>
                 <div class="basket-items-container">
                     <h2 class="mobile-title" i18n="@@basket-upper">BASKET</h2>
@@ -26,9 +26,9 @@
                     </div>
                     <!-- If there are not items in basket -->
                     <div class="no-items" *ngIf="itemList.length <= 0 && !isLoading" data-cy="no-items-in-basket">
-                        <img src="/assets/icons/no-design-icon.svg" routerLink="/product" class="no-design-icon" />
+                        <img src="/assets/icons/no-design-icon.svg" routerLink="/products" class="no-design-icon" />
                         <div class="no-items-text" i18n="@@no-items-text">You have no items in your basket</div>
-                        <button class="tc-button-50" routerLink="/product" i18n="@@start-creating">
+                        <button class="tc-button-50" routerLink="/products" i18n="@@start-creating">
                             Start Creating
                         </button>
                     </div>
@@ -42,8 +42,8 @@
                         ></span>
                     </div>
                 </div>
-            </div>
-            <div class="basket-options">
+            </section>
+            <section class="basket-options">
                 <h2 class="desktop-title opacity">|</h2>
                 <!-- Tree donation -->
                 <div class="basket-options-item">
@@ -124,9 +124,17 @@
                         <span i18n="@@subtotal">Subtotal</span>
                         <span data-cy="subtotal-price-basket"> {{ priceInfo.fullPrice.toFixed(2) }} DKK <br /> </span>
                     </div>
-                    <div class="line-container" [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''">
+                    <div
+                        *ngIf="priceInfo.discountAmount > 0"
+                        class="line-container"
+                        [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''"
+                    >
                         <span i18n="@@you-save">You save</span>
                         <span> - {{ priceInfo.discountAmount.toFixed(2) }} DKK </span>
+                    </div>
+                    <div class="line-container" [ngClass]="priceInfo.deliveryPrice === 0 ? 'green-text' : ''">
+                        <span i18n="@@delivery">Delivery</span>
+                        <span> {{ priceInfo.deliveryPrice.toFixed(2) }} DKK </span>
                     </div>
                     <div class="line-container weight">
                         <span>
@@ -151,9 +159,9 @@
                         Go to checkout
                     </button>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
-</div>
+</main>
 
 <div class="hide" data-cy="basket-planted-trees">{{ plantedTrees }}</div>

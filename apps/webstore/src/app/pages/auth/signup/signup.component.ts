@@ -1,13 +1,15 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
+import { ErrorlogPriorityEnum, INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TermsOfUseModalComponent } from '../../../shared/components/modals/terms-of-use-modal/terms-of-use-modal.component';
 import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
-import { LocalStorageService } from '@local-storage';
+import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 @Component({
@@ -16,7 +18,7 @@ import { TransactionItemService } from '../../../shared/services/transaction-ite
   styleUrls: ['./signup.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class SignupComponent implements OnInit {
-  signupForm: FormGroup;
+  signupForm: UntypedFormGroup;
   termsAndConditions = false;
   isSuccessful = false;
   isSignUpFailed = false;
@@ -31,23 +33,25 @@ export class SignupComponent implements OnInit {
     private toastService: ToastService,
     private newsletterService: NewsletterService,
     private localStorageService: LocalStorageService,
-    private transactionItemService: TransactionItemService
+    private transactionItemService: TransactionItemService,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
-    // if user is already logged in redirect to profile
+    // if user is already logged in redirect to products page
     if (this.authService.getAuthUser()) {
-      this.router.navigate(['/product']);
+      this.router.navigate(['/products']);
     }
 
-    this.signupForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
+    this.signupForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
-      confirmPassword: new FormControl('', [
+      confirmPassword: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
@@ -66,20 +70,21 @@ export class SignupComponent implements OnInit {
         (data: IRegisterResponse) => {
           // Subscribe to newsletter
           if (this.signUpForNewletter) {
-            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe(
-              (newsletterData: INewsletter) => {
+            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe({
+              next: (newsletterData: INewsletter) => {
                 this.toastService.showAlert(
                   `Thank you for subscribing: ${newsletterData.email}`,
                   `Tak for din tilmelding: ${newsletterData.email}`,
                   'success',
                   3000
                 );
+                this.eventsService.create('webstore.signup.newsletter-signup');
               },
-              (error) => {
-                this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
+              error: (error) => {
                 console.error(error);
-              }
-            );
+                this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
+              },
+            });
           }
           // Check for transaction items in localstorage and add them to user
           // Dont remove them in case user regrets logging in
@@ -108,10 +113,12 @@ export class SignupComponent implements OnInit {
           this.isSignUpFailed = false;
           this.isLoading = false;
           this.authService.saveAuthUser(data);
-          this.router.navigate(['/product']);
+          this.eventsService.create('webstore.signup.signup');
+          this.router.navigate(['/products']);
           window.location.reload();
         },
         (err) => {
+          this.errorlogsService.create('webstore.signup.signup-failed', ErrorlogPriorityEnum.medium, err);
           this.toastService.showAlert(
             // TODO: make errormessages both danish and english
             err.error.message,

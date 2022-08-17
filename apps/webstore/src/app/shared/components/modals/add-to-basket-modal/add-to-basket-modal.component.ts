@@ -1,8 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, IAuthUser, IFamilyTree, ITransactionItem } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IFamilyTree,
+  IQoutable,
+  ITransactionItem,
+} from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +18,8 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { DesignService } from '../../../services/design/design.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 import { ToastService } from '../../toast/toast-service';
 import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-modal.component';
@@ -19,15 +29,18 @@ import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-mod
   templateUrl: './add-to-basket-modal.component.html',
   styleUrls: ['./add-to-basket-modal.component.scss'],
 })
-export class AddToBasketModalComponent implements OnInit {
-  addToBasketForm: FormGroup;
+export class AddToBasketModalComponent implements OnInit, OnChanges {
+  @Input()
+  designType?: DesignTypeEnum;
+
+  addToBasketForm: UntypedFormGroup;
   price = 0;
   isMoreThan4 = false;
   itemsInBasket = 0;
   totalPrice = 0;
   public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
-  design: IFamilyTree;
+  design: IFamilyTree | IQoutable;
   isLoading = false;
   authUser$: BehaviorSubject<IAuthUser>;
   isLoggedIn = false;
@@ -46,7 +59,9 @@ export class AddToBasketModalComponent implements OnInit {
     private calculatePriceService: CalculatePriceService,
     private designService: DesignService,
     private transactionItemService: TransactionItemService,
-    private authService: AuthService
+    private authService: AuthService,
+    private eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
@@ -64,14 +79,23 @@ export class AddToBasketModalComponent implements OnInit {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
 
-    this.addToBasketForm = new FormGroup({
-      quantity: new FormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
-      dimension: new FormControl('', [Validators.required]),
+    this.addToBasketForm = new UntypedFormGroup({
+      quantity: new UntypedFormControl('', [Validators.required, Validators.max(99), Validators.min(1)]),
+      dimension: new UntypedFormControl('', [Validators.required]),
     });
   }
 
   ngOnInit(): void {
-    this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+    // default the designType to Fmaily tree if it's null
+    if (this.designType === undefined || this.designType === null) {
+      this.designType = DesignTypeEnum.familyTree;
+    }
+
+    if (this.designType === DesignTypeEnum.familyTree) {
+      this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+    } else if (this.designType === DesignTypeEnum.quotable) {
+      this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    }
 
     this.addToBasketForm.setValue({
       quantity: 1,
@@ -95,6 +119,11 @@ export class AddToBasketModalComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           console.error(error);
+          this.errorlogsService.create(
+            'webstore.add-to-basket-modal.fetch-transaction-items-failed',
+            ErrorlogPriorityEnum.high,
+            error
+          );
           this.isLoading = false;
         }
       );
@@ -115,10 +144,18 @@ export class AddToBasketModalComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    // if the design type gets updated, recalculate all product information
+    if (changes.designType !== undefined) {
+      this.ngOnInit();
+    }
+  }
+
   updatePrice() {
     this.price = this.calculatePriceService.calculateItemPriceAlternative(
       this.addToBasketForm.get('quantity').value,
-      this.addToBasketForm.get('dimension').value
+      this.addToBasketForm.get('dimension').value,
+      this.designType
     );
     this.isMoreThan4 = this.itemsInBasket + this.addToBasketForm.get('quantity').value >= 4;
   }
@@ -127,14 +164,36 @@ export class AddToBasketModalComponent implements OnInit {
     return (this.price + this.totalPrice) * 0.25;
   }
 
-  translateDimension(dimension: string): string {
-    switch (dimension) {
-      case 'SMALL':
-        return '20cm x 20cm';
-      case 'MEDIUM':
-        return '25cm x 25cm';
-      case 'LARGE':
-        return '30cm x 30cm';
+  /**
+   * Translate dimensions from an Enum value into a human readble string
+   * @param dimension dimensions of the item
+   * @param designType design type of the item
+   * @returns string representing the design like '15cm x 15cm'
+   */
+  translateDimensionToCm(dimension: string, designType: DesignTypeEnum): string {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        switch (dimension) {
+          case 'SMALL':
+            return '20x20cm';
+          case 'MEDIUM':
+            return '25x25cm';
+          case 'LARGE':
+            return '30x30cm';
+        }
+        break;
+      }
+      case DesignTypeEnum.quotable: {
+        switch (dimension) {
+          case 'SMALL':
+            return '15x15cm';
+          case 'MEDIUM':
+            return '20x20cm';
+          case 'LARGE':
+            return '25x25cm';
+        }
+        break;
+      }
     }
   }
 
@@ -209,15 +268,19 @@ export class AddToBasketModalComponent implements OnInit {
 
   saveToLocalStorage(): void {
     // design id should be null
-    this.transactionItemService.saveToLocalStorage({
-      designProperties: this.design,
-      dimension: this.addToBasketForm.get('dimension').value,
-      quantity: this.addToBasketForm.get('quantity').value,
-    });
+    this.transactionItemService.saveToLocalStorage(
+      {
+        designProperties: this.design,
+        dimension: this.addToBasketForm.get('dimension').value,
+        quantity: this.addToBasketForm.get('quantity').value,
+      },
+      this.designType
+    );
 
     this.activeModal.close();
     this.modalService.open(GoToBasketModalComponent);
     this.isLoading = false;
+    this.eventsService.create('webstore.add-to-basket-modal.add.local-storage');
   }
 
   //TODO: Check if this design is already in the users collection (by checking id before saving it as a new design) before trying to update it
@@ -227,55 +290,69 @@ export class AddToBasketModalComponent implements OnInit {
   saveToDataBase(): void {
     // Check if the design is loaded using a design ID (design comes from a user account ccollection)
     if (this.route.snapshot.queryParams.designId !== undefined) {
-      this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, this.design);
+      if (this.designType === DesignTypeEnum.familyTree) {
+        this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, <IFamilyTree>this.design);
+      } else if (this.designType === DesignTypeEnum.quotable) {
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, <IQoutable>this.design);
+      } else {
+        console.warn('Aborting, tried to save a design with invalid design type: ', this.designType);
+        this.errorlogsService.create(
+          `webstore.add-to-basket-modal.save-design-is-invalid.${this.designType}`,
+          ErrorlogPriorityEnum.high,
+          null
+        );
+        return;
+      }
       //Update design title in collection
       this.designService
         .updateDesign({
           designId: this.route.snapshot.queryParams.designId,
-          designType: DesignTypeEnum.familyTree,
+          designType: this.designType,
           designProperties: this.design,
         })
-        .subscribe(
-          (result) => {
-            console.log('Design updated', result);
-          },
-          (error: HttpErrorResponse) => {
+        .subscribe({
+          next: () => {},
+          error: (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
-          }
-        );
+            this.errorlogsService.create(
+              'webstore.add-to-basket-modal.update-design-failed',
+              ErrorlogPriorityEnum.high,
+              error
+            );
+          },
+        });
     }
 
     // Add an entry for the design to the basket (transaction item). Includes creation of a immutable version of the design
     this.designService
       .createDesign({
-        designType: DesignTypeEnum.familyTree,
+        designType: this.designType,
         designProperties: this.design,
         mutable: false, // the transaction-item related designs are immutable
       })
-      .subscribe(
-        (result) => {
-          console.log('Design created and persisted', result);
-          console.log('design properties', {
-            designId: result.designId,
-            dimension: this.addToBasketForm.get('dimension').value,
-            quantity: this.addToBasketForm.get('quantity').value,
-          });
+      .subscribe({
+        next: (result) => {
           this.transactionItemService
             .createTransactionItem({
               designId: result.designId,
               dimension: this.addToBasketForm.get('dimension').value,
               quantity: this.addToBasketForm.get('quantity').value,
             })
-            .subscribe(
-              (newItem: ITransactionItem) => {
+            .subscribe({
+              next: () => {
                 this.isLoading = false;
-                console.log('added design to basket', newItem);
                 this.toastService.showAlert('Design added to basket', 'Design er lagt i kurven', 'success', 5000);
                 this.activeModal.close();
                 this.modalService.open(GoToBasketModalComponent);
+                this.eventsService.create(`webstore.add-to-basket-modal.add.${this.designType}`);
               },
-              (error: HttpErrorResponse) => {
+              error: (error: HttpErrorResponse) => {
                 console.error(error);
+                this.errorlogsService.create(
+                  'webstore.add-to-basket-modal.add-design-to-basket-failed',
+                  ErrorlogPriorityEnum.high,
+                  error
+                );
                 this.toastService.showAlert(
                   'Failed to add design to basket, please try again',
                   'Der skete en fejl, prøv venligst igen',
@@ -283,13 +360,18 @@ export class AddToBasketModalComponent implements OnInit {
                   5000
                 );
                 this.isLoading = false;
-              }
-            );
+              },
+            });
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Failed to save design', error);
+          this.errorlogsService.create(
+            'webstore.add-to-basket-modal.save-design-failed',
+            ErrorlogPriorityEnum.high,
+            error
+          );
           this.toastService.showAlert('Failed to save your design', 'Kunne ikke gemme dit design', 'danger', 10000);
-        }
-      );
+        },
+      });
   }
 }

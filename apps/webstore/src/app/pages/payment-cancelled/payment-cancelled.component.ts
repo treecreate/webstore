@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventsService } from '../../shared/services/events/events.service';
 
 @Component({
   selector: 'webstore-payment-cancelled',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-cancelled.component.css'],
 })
 export class PaymentCancelledComponent implements OnInit {
-  constructor() {}
+  constructor(private eventsService: EventsService) {}
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.eventsService.create('webstore.payment-cancelled');
+  }
 }

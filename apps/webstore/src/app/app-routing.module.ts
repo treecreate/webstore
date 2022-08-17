@@ -12,20 +12,20 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
-import { RejectedCookiesComponent } from './pages/issues/rejected-cookies/rejected-cookies.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
-import { ProductComponent } from './pages/product/product.component';
+import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
+import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
+import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
+import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
-import { CookieGuard } from './shared/guards/cookie-guard/cookie.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [CookieGuard] }, // CookieGuard ensures that the user has accepted cookies
-  { path: 'login', component: LoginComponent, canActivate: [CookieGuard] },
+  { path: 'home', component: HomeComponent }, // CookieGuard ensures that the user has accepted cookies
+  { path: 'login', component: LoginComponent },
   {
     path: 'resetPassword/:token',
     component: ResetPasswordComponent,
-    canActivate: [CookieGuard],
   },
   {
     path: 'newsletter',
@@ -33,11 +33,10 @@ const routes: Routes = [
       {
         path: 'unsubscribe/:newsletterId',
         component: UnsubscribeComponent,
-        canActivate: [CookieGuard],
       },
     ],
   },
-  { path: 'signup', component: SignupComponent, canActivate: [CookieGuard] },
+  { path: 'signup', component: SignupComponent },
   {
     path: 'profile',
     component: ProfileComponent,
@@ -56,7 +55,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },
-  { path: 'product', component: ProductComponent, canActivate: [CookieGuard] },
+  {
+    path: 'products',
+    component: ProductsComponent,
+  },
+  { path: 'products/family-tree', component: FamilyTreeComponent },
+  { path: 'products/quotable', component: QuotableComponent },
+  { path: 'products/custom-order', component: CustomOrderComponent },
   {
     path: 'payment',
     children: [
@@ -64,16 +69,13 @@ const routes: Routes = [
       { path: 'cancelled', component: PaymentCancelledComponent },
     ],
   },
-  { path: 'rejectedCookies', component: RejectedCookiesComponent },
   {
     path: 'basket',
     component: BasketComponent,
-    canActivate: [CookieGuard],
   },
   {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [CookieGuard],
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page
   { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests

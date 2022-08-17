@@ -1,14 +1,14 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { HomeComponent } from './pages/home/home.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
-import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
-import { ProductComponent } from './pages/product/product.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
+import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -21,7 +21,7 @@ describe('AppComponent', () => {
         FooterComponent,
         PageNotFoundComponent,
         CookiePromptModalComponent,
-        ProductComponent,
+        FamilyTreeComponent,
       ],
     }).compileComponents();
   });

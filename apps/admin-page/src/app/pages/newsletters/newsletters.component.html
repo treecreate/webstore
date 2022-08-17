@@ -1,0 +1,72 @@
+<webstore-item-card
+    title="Newsletters"
+    [content]="content"
+    [isLoading]="isLoading"
+    [amountInfo]="tableTopInfo"
+    data-cy="newsletters-card"
+>
+    <ng-template #content>
+        <div class="sub-header">
+            <div class="sub-header-option">
+                Safe mode <mat-slide-toggle color="primary" [(ngModel)]="isSafeMode"></mat-slide-toggle>
+            </div>
+        </div>
+        <table mat-table [dataSource]="newsletterList" class="mat-elevation-z8 table" data-cy="newsletters-table">
+            <!-- Email Column -->
+            <ng-container matColumnDef="newsletterEmail">
+                <th mat-header-cell *matHeaderCellDef>Newsletter email</th>
+                <td mat-cell *matCellDef="let newsletter" data-cy="newsletter-email">{{ newsletter.email }}</td>
+            </ng-container>
+
+            <!-- Date created Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let newsletter">{{ newsletter.createdAt | date }}</td>
+            </ng-container>
+
+            <!-- Date created Column -->
+            <ng-container matColumnDef="hasOrdered">
+                <th mat-header-cell *matHeaderCellDef>Has ordered</th>
+                <td mat-cell *matCellDef="let newsletter">
+                    <div
+                        *ngIf="hasOrdered(newsletter.email)"
+                        class="label"
+                        [ngStyle]="{ 'background-color': '#00B207' }"
+                    >
+                        Yes
+                    </div>
+                    <div
+                        *ngIf="!hasOrdered(newsletter.email)"
+                        class="label"
+                        [ngStyle]="{ 'background-color': '#FF0000' }"
+                    >
+                        No
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let newsletter" class="actions">
+                    <span matTooltip="Action not implemented yet." matTooltipPosition="below">
+                        <button mat-flat-button color="primary" [disabled]="true" data-cy="send-email-newsletter-btn">
+                            Send email
+                        </button></span
+                    >
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="unsubscribe(newsletter.newsletterId)"
+                        data-cy="unsubscribe-newsletter-btn"
+                    >
+                        Unsubscribe
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="newsletters-table-header"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="newsletters-table-row"></tr>
+        </table>
+    </ng-template>
+</webstore-item-card>

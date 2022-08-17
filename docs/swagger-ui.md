@@ -20,7 +20,7 @@ Swagger UI is a tool for generation of API documentation based off of the define
 
 ## Viewing the docs
 
-The docs are automatically generated and available at [`localhost:5000/docs`](localhost:5000/docs)\
+The docs are automatically generated and available at [`localhost:5050/docs`](localhost:5050/docs)\
 Same logic applies to viewing docs of a deployed instance, for example [`api.treecreate.dk/docs`](api.treecreate.dk/docs)
 
 ## Swagger Config

@@ -1,27 +1,37 @@
 import { Injectable } from '@angular/core';
-import { DesignDimensionEnum, DiscountType, IDiscount, IPricing, ITransactionItem } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  DiscountType,
+  ErrorlogPriorityEnum,
+  IDiscount,
+  IPricing,
+  ITransactionItem,
+} from '@interfaces';
+import { ErrorlogsService } from '../errorlog/errorlog.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalculatePriceService {
-  constructor() {}
+  constructor(private errorlogsService: ErrorlogsService) {}
 
+  /**
+   * Determine the full price with discount for all of the products in the list combined based on the dimensions, quantity and design type.
+   * @param itemList  a list of transaction items, which includes information about dimensions, quantity and design type of each item.
+   * @param discount discount information.
+   * @param isHomeDelivery type of delivery.
+   * @param plantedTrees how many trees are planted as part of the purchase.
+   * @returns calculated price with the discount and other factors applied.
+   */
   calculatePrices(
-    itemList: ITransactionItem[],
+    itemList: ITransactionItem[] = [],
     discount: IDiscount,
     isHomeDelivery: boolean,
     plantedTrees: number
   ): IPricing {
     // Get full price of items in basket
-    let sum = 0;
-    if (itemList != null) {
-      for (let i = 0; i < itemList.length; i++) {
-        const item = itemList[i];
-        sum += this.calculateItemPrice(item);
-      }
-    }
-    const fullPrice = sum;
+    const fullPrice = this.getFullPrice(itemList);
 
     // Get discounted price of all items
     let discountedPrice = fullPrice;
@@ -29,25 +39,35 @@ export class CalculatePriceService {
       if (discount.type === DiscountType.percent) {
         // Discount in percent
         discountedPrice = fullPrice * (1 - discount.amount / 100);
+        discountedPrice = Math.round(discountedPrice * 100) / 100;
       } else {
         // Discount in specific amount
         discountedPrice = fullPrice - discount.amount;
       }
     }
+
+    if (discountedPrice < 0) {
+      discountedPrice = 0;
+    }
     // Get discounted amount / amount saved
-    const discountAmount = fullPrice - discountedPrice;
+    const discountAmount = Math.round((fullPrice - discountedPrice) * 100) / 100;
 
     // Get delivery price
-    const deliveryPrice = isHomeDelivery ? 29 : 0;
+    let deliveryPrice = 0;
+    if (discountedPrice > 350) {
+      deliveryPrice = isHomeDelivery ? 25 : 0;
+    } else {
+      deliveryPrice = isHomeDelivery ? 65 : 45;
+    }
 
     // Get planted trees price
-    const extraTreesPrice = plantedTrees * 10 - 10;
+    const extraTreesPrice = plantedTrees > 0 ? plantedTrees * 10 - 10 : 0;
 
     // Get final price with delivery and donation
     const finalPrice = discountedPrice + extraTreesPrice + deliveryPrice;
 
     // Get VAT for the final price
-    const vat = finalPrice * 0.2;
+    const vat = Math.round(finalPrice * 0.2 * 100) / 100;
 
     return {
       fullPrice,
@@ -60,25 +80,26 @@ export class CalculatePriceService {
     };
   }
 
-  getFullPrice(itemList: ITransactionItem[]): number {
+  /**
+   * Determine the full price without discount for all of the products in the list combined based on the dimensions, quantity and design type.
+   * @param itemList a list of transaction items, which includes information about dimensions, quantity and design type of each item.
+   * @returns calculated price without any of the discounts applied.
+   */
+  getFullPrice(itemList: ITransactionItem[] = []): number {
+    if (itemList === null) return 0;
     let priceSum = 0;
     for (let i = 0; i < itemList.length; i++) {
-      switch (itemList[i].dimension) {
-        case DesignDimensionEnum.large:
-          priceSum += itemList[i].quantity * 995;
-          break;
-        case DesignDimensionEnum.medium:
-          priceSum += itemList[i].quantity * 695;
-          break;
-        case DesignDimensionEnum.small:
-          priceSum += itemList[i].quantity * 495;
-          break;
-      }
+      priceSum += this.calculateItemPrice(itemList[i]);
     }
     return priceSum;
   }
 
-  isMoreThan4Items(itemList: ITransactionItem[]): boolean {
+  /**
+   * Whether the given itemList satisfies the requirement for reduced price based on quantity purchased.
+   * @param itemList the list of transaction items that includes quantity data.
+   * @returns whether or not it satisfies the requirement.
+   */
+  isMoreThan4Items(itemList: ITransactionItem[] = []): boolean {
     let sum = 0;
     for (let i = 0; i < itemList.length; i++) {
       sum += itemList[i].quantity;
@@ -90,42 +111,68 @@ export class CalculatePriceService {
     }
   }
 
+  /**
+   * Determine the price for the given transaction item based on its dimensions, quantity and type.
+   * @param item the transaction item with dimensions, quantity and design type information.
+   * @returns calculated price.
+   */
   calculateItemPrice(item: ITransactionItem): number {
-    switch (item.dimension) {
-      case DesignDimensionEnum.small:
-        return item.quantity * 495;
-      case DesignDimensionEnum.medium:
-        return item.quantity * 695;
-      case DesignDimensionEnum.large:
-        return item.quantity * 995;
-      default:
-        return 99999999;
-    }
+    return this.calculateItemUnitPrice(item.dimension, item.design.designType) * item.quantity;
   }
 
-  calculateItemPriceAlternative(quantity: number, dimension: DesignDimensionEnum): number {
-    switch (dimension) {
-      case DesignDimensionEnum.small:
-        return quantity * 495;
-      case DesignDimensionEnum.medium:
-        return quantity * 695;
-      case DesignDimensionEnum.large:
-        return quantity * 995;
-      default:
-        return 99999999;
-    }
+  /**
+   * Calculate the price for the given item based on its dimensions, quantity and type.
+   * @param dimension dimensions of the given item.
+   * @param quantity amount of items.
+   * @param designType design type of the given item.
+   * @returns calculated price.
+   */
+  calculateItemPriceAlternative(quantity: number, dimension: DesignDimensionEnum, designType: DesignTypeEnum): number {
+    return this.calculateItemUnitPrice(dimension, designType) * quantity;
   }
 
-  calculateItemUnitPrice(dimension: DesignDimensionEnum): number {
-    switch (dimension) {
-      case DesignDimensionEnum.small:
-        return 495;
-      case DesignDimensionEnum.medium:
-        return 695;
-      case DesignDimensionEnum.large:
-        return 995;
-      default:
-        return 99999999;
+  /**
+   * Calculate the price for the given item based on its dimensions and type.
+   * @param dimension dimensions of the given item.
+   * @param designType design type of the given item.
+   * @returns calculated price.
+   */
+  calculateItemUnitPrice(dimension: DesignDimensionEnum, designType: DesignTypeEnum): number {
+    switch (designType) {
+      case DesignTypeEnum.familyTree: {
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return 499;
+          case DesignDimensionEnum.medium:
+            return 699;
+          case DesignDimensionEnum.large:
+            return 999;
+          default:
+            this.errorlogsService.create(
+              'webstore.calculate-price-service.calculate-item-unit-price-default-value',
+              ErrorlogPriorityEnum.high,
+              { message: 'Price set to 99999999', dimension, designType }
+            );
+            return 99999999;
+        }
+      }
+      case DesignTypeEnum.quotable: {
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return 299;
+          case DesignDimensionEnum.medium:
+            return 399;
+          case DesignDimensionEnum.large:
+            return 499;
+          default:
+            this.errorlogsService.create(
+              'webstore.calculate-price-service.calculate-item-unit-price-default-value',
+              ErrorlogPriorityEnum.high,
+              { message: 'Price set to 88888888', dimension, designType }
+            );
+            return 88888888;
+        }
+      }
     }
   }
 }

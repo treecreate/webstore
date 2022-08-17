@@ -24,10 +24,11 @@ import {
   Tree3BoxDesignEnum,
   TreeDesignEnum,
 } from '@assets';
-import { FamilyTreeFontEnum, IDesign, IDraggableBox, IFamilyTree, IFamilyTreeBanner } from '@interfaces';
+import { ErrorlogPriorityEnum, IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
+import { ErrorlogsService } from '../../../../services/errorlog/errorlog.service';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({
@@ -40,8 +41,17 @@ import { DraggableBoxComponent } from '../draggable-box/draggable-box.component'
   ],
 })
 export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChanges, OnDestroy {
+  // Inputs for design settings
+
   @Input()
-  boxSize = 20;
+  isMutable = false;
+
+  @Input()
+  design: IFamilyTree = null;
+
+  @Output()
+  isDesignValidEvent = new EventEmitter<boolean>();
+  isDesignValid = false;
 
   // Various sizing and position variables
   // Note - modify this variable to control option button size
@@ -72,10 +82,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     width: this.canvasResolution.width / 2,
   };
   // dimensions etc of various design elements. Control with variables at the top of the component
-  // NOTE - each change needs to be replicated in ngOnChanges method
-  boxDimensions = {
-    height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
-    width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+  // NOTE - the values are calculated in updateDraggableBoxDimensions method
+  boxDimensions: {
+    height: number;
+    width: number;
   };
 
   // controls position of option buttons around the draggable box
@@ -100,28 +110,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     message: string;
     dismissible: boolean;
   };
-
-  // Inputs for design settings
-
-  @Input()
-  isMutable = false;
-
-  @Input()
-  design: IFamilyTree = null;
-
-  @Input()
-  banner: IFamilyTreeBanner;
-
-  @Input()
-  font: FamilyTreeFontEnum;
-
-  @Input()
-  backgroundTreeDesign: TreeDesignEnum;
-
-  @Output()
-  isDesignValidEvent = new EventEmitter<boolean>();
-
-  isDesignValid = false;
 
   // Design
 
@@ -182,18 +170,23 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     private resolver: ComponentFactoryResolver,
     private cdr: ChangeDetectorRef,
     private localStorageService: LocalStorageService,
-    private familyTreeDesignService: FamilyTreeDesignService
+    private familyTreeDesignService: FamilyTreeDesignService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   ngOnInit(): void {
     // Load and validate tree design SVGs
     for (let i = 0; i < Object.values(TreeDesignEnum).length; i++) {
       let image = new Image();
-      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
+      this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
       image.src = Object.values(TreeDesignEnum)[i];
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a tree design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-tree-design-failed.${Object.values(TreeDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
     }
     // Load and validate banner SVGs
@@ -203,6 +196,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a banner design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-banner-design-failed.${Object.values(BannerDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
       this.bannerDesigns.set(Object.values(BannerDesignEnum)[i], image);
     }
@@ -214,6 +211,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-box-design-failed.${Object.values(Tree1BoxDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
       this.treeBoxDesigns[0].set(Object.values(Tree1BoxDesignEnum)[i], image);
     }
@@ -224,6 +225,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-box-design-failed.${Object.values(Tree2BoxDesignEnum)[i]}`,
+          ErrorlogPriorityEnum.low
+        );
       };
       this.treeBoxDesigns[1].set(Object.values(Tree2BoxDesignEnum)[i], image);
     }
@@ -234,6 +239,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       image.onerror = () => {
         image = null;
         this.handleFailedResourceLoading('Failed to load a box design');
+        this.errorlogsService.create(
+          `webstore.family-tree-design.load-box-design-failed.${Object.values(Tree3BoxDesignEnum)[i]}`
+        );
       };
       this.treeBoxDesigns[2].set(Object.values(Tree3BoxDesignEnum)[i], image);
     }
@@ -241,11 +249,19 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     this.closeButton.src = BoxOptionsDesignEnum.closeButton1;
     this.closeButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the close box SVG');
+      this.errorlogsService.create(
+        `webstore.family-tree-design.load-box-design-failed.close-box-svg`,
+        ErrorlogPriorityEnum.low
+      );
     };
     // load and validate drag button image SVG
     this.dragButton.src = BoxOptionsDesignEnum.dragButton1;
     this.dragButton.onerror = () => {
       this.handleFailedResourceLoading('Failed to load the drag box SVG');
+      this.errorlogsService.create(
+        `webstore.family-tree-design.load-box-design-failed.drag-box-svg`,
+        ErrorlogPriorityEnum.low
+      );
     };
   }
 
@@ -368,10 +384,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.frameChanged = true;
     });
     draggableBoxRef.instance.backgroundImageUri = this.familyTreeDesignService.getUriFromBoxDesign(
-      this.backgroundTreeDesign,
+      this.design.backgroundTreeDesign,
       newBox.boxDesign
     );
-    draggableBoxRef.instance.boxSize = this.boxSize;
+    draggableBoxRef.instance.boxSize = this.design.boxSize;
     draggableBoxRef.instance.width = Math.floor(this.boxDimensions.width / this.canvasScaleToBounds.scaleX);
     draggableBoxRef.instance.height = Math.floor(this.boxDimensions.height / this.canvasScaleToBounds.scaleY);
     draggableBoxRef.instance.boxOptionDimensions = {
@@ -415,7 +431,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         this.bannerDesigns.get(BannerDesignEnum.banner1) !== null &&
         this.bannerDesigns.get(BannerDesignEnum.banner1).complete
       ) {
-        if (this.banner !== undefined && this.banner !== null) {
+        if (this.design.banner !== undefined && this.design.banner !== null) {
           const bannerHeightOffset = 0.96;
           // draw the banner at the bottom middle of the tree
           this.context.drawImage(
@@ -426,11 +442,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
             this.bannerDimensions.height
           );
           const bannerTextFontSize = 3; // in rem
-          this.context.font = `${bannerTextFontSize}rem ${this.font}`;
+          this.context.font = `${bannerTextFontSize}rem ${this.design.font}`;
           this.context.textAlign = 'center';
           this.context.textBaseline = 'middle';
           this.context.fillText(
-            this.banner.text,
+            this.design.banner.text,
             this.canvasResolution.width / 1.97,
             // I divide the height by 2.2 because the SVG has no proportions and the text is not exactly in the middle of it...
             this.canvasResolution.height * bannerHeightOffset - this.bannerDimensions.height / 1.32,
@@ -441,7 +457,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
       // render the boxes
       // fancy magic math to make the value scale well with box size. Source of values: https://www.dcode.fr/function-equation-finder
-      const boxFontSize = ((0.045 * this.boxSize + 0.05) / this.canvasScaleToBounds.scaleX) * 2;
+      const boxFontSize = ((0.045 * this.design.boxSize + 0.05) / this.canvasScaleToBounds.scaleX) * 2;
       for (let i = 0; i < this.myBoxes.length; i++) {
         const box = this.myBoxes[i];
         // Update position of the input field to match the box
@@ -460,6 +476,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.frameChanged = false;
     } catch (error) {
       console.error('An error has occurred while drawing the tree', error);
+      this.errorlogsService.create(`webstore.family-tree-design.draw-design-failed`, ErrorlogPriorityEnum.low, error);
       // disable autosave and the drawing loop
       clearInterval(this.timeInterval);
       clearInterval(this.autosaveInterval);
@@ -494,23 +511,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
         // Setup default boxes if there is no saved design and it is not an immutable miniature etc
         if (this.isMutable) {
           console.log('There was no saved design, generating a clean slate');
-          this.createBox(
-            this.canvasResolution.width / 7,
-            this.canvasResolution.height / 2.5,
-            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
-            'Dig'
-          );
-          this.createBox(
-            this.canvasResolution.width / 2,
-            this.canvasResolution.height / 2.5,
-            Object.values(BoxDesignEnum)[Math.floor(Math.random() * this.treeBoxDesigns[0].size)],
-            'Partner'
-          );
         }
       } else {
         // Setup boxes based on the loaded design
-        this.boxSize = design.boxSize;
-        this.backgroundTreeDesign = design.backgroundTreeDesign;
+        this.design.boxSize = design.boxSize;
+        this.design.backgroundTreeDesign = design.backgroundTreeDesign;
         design.boxes.forEach((box) => {
           this.createBox(box.x, box.y, box.boxDesign, box.text);
         });
@@ -521,6 +526,11 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Something went wrong while loading the design!', error);
+      this.errorlogsService.create(
+        'webstore.family-tree-design.load-design-failed',
+        ErrorlogPriorityEnum.medium,
+        error
+      );
       this.alert = {
         message: 'Something went wrong while loading the design!',
         type: 'danger',
@@ -539,6 +549,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     console.log('Saving your design...');
     if (!this.isDesignValid || this.timeInterval === null || this.timeInterval === undefined) {
       console.warn('The design is not valid, and thus it cannot get saved!');
+      this.errorlogsService.create('webstore.family-tree-design.save-design-failed-because-invalid');
       return false;
     }
     // deep copy the boxes by value (since it modifies the array)
@@ -558,10 +569,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     });
 
     this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, {
-      font: this.font,
-      backgroundTreeDesign: this.backgroundTreeDesign,
-      boxSize: this.boxSize,
-      banner: this.banner,
+      font: this.design.font,
+      backgroundTreeDesign: this.design.backgroundTreeDesign,
+      boxSize: this.design.boxSize,
+      banner: this.design.banner,
       boxes: boxesCopy,
     });
   }
@@ -569,22 +580,15 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // handle input value updates
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.boxSize !== undefined) {
+    if (changes.design !== undefined) {
       this.updateDraggableBoxDimensions();
-    }
-
-    if (changes.backgroundTreeDesign !== undefined) {
-      this.backgroundImage.nativeElement.src = this.backgroundTreeDesign;
-    }
-
-    if (changes.font !== undefined) {
+      this.backgroundImage.nativeElement.src = this.design.backgroundTreeDesign;
       setTimeout(() => {
         for (let i = 0; i < this.myBoxes.length; i++) {
           this.myBoxes[i].inputRef.instance.adjustInputHeight();
         }
       }, 50);
     }
-
     if (changes.showOptionBoxButtons !== undefined) {
       for (let i = 0; i < this.myBoxes.length; i++) {
         this.myBoxes[i].inputRef.instance.showOptionButtons = changes.showOptionBoxButtons.currentValue;
@@ -611,8 +615,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
    */
   updateDraggableBoxDimensions(): void {
     this.boxDimensions = {
-      height: (this.canvasResolution.height / 10) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
-      width: (this.canvasResolution.width / 5) * (this.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+      height:
+        (this.canvasResolution.height / 10) * (this.design.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
+      width:
+        (this.canvasResolution.width / 5) * (this.design.boxSize * this.boxSizeScalingMultiplier) * this.boxRawSize,
     };
 
     // controls position of option buttons around the draggable box
@@ -627,7 +633,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     for (let i = 0; i < this.myBoxes.length; i++) {
       // set the input and option button dimensions, accounting for the scale between canvas and document
       // needs to occur on each frame in case of screen size changing
-      this.myBoxes[i].inputRef.instance.boxSize = this.boxSize;
+      this.myBoxes[i].inputRef.instance.boxSize = this.design.boxSize;
       this.myBoxes[i].inputRef.instance.width = Math.floor(this.boxDimensions.width / this.canvasScaleToBounds.scaleX);
       this.myBoxes[i].inputRef.instance.height = Math.floor(
         this.boxDimensions.height / this.canvasScaleToBounds.scaleY

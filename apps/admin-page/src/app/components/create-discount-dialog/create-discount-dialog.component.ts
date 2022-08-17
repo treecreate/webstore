@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DiscountType } from '@interfaces';
@@ -12,7 +12,7 @@ import { DiscountsService } from '../../services/discounts/discounts.service';
   styleUrls: ['./create-discount-dialog.component.css'],
 })
 export class CreateDiscountDialogComponent {
-  createDiscountForm: FormGroup;
+  createDiscountForm: UntypedFormGroup;
   checked = true;
   isLoading = false;
 
@@ -24,14 +24,18 @@ export class CreateDiscountDialogComponent {
    * @param dialog
    */
   constructor(private discountService: DiscountsService, private snackbar: MatSnackBar, private dialog: MatDialog) {
-    this.createDiscountForm = new FormGroup({
-      discountCode: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.required]),
-      startsAt: new FormControl(''),
-      expiresAt: new FormControl('', [Validators.required]),
-      remainingUses: new FormControl(1, [Validators.required, Validators.pattern('^[0-9]*$')]),
-      type: new FormControl(DiscountType.amount, [Validators.required]),
-      isEnabled: new FormControl(this.checked, [Validators.required]),
-      amount: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+    this.createDiscountForm = new UntypedFormGroup({
+      discountCode: new UntypedFormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.required,
+      ]),
+      startsAt: new UntypedFormControl(''),
+      expiresAt: new UntypedFormControl('', [Validators.required]),
+      remainingUses: new UntypedFormControl(1, [Validators.required, Validators.pattern('^[0-9]*$')]),
+      type: new UntypedFormControl(DiscountType.amount, [Validators.required]),
+      isEnabled: new UntypedFormControl(this.checked, [Validators.required]),
+      amount: new UntypedFormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
     });
   }
 

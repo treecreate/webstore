@@ -1,13 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUser } from '@interfaces';
+import { INewsletter, IUser } from '@interfaces';
 import { UserRoles } from '@models';
+import { catchError, of } from 'rxjs';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
 import { AuthService } from '../../services/authentication/auth.service';
+import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -18,10 +20,11 @@ import { UserService } from '../../services/user/user.service';
 export class AccountComponent {
   public user!: IUser;
   public authUser;
-  public accountForm: FormGroup;
+  public accountForm: UntypedFormGroup;
   public isLoading = false;
   public isUpdatingInfo = false;
   public panelOpenState = false;
+  newsletter?: INewsletter = undefined;
 
   /**
    * Gets the current user.
@@ -35,6 +38,7 @@ export class AccountComponent {
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private newsletterService: NewsletterService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -50,12 +54,12 @@ export class AccountComponent {
       this.userService.getUser(queryParams.userId).subscribe(
         (user: IUser) => {
           this.user = user;
-          console.log(user);
+          this.fetchNewsletter();
           this.updateForm();
           this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
-          console.log(err.message);
+          console.error(err.message);
           this.router.navigate(['/dashboad']);
           this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
           this.isLoading = false;
@@ -70,25 +74,29 @@ export class AccountComponent {
           this.isLoading = false;
         },
         (err: HttpErrorResponse) => {
-          console.log(err.message);
+          console.error(err.message);
           this.snackBar.open('Fetching the user data failed', 'Oh no!', { duration: 5000 });
           this.isLoading = false;
         }
       );
     }
 
-    this.accountForm = new FormGroup({
-      name: new FormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
-      phoneNumber: new FormControl('', [
+    this.accountForm = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.maxLength(50), Validators.pattern('^[^0-9]+$')]),
+      phoneNumber: new UntypedFormControl('', [
         Validators.minLength(3),
         Validators.maxLength(15),
         Validators.pattern('^[0-9+ ]*$'),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      streetAddress: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
-      streetAddress2: new FormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
-      city: new FormControl('', [Validators.maxLength(50), Validators.minLength(3), Validators.pattern('^[^0-9]+$')]),
-      postcode: new FormControl('', [
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      streetAddress: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      streetAddress2: new UntypedFormControl('', [Validators.maxLength(50), Validators.minLength(3)]),
+      city: new UntypedFormControl('', [
+        Validators.maxLength(50),
+        Validators.minLength(3),
+        Validators.pattern('^[^0-9]+$'),
+      ]),
+      postcode: new UntypedFormControl('', [
         Validators.minLength(3),
         Validators.maxLength(15),
         Validators.pattern('^[0-9]*$'),
@@ -187,13 +195,12 @@ export class AccountComponent {
         })
         .subscribe(
           (data: IUser) => {
-            console.log(data);
             this.snackBar.open('Your account has been updated!', `I'm the best`, { duration: 5000 });
             this.user = data;
             this.isUpdatingInfo = false;
           },
           (err: HttpErrorResponse) => {
-            console.log(err.message);
+            console.error(err.message);
             this.snackBar.open('Updating the user data failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
           }
@@ -218,20 +225,61 @@ export class AccountComponent {
           },
           this.user.userId
         )
-        .subscribe(
-          (data: IUser) => {
-            console.log(data);
+        .subscribe({
+          next: (data: IUser) => {
             this.snackBar.open('User ' + this.user?.email + ' has been updated!', `I'm the best`, { duration: 5000 });
             this.user = data;
             this.isUpdatingInfo = false;
           },
-          (err: HttpErrorResponse) => {
-            console.log(err.message);
+          error: (err: HttpErrorResponse) => {
+            console.error(err.message);
             this.snackBar.open('Updating the user ' + this.user?.email + ' has failed', 'Oh no!', { duration: 5000 });
             this.isUpdatingInfo = false;
-          }
-        );
+          },
+        });
     }
+  }
+
+  /**
+   * Fetch the newsletter object for the given user. Only fetches if the user exists.\
+   * Fetched newsletter is assigned to the component
+   */
+  async fetchNewsletter(): Promise<void> {
+    if (this.user === null || this.user === undefined) {
+      return;
+    }
+    this.newsletterService
+      .getNewsletter(this.user.email)
+      .pipe(catchError(() => of()))
+      .subscribe({
+        next: (response: INewsletter) => {
+          this.newsletter = response;
+        },
+      });
+  }
+
+  /**
+   * Remove, if present, the newsletter entry for the given user.
+   */
+  unsubscribe(): void {
+    if (!this.newsletter) {
+      console.warn(
+        `An unsubscribe button was pressed even though the user is not subscriber. Something went wrong, the button shouldn't be visible!`
+      );
+      return;
+    }
+    this.isLoading = true;
+    this.newsletterService.unsubscribe(this.newsletter?.newsletterId).subscribe({
+      next: () => {
+        this.snackBar.open('The user has been unsubscribed');
+        this.newsletter = undefined;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.snackBar.open('Failed to unsubscribe the user', 'Why??');
+        this.isLoading = false;
+      },
+    });
   }
 
   /**

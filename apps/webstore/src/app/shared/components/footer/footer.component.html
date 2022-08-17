@@ -1,7 +1,7 @@
 <footer data-cy="footer" class="page-footer font-small bottom add-transition" id="footer">
     <div class="container">
         <div class="row container-footer">
-            <div class="col-main col-md-3 border-right">
+            <section class="col-main col-md-3 border-right">
                 <div class="row">
                     <div class="col">
                         <h5 class="font-weight-bold mt-3">Navigation</h5>
@@ -12,9 +12,7 @@
                                 <a routerLink="/home">Home</a>
                             </li>
                             <li>
-                                <a routerLink="{{ isLoggedIn ? '/product' : '/notSignedIn' }}" i18n="@@product"
-                                    >Product</a
-                                >
+                                <a routerLink="/products" i18n="@@product">Products</a>
                             </li>
                             <li *ngIf="!isLoggedIn">
                                 <a routerLink="/login" i18n="@@login">Log in</a>
@@ -31,11 +29,11 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <hr class="clearfix w-100 d-md-none" />
 
-            <div class="col-main col-md-3 border-right">
+            <section class="col-main col-md-3 border-right">
                 <div class="row">
                     <div class="col">
                         <h5 class="font-weight-bold mt-3 contact-mobile-margin" i18n="@@contact">Contact</h5>
@@ -54,7 +52,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <hr class="remove-margin clearfix w-100 d-md-none" />
 
@@ -62,7 +60,7 @@
                 <h5 class="font-weight-bold mt-3" i18n="@@subscribe-to-newsletter-title">
                     Subscribe to our newsletter
                 </h5>
-                <p i18n="@@subscribe-to-newsletter-subtitle">Get 20% off your first purchase.</p>
+                <p i18n="@@subscribe-to-newsletter-subtitle">Get 10% off your first purchase.</p>
                 <div class="tc-input-group field">
                     <input
                         type="email"
@@ -92,7 +90,7 @@
     </div>
 
     <!-- Copyright footer bottom -->
-    <div class="footer-copyright text-center py-3">
+    <section class="footer-copyright text-center py-3">
         <div class="container">
             <div class="row">
                 <div class="col">© {{ this.currentYear }} Copyright Treecreate</div>
@@ -131,5 +129,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </footer>

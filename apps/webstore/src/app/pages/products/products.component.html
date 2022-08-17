@@ -1,0 +1,11 @@
+<main class="products">
+    <section class="products-page-container">
+        <div class="product-listing-container">
+            <webstore-product-display
+                *ngFor="let item of productsList"
+                [product]="item"
+                [isEnglish]="isEnglish()"
+            ></webstore-product-display>
+        </div>
+    </section>
+</main>

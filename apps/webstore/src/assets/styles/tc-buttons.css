@@ -88,7 +88,20 @@ strong {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
 }
 
+.green,
+.red,
+.blue {
+  color: white;
+}
+
 .green {
   background-color: var(--green-color);
-  color: white;
+}
+
+.red {
+  background-color: var(--red-color);
+}
+
+.blue {
+  background-color: var(--blue-color);
 }

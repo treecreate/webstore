@@ -9,44 +9,37 @@ import io.swagger.annotations.ApiModelProperty;
  * for Swagger UI generation
  */
 @ApiModel("Healthcheck")
-class HealthcheckDto
-{
-    @ApiModelProperty(name = "status", example = "OK")
-    private String status;
+class HealthcheckDto {
+  @ApiModelProperty(name = "status", example = "OK")
+  private String status;
 
-    @ApiModelProperty(name = "message", example = "Server is Live")
-    private String message;
+  @ApiModelProperty(name = "message", example = "Server is Live")
+  private String message;
 
-    @ApiModelProperty(name = "Environment the api is running in", example = "development")
-    private Environment environment;
+  @ApiModelProperty(name = "Environment the api is running in", example = "development")
+  private Environment environment;
 
-    public String getStatus()
-    {
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public String getMessage()
-    {
-        return message;
-    }
+  public String getMessage() {
+    return message;
+  }
 
-    public void setMessage(String message)
-    {
-        this.message = message;
-    }
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
-    public Environment getEnvironment()
-    {
-        return environment;
-    }
+  public Environment getEnvironment() {
+    return environment;
+  }
 
-    public void setEnvironment(Environment environment)
-    {
-        this.environment = environment;
-    }
+  public void setEnvironment(Environment environment) {
+    this.environment = environment;
+  }
 }

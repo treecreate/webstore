@@ -5,12 +5,7 @@ import { ToastService } from './toast-service';
 @Component({
   selector: 'webstore-toasts',
   template: `
-    <div
-      class="ngb-toasts"
-      aria-live="polite"
-      aria-atomic="true"
-      style="pointer-events: none; opacity: 0.8; bottom: 0; top: auto !important;"
-    >
+    <div class="ngb-toasts" aria-live="polite" aria-atomic="true">
       <ngb-toast
         *ngFor="let toast of toastService.toasts"
         [class]="toast.classname"
@@ -21,11 +16,22 @@ import { ToastService } from './toast-service';
         <ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
           <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
         </ng-template>
-
         <ng-template #text>{{ toast.textOrTpl }}</ng-template>
       </ngb-toast>
     </div>
   `,
+  styles: [
+    `
+      .ngb-toasts {
+        pointer-events: none;
+        opacity: 0.9;
+        bottom: 0;
+        left: 0;
+        padding: 0.5em;
+        position: sticky;
+      }
+    `,
+  ],
 })
 export class ToastsContainerComponent {
   constructor(public toastService: ToastService) {}

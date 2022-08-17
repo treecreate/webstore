@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewChild } from '@angular/core';
-
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '@local-storage';
-import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 import { CookieStatus, LocalStorageVars } from '@models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventsService } from '../../../services/events/events.service';
 import { ToastService } from '../../toast/toast-service';
-import { NewsletterSignupModalComponent } from '../newsletter-signup-modal/newsletter-signup-modal.component';
+import { TermsOfUseModalComponent } from '../terms-of-use-modal/terms-of-use-modal.component';
 
 @Component({
   selector: 'webstore-cookie-prompt-modal',
@@ -15,65 +12,49 @@ import { NewsletterSignupModalComponent } from '../newsletter-signup-modal/newsl
   styleUrls: ['./cookie-prompt-modal.component.css', '../../../../../assets/styles/modals.css'],
 })
 export class CookiePromptModalComponent implements OnInit {
-  closeResult = '';
-  @ViewChild('content', { static: true }) private content;
-  cookiesAccepted$: BehaviorSubject<CookieStatus>;
+  showCookiePrompt = false;
 
   constructor(
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
-    private toastService: ToastService
-  ) {
-    this.cookiesAccepted$ = this.localStorageService.getItem<CookieStatus>(LocalStorageVars.cookiesAccepted);
-  }
+    private toastService: ToastService,
+    private eventsService: EventsService
+  ) {}
 
   ngOnInit(): void {
-    if (this.cookiesAccepted$.getValue() !== CookieStatus.accepted)
-      this.modalService
-        .open(this.content, {
-          ariaLabelledBy: 'modal-basic-title',
-          backdrop: 'static',
-          keyboard: false,
-        })
-        .result.then(
-          (result) => {
-            if (result === 'accept') this.acceptCookies();
-          },
-          () => {
-            // this shouldn't happen and means that the user has closed the prompt in an unexpected manner
-            console.log(
-              'Wow, you have managed to bypass the cookie prompt. Guess you have rejected them, off to the cookie gulag you go'
-            );
-          }
+    // Automatically show and hide the cookies prompt depending on the status of cookies
+    this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).subscribe(() => {
+      if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.undefined) {
+        this.showCookiePrompt = true;
+      } else {
+        this.showCookiePrompt = false;
+      }
+    });
+  }
+
+  close(acceptance: string) {
+    switch (acceptance) {
+      case 'accept':
+        this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.accepted);
+        this.toastService.showAlert(
+          'Thank you for accepting our cookies!',
+          'Tak fordi du siger ja til vores cookies!',
+          'success',
+          2500
         );
-  }
-
-  acceptCookies() {
-    this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.accepted);
-    this.toastService.showAlert(
-      'Thank you for accepting our cookies!',
-      'Tak fordi du siger ja til vores cookies!',
-      'success',
-      2500
-    );
-    // Check if user has seen newsletter modal before
-    const hasSeenNewsletterModal = this.localStorageService.getItem<boolean>(LocalStorageVars.hasSeenNewsletterModal);
-    if (!hasSeenNewsletterModal.value) {
-      setTimeout(() => {
-        this.modalService.open(NewsletterSignupModalComponent);
-        this.localStorageService.setItem<boolean>(LocalStorageVars.hasSeenNewsletterModal, true);
-      }, 2000);
+        this.eventsService.create('webstore.cookies-prompt.cookies-accepted');
+        break;
+      case 'reject':
+        this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.rejected);
+        this.toastService.showAlert(
+          'You will only be storing minimal information locally in your browser. :) ',
+          'Du gemmer kun essentielle informationer localt i din browser. :) ',
+          'success',
+          2500
+        );
+        this.eventsService.create('webstore.cookies-prompt.cookies-rejected');
+        break;
     }
-  }
-
-  rejectCookies() {
-    this.localStorageService.setItem<CookieStatus>(LocalStorageVars.cookiesAccepted, CookieStatus.rejected);
-    this.toastService.showAlert(
-      'You wont be able to access the page without accepting our cookies. :( ',
-      'Du kan desværre ikke bruge siden uden at accepterer vores cookies. :( ',
-      'danger',
-      2500
-    );
   }
 
   showTermsOfUse() {

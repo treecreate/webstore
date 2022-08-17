@@ -1,3 +1,6 @@
+.navbar-collapse {
+  justify-content: flex-end;
+}
 .nav-link {
   transition-duration: 0.5s;
   padding-bottom: 5px;
@@ -6,6 +9,9 @@
   padding: 0 10px;
   transition-duration: 0.5s;
 }
+.container {
+  padding: 0.5em 1em;
+}
 .nav-item:hover > .nav-link {
   background: none;
   transform: scale(0.95);
@@ -13,7 +19,7 @@
   opacity: 0.5;
 }
 .nav-section:hover > .navbar-basket-icon {
-  transform: scale(1.05);
+  transform: scale(0.95);
 }
 .nav-start {
   display: flex;
@@ -37,7 +43,9 @@
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   transition: 0.4s;
-  padding: 0.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 .navbar-brand:hover > .logo {
   transform: scale(1.05);
@@ -48,13 +56,7 @@
 .navbar-toggler {
   outline: none;
 }
-.navbar-language {
-  position: relative;
-  bottom: 1px;
-}
 .language-icon {
-  position: relative;
-  top: -2px;
   padding: 10px 15px;
 }
 .language-dropdown {
@@ -121,13 +123,10 @@
   display: flex;
 }
 .navbar-basket-icon {
-  background-color: transparent;
+  background-color: var(--green-color);
   border: none;
   transition: 0.5s;
-}
-.navbar-basket-icon {
-  background-color: var(--green-color);
-  transition: 0.4s;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   color: white;
   padding: 0 8px 3px 8px;
@@ -177,6 +176,29 @@
   position: relative;
   top: -2px;
 }
+.buy-button-text {
+  font-size: 0.8em;
+  padding: 0 0.2em 0 0.4em;
+}
+
+.purchase-info {
+  width: 100%;
+  color: white;
+  background-color: rgb(197, 158, 118);
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-text {
+  padding: 0 10px;
+}
+
+.check-icon {
+  width: 20px;
+  margin: 5px;
+}
 
 @media all and (max-width: 992px) {
   .remove-on-mobile {
@@ -190,5 +212,11 @@
   }
   .nav-item:hover {
     border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .remove {
+    display: none;
   }
 }

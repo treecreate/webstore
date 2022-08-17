@@ -55,6 +55,12 @@
                                 i18n="@@design-type-family-tree"
                                 >Family Tree</span
                             >
+                            <span
+                                *ngSwitchCase="designTypeEnum.quotable"
+                                data-cy="order-item-design-item-title"
+                                i18n="@@design-type-quotable"
+                                >Quotable</span
+                            >
                         </div>
                     </div>
 
@@ -84,7 +90,7 @@
                     <button
                         class="tc-button-square button-placement"
                         (click)="scrollTop()"
-                        [routerLink]="'/product'"
+                        routerLink="{{ getEditLink(item.design.designType) }}"
                         [queryParams]="{ designId: item.design.designId }"
                         data-cy="order-item-view-button"
                     >
@@ -238,10 +244,7 @@
             <div class="section-row">
                 <div class="line">
                     <span class="sub-title" i18n="@@delivery-price">Delivery price </span>
-                    <span *ngIf="order.shippingMethod === 'PICK_UP_POINT' || order.shippingMethod === 'OWN_DELIVERY'"
-                        >0 DKK</span
-                    >
-                    <span *ngIf="order.shippingMethod === 'HOME_DELIVERY'">29 DKK</span>
+                    <span>{{ getDeliveryPrice() }} DKK</span>
                 </div>
             </div>
             <div class="section-row">

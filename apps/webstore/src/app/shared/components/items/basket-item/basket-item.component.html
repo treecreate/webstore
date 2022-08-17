@@ -1,0 +1,137 @@
+<ngb-alert *ngIf="alert" [type]="alert.type" (closed)="alert = undefined" [dismissible]="alert.dismissible">
+    <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
+    {{ alert.message }}</ngb-alert
+>
+<article *ngIf="!alert" class="basket-item-container" data-cy="basket-item">
+    <!-- image -->
+    <div class="item-image-container">
+        <webstore-store-item
+            #productDesign
+            [isMutable]="false"
+            [design]="item.design"
+            class="item-image"
+        ></webstore-store-item>
+    </div>
+    <div class="item-container">
+        <div class="info-col">
+            <span i18n="@@product">Product</span><span>{{ item.design.designType }}</span>
+        </div>
+        <div class="info-col">
+            <span i18n="@@price">Price</span><span data-cy="basket-item-price">{{ itemPrice.toFixed(2) }} DKK</span>
+        </div>
+
+        <div class="option-container">
+            <div class="text">
+                <span i18n="@@amount">Amount</span>
+            </div>
+            <div class="option">
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    (click)="decreaseQuantity()"
+                    [disabled]="item.quantity === 1 || isLoading"
+                    data-cy="basket-item-decrease-quantity-button"
+                >
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="icon">
+                        <div class="button-minus" *ngIf="!isLoading"></div>
+                    </div>
+                </button>
+                <div class="quantity">
+                    {{ item.quantity }}
+                </div>
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    (click)="increaseQuantity()"
+                    data-cy="basket-item-increase-quantity-button"
+                    [disabled]="isLoading"
+                >
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="button-plus" *ngIf="!isLoading"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- size -->
+        <div class="option-container">
+            <div class="text">
+                <span i18n="@@size">Size</span>
+            </div>
+            <div class="option">
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    (click)="decreaseDimension()"
+                    [disabled]="item.dimension === 'SMALL' || isLoading"
+                    data-cy="basket-item-decrease-dimension-button"
+                >
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="icon" *ngIf="!isLoading">
+                        <div class="button-minus"></div>
+                    </div>
+                </button>
+                <div class="quantity">
+                    {{ translateDimensionToCm(item.dimension, item.design.designType) }}
+                </div>
+                <button
+                    class="box-size-plus tc-button-sm-square low-dropshadow"
+                    (click)="increaseDimension()"
+                    [disabled]="item.dimension === 'LARGE' || isLoading"
+                    data-cy="basket-item-increase-dimension-button"
+                >
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                    <div class="button-plus" *ngIf="!isLoading"></div>
+                </button>
+            </div>
+        </div>
+
+        <hr class="margin-top" />
+        <!-- actions -->
+        <div class="option-actions">
+            <button
+                class="tc-button-50 margin-top"
+                (click)="goToDesign()"
+                i18n="@@view"
+                data-cy="basket-item-view-button"
+            >
+                View
+            </button>
+            <button
+                class="tc-button-50 margin-top red"
+                (click)="deleteTransactionItem()"
+                data-cy="basket-item-delete-button"
+            >
+                <span i18n="@@delete" *ngIf="!isLoading">Delete</span>
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm text-light"
+                    style="margin: 5px"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+            </button>
+        </div>
+    </div>
+</article>

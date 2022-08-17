@@ -27,8 +27,9 @@ export class AuthService {
    */
   login(params: ILoginRequestParams): Observable<ILoginResponse> {
     const { email, password } = params;
+    const eventLogUserId = this.localStorageService.getItem(LocalStorageVars.eventLogUserId).value;
     return this.http.post<ILoginResponse>(
-      `${env.apiUrl}/auth/signin`,
+      `${env.apiUrl}/auth/signin${eventLogUserId ? '?eventLogUserId=' + eventLogUserId : ''}`,
       {
         email,
         password,
@@ -44,8 +45,9 @@ export class AuthService {
    */
   register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
+    const eventLogUserId = this.localStorageService.getItem(LocalStorageVars.eventLogUserId).value;
     return this.http.post<IRegisterResponse>(
-      `${env.apiUrl}/auth/signup`,
+      `${env.apiUrl}/auth/signup${eventLogUserId ? '?eventLogUserId=' + eventLogUserId : ''}`,
       {
         email,
         password,
@@ -61,8 +63,9 @@ export class AuthService {
    */
   registerOnOrder(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
+    const eventLogUserId = this.localStorageService.getItem(LocalStorageVars.eventLogUserId).value;
     return this.http.post<IRegisterResponse>(
-      `${env.apiUrl}/auth/signup?sendPasswordEmail=true`,
+      `${env.apiUrl}/auth/signup?sendPasswordEmail=true${eventLogUserId ? '&eventLogUserId=' + eventLogUserId : ''}`,
       {
         email,
         password,

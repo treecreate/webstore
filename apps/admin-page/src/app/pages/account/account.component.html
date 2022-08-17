@@ -3,7 +3,7 @@
 <form class="account-page" [formGroup]="accountForm" (ngSubmit)="updateAccount()" data-cy="account-page">
     <div class="title-section">
         <h1 class="title">Account</h1>
-        <h3 *ngIf="!isLoading">User id: {{ user?.userId }}</h3>
+        <h3 *ngIf="!isLoading">User id: {{ user.userId }}</h3>
         <div class="loading-container" *ngIf="isLoading">
             <mat-spinner [diameter]="20"></mat-spinner>
         </div>
@@ -167,6 +167,9 @@
                 </button>
                 <button mat-raised-button type="button" color="primary" *ngIf="isOnlyCustomer()">Reset password</button>
                 <button mat-raised-button type="button" color="primary" *ngIf="isOnlyCustomer()">Send email</button>
+                <button mat-raised-button type="button" color="primary" *ngIf="newsletter" (click)="unsubscribe()">
+                    Unsubscribe
+                </button>
             </div>
         </div>
     </div>

@@ -713,6 +713,10 @@
                                                                         th:case="'FAMILY_TREE'"
                                                                         th:text="#{order.title.family.tree}"
                                                                     ></span>
+                                                                    <span
+                                                                        th:case="'QUOTABLE'"
+                                                                        th:text="#{order.title.quotable}"
+                                                                    ></span>
                                                                 </th:block>
                                                             </strong>
                                                             <br />
@@ -723,21 +727,50 @@
                                                             <span th:text="${transactionItem.quantity}"></span>
                                                             <br />
                                                             <span th:text="#{order.price}"></span>
+
                                                             <th:block
-                                                                th:switch="${#strings.toString(transactionItem.dimension)}"
+                                                                th:switch="${#strings.toString(transactionItem.design.designType)}"
                                                             >
-                                                                <span
-                                                                    th:case="'SMALL'"
-                                                                    th:text="${transactionItem.quantity} * 495"
-                                                                ></span>
-                                                                <span
-                                                                    th:case="'MEDIUM'"
-                                                                    th:text="${transactionItem.quantity} * 695"
-                                                                ></span>
-                                                                <span
-                                                                    th:case="'LARGE'"
-                                                                    th:text="${transactionItem.quantity} * 995"
-                                                                ></span>
+                                                                <th:block
+                                                                    th:case="'FAMILY_TREE'"
+                                                                >
+                                                                    <th:block
+                                                                        th:switch="${#strings.toString(transactionItem.dimension)}"
+                                                                    >
+                                                                        <span
+                                                                            th:case="'SMALL'"
+                                                                            th:text="${transactionItem.quantity} * 499"
+                                                                        ></span>
+                                                                        <span
+                                                                            th:case="'MEDIUM'"
+                                                                            th:text="${transactionItem.quantity} * 699"
+                                                                        ></span>
+                                                                        <span
+                                                                            th:case="'LARGE'"
+                                                                            th:text="${transactionItem.quantity} * 999"
+                                                                        ></span>
+                                                                    </th:block>
+                                                                </th:block>
+                                                                <th:block
+                                                                    th:case="'QUOTABLE'"
+                                                                >
+                                                                    <th:block
+                                                                        th:switch="${#strings.toString(transactionItem.dimension)}"
+                                                                    >
+                                                                        <span
+                                                                            th:case="'SMALL'"
+                                                                            th:text="${transactionItem.quantity} * 299"
+                                                                        ></span>
+                                                                        <span
+                                                                            th:case="'MEDIUM'"
+                                                                            th:text="${transactionItem.quantity} * 399"
+                                                                        ></span>
+                                                                        <span
+                                                                            th:case="'LARGE'"
+                                                                            th:text="${transactionItem.quantity} * 499"
+                                                                        ></span>
+                                                                    </th:block>
+                                                                </th:block>
                                                             </th:block>
                                                             DKK
                                                             <br />
@@ -795,6 +828,15 @@
                                                                     </span>
                                                                 </span>
                                                             </div>
+
+                                                            <br/>
+
+                                                            <div>
+                                                                <span th:text="#{order.delivery.price}"></span>
+                                                                <span th:text="${deliveryPrice}"></span>
+                                                                DKK
+                                                            </div>
+
                                                             <br />
 
                                                             <br />
