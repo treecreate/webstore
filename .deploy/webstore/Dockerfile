@@ -54,4 +54,4 @@ COPY --from=builder /app/dist/apps/webstore /usr/share/nginx/html
 # When the container starts, replace the env.js with values from environment variables via package.json scripts
 
 # Execute nginx on container to launch application after setting angular ENVs
-CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/en-US/assets/env.template.js > /usr/share/nginx/html/en-US/assets/env.js && envsubst < /usr/share/nginx/html/dk/assets/env.template.js > /usr/share/nginx/html/dk/assets/env.js && exec nginx -g 'daemon off;'"]
+CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/en-US/assets/env.template.js > /usr/share/nginx/html/en-US/assets/env.js && envsubst < /usr/share/nginx/html/dk/assets/env.template.js > /usr/share/nginx/html/dk/assets/env.js && envsubst < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
