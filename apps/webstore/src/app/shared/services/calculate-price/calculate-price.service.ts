@@ -32,8 +32,60 @@ export class CalculatePriceService {
   ): IPricing {
     // Get full price of items in basket
     const fullPrice = this.getFullPrice(itemList);
-
     // Get discounted price of all items
+    const { discountedPrice, discountAmount } = this.calculateDiscountedPrice(fullPrice, discount);
+
+    // Get delivery price
+    const deliveryPrice = this.getDeliveryPrice(discountedPrice, isHomeDelivery);
+
+    // Get planted trees price
+    const extraTreesPrice = this.getExtraTreesPrice(plantedTrees);
+
+    // Get final price with delivery and donation
+    const finalPrice = discountedPrice + extraTreesPrice + deliveryPrice;
+
+    // Get VAT for the final price
+    const vat = this.getVat(finalPrice);
+
+    return {
+      fullPrice,
+      discountedPrice,
+      finalPrice,
+      discountAmount,
+      deliveryPrice,
+      extraTreesPrice,
+      vat,
+    };
+  }
+
+  /**
+   * Get the price of the planted trees that come with the order.
+   * @param plantedTrees the selected planted trees. At least one by default.
+   * @returns the price for planted trees.
+   */
+  getExtraTreesPrice(plantedTrees: number): number {
+    return plantedTrees > 0 ? plantedTrees * 10 - 10 : 0;
+  }
+
+  /**
+   * Get the Danish VAT.
+   * @param finalPrice the price of the order with the discount and planted trees applied.
+   * @returns the VAT.
+   */
+  getVat(finalPrice: number): number {
+    return Math.round(finalPrice * 0.2 * 100) / 100;
+  }
+
+  /**
+   * Calculate discounted price for the given full price.
+   * @param fullPrice price of the items (no delivery price).
+   * @param discount the applied discount.
+   * @returns discountedPrice and discountAmount.
+   */
+  calculateDiscountedPrice(
+    fullPrice: number,
+    discount: IDiscount
+  ): { discountedPrice: number; discountAmount: number } {
     let discountedPrice = fullPrice;
     if (discount !== null) {
       if (discount.type === DiscountType.percent) {
@@ -51,33 +103,23 @@ export class CalculatePriceService {
     }
     // Get discounted amount / amount saved
     const discountAmount = Math.round((fullPrice - discountedPrice) * 100) / 100;
+    return { discountedPrice, discountAmount };
+  }
 
-    // Get delivery price
+  /**
+   * Calculate delivery price based on the discounted price and delivery type.
+   * @param discountedPrice the full price after the discount is applied.
+   * @param isHomeDelivery delivery type.
+   * @returns price of the delivery.
+   */
+  getDeliveryPrice(discountedPrice: number, isHomeDelivery: boolean): number {
     let deliveryPrice = 0;
     if (discountedPrice > 350) {
       deliveryPrice = isHomeDelivery ? 25 : 0;
     } else {
       deliveryPrice = isHomeDelivery ? 65 : 45;
     }
-
-    // Get planted trees price
-    const extraTreesPrice = plantedTrees > 0 ? plantedTrees * 10 - 10 : 0;
-
-    // Get final price with delivery and donation
-    const finalPrice = discountedPrice + extraTreesPrice + deliveryPrice;
-
-    // Get VAT for the final price
-    const vat = Math.round(finalPrice * 0.2 * 100) / 100;
-
-    return {
-      fullPrice,
-      discountedPrice,
-      finalPrice,
-      discountAmount,
-      deliveryPrice,
-      extraTreesPrice,
-      vat,
-    };
+    return deliveryPrice;
   }
 
   /**
