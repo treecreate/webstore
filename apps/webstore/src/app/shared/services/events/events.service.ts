@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IEvent } from '@interfaces';
+import { ErrorlogPriorityEnum, IEvent } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { environment as env } from '../../../../environments/environment';
 import { AuthService } from '../authentication/auth.service';
+import { ErrorlogsService } from '../errorlog/errorlog.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ export class EventsService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private errorlogsService: ErrorlogsService
   ) {}
 
   /**
@@ -22,21 +24,46 @@ export class EventsService {
    * @returns the created event entry.
    */
   public create(name: string): void {
-    const authUser = this.authService.getAuthUser();
-    // If logged in, use the actual UserId
-    if (authUser) {
-      this.http.post<IEvent>(`${env.apiUrl}/events`, { name, userId: authUser.userId }).subscribe();
-    } else {
-      // When not logged in, use a locally stored random UUID as the user Id
-      const userId = this.localStorageService.getItem<string>(LocalStorageVars.eventLogUserId).value;
-      if (userId) {
-        this.http.post<IEvent>(`${env.apiUrl}/events`, { name, userId }).subscribe();
+    try {
+      const authUser = this.authService.getAuthUser();
+
+      // If logged in, use the actual UserId
+      if (authUser != null && this.authService.isAccessTokenValid()) {
+        this.http
+          .post<IEvent>(`${env.apiUrl}/events`, {
+            name,
+            userId: authUser.userId,
+          })
+          .subscribe();
       } else {
-        // If userId was not present in the local storage before, create it and set it.
-        const newUserId = this.createEventLogUserId();
-        this.localStorageService.setItem(LocalStorageVars.eventLogUserId, newUserId);
-        this.http.post<IEvent>(`${env.apiUrl}/events`, { name, newUserId }).subscribe();
+        // When not logged in, use a locally stored random UUID as the user Id
+        const userId = this.localStorageService.getItem<string>(LocalStorageVars.eventLogUserId).value;
+        if (userId) {
+          this.http
+            .post<IEvent>(`${env.apiUrl}/events`, {
+              name,
+              userId: userId,
+            })
+            .subscribe();
+        } else {
+          // If userId was not present in the local storage before, create it and set it.
+          const newUserId = this.createEventLogUserId();
+          this.localStorageService.setItem(LocalStorageVars.eventLogUserId, newUserId);
+          this.http
+            .post<IEvent>(`${env.apiUrl}/events`, {
+              name,
+              userId: newUserId,
+            })
+            .subscribe();
+        }
       }
+    } catch (err) {
+      console.error(err);
+      this.errorlogsService.create('webstore.event-logs.failed-to-log', ErrorlogPriorityEnum.high, {
+        name: 'webstore.error-logs.failed-to-log',
+        userId: '00000000-0000-0000-0000-000000000000',
+        error: err,
+      });
     }
   }
 

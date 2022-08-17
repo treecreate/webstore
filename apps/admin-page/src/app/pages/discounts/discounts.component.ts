@@ -7,7 +7,7 @@ import { CreateDiscountDialogComponent } from '../../components/create-discount-
 import { DiscountsService } from '../../services/discounts/discounts.service';
 import { Sort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 enum DiscountSortEnum {
   createdAt = 'createdAt',
@@ -48,7 +48,7 @@ export class DiscountsComponent implements OnInit {
   showAsc = true;
   showAmount = true;
   showPercent = true;
-  sortSelectForm: FormGroup;
+  sortSelectForm: UntypedFormGroup;
 
   constructor(
     private discountsService: DiscountsService,
@@ -57,8 +57,8 @@ export class DiscountsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private discountService: DiscountsService
   ) {
-    this.sortSelectForm = new FormGroup({
-      select: new FormControl(DiscountSortEnum.createdAt, Validators.required),
+    this.sortSelectForm = new UntypedFormGroup({
+      select: new UntypedFormControl(DiscountSortEnum.createdAt, Validators.required),
     });
   }
 

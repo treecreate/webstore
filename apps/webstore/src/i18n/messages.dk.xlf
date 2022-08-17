@@ -2050,7 +2050,7 @@
       </trans-unit>
       <trans-unit id="cookie-prompt-text" datatype="html">
         <source>Hey there, Treecreate uses cookies to save anonymous information through google analytics to continuously improve the page. Without accepting these cookies, you will sadly not be able to use the page. If you wish to see the cookies that we store, you can go to this link:</source>
-        <target>Hejsa, Treecreate bruger cookies til at gemme anonyme informationer gennem google analytics til at forbedre siden. Hvis du ikke godkender disse cookies kan du desværre ikke komme til at bruge siden. Hvis du vil se hvilke cookies vi gemmer, så kan du læse om dem her: </target> 
+        <target>Hejsa, Treecreate bruger cookies til at gemme anonyme informationer gennem google analytics til at forbedre siden. Hvis du afviser cookies gemmer vi kun den nødvendige data localt i din browser. Hvis du vil se hvilke cookies vi ellers gemmer, så kan du læse om dem her: </target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component.html</context>
           <context context-type="linenumber">10,15</context>

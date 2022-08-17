@@ -52,5 +52,6 @@
     "@nrwl/angular:component": {
       "style": "css"
     }
-  }
+  },
+  "plugins": ["@nxrocks/nx-spring-boot"]
 }

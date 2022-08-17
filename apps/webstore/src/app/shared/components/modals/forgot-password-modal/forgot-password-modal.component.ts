@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,7 @@ import { ToastService } from '../../toast/toast-service';
   ],
 })
 export class ForgotPasswordModalComponent implements OnInit {
-  forgotPasswordForm: FormGroup;
+  forgotPasswordForm: UntypedFormGroup;
   @ViewChild('messageSent') messageSent: ElementRef;
   title = 'ForgotPasswordModal';
   isLoading = false;
@@ -33,8 +33,8 @@ export class ForgotPasswordModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.forgotPasswordForm = new FormGroup({
-      email: new FormControl('', [Validators.email, Validators.required]),
+    this.forgotPasswordForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.email, Validators.required]),
     });
   }
 

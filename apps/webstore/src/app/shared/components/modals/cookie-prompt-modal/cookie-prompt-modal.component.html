@@ -1,31 +1,26 @@
-<ng-template #content let-modal>
-    <div data-cy="cookie-prompt-modal" class="modal-header-secondary">
-        <img class="icon cookies" src="/assets/icons/cookies-brown-icon.svg" />
-    </div>
-    <div class="modal-body">
-        <h1 i18n="@@accept-cookies">Accept cookies</h1>
-        <div class="text">
-            <p>
-                <span i18n="@@cookie-prompt-text">
-                    Hey there, Treecreate uses cookies to save anonymous information through google analytics to
-                    continuously improve the page. Without accepting these cookies, you will sadly not be able to use
-                    the page. If you wish to see the cookies that we store, you can go to this link:
-                </span>
-                <strong
-                    ><a data-cy="cookie-prompt-modal-terms-of-use-link" (click)="showTermsOfUse()" i18n="@@terms-of-use"
-                        >Terms of use</a
-                    ></strong
-                >
-            </p>
+<div class="cookie-prompt-container" data-backdrop="false" *ngIf="showCookiePrompt" data-cy="cookie-prompt-modal">
+    <div class="cookie-text-section">
+        <h2 i18n="@@accept-cookies">Accept cookies</h2>
+        <div>
+            <span i18n="@@cookie-prompt-text">
+                Hey there, Treecreate uses cookies to save anonymous information through google analytics to
+                continuously improve the page. Without accepting these cookies, we will only save your design and
+                language preferrence in your browser. If you wish to see the cookies that we store, you can go to this
+                link:
+            </span>
+            <strong
+                ><a data-cy="cookie-prompt-modal-terms-of-use-link" (click)="showTermsOfUse()" i18n="@@terms-of-use"
+                    >Terms of use</a
+                ></strong
+            >
         </div>
     </div>
     <div class="modal-footer">
         <button
             data-cy="cookie-prompt-modal-reject-cookies-btn"
-            routerLink="/rejectedCookies"
             type="button"
-            class="tc-button-50"
-            (click)="rejectCookies(); modal.close('reject')"
+            class="tc-button-50 reject"
+            (click)="close('reject')"
             i18n="@@reject"
         >
             Reject
@@ -34,10 +29,10 @@
             data-cy="cookie-prompt-modal-accept-cookies-btn"
             type="button"
             class="tc-button-50"
-            (click)="modal.close('accept')"
+            (click)="close('accept')"
             i18n="@@accept"
         >
             Accept
         </button>
     </div>
-</ng-template>
+</div>

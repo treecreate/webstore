@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum, INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -18,7 +18,7 @@ import { TransactionItemService } from '../../../shared/services/transaction-ite
   styleUrls: ['./signup.component.css', '../../../../assets/styles/tc-input-field.scss'],
 })
 export class SignupComponent implements OnInit {
-  signupForm: FormGroup;
+  signupForm: UntypedFormGroup;
   termsAndConditions = false;
   isSuccessful = false;
   isSignUpFailed = false;
@@ -44,14 +44,14 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['/products']);
     }
 
-    this.signupForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
+    this.signupForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
-      confirmPassword: new FormControl('', [
+      confirmPassword: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
@@ -70,8 +70,8 @@ export class SignupComponent implements OnInit {
         (data: IRegisterResponse) => {
           // Subscribe to newsletter
           if (this.signUpForNewletter) {
-            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe(
-              (newsletterData: INewsletter) => {
+            this.newsletterService.registerNewsletterEmail(this.signupForm.get('email').value).subscribe({
+              next: (newsletterData: INewsletter) => {
                 this.toastService.showAlert(
                   `Thank you for subscribing: ${newsletterData.email}`,
                   `Tak for din tilmelding: ${newsletterData.email}`,
@@ -80,11 +80,11 @@ export class SignupComponent implements OnInit {
                 );
                 this.eventsService.create('webstore.signup.newsletter-signup');
               },
-              (error) => {
+              error: (error) => {
                 console.error(error);
                 this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
-              }
-            );
+              },
+            });
           }
           // Check for transaction items in localstorage and add them to user
           // Dont remove them in case user regrets logging in
@@ -113,6 +113,7 @@ export class SignupComponent implements OnInit {
           this.isSignUpFailed = false;
           this.isLoading = false;
           this.authService.saveAuthUser(data);
+          this.eventsService.create('webstore.signup.signup');
           this.router.navigate(['/products']);
           window.location.reload();
         },

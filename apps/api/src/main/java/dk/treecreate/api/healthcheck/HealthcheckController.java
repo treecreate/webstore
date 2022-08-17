@@ -10,20 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 @RequestMapping("/healthcheck")
-public class HealthcheckController
-{
-    @Autowired
-    CustomPropertiesConfig customProperties;
+public class HealthcheckController {
+  @Autowired CustomPropertiesConfig customProperties;
 
-    @GetMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public HealthcheckDto healthCheck()
-    {
-        HealthcheckDto response = new HealthcheckDto();
-        response.setMessage("Server is live");
-        response.setStatus("OK");
-        response.setEnvironment(customProperties.getEnvironment());
+  @GetMapping("")
+  @ResponseStatus(HttpStatus.OK)
+  public HealthcheckDto healthCheck() {
+    HealthcheckDto response = new HealthcheckDto();
+    response.setMessage("Server is live");
+    response.setStatus("OK");
+    response.setEnvironment(customProperties.getEnvironment());
 
-        return response;
-    }
+    return response;
+  }
 }

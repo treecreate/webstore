@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginResponse } from '@interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,7 +13,7 @@ import { UserRoles } from '@models';
 })
 export class LoginComponent {
   isLoading = false;
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
 
   /**
    * Initiates login form and checks if user is authentikated.
@@ -23,9 +23,9 @@ export class LoginComponent {
    * @param snackBar
    */
   constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.minLength(8), Validators.required]),
+    this.loginForm = new UntypedFormGroup({
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.minLength(8), Validators.required]),
     });
     // if user is already logged in redirect to profile
     if (this.authService.getAuthUser()) {

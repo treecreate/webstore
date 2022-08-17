@@ -1,17 +1,14 @@
 package dk.treecreate.api.errorlog;
 
-public enum ErrorPriority
+public enum ErrorPriority {
+  LOW("low"),
+  MEDIUM("medium"),
+  HIGH("high"),
+  CRITICAL("critical");
 
-{
-    LOW("low"),
-    MEDIUM("medium"),
-    HIGH("high"),
-    CRITICAL("critical");
+  public final String label;
 
-    public final String label;
-
-    ErrorPriority(String label)
-    {
-        this.label = label;
-    }
+  ErrorPriority(String label) {
+    this.label = label;
+  }
 }

@@ -23,6 +23,7 @@ import { ToastService } from '../../../../shared/components/toast/toast-service'
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
 import { DesignService } from '../../../../shared/services/design/design.service';
 import { ErrorlogsService } from '../../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../../shared/services/events/events.service';
 @Component({
   selector: 'webstore-family-tree',
   templateUrl: './family-tree.component.html',
@@ -78,6 +79,7 @@ export class FamilyTreeComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
     private authService: AuthService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status
@@ -260,8 +262,9 @@ export class FamilyTreeComponent implements OnInit {
         'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
         'Dit design er bleven midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
         'success',
-        10000
+        7000
       );
+      this.eventsService.create('webstore.family-tree.save-design.local-storage');
       return;
     }
     // Don't save the tree to the collection/database. Used in combindation with the addToBasketModal
@@ -286,6 +289,7 @@ export class FamilyTreeComponent implements OnInit {
               'success',
               5000
             );
+            this.eventsService.create(`webstore.family-tree.design-updated.db`);
           },
           (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
@@ -311,16 +315,17 @@ export class FamilyTreeComponent implements OnInit {
           designProperties: design,
           mutable: true,
         })
-        .subscribe(
-          (result) => {
+        .subscribe({
+          next: (result) => {
             this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
+            this.eventsService.create(`webstore.family-tree.design-created.db`);
             this.router.navigate([], {
               relativeTo: this.route,
               queryParams: { designId: result.designId },
               queryParamsHandling: 'merge', // remove to replace all query params by provided
             });
           },
-          (error: HttpErrorResponse) => {
+          error: (error: HttpErrorResponse) => {
             console.error('Failed to save design', error);
 
             this.errorlogsService.create(
@@ -334,8 +339,8 @@ export class FamilyTreeComponent implements OnInit {
               'danger',
               10000
             );
-          }
-        );
+          },
+        });
     }
   }
 
@@ -355,6 +360,7 @@ export class FamilyTreeComponent implements OnInit {
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
     }
+    this.eventsService.create(`webstore.family-tree.design-cleared`);
   }
 
   @HostListener('window:resize')
