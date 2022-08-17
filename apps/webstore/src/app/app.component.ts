@@ -45,6 +45,11 @@ export class AppComponent {
         console.log('Not logging Google analytics nor Meta Pixel since cookies were not accepted');
       }
     });
+
+    // Let prerender.io know the website has loaded and it can cached
+    setTimeout(() => {
+      window['prerenderReady'] = true;
+    }, 5000);
   }
 
   initGoogleAnalytics() {
