@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DesignDimensionEnum } from '@interfaces';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InfoPopoverComponent } from '../../info-popover/info-popover.component';
 import { AddToBasketModalComponent } from './add-to-basket-modal.component';
 
 describe('AddToBasketModalComponent', () => {
@@ -13,7 +14,7 @@ describe('AddToBasketModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddToBasketModalComponent],
+      declarations: [AddToBasketModalComponent, InfoPopoverComponent],
       imports: [NgbModule, RouterTestingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
       providers: [NgbActiveModal],
     }).compileComponents();

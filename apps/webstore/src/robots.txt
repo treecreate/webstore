@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /login
+Disallow: /signup
+Disallow: /profile
+Disallow: /collection
+Disallow: /orders
+Disallow: /basket
+Disallow: /checkout

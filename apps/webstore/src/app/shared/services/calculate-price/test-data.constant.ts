@@ -8,6 +8,124 @@ import {
   ITransactionItem,
 } from '@interfaces';
 
+// ======================================================================== //
+// ============================== Constants =============================== //
+// ======================================================================== //
+
+const treeDesign: IDesign = {
+  designType: DesignTypeEnum.familyTree,
+  designId: null,
+  designProperties: null,
+  mutable: true,
+  user: null,
+};
+
+const quotableDesign: IDesign = {
+  designType: DesignTypeEnum.quotable,
+  designId: null,
+  designProperties: null,
+  mutable: true,
+  user: null,
+};
+
+const discountAmount100: IDiscount = {
+  discountCode: null,
+  type: DiscountType.amount,
+  amount: 100,
+  remainingUses: 1,
+  totalUses: 0,
+  isEnabled: true,
+};
+
+const discountAmount200: IDiscount = {
+  discountCode: null,
+  type: DiscountType.amount,
+  amount: 200,
+  remainingUses: 1,
+  totalUses: 0,
+  isEnabled: true,
+};
+
+const discountPercent10: IDiscount = {
+  discountCode: null,
+  type: DiscountType.percent,
+  amount: 10,
+  remainingUses: 1,
+  totalUses: 0,
+  isEnabled: true,
+};
+
+const singleTreeItemList: ITransactionItem[] = [
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+const multipleTreeItemList: ITransactionItem[] = [
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.medium,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.large,
+    quantity: 2,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+
+const singleQuoteItemList: ITransactionItem[] = [
+  {
+    design: quotableDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+
+const multipleQuoteItemList: ITransactionItem[] = [
+  {
+    design: quotableDesign,
+    dimension: DesignDimensionEnum.small,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: quotableDesign,
+    dimension: DesignDimensionEnum.medium,
+    quantity: 1,
+    orderId: null,
+    transactionItemId: null,
+  },
+  {
+    design: treeDesign,
+    dimension: DesignDimensionEnum.large,
+    quantity: 2,
+    orderId: null,
+    transactionItemId: null,
+  },
+];
+
+// ======================================================================== //
+// ============================= Test Params ============================== //
+// ======================================================================== //
+
 export const calculateItemUnitPriceParams = [
   { dimension: DesignDimensionEnum.small, designType: DesignTypeEnum.familyTree, expectedPrice: 499 },
   { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.familyTree, expectedPrice: 699 },
@@ -17,6 +135,34 @@ export const calculateItemUnitPriceParams = [
   { dimension: DesignDimensionEnum.medium, designType: DesignTypeEnum.quotable, expectedPrice: 399 },
   { dimension: DesignDimensionEnum.large, designType: DesignTypeEnum.quotable, expectedPrice: 499 },
   { dimension: DesignDimensionEnum.oneSize, designType: DesignTypeEnum.quotable, expectedPrice: 88888888 },
+];
+
+export const getExtraTreesPriceParams = [
+  { plantedTrees: 0, expectedPrice: 0 },
+  { plantedTrees: 1, expectedPrice: 0 },
+  { plantedTrees: 2, expectedPrice: 10 },
+  { plantedTrees: 2.2, expectedPrice: 12 },
+];
+
+export const calculateDiscountedPriceParams = [
+  { fullPrice: 1000, discount: discountAmount100, expectedPrice: 900, expectedDiscountedAmount: 100 },
+  { fullPrice: 1000, discount: discountPercent10, expectedPrice: 900, expectedDiscountedAmount: 100 },
+  { fullPrice: 1000, discount: discountAmount200, expectedPrice: 800, expectedDiscountedAmount: 200 },
+  { fullPrice: 1000.69, discount: discountAmount100, expectedPrice: 900.69, expectedDiscountedAmount: 100 },
+  { fullPrice: 1000.69, discount: discountPercent10, expectedPrice: 900.62, expectedDiscountedAmount: 100.07 },
+  { fullPrice: 100, discount: discountAmount100, expectedPrice: 0, expectedDiscountedAmount: 100 },
+  { fullPrice: 0, discount: discountAmount100, expectedPrice: 0, expectedDiscountedAmount: 0 },
+  { fullPrice: 50, discount: discountAmount100, expectedPrice: 0, expectedDiscountedAmount: 50 },
+  { fullPrice: 100, discount: discountPercent10, expectedPrice: 90, expectedDiscountedAmount: 10 },
+  { fullPrice: 0, discount: discountPercent10, expectedPrice: 0, expectedDiscountedAmount: 0 },
+  { fullPrice: 50, discount: discountPercent10, expectedPrice: 45, expectedDiscountedAmount: 5 },
+];
+
+export const getDeliveryPriceParams = [
+  { discountedPrice: 1000, isHomeDelivery: true, expectedPrice: 25 },
+  { discountedPrice: 1000, isHomeDelivery: false, expectedPrice: 0 },
+  { discountedPrice: 100, isHomeDelivery: true, expectedPrice: 65 },
+  { discountedPrice: 100, isHomeDelivery: false, expectedPrice: 45 },
 ];
 
 export const calculateItemPriceAlternativeParams = [
@@ -328,116 +474,6 @@ export const isMoreThan4ItemsParams = [
 // ========== Get Full Price Params and Calculate Prices Params  ========== //
 // ======================================================================== //
 
-const treeDesign: IDesign = {
-  designType: DesignTypeEnum.familyTree,
-  designId: null,
-  designProperties: null,
-  mutable: true,
-  user: null,
-};
-
-const quotableDesign: IDesign = {
-  designType: DesignTypeEnum.quotable,
-  designId: null,
-  designProperties: null,
-  mutable: true,
-  user: null,
-};
-
-const discountAmount100: IDiscount = {
-  discountCode: null,
-  type: DiscountType.amount,
-  amount: 100,
-  remainingUses: 1,
-  totalUses: 0,
-  isEnabled: true,
-};
-
-const discountAmount200: IDiscount = {
-  discountCode: null,
-  type: DiscountType.amount,
-  amount: 200,
-  remainingUses: 1,
-  totalUses: 0,
-  isEnabled: true,
-};
-
-const discountPercent10: IDiscount = {
-  discountCode: null,
-  type: DiscountType.percent,
-  amount: 10,
-  remainingUses: 1,
-  totalUses: 0,
-  isEnabled: true,
-};
-
-const singleTreeItemList: ITransactionItem[] = [
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
-const multipleTreeItemList: ITransactionItem[] = [
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.medium,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.large,
-    quantity: 2,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
-
-const singleQuoteItemList: ITransactionItem[] = [
-  {
-    design: quotableDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
-
-const multipleQuoteItemList: ITransactionItem[] = [
-  {
-    design: quotableDesign,
-    dimension: DesignDimensionEnum.small,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: quotableDesign,
-    dimension: DesignDimensionEnum.medium,
-    quantity: 1,
-    orderId: null,
-    transactionItemId: null,
-  },
-  {
-    design: treeDesign,
-    dimension: DesignDimensionEnum.large,
-    quantity: 2,
-    orderId: null,
-    transactionItemId: null,
-  },
-];
-
 // 499 + 299
 const multipleCombinedLessThan4ItemList: ITransactionItem[] = [...singleTreeItemList, ...singleQuoteItemList];
 // [499 + 699 + 999 + 999] + [299 + 399 + 499 + 499]
@@ -509,68 +545,8 @@ export const calculatePricesParams: {
       vat: 68.8,
     },
   },
-  {
-    itemList: singleQuoteItemList,
-    isHomeDelivery: true,
-    plantedTrees: 1,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 65,
-      discountAmount: 100,
-      discountedPrice: 199,
-      extraTreesPrice: 0,
-      finalPrice: 264,
-      fullPrice: 299,
-      vat: 52.8,
-    },
-  },
-  {
-    itemList: singleQuoteItemList,
-    isHomeDelivery: false,
-    plantedTrees: 1,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 45,
-      discountAmount: 100,
-      discountedPrice: 199,
-      extraTreesPrice: 0,
-      finalPrice: 244,
-      fullPrice: 299,
-      vat: 48.8,
-    },
-  },
   // =================================================== //
   // Less than 4 - Combined Products
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: true,
-    plantedTrees: 1,
-    discount: null,
-    expectedPrice: {
-      deliveryPrice: 25,
-      discountAmount: 0,
-      discountedPrice: 798,
-      extraTreesPrice: 0,
-      finalPrice: 823,
-      fullPrice: 798,
-      vat: 164.6,
-    },
-  },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 1,
-    discount: null,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 0,
-      discountedPrice: 798,
-      extraTreesPrice: 0,
-      finalPrice: 798,
-      fullPrice: 798,
-      vat: 159.6,
-    },
-  },
   {
     itemList: multipleCombinedLessThan4ItemList,
     isHomeDelivery: true,
@@ -586,21 +562,7 @@ export const calculatePricesParams: {
       vat: 166.6,
     },
   },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 2,
-    discount: null,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 0,
-      discountedPrice: 798,
-      extraTreesPrice: 10,
-      finalPrice: 808,
-      fullPrice: 798,
-      vat: 161.6,
-    },
-  },
+
   {
     itemList: multipleCombinedLessThan4ItemList,
     isHomeDelivery: true,
@@ -618,51 +580,6 @@ export const calculatePricesParams: {
   },
   {
     itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 1,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 100,
-      discountedPrice: 698,
-      extraTreesPrice: 0,
-      finalPrice: 698,
-      fullPrice: 798,
-      vat: 139.6,
-    },
-  },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: true,
-    plantedTrees: 2,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 25,
-      discountAmount: 100,
-      discountedPrice: 698,
-      extraTreesPrice: 10,
-      finalPrice: 733,
-      fullPrice: 798,
-      vat: 146.6,
-    },
-  },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 2,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 100,
-      discountedPrice: 698,
-      extraTreesPrice: 10,
-      finalPrice: 708,
-      fullPrice: 798,
-      vat: 141.6,
-    },
-  },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
     isHomeDelivery: true,
     plantedTrees: 1,
     discount: discountPercent10,
@@ -674,51 +591,6 @@ export const calculatePricesParams: {
       finalPrice: 743.2,
       fullPrice: 798,
       vat: 148.64,
-    },
-  },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 1,
-    discount: discountPercent10,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 79.8,
-      discountedPrice: 718.2,
-      extraTreesPrice: 0,
-      finalPrice: 718.2,
-      fullPrice: 798,
-      vat: 143.64,
-    },
-  },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: true,
-    plantedTrees: 2,
-    discount: discountPercent10,
-    expectedPrice: {
-      deliveryPrice: 25,
-      discountAmount: 79.8,
-      discountedPrice: 718.2,
-      extraTreesPrice: 10,
-      finalPrice: 753.2,
-      fullPrice: 798,
-      vat: 150.64,
-    },
-  },
-  {
-    itemList: multipleCombinedLessThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 2,
-    discount: discountPercent10,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 79.8,
-      discountedPrice: 718.2,
-      extraTreesPrice: 10,
-      finalPrice: 728.2,
-      fullPrice: 798,
-      vat: 145.64,
     },
   },
   // =================================================== //
@@ -740,51 +612,6 @@ export const calculatePricesParams: {
   },
   {
     itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 1,
-    discount: null,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 0,
-      discountedPrice: 5892,
-      extraTreesPrice: 0,
-      finalPrice: 5892,
-      fullPrice: 5892,
-      vat: 1178.4,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: true,
-    plantedTrees: 2,
-    discount: null,
-    expectedPrice: {
-      deliveryPrice: 25,
-      discountAmount: 0,
-      discountedPrice: 5892,
-      extraTreesPrice: 10,
-      finalPrice: 5927,
-      fullPrice: 5892,
-      vat: 1185.4,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 2,
-    discount: null,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 0,
-      discountedPrice: 5892,
-      extraTreesPrice: 10,
-      finalPrice: 5902,
-      fullPrice: 5892,
-      vat: 1180.4,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
     isHomeDelivery: true,
     plantedTrees: 1,
     discount: discountAmount100,
@@ -802,66 +629,6 @@ export const calculatePricesParams: {
     itemList: multipleCombinedMoreThan4ItemList,
     isHomeDelivery: false,
     plantedTrees: 1,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 100,
-      discountedPrice: 5792,
-      extraTreesPrice: 0,
-      finalPrice: 5792,
-      fullPrice: 5892,
-      vat: 1158.4,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: true,
-    plantedTrees: 2,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 25,
-      discountAmount: 100,
-      discountedPrice: 5792,
-      extraTreesPrice: 10,
-      finalPrice: 5827,
-      fullPrice: 5892,
-      vat: 1165.4,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 2,
-    discount: discountAmount100,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 100,
-      discountedPrice: 5792,
-      extraTreesPrice: 10,
-      finalPrice: 5802,
-      fullPrice: 5892,
-      vat: 1160.4,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: true,
-    plantedTrees: 1,
-    discount: discountPercent10,
-    expectedPrice: {
-      deliveryPrice: 25,
-      discountAmount: 589.2,
-      discountedPrice: 5302.8,
-      extraTreesPrice: 0,
-      finalPrice: 5327.8,
-      fullPrice: 5892,
-      vat: 1065.56,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 1,
     discount: discountPercent10,
     expectedPrice: {
       deliveryPrice: 0,
@@ -871,36 +638,6 @@ export const calculatePricesParams: {
       finalPrice: 5302.8,
       fullPrice: 5892,
       vat: 1060.56,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: true,
-    plantedTrees: 2,
-    discount: discountPercent10,
-    expectedPrice: {
-      deliveryPrice: 25,
-      discountAmount: 589.2,
-      discountedPrice: 5302.8,
-      extraTreesPrice: 10,
-      finalPrice: 5337.8,
-      fullPrice: 5892,
-      vat: 1067.56,
-    },
-  },
-  {
-    itemList: multipleCombinedMoreThan4ItemList,
-    isHomeDelivery: false,
-    plantedTrees: 2,
-    discount: discountPercent10,
-    expectedPrice: {
-      deliveryPrice: 0,
-      discountAmount: 589.2,
-      discountedPrice: 5302.8,
-      extraTreesPrice: 10,
-      finalPrice: 5312.8,
-      fullPrice: 5892,
-      vat: 1062.56,
     },
   },
   // No items, discountPercent10
