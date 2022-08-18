@@ -331,6 +331,7 @@
             "assets": [
               "apps/webstore/src/favicon.ico",
               "apps/webstore/src/assets",
+              "apps/webstore/src/robots.txt",
               {
                 "input": "libs/assets/src/lib",
                 "glob": "**/*",
