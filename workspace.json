@@ -16,7 +16,11 @@
             "polyfills": "apps/admin-page/src/polyfills.ts",
             "tsConfig": "apps/admin-page/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/admin-page/src/favicon.ico", "apps/admin-page/src/assets"],
+            "assets": [
+              "apps/admin-page/src/favicon.ico",
+              "apps/admin-page/src/assets",
+              "apps/admin-page/src/robots.txt"
+            ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/admin-page/src/styles.css"
