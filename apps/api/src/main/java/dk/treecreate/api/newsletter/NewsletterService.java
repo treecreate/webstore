@@ -119,7 +119,7 @@ public class NewsletterService {
 
     // Send intro letter with discount
     mailService.sendNewsletterDiscountEmail(
-        email, localeService.getLocale(lang), unsubscribeNewsletterUrl);
+        email, localeService.getLocale(lang), unsubscribeNewsletterUrl, discountCode);
     Sentry.captureMessage(
         "Newsletter signup discount email sent to: "
             + email
