@@ -17,6 +17,16 @@ public class DiscountService {
 
   // TODO - add tests for the method
 
+  /**
+   * Whether the discount already exists in the database.
+   *
+   * @param discountCode the discount code to check.
+   * @return whether it exists or not.
+   */
+  public boolean discountExists(String discountCode) {
+    return discountRepository.existsByDiscountCode(discountCode);
+  }
+
   public Discount createDiscount(CreateDiscountRequest request) {
     Discount discount = new Discount();
     discount.setType(request.getType());
