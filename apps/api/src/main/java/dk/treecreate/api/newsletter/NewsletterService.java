@@ -108,7 +108,7 @@ public class NewsletterService {
     request.setAmount(10);
     request.setType(DiscountType.PERCENT);
     request.setRemainingUses(1);
-    request.setTotalUses(1);
+    request.setTotalUses(0);
     request.setIsEnabled(true);
     // Set the discount to expire in one month
     Calendar cal = Calendar.getInstance();
