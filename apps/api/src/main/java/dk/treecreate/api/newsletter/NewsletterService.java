@@ -94,7 +94,7 @@ public class NewsletterService {
     String discountCode;
     try {
       do {
-        discountCode = generateDiscountCode("Newsletter-", 10);
+        discountCode = generateDiscountCode("N", 8);
       } while (discountService.discountExists(discountCode));
 
     } catch (IllegalArgumentException e) {
