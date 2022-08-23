@@ -176,7 +176,7 @@ export class CustomOrderComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastService.showAlert('Custom order registered', 'Special bestilling regristreret', 'success', 10000);
+          this.toastService.showAlert('Custom order registered', 'Specialbestilling regristreret', 'success', 10000);
           this.eventsService.create(
             `webstore.custom-order.custom-order-request-submitted.${
               this.customOrderForm.get('name').value.length <= 20

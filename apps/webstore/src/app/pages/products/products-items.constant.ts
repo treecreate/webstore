@@ -40,7 +40,7 @@ const quotable: ProductsItem = {
 
 const unique: ProductsItem = {
   titleEn: 'Custom order',
-  titleDk: 'Special bestilling',
+  titleDk: 'Specialbestilling',
   descriptionEn:
     'A unique chance to bring out your message in your own way. Get a completely user defined engraved piece of wood. Your own images and descriptions to what the design should be.',
   descriptionDk:
