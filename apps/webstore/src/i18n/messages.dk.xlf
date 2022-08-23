@@ -1523,7 +1523,7 @@
       </trans-unit>
       <trans-unit id="reviews" datatype="html">
         <source>Reviews</source>
-        <target>Bedømmelser</target> 
+        <target>Anmeldelser</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">17</context>
