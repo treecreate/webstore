@@ -25,7 +25,7 @@ export class CustomOrderComponent implements OnInit {
       descriptionEn:
         'A unique display of the Penneo logo combined with the Nasdaq name in celebration of being listed on the main market.',
       descriptionDk:
-        'Et unik plade med Penneos logo på, combineret med Nasdaq navnet. Lavet i en fejring af at blive en del af main market.',
+        'Et unik plade med Penneos logo på, kombineret med Nasdaq navnet. Lavet i en fejring af at blive en del af Nasdaq-indexet.',
       price: 700,
       altText: '',
       imgSrc: '/assets/img/custom-order-example/custom-order-img-2.png',

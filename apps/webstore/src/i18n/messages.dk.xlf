@@ -1355,7 +1355,7 @@
       </trans-unit>
       <trans-unit id="description" datatype="html">
         <source>Describe your product wishes</source>
-        <target>Beskriv dine produkt ønsker</target>
+        <target>Beskriv dine ønsker til produktet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
           <context context-type="linenumber">78</context>
