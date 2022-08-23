@@ -21,15 +21,18 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+@Transactional
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("newsletter")
 @Api(tags = {"newsletter"})
 public class NewsletterController {
   @Autowired NewsletterRepository newsletterRepository;
+  @Autowired NewsletterService newsletterService;
   @Autowired AuthUserService authUserService;
   @Autowired MailService mailService;
   @Autowired LinkService linkService;
@@ -105,15 +108,10 @@ public class NewsletterController {
     Sentry.setExtra("email", newsletter.getEmail());
     Sentry.captureMessage("New newsletter entry");
 
-    Newsletter returnStatement = newsletterRepository.save(newsletter);
-    String unsubscribeNewsletterUrl =
-        linkService.generateNewsletterUnsubscribeLink(
-            returnStatement.getNewsletterId(), localeService.getLocale(null));
+    Newsletter createdNewsletter = newsletterRepository.save(newsletter);
 
     // Send intro letter with discount
-    mailService.sendNewsletterDiscountEmail(
-        email, localeService.getLocale(lang), unsubscribeNewsletterUrl);
-    Sentry.captureMessage("Newsletter signup discount email sent to: " + email);
+    newsletterService.sendNewsletterDiscountEmail(email, lang, createdNewsletter.getNewsletterId());
 
     return newsletterRepository.save(newsletter);
   }

@@ -1,5 +1,6 @@
 package dk.treecreate.api.discount;
 
+import dk.treecreate.api.discount.dto.CreateDiscountRequest;
 import dk.treecreate.api.discount.dto.UpdateDiscountRequest;
 import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import java.util.UUID;
@@ -15,6 +16,40 @@ public class DiscountService {
   @Autowired DiscountRepository discountRepository;
 
   // TODO - add tests for the method
+
+  /**
+   * Whether the discount already exists in the database.
+   *
+   * @param discountCode the discount code to check.
+   * @return whether it exists or not.
+   */
+  public boolean discountExists(String discountCode) {
+    return discountRepository.existsByDiscountCode(discountCode);
+  }
+
+  public Discount createDiscount(CreateDiscountRequest request) {
+    Discount discount = new Discount();
+    discount.setType(request.getType());
+    if (discount.getType().equals(DiscountType.PERCENT) && request.getAmount() > 100) {
+      discount.setAmount(100);
+    } else {
+      discount.setAmount(request.getAmount());
+    }
+    discount.setDiscountCode(request.getDiscountCode());
+    discount.setRemainingUses(request.getRemainingUses());
+    discount.setTotalUses((request.getTotalUses()));
+    discount.setIsEnabled(request.getIsEnabled());
+    if (request.getExpiresAt() != null) {
+      discount.setExpiresAt(request.getExpiresAt());
+    }
+    if (request.getStartsAt() != null) {
+      discount.setStartsAt(request.getStartsAt());
+    }
+    if (discountRepository.existsByDiscountCode(request.getDiscountCode())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate discount code");
+    }
+    return discountRepository.save(discount);
+  }
 
   /**
    * Update database entity of the given discount

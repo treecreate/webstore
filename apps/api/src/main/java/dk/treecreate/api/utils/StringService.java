@@ -19,9 +19,7 @@ public class StringService {
         includesSpecialChars ? alphanumericChars + specialChars : alphanumericChars;
     StringBuilder randomString = new StringBuilder();
     Random random = new Random();
-    // 20 chars max - 1 for env prefix, 4 for email, and a dash. Example: Dmail-1A2Bcd34EFg56H
-    int idLength = 14;
-    for (int i = 0; i < idLength; i++) {
+    for (int i = 0; i < length; i++) {
       int index = random.nextInt(randomChars.length());
       randomString.append(randomChars.charAt(index));
     }
