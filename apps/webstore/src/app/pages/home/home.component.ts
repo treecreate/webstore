@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
       url: '/assets/img/review-img/review-img-01.jpg',
       name: 'Stine',
       textEn: `"10/10 and more .. It gets praise every time we have guests, and many ask about it. Very nice product, top quality and we are more than satisfied."`,
-      textDk: `“10/10! Og mere til .. det for ros hvergang vi har gæster, og mange spørg til det. Meget lækkert produkt, kvalitet i top, vi er mere end tilfredse.”`,
+      textDk: `“10/10! Og mere til .. det får ros hver gang vi har gæster, og mange spørger ind til det. Meget lækkert produkt, kvalitet i top, vi er mere end tilfredse.”`,
     },
     {
       id: 3,
