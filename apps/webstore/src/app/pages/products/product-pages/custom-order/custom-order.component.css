@@ -177,6 +177,10 @@
   flex-direction: column;
 }
 
+.no-files-uploaded {
+  background-color: transparent;
+}
+
 .custom-order-examples h2 {
   margin-top: 0.6em;
 }
