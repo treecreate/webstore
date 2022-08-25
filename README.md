@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/treecreate/webstore">
-    <img src="assets/treecreate_logo.png" alt="Logo" width="80" height="80">
+    <img src="assets/treecreate_logo.png" alt="Treecreate logo" width="80" height="80">
   </a>
 
   <h3 align="center">Treecreate Webstore</h3>

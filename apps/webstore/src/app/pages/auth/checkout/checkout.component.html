@@ -1,7 +1,11 @@
 <main class="checkout-container">
     <div class="checkout-content-container">
         <div class="checkout-title">
-            <img src="/assets/logos/tc-black-text-logo.svg" class="checkout-logo add-transition" />
+            <img
+                src="/assets/logos/tc-black-text-logo.svg"
+                class="checkout-logo add-transition"
+                alt="Treecreate logo"
+            />
         </div>
         <div class="back-to-basket-container">
             <a routerLink="/basket" class="back-to-basket add-transition">
@@ -458,10 +462,14 @@
                 </div>
 
                 <div class="trees-planted-container" *ngIf="plantedTrees > 0">
-                    <img src="../../../../assets/icons/seed-icon.svg" alt="" class="seed-icon show-mobile" />
+                    <img src="../../../../assets/icons/seed-icon.svg" alt="Tree icon" class="seed-icon show-mobile" />
                     <div class="trees-planted">
                         <div>
-                            <img src="../../../../assets/icons/seed-icon.svg" alt="" class="seed-icon remove-mobile" />
+                            <img
+                                src="../../../../assets/icons/seed-icon.svg"
+                                alt="Tree icon"
+                                class="seed-icon remove-mobile"
+                            />
                             <!-- TODO - fetch/calculate the extra trees properly -->
                             <span i18n="@@thank-you-for-planting">Thank you for planting</span>
 
