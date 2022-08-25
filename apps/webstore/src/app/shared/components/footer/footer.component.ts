@@ -82,4 +82,8 @@ export class FooterComponent implements OnInit {
   showPrivacyNotice() {
     this.modalService.open(PrivacyNoticeModalComponent, { size: 'lg' });
   }
+
+  scrollTop() {
+    window.scrollTo(0, 0);
+  }
 }

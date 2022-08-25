@@ -9,22 +9,22 @@
                     <div class="col">
                         <ul class="list-unstyled">
                             <li>
-                                <a routerLink="/home">Home</a>
+                                <a (click)="scrollTop()" routerLink="/home">Home</a>
                             </li>
                             <li>
-                                <a routerLink="/products" i18n="@@product">Products</a>
+                                <a (click)="scrollTop()" rrouterLink="/products" i18n="@@product">Products</a>
                             </li>
                             <li *ngIf="!isLoggedIn">
-                                <a routerLink="/login" i18n="@@login">Log in</a>
+                                <a (click)="scrollTop()" rrouterLink="/login" i18n="@@login">Log in</a>
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/profile" i18n="@@profile">Profile</a>
+                                <a (click)="scrollTop()" rrouterLink="/profile" i18n="@@profile">Profile</a>
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/collection" i18n="@@collection">Collection</a>
+                                <a (click)="scrollTop()" rrouterLink="/collection" i18n="@@collection">Collection</a>
                             </li>
                             <li>
-                                <a routerLink="/basket" i18n="@@basket">Basket</a>
+                                <a (click)="scrollTop()" rrouterLink="/basket" i18n="@@basket">Basket</a>
                             </li>
                         </ul>
                     </div>
