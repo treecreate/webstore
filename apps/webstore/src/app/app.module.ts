@@ -42,7 +42,6 @@ import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-us
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
 import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
-import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
@@ -83,7 +82,6 @@ import { CustomOrderDisplayComponent } from './shared/components/items/custom-or
     CheckoutItemComponent,
     FamilyTreeDesignComponent,
     DraggableBoxComponent,
-    ReviewCarouselComponent,
     ChangePasswordModalComponent,
     UnsubscribeComponent,
     PaymentCancelledComponent,
