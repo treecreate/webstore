@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="home-main-text-subtitle" datatype="html">
         <source>At Treecreate you get to create something completely unique in high quality. You can create a Quote table with your own personal message for the one you care about, create your family tree or make something completely custom. All products are carved into a beautiful piece of oak wood and varnished. </source>
-        <target>Hos Treecreate får du lov til at skabe noget helt unikt i høj kvalitet. Du kan lave en citatramme og skrive en kærlig besked til den du holder af, bygge dit eget stamtræ eller lave en special bestilling, altsammen skåret i smukt egetræ i høj kvalitet.</target>
+        <target>Hos Treecreate får du lov til at skabe noget helt unikt i høj kvalitet. Du kan lave en citat ramme og skrive en kærlig besked til den du holder af, bygge dit eget stamtræ eller lave en specialbestilling, altsammen skåret i smukt egetræ i høj kvalitet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">84,86</context>
@@ -1347,7 +1347,7 @@
       </trans-unit>
       <trans-unit id="custom-order" datatype="html">
         <source>Custom order</source>
-        <target>Special bestilling</target>
+        <target>Specialbestilling</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
           <context context-type="linenumber">13</context>
@@ -1355,7 +1355,7 @@
       </trans-unit>
       <trans-unit id="description" datatype="html">
         <source>Describe your product wishes</source>
-        <target>Beskriv dine produkt ønsker</target>
+        <target>Beskriv dine ønsker til produktet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
           <context context-type="linenumber">78</context>
@@ -1509,9 +1509,21 @@
           <context context-type="linenumber">24,26</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="buy" datatype="html">
+        <source>Buy</source>
+        <target>Køb</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">204</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="reviews" datatype="html">
         <source>Reviews</source>
-        <target>Bedømmelser</target> 
+        <target>Anmeldelser</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">17</context>

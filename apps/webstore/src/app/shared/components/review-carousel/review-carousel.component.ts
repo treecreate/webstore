@@ -19,8 +19,8 @@ export class ReviewCarouselComponent {
       name: 'Birgitte Hansson',
     },
     {
-      text: `“10/10! Og mere til .. det for ros hvergang vi har gæster,
-      og mange spørg til det. Meget lækkert produkt, kvalitet i
+      text: `“10/10! Og mere til .. det får ros hver gang vi har gæster,
+      og mange spørger ind til det. Meget lækkert produkt, kvalitet i
       top, vi er mere end tilfredse.”`,
       textEn: `10/10 and more .. It gets praise every time we have guests,
       and many ask about it. Very nice product, top quality and we are more
