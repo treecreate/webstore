@@ -42,6 +42,10 @@ h5 {
 .final-col {
   text-align: left;
 }
+.col a,
+.col a:hover {
+  text-decoration: none !important;
+}
 .final-col {
   margin-bottom: 1rem;
 }
