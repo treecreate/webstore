@@ -23,6 +23,7 @@ h5 {
 .list-unstyled li a {
   color: black !important;
   transition: 0.5s;
+  text-decoration: none;
 }
 .list-unstyled li a:hover {
   padding-left: 5px;
