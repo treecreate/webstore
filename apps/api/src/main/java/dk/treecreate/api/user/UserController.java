@@ -153,7 +153,7 @@ public class UserController {
       @Parameter(
               name = "lang",
               description =
-                  "Language of the email. Defaults to danish (dk)." + "\nValid values: 'en', 'dk'",
+                  "Language of the email. Defaults to danish (da)." + "\nValid values: 'en', 'da'",
               example = "en")
           @RequestParam(required = false)
           String lang) {

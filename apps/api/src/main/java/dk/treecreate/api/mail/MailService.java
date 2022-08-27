@@ -46,7 +46,7 @@ public class MailService {
     Context context = new Context(locale);
     context.setVariable("email", to);
     String subject =
-        locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+        locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
   }
 
@@ -56,7 +56,7 @@ public class MailService {
     context.setVariable("email", to);
     context.setVariable("resetPasswordLink", linkService.generateResetPasswordLink(token, locale));
     String subject =
-        locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+        locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP_ON_ORDER);
   }
 
@@ -68,7 +68,7 @@ public class MailService {
     context.setVariable("unsubscribeNewsletterUrl", unsubscribeNewsletterUrl);
     context.setVariable("discountCode", discountCode);
     String subject =
-        locale.getLanguage().equals("dk")
+        locale.getLanguage().equals("da")
             ? "Her er din rabatkode - Team Treecreate!"
             : "Here's your discount - Team Treecreate!";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT);
@@ -79,7 +79,7 @@ public class MailService {
     Context context = new Context(locale);
     context.setVariable("email", to);
     context.setVariable("resetPasswordLink", linkService.generateResetPasswordLink(token, locale));
-    String subject = locale.getLanguage().equals("dk") ? "Skift kodeord" : "Reset password";
+    String subject = locale.getLanguage().equals("da") ? "Skift kodeord" : "Reset password";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
   }
 
@@ -120,7 +120,7 @@ public class MailService {
             .calculateDeliveryPrice(order.getShippingMethod(), calculatedTotal)
             .subtract(calculatedTotal);
     // Set Variables
-    Context context = new Context(new Locale("dk"));
+    Context context = new Context(new Locale("da"));
     context.setVariable("email", to);
     context.setVariable("order", order);
     context.setVariable("deliveryPrice", deliveryPrice);

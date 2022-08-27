@@ -10,7 +10,7 @@ describe('Localization', () => {
     cy.get('[data-cy=navbar-localization-dk]').click();
 
     // check url to contain language
-    cy.url().should('include', '/dk');
+    cy.url().should('include', '/da');
   });
 
   it('change localized to english', () => {

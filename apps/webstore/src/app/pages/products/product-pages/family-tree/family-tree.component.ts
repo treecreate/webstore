@@ -377,25 +377,25 @@ export class FamilyTreeComponent implements OnInit {
   getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameDanishEnum | TreeDesignNameEnglishEnum {
     switch (treeDesign) {
       case TreeDesignEnum.tree1:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.locale$.getValue() === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree1;
         } else {
           return TreeDesignNameEnglishEnum.tree1;
         }
       case TreeDesignEnum.tree2:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.locale$.getValue() === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree2;
         } else {
           return TreeDesignNameEnglishEnum.tree2;
         }
       case TreeDesignEnum.tree3:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.locale$.getValue() === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree3;
         } else {
           return TreeDesignNameEnglishEnum.tree3;
         }
       case TreeDesignEnum.tree4:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.locale$.getValue() === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree4;
         } else {
           return TreeDesignNameEnglishEnum.tree4;

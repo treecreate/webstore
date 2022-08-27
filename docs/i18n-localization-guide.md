@@ -25,7 +25,7 @@
         "sourceLocale": "en-US", // <---------------------------- 1
         "locales": {
           // <----------------------------
-          "dk": "apps/webstore/src/i18n/messages.dk.xlf" // <---------------------------- 2
+          "da": "apps/webstore/src/i18n/messages.da.xlf" // <---------------------------- 2
         } // <----------------------------
       }, // <----------------------------
       "targets": {
@@ -37,9 +37,9 @@
           },
           "configurations": {
             // ...
-            "dk": {
+            "da": {
               // <----------------------------
-              "localize": ["dk"] // <---------------------------- 4
+              "localize": ["da"] // <---------------------------- 4
             } // <----------------------------
           }
         },
@@ -49,7 +49,7 @@
             "production": {
               "browserTarget": "webstore:build:production"
             },
-            "dk": {
+            "da": {
               // <----------------------------
               "browserTarget": "webstore:build:dk" // <---------------------------- 5
             } // <----------------------------
@@ -77,7 +77,7 @@
   > i18n can automatically **extract** the localization files by running the command `ng extract-i18n src/i18n`. In our project, we would have to run `nx extract-i18n webstore`.\
   > Now in the '_src/i18n_' folder you will find a '_messages.xlf_' file.
 - Creating the **danish** translation file.
-  > Now the text from '_messages.xlf_' can be copied into a new file called '_messages.dk.xlf_'.\
+  > Now the text from '_messages.xlf_' can be copied into a new file called '_messages.da.xlf_'.\
   >  In order to **translate** something, add a **target** tag immediately after the **source** in the **trans-unit** as follows:
 
 ```html
@@ -98,7 +98,7 @@
 ```html
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="dk">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template" target-language="da">
     <!-- <--------- -->
     <!-- ... -->
   </file>
@@ -213,7 +213,7 @@ export class AppComponent {
 import { registerLocaleData } from '@angular/common';
 import localeDk from '@angular/common/locales/dk';
 
-registerLocaleData(localeDk, 'dk');
+registerLocaleData(localeDk, 'da');
 
 // ...
 ```
@@ -250,7 +250,7 @@ export class AppComponent {
 </trans-unit>
 ```
 
-- `messages.dk.xlf`
+- `messages.da.xlf`
 
 ```html
 <trans-unit id="3990133897753911565" datatype="html">
@@ -270,7 +270,7 @@ export class AppComponent {
 export class AppComponent {
   localesList = [
     { code: 'en-US', label: 'English' },
-    { code: 'dk', label: 'Danish' },
+    { code: 'da', label: 'Danish' },
   ];
 
   // ...
