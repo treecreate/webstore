@@ -218,12 +218,11 @@ figure {
 }
 
 .member-wrapper {
-  margin: 1em 2em;
+  margin: 1em;
   width: 300px;
   display: flex;
   flex-direction: column;
   filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.15));
-  margin: 1.5em;
   padding: 1em;
   background-color: white;
   border-radius: 5px;
@@ -254,13 +253,19 @@ figure {
   margin-bottom: 0.5em;
 }
 
-.values,
-.members {
+.values {
   justify-content: space-around;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+}
+
+.members {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .values h3 {
