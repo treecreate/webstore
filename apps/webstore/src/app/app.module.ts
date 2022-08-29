@@ -52,7 +52,6 @@ import { QuotableDesignComponent } from './shared/components/products/quotable-d
 import { ReviewCarouselComponent } from './shared/components/review-carousel/review-carousel.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
-import { langInterceptorProviders } from './shared/helpers/lang.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
 
 @NgModule({
@@ -113,7 +112,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     NgxSliderModule,
     TextFieldModule,
   ],
-  providers: [GoogleAnalyticsService, authInterceptorProviders, langInterceptorProviders],
+  providers: [GoogleAnalyticsService, authInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
