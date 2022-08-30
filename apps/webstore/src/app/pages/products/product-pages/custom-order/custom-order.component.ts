@@ -62,6 +62,16 @@ export class CustomOrderComponent implements OnInit {
       altText: '',
       imgSrc: '/assets/img/custom-order-example/custom-order-img-5.png',
     },
+    {
+      customer: 'Treecreate',
+      descriptionEn:
+        'A charming, sustainable and beautiful high-quality wooden keychain. Perfect for your company’s employees.',
+      descriptionDk:
+        'En charmerende, bæredygtig og smuk nøglering i træ i høj kvalitet. Helt perfekt til din virksomheds medarbejdere.',
+      price: 400,
+      altText: '',
+      imgSrc: '/assets/img/description2.jpg',
+    },
   ];
   customOrderForm: UntypedFormGroup;
 

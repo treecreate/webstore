@@ -83,8 +83,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="who-are-we" datatype="html">
-        <source>Hvem er vi</source>
-        <target>Who are we</target>
+        <source>Who are we</source>
+        <target>Hvem er vi</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">128</context>

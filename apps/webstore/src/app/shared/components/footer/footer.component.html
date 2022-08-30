@@ -9,22 +9,22 @@
                     <div class="col">
                         <ul class="list-unstyled">
                             <li>
-                                <a routerLink="/home">Home</a>
+                                <a (click)="scrollTop()" routerLink="/home">Home</a>
                             </li>
                             <li>
-                                <a routerLink="/products" i18n="@@product">Products</a>
+                                <a (click)="scrollTop()" routerLink="/products" i18n="@@product">Products</a>
                             </li>
                             <li *ngIf="!isLoggedIn">
-                                <a routerLink="/login" i18n="@@login">Log in</a>
+                                <a (click)="scrollTop()" routerLink="/login" i18n="@@login">Log in</a>
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/profile" i18n="@@profile">Profile</a>
+                                <a (click)="scrollTop()" routerLink="/profile" i18n="@@profile">Profile</a>
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a routerLink="/collection" i18n="@@collection">Collection</a>
+                                <a (click)="scrollTop()" routerLink="/collection" i18n="@@collection">Collection</a>
                             </li>
                             <li>
-                                <a routerLink="/basket" i18n="@@basket">Basket</a>
+                                <a (click)="scrollTop()" routerLink="/basket" i18n="@@basket">Basket</a>
                             </li>
                         </ul>
                     </div>
@@ -44,10 +44,14 @@
                                 <a id="mailto" href="mailto:info@treecreate.dk" target="_blank">E-mail</a>
                             </li>
                             <li>
-                                <a href="https://www.facebook.com/TreeCreate.dk" target="_blank">Facebook</a>
+                                <a href="https://www.facebook.com/TreeCreate.dk" target="_blank" rel="noopener"
+                                    >Facebook</a
+                                >
                             </li>
                             <li>
-                                <a href="https://www.instagram.com/treecreate.dk/" target="_blank">Instagram</a>
+                                <a href="https://www.instagram.com/treecreate.dk/" target="_blank" rel="noopener"
+                                    >Instagram</a
+                                >
                             </li>
                         </ul>
                     </div>
@@ -70,6 +74,7 @@
                         name="email"
                         id="email"
                         required
+                        #emailInput
                     />
                     <label for="email" class="tc-input-label">E-mail</label>
                 </div>
@@ -122,10 +127,10 @@
                 </div>
                 <hr class="remove-mobile clearfix w-100 d-md-none" />
                 <div class="col">
-                    <img src="/assets/logos/payment/dankortLogo.svg" class="payment-icon" />
-                    <img src="/assets/logos/payment/mastercardLogo.svg" class="payment-icon" />
-                    <img src="/assets/logos/payment/mobilePay.svg" class="payment-icon" />
-                    <img src="/assets/logos/payment/visaLogo.svg" class="payment-icon" />
+                    <img src="/assets/logos/payment/dankortLogo.svg" class="payment-icon" alt="Dankort icon" />
+                    <img src="/assets/logos/payment/mastercardLogo.svg" class="payment-icon" alt="Mastercard icon" />
+                    <img src="/assets/logos/payment/mobilePay.svg" class="payment-icon" alt="Mobilpay icon" />
+                    <img src="/assets/logos/payment/visaLogo.svg" class="payment-icon" alt="Visa dankort icon" />
                 </div>
             </div>
         </div>

@@ -26,8 +26,8 @@
             </button>
 
             <!-- Logo, always shown -->
-            <a class="navbar-brand" routerLink="/">
-                <img data-cy="navbar-logo-img" src="/assets/logos/tc-black-text-logo.svg" class="logo" />
+            <a class="navbar-brand" (click)="scrollTop()" routerLink="/">
+                <img data-cy="navbar-logo-img" src="/assets/logos/tc-black-text-logo.svg" class="Treecreate logo" />
             </a>
 
             <!-- Dropdown => language change, always shown -->
@@ -75,7 +75,7 @@
                 routerLink="/basket"
                 *ngIf="itemsInBasket !== 0"
             >
-                <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
+                <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
                 <span class="item-number">{{ itemsInBasket }}</span>
             </button>
             <button
@@ -84,7 +84,7 @@
                 routerLink="/products"
                 *ngIf="itemsInBasket === 0"
             >
-                <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
+                <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
                 <span class="buy-button-text" i18n="@@buy">Buy</span>
             </button>
         </div>
@@ -190,7 +190,7 @@
                         routerLink="/basket"
                         *ngIf="itemsInBasket !== 0"
                     >
-                        <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
+                        <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
                         <span class="item-number">{{ itemsInBasket }}</span>
                     </button>
                     <button
@@ -200,7 +200,7 @@
                         data-cy="navbar-basket-link"
                         *ngIf="itemsInBasket === 0"
                     >
-                        <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" />
+                        <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
                         <span class="buy-button-text" i18n="@@buy">Buy</span>
                     </button>
                 </div>

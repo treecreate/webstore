@@ -1,7 +1,7 @@
 <main class="newsletter-unsubscribe-container">
     <section class="newsletter-unsubscribe-section">
         <div class="header">
-            <img src="../../../assets/icons/send-email-brown-icon.svg" class="header-icon" />
+            <img src="../../../assets/icons/send-email-brown-icon.svg" class="header-icon" alt="Email icon" />
         </div>
         <br />
         <div>
@@ -27,6 +27,7 @@
                         src="/assets/icons/success-white-icon.svg"
                         width="30"
                         height="30"
+                        alt="Success icon"
                         data-cy="unsubscribe-success-icon"
                     />
                     <p class="remove-margin" i18n="@@unsubscribe-success" data-cy="unsubscribe-success-message">
@@ -40,7 +41,13 @@
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 
                 <div class="message-container newsletter-unsubscribe-failed-message">
-                    <img src="/assets/icons/error-icon.svg" width="30" height="30" data-cy="unsubscribe-failed-icon" />
+                    <img
+                        src="/assets/icons/error-icon.svg"
+                        width="30"
+                        height="30"
+                        alt="Error icon"
+                        data-cy="unsubscribe-failed-icon"
+                    />
                     <p class="remove-margin" data-cy="unsubscribe-error-message">
                         {{ errorMessage }}
                     </p>
