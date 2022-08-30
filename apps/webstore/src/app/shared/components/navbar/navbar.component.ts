@@ -58,8 +58,8 @@ export class NavbarComponent implements OnInit {
 
   changeLocale(language: string) {
     switch (language) {
-      case 'dk':
-        this.localeCode = LocaleType.dk;
+      case 'da':
+        this.localeCode = LocaleType.da;
         break;
       case 'en':
         this.localeCode = LocaleType.en;
@@ -124,7 +124,7 @@ export class NavbarComponent implements OnInit {
   }
 
   isDanish() {
-    return this.localeCode === LocaleType.dk;
+    return this.localeCode === LocaleType.da;
   }
 
   showProfileMenu() {

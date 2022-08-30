@@ -3,7 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 import { EventsService } from '../../../services/events/events.service';
-import { NewsletterService } from '../../../services/order/newsletter/newsletter.service';
+import { NewsletterService } from '../../../services/newsletter/newsletter.service';
 import { ToastService } from '../../toast/toast-service';
 
 @Component({

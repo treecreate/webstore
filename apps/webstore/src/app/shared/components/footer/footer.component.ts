@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
 import { ErrorlogsService } from '../../services/errorlog/errorlog.service';
 import { EventsService } from '../../services/events/events.service';
-import { NewsletterService } from '../../services/order/newsletter/newsletter.service';
+import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
