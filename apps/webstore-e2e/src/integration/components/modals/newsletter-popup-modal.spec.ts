@@ -20,7 +20,7 @@ describe('Signup to newsletter popup modal', () => {
   });
 
   it('registers a new newsletter signup', () => {
-    cy.intercept('POST', '/newsletter/test@test.com', {
+    cy.intercept('POST', '/newsletter/test@test.com?lang=da', {
       statusCode: 200,
     });
     cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();

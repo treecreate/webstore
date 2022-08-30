@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateCustomOrderRequest, CreateOrderRequest, IOrder, IPaymentLink } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
+import { LocaleType, LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 
@@ -8,10 +10,14 @@ import { environment as env } from '../../../../environments/environment';
   providedIn: 'root',
 })
 export class OrderService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) {}
 
   public createOrder(params: CreateOrderRequest): Observable<IPaymentLink> {
-    return this.http.post<IPaymentLink>(`${env.apiUrl}/orders`, params);
+    let locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value;
+    if (locale === null) {
+      locale = LocaleType.da;
+    }
+    return this.http.post<IPaymentLink>(`${env.apiUrl}/orders?lang=${locale}`, params);
   }
 
   public getOrders(): Observable<IOrder[]> {

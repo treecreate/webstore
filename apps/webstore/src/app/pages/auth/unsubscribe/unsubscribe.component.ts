@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ErrorlogPriorityEnum } from '@interfaces';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { EventsService } from '../../../shared/services/events/events.service';
-import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 
 @Component({
   selector: 'webstore-unsubscribe',

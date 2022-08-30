@@ -17,9 +17,9 @@ class LocaleServiceTest {
 
   private static Stream<Arguments> getLocaleArguments() {
     return Stream.of(
-        Arguments.of("dk", new Locale("dk")),
+        Arguments.of("da", new Locale("da")),
         Arguments.of("en", Locale.ENGLISH),
-        Arguments.of(null, new Locale("dk")));
+        Arguments.of(null, new Locale("da")));
   }
 
   @ParameterizedTest

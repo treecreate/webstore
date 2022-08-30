@@ -16,7 +16,7 @@ export class LocalStorageService implements OnDestroy {
   constructor() {
     // Get initial state of cookies and locale from previously set values. If nothing is found, set defaults
     const locale = localStorage.getItem(LocalStorageVars.locale);
-    const initialLocale = locale !== null ? JSON.parse(locale) : LocaleType.dk;
+    const initialLocale = locale !== null ? JSON.parse(locale) : LocaleType.da;
 
     const cookies = localStorage.getItem(LocalStorageVars.cookiesAccepted);
     const acceptedCookies = cookies !== null ? JSON.parse(cookies) : CookieStatus.undefined;
