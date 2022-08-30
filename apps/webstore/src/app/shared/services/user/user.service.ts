@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUser, UpdateUserPasswordRequest, UpdateUserRequest } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -21,11 +21,11 @@ export class UserService {
   }
 
   public sendResetUserPassword(email: string): Observable<void> {
-    const localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
-    const params = new HttpParams().set('lang', localeCode);
-    return this.http.get<void>(`${env.apiUrl}/users/resetPassword/${email}`, {
-      params: params,
-    });
+    let locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value;
+    if (locale === null) {
+      locale = LocaleType.da;
+    }
+    return this.http.get<void>(`${env.apiUrl}/users/resetPassword/${email}?lang=${locale}`);
   }
 
   public updatePassword(params: UpdateUserPasswordRequest) {

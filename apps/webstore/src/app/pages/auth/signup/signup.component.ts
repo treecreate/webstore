@@ -10,7 +10,7 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { EventsService } from '../../../shared/services/events/events.service';
-import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 @Component({
   selector: 'webstore-signup',

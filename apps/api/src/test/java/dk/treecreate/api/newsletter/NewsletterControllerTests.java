@@ -150,7 +150,7 @@ class NewsletterControllerTests {
       newsletter.setEmail("example@hotdeals.dev");
 
       Mockito.when(newsletterRepository.existsByEmail(newsletter.getEmail())).thenReturn(false);
-      Mockito.doNothing().when(mailService).sendNewsletterDiscountEmail(any(), any(), any());
+      Mockito.doNothing().when(mailService).sendNewsletterDiscountEmail(any(), any(), any(), any());
       Mockito.when(linkService.generateNewsletterUnsubscribeLink(any(), any())).thenReturn("dk");
       Mockito.when(newsletterRepository.save(any())).thenReturn(newsletter);
 

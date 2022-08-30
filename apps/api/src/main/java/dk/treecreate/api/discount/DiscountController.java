@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -76,28 +74,7 @@ public class DiscountController {
       })
   @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
   public Discount create(@RequestBody() @Valid CreateDiscountRequest createDiscountRequest) {
-    Discount discount = new Discount();
-    discount.setType(createDiscountRequest.getType());
-    if (discount.getType().equals(DiscountType.PERCENT)
-        && createDiscountRequest.getAmount() > 100) {
-      discount.setAmount(100);
-    } else {
-      discount.setAmount(createDiscountRequest.getAmount());
-    }
-    discount.setDiscountCode(createDiscountRequest.getDiscountCode());
-    discount.setRemainingUses(createDiscountRequest.getRemainingUses());
-    discount.setTotalUses((createDiscountRequest.getTotalUses()));
-    discount.setIsEnabled(createDiscountRequest.getIsEnabled());
-    if (createDiscountRequest.getExpiresAt() != null) {
-      discount.setExpiresAt(createDiscountRequest.getExpiresAt());
-    }
-    if (createDiscountRequest.getStartsAt() != null) {
-      discount.setStartsAt(createDiscountRequest.getStartsAt());
-    }
-    if (discountRepository.existsByDiscountCode(createDiscountRequest.getDiscountCode())) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Duplicate discount code");
-    }
-    return discountRepository.save(discount);
+    return discountService.createDiscount(createDiscountRequest);
   }
 
   // TODO - add tests for PATCH /discounts/:discountId

@@ -25,7 +25,7 @@ export class CustomOrderComponent implements OnInit {
       descriptionEn:
         'A unique display of the Penneo logo combined with the Nasdaq name in celebration of being listed on the main market.',
       descriptionDk:
-        'Et unik plade med Penneos logo på, combineret med Nasdaq navnet. Lavet i en fejring af at blive en del af main market.',
+        'Et unik plade med Penneos logo på, kombineret med Nasdaq navnet. Lavet i en fejring af at blive en del af Nasdaq-indexet.',
       price: 700,
       altText: '',
       imgSrc: '/assets/img/custom-order-example/custom-order-img-2.png',
@@ -61,6 +61,16 @@ export class CustomOrderComponent implements OnInit {
       price: 400,
       altText: '',
       imgSrc: '/assets/img/custom-order-example/custom-order-img-5.png',
+    },
+    {
+      customer: 'Treecreate',
+      descriptionEn:
+        'A charming, sustainable and beautiful high-quality wooden keychain. Perfect for your company’s employees.',
+      descriptionDk:
+        'En charmerende, bæredygtig og smuk nøglering i træ i høj kvalitet. Helt perfekt til din virksomheds medarbejdere.',
+      price: 400,
+      altText: '',
+      imgSrc: '/assets/img/description2.jpg',
     },
   ];
   customOrderForm: UntypedFormGroup;
@@ -176,7 +186,7 @@ export class CustomOrderComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastService.showAlert('Custom order registered', 'Special bestilling regristreret', 'success', 10000);
+          this.toastService.showAlert('Custom order registered', 'Specialbestilling regristreret', 'success', 10000);
           this.eventsService.create(
             `webstore.custom-order.custom-order-request-submitted.${
               this.customOrderForm.get('name').value.length <= 20

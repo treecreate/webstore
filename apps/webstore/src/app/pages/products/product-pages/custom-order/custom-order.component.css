@@ -164,9 +164,9 @@
 }
 
 .custom-order-examples-container {
-  width: 60vw;
+  width: 62vw;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 1em;
 }
@@ -175,6 +175,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.no-files-uploaded {
+  background-color: transparent;
 }
 
 .custom-order-examples h2 {

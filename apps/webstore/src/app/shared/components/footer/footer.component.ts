@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorlogPriorityEnum, IAuthUser, INewsletter } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/authentication/auth.service';
 import { ErrorlogsService } from '../../services/errorlog/errorlog.service';
 import { EventsService } from '../../services/events/events.service';
-import { NewsletterService } from '../../services/order/newsletter/newsletter.service';
+import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { PrivacyNoticeModalComponent } from '../modals/privacy-notice-modal/privacy-notice-modal.component';
 import { TermsOfSaleModalComponent } from '../modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { TermsOfUseModalComponent } from '../modals/terms-of-use-modal/terms-of-use-modal.component';
@@ -25,6 +25,7 @@ export class FooterComponent implements OnInit {
   public currentYear = new Date().getFullYear();
   signupNewsletterForm: UntypedFormGroup;
   isLoading = false;
+  @ViewChild('emailInput') emailInput: ElementRef;
 
   constructor(
     private modalService: NgbModal,
@@ -51,24 +52,30 @@ export class FooterComponent implements OnInit {
 
   submit() {
     this.isLoading = true;
-    this.newsletterService.registerNewsletterEmail(this.signupNewsletterForm.get('email').value).subscribe(
-      (newsletterData: INewsletter) => {
-        this.toastService.showAlert(
-          `Thank you for subscribing: ${newsletterData.email}`,
-          `Tak for din tilmelding: ${newsletterData.email}`,
-          'success',
-          3000
-        );
-        this.isLoading = false;
-        this.eventsService.create('webstore.footer.newsletter-signup');
-      },
-      (error) => {
-        console.error(error);
-        this.errorlogsService.create('webstore.footer.newsletter-signup-failed', ErrorlogPriorityEnum.high, error);
-        this.toastService.showAlert(error.error.message, error.error.message, 'danger', 100000);
-        this.isLoading = false;
-      }
-    );
+    if (this.signupNewsletterForm.get('email').value !== '') {
+      this.newsletterService.registerNewsletterEmail(this.signupNewsletterForm.get('email').value).subscribe(
+        (newsletterData: INewsletter) => {
+          this.toastService.showAlert(
+            `Thank you for subscribing: ${newsletterData.email}`,
+            `Tak for din tilmelding: ${newsletterData.email}`,
+            'success',
+            3000
+          );
+          this.isLoading = false;
+          this.eventsService.create('webstore.footer.newsletter-signup');
+        },
+        (error) => {
+          console.error(error);
+          this.errorlogsService.create('webstore.footer.newsletter-signup-failed', ErrorlogPriorityEnum.high, error);
+          this.toastService.showAlert('Invalid email', 'Ugyldig email', 'danger', 100000);
+          this.isLoading = false;
+        }
+      );
+    } else {
+      this.toastService.showAlert('Missing email input.', 'Udfyld email feltet.', 'danger', 100000);
+      this.emailInput.nativeElement.focus();
+      this.isLoading = false;
+    }
   }
 
   showTermsOfUse() {
@@ -81,5 +88,9 @@ export class FooterComponent implements OnInit {
 
   showPrivacyNotice() {
     this.modalService.open(PrivacyNoticeModalComponent, { size: 'lg' });
+  }
+
+  scrollTop() {
+    window.scrollTo(0, 0);
   }
 }
