@@ -158,7 +158,7 @@
                         <a
                             class="nav-item"
                             ngbDropdownToggle
-                            class="nav-link waves-light"
+                            class="nav-link waves-light arrow-edits"
                             (mouseenter)="showProfileMenu()"
                             i18n="@@profile"
                             data-cy="navbar-profile-dropdown"
@@ -185,7 +185,7 @@
                 <!-- Buy button => changes between showing basket and buyNow -->
                 <div class="nav-section remove-on-mobile">
                     <button
-                        class="navbar-basket-icon"
+                        class="navbar-basket-icon tc-button-100"
                         (click)="autoCollapse()"
                         routerLink="/basket"
                         *ngIf="itemsInBasket !== 0"
