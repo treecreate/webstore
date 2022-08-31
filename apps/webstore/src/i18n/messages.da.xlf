@@ -593,9 +593,9 @@
           <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="go-to-quickpay" datatype="html">
-        <source>Go to Quickpay</source>
-        <target>Gå til Quickpay</target> 
+      <trans-unit id="go-to-payment" datatype="html">
+        <source>Go to payment</source>
+        <target>Gå til betaling</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">668,669</context>
@@ -610,8 +610,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="create-new" datatype="html">
-        <source>Create New</source>
-        <target>Start nyt</target> 
+        <source>Create New design</source>
+        <target>Start nyt design</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">25,26</context>
@@ -883,7 +883,7 @@
       </trans-unit>
       <trans-unit id="info-password" datatype="html">
         <source> Password must contain: min 8 characters, at least one upper case letter, one lower case letter and one number. </source>
-        <target>Kodeordet skal indeholde: min 8 tegn, mindst et stort bokstav, et lille bokstav og et nummer.</target> 
+        <target>Kodeordet skal indeholde: min 8 tegn, mindst et stort bogstav, et lille bogstav og et nummer.</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/reset-password/reset-password.component.html</context>
           <context context-type="linenumber">31,34</context>
@@ -2190,7 +2190,7 @@
       </trans-unit>
       <trans-unit id="items-in-your-basket" datatype="html">
         <source>items in your basket</source>
-        <target>genstande i din kurv</target> 
+        <target>genstand(e) i din kurv</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">9</context>
@@ -2198,7 +2198,7 @@
       </trans-unit>
       <trans-unit id="loading-items-in-basket" datatype="html">
         <source>Loading items in basket...</source>
-        <target>Loader genstande i din kurv...</target> 
+        <target>Loader genstand(e) i din kurv...</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">20</context>
