@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewsletterSignupModalComponent } from '../modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
 @Component({
   selector: 'webstore-sticky-newsletter-button',
@@ -6,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sticky-newsletter-button.component.scss'],
 })
 export class StickyNewsletterButtonComponent implements OnInit {
-  constructor() {}
+  constructor(private modalService: NgbModal,) {}
+
+  openNewsletterModal() {
+    this.modalService.open(NewsletterSignupModalComponent);
+  }
 
   ngOnInit(): void {}
 }
