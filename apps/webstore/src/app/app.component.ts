@@ -38,9 +38,13 @@ export class AppComponent {
         console.warn('Redirecting you to your chosen locale: en-US');
         window.location.href = window.location.origin + '/en-US' + window.location.pathname + window.location.search;
       } else if (window.location.href.includes('/da')) {
-        console.log('removing /da');
-        await new Promise((f) => setTimeout(f, 1000));
+        // Legacy URL
+        console.warn('Redirecting you to our updated locale');
         window.location.href = window.location.href.replace('/da', '');
+      } else if (window.location.href.includes('/dk')) {
+        // Legacy URL
+        console.warn('Redirecting you to our updated locale');
+        window.location.href = window.location.href.replace('/dk', '');
       }
     });
 
