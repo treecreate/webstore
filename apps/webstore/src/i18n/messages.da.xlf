@@ -82,6 +82,30 @@
           <context context-type="linenumber">119,122</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="founder" datatype="html">
+        <source>Founder - Operations</source>
+        <target>Founder</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="partner" datatype="html">
+        <source>Partner - Marketing</source>
+        <target>Partner - Markedsføring</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="co-founder" datatype="html">
+        <source>Co-Founder - Tech</source>
+        <target>Co-founder - Tech</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="who-are-we" datatype="html">
         <source>Who are we</source>
         <target>Hvem er vi</target>
