@@ -48,7 +48,7 @@ public class LinkServiceTest {
             Environment.STAGING,
             new Locale("da"),
             true,
-            "https://testing.treecreate.dk/da/payment/success"),
+            "https://testing.treecreate.dk/payment/success"),
         Arguments.of(
             Environment.STAGING,
             Locale.ENGLISH,
@@ -58,7 +58,7 @@ public class LinkServiceTest {
             Environment.STAGING,
             new Locale("da"),
             false,
-            "https://testing.treecreate.dk/da/payment/cancelled"),
+            "https://testing.treecreate.dk/payment/cancelled"),
         Arguments.of(
             Environment.PRODUCTION,
             Locale.ENGLISH,
@@ -68,7 +68,7 @@ public class LinkServiceTest {
             Environment.PRODUCTION,
             new Locale("da"),
             true,
-            "https://treecreate.dk/da/payment/success"),
+            "https://treecreate.dk/payment/success"),
         Arguments.of(
             Environment.PRODUCTION,
             Locale.ENGLISH,
@@ -78,7 +78,7 @@ public class LinkServiceTest {
             Environment.PRODUCTION,
             new Locale("da"),
             false,
-            "https://treecreate.dk/da/payment/cancelled"));
+            "https://treecreate.dk/payment/cancelled"));
   }
 
   private static Stream<Arguments> generateCallbackUrlArguments() {
@@ -114,12 +114,12 @@ public class LinkServiceTest {
             new UUID(0, 0),
             new Locale("da"),
             Environment.STAGING,
-            "https://testing.treecreate.dk/da/resetPassword/00000000-0000-0000-0000-000000000000"),
+            "https://testing.treecreate.dk/resetPassword/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
             new Locale("da"),
             Environment.PRODUCTION,
-            "https://treecreate.dk/da/resetPassword/00000000-0000-0000-0000-000000000000"));
+            "https://treecreate.dk/resetPassword/00000000-0000-0000-0000-000000000000"));
   }
 
   private static Stream<Arguments> generateNewsletterUnsubscribeLinkArguments() {
@@ -148,12 +148,12 @@ public class LinkServiceTest {
             new UUID(0, 0),
             new Locale("da"),
             Environment.STAGING,
-            "https://testing.treecreate.dk/da/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
+            "https://testing.treecreate.dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
             new Locale("da"),
             Environment.PRODUCTION,
-            "https://treecreate.dk/da/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"));
+            "https://treecreate.dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"));
   }
 
   @ParameterizedTest

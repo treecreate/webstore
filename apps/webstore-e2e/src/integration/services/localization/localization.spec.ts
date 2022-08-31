@@ -1,7 +1,6 @@
 describe('Localization', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
   });
 
   it('change localized to danish', () => {
@@ -10,7 +9,7 @@ describe('Localization', () => {
     cy.get('[data-cy=navbar-localization-dk]').click();
 
     // check url to contain language
-    cy.url().should('include', '/da');
+    cy.url().should('not.include', '/da');
   });
 
   it('change localized to english', () => {
