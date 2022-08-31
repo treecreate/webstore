@@ -5,7 +5,7 @@ describe.skip('PrivacyNoticeModal', () => {
       LocalStorageVars.cookiesAccepted,
       `"${CookieStatus.accepted}"` // localStorage saves the data differently from our LocalStorageService
     );
-    cy.visit('/home');
+    cy.visit('/');
   });
 
   it('should open privacy notice modal when clicked on its link', () => {

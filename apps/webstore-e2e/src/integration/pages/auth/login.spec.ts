@@ -115,7 +115,7 @@ describe('Login Page', () => {
       );
       cy.visit('/login');
 
-      cy.url().should('contain', '/home');
+      cy.url().should('contain', '/');
 
       cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');

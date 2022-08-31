@@ -6,7 +6,7 @@ describe.skip('TermsOfSaleModal', () => {
       LocalStorageVars.cookiesAccepted,
       `"${CookieStatus.accepted}"` // localStorage saves the data differently from our LocalStorageService
     );
-    cy.visit('/home');
+    cy.visit('/');
   });
 
   it('should open terms of Sale modal when clicked on its link', () => {
