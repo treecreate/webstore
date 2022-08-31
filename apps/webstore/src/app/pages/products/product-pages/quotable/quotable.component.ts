@@ -237,7 +237,7 @@ export class QuotableComponent implements OnInit {
     if (!this.isLoggedIn) {
       this.toastService.showAlert(
         'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
-        'Dit design er bleven midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
+        'Dit design er blevet midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
         'success',
         7000
       );
@@ -262,7 +262,7 @@ export class QuotableComponent implements OnInit {
           () => {
             this.toastService.showAlert(
               'Your design has been updated',
-              'Dit design er bleven opdateret',
+              'Dit design er blevet opdateret',
               'success',
               5000
             );
@@ -289,7 +289,7 @@ export class QuotableComponent implements OnInit {
         })
         .subscribe({
           next: (result) => {
-            this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
+            this.toastService.showAlert('Your design has been saved', 'Dit design er blevet gemt', 'success', 5000);
             this.eventsService.create(`webstore.quotable.design-created.db`);
             this.router.navigate([], {
               relativeTo: this.route,

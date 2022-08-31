@@ -105,7 +105,7 @@ export class SignupComponent implements OnInit {
 
           this.toastService.showAlert(
             'Welcome to Treecreate, you have successfully been registered!',
-            'Velkommen til Treecreate, du er nu bleven registreret!',
+            'Velkommen til Treecreate, du er nu blevet registreret!',
             'success',
             3500
           );
