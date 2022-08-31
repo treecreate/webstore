@@ -1,12 +1,13 @@
 .sticky-newsletter-container {
   position: sticky;
   bottom: 1em;
-  left: 1em;
+  left: 50%;
+  transform: translateX(-50%);
   width: 180px;
   height: 40px;
   filter: drop-shadow(0px 8px 11px rgba(0, 0, 0, 0.15));
   display: flex;
-  transition: .5s;
+  transition: 0.5s;
   z-index: 902;
 
   .text {
@@ -38,6 +39,5 @@
 }
 
 .sticky-newsletter-container:hover {
-    left: 1.4em;
-    transform: scale(1.1);
+  transform: scale(1.1);
 }

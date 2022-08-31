@@ -8,7 +8,7 @@ import { NewsletterSignupModalComponent } from '../modals/newsletter-signup-moda
   styleUrls: ['./sticky-newsletter-button.component.scss'],
 })
 export class StickyNewsletterButtonComponent implements OnInit {
-  constructor(private modalService: NgbModal,) {}
+  constructor(private modalService: NgbModal) {}
 
   openNewsletterModal() {
     this.modalService.open(NewsletterSignupModalComponent);
