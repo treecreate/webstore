@@ -52,9 +52,11 @@
 }
 .waves-light {
   text-align: center;
+  text-decoration: none;
+  transition: .5s;
 }
-.navbar-toggler {
-  outline: none;
+.navbar-toggler:focus {
+  box-shadow: none !important;
 }
 .language-icon {
   padding: 10px 15px;
