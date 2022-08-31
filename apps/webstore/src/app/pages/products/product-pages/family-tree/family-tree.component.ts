@@ -260,7 +260,7 @@ export class FamilyTreeComponent implements OnInit {
     if (!this.isLoggedIn) {
       this.toastService.showAlert(
         'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
-        'Dit design er t midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
+        'Dit design er blevet midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
         'success',
         7000
       );
