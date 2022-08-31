@@ -16,9 +16,6 @@
     ></webstore-footer>
     <webstore-toasts></webstore-toasts>
     <webstore-sticky-newsletter-button
-        *ngIf="
-            router.url === '/home' || 
-            router.url === '/products'
-        "
+        *ngIf="router.url === '/home' || router.url === '/products'"
     ></webstore-sticky-newsletter-button>
 </div>

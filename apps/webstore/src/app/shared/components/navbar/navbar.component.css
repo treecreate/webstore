@@ -53,7 +53,7 @@
 .waves-light {
   text-align: center;
   text-decoration: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 .navbar-toggler:focus {
   box-shadow: none !important;
