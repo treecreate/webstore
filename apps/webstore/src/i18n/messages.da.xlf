@@ -130,14 +130,6 @@
           <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plant-extra-trees-subtext" datatype="html">
-        <source>(Planting 1 tree is included in the price)</source>
-        <target>(Et træ er allerede med i prisen)</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">59,60</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="apply-discount" datatype="html">
         <source>Apply</source>
         <target>Aktiver</target> 
