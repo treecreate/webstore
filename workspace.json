@@ -319,7 +319,7 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "da": "apps/webstore/src/i18n/messages.da.xlf"
+          "": "apps/webstore/src/i18n/messages.da.xlf"
         }
       },
       "targets": {
