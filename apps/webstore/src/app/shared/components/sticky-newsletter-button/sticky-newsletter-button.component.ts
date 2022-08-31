@@ -1,11 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { IAuthUser, INewsletter } from '@interfaces';
-import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject } from 'rxjs';
-import { AuthService } from '../../services/authentication/auth.service';
-import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { NewsletterSignupModalComponent } from '../modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
 @Component({
@@ -14,8 +8,7 @@ import { NewsletterSignupModalComponent } from '../modals/newsletter-signup-moda
   styleUrls: ['./sticky-newsletter-button.component.scss'],
 })
 export class StickyNewsletterButtonComponent {
-  private authUser$: BehaviorSubject<IAuthUser>;
-  public isSubscribed: Boolean = true;
+  public isSubscribed = true;
   public isLoggedIn = false;
 
   constructor(private modalService: NgbModal) {}
