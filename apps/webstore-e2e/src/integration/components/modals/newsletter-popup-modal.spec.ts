@@ -9,8 +9,8 @@ describe('Signup to newsletter popup modal', () => {
     expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
     cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
-    // eslint-disable-next-line
-    cy.wait(4000);
+    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+    cy.get('[data-cy=sticky-newsletter-button]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('exist');
     cy.get('[data-cy=newsletter-modal-close-btn]')
       .click()
@@ -25,8 +25,8 @@ describe('Signup to newsletter popup modal', () => {
     });
     cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
-    // eslint-disable-next-line
-    cy.wait(4000);
+    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+    cy.get('[data-cy=sticky-newsletter-button]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('exist');
     cy.get('[data-cy=newsletter-modal-email-input]').type('test');
     cy.get('[data-cy=newsletter-modal-subscribe-btn]').click();
