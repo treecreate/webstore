@@ -1,5 +1,5 @@
 <nav data-cy="navbar" class="navbar fixed-top navbar-expand-lg add-transition">
-    <div class="purchase-info" *ngIf="router.url === '/home'">
+    <div class="purchase-info" *ngIf="router.url === '/'">
         <span class="info-text">
             <span i18n="@@delivery-4-7">7 days delivery</span>
             <img src="/assets/icons/check-white-icon.svg" class="check-icon" alt="Hurtig levering icon" />
@@ -58,7 +58,7 @@
                     <a
                         ngbDropdownItem
                         (click)="changeLocale('da')"
-                        href="/{{ localeCode }}/"
+                        href="/"
                         data-cy="navbar-localization-dk"
                         i18n="@@dansk"
                         >Dansk</a
@@ -93,7 +93,7 @@
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link waves-light" routerLink="/home" (click)="autoCollapse()">Home</a>
+                    <a class="nav-link waves-light" routerLink="/" (click)="autoCollapse()">Home</a>
                 </li>
                 <li class="nav-item">
                     <a

@@ -95,7 +95,7 @@ export class AuthService {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
     this.localStorageService.removeItem(LocalStorageVars.transactionItems);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 
   /**

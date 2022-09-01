@@ -1,9 +1,7 @@
 import { LocalStorageVars } from '@models';
 
 describe('Signup to newsletter popup modal', () => {
-  beforeEach(() => {
-    cy.visit('/home');
-  });
+  beforeEach(() => {});
 
   // it('should show the popup and save it in localstorage', () => {
   //   expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
@@ -40,6 +38,7 @@ describe('Signup to newsletter popup modal', () => {
     cy.intercept('POST', '/newsletter/test@test.com?lang=da', {
       statusCode: 200,
     });
+    cy.visit('/');
     cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
     cy.get('[data-cy=sticky-newsletter-button]').should('exist');

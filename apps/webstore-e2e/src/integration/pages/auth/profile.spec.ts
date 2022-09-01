@@ -96,7 +96,7 @@ describe('accountPage', () => {
     cy.get('[data-cy=update-password-btn]').click();
 
     cy.get('[data-cy=change-password-modal]').should('not.exist');
-    cy.url().should('contain', '/home');
+    cy.url().should('contain', '/');
   });
 
   it('should not be able to update password with non matching password', () => {
