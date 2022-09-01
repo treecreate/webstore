@@ -19,6 +19,23 @@ describe('Signup to newsletter popup modal', () => {
   //     });
   // });
 
+  it('opens newsletter modal when clicking sticky button', () => {
+    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
+    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+    cy.get('[data-cy=sticky-newsletter-button]').click();
+    cy.get('[data-cy=newsletter-modal-popup]').should('exist');
+  });
+
+  it('closes newsletter modal when clicking x', () => {
+    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
+    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+    cy.get('[data-cy=sticky-newsletter-button]').click();
+    cy.get('[data-cy=newsletter-modal-popup]').should('exist');
+
+    cy.get('[data-cy=newsletter-modal-close-btn]').click();
+    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
+  });
+
   it('registers a new newsletter signup', () => {
     cy.intercept('POST', '/newsletter/test@test.com?lang=da', {
       statusCode: 200,
