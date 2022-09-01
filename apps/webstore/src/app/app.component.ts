@@ -28,7 +28,6 @@ export class AppComponent {
     this.router.events.subscribe(async () => {
       const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
       // if the website is deployed the url has locale in it and has to be adjusted to match local storage
-      console.log(window.location.href);
       if (window.location.href.includes('/en-US') && locale === LocaleType.da) {
         // English locale while the user has selected Danish
         console.warn('Redirecting you to your chosen locale: DA');
