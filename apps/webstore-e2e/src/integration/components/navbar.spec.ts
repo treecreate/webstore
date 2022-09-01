@@ -8,7 +8,7 @@ describe('NavbarComponent', () => {
       LocalStorageVars.cookiesAccepted,
       `"${CookieStatus.accepted}"` // localStorage saves the data differently from our LocalStorageService
     );
-    cy.visit('/home');
+    cy.visit('/');
   });
 
   it('should contain a navbar', () => {
@@ -26,17 +26,17 @@ describe('NavbarComponent', () => {
 
   it('should display profile instead of log in when user is authenticated', () => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
-    cy.visit('/home');
+    cy.visit('/');
     cy.get('[data-cy=navbar]').contains('Log in').should('not.exist');
     cy.get('[data-cy=navbar]').contains('Profile').should('exist');
   });
 
   it('should log the out user and clear local storage information', () => {
     localStorage.setItem(LocalStorageVars.authUser, JSON.stringify(authMockService.getMockUser(AuthUserEnum.authUser)));
-    cy.visit('/home');
+    cy.visit('/');
     cy.get('[data-cy=navbar-profile-dropdown]').trigger('mouseenter');
     cy.get('[data-cy=navbar-log-out-btn]').click({ force: true });
-    cy.url().should('contain', '/home');
+    cy.url().should('contain', '/');
     cy.get('[data-cy=navbar]').contains('Log in').should('exist');
     cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');
   });

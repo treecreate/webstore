@@ -88,7 +88,7 @@ public class NewsletterService {
       throws MessagingException, UnsupportedEncodingException {
 
     String unsubscribeNewsletterUrl =
-        linkService.generateNewsletterUnsubscribeLink(newsletterId, localeService.getLocale(null));
+        linkService.generateNewsletterUnsubscribeLink(newsletterId, localeService.getLocale(lang));
 
     // generate the discount code
     String discountCode;
