@@ -5,19 +5,19 @@ describe('Signup to newsletter popup modal', () => {
     cy.visit('/home');
   });
 
-  it('should show the popup and save it in localstorage', () => {
-    expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
-    cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
-    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
-    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
-    cy.get('[data-cy=sticky-newsletter-button]').click();
-    cy.get('[data-cy=newsletter-modal-popup]').should('exist');
-    cy.get('[data-cy=newsletter-modal-close-btn]')
-      .click()
-      .then(() => {
-        expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal('true');
-      });
-  });
+  // it('should show the popup and save it in localstorage', () => {
+  //   expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
+  //   cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
+  //   cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
+  //   cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+  //   cy.get('[data-cy=sticky-newsletter-button]').click();
+  //   cy.get('[data-cy=newsletter-modal-popup]').should('exist');
+  //   cy.get('[data-cy=newsletter-modal-close-btn]')
+  //     .click()
+  //     .then(() => {
+  //       expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal('true');
+  //     });
+  // });
 
   it('registers a new newsletter signup', () => {
     cy.intercept('POST', '/newsletter/test@test.com?lang=da', {
