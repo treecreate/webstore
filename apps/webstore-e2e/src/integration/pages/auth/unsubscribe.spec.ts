@@ -60,6 +60,6 @@ describe('Signup Page', () => {
 
     cy.visit('newsletter/unsubscribe/' + subscribedNewsletterUUID);
     cy.get('[data-cy=unsubscribe-home-btn]').click();
-    cy.url().should('contain', '/home');
+    cy.url().should('contain', '/');
   });
 });

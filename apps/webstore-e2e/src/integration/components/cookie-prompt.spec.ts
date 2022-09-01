@@ -1,6 +1,6 @@
 import { CookieStatus, LocalStorageVars } from '@models';
 describe('CookiePromptModal', () => {
-  beforeEach(() => cy.visit('/home'));
+  beforeEach(() => cy.visit('/'));
 
   it('should display a cookie prompt on first visit', () => {
     cy.get('[data-cy=cookie-prompt-modal]').should('exist');
@@ -20,7 +20,7 @@ describe('CookiePromptModal', () => {
           CookieStatus.rejected
         );
         // shouldn't open the prompt when re-visiting the website
-        cy.visit('/home');
+        cy.visit('/');
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
       });
   });
@@ -29,13 +29,13 @@ describe('CookiePromptModal', () => {
     cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]')
       .click()
       .then(() => {
-        cy.url().should('contain', '/home');
+        cy.url().should('contain', '/');
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
         expect(localStorage.getItem(LocalStorageVars.cookiesAccepted).replace(new RegExp('"', 'g'), '')).to.equal(
           CookieStatus.accepted
         );
         // shouldn't open the prompt when re-visiting the website
-        cy.visit('/home');
+        cy.visit('/');
         cy.get('[data-cy=cookie-prompt-modal]').should('not.exist');
       });
   });

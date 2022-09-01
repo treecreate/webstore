@@ -15,14 +15,14 @@ describe('PageNotFoundPage', () => {
 
   it('should redirect to home when the "home" button is clicked', () => {
     cy.get('[data-cy=page-not-found-home-btn]').click();
-    cy.url().should('contain', '/home');
+    cy.url().should('contain', '/');
   });
 
   it('should redirect to back to previous page (home) when the "back" button is clicked', () => {
-    cy.visit('/home');
+    cy.visit('/');
     cy.visit('/pageNotFound');
     cy.get('[data-cy=page-not-found-back-btn]').click();
-    cy.url().should('contain', '/home');
+    cy.url().should('contain', '/');
   });
 
   it('should be opened when invalid page is opened', () => {
