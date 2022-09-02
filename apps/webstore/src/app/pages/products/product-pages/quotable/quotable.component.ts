@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, quotableFrames } from '@assets';
 import {
@@ -74,7 +75,9 @@ export class QuotableComponent implements OnInit {
     private toastService: ToastService,
     private authService: AuthService,
     private eventsService: EventsService,
-    private errorlogService: ErrorlogsService
+    private errorlogService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -93,6 +96,13 @@ export class QuotableComponent implements OnInit {
   ngOnInit() {
     this.getFontList();
     this.loadDesign();
+    this.setMetaData();
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('');
+    this.meta.updateTag({ name: 'description', content: '' });
+    this.meta.updateTag({ name: 'keywords', content: '' });
   }
 
   isEnglish(): boolean {
