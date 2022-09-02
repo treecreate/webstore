@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum, INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -35,10 +36,13 @@ export class SignupComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private transactionItemService: TransactionItemService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {}
 
   ngOnInit(): void {
+    this.setMetaData();
     // if user is already logged in redirect to products page
     if (this.authService.getAuthUser()) {
       this.router.navigate(['/products']);
@@ -57,6 +61,12 @@ export class SignupComponent implements OnInit {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
     });
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('');
+    this.meta.updateTag({ name: 'description', content: '' });
+    this.meta.updateTag({ name: 'keywords', content: '' });
   }
 
   onSubmit(): void {
