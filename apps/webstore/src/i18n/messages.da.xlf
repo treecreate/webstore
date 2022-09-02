@@ -146,6 +146,38 @@
           <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="basket-subtext-title" datatype="html">
+        <source>You are not only getting a unique and personal gift:</source>
+        <target>Du bestiller ikke bare en unik og personlig gave:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="basket-subtext-item-1" datatype="html">
+        <source>You are also planting a tree for each item in your order.</source>
+        <target>Du planter også et træ for hvert produkt i din bestilling.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="basket-subtext-item-2" datatype="html">
+        <source>You are supporting local and environmental business.</source>
+        <target>Du støtter lokale og miljøvenlige virksomheder.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="basket-subtext-item-3" datatype="html">
+        <source>You are getting a memory that will last a lifetime.</source>
+        <target>Du får et minde der vil holde hele livet.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="plant-extra-trees" datatype="html">
         <source>Plant an extra tree - 10 DKK</source>
         <target>Plant et ekstra træ - 10 DKK</target> 
