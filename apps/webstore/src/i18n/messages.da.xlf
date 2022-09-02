@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="home-main-text-subtitle" datatype="html">
         <source>At Treecreate you get to create something completely unique in high quality. You can create a Quote table with your own personal message for the one you care about, create your family tree or make something completely custom. All products are carved into a beautiful piece of oak wood and varnished. </source>
-        <target>Hos Treecreate får du lov til at skabe noget helt unikt i høj kvalitet. Du kan lave en citat ramme og skrive en kærlig besked til den du holder af, bygge dit eget stamtræ eller lave en specialbestilling, altsammen skåret i smukt egetræ i høj kvalitet.</target>
+        <target>Hos Treecreate får du lov til at skabe noget helt unikt i høj kvalitet og med omtanke for miljøet. Du kan lave en citat ramme og skrive en kærlig besked til den du holder af, bygge dit eget stamtræ eller lave en specialbestilling, altsammen skåret i smukt egetræ i høj kvalitet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">84,86</context>
@@ -60,7 +60,7 @@
       </trans-unit>
       <trans-unit id="environmental-subtext" datatype="html">
         <source>One of the most important things for us at Treecreate is to watch out for our planet. Therefore, we go the extra mile to make sure that our wood comes from reliable sources and by with planting a tree for each product sold. </source>
-        <target>Vi gør ekstra meget for at sikre os, at vores træ kun kommer fra bæredygtige kilder og på en miljørigtig måde.</target>
+        <target>For at have omtanke for miljøet, gør vi ekstra meget for at sikre os, at vores træ kun kommer fra bæredygtige kilder og på en miljørigtig måde. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">110,114</context>
