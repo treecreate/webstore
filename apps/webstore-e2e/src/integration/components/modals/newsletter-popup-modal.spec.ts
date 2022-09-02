@@ -1,8 +1,9 @@
-import { LocalStorageVars } from '@models';
+import { CookieStatus, LocalStorageVars } from '@models';
 
 describe('Signup to newsletter popup modal', () => {
   beforeEach(() => {
-    cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
+    cy.visit('/');
   });
 
   // it('should show the popup and save it in localstorage', () => {
@@ -41,7 +42,6 @@ describe('Signup to newsletter popup modal', () => {
       statusCode: 200,
     });
     cy.visit('/');
-    cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
     cy.get('[data-cy=sticky-newsletter-button]').should('exist');
     cy.get('[data-cy=sticky-newsletter-button]').click();
