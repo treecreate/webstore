@@ -7,6 +7,7 @@
 .modal-footer {
   margin-top: 0 !important;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
   width: 20% !important;
 }
@@ -19,11 +20,15 @@ h2 {
   font-weight: 500;
 }
 
+.modal-footer .tc-button-50:first-child {
+  margin: 1em 0 0 0 !important;
+}
+
 .modal-footer .tc-button-50 {
   width: 67% !important;
   position: relative;
   right: 40px;
-  margin: auto !important;
+  margin: .5em 0 0 0 !important;
 }
 
 .reject {
@@ -71,6 +76,11 @@ a {
   .modal-footer .tc-button-50 {
     right: 0;
     width: 48% !important;
+    margin: 0 0 0 0 !important;
+  }
+
+  .modal-footer .tc-button-50:first-child {
+    margin: 0 .5em 0 0 !important;
   }
 
   .modal-footer {
