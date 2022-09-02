@@ -127,7 +127,7 @@
   z-index: 1000;
 }
 .show-on-mobile {
-  display: none;
+  display: none !important;
 }
 .nav-section {
   display: flex;
@@ -141,15 +141,18 @@
   border: none;
   transition: 0.5s;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .nav-icon-mobile {
-  width: 15px;
+  width: 18px;
 }
 .item-number {
   margin-left: 4px;
   position: relative;
   top: 1px;
-  font-size: 12px;
+  font-size: var(--medium-font);
 }
 .loading-spinner-btn {
   position: relative;
@@ -215,7 +218,7 @@
     display: none;
   }
   .show-on-mobile {
-    display: block;
+    display: flex !important;
   }
   .nav-item {
     padding: 0 1rem 0 0;
