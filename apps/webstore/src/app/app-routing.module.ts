@@ -21,7 +21,8 @@ import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: HomeComponent }, // CookieGuard ensures that the user has accepted cookies
+  { path: '', pathMatch: 'full', component: HomeComponent },
+  { path: 'home', redirectTo: '' }, // Handle legacy /home route
   { path: 'login', component: LoginComponent },
   {
     path: 'resetPassword/:token',
@@ -77,7 +78,8 @@ const routes: Routes = [
     path: 'checkout',
     component: CheckoutComponent,
   },
-  { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
+  { path: '404', component: PageNotFoundComponent }, // PageNotFound for all other page requests
+  { path: '**', redirectTo: '404' }, // Redirect unmatched requests to page not found
 ];
 
 @NgModule({
