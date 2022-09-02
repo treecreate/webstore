@@ -5,6 +5,7 @@ import { LocalStorageService } from '@local-storage';
 import { NewsletterSignupModalComponent } from '../../shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 import { reviewList } from './reviews.constant';
 import { Meta, Title } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'webstore-home',
