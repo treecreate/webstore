@@ -73,6 +73,7 @@
 .back-to-basket {
   margin-left: 10px;
   transition: 0.5s;
+  text-decoration: none;
 }
 
 .back-to-basket:hover {
