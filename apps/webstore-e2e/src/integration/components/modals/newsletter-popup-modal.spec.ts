@@ -1,7 +1,9 @@
 import { LocalStorageVars } from '@models';
 
 describe('Signup to newsletter popup modal', () => {
-  beforeEach(() => {});
+  beforeEach(() => {
+    cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
+  });
 
   // it('should show the popup and save it in localstorage', () => {
   //   expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
