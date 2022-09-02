@@ -27,7 +27,12 @@
 
             <!-- Logo, always shown -->
             <a class="navbar-brand" (click)="scrollTop()" routerLink="/">
-                <img data-cy="navbar-logo-img" src="/assets/logos/tc-black-text-logo.svg" class="Treecreate logo" />
+                <img
+                    data-cy="navbar-logo-img"
+                    src="/assets/logos/tc-black-text-logo.svg"
+                    alt="Treecreate logo"
+                    class="Treecreate logo"
+                />
             </a>
 
             <!-- Dropdown => language change, always shown -->
@@ -158,7 +163,7 @@
                         <a
                             class="nav-item"
                             ngbDropdownToggle
-                            class="nav-link waves-light"
+                            class="nav-link waves-light arrow-edits"
                             (mouseenter)="showProfileMenu()"
                             i18n="@@profile"
                             data-cy="navbar-profile-dropdown"
@@ -185,7 +190,7 @@
                 <!-- Buy button => changes between showing basket and buyNow -->
                 <div class="nav-section remove-on-mobile">
                     <button
-                        class="navbar-basket-icon"
+                        class="navbar-basket-icon tc-button-100"
                         (click)="autoCollapse()"
                         routerLink="/basket"
                         *ngIf="itemsInBasket !== 0"

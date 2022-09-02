@@ -14,6 +14,9 @@
             router.url !== '/products/quotable'
         "
     ></webstore-footer>
-    <webstore-cookie-prompt-modal></webstore-cookie-prompt-modal>
     <webstore-toasts></webstore-toasts>
+    <webstore-cookie-prompt-modal *ngIf="showCookiePrompt"></webstore-cookie-prompt-modal>
+    <webstore-sticky-newsletter-button
+        *ngIf="router.url === '/' || router.url === '/products'"
+    ></webstore-sticky-newsletter-button>
 </div>

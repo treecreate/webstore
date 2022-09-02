@@ -42,7 +42,6 @@
 
 .descriptive-content-container {
   display: flex;
-  height: 90vh;
   max-height: 850px;
   align-items: center;
 }
@@ -203,7 +202,7 @@ figure {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 2em;
+  padding: 3.5em 2em 2em 2em;
   background-color: white;
 }
 
