@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { ErrorlogPriorityEnum, IAuthUser, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -47,7 +48,9 @@ export class CustomOrderComponent implements OnInit {
     private orderService: OrderService,
     private toastService: ToastService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -62,6 +65,8 @@ export class CustomOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setMetaData();
+
     this.initForms();
     if (this.isLoggedIn) {
       //Get user and update form
@@ -70,6 +75,12 @@ export class CustomOrderComponent implements OnInit {
         this.updateFormValues();
       });
     }
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('');
+    this.meta.updateTag({ name: 'description', content: '' });
+    this.meta.updateTag({ name: 'keywords', content: '' });
   }
 
   initForms() {
