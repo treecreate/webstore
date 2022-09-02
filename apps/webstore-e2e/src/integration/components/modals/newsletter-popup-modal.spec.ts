@@ -1,21 +1,40 @@
-import { LocalStorageVars } from '@models';
+import { CookieStatus, LocalStorageVars } from '@models';
 
 describe('Signup to newsletter popup modal', () => {
-  beforeEach(() => {});
-
-  it('should show the popup and save it in localstorage', () => {
-    expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
+  beforeEach(() => {
+    localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     cy.visit('/');
-    cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
+  });
+
+  // it('should show the popup and save it in localstorage', () => {
+  //   expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal(null);
+  //   cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
+  //   cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
+  //   cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+  //   cy.get('[data-cy=sticky-newsletter-button]').click();
+  //   cy.get('[data-cy=newsletter-modal-popup]').should('exist');
+  //   cy.get('[data-cy=newsletter-modal-close-btn]')
+  //     .click()
+  //     .then(() => {
+  //       expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal('true');
+  //     });
+  // });
+
+  it('opens newsletter modal when clicking sticky button', () => {
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
-    // eslint-disable-next-line
-    cy.wait(4000);
+    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+    cy.get('[data-cy=sticky-newsletter-button]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('exist');
-    cy.get('[data-cy=newsletter-modal-close-btn]')
-      .click()
-      .then(() => {
-        expect(localStorage.getItem(LocalStorageVars.hasSeenNewsletterModal)).to.equal('true');
-      });
+  });
+
+  it('closes newsletter modal when clicking x', () => {
+    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
+    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+    cy.get('[data-cy=sticky-newsletter-button]').click();
+    cy.get('[data-cy=newsletter-modal-popup]').should('exist');
+
+    cy.get('[data-cy=newsletter-modal-close-btn]').click();
+    cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
   });
 
   it('registers a new newsletter signup', () => {
@@ -23,10 +42,9 @@ describe('Signup to newsletter popup modal', () => {
       statusCode: 200,
     });
     cy.visit('/');
-    cy.get('[data-cy=cookie-prompt-modal-accept-cookies-btn]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('not.exist');
-    // eslint-disable-next-line
-    cy.wait(4000);
+    cy.get('[data-cy=sticky-newsletter-button]').should('exist');
+    cy.get('[data-cy=sticky-newsletter-button]').click();
     cy.get('[data-cy=newsletter-modal-popup]').should('exist');
     cy.get('[data-cy=newsletter-modal-email-input]').type('test');
     cy.get('[data-cy=newsletter-modal-subscribe-btn]').click();

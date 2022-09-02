@@ -105,7 +105,7 @@ export class ProfileComponent implements OnInit {
         next: (data: IUser) => {
           this.toastService.showAlert(
             'Your profile has been updated!',
-            'Din konto er bleven opdateret!',
+            'Din konto er blevet opdateret!',
             'success',
             2500
           );
@@ -114,7 +114,7 @@ export class ProfileComponent implements OnInit {
             this.authService.logout();
             this.toastService.showAlert(
               `You have been logged out because you've updated your email`,
-              `Du er bleven logget ud, fordi din e-mail er bleven ændret.`,
+              `Du er blevet logget ud, fordi din e-mail er blevet ændret.`,
               'success',
               5000
             );
