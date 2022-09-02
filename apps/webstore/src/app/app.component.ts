@@ -18,6 +18,7 @@ declare let gtag: Function;
 })
 export class AppComponent {
   title = 'Treecreate';
+  showCookiePrompt = false;
 
   constructor(
     public router: Router,
@@ -64,6 +65,10 @@ export class AppComponent {
       window['prerenderReady'] = true;
       document.getElementById('prerenderScriptTag').innerHTML = 'window.prerenderReady = true';
     }, 5000);
+
+    setTimeout(() => {
+      this.showCookiePrompt = true;
+    }, 2000);
   }
 
   initGoogleAnalytics() {
