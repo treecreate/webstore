@@ -12,24 +12,8 @@ import { NewsletterSignupModalComponent } from '../modals/newsletter-signup-moda
 export class StickyNewsletterButtonComponent {
   public isSubscribed = true;
   public isLoggedIn = false;
-  public isCookiePromptShow = false;
-  private cookiePrompt = document.getElementById('cookiePromptModal');
-  public cookiePromptHeight: number;
 
-  constructor(private modalService: NgbModal, private localStorageService: LocalStorageService) {
-    // see if cookies have been accepted/denied
-    this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).subscribe(() => {
-      if (!this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).value !== undefined) {
-        console.log('not accepted');
-        this.isCookiePromptShow = true;
-        this.cookiePromptHeight = this.cookiePrompt.offsetHeight + 16;
-      } else {
-        console.log('accepted');
-        this.isCookiePromptShow = false;
-        this.cookiePromptHeight = 16;
-      }
-    });
-  }
+  constructor(private modalService: NgbModal) {}
 
   openNewsletterModal() {
     this.modalService.open(NewsletterSignupModalComponent);

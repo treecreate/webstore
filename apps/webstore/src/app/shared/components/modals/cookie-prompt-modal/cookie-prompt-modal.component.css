@@ -28,7 +28,7 @@ h2 {
   width: 67% !important;
   position: relative;
   right: 40px;
-  margin: .5em 0 0 0 !important;
+  margin: 0.5em 0 0 0 !important;
 }
 
 .reject {
@@ -80,7 +80,7 @@ a {
   }
 
   .modal-footer .tc-button-50:first-child {
-    margin: 0 .5em 0 0 !important;
+    margin: 0 0.5em 0 0 !important;
   }
 
   .modal-footer {
