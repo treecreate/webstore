@@ -35,52 +35,52 @@
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-item-1" datatype="html">
-        <source>You are also planting a tree for each item in your order.</source>
+        <source> You are also planting a tree for each item in your order. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">53,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-item-2" datatype="html">
-        <source>Supporting local and environmental business.</source>
+        <source> You are supporting local and environmental business. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">56,58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-item-3" datatype="html">
-        <source>Getting a memory that will last a lifetime.</source>
+        <source> You are getting a memory that will last a lifetime. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">59,61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plant-extra-trees" datatype="html">
         <source>Plant an extra tree - 10kr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="apply-discount" datatype="html">
         <source>Apply</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="amount-discount" datatype="html">
         <source>Amount dicount:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subtotal" datatype="html">
         <source>Subtotal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">139</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -95,7 +95,7 @@
         <source>You save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">147</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -106,7 +106,7 @@
         <source>Delivery</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">151</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -125,7 +125,7 @@
         <source>Total</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">150</context>
+          <context context-type="linenumber">156</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -144,7 +144,7 @@
         <source>VAT</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">163</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -159,7 +159,7 @@
         <source> Go to checkout </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">167,169</context>
+          <context context-type="linenumber">173,175</context>
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-basket" datatype="html">
@@ -1855,7 +1855,9 @@
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.carousel.slide-number" datatype="html">
-        <source> Slide <x id="INTERPOLATION" equiv-text="() keyboard: bo"/> of <x id="INTERPOLATION_1" equiv-text="`true`, will pa"/> </source>
+        <source> Slide <x id="INTERPOLATION" equiv-text="/
+  @Input() ke"/> of <x id="INTERPOLATION_1" equiv-text="*
+   * If `true"/> </source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/carousel/carousel.ts</context>
           <context context-type="linenumber">157,162</context>
@@ -1866,14 +1868,14 @@
         <source>Previous</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/carousel/carousel.ts</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">181,184</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.carousel.next" datatype="html">
         <source>Next</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/carousel/carousel.ts</context>
-          <context context-type="linenumber">202</context>
+          <context context-type="linenumber">201,202</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.datepicker.select-month" datatype="html">
@@ -1987,7 +1989,7 @@
         <source>HH</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">133,136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.hours" datatype="html">
@@ -2001,49 +2003,49 @@
         <source>MM</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">176,178</context>
+          <context context-type="linenumber">173,176</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.minutes" datatype="html">
         <source>Minutes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">189,190</context>
+          <context context-type="linenumber">188,189</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
         <source>Increment hours</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">206</context>
+          <context context-type="linenumber">201,206</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
         <source>Decrement hours</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">227,228</context>
+          <context context-type="linenumber">223,227</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
         <source>Increment minutes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">244,248</context>
+          <context context-type="linenumber">241,244</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
         <source>Decrement minutes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">268,270</context>
+          <context context-type="linenumber">264,268</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.SS" datatype="html">
         <source>SS</source>
         <context-group purpose="location">
           <context context-type="sourcefile">node_modules/src/timepicker/timepicker.ts</context>
-          <context context-type="linenumber">287</context>
+          <context context-type="linenumber">283</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ngb.timepicker.seconds" datatype="html">
