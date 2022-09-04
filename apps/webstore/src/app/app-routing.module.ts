@@ -78,7 +78,8 @@ const routes: Routes = [
     path: 'checkout',
     component: CheckoutComponent,
   },
-  { path: '**', component: PageNotFoundComponent }, // PageNotFound for all other page requests
+  { path: '404', component: PageNotFoundComponent }, // PageNotFound for all other page requests
+  { path: '**', redirectTo: '404' }, // Redirect unmatched requests to page not found
 ];
 
 @NgModule({
