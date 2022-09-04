@@ -100,9 +100,9 @@ export class QuotableComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('');
-    this.meta.updateTag({ name: 'description', content: '' });
-    this.meta.updateTag({ name: 'keywords', content: '' });
+    this.metaTitle.setTitle('Citat eller minde skåret i træ');
+    this.meta.updateTag({ name: 'description', content: 'Få skåret dit yndlingscitat, et lykkeligt minde, en besked til kæresten eller bare et lækkert navneskilt i træ.' });
+    this.meta.updateTag({ name: 'keywords', content: 'Minder, ferieminder, ferie, citat, quote, livsmotto, liv, gave' });
   }
 
   isEnglish(): boolean {

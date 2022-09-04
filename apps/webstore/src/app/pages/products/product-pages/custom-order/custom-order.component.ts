@@ -78,9 +78,9 @@ export class CustomOrderComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('');
-    this.meta.updateTag({ name: 'description', content: '' });
-    this.meta.updateTag({ name: 'keywords', content: '' });
+    this.metaTitle.setTitle('Lav dit helt eget design og få det skåret ud i træ');
+    this.meta.updateTag({ name: 'description', content: 'Med Treecreates specialbestilling kan du helt selv designe dit eget træskilt, eller uploade et billede der skal laserskæres.' });
+    this.meta.updateTag({ name: 'keywords', content: 'Design, trædesign, laserskærer, indgravering, gave' });
   }
 
   initForms() {

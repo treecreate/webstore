@@ -23,9 +23,9 @@ export class ProductsComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('');
-    this.meta.updateTag({ name: 'description', content: '' });
-    this.meta.updateTag({ name: 'keywords', content: '' });
+    this.metaTitle.setTitle('Giv en personlig og miljøvenlig gave i høj kvalitet');
+    this.meta.updateTag({ name: 'description', content: 'Køb årets bedste gave nu! Hos Treecreate får du altid træ i den bedste kvalitet, og kun fra bæredygtige kilder.' });
+    this.meta.updateTag({ name: 'keywords', content: 'Træ, kvalitet, træskilt, skilt i træ, julegave, 2022, 2023, gave' });
   }
 
   isEnglish(): boolean {

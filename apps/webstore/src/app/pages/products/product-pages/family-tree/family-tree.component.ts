@@ -121,9 +121,9 @@ export class FamilyTreeComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('');
-    this.meta.updateTag({ name: 'description', content: '' });
-    this.meta.updateTag({ name: 'keywords', content: '' });
+    this.metaTitle.setTitle('Familietræ skåret i træ i høj kvalitet');
+    this.meta.updateTag({ name: 'description', content: 'Hos Treecreate kan du få lavet et lækkert familietræ i den bedste kvalitet - for dig der ønsker at forevige familien.' });
+    this.meta.updateTag({ name: 'keywords', content: 'Familietræ, familie, familiegave, gave til familien, morsdag, farsdag, gave' });
   }
 
   isEnglish(): boolean {

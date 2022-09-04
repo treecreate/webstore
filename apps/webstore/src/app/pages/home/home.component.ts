@@ -46,9 +46,9 @@ export class HomeComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('');
-    this.meta.updateTag({ name: 'description', content: '' });
-    this.meta.updateTag({ name: 'keywords', content: '' });
+    this.metaTitle.setTitle('Treecreate | En miljøvenlig og personlig gave 2022');
+    this.meta.updateTag({ name: 'description', content: 'En personlig gave, der får folk tættere på hinanden. For 299 kr, kan du bestille en helt unik og miljøvenlig gave til én, du holder af.' });
+    this.meta.updateTag({ name: 'keywords', content: 'gave, personlig, miljøvenlig, bryllup, barnedåb, fødselsdagsgave, design, dekoration, gaveide, bæredygtig' });
   }
 
   isEnglish(): boolean {
