@@ -64,9 +64,9 @@ export class SignupComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('');
-    this.meta.updateTag({ name: 'description', content: '' });
-    this.meta.updateTag({ name: 'keywords', content: '' });
+    this.metaTitle.setTitle('Lav en bruger hos Treecreate og få fordele');
+    this.meta.updateTag({ name: 'description', content: 'Bliv en af et fællesskab af kreative designere, og vis dem frem for familien. Giv dem som gaver eller til dig selv' });
+    this.meta.updateTag({ name: 'keywords', content: 'Designere, kreativ, familien, gaver, selvforkælelse' });
   }
 
   onSubmit(): void {
