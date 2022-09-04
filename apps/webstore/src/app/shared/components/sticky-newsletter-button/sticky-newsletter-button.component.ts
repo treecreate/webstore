@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { LocalStorageService } from '@local-storage';
-import { CookieStatus, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewsletterSignupModalComponent } from '../modals/newsletter-signup-modal/newsletter-signup-modal.component';
 
