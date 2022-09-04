@@ -96,7 +96,10 @@ export class BasketComponent implements OnInit {
   setMetaData() {
     this.metaTitle.setTitle('For hvert køb planter vi et træ');
     this.meta.updateTag({ name: 'description', content: 'Der er gratis levering på bestillinger over 350,-' });
-    this.meta.updateTag({ name: 'keywords', content: 'Gratis levering, levering, bestilling, gave, træ, miljøvenligt, 350' });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Gratis levering, levering, bestilling, gave, træ, miljøvenligt, 350',
+    });
   }
 
   goToCheckout() {

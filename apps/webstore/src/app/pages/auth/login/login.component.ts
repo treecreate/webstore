@@ -57,8 +57,14 @@ export class LoginComponent implements OnInit {
 
   setMetaData() {
     this.metaTitle.setTitle('Login til Treecreate og bliv en del af fællesskabet');
-    this.meta.updateTag({ name: 'description', content: 'Opret flere designs og gem til når det er tid til fødselsdag, jul eller en anden gave højtid.' });
-    this.meta.updateTag({ name: 'keywords', content: 'Designs, tid, fødselsdag, jul, højtid, gave, fællesskab, treecreate' });
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Opret flere designs og gem til når det er tid til fødselsdag, jul eller en anden gave højtid.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Designs, tid, fødselsdag, jul, højtid, gave, fællesskab, treecreate',
+    });
   }
 
   onSubmit(): void {
