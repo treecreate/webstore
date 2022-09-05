@@ -2,10 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '@local-storage';
-import { NewsletterSignupModalComponent } from '../../shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
 import { reviewList } from './reviews.constant';
 import { Meta, Title } from '@angular/platform-browser';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'webstore-home',
@@ -22,12 +20,7 @@ export class HomeComponent implements OnInit {
 
   title = 'homeComponent';
 
-  constructor(
-    private localStorageService: LocalStorageService,
-    private modalService: NgbModal,
-    private metaTitle: Title,
-    private meta: Meta
-  ) {
+  constructor(private localStorageService: LocalStorageService, private metaTitle: Title, private meta: Meta) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
@@ -35,14 +28,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.setMetaData();
-
-    const hasSeenNewsletterModal = this.localStorageService.getItem<boolean>(LocalStorageVars.hasSeenNewsletterModal);
-    if (!hasSeenNewsletterModal.value) {
-      setTimeout(() => {
-        this.modalService.open(NewsletterSignupModalComponent);
-        this.localStorageService.setItem<boolean>(LocalStorageVars.hasSeenNewsletterModal, true);
-      }, 5000);
-    }
   }
 
   setMetaData() {

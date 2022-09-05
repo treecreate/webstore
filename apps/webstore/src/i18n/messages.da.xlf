@@ -384,7 +384,7 @@
       </trans-unit>
       <trans-unit id="street-address" datatype="html">
         <source>Street address</source>
-        <target>Adresse </target> 
+        <target>Adresse linje</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">140</context>
@@ -787,14 +787,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">116</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login-subtext" datatype="html">
-        <source> Login or create your Treecreate account to create unique and personal gifts. With your Treecreate account, you will store designs in your profile and always come back to them in your collection. </source>
-        <target>Login eller opret din Treecreate konto for at lave en unik og personlig gave. Med din Treecreate konto vil du kunne gemme dine designs så du altid kan vende tilbage til dem.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/login/login.component.html</context>
-          <context context-type="linenumber">72,75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="your-orders" datatype="html">
@@ -1631,6 +1623,7 @@
       </trans-unit>
       <trans-unit id="use-template" datatype="html">
         <source>Use template</source>
+        <target>Brug skabelon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
           <context context-type="linenumber">191</context>
@@ -1693,8 +1686,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="product" datatype="html">
-        <source>Product</source>
-        <target>Produkt</target> 
+        <source>Producter</source>
+        <target>Produkter</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">15</context>
