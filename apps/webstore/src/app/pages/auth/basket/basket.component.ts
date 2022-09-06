@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {
   DiscountType,
@@ -53,7 +54,9 @@ export class BasketComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private router: Router,
     private authService: AuthService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {
     // Create discount form
     this.discountForm = new UntypedFormGroup({
@@ -87,6 +90,16 @@ export class BasketComponent implements OnInit {
   ngOnInit(): void {
     this.getItemList();
     this.updatePrices();
+    this.setMetaData();
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('For hvert køb planter vi et træ');
+    this.meta.updateTag({ name: 'description', content: 'Der er gratis levering på bestillinger over 350,-' });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Gratis levering, levering, bestilling, gave, træ, miljøvenligt, 350',
+    });
   }
 
   goToCheckout() {

@@ -18,6 +18,7 @@ declare let gtag: Function;
 })
 export class AppComponent {
   title = 'Treecreate';
+  showCookiePrompt = false;
 
   constructor(
     public router: Router,
@@ -27,8 +28,11 @@ export class AppComponent {
     // Setup localization language
     this.router.events.subscribe(async () => {
       const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+      // Don't apply url lang path param logic on localhost aka local development
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return;
+      }
       // if the website is deployed the url has locale in it and has to be adjusted to match local storage
-      console.log(window.location.href);
       if (window.location.href.includes('/en-US') && locale === LocaleType.da) {
         // English locale while the user has selected Danish
         console.warn('Redirecting you to your chosen locale: DA');
@@ -64,6 +68,10 @@ export class AppComponent {
       window['prerenderReady'] = true;
       document.getElementById('prerenderScriptTag').innerHTML = 'window.prerenderReady = true';
     }, 5000);
+
+    setTimeout(() => {
+      this.showCookiePrompt = true;
+    }, 2000);
   }
 
   initGoogleAnalytics() {

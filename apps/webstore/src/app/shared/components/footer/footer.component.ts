@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorlogPriorityEnum, IAuthUser, INewsletter } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -67,7 +67,7 @@ export class FooterComponent implements OnInit {
         (error) => {
           console.error(error);
           this.errorlogsService.create('webstore.footer.newsletter-signup-failed', ErrorlogPriorityEnum.high, error);
-          this.toastService.showAlert('Invalid email', 'Ugyldig email', 'danger', 100000);
+          this.toastService.showAlert('Invalid email', 'Ugyldig email', 'danger', 5000);
           this.isLoading = false;
         }
       );

@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, quotableFrames } from '@assets';
 import {
@@ -74,7 +75,9 @@ export class QuotableComponent implements OnInit {
     private toastService: ToastService,
     private authService: AuthService,
     private eventsService: EventsService,
-    private errorlogService: ErrorlogsService
+    private errorlogService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -93,6 +96,20 @@ export class QuotableComponent implements OnInit {
   ngOnInit() {
     this.getFontList();
     this.loadDesign();
+    this.setMetaData();
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('Citat eller minde skåret i træ');
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Få skåret dit yndlingscitat, et lykkeligt minde, en besked til kæresten eller bare et lækkert navneskilt i træ.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Minder, ferieminder, ferie, citat, quote, livsmotto, liv, gave',
+    });
   }
 
   isEnglish(): boolean {
@@ -237,7 +254,7 @@ export class QuotableComponent implements OnInit {
     if (!this.isLoggedIn) {
       this.toastService.showAlert(
         'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
-        'Dit design er bleven midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
+        'Dit design er blevet midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
         'success',
         7000
       );
@@ -262,7 +279,7 @@ export class QuotableComponent implements OnInit {
           () => {
             this.toastService.showAlert(
               'Your design has been updated',
-              'Dit design er bleven opdateret',
+              'Dit design er blevet opdateret',
               'success',
               5000
             );
@@ -289,7 +306,7 @@ export class QuotableComponent implements OnInit {
         })
         .subscribe({
           next: (result) => {
-            this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
+            this.toastService.showAlert('Your design has been saved', 'Dit design er blevet gemt', 'success', 5000);
             this.eventsService.create(`webstore.quotable.design-created.db`);
             this.router.navigate([], {
               relativeTo: this.route,

@@ -13,6 +13,11 @@ describe('PageNotFoundPage', () => {
     cy.get('[data-cy=footer]').should('exist');
   });
 
+  it('should have url of 404', () => {
+    cy.visit('/pageNotFound');
+    cy.url().should('contain', '/404');
+  });
+
   it('should redirect to home when the "home" button is clicked', () => {
     cy.get('[data-cy=page-not-found-home-btn]').click();
     cy.url().should('contain', '/');
