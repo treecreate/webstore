@@ -34,7 +34,7 @@ export class NewslettersComponent {
     this.isLoading = true;
     this.newsletterService.getNewsletters().subscribe({
       next: (response: INewsletter[]) => {
-        this.newsletterList = response.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+        this.newsletterList = response.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).reverse();
         this.isLoading = false;
         this.setTableInfo();
       },
