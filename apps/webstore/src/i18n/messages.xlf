@@ -1900,6 +1900,13 @@
           <context context-type="linenumber">185</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="get-10-off" datatype="html">
+        <source>Get 10% off</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/sticky-newsletter-button/sticky-newsletter-button.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ngb.alert.close" datatype="html">
         <source>Close</source>
         <context-group purpose="location">
