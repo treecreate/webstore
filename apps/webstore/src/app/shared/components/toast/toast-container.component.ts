@@ -29,6 +29,7 @@ import { ToastService } from './toast-service';
         left: 0;
         padding: 0.5em;
         position: sticky;
+        z-index: 1100;
       }
     `,
   ],
