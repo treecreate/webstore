@@ -336,6 +336,7 @@
               "apps/webstore/src/favicon.ico",
               "apps/webstore/src/assets",
               "apps/webstore/src/robots.txt",
+              "apps/webstore/src/sitemap.xml",
               {
                 "input": "libs/assets/src/lib",
                 "glob": "**/*",
