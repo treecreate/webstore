@@ -56,8 +56,11 @@
             </button>
         </div>
         <div class="info-message" i18n="@@info-password">
-            Password must contain: min 8 characters, at least one upper case letter, one lower case letter and one
-            number.
+            Password must contain:
+            <span [ngClass]="isLengthValid()">min 8 characters</span>,
+            <span [ngClass]="hasUppercase()">at least one upper case letter</span>,
+            <span [ngClass]="hasLowercase()">one lower case letter</span>
+            <span [ngClass]="hasNumber()"> and one number</span>.
         </div>
         <div
             class="error-message"

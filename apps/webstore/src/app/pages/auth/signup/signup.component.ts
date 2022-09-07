@@ -172,4 +172,36 @@ export class SignupComponent implements OnInit {
   showTermsOfUse() {
     this.modalService.open(TermsOfUseModalComponent, { size: 'lg' });
   }
+
+  isLengthValid(): string {
+    if (this.signupForm.get('password').value.length >= 8) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasUppercase(): string {
+    if (this.signupForm.get('password').value.match('[A-Z]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasLowercase(): string {
+    if (this.signupForm.get('password').value.match('[a-z]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasNumber(): string {
+    if (this.signupForm.get('password').value.match('[0-9]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
 }
