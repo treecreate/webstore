@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   isTermsAndConditionsAccepted = false;
   locale;
-  invalid = false;
+  checkoutInvalid = false;
 
   @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
   @ViewChild('checkoutEmailInput') checkoutEmailInput: ElementRef;
@@ -243,13 +243,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
-    if (!this.checkoutForm.valid) {
-      this.invalid = true;
+    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
+      this.checkoutInvalid = true;
       this.checkInputFields();
-      // this.checkoutNameInput.nativeElement.focus();
-      //TODO: Check which inputs are invalid
-      //TODO: Focus on earliest invalid input
     } else {
+      this.checkoutInvalid = false;
       if (this.isLoggedIn) {
         this.createOrder();
       } else {

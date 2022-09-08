@@ -114,7 +114,8 @@
                             #checkoutStreetAddressInput
                         />
                         <label for="streetAddress" class="tc-input-label"
-                            ><span i18n="@@street-address"> Street address</span> <span class="red-text">*</span></label
+                            ><span i18n="@@street-address"> Street address</span>
+                            <span class="red-text"> *</span></label
                         >
                     </div>
 
@@ -540,7 +541,10 @@
                                 <input
                                     type="checkbox"
                                     [checked]="isTermsAndConditionsAccepted"
-                                    (change)="isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted"
+                                    (change)="
+                                        isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted;
+                                        checkoutInvalid = !isTermsAndConditionsAccepted
+                                    "
                                     data-cy="checkout-form-terms-checkbox"
                                 />
                                 <span class="checkmark" data-cy="checkout-form-terms-button"></span>
@@ -573,7 +577,10 @@
                         <!-- [disabled]="!isDisabled()" -->
                     </div>
                 </div>
-                <div class="input-error" *ngIf="invalid && checkoutForm.invalid">
+                <div
+                    class="input-error"
+                    *ngIf="checkoutInvalid && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
+                >
                     <span i18n="@@there-was-a-problem">There was a problem with your payment:</span>
                     <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
                     <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
@@ -583,6 +590,9 @@
                     <li *ngIf="checkoutForm.get('city').invalid" i18n="@@city-is-invalid">City is invalid</li>
                     <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid">
                         Postcode is invalid
+                    </li>
+                    <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms">
+                        Please accept our terms of sale
                     </li>
                 </div>
             </div>
