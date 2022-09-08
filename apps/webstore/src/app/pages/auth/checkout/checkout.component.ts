@@ -252,9 +252,9 @@ export class CheckoutComponent implements OnInit {
     if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkoutInvalid = true;
       this.checkInputFields();
-    } else if (!this.billingAddressForm.valid || !this.isTermsAndConditionsAccepted){
+    } else if (!this.billingAddressForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkBillingFields();
-    }else{
+    } else {
       this.checkoutInvalid = false;
       if (this.isLoggedIn) {
         this.createOrder();
@@ -298,19 +298,19 @@ export class CheckoutComponent implements OnInit {
       if (this.billingAddressForm.get(fieldNames[field]).invalid) {
         switch (fieldNames[field]) {
           case 'name':
-            console.log('name is invalid')
+            console.log('name is invalid');
             this.billingNameInput.nativeElement.focus();
             return;
           case 'streetAddress':
-            console.log('name is invalid')
+            console.log('name is invalid');
             this.billingStreetAddressInput.nativeElement.focus();
             return;
           case 'city':
-            console.log('name is invalid')
+            console.log('name is invalid');
             this.billingCityInput.nativeElement.focus();
             return;
           case 'postcode':
-            console.log('name is invalid')
+            console.log('name is invalid');
           default:
             this.billingPostcodeInput.nativeElement.focus();
         }
