@@ -6,7 +6,7 @@ export const customOrderExamples = [
     descriptionDk:
       'Et unik plade med Penneos logo på, kombineret med Nasdaq navnet. Lavet i en fejring af at blive en del af Nasdaq-indexet.',
     price: 700,
-    altText: '',
+    altText: 'Penneos og nasdaq logo mash til et firma event',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-2.png',
   },
   {
@@ -14,7 +14,7 @@ export const customOrderExamples = [
     descriptionEn: '4 unique prices at a BMW event, where the prises gifted to the winners.',
     descriptionDk: '4 personlige præmier til et BMW event, hvor prierne blev uddelt til vinderne. ',
     price: 1400,
-    altText: '',
+    altText: 'En serie af præmier for BMW',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-3.png',
   },
   {
@@ -22,7 +22,7 @@ export const customOrderExamples = [
     descriptionEn: "A beautiful display in the memory of the family's golden retriever named Bella.",
     descriptionDk: 'En flot tavle i minde om familiens golden retriever ved navn Bella.',
     price: 400,
-    altText: '',
+    altText: 'En hundetavle med familiens og hundens navn',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-1.png',
   },
   {
@@ -30,7 +30,7 @@ export const customOrderExamples = [
     descriptionEn: 'A gift from Helene to her boyfriend for their 2 year anniversary.',
     descriptionDk: 'En gave fra Helene til hendes kæreste til deres 2 års dag sammen.',
     price: 700,
-    altText: '',
+    altText: 'Et kærestepar pritet på et Treecreate produkt',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-4.png',
   },
   {
@@ -38,7 +38,7 @@ export const customOrderExamples = [
     descriptionEn: 'A display for Saras dog named Buster, with the addition of some puppy paws by the name.',
     descriptionDk: 'En smuk tavle for Saras hund ved navn Buster. Navnet buster fik nogle hundepoter over sit navn.',
     price: 400,
-    altText: '',
+    altText: 'Smuk Treecreate tavle med et hundenavn på',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-5.png',
   },
   {
@@ -48,7 +48,7 @@ export const customOrderExamples = [
     descriptionDk:
       'En charmerende, bæredygtig og smuk nøglering i træ i høj kvalitet. Helt perfekt til din virksomheds medarbejdere.',
     price: 400,
-    altText: '',
+    altText: 'Bæredygtig nøglering ',
     imgSrc: '/assets/img/description2.jpg',
   },
 ];
