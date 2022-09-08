@@ -582,6 +582,7 @@
                     *ngIf="checkoutInvalid && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
                 >
                     <span i18n="@@form-is-not-valid">Form is not valid:</span>
+                    <!-- Checkout form input fields -->
                     <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
                     <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
                     <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid">
@@ -594,6 +595,22 @@
                     <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms">
                         Please accept our terms of sale
                     </li>
+
+                    <!-- If billing address !== same -->
+                    <!-- Billing address form input fields -->
+
+                    <!-- <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
+                    <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
+                    <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid">
+                        Street address is invalid
+                    </li>
+                    <li *ngIf="checkoutForm.get('city').invalid" i18n="@@city-is-invalid">City is invalid</li>
+                    <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid">
+                        Postcode is invalid
+                    </li>
+                    <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms">
+                        Please accept our terms of sale
+                    </li> -->
                 </div>
             </div>
         </form>
