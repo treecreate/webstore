@@ -72,7 +72,7 @@ export class FooterComponent implements OnInit {
         }
       );
     } else {
-      this.toastService.showAlert('Missing email input.', 'Udfyld email feltet.', 'danger', 100000);
+      this.toastService.showAlert('Missing email input.', 'Udfyld email feltet.', 'danger', 5000);
       this.emailInput.nativeElement.focus();
       this.isLoading = false;
     }
