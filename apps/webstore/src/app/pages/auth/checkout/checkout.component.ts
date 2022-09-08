@@ -249,18 +249,27 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
+    // check checkout form and if terms are accepted
     if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkoutInvalid = true;
       this.checkInputFields();
-    } else if (!this.billingAddressForm.valid || !this.isTermsAndConditionsAccepted) {
-      this.checkBillingFields();
-    } else {
-      this.checkoutInvalid = false;
-      if (this.isLoggedIn) {
-        this.createOrder();
-      } else {
-        this.createOrderWithNewUser();
+      return;
+    }
+
+    // check if billing address is the same
+    if (!this.billingAddressIsTheSame) {
+      if (!this.billingAddressForm.valid) {
+        this.checkoutInvalid = true;
+        this.checkBillingFields();
+        return;
       }
+    }
+
+    this.checkoutInvalid = false;
+    if (this.isLoggedIn) {
+      this.createOrder();
+    } else {
+      this.createOrderWithNewUser();
     }
   }
 
@@ -293,25 +302,25 @@ export class CheckoutComponent implements OnInit {
   //TODO: Get the error message to popup when errors occur with the billing address form
   //TODO: Get the checks to actually work correctly.
   checkBillingFields() {
-    const fieldNames = ['name', 'streetAddress', 'city', 'postcode'];
+    const fieldNames = ['billingName', 'billingStreetAddress', 'billingCity', 'billingPostcode'];
     for (let field in fieldNames) {
       if (this.billingAddressForm.get(fieldNames[field]).invalid) {
         switch (fieldNames[field]) {
-          case 'name':
+          case 'billingName':
             console.log('name is invalid');
             this.billingNameInput.nativeElement.focus();
             return;
-          case 'streetAddress':
-            console.log('name is invalid');
+          case 'billingStreetAddress':
+            console.log('streetaddress is invalid');
             this.billingStreetAddressInput.nativeElement.focus();
             return;
-          case 'city':
-            console.log('name is invalid');
+          case 'billingCity':
+            console.log('city is invalid');
             this.billingCityInput.nativeElement.focus();
             return;
-          case 'postcode':
-            console.log('name is invalid');
+          case 'billingPostcode':
           default:
+            console.log('postcode is invalid');
             this.billingPostcodeInput.nativeElement.focus();
         }
       }
