@@ -44,3 +44,11 @@
   margin: 10px 0;
   text-align: left;
 }
+
+.validText {
+  color: green;
+}
+
+.invalidText {
+  color: red;
+}
