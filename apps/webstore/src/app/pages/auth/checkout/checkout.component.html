@@ -46,8 +46,11 @@
                             #checkoutNameInput
                             autocomplete="name"
                             data-cy="checkout-form-name-input"
+                            autofocus
                         />
-                        <label for="name" class="tc-input-label"> <span i18n="@@name">Name</span> <span class="red-text">*</span></label>
+                        <label for="name" class="tc-input-label">
+                            <span i18n="@@name">Name</span> <span class="red-text"> *</span></label
+                        >
                     </div>
 
                     <div
@@ -94,6 +97,7 @@
                             id="profileEmail"
                             autocomplete="email"
                             data-cy="checkout-form-email-input"
+                            #checkoutEmailInput
                         />
                         <label for="email" class="tc-input-label">E-mail <span class="red-text">*</span></label>
                     </div>
@@ -107,6 +111,7 @@
                             placeholder="Your street name"
                             id="streetAddress"
                             data-cy="checkout-form-street-address-input"
+                            #checkoutStreetAddressInput
                         />
                         <label for="streetAddress" class="tc-input-label"
                             ><span i18n="@@street-address"> Street address</span> <span class="red-text">*</span></label
@@ -162,8 +167,11 @@
                             id="city"
                             placeholder="City"
                             data-cy="checkout-form-city-input"
+                            #checkoutCityInput
                         />
-                        <label for="city" class="tc-input-label"><span i18n="@@city">City</span> <span class="red-text">*</span> </label>
+                        <label for="city" class="tc-input-label"
+                            ><span i18n="@@city">City</span> <span class="red-text">*</span>
+                        </label>
                         <div
                             class="error-message offset"
                             *ngIf="this.checkoutForm.get('city').dirty && this.checkoutForm.get('city').invalid"
@@ -183,8 +191,11 @@
                             name="postcode"
                             placeholder="1234"
                             data-cy="checkout-form-postcode-input"
+                            #checkoutPostcodeInput
                         />
-                        <label for="postcode" class="tc-input-label"> <span i18n="@@postcode">Postcode</span> <span class="red-text">*</span></label>
+                        <label for="postcode" class="tc-input-label">
+                            <span i18n="@@postcode">Postcode</span> <span class="red-text">*</span></label
+                        >
                         <div
                             class="error-message offset"
                             *ngIf="this.checkoutForm.get('postcode').dirty && this.checkoutForm.get('postcode').invalid"
@@ -221,7 +232,9 @@
                                 autocomplete="billingName"
                                 data-cy="billing-address-name-input"
                             />
-                            <label for="billingName" class="tc-input-label"> <span i18n="@@name"> Name</span> <span class="red-text">*</span></label>
+                            <label for="billingName" class="tc-input-label">
+                                <span i18n="@@name"> Name</span> <span class="red-text">*</span></label
+                            >
                         </div>
 
                         <div
@@ -299,7 +312,9 @@
                                 placeholder="City"
                                 data-cy="billing-address-city-input"
                             />
-                            <label for="billingCity" class="tc-input-label"> <span i18n="@@city"> City</span> <span class="red-text">*</span> </label>
+                            <label for="billingCity" class="tc-input-label">
+                                <span i18n="@@city"> City</span> <span class="red-text">*</span>
+                            </label>
                             <div
                                 class="error-message offset"
                                 *ngIf="
@@ -562,9 +577,13 @@
                     <span i18n="@@there-was-a-problem">There was a problem with your payment:</span>
                     <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
                     <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
-                    <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid">Street address is invalid</li>
+                    <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid">
+                        Street address is invalid
+                    </li>
                     <li *ngIf="checkoutForm.get('city').invalid" i18n="@@city-is-invalid">City is invalid</li>
-                    <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid">Postcode is invalid</li>
+                    <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid">
+                        Postcode is invalid
+                    </li>
                 </div>
             </div>
         </form>

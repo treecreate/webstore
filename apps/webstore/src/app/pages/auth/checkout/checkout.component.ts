@@ -51,6 +51,10 @@ export class CheckoutComponent implements OnInit {
   invalid = false;
 
   @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
+  @ViewChild('checkoutEmailInput') checkoutEmailInput: ElementRef;
+  @ViewChild('checkoutStreetAddressInput') checkoutStreetAddressInput: ElementRef;
+  @ViewChild('checkoutCityInput') checkoutCityInput: ElementRef;
+  @ViewChild('checkoutPostcodeInput') checkoutPostcodeInput: ElementRef;
 
   priceInfo: IPricing = {
     fullPrice: 0,
@@ -239,21 +243,44 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
-    if (!this.checkoutForm.valid) { 
+    if (!this.checkoutForm.valid) {
       this.invalid = true;
-      this.checkoutNameInput.nativeElement.focus();
-    //TODO: Check which inputs are invalid
-    //TODO: Focus on earliest invalid input 
+      this.checkInputFields();
+      // this.checkoutNameInput.nativeElement.focus();
+      //TODO: Check which inputs are invalid
+      //TODO: Focus on earliest invalid input
     } else {
       if (this.isLoggedIn) {
         this.createOrder();
       } else {
         this.createOrderWithNewUser();
-        }
       }
+    }
   }
 
   checkInputFields() {
+    const fieldNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
+    for (let field in fieldNames) {
+      if (this.checkoutForm.get(fieldNames[field]).invalid) {
+        switch (fieldNames[field]) {
+          case 'name':
+            this.checkoutNameInput.nativeElement.focus();
+            return;
+          case 'email':
+            this.checkoutEmailInput.nativeElement.focus();
+            return;
+          case 'streetAddress':
+            this.checkoutStreetAddressInput.nativeElement.focus();
+            return;
+          case 'city':
+            this.checkoutCityInput.nativeElement.focus();
+            return;
+          case 'postcode':
+          default:
+            this.checkoutPostcodeInput.nativeElement.focus();
+        }
+      }
+    }
     //TODO: create logic to focus invalid input fields
   }
 

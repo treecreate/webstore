@@ -198,7 +198,7 @@
   flex-direction: column;
   align-self: flex-start;
 }
-.red-text{
+.red-text {
   color: var(--red-color);
 }
 
