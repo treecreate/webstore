@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
@@ -49,6 +49,8 @@ export class CheckoutComponent implements OnInit {
   isTermsAndConditionsAccepted = false;
   locale;
   invalid = false;
+
+  @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
 
   priceInfo: IPricing = {
     fullPrice: 0,
@@ -239,7 +241,7 @@ export class CheckoutComponent implements OnInit {
   submitCheckout() {
     if (!this.checkoutForm.valid) { 
       this.invalid = true;
-      
+      this.checkoutNameInput.nativeElement.focus();
     //TODO: Check which inputs are invalid
     //TODO: Focus on earliest invalid input 
     } else {
@@ -249,6 +251,10 @@ export class CheckoutComponent implements OnInit {
         this.createOrderWithNewUser();
         }
       }
+  }
+
+  checkInputFields() {
+    //TODO: create logic to focus invalid input fields
   }
 
   async createOrderWithNewUser() {

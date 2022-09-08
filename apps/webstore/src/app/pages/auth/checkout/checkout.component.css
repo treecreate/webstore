@@ -191,11 +191,11 @@
   min-width: 250px;
   background-color: var(--red-color);
   color: white;
-  margin: 5px;
+  margin: 10px 5px;
   padding: 20px;
   display: flex;
   align-items: stretch;
-  flex-direction: row;
+  flex-direction: column;
   align-self: flex-start;
 }
 .red-text{
