@@ -49,12 +49,18 @@ export class CheckoutComponent implements OnInit {
   isTermsAndConditionsAccepted = false;
   locale;
   checkoutInvalid = false;
+  billingAddressInvalid = false;
 
   @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
   @ViewChild('checkoutEmailInput') checkoutEmailInput: ElementRef;
   @ViewChild('checkoutStreetAddressInput') checkoutStreetAddressInput: ElementRef;
   @ViewChild('checkoutCityInput') checkoutCityInput: ElementRef;
   @ViewChild('checkoutPostcodeInput') checkoutPostcodeInput: ElementRef;
+
+  @ViewChild('billingNameInput') billingNameInput: ElementRef;
+  @ViewChild('billingStreetAddressInput') billingStreetAddressInput: ElementRef;
+  @ViewChild('billingCityInput') billingCityInput: ElementRef;
+  @ViewChild('billingPostcodeInput') billingPostcodeInput: ElementRef;
 
   priceInfo: IPricing = {
     fullPrice: 0,
@@ -246,6 +252,7 @@ export class CheckoutComponent implements OnInit {
     if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkoutInvalid = true;
       this.checkInputFields();
+      this.checkBillingFields();
     } else {
       this.checkoutInvalid = false;
       if (this.isLoggedIn) {
@@ -279,8 +286,34 @@ export class CheckoutComponent implements OnInit {
         }
       }
     }
-    //TODO: create logic to focus invalid input fields
   }
+
+  checkBillingFields() {
+    const fieldNames = ['name', 'streetAddress', 'city', 'postcode'];
+    for (let field in fieldNames) {
+      if (this.checkoutForm.get(fieldNames[field]).invalid) {
+        switch (fieldNames[field]) {
+          case 'name':
+            console.log('name is invalid')
+            this.billingNameInput.nativeElement.focus();
+            return;
+          case 'streetAddress':
+            console.log('name is invalid')
+            this.billingStreetAddressInput.nativeElement.focus();
+            return;
+          case 'city':
+            console.log('name is invalid')
+            this.billingCityInput.nativeElement.focus();
+            return;
+          case 'postcode':
+            console.log('name is invalid')
+          default:
+            this.billingPostcodeInput.nativeElement.focus();
+        }
+      }
+    }
+  }
+  //TODO: create logic to focus invalid Billing input fields
 
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {

@@ -232,6 +232,7 @@
                                 id="billingName"
                                 autocomplete="billingName"
                                 data-cy="billing-address-name-input"
+                                #billingNameInput
                             />
                             <label for="billingName" class="tc-input-label">
                                 <span i18n="@@name"> Name</span> <span class="red-text"> *</span></label
@@ -259,6 +260,7 @@
                                 placeholder="Your street name"
                                 id="billingStreetAddress"
                                 data-cy="billing-address-street-address-input"
+                                #billingStreetAddressInput
                             />
                             <label for="billingStreetAddress" class="tc-input-label">
                                 <span i18n="@@street-address">Street address </span>
@@ -312,6 +314,7 @@
                                 id="billingCity"
                                 placeholder="City"
                                 data-cy="billing-address-city-input"
+                                #billingCityInput
                             />
                             <label for="billingCity" class="tc-input-label">
                                 <span i18n="@@city"> City</span> <span class="red-text"> *</span>
@@ -338,6 +341,7 @@
                                 name="billingPostcode"
                                 placeholder="1234"
                                 data-cy="billing-address-postcode-input"
+                                #billingPostcodeInput
                             />
                             <label for="billingPostcode" class="tc-input-label">
                                 <span i18n="@@postcode">Postcode </span>
@@ -354,6 +358,37 @@
                             >
                                 Invalid danish postcode.
                             </div>
+                        </div>
+                        <div
+                            class="input-error"
+                            *ngIf="
+                                !billingAddressIsTheSame &&
+                                billingAddressInvalid &&
+                                (billingAddressForm.invalid || !isTermsAndConditionsAccepted)
+                            "
+                        >
+                            <!-- If billing address !== same -->
+                            <span i18n="@@billing-form-is-not-valid">Billing address form has a problem:</span>
+                            <!-- Billing address form input fields -->
+
+                            <li *ngIf="billingAddressForm.get('billingName').invalid" i18n="@@billing-name-is-invalid">
+                                Name is invalid
+                            </li>
+                            <li
+                                *ngIf="billingAddressForm.get('billingStreetAddress').invalid"
+                                i18n="@@billing-street-address-is-invalid"
+                            >
+                                Street address is invalid
+                            </li>
+                            <li *ngIf="billingAddressForm.get('billingCity').invalid" i18n="@@billing-city-is-invalid">
+                                City is invalid
+                            </li>
+                            <li
+                                *ngIf="billingAddressForm.get('billingPostcode').invalid"
+                                i18n="@@billing-postcode-is-invalid"
+                            >
+                                Postcode is invalid
+                            </li>
                         </div>
                     </div>
                 </form>
@@ -581,7 +616,7 @@
                     class="input-error"
                     *ngIf="checkoutInvalid && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
                 >
-                    <span i18n="@@form-is-not-valid">Form is not valid:</span>
+                    <span i18n="@@shipping-form-is-not-valid">Shipping address form has a problem:</span>
                     <!-- Checkout form input fields -->
                     <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
                     <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
@@ -595,22 +630,6 @@
                     <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms">
                         Please accept our terms of sale
                     </li>
-
-                    <!-- If billing address !== same -->
-                    <!-- Billing address form input fields -->
-
-                    <!-- <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
-                    <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
-                    <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid">
-                        Street address is invalid
-                    </li>
-                    <li *ngIf="checkoutForm.get('city').invalid" i18n="@@city-is-invalid">City is invalid</li>
-                    <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid">
-                        Postcode is invalid
-                    </li>
-                    <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms">
-                        Please accept our terms of sale
-                    </li> -->
                 </div>
             </div>
         </form>
