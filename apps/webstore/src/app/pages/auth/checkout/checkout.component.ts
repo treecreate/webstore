@@ -250,16 +250,21 @@ export class CheckoutComponent implements OnInit {
 
   submitCheckout() {
     // check checkout form and if terms are accepted
-    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
+    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted ) {
       this.checkoutInvalid = true;
       this.checkInputFields();
+      if (!this.billingAddressIsTheSame) {
+        if (!this.billingAddressForm.valid){
+        this.billingAddressInvalid = true;
+        this.checkBillingFields();
+      }}
       return;
     }
 
     // check if billing address is the same
     if (!this.billingAddressIsTheSame) {
       if (!this.billingAddressForm.valid) {
-        this.checkoutInvalid = true;
+        this.billingAddressInvalid = true;
         this.checkBillingFields();
         return;
       }

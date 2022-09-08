@@ -359,37 +359,6 @@
                                 Invalid danish postcode.
                             </div>
                         </div>
-                        <div
-                            class="input-error"
-                            *ngIf="
-                                !billingAddressIsTheSame &&
-                                billingAddressInvalid &&
-                                billingAddressForm.invalid
-                            "
-                        >
-                            <!-- If billing address !== same -->
-                            <span i18n="@@billing-form-is-not-valid">Billing address form has a problem:</span>
-                            <!-- Billing address form input fields -->
-
-                            <li *ngIf="billingAddressForm.get('billingName').invalid" i18n="@@billing-name-is-invalid">
-                                Name is invalid
-                            </li>
-                            <li
-                                *ngIf="billingAddressForm.get('billingStreetAddress').invalid"
-                                i18n="@@billing-street-address-is-invalid"
-                            >
-                                Street address is invalid
-                            </li>
-                            <li *ngIf="billingAddressForm.get('billingCity').invalid" i18n="@@billing-city-is-invalid">
-                                City is invalid
-                            </li>
-                            <li
-                                *ngIf="billingAddressForm.get('billingPostcode').invalid"
-                                i18n="@@billing-postcode-is-invalid"
-                            >
-                                Postcode is invalid
-                            </li>
-                        </div>
                     </div>
                 </form>
 
@@ -629,6 +598,30 @@
                     </li>
                     <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms">
                         Please accept our terms of sale
+                    </li>
+                </div>
+                <div
+                    class="input-error"
+                    *ngIf="!billingAddressIsTheSame && billingAddressInvalid && billingAddressForm.invalid"
+                >
+                    <!-- If billing address !== same -->
+                    <span i18n="@@billing-form-is-not-valid">Billing address form has a problem:</span>
+                    <!-- Billing address form input fields -->
+
+                    <li *ngIf="billingAddressForm.get('billingName').invalid" i18n="@@billing-name-is-invalid">
+                        Name is invalid
+                    </li>
+                    <li
+                        *ngIf="billingAddressForm.get('billingStreetAddress').invalid"
+                        i18n="@@billing-street-address-is-invalid"
+                    >
+                        Street address is invalid
+                    </li>
+                    <li *ngIf="billingAddressForm.get('billingCity').invalid" i18n="@@billing-city-is-invalid">
+                        City is invalid
+                    </li>
+                    <li *ngIf="billingAddressForm.get('billingPostcode').invalid" i18n="@@billing-postcode-is-invalid">
+                        Postcode is invalid
                     </li>
                 </div>
             </div>
