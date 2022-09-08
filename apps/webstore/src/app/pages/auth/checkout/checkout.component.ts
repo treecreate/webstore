@@ -48,6 +48,7 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   isTermsAndConditionsAccepted = false;
   locale;
+  invalid = false;
 
   priceInfo: IPricing = {
     fullPrice: 0,
@@ -236,11 +237,18 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
-    if (this.isLoggedIn) {
-      this.createOrder();
+    if (!this.checkoutForm.valid) { 
+      this.invalid = true;
+      
+    //TODO: Check which inputs are invalid
+    //TODO: Focus on earliest invalid input 
     } else {
-      this.createOrderWithNewUser();
-    }
+      if (this.isLoggedIn) {
+        this.createOrder();
+      } else {
+        this.createOrderWithNewUser();
+        }
+      }
   }
 
   async createOrderWithNewUser() {

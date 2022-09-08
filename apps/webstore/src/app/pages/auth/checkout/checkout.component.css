@@ -186,6 +186,22 @@
   z-index: 1;
 }
 
+.input-error {
+  flex-grow: 1;
+  min-width: 250px;
+  background-color: var(--red-color);
+  color: white;
+  margin: 5px;
+  padding: 20px;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  align-self: flex-start;
+}
+.red-text{
+  color: var(--red-color);
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;

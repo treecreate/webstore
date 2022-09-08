@@ -46,7 +46,7 @@
                             autocomplete="name"
                             data-cy="checkout-form-name-input"
                         />
-                        <label for="name" class="tc-input-label"> <span i18n="@@name">Name</span> *</label>
+                        <label for="name" class="tc-input-label"> <span i18n="@@name">Name</span> <span class="red-text">*</span></label>
                     </div>
 
                     <div
@@ -94,7 +94,7 @@
                             autocomplete="email"
                             data-cy="checkout-form-email-input"
                         />
-                        <label for="email" class="tc-input-label">E-mail *</label>
+                        <label for="email" class="tc-input-label">E-mail <span class="red-text">*</span></label>
                     </div>
 
                     <div class="tc-input-group field">
@@ -108,7 +108,7 @@
                             data-cy="checkout-form-street-address-input"
                         />
                         <label for="streetAddress" class="tc-input-label"
-                            ><span i18n="@@street-address"> Street address</span> *</label
+                            ><span i18n="@@street-address"> Street address</span> <span class="red-text">*</span></label
                         >
                     </div>
 
@@ -162,7 +162,7 @@
                             placeholder="City"
                             data-cy="checkout-form-city-input"
                         />
-                        <label for="city" class="tc-input-label"><span i18n="@@city">City</span> * </label>
+                        <label for="city" class="tc-input-label"><span i18n="@@city">City</span> <span class="red-text">*</span> </label>
                         <div
                             class="error-message offset"
                             *ngIf="this.checkoutForm.get('city').dirty && this.checkoutForm.get('city').invalid"
@@ -183,7 +183,7 @@
                             placeholder="1234"
                             data-cy="checkout-form-postcode-input"
                         />
-                        <label for="postcode" class="tc-input-label"> <span i18n="@@postcode">Postcode</span> *</label>
+                        <label for="postcode" class="tc-input-label"> <span i18n="@@postcode">Postcode</span> <span class="red-text">*</span></label>
                         <div
                             class="error-message offset"
                             *ngIf="this.checkoutForm.get('postcode').dirty && this.checkoutForm.get('postcode').invalid"
@@ -220,7 +220,7 @@
                                 autocomplete="billingName"
                                 data-cy="billing-address-name-input"
                             />
-                            <label for="billingName" class="tc-input-label"> <span i18n="@@name"> Name</span> *</label>
+                            <label for="billingName" class="tc-input-label"> <span i18n="@@name"> Name</span> <span class="red-text">*</span></label>
                         </div>
 
                         <div
@@ -247,7 +247,7 @@
                             />
                             <label for="billingStreetAddress" class="tc-input-label">
                                 <span i18n="@@street-address">Street address </span>
-                                *</label
+                                <span class="red-text">*</span></label
                             >
                         </div>
 
@@ -298,7 +298,7 @@
                                 placeholder="City"
                                 data-cy="billing-address-city-input"
                             />
-                            <label for="billingCity" class="tc-input-label"> <span i18n="@@city"> City</span> * </label>
+                            <label for="billingCity" class="tc-input-label"> <span i18n="@@city"> City</span> <span class="red-text">*</span> </label>
                             <div
                                 class="error-message offset"
                                 *ngIf="
@@ -324,7 +324,7 @@
                             />
                             <label for="billingPostcode" class="tc-input-label">
                                 <span i18n="@@postcode">Postcode </span>
-                                *</label
+                                <span class="red-text">*</span></label
                             >
                             <div
                                 class="error-message offset"
@@ -431,121 +431,138 @@
                     </div>
                 </div>
             </div>
-
-            <!-- order resume -->
-            <div class="checkout-section no-margin">
-                <div class="title-container">
-                    <span class="title" i18n="@@your-order">Your Order</span>
-                    <hr />
-                </div>
-                <ngb-alert *ngIf="alert" type="danger" (closed)="alert = undefined" [dismissible]="alert.dismissible">
-                    <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
-                    {{ alert.message }}</ngb-alert
-                >
-
-                <!-- Items in order -->
-                <div *ngIf="!isLoading" class="checkout-item-list">
-                    <webstore-checkout-item
-                        *ngFor="let item of itemList"
-                        [item]="item"
-                        data-cy="checkout-item"
-                    ></webstore-checkout-item>
-                </div>
-                <div *ngIf="isLoading" class="loading-screen">
-                    <span
-                        class="spinner-border spinner-border-sm"
-                        style="margin: 0 10px"
-                        role="status"
-                        aria-hidden="true"
-                    ></span>
-                    <span>Loading...</span>
-                </div>
-
-                <div class="trees-planted-container" *ngIf="plantedTrees > 0">
-                    <img src="../../../../assets/icons/seed-icon.svg" alt="Tree icon" class="seed-icon show-mobile" />
-                    <div class="trees-planted">
-                        <div>
-                            <img
-                                src="../../../../assets/icons/seed-icon.svg"
-                                alt="Tree icon"
-                                class="seed-icon remove-mobile"
-                            />
-                            <!-- TODO - fetch/calculate the extra trees properly -->
-                            <span i18n="@@thank-you-for-planting">Thank you for planting</span>
-
-                            <strong>
-                                {{ plantedTrees }}
-                            </strong>
-                            <span i18n="@@tree">tree(s)!</span>
-                        </div>
-                        <div class="trees-planted-price">{{ priceInfo.extraTreesPrice.toFixed(2) }} DKK</div>
+            <div class="section-container">
+                <!-- order resume -->
+                <div class="checkout-section no-margin">
+                    <div class="title-container">
+                        <span class="title" i18n="@@your-order">Your Order</span>
+                        <hr />
                     </div>
-                </div>
-
-                <!-- Order info -->
-                <div class="order-info-section">
-                    <div class="info-line">
-                        <span i18n="@@subtotal">Subtotal</span
-                        ><span data-cy="checkout-subtotal">{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
-                    </div>
-                    <div class="info-line" [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''">
-                        <span i18n="@@you-save">You save</span
-                        ><span data-cy="checkout-save">{{ priceInfo.discountAmount.toFixed(2) }} DKK</span>
-                    </div>
-                    <div class="info-line">
-                        <span i18n="@@delivery">Delivery</span
-                        ><span data-cy="checkout-delivery">{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span>
-                    </div>
-                    <div class="info-line total">
-                        <span i18n="@@total">Total</span
-                        ><span data-cy="checkout-total">{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
-                    </div>
-                    <div class="info-line vat">
-                        <span i18n="@@vat">VAT</span><span>{{ priceInfo.vat.toFixed(2) }} DKK</span>
-                    </div>
-                </div>
-
-                <!-- Actions -->
-                <div class="actions">
-                    <hr />
-
-                    <!-- Accept T&C for sale checkbox -->
-                    <div class="terms-and-conditions-container">
-                        <label class="checkbox-container">
-                            <input
-                                type="checkbox"
-                                [checked]="isTermsAndConditionsAccepted"
-                                (change)="isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted"
-                                data-cy="checkout-form-terms-checkbox"
-                            />
-                            <span class="checkmark" data-cy="checkout-form-terms-button"></span>
-                        </label>
-                        <div class="option-title">
-                            <span i18n="@@accept-terms">I accept terms and conditions</span>
-                            <a
-                                class="TnC"
-                                (click)="showTermsOfSale()"
-                                i18n="@@read-here"
-                                data-cy="checkout-form-terms-of-sale"
-                                >Read here</a
-                            >
-                        </div>
-                    </div>
-                    <button
-                        class="tc-button-100 green margin-top"
-                        type="submit"
-                        [disabled]="!isDisabled()"
-                        data-cy="checkout-form-go-to-payment-button"
+                    <ngb-alert
+                        *ngIf="alert"
+                        type="danger"
+                        (closed)="alert = undefined"
+                        [dismissible]="alert.dismissible"
                     >
-                        <span i18n="@@go-to-payment" *ngIf="!isLoading">Go to payment</span>
+                        <h3>{{ alert.type === 'danger' ? 'Error' : alert.type }}!</h3>
+                        {{ alert.message }}</ngb-alert
+                    >
+
+                    <!-- Items in order -->
+                    <div *ngIf="!isLoading" class="checkout-item-list">
+                        <webstore-checkout-item
+                            *ngFor="let item of itemList"
+                            [item]="item"
+                            data-cy="checkout-item"
+                        ></webstore-checkout-item>
+                    </div>
+                    <div *ngIf="isLoading" class="loading-screen">
                         <span
-                            *ngIf="isLoading"
-                            class="spinner-border spinner-border-sm text-light"
-                            style="margin: 5px"
+                            class="spinner-border spinner-border-sm"
+                            style="margin: 0 10px"
                             role="status"
                             aria-hidden="true"
                         ></span>
-                    </button>
+                        <span>Loading...</span>
+                    </div>
+
+                    <div class="trees-planted-container" *ngIf="plantedTrees > 0">
+                        <img
+                            src="../../../../assets/icons/seed-icon.svg"
+                            alt="Tree icon"
+                            class="seed-icon show-mobile"
+                        />
+                        <div class="trees-planted">
+                            <div>
+                                <img
+                                    src="../../../../assets/icons/seed-icon.svg"
+                                    alt="Tree icon"
+                                    class="seed-icon remove-mobile"
+                                />
+                                <!-- TODO - fetch/calculate the extra trees properly -->
+                                <span i18n="@@thank-you-for-planting">Thank you for planting</span>
+
+                                <strong>
+                                    {{ plantedTrees }}
+                                </strong>
+                                <span i18n="@@tree">tree(s)!</span>
+                            </div>
+                            <div class="trees-planted-price">{{ priceInfo.extraTreesPrice.toFixed(2) }} DKK</div>
+                        </div>
+                    </div>
+
+                    <!-- Order info -->
+                    <div class="order-info-section">
+                        <div class="info-line">
+                            <span i18n="@@subtotal">Subtotal</span
+                            ><span data-cy="checkout-subtotal">{{ priceInfo.fullPrice.toFixed(2) }} DKK</span>
+                        </div>
+                        <div class="info-line" [ngClass]="priceInfo.discountAmount > 0 ? 'green-text' : ''">
+                            <span i18n="@@you-save">You save</span
+                            ><span data-cy="checkout-save">{{ priceInfo.discountAmount.toFixed(2) }} DKK</span>
+                        </div>
+                        <div class="info-line">
+                            <span i18n="@@delivery">Delivery</span
+                            ><span data-cy="checkout-delivery">{{ priceInfo.deliveryPrice.toFixed(2) }} DKK</span>
+                        </div>
+                        <div class="info-line total">
+                            <span i18n="@@total">Total</span
+                            ><span data-cy="checkout-total">{{ priceInfo.finalPrice.toFixed(2) }} DKK</span>
+                        </div>
+                        <div class="info-line vat">
+                            <span i18n="@@vat">VAT</span><span>{{ priceInfo.vat.toFixed(2) }} DKK</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="actions">
+                        <hr />
+
+                        <!-- Accept T&C for sale checkbox -->
+                        <div class="terms-and-conditions-container">
+                            <label class="checkbox-container">
+                                <input
+                                    type="checkbox"
+                                    [checked]="isTermsAndConditionsAccepted"
+                                    (change)="isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted"
+                                    data-cy="checkout-form-terms-checkbox"
+                                />
+                                <span class="checkmark" data-cy="checkout-form-terms-button"></span>
+                            </label>
+                            <div class="option-title">
+                                <span i18n="@@accept-terms">I accept terms and conditions</span>
+                                <a
+                                    class="TnC"
+                                    (click)="showTermsOfSale()"
+                                    i18n="@@read-here"
+                                    data-cy="checkout-form-terms-of-sale"
+                                    >Read here</a
+                                >
+                            </div>
+                        </div>
+                        <button
+                            class="tc-button-100 green margin-top"
+                            type="submit"
+                            data-cy="checkout-form-go-to-payment-button"
+                        >
+                            <span i18n="@@go-to-payment" *ngIf="!isLoading">Go to payment</span>
+                            <span
+                                *ngIf="isLoading"
+                                class="spinner-border spinner-border-sm text-light"
+                                style="margin: 5px"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                        </button>
+                        <!-- [disabled]="!isDisabled()" -->
+                    </div>
+                </div>
+                <div class="input-error" *ngIf="invalid">There was a problem with your payment:
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
         </form>
