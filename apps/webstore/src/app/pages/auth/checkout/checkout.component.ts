@@ -298,7 +298,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-
   checkBillingFields() {
     const fieldNames = ['billingName', 'billingStreetAddress', 'billingCity', 'billingPostcode'];
     for (const field in fieldNames) {
