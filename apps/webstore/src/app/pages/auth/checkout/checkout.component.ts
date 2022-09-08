@@ -320,7 +320,6 @@ export class CheckoutComponent implements OnInit {
       }
     }
   }
-  //TODO: create logic to focus invalid Billing input fields
 
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
