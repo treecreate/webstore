@@ -250,7 +250,7 @@ export class CheckoutComponent implements OnInit {
 
   submitCheckout() {
     // check checkout form and if terms are accepted
-    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted ) {
+    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkoutInvalid = true;
       this.checkInputFields();
       return;
