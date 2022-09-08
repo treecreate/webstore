@@ -289,6 +289,9 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  //TODO: Implement some functionality that only tries to run this code block if the billing address is different to shipping
+  //TODO: Get the error message to popup when errors occur with the billing address form
+  //TODO: Get the checks to actually work correctly.
   checkBillingFields() {
     const fieldNames = ['name', 'streetAddress', 'city', 'postcode'];
     for (let field in fieldNames) {
