@@ -250,22 +250,8 @@ export class CheckoutComponent implements OnInit {
 
   submitCheckout() {
     // check checkout form and if terms are accepted
-    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
-      this.checkoutInvalid = true;
-      this.checkInputFields();
-      return;
-    }
+    this.checkFormValidity();
 
-    // check if billing address is the same
-    if (!this.billingAddressIsTheSame) {
-      if (!this.billingAddressForm.valid) {
-        this.billingAddressInvalid = true;
-        this.checkBillingFields();
-        return;
-      }
-    }
-
-    this.checkoutInvalid = false;
     if (this.isLoggedIn) {
       this.createOrder();
     } else {
@@ -273,7 +259,34 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  checkInputFields() {
+  checkFormValidity(){
+
+    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
+      this.checkoutInvalid = true;
+      this.checkShippingInputFields();
+      if (!this.billingAddressIsTheSame) {
+        if (!this.billingAddressForm.valid) {
+          this.billingAddressInvalid = true;
+          this.checkBillingInputFields();
+          return;
+        }
+      }
+      return;
+    }
+
+    // check if billing address is the same
+    if (!this.billingAddressIsTheSame) {
+      if (!this.billingAddressForm.valid) {
+        this.billingAddressInvalid = true;
+        this.checkBillingInputFields();
+        return;
+      }
+    }
+
+    this.checkoutInvalid = false;
+  }
+
+  checkShippingInputFields() {
     const fieldNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
     for (const field in fieldNames) {
       if (this.checkoutForm.get(fieldNames[field]).invalid) {
@@ -298,7 +311,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  checkBillingFields() {
+  checkBillingInputFields() {
     const fieldNames = ['billingName', 'billingStreetAddress', 'billingCity', 'billingPostcode'];
     for (const field in fieldNames) {
       if (this.billingAddressForm.get(fieldNames[field]).invalid) {
