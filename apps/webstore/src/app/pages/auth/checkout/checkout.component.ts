@@ -275,7 +275,7 @@ export class CheckoutComponent implements OnInit {
 
   checkInputFields() {
     const fieldNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
-    for (let field in fieldNames) {
+    for (const field in fieldNames) {
       if (this.checkoutForm.get(fieldNames[field]).invalid) {
         switch (fieldNames[field]) {
           case 'name':
@@ -298,12 +298,10 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  //TODO: Implement some functionality that only tries to run this code block if the billing address is different to shipping
-  //TODO: Get the error message to popup when errors occur with the billing address form
-  //TODO: Get the checks to actually work correctly.
+
   checkBillingFields() {
     const fieldNames = ['billingName', 'billingStreetAddress', 'billingCity', 'billingPostcode'];
-    for (let field in fieldNames) {
+    for (const field in fieldNames) {
       if (this.billingAddressForm.get(fieldNames[field]).invalid) {
         switch (fieldNames[field]) {
           case 'billingName':
