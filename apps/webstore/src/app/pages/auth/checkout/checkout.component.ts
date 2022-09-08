@@ -307,20 +307,16 @@ export class CheckoutComponent implements OnInit {
       if (this.billingAddressForm.get(fieldNames[field]).invalid) {
         switch (fieldNames[field]) {
           case 'billingName':
-
             this.billingNameInput.nativeElement.focus();
             return;
           case 'billingStreetAddress':
-            console.log('streetaddress is invalid');
             this.billingStreetAddressInput.nativeElement.focus();
             return;
           case 'billingCity':
-            console.log('city is invalid');
             this.billingCityInput.nativeElement.focus();
             return;
           case 'billingPostcode':
           default:
-            console.log('postcode is invalid');
             this.billingPostcodeInput.nativeElement.focus();
         }
       }
