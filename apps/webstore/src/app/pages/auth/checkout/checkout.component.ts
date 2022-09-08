@@ -259,8 +259,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  checkFormValidity(){
-
+  checkFormValidity() {
     if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkoutInvalid = true;
       this.checkShippingInputFields();
