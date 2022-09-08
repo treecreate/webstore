@@ -581,7 +581,7 @@
                     class="input-error"
                     *ngIf="checkoutInvalid && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
                 >
-                    <span i18n="@@there-was-a-problem">There was a problem with your payment:</span>
+                    <span i18n="@@form-is-not-valid">Form is not valid:</span>
                     <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
                     <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
                     <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid">
