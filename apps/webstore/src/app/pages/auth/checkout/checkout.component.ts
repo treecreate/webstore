@@ -252,8 +252,9 @@ export class CheckoutComponent implements OnInit {
     if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkoutInvalid = true;
       this.checkInputFields();
+    } else if (!this.billingAddressForm.valid || !this.isTermsAndConditionsAccepted){
       this.checkBillingFields();
-    } else {
+    }else{
       this.checkoutInvalid = false;
       if (this.isLoggedIn) {
         this.createOrder();
@@ -291,7 +292,7 @@ export class CheckoutComponent implements OnInit {
   checkBillingFields() {
     const fieldNames = ['name', 'streetAddress', 'city', 'postcode'];
     for (let field in fieldNames) {
-      if (this.checkoutForm.get(fieldNames[field]).invalid) {
+      if (this.billingAddressForm.get(fieldNames[field]).invalid) {
         switch (fieldNames[field]) {
           case 'name':
             console.log('name is invalid')
