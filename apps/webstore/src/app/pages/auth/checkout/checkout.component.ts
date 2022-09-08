@@ -307,7 +307,7 @@ export class CheckoutComponent implements OnInit {
       if (this.billingAddressForm.get(fieldNames[field]).invalid) {
         switch (fieldNames[field]) {
           case 'billingName':
-            console.log('name is invalid');
+
             this.billingNameInput.nativeElement.focus();
             return;
           case 'billingStreetAddress':

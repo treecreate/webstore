@@ -364,7 +364,7 @@
                             *ngIf="
                                 !billingAddressIsTheSame &&
                                 billingAddressInvalid &&
-                                (billingAddressForm.invalid || !isTermsAndConditionsAccepted)
+                                billingAddressForm.invalid
                             "
                         >
                             <!-- If billing address !== same -->
