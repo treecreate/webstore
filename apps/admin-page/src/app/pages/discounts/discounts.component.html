@@ -13,11 +13,11 @@
                 </button>
                 <button
                     mat-raised-button
-                    (click)="showDisabled = !showDisabled; updateList()"
+                    (click)="showInactive = !showInactive; updateList()"
                     class="item"
-                    [ngStyle]="{ opacity: showDisabled ? 1 : 0.5 }"
+                    [ngStyle]="{ opacity: showInactive ? 1 : 0.5 }"
                 >
-                    Disabled
+                    Inactive
                 </button>
                 <button
                     mat-raised-button
