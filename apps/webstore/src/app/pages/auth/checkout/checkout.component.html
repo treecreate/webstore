@@ -584,6 +584,7 @@
                 <div
                     class="input-error"
                     *ngIf="checkoutInvalid && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
+                    data-cy="checkout-shipping-input-error"
                 >
                     <span i18n="@@shipping-form-is-not-valid">Shipping address form has a problem:</span>
                     <!-- Checkout form input fields -->
