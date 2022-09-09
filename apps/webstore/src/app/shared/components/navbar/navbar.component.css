@@ -219,6 +219,7 @@
   }
   .show-on-mobile {
     display: flex !important;
+    justify-content: center;
   }
   .nav-item {
     padding: 0 1rem 0 0;
