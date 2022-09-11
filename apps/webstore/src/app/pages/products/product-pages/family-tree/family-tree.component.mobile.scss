@@ -1,6 +1,8 @@
 @media screen and (max-width: 640px) {
+  .product-section {
+    height: 87vh;
+  }
   .design-screen {
-    width: 100vw;
     height: 100vw;
   }
   .back-container {
@@ -10,16 +12,13 @@
 
 @media screen and (max-width: 400px) {
   .design-screen {
-    width: 100vw;
     height: 100vw;
   }
 }
 
-@media screen and (max-width: 600px) and (orientation: landscape) {
+@media screen and (max-width: 700px) and (orientation: landscape) {
   .design-screen {
-    width: 100vh;
-    height: 100vh;
-    margin-top: 80px;
-    margin-bottom: 20px;
+    width: 100vw;
+    height: 100vw;
   }
 }
