@@ -45,9 +45,9 @@
         <div id="own-design-text-container">
             <h1 i18n="@@about-us-own-design-title">Your own design</h1>
             <p i18n="@@about-us-own-design-text">
-                Having a Treecreate product at your home is not only signalling a sustainable home, but also a modern
-                one. Whatever the design, you can make sure a Treecreate will make a beautiful and stylish addition to
-                your home.
+                With Treecreate you have the freedom to completely make your own design on a beautiful piece of
+                sustainable oak wood in high quality. Whether it's one of our nice premade designs or your very own, you
+                can always be sure that the choice is YOURS.
             </p>
             <!-- TODO - uncomment once environment initiatives page is added -->
             <!-- <button
@@ -77,5 +77,48 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <section class="section-container" id="newsletter-signup">
+        <!-- I do not associate myself with this text ~@Kwandes -->
+        <h1 i18n="@@about-us-newsletter-signup-title">Register to our newsletter for glory and hapiness</h1>
+        <form [formGroup]="newsletterForm" (ngSubmit)="registerNewsletter()" id="newsletter-signup-form">
+            <div id="newsletter-signup-input-container">
+                <input
+                    formControlName="email"
+                    type="email"
+                    class="special-input-field"
+                    id="newsletter-signup-input"
+                    placeholder="Email"
+                    data-cy="about-us-register-newsletter-input"
+                    #emailInput
+                />
+                <div
+                    class="error-message"
+                    *ngIf="this.newsletterForm.get('email').dirty && this.newsletterForm.get('email').invalid"
+                    i18n="@@invalid-email"
+                    data-cy="signup-email-error"
+                >
+                    Invalid e-mail
+                </div>
+            </div>
+
+            <button
+                class="tc-button-25 margin-top low-dropshadow"
+                type="submit"
+                [disabled]="!isNewsletterReadyForSignup()"
+                data-cy="about-us-register-newsletter-button"
+            >
+                <span i18n="@@signup" *ngIf="!isLoading">Sign up</span>
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm text-light"
+                    style="margin: 5px"
+                    role="status"
+                    aria-hidden="true"
+                >
+                </span>
+            </button>
+        </form>
     </section>
 </main>

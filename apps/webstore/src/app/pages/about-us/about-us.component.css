@@ -9,6 +9,10 @@
   margin-top: 100px;
 }
 
+.section-container:last-of-type {
+  margin-bottom: 50px;
+}
+
 .section-container {
   display: flex;
   flex-direction: row;
@@ -202,4 +206,36 @@
   #env-initiatives-btn {
     width: 100%;
   }
+}
+
+/* ====== Newsletter Signup Section ====== */
+
+#newsletter-signup {
+  display: flex;
+  flex-direction: column;
+  max-height: fit-content;
+  min-height: fit-content;
+}
+
+#newsletter-signup > h1 {
+  width: 80%;
+  text-align: center;
+}
+
+#newsletter-signup-form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#newsletter-signup-input-container {
+  width: 60%;
+}
+#newsletter-signup-input {
+  width: 100%;
+  border: none;
+  background-color: white;
+}
+#newsletter-signup-form > .tc-button-25 {
+  width: 30%;
 }
