@@ -178,37 +178,11 @@ describe('CheckoutPage', () => {
       cy.get('[data-cy=checkout-form-home-delivery-checkbox]').should('be.checked');
     });
 
-    //it('should have go to payment button disabled with wrong input in checkout form', () => {
-    //   cy.get('[data-cy=checkout-form-name-input]').type('test');
-    //   cy.get('[data-cy=checkout-form-email-input]').type('test@urMom.com');
-    //   cy.get('[data-cy=checkout-form-street-address-input]').type('test');
-    //   cy.get('[data-cy=checkout-form-city-input]').type('CityName');
-    //   cy.get('[data-cy=checkout-form-postcode-input]').type('1234');
-    //   cy.get('[data-cy=checkout-form-terms-button]').click();
-    //   cy.get('[data-cy=checkout-form-go-to-payment-button]').should('not.be.disabled');
-    //   cy.get('[data-cy=checkout-form-postcode-input]').type('1');
-    //   cy.get('[data-cy=checkout-form-go-to-payment-button]').should('be.disabled');
-    //   cy.get('[data-cy=checkout-form-postcode-input]').clear();
-    //   cy.get('[data-cy=checkout-form-postcode-input]').type('1234');
-    //   cy.get('[data-cy=checkout-form-go-to-payment-button]').should('not.be.disabled');
-    //   cy.get('[data-cy=checkout-form-city-input]').type('12!');
-    //   cy.get('[data-cy=checkout-form-go-to-payment-button]').should('be.disabled');
-    // });
-
-    // TODO: Check that correct invalid inputs are displayed
-    // TODO: Check they are removed once input is fulfilled
-    // TODO: Check that once all inputs are comlpete, can go to payment
-    // TODO: Do the same for Billing
 
     it('should have go to payment button disabled with wrong input in checkout form', () => {
       cy.get('[data-cy=checkout-shipping-input-error]').should('not.exist');
       cy.get('[data-cy=checkout-form-go-to-payment-button]').click({ force: true });
       cy.get('[data-cy=checkout-shipping-input-error]').should('exist');
-
-      // TODO: Test that checkout button should not be able to go to payment
-      // TODO: Check that error input div is displayed
-      // TODO: Fill out form
-      // TODO: Test that go to payment is possible
     });
 
     it('should remove error message error is fixed in checkout form', () => {
@@ -248,25 +222,6 @@ describe('CheckoutPage', () => {
     it('should display items from localstorage correctly', () => {
       cy.get('[data-cy=checkout-item]').should('have.length', 2);
     });
-
-    //  it('should have go to payment button disabled when terms are not accepted', () => {
-    //     cy.get('[data-cy=checkout-form-terms-checkbox]').should('not.be.checked');
-    //     cy.get('[data-cy=checkout-form-go-to-payment-button]').should('be.disabled');
-    //     cy.get('[data-cy=checkout-form-terms-button]').click();
-    //     cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
-    //     cy.get('[data-cy=checkout-form-go-to-payment-button]').should('not.be.disabled');
-    //   });
-
-    //  it('should have go to payment button disabled when billing form is not filled', () => {
-    //     cy.get('[data-cy=checkout-form-go-to-payment-button]').should('be.disabled');
-    //     cy.get('[data-cy=checkout-form-terms-button]').click();
-    //     cy.get('[data-cy=checkout-form-terms-checkbox]').should('be.checked');
-    //     cy.get('[data-cy=checkout-form-go-to-payment-button]').should('not.be.disabled');
-    //     cy.get('[data-cy=billing-address-is-the-same-button]').click();
-    //     cy.get('[data-cy=billing-address-form]').should('exist');
-    //     cy.get('[data-cy=checkout-form-go-to-payment-button]').should('be.disabled');
-    //   });
-    //TODO: Check if these tests are needed now that changes have been made to the input checks.
 
     it('should have "go to payment" button not be disabled when billing address is filled', () => {
       cy.get('[data-cy=checkout-form-terms-button]').click();
