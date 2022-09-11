@@ -194,7 +194,7 @@
     </aside>
 </main>
 
-<div class="mobile-option-buttons-container">
+<div class="mobile-option-buttons-container" *ngIf="isMutable">
     <div class="mobile-options">
         <button class="option-toggler tc-button-square green" (click)="openAddToBasketModal()">
             <img src="/assets/icons/add-to-basket-icon.svg" alt="basket icon" />
@@ -204,7 +204,6 @@
             data-cy="mobile-options-toggler"
             type="button"
             (click)="showOptions()"
-            *ngIf="isMutable"
         >
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
         </button>
@@ -212,7 +211,6 @@
             class="intro-modal-option tc-button-square"
             type="button"
             (click)="openIntroModal()"
-            *ngIf="isMutable"
             title="Hide/Show box options"
             data-cy="family-tree-intro-modal-option-button"
         >
@@ -222,7 +220,6 @@
             class="toggle-box-options tc-button-square"
             type="button"
             (click)="toggleBoxOptions()"
-            *ngIf="isMutable"
             title="Hide/Show box options"
         >
             <img
