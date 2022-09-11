@@ -140,13 +140,13 @@
   width: 80px !important;
 }
 .navbar-basket-icon {
-  background-color: var(--green-color);
   border: none;
   transition: 0.5s;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 60px !important;
 }
 .nav-icon-mobile {
   width: 18px;
