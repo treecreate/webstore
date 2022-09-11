@@ -104,9 +104,9 @@ export class NavbarComponent implements OnInit {
 
   calculateItemsInBasket(itemList: ITransactionItem[]): number {
     let sum = 0;
-    for (let item in itemList) {
-      sum += itemList[item].quantity;
-    }
+    itemList.forEach((item) => {
+      sum += item.quantity;
+    });
     return sum;
   }
 
