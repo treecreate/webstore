@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
@@ -60,6 +61,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     NavbarComponent,
     FooterComponent,
     HomeComponent,
+    AboutUsComponent,
     SignupComponent,
     LoginComponent,
     PageNotFoundComponent,
