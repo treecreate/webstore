@@ -156,7 +156,10 @@
 <!-- Floating icons -->
 <div class="mobile-option-buttons-container">
     <div class="mobile-options">
-        <button class="option-toggler" type="button" (click)="showOptions()" *ngIf="isMutable">
+        <button class="option-toggler tc-button-square green">
+            <img src="/assets/icons/basket-white-icon.svg" alt="basket icon" />
+        </button>
+        <button class="option-toggler tc-button-square" type="button" (click)="showOptions()" *ngIf="isMutable">
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
         </button>
     </div>

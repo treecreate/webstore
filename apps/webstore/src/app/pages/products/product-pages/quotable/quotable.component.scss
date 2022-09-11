@@ -17,10 +17,6 @@
   display: inline-block;
 }
 
-.green {
-  background-color: var(--green-color);
-}
-
 .design-screen {
   margin: 5px;
   height: 80vh;
@@ -151,13 +147,10 @@
 }
 
 /* option toggle button */
-.option-toggler,
-.intro-modal-option {
+.option-toggler {
   background-color: var(--second-action-color);
   transition: 0.5s;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
   border: none;
   margin: 5px;
   display: flex;
@@ -165,23 +158,11 @@
   align-items: center;
 }
 
-.intro-modal-option {
-  color: white;
-  font-size: larger;
-  font-weight: 900;
-  font-family: 'archia-medium';
-}
-
 .option-toggler {
   display: none;
 }
 
 .mobile-options {
-  z-index: 10;
-  top: 70px;
-  left: 10px;
-  position: sticky;
-  height: 40px;
   display: flex;
   flex-direction: row-reverse;
   margin-right: 10px;
@@ -344,9 +325,10 @@
 }
 
 .mobile-option-buttons-container {
-  top: 70px;
+  z-index: 1030;
+  bottom: 0.7em;
   right: 0;
-  position: absolute;
+  position: sticky;
 }
 
 ::ng-deep .design-wrapper {
