@@ -70,6 +70,22 @@
   box-shadow: none;
 }
 
+.option-design-title {
+  width: 100%;
+  border-radius: 3px;
+  border: 2px solid var(--second-action-color);
+}
+
+.title-input {
+  border: none;
+  width: 100%;
+  text-align: center;
+}
+
+.title-input:focus {
+  outline: none;
+}
+
 .option-frame-design-btn,
 .option-tree-design-btn {
   display: flex;
