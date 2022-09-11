@@ -66,6 +66,9 @@
 .navbar-toggler:focus {
   box-shadow: none !important;
 }
+.navbar-toggler {
+  border: none !important;
+}
 .language-icon {
   padding: 10px 15px;
 }

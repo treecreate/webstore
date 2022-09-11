@@ -78,12 +78,11 @@
                 class="navbar-basket-icon tc-button-100 show-on-mobile"
                 (click)="autoCollapse()"
                 routerLink="/basket"
-                *ngIf="itemsInBasket !== 0"
             >
                 <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
-                <span class="item-number">{{ itemsInBasket }}</span>
+                <span class="item-number" *ngIf="itemsInBasket > 0">{{ itemsInBasket }}</span>
             </button>
-            <button
+            <!-- <button
                 class="tc-button-100 show-on-mobile"
                 (click)="autoCollapse()"
                 routerLink="/products"
@@ -91,7 +90,7 @@
             >
                 <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
                 <span class="buy-button-text" i18n="@@buy">Buy</span>
-            </button>
+            </button> -->
         </div>
 
         <!-- Links section => changes to dropdown depending on screensize -->
