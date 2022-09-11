@@ -57,3 +57,70 @@
     min-width: 300px;
   }
 }
+
+/* ====== Moderning Home Section ====== */
+
+#modernizing-homes {
+  flex-direction: row-reverse;
+}
+
+#modernizing-homes > img {
+  height: 400px;
+  width: auto;
+  max-width: 30vw;
+  min-width: 200px;
+  filter: drop-shadow(0px 4px 23px rgba(0, 0, 0, 0.2));
+}
+
+#modernizing-homes > .section-content-wrapper {
+  max-height: 55vh;
+  min-height: 600px;
+  max-width: 30vw;
+  min-width: 300px;
+  padding: 10px;
+}
+
+#moderning-homes-text-1-container {
+  height: 100%;
+  max-width: 30vw;
+  min-width: 200px;
+  padding: 10px;
+}
+
+#moderning-homes-text-2-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#moderning-homes-text-2-container > img {
+  width: 10vw;
+}
+
+@media screen and (max-width: 750px) {
+  #modernizing-homes {
+    flex-direction: column;
+  }
+
+  #modernizing-homes > img {
+    height: 100%;
+    max-width: 80vw;
+    min-width: 300px;
+  }
+  #modernizing-homes > .section-content-wrapper {
+    max-height: fit-content;
+    min-height: fit-content;
+    max-width: 80vw;
+    min-width: 300px;
+  }
+  #moderning-homes-text-1-container {
+    max-height: fit-content;
+    min-height: fit-content;
+    max-width: 80vw;
+    min-width: 300px;
+  }
+
+  #buy-now-btn {
+    width: 100%;
+  }
+}
