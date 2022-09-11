@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.css'],
 })
-export class AboutUsComponent {}
+export class AboutUsComponent {
+  treesPlanted = 120; // TODO - fetch the planted trees from the API
+}
