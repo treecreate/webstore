@@ -92,7 +92,11 @@ export class NavbarComponent implements OnInit {
         LocalStorageVars.transactionItems
       ).value;
       if (localStorageItemsList !== null) {
-        this.itemsInBasket = localStorageItemsList.length;
+        let sum = 0;
+        for (let item in localStorageItemsList) {
+          sum += localStorageItemsList[item].quantity;
+        }
+        this.itemsInBasket = sum;
       } else {
         this.itemsInBasket = 0;
       }

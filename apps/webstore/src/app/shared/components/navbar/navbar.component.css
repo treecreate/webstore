@@ -21,9 +21,6 @@
   text-decoration: none;
   opacity: 0.5;
 }
-.nav-section:hover > .navbar-basket-icon {
-  transform: scale(0.95);
-}
 .nav-start {
   display: flex;
   align-items: center;
