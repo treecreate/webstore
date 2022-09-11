@@ -178,7 +178,6 @@ describe('CheckoutPage', () => {
       cy.get('[data-cy=checkout-form-home-delivery-checkbox]').should('be.checked');
     });
 
-
     it('should have go to payment button disabled with wrong input in checkout form', () => {
       cy.get('[data-cy=checkout-shipping-input-error]').should('not.exist');
       cy.get('[data-cy=checkout-form-go-to-payment-button]').click({ force: true });

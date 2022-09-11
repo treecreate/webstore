@@ -264,9 +264,9 @@ export class CheckoutComponent implements OnInit {
       this.checkoutInvalid = true;
       this.checkShippingInputFields();
       if (!this.billingAddressIsTheSame && !this.billingAddressForm.valid) {
-          this.billingAddressInvalid = true;
-          this.checkBillingInputFields();
-          return;
+        this.billingAddressInvalid = true;
+        this.checkBillingInputFields();
+        return;
       }
       return;
     }
