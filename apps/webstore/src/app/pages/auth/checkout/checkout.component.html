@@ -604,6 +604,7 @@
                 <div
                     class="input-error"
                     *ngIf="!billingAddressIsTheSame && billingAddressInvalid && billingAddressForm.invalid"
+                    data-cy="billing-form-input-error"
                 >
                     <!-- If billing address !== same -->
                     <span i18n="@@billing-form-is-not-valid">Billing address form has a problem:</span>

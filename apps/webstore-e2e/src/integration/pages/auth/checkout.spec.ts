@@ -103,7 +103,7 @@ describe('logged in user functionality', () => {
       body: [mockTransactionItem, mockTransactionItemLarge, mockTransactionItemLarge],
       statusCode: 200,
     });
-    cy.visit.skip('/checkout');
+    cy.visit('/checkout');
   });
 
   /* TODO: Add missing tests to checkout
@@ -123,7 +123,7 @@ describe('logged in user functionality', () => {
   });
 
  it.skip('should have the correct pricing', () => {
-    cy.visit.skip('/basket');
+    cy.visit('/basket');
     cy.get('[data-cy=basket-checkout-button]').click();
     cy.get('[data-cy=checkout-subtotal]').should('contain', '4495.00');
     cy.get('[data-cy=checkout-save]').should('contain', '1123.75');
@@ -133,7 +133,7 @@ describe('logged in user functionality', () => {
  it.skip('should have the correct discount apply', () => {
     // Set discount
     localStorage.setItem(LocalStorageVars.discount, JSON.stringify(mockDiscount));
-    cy.visit.skip('/checkout');
+    cy.visit('/checkout');
     cy.get('[data-cy=checkout-subtotal]').should('contain', '4495.00');
     cy.get('[data-cy=checkout-save]').should('contain', '449.50');
     cy.get('[data-cy=checkout-total]').should('contain', '4045.50');
@@ -147,7 +147,7 @@ describe('CheckoutPage', () => {
   describe('general page functionality', () => {
     beforeEach(() => {
       localStorage.setItem(LocalStorageVars.transactionItems, JSON.stringify([mockTransactionItem]));
-      cy.visit.skip('/checkout');
+      cy.visit('/checkout');
     });
 
    it.skip('should not contain a navbar and footer', () => {
@@ -231,7 +231,7 @@ describe('CheckoutPage', () => {
         LocalStorageVars.transactionItems,
         JSON.stringify([mockTransactionItem, mockTransactionItemLarge])
       );
-      cy.visit.skip('/checkout');
+      cy.visit('/checkout');
       cy.get('[data-cy=checkout-form-name-input]').type('test');
       cy.get('[data-cy=checkout-form-email-input]').type('test@urMom.com');
       cy.get('[data-cy=checkout-form-street-address-input]').type('test');
@@ -280,9 +280,10 @@ describe('CheckoutPage', () => {
   describe('billingAddressForm', () => {
     beforeEach(() => {
       localStorage.setItem(LocalStorageVars.transactionItems, JSON.stringify([mockTransactionItem]));
-      cy.visit.skip('/checkout');
+      cy.visit('/checkout');
       cy.get('[data-cy=billing-address-is-the-same-button]').click();
     });
+
    it.skip('should display error message for billingAddressForm name input', () => {
       cy.get('[data-cy=billing-address-name-input]').type('test');
       cy.get('[data-cy=billing-address-name-error-message]').should('not.exist');
@@ -325,15 +326,25 @@ describe('CheckoutPage', () => {
       cy.get('[data-cy=billing-address-postcode-error-message]').should('exist');
     });
 
-    it('should display error message for ', () => {
-
+    it('should display error message for billing address error', () => {
+      cy.get('[data-cy=billing-address-is-the-same-checkbox]').should('not.be.checked');
+      cy.get('[data-cy=checkout-form-name-input]').type(mockUser.name);
+      cy.get('[data-cy=checkout-form-email-input]').type(mockUser.email);
+      cy.get('[data-cy=checkout-form-street-address-input]').type(mockUser.streetAddress);
+      cy.get('[data-cy=checkout-form-city-input]').type(mockUser.city);
+      cy.get('[data-cy=checkout-form-postcode-input]').type(mockUser.postcode);
+      cy.get('[data-cy=checkout-form-terms-button]').click({force: true});
+      cy.get('[data-cy=checkout-shipping-input-error]').should('not.exist');
+      cy.get('[data-cy=checkout-form-go-to-payment-button]').click({force: true})
+      cy.get('[data-cy=billing-form-input-error]').should('exist');
+      
     });
   });
 
   describe('checkoutForm', () => {
     beforeEach(() => {
       localStorage.setItem(LocalStorageVars.transactionItems, JSON.stringify([mockTransactionItem]));
-      cy.visit.skip('/checkout');
+      cy.visit('/checkout');
     });
    it.skip('should display error message for checkoutForm name input', () => {
       cy.get('[data-cy=checkout-form-name-input]').clear();
