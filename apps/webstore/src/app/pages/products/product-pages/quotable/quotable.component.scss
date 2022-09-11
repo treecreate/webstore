@@ -1,12 +1,12 @@
 .product-section {
-  min-height: 100vh;
+  min-height: 96vh;
   padding-top: 50px;
   text-align: center;
   margin: auto;
   align-items: center;
   display: flex;
-  position: relative;
   justify-content: center;
+  align-items: center;
 }
 
 .flex-direction-column {
@@ -209,17 +209,17 @@
 }
 
 .mobile-options-items {
+  position: absolute;
+  bottom: 4em;
+  right: 0;
   border: 2px solid var(--second-action-color);
   border-radius: 3px;
   transition: 0.5s;
   transform: scale(0.9);
   width: 300px;
-  position: absolute;
-  top: 105px;
-  right: 1px;
   background: white;
   padding: 10px 25px 20px 25px;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .banner-input {
@@ -325,16 +325,15 @@
 }
 
 .mobile-option-buttons-container {
-  z-index: 1030;
   bottom: 0.7em;
   right: 0;
   position: sticky;
 }
 
-::ng-deep .design-wrapper {
-  border: 2px solid rgba(175, 121, 73, 0.3);
-  border-radius: 3px;
-}
+// ::ng-deep .design-wrapper {
+//   border: 2px solid rgba(175, 121, 73, 0.3);
+//   border-radius: 3px;
+// }
 
 .option-icon,
 .toggle-box-options-icon {
