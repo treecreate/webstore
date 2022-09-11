@@ -32,6 +32,7 @@ import { EventsService } from '../../../../shared/services/events/events.service
     './quotable.component.scss',
     './quotable.component.mobile.scss',
     '../../../../../assets/styles/tc-input-field.scss',
+    '../../../../../assets/styles/product-options.scss',
   ],
 })
 export class QuotableComponent implements OnInit {
