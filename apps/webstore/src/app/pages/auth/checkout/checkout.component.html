@@ -588,16 +588,16 @@
                 >
                     <span i18n="@@shipping-form-is-not-valid">Shipping address form has a problem:</span>
                     <!-- Checkout form input fields -->
-                    <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
-                    <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid">Email is invalid</li>
-                    <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid">
+                    <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid" data-cy="shipping-address-name-input">Name is invalid</li>
+                    <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid" data-cy="shipping-address-email-input">Email is invalid</li>
+                    <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid" data-cy="shipping-address-street-address-input">
                         Street address is invalid
                     </li>
-                    <li *ngIf="checkoutForm.get('city').invalid" i18n="@@city-is-invalid">City is invalid</li>
-                    <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid">
+                    <li *ngIf="checkoutForm.get('city').invalid" i18n="@@city-is-invalid" data-cy="shipping-address-city-input">City is invalid</li>
+                    <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid" data-cy="shipping-address-postcode-input">
                         Postcode is invalid
                     </li>
-                    <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms">
+                    <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms" data-cy="terms-and-conditions-checkbox">
                         Please accept our terms of sale
                     </li>
                 </div>
