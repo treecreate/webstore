@@ -588,16 +588,46 @@
                 >
                     <span i18n="@@shipping-form-is-not-valid">Shipping address form has a problem:</span>
                     <!-- Checkout form input fields -->
-                    <li *ngIf="checkoutForm.get('name').invalid" i18n="@@name-is-invalid" data-cy="shipping-address-name-input">Name is invalid</li>
-                    <li *ngIf="checkoutForm.get('email').invalid" i18n="@@email-is-invalid" data-cy="shipping-address-email-input">Email is invalid</li>
-                    <li *ngIf="checkoutForm.get('streetAddress').invalid" i18n="@@street-address-is-invalid" data-cy="shipping-address-street-address-input">
+                    <li
+                        *ngIf="checkoutForm.get('name').invalid"
+                        i18n="@@name-is-invalid"
+                        data-cy="shipping-address-name-input"
+                    >
+                        Name is invalid
+                    </li>
+                    <li
+                        *ngIf="checkoutForm.get('email').invalid"
+                        i18n="@@email-is-invalid"
+                        data-cy="shipping-address-email-input"
+                    >
+                        Email is invalid
+                    </li>
+                    <li
+                        *ngIf="checkoutForm.get('streetAddress').invalid"
+                        i18n="@@street-address-is-invalid"
+                        data-cy="shipping-address-street-address-input"
+                    >
                         Street address is invalid
                     </li>
-                    <li *ngIf="checkoutForm.get('city').invalid" i18n="@@city-is-invalid" data-cy="shipping-address-city-input">City is invalid</li>
-                    <li *ngIf="checkoutForm.get('postcode').invalid" i18n="@@postcode-is-invalid" data-cy="shipping-address-postcode-input">
+                    <li
+                        *ngIf="checkoutForm.get('city').invalid"
+                        i18n="@@city-is-invalid"
+                        data-cy="shipping-address-city-input"
+                    >
+                        City is invalid
+                    </li>
+                    <li
+                        *ngIf="checkoutForm.get('postcode').invalid"
+                        i18n="@@postcode-is-invalid"
+                        data-cy="shipping-address-postcode-input"
+                    >
                         Postcode is invalid
                     </li>
-                    <li *ngIf="!isTermsAndConditionsAccepted" i18n="@@accept-sales-terms" data-cy="terms-and-conditions-checkbox">
+                    <li
+                        *ngIf="!isTermsAndConditionsAccepted"
+                        i18n="@@accept-sales-terms"
+                        data-cy="terms-and-conditions-checkbox"
+                    >
                         Please accept our terms of sale
                     </li>
                 </div>
@@ -610,20 +640,32 @@
                     <span i18n="@@billing-form-is-not-valid">Billing address form has a problem:</span>
                     <!-- Billing address form input fields -->
 
-                    <li *ngIf="billingAddressForm.get('billingName').invalid" i18n="@@billing-name-is-invalid" data.cy="billing-address-name-input">
+                    <li
+                        *ngIf="billingAddressForm.get('billingName').invalid"
+                        i18n="@@billing-name-is-invalid"
+                        data.cy="billing-form-name-error"
+                    >
                         Name is invalid
                     </li>
                     <li
                         *ngIf="billingAddressForm.get('billingStreetAddress').invalid"
                         i18n="@@billing-street-address-is-invalid"
-                        data.cy="billing-address-strees-address-input"
+                        data.cy="billing-address-form-address-error"
                     >
                         Street address is invalid
                     </li>
-                    <li *ngIf="billingAddressForm.get('billingCity').invalid" i18n="@@billing-city-is-invalid" data.cy="billing-address-city-input">
+                    <li
+                        *ngIf="billingAddressForm.get('billingCity').invalid"
+                        i18n="@@billing-city-is-invalid"
+                        data.cy="billing-form-city-error"
+                    >
                         City is invalid
                     </li>
-                    <li *ngIf="billingAddressForm.get('billingPostcode').invalid" i18n="@@billing-postcode-is-invalid" data.cy="billing-address-postcode-input">
+                    <li
+                        *ngIf="billingAddressForm.get('billingPostcode').invalid"
+                        i18n="@@billing-postcode-is-invalid"
+                        data.cy="billing-form-postcode-error"
+                    >
                         Postcode is invalid
                     </li>
                 </div>
