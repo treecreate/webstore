@@ -70,23 +70,6 @@
   flex-grow: 1;
 }
 
-.back-to-basket {
-  margin-left: 10px;
-  transition: 0.5s;
-  text-decoration: none;
-}
-
-.back-to-basket:hover {
-  text-decoration: none;
-  margin-left: 5px;
-  color: var(--second-action-color) !important;
-}
-
-.back-to-basket-container {
-  text-align: left;
-  width: 100%;
-}
-
 .city-code-section {
   display: flex;
   flex-shrink: 1;
