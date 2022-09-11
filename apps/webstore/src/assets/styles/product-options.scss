@@ -238,7 +238,8 @@
 // MOBILE
 
 @media screen and (max-width: 1130px) {
-  .desktop-options-container {
+  .desktop-options-container,
+  .remove-on-mobile {
     display: none;
   }
   .option-toggler,
