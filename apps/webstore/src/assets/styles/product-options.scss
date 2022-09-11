@@ -39,8 +39,14 @@
   display: block;
 }
 
+.option-box-size {
+  align-items: center;
+  display: block;
+}
+
 .option-frame-design,
-.option-font-select {
+.option-font-select,
+.option-tree-design {
   display: flex;
   flex-direction: column;
 }
@@ -64,7 +70,8 @@
   box-shadow: none;
 }
 
-.option-frame-design-btn {
+.option-frame-design-btn,
+.option-tree-design-btn {
   display: flex;
   justify-content: space-between;
 }
@@ -101,8 +108,14 @@
   display: flex;
 }
 
+.banner-input {
+  margin-bottom: 10px;
+}
+
 /* option toggle button */
-.option-toggler {
+.option-toggler,
+.toggle-box-options,
+.intro-modal-option {
   background-color: var(--second-action-color);
   transition: 0.5s;
   border-radius: 50%;
