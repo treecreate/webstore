@@ -259,7 +259,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  checkFormValidity() {
+  checkFormValidity(): void {
     if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
       this.checkoutInvalid = true;
       this.checkShippingInputFields();
@@ -285,7 +285,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutInvalid = false;
   }
 
-  checkShippingInputFields() {
+  checkShippingInputFields(): void {
     const fieldNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
     for (const field in fieldNames) {
       if (this.checkoutForm.get(fieldNames[field]).invalid) {
@@ -310,7 +310,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  checkBillingInputFields() {
+  checkBillingInputFields(): void {
     const fieldNames = ['billingName', 'billingStreetAddress', 'billingCity', 'billingPostcode'];
     for (const field in fieldNames) {
       if (this.billingAddressForm.get(fieldNames[field]).invalid) {
