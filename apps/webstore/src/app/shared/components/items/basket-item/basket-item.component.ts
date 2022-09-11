@@ -109,6 +109,7 @@ export class BasketItemComponent implements OnInit {
     this.isLoading = true;
     if (this.item.quantity > 1) {
       this.item.quantity = this.item.quantity - 1;
+      // Update navbar with service
       this.updatePrice();
     }
   }
@@ -116,6 +117,7 @@ export class BasketItemComponent implements OnInit {
   increaseQuantity() {
     this.isLoading = true;
     this.item.quantity = this.item.quantity + 1;
+    // Update navbar with service
     this.updatePrice();
   }
 

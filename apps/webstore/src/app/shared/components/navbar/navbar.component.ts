@@ -54,6 +54,13 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     this.environment = environment;
+
+    this.localStorageService.getItem<ITransactionItem[]>(LocalStorageVars.transactionItems).subscribe({
+      next: (newList) => {
+        this.itemList = newList;
+        this.getItemsInBasket();
+      },
+    });
   }
 
   changeLocale(language: string) {
