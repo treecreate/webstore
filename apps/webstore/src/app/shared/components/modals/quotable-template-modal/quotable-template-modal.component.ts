@@ -21,7 +21,7 @@ export class QuotableTemplateModalComponent {
     },
     {
       name: 'Til Mor/Far',
-      text: 'Jeg elsker dig MOR/FAR,\nsom træer elsekr vand og solskin.\nDu hjælper mig med at vokse,\ntrives og nå nye højder.\n\nDin SØN/DATTER\nNAVN',
+      text: 'Jeg elsker dig MOR/FAR,\nsom træer elsker vand og solskin.\nDu hjælper mig med at vokse,\ntrives og nå nye højder.\n\nDin SØN/DATTER\nNAVN',
       fontSize: 20,
     },
     {
