@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
@@ -48,6 +48,18 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   isTermsAndConditionsAccepted = false;
   locale;
+  goToPaymentClicked = false;
+
+  @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
+  @ViewChild('checkoutEmailInput') checkoutEmailInput: ElementRef;
+  @ViewChild('checkoutStreetAddressInput') checkoutStreetAddressInput: ElementRef;
+  @ViewChild('checkoutCityInput') checkoutCityInput: ElementRef;
+  @ViewChild('checkoutPostcodeInput') checkoutPostcodeInput: ElementRef;
+
+  @ViewChild('billingNameInput') billingNameInput: ElementRef;
+  @ViewChild('billingStreetAddressInput') billingStreetAddressInput: ElementRef;
+  @ViewChild('billingCityInput') billingCityInput: ElementRef;
+  @ViewChild('billingPostcodeInput') billingPostcodeInput: ElementRef;
 
   priceInfo: IPricing = {
     fullPrice: 0,
@@ -236,10 +248,80 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
+    this.goToPaymentClicked = true;
+    // check checkout form and if terms are accepted
+    this.checkFormValidity();
+
     if (this.isLoggedIn) {
       this.createOrder();
     } else {
       this.createOrderWithNewUser();
+    }
+  }
+
+  checkFormValidity(): void {
+    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
+      this.checkShippingInputFields();
+      if (!this.billingAddressIsTheSame && !this.billingAddressForm.valid) {
+        this.checkBillingInputFields();
+        return;
+      }
+      return;
+    }
+
+    // check if billing address is the same
+    if (!this.billingAddressIsTheSame) {
+      if (!this.billingAddressForm.valid) {
+        this.checkBillingInputFields();
+        return;
+      }
+    }
+  }
+
+  checkShippingInputFields(): void {
+    const fieldNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
+    for (const field in fieldNames) {
+      if (this.checkoutForm.get(fieldNames[field]).invalid) {
+        switch (fieldNames[field]) {
+          case 'name':
+            this.checkoutNameInput.nativeElement.focus();
+            return;
+          case 'email':
+            this.checkoutEmailInput.nativeElement.focus();
+            return;
+          case 'streetAddress':
+            this.checkoutStreetAddressInput.nativeElement.focus();
+            return;
+          case 'city':
+            this.checkoutCityInput.nativeElement.focus();
+            return;
+          case 'postcode':
+          default:
+            this.checkoutPostcodeInput.nativeElement.focus();
+        }
+      }
+    }
+  }
+
+  checkBillingInputFields(): void {
+    const fieldNames = ['billingName', 'billingStreetAddress', 'billingCity', 'billingPostcode'];
+    for (const field in fieldNames) {
+      if (this.billingAddressForm.get(fieldNames[field]).invalid) {
+        switch (fieldNames[field]) {
+          case 'billingName':
+            this.billingNameInput.nativeElement.focus();
+            return;
+          case 'billingStreetAddress':
+            this.billingStreetAddressInput.nativeElement.focus();
+            return;
+          case 'billingCity':
+            this.billingCityInput.nativeElement.focus();
+            return;
+          case 'billingPostcode':
+          default:
+            this.billingPostcodeInput.nativeElement.focus();
+        }
+      }
     }
   }
 
