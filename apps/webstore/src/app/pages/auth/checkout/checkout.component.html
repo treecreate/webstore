@@ -378,11 +378,19 @@
                                     (change)="changeDelivery()"
                                     data-cy="checkout-form-parcelshop-checkbox"
                                 />
-                                <span class="checkmark" data-cy="checkout-form-parcelshop-button"></span>
+                                <span
+                                    class="checkmark parcel-checkmark"
+                                    data-cy="checkout-form-parcelshop-button"
+                                ></span>
                             </label>
-                            <div class="option-title">
-                                <div class="type" i18n="@@parcel-shop-delivery">Parcelshop delivery</div>
-                                <div class="price">{{ getParcelshopDeliveryPrice() }} DKK</div>
+                            <div>
+                                <div class="option-title">
+                                    <div class="type" i18n="@@parcel-shop-delivery">Parcelshop delivery</div>
+                                    <div class="price">{{ getParcelshopDeliveryPrice() }} DKK</div>
+                                </div>
+                                <div class="parcel-selection-info" i18n="@@parcel-selection-info">
+                                    This automatically selects the nearest parcel shop
+                                </div>
                             </div>
                         </div>
                         <!--                     
