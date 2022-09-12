@@ -188,7 +188,12 @@
 
                 <!-- Buy button => changes between showing basket and buyNow -->
                 <div class="nav-section remove-on-mobile">
-                    <button class="navbar-basket-icon tc-button-100" (click)="autoCollapse()" routerLink="/basket">
+                    <button
+                        class="navbar-basket-icon tc-button-100"
+                        data-cy="navbar-basket-link"
+                        (click)="autoCollapse()"
+                        routerLink="/basket"
+                    >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
                         <span class="item-number" *ngIf="itemsInBasket > 0">{{ itemsInBasket }}</span>
                     </button>

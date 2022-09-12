@@ -13,11 +13,6 @@
   flex-direction: column;
 }
 
-.design-screen {
-  margin: 5px;
-  height: 80vh;
-}
-
 .intro-modal-option {
   color: white;
   font-size: larger;
@@ -29,8 +24,7 @@
   margin-bottom: 10px;
 }
 
-.back:hover {
-  text-decoration: none;
-  margin-left: 0;
-  color: var(--second-action-color) !important;
+.design-screen {
+  height: 80vh;
+  width: 80vh;
 }
