@@ -4,9 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { Clipboard } from '@angular/cdk/clipboard';
 import {
   CreateUpdateOrderRequest,
   DesignDimensionEnum,
+  DesignTypeEnum,
   IOrder,
   ITransactionItem,
   OrderStatusEnum,
@@ -64,7 +66,8 @@ export class OrderDetailsComponent implements OnInit {
     public shipmondoService: ShipmondoService,
     private route: ActivatedRoute,
     private location: Location,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    public clipboard: Clipboard
   ) {
     this.title = 'Loading...';
   }
@@ -262,7 +265,14 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   getDesignViewOnlyUrl(id: string): string {
-    return `${env.webstoreUrl}/products/family-tree?designId=${id}`;
+    const designItem = this.order?.transactionItems.find((item) => item.design.designId === id);
+    switch (designItem?.design.designType) {
+      case DesignTypeEnum.familyTree:
+        return `${env.webstoreUrl}/products/family-tree?designId=${id}`;
+      case DesignTypeEnum.quotable:
+      default:
+        return `${env.webstoreUrl}/products/quotable?designId=${id}`;
+    }
   }
 
   /**
