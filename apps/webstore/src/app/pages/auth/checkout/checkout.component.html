@@ -645,33 +645,33 @@
                     data-cy="billing-form-input-error"
                 >
                     <!-- If billing address !== same -->
-                    <span i18n="@@billing-form-is-not-valid">Billing address form has a problem:</span>
+                    <span i18n="@@billing-form-is-not-valid">Billing address is not completed:</span>
                     <!-- Billing address form input fields -->
 
                     <li
                         *ngIf="billingAddressForm.get('billingName').invalid"
-                        i18n="@@billing-name-is-invalid"
+                        i18n="@@name-is-invalid"
                         data.cy="billing-form-name-error"
                     >
                         Name is invalid
                     </li>
                     <li
                         *ngIf="billingAddressForm.get('billingStreetAddress').invalid"
-                        i18n="@@billing-street-address-is-invalid"
+                        i18n="@@street-address-is-invalid"
                         data.cy="billing-address-form-address-error"
                     >
                         Street address is invalid
                     </li>
                     <li
                         *ngIf="billingAddressForm.get('billingCity').invalid"
-                        i18n="@@billing-city-is-invalid"
+                        i18n="@@city-is-invalid"
                         data.cy="billing-form-city-error"
                     >
                         City is invalid
                     </li>
                     <li
                         *ngIf="billingAddressForm.get('billingPostcode').invalid"
-                        i18n="@@billing-postcode-is-invalid"
+                        i18n="@@postcode-is-invalid"
                         data.cy="billing-form-postcode-error"
                     >
                         Postcode is invalid
