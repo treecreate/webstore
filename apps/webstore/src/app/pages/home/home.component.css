@@ -196,6 +196,10 @@ figure {
   margin-bottom: 0.5em;
 }
 
+.trustpilot-reviews {
+  width: 300px;
+}
+
 .values-container,
 .team-container {
   min-height: 55vh;
@@ -282,7 +286,7 @@ figure {
 }
 
 .trustpilot-section {
-  margin: 1.25em 0 0.5em 0;
+  margin: 1.25em 0 0 0;
   display: flex;
   align-items: center;
 }
@@ -293,10 +297,13 @@ figure {
 }
 
 .trustpilot-rating-number {
-  margin-left: 0.5em;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 1.5em;
   font-weight: 700;
+}
+
+.trustpilot-rating {
+  margin-left: 0.5em;
 }
 
 .trustpilot-rating-text {
@@ -329,6 +336,11 @@ figure {
 .button-section {
   display: flex;
   justify-content: space-between;
+}
+
+.trustpilot-link {
+  text-decoration: none;
+  text-align: center;
 }
 
 @media screen and (max-width: 1100px) {
