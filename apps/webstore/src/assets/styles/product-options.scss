@@ -172,7 +172,7 @@
 
 .mobile-options-items {
   position: absolute;
-  bottom: 4em;
+  bottom: -1em;
   right: 0;
   border: 2px solid var(--second-action-color);
   border-radius: 3px;
@@ -251,6 +251,8 @@
 @media screen and (max-width: 640px) {
   .mobile-options-items {
     transform: scale(0.7);
+    bottom: -5em !important;
+    right: -30px !important;
   }
 }
 
@@ -261,12 +263,11 @@
   }
 }
 
-@media screen and (max-width: 700px) and (orientation: landscape) {
+@media screen and (max-width: 1000px) and (orientation: landscape) {
   .mobile-options-items {
-    transform: scale(0.6);
-
-    bottom: -3.75em;
-    left: -50px;
+    bottom: -8em;
+    transform: scale(0.6) !important;
+    left: -17px;
   }
 }
 
