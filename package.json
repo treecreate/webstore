@@ -85,7 +85,8 @@
     "nx": "14.5.4",
     "rxjs": "^7.4.0",
     "tslib": "^2.0.0",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "zone.js": "0.11.4"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "14.0.2",
