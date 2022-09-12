@@ -48,7 +48,6 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   isTermsAndConditionsAccepted = false;
   locale;
-  billingAddressInvalid = false;
   goToPaymentClicked = false;
 
   @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
