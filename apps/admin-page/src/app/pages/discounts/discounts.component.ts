@@ -43,7 +43,7 @@ export class DiscountsComponent implements OnInit {
   ];
   discounts!: IDiscount[];
   discountDisplayList: IDiscount[] = [];
-  showDisabled = false;
+  showInactive = false;
   showActive = true;
   showAsc = true;
   showAmount = true;
@@ -126,13 +126,13 @@ export class DiscountsComponent implements OnInit {
     // Check to display active
     if (this.showActive) {
       this.discountDisplayList = this.discountDisplayList.concat(
-        this.discounts.filter((discount) => discount.isEnabled)
+        this.discounts.filter((discount) => this.getDiscountState(discount) === DiscountState.active)
       );
     }
     // Check to display default
-    if (this.showDisabled) {
+    if (this.showInactive) {
       this.discountDisplayList = this.discountDisplayList.concat(
-        this.discounts.filter((discount) => !discount.isEnabled)
+        this.discounts.filter((discount) => this.getDiscountState(discount) !== DiscountState.active)
       );
     }
 
@@ -142,10 +142,10 @@ export class DiscountsComponent implements OnInit {
       return;
     } else if (this.showAmount) {
       // Only show amount
-      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount);
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent);
     } else if (this.showPercent) {
       // Only show percent
-      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent);
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount);
     } else {
       this.discountDisplayList = [];
     }
