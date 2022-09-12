@@ -208,15 +208,6 @@
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
         </button>
         <button
-            class="intro-modal-option tc-button-square"
-            type="button"
-            (click)="openIntroModal()"
-            title="Hide/Show box options"
-            data-cy="family-tree-intro-modal-option-button"
-        >
-            ?
-        </button>
-        <button
             class="toggle-box-options tc-button-square"
             type="button"
             (click)="toggleBoxOptions()"
@@ -228,6 +219,15 @@
                 alt="Toggle box options"
                 [src]="toggleBoxOptionsIcon"
             />
+        </button>
+        <button
+            class="intro-modal-option tc-button-square"
+            type="button"
+            (click)="openIntroModal()"
+            title="Hide/Show box options"
+            data-cy="family-tree-intro-modal-option-button"
+        >
+            ?
         </button>
     </div>
 </div>

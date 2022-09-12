@@ -254,6 +254,11 @@
     bottom: -5em !important;
     right: -30px !important;
   }
+
+  .mobile-options {
+    margin: 0;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 400px) {
