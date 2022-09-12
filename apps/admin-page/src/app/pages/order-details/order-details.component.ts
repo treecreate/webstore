@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { Clipboard } from '@angular/cdk/clipboard';
 import {
   CreateUpdateOrderRequest,
   DesignDimensionEnum,
@@ -65,7 +66,8 @@ export class OrderDetailsComponent implements OnInit {
     public shipmondoService: ShipmondoService,
     private route: ActivatedRoute,
     private location: Location,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    public clipboard: Clipboard
   ) {
     this.title = 'Loading...';
   }
