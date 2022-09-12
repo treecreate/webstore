@@ -480,7 +480,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="shipping-form-is-not-valid" datatype="html">
-        <source>Shipping address form has a problem:</source>
+        <source>Shipping address is not completed:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">597,600</context>

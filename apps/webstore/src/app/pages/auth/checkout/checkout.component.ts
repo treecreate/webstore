@@ -48,8 +48,8 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   isTermsAndConditionsAccepted = false;
   locale;
-  checkoutInvalid = false;
   billingAddressInvalid = false;
+  goToPaymentClicked = false;
 
   @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
   @ViewChild('checkoutEmailInput') checkoutEmailInput: ElementRef;
@@ -249,6 +249,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
+    this.goToPaymentClicked = true;
     // check checkout form and if terms are accepted
     this.checkFormValidity();
 
@@ -261,10 +262,8 @@ export class CheckoutComponent implements OnInit {
 
   checkFormValidity(): void {
     if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
-      this.checkoutInvalid = true;
       this.checkShippingInputFields();
       if (!this.billingAddressIsTheSame && !this.billingAddressForm.valid) {
-        this.billingAddressInvalid = true;
         this.checkBillingInputFields();
         return;
       }
@@ -274,13 +273,10 @@ export class CheckoutComponent implements OnInit {
     // check if billing address is the same
     if (!this.billingAddressIsTheSame) {
       if (!this.billingAddressForm.valid) {
-        this.billingAddressInvalid = true;
         this.checkBillingInputFields();
         return;
       }
     }
-
-    this.checkoutInvalid = false;
   }
 
   checkShippingInputFields(): void {

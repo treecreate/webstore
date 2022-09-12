@@ -553,10 +553,7 @@
                                 <input
                                     type="checkbox"
                                     [checked]="isTermsAndConditionsAccepted"
-                                    (change)="
-                                        isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted;
-                                        checkoutInvalid = !isTermsAndConditionsAccepted
-                                    "
+                                    (change)="isTermsAndConditionsAccepted = !isTermsAndConditionsAccepted"
                                     data-cy="checkout-form-terms-checkbox"
                                 />
                                 <span class="checkmark" data-cy="checkout-form-terms-button"></span>
@@ -586,15 +583,14 @@
                                 aria-hidden="true"
                             ></span>
                         </button>
-                        <!-- [disabled]="!isDisabled()" -->
                     </div>
                 </div>
                 <div
                     class="input-error"
-                    *ngIf="checkoutInvalid && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
+                    *ngIf="goToPaymentClicked && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
                     data-cy="checkout-shipping-input-error"
                 >
-                    <span i18n="@@shipping-form-is-not-valid">Shipping address form has a problem:</span>
+                    <span i18n="@@shipping-form-is-not-valid">Shipping address is not completed:</span>
                     <!-- Checkout form input fields -->
                     <li
                         *ngIf="checkoutForm.get('name').invalid"
@@ -641,7 +637,7 @@
                 </div>
                 <div
                     class="input-error"
-                    *ngIf="!billingAddressIsTheSame && billingAddressInvalid && billingAddressForm.invalid"
+                    *ngIf="!billingAddressIsTheSame && goToPaymentClicked && billingAddressForm.invalid"
                     data-cy="billing-form-input-error"
                 >
                     <!-- If billing address !== same -->
