@@ -202,6 +202,16 @@
   color: var(--red-color);
 }
 
+.parcel-selection-info {
+  padding-left: 40px;
+  opacity: 0.6;
+  font-size: var(--extra-small-font);
+}
+
+.parcel-checkmark {
+  top: 6px !important;
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;
