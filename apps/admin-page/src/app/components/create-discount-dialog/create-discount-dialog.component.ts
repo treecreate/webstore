@@ -30,7 +30,7 @@ export class CreateDiscountDialogComponent {
         Validators.minLength(3),
         Validators.required,
       ]),
-      startsAt: new UntypedFormControl(''),
+      startsAt: new UntypedFormControl(new Date(), [Validators.required]),
       expiresAt: new UntypedFormControl('', [Validators.required]),
       remainingUses: new UntypedFormControl(1, [Validators.required, Validators.pattern('^[0-9]*$')]),
       type: new UntypedFormControl(DiscountType.amount, [Validators.required]),

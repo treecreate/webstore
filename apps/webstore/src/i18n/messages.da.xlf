@@ -163,7 +163,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-item-2" datatype="html">
-        <source>You are supporting local and environmental business.</source>
+        <source>You are supporting local and environmental businesses.</source>
         <target>Du støtter lokale og miljøvenlige virksomheder.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
@@ -573,6 +573,14 @@
           <context context-type="linenumber">442,443</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="parcel-selection-info" datatype="html">
+        <source> This automatically selects the nearest parcel shop </source>
+        <target>Den vælger automatisk nærmeste pakkeshop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">392,394</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="home-delivery" datatype="html">
         <source>Home delivery</source>
         <target>Hjemmelevering</target> 
@@ -655,6 +663,86 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
           <context context-type="linenumber">668,669</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shipping-form-is-not-valid" datatype="html">
+        <source>Shipping address is not completed:</source>
+        <target>Leveringsadresse er ikke udfyldt korrekt:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">597,600</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="name-is-invalid" datatype="html">
+        <source> Name is invalid </source>
+        <target>Navn er ikke udfyldt korrekt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">604,607</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">656,659</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email-is-invalid" datatype="html">
+        <source> Email is invalid </source>
+        <target>Email er ikke udfyldt korrekt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">611,614</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="street-address-is-invalid" datatype="html">
+        <source> Street address is invalid </source>
+        <target>Adressen er ikke udfyldt korrekt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">618,621</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">663,666</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="city-is-invalid" datatype="html">
+        <source> City is invalid </source>
+        <target>By er ikke udfyldt korrekt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">625,628</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">670,673</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="postcode-is-invalid" datatype="html">
+        <source> Postcode is invalid </source>
+        <target>Postnummeret er ikke udfyldt korrekt</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">632,635</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">677,681</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="accept-sales-terms" datatype="html">
+        <source> Please accept our terms of sale </source>
+        <target>Godkend vores salgsbetingelser</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">639,643</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="billing-form-is-not-valid" datatype="html">
+        <source>Billing address is not completed:</source>
+        <target>Betalings adresse er ikke udfyldt korrekt:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
+          <context context-type="linenumber">648,652</context>
         </context-group>
       </trans-unit>
       <trans-unit id="your-collection" datatype="html">

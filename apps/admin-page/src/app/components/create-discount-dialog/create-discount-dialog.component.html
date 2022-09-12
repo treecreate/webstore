@@ -56,7 +56,9 @@
             </mat-form-field>
 
             <mat-form-field class="input" appearance="fill">
-                <mat-label class="input-label">Amount</mat-label>
+                <mat-label class="input-label">{{
+                    createDiscountForm.get('type')?.value === 'AMOUNT' ? 'Amount in DKK' : 'Percent'
+                }}</mat-label>
                 <input type="number" data-cy="discount-amount-input" formControlName="amount" matInput value="10" />
             </mat-form-field>
         </div>
