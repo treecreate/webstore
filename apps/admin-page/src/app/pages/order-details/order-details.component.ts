@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   CreateUpdateOrderRequest,
   DesignDimensionEnum,
+  DesignTypeEnum,
   IOrder,
   ITransactionItem,
   OrderStatusEnum,
@@ -262,7 +263,14 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   getDesignViewOnlyUrl(id: string): string {
-    return `${env.webstoreUrl}/products/family-tree?designId=${id}`;
+    const designItem = this.order?.transactionItems.find((item) => item.design.designId === id);
+    switch (designItem?.design.designType) {
+      case DesignTypeEnum.familyTree:
+        return `${env.webstoreUrl}/products/family-tree?designId=${id}`;
+      case DesignTypeEnum.quotable:
+      default:
+        return `${env.webstoreUrl}/products/quotable?designId=${id}`;
+    }
   }
 
   /**
