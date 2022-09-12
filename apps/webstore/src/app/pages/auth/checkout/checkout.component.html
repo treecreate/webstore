@@ -588,7 +588,7 @@
                 <div
                     class="input-error"
                     *ngIf="goToPaymentClicked && (checkoutForm.invalid || !isTermsAndConditionsAccepted)"
-                    data-cy="checkout-shipping-input-error"
+                    data-cy="checkout-shipping-input-error-message"
                 >
                     <span i18n="@@shipping-form-is-not-valid">Shipping address is not completed:</span>
                     <!-- Checkout form input fields -->
@@ -638,9 +638,8 @@
                 <div
                     class="input-error"
                     *ngIf="!billingAddressIsTheSame && goToPaymentClicked && billingAddressForm.invalid"
-                    data-cy="billing-form-input-error"
+                    data-cy="billing-form-input-error-message"
                 >
-                    <!-- If billing address !== same -->
                     <span i18n="@@billing-form-is-not-valid">Billing address is not completed:</span>
                     <!-- Billing address form input fields -->
 
