@@ -212,6 +212,23 @@
   top: 6px !important;
 }
 
+.blocker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: ' ';
+  background: white;
+  opacity: 60%;
+  align-items: center;
+}
+
+.spinner {
+  color: var(--green-color);
+  position: absolute;
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;
