@@ -195,6 +195,25 @@
   top: 6px !important;
 }
 
+.blocker {
+  position: fixed;
+  display: flex;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: ' ';
+  background: white;
+  opacity: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-success {
+  color: var(--green-color);
+}
+
 @media screen and (max-width: 600px) {
   .checkout-logo {
     width: 150px;
