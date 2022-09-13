@@ -212,6 +212,9 @@
   width: 20px;
   margin: 5px;
 }
+.remove-on-desktop {
+  display: none !important;
+}
 
 @media all and (max-width: 992px) {
   .remove-on-mobile {
@@ -219,10 +222,10 @@
   }
   .d-inline-block {
     text-align: center;
+    flex-direction: column;
   }
   .show-on-mobile {
     display: flex !important;
-    justify-content: center;
   }
   .nav-item {
     padding: 0 1rem 0 0;
