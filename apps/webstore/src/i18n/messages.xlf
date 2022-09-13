@@ -583,6 +583,10 @@
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">21,23</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="profile" datatype="html">
         <source> Profile </source>
@@ -1899,13 +1903,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">23,25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="create-new" datatype="html">
-        <source> Create new design </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
-          <context context-type="linenumber">32,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="20-procent-discount" datatype="html">
