@@ -213,7 +213,7 @@
 }
 
 .blocker {
-  position: absolute;
+  position: fixed;
   display: flex;
   top: 0;
   left: 0;
@@ -226,11 +226,8 @@
   justify-content: center;
 }
 
-.spinner {
+.text-success {
   color: var(--green-color);
-  position: absolute;
-  opacity: 100%;
-  font-size: large;
 }
 
 @media screen and (max-width: 600px) {

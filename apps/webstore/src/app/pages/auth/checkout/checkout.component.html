@@ -679,12 +679,7 @@
         <mat-spinner class="spinner" [diameter]="70">Loading</mat-spinner>
     </div> -->
     <div class="blocker" *ngIf="isLoading">
-        <span
-            *ngIf="isLoading"
-            class="spinner-border spinner-border-sm text-light"
-            style="margin: 5px"
-            role="status"
-            aria-hidden="true"
-            ></span>
+        <div class="spinner-border" style="color: var(--green-color)" role="status"></div>
+        <span class="sr-only"></span>
     </div>
 </main>
