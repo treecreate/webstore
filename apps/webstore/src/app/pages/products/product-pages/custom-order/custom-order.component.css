@@ -9,6 +9,7 @@
 
 .custom-order-content-container {
   width: 60vw;
+  max-width: 900px;
   box-shadow: 0px 7px 20px -3px rgb(0 0 0 / 20%);
   padding: 15px 20px;
 }
