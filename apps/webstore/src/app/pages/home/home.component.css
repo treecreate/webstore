@@ -45,18 +45,15 @@
 
 .main-text-container {
   z-index: 901;
-  width: 100vw;
+  width: 45vw;
+  margin: 125px 0 0 50px;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  margin-top: 8em;
-  flex-direction: column;
   letter-spacing: 2px;
   color: white;
 }
 
 .main-text {
-  filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.25));
 }
 
 .descriptive-content-container {
@@ -425,10 +422,9 @@ figure {
     min-width: 350px;
   }
 
-  .text-container {
-    width: 60vw;
-    text-align: center;
-    margin-top: 20px;
+  /* Old */
+  .main-text-container {
+    width: 70vw;
   }
 
   .descriptive-img {
@@ -448,7 +444,7 @@ figure {
   }
 
   .main-text-container {
-    height: 45vh;
+    height: 65vh;
     display: flex;
     align-items: center;
     justify-content: center;
