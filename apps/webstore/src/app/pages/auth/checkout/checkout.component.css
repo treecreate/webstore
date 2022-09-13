@@ -214,6 +214,7 @@
 
 .blocker {
   position: absolute;
+  display: flex;
   top: 0;
   left: 0;
   bottom: 0;
@@ -222,11 +223,14 @@
   background: white;
   opacity: 60%;
   align-items: center;
+  justify-content: center;
 }
 
 .spinner {
   color: var(--green-color);
   position: absolute;
+  opacity: 100%;
+  font-size: large;
 }
 
 @media screen and (max-width: 600px) {

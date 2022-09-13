@@ -675,7 +675,16 @@
             </div>
         </form>
     </div>
+    <!-- <div class="blocker" *ngIf="isLoading">
+        <mat-spinner class="spinner" [diameter]="70">Loading</mat-spinner>
+    </div> -->
     <div class="blocker" *ngIf="isLoading">
-        <mat-spinner class="spinner" [diameter]="70"></mat-spinner>
+        <span
+            *ngIf="isLoading"
+            class="spinner-border spinner-border-sm text-light"
+            style="margin: 5px"
+            role="status"
+            aria-hidden="true"
+            ></span>
     </div>
 </main>
