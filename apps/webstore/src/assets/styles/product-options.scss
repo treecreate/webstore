@@ -171,8 +171,8 @@
 }
 
 .mobile-options-items {
-  position: absolute;
-  bottom: -1em;
+  position: fixed;
+  bottom: 3em;
   right: 0;
   border: 2px solid var(--second-action-color);
   border-radius: 3px;
@@ -223,9 +223,9 @@
 }
 
 .mobile-option-buttons-container {
-  bottom: 0.7em;
-  right: 0;
-  position: sticky;
+  bottom: 1em;
+  width: 100%;
+  position: fixed;
 }
 
 .option-icon,
@@ -246,18 +246,25 @@
   .toggle-box-options {
     display: block;
   }
+  .mobile-options-items {
+    box-shadow: 0px 4px 15px 2px rgb(0 0 0 / 20%);
+  }
 }
 
 @media screen and (max-width: 640px) {
   .mobile-options-items {
     transform: scale(0.7);
-    bottom: -5em !important;
-    right: -30px !important;
+    bottom: -4em !important;
+    left: -2.25em;
+  }
+
+  .mobile-option-buttons-container {
+    right: 1em;
   }
 
   .mobile-options {
     margin: 0;
-    justify-content: center;
+    right: -1em;
   }
 }
 
@@ -268,7 +275,7 @@
   }
 }
 
-@media screen and (max-width: 1000px) and (orientation: landscape) {
+@media screen and (max-width: 700px) and (orientation: landscape) {
   .mobile-options-items {
     bottom: -8em;
     transform: scale(0.6) !important;
