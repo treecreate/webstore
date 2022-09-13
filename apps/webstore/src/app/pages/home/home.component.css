@@ -5,7 +5,7 @@
 }
 
 .page-wrapper {
-  max-width: 1440px;
+  max-width: 1600px;
 }
 
 .title {
@@ -36,7 +36,7 @@
 
 .darkener {
   position: absolute;
-  max-width: 1440px;
+  max-width: 1600px;
   width: 100vw;
   height: 100%;
   background: rgb(0, 0, 0);
@@ -94,7 +94,7 @@ figure {
 }
 
 .background-image-container {
-  width: 720px;
+  width: 800px;
   position: absolute;
   height: 100%;
   overflow: hidden;
@@ -185,7 +185,7 @@ figure {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 420px;
+  height: 430px;
   overflow: scroll;
 }
 
