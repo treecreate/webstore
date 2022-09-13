@@ -753,16 +753,20 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="continue-shopping" datatype="html">
+        <source> Continue shopping </source>
+        <target> Shop videre </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
+          <context context-type="linenumber">21,23</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="create-new" datatype="html">
         <source>Create New design</source>
         <target>Start nyt design</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
           <context context-type="linenumber">25,26</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
-          <context context-type="linenumber">40,41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="profile" datatype="html">
