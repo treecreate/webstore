@@ -2437,20 +2437,28 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="engelsk" datatype="html">
+      <trans-unit id="english" datatype="html">
         <source>English</source>
-        <target>Engelsk</target> 
+        <target>Engelsk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="dansk" datatype="html">
+      <trans-unit id="danish" datatype="html">
         <source>Danish</source>
-        <target>Dansk</target> 
+        <target>Dansk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="orders" datatype="html">

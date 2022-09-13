@@ -215,7 +215,10 @@
 
 @media all and (max-width: 992px) {
   .remove-on-mobile {
-    display: none;
+    display: none !important;
+  }
+  .d-inline-block {
+    text-align: center;
   }
   .show-on-mobile {
     display: flex !important;
