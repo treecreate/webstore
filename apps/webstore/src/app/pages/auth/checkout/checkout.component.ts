@@ -460,7 +460,6 @@ export class CheckoutComponent implements OnInit {
       })
       .subscribe({
         next: (paymentLink: IPaymentLink) => {
-          this.isLoading = false;
           this.localStorageService.removeItem(LocalStorageVars.discount);
           this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
           this.eventsService.create('webstore.checkout.payment-initiated');
