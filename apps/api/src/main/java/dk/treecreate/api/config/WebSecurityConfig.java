@@ -92,6 +92,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .antMatchers(HttpMethod.POST, "/orders/custom")
         .permitAll()
+        .antMatchers(HttpMethod.GET, "/orders/planted-trees")
+        .permitAll()
         .antMatchers("/healthcheck")
         .permitAll()
         .antMatchers(

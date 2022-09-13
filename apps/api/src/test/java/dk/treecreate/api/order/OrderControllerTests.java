@@ -1,7 +1,10 @@
 package dk.treecreate.api.order;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -12,6 +15,7 @@ import dk.treecreate.api.contactinfo.ContactInfoRepository;
 import dk.treecreate.api.contactinfo.dto.UpdateContactInfoRequest;
 import dk.treecreate.api.mail.MailService;
 import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
+import dk.treecreate.api.order.dto.GetPlantedTreesResponse;
 import dk.treecreate.api.order.dto.UpdateOrderRequest;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
@@ -329,6 +333,27 @@ class OrderControllerTests {
                   .param("description", description)
                   .accept(MediaType.MULTIPART_FORM_DATA))
           .andExpect(status().isAccepted());
+    }
+  }
+
+  @Nested
+  class GetPlantedTrees {
+
+    @Test
+    @DisplayName("GET /orders/planted-trees endpoint returns 200: OK for unauthenticated users")
+    void getPlantedTreesReturnsOKForUnauthenticatedUsers() throws Exception {
+      mvc.perform(get("/orders/planted-trees")).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("GET /orders/planted-trees endpoint returns a number of planted trees")
+    void getPlantedTreesReturnsTotalPlantedTrees() throws Exception {
+      Float plantedTrees = Float.valueOf((float) 15.0);
+      Mockito.when(orderRepository.getPlantedTrees()).thenReturn(plantedTrees);
+      mvc.perform(get("/orders/planted-trees"))
+          .andExpect(
+              content()
+                  .json(TestUtilsService.asJsonString(new GetPlantedTreesResponse(plantedTrees))));
     }
   }
 }
