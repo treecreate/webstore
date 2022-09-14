@@ -32,6 +32,7 @@ import { EventsService } from '../../../../shared/services/events/events.service
     './quotable.component.scss',
     './quotable.component.mobile.scss',
     '../../../../../assets/styles/tc-input-field.scss',
+    '../../../../../assets/styles/product-options.scss',
   ],
 })
 export class QuotableComponent implements OnInit {
@@ -242,7 +243,7 @@ export class QuotableComponent implements OnInit {
     );
   }
 
-  saveDesign(params: { persist?: boolean }) {
+  saveDesign(params: { persist?: boolean }, withAlert?: boolean) {
     if (!this.isMutable) {
       console.warn('This design cannot be updated');
       return;
@@ -252,12 +253,14 @@ export class QuotableComponent implements OnInit {
     this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn) {
-      this.toastService.showAlert(
-        'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
-        'Dit design er blevet midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
-        'success',
-        7000
-      );
+      if (!withAlert) {
+        this.toastService.showAlert(
+          'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
+          'Dit design er blevet midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
+          'success',
+          7000
+        );
+      }
       this.eventsService.create(`webstore.quotable.design-updated.local-storage`);
       return;
     }
@@ -360,7 +363,7 @@ export class QuotableComponent implements OnInit {
 
   // TODO - either make addToBasket modal recognize designType or create a new modal for quotable
   openAddToBasketModal() {
-    this.saveDesign({ persist: false });
+    this.saveDesign({ persist: false }, true);
     const modalRef = this.modalService.open(AddToBasketModalComponent);
     modalRef.componentInstance.designType = DesignTypeEnum.quotable;
   }
