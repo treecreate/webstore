@@ -5,6 +5,12 @@
   align-items: center;
 }
 
+.link {
+  color: var(--second-action-color) !important;
+  text-decoration: underline;
+  margin-right: 10px;
+}
+
 .section-container:first-of-type {
   margin-top: 100px;
 }
@@ -238,4 +244,58 @@
 }
 #newsletter-signup-form > .tc-button-25 {
   width: 30%;
+}
+
+/* ====== Team Section ====== */
+
+#team {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-height: none;
+}
+
+.team-slogans-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 0 20px 0;
+}
+
+.team-list-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.team-person-container {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  padding: 20px;
+  margin: 10px;
+  text-align: left;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.team-person-links-container {
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+}
+
+@media screen and (max-width: 750px) {
+  .team-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .team-person-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
 }
