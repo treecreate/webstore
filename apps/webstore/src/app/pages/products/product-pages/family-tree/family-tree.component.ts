@@ -32,6 +32,7 @@ import { EventsService } from '../../../../shared/services/events/events.service
     './family-tree.component.scss',
     './family-tree.component.mobile.scss',
     '../../../../../assets/styles/tc-input-field.scss',
+    '../../../../../assets/styles/product-options.scss',
   ],
 })
 export class FamilyTreeComponent implements OnInit {

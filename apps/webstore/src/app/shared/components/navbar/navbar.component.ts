@@ -54,6 +54,13 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     this.environment = environment;
+
+    this.localStorageService.getItem<ITransactionItem[]>(LocalStorageVars.transactionItems).subscribe({
+      next: (newList) => {
+        this.itemList = newList;
+        this.getItemsInBasket();
+      },
+    });
   }
 
   changeLocale(language: string) {
@@ -72,11 +79,7 @@ export class NavbarComponent implements OnInit {
     if (this.isLoggedIn) {
       this.transactionItemService.getTransactionItems().subscribe(
         (itemList: ITransactionItem[]) => {
-          let sum = 0;
-          for (let i = 0; i < itemList.length; i++) {
-            sum += itemList[i].quantity;
-          }
-          this.itemsInBasket = sum;
+          this.itemsInBasket = this.calculateItemsInBasket(itemList);
         },
         (error: HttpErrorResponse) => {
           console.error(error.error);
@@ -92,11 +95,19 @@ export class NavbarComponent implements OnInit {
         LocalStorageVars.transactionItems
       ).value;
       if (localStorageItemsList !== null) {
-        this.itemsInBasket = localStorageItemsList.length;
+        this.itemsInBasket = this.calculateItemsInBasket(localStorageItemsList);
       } else {
         this.itemsInBasket = 0;
       }
     }
+  }
+
+  calculateItemsInBasket(itemList: ITransactionItem[]): number {
+    let sum = 0;
+    itemList.forEach((item) => {
+      sum += item.quantity;
+    });
+    return sum;
   }
 
   /**

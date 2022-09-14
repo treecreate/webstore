@@ -38,7 +38,7 @@
             <!-- Dropdown => language change, always shown -->
             <div
                 ngbDropdown
-                class="d-inline-block language-icon"
+                class="d-inline-block language-icon remove-on-mobile"
                 (mouseenter)="showLanguageChange()"
                 (mouseleave)="hideLanguageChange()"
                 data-cy="navbar-localization"
@@ -57,40 +57,30 @@
                         (click)="changeLocale('en')"
                         href="/{{ localeCode }}/"
                         data-cy="navbar-localization-en"
-                        i18n="@@engelsk"
-                        >Engelsk</a
+                        i18n="@@english"
+                        >English</a
                     >
                     <a
                         ngbDropdownItem
                         (click)="changeLocale('da')"
                         href="/"
                         data-cy="navbar-localization-dk"
-                        i18n="@@dansk"
-                        >Dansk</a
+                        i18n="@@danish"
+                        >Danish</a
                     >
                 </div>
             </div>
         </div>
 
-        <!-- Buy / Basket button => only shown on mobile, changes depending on items being in basket -->
+        <!-- Buy / Basket button => only shown on mobile -->
         <div class="nav-section">
             <button
                 class="navbar-basket-icon tc-button-100 show-on-mobile"
                 (click)="autoCollapse()"
                 routerLink="/basket"
-                *ngIf="itemsInBasket !== 0"
             >
                 <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
-                <span class="item-number">{{ itemsInBasket }}</span>
-            </button>
-            <button
-                class="tc-button-100 show-on-mobile"
-                (click)="autoCollapse()"
-                routerLink="/products"
-                *ngIf="itemsInBasket === 0"
-            >
-                <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
-                <span class="buy-button-text" i18n="@@buy">Buy</span>
+                <span class="item-number" *ngIf="itemsInBasket > 0">{{ itemsInBasket }}</span>
             </button>
         </div>
 
@@ -157,6 +147,40 @@
                         >Log out</a
                     >
                 </li>
+                <div
+                    ngbDropdown
+                    class="d-inline-block language-icon show-on-mobile"
+                    (mouseenter)="showLanguageChange()"
+                    (mouseleave)="hideLanguageChange()"
+                    data-cy="navbar-localization"
+                >
+                    <a class="nav-item" ngbDropdownToggle class="waves-light">
+                        {{ localeCode }}
+                    </a>
+                    <div
+                        class="dropdown-menu-container language-dropdown dropdown-item-list"
+                        ngbDropdownMenu
+                        aria-labelledby="dropdownBasic"
+                        #languageChange
+                    >
+                        <a
+                            ngbDropdownItem
+                            (click)="changeLocale('en')"
+                            href="/{{ localeCode }}/"
+                            data-cy="navbar-localization-en"
+                            i18n="@@english"
+                            >English</a
+                        >
+                        <a
+                            ngbDropdownItem
+                            (click)="changeLocale('da')"
+                            href="/"
+                            data-cy="navbar-localization-dk"
+                            i18n="@@danish"
+                            >Danish</a
+                        >
+                    </div>
+                </div>
 
                 <div class="remove-on-mobile">
                     <div ngbDropdown class="d-inline-block" *ngIf="isLoggedIn" (mouseleave)="hideProfileMenu()">
@@ -191,14 +215,14 @@
                 <div class="nav-section remove-on-mobile">
                     <button
                         class="navbar-basket-icon tc-button-100"
+                        data-cy="navbar-basket-link"
                         (click)="autoCollapse()"
                         routerLink="/basket"
-                        *ngIf="itemsInBasket !== 0"
                     >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
-                        <span class="item-number">{{ itemsInBasket }}</span>
+                        <span class="item-number" *ngIf="itemsInBasket > 0">{{ itemsInBasket }}</span>
                     </button>
-                    <button
+                    <!-- <button
                         class="tc-button-100"
                         (click)="autoCollapse()"
                         routerLink="/products"
@@ -207,7 +231,7 @@
                     >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
                         <span class="buy-button-text" i18n="@@buy">Buy</span>
-                    </button>
+                    </button> -->
                 </div>
             </ul>
         </div>

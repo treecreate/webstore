@@ -21,10 +21,6 @@
   height: 50px;
 }
 
-button {
-  margin: 10px;
-}
-
 @media screen and (max-width: 570px) {
   .tc-button-33 {
     width: 100%;
