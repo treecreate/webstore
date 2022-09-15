@@ -1,24 +1,26 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ErrorlogPriorityEnum, INewsletter } from '@interfaces';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { ErrorlogsService } from '../../shared/services/errorlog/errorlog.service';
 import { EventsService } from '../../shared/services/events/events.service';
 import { NewsletterService } from '../../shared/services/newsletter/newsletter.service';
+import { OrderService } from '../../shared/services/order/order.service';
 
 @Component({
   selector: 'webstore-about-us',
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.css'],
 })
-export class AboutUsComponent {
-  treesPlanted = 120; // TODO - fetch the planted trees from the API
+export class AboutUsComponent implements OnInit {
+  treesPlanted = 666;
   newsletterForm: UntypedFormGroup;
   isLoading = false;
   @ViewChild('emailInput') emailInput: ElementRef;
 
   constructor(
     private newsletterService: NewsletterService,
+    private ordersService: OrderService,
     private toastService: ToastService,
     private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
@@ -26,6 +28,10 @@ export class AboutUsComponent {
     this.newsletterForm = new UntypedFormGroup({
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
     });
+  }
+
+  ngOnInit(): void {
+    this.fetchPlantedTreesTotal();
   }
 
   registerNewsletter(): void {
@@ -54,6 +60,22 @@ export class AboutUsComponent {
       this.emailInput.nativeElement.focus();
       this.isLoading = false;
     }
+  }
+
+  fetchPlantedTreesTotal(): void {
+    this.ordersService.getPlantedTreesTotal().subscribe({
+      next: (plantedTreesTotal) => {
+        this.treesPlanted = plantedTreesTotal.plantedTrees;
+      },
+      error: (error) => {
+        console.error(error);
+        this.errorlogsService.create(
+          'webstore.about-us.fetch-planted-trees-failed',
+          ErrorlogPriorityEnum.medium,
+          error
+        );
+      },
+    });
   }
 
   isNewsletterReadyForSignup(): boolean {
