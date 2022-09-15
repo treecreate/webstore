@@ -176,16 +176,22 @@
 }
 
 .own-design-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  height: 100px;
   width: 100px;
   background-color: white;
   font-size: small;
 }
 
 .own-design-info-box-header {
-  font-size: large;
+  font-size: x-large;
   font-weight: bolder;
 }
+
 @media screen and (max-width: 850px) {
   #own-design {
     flex-direction: column;
@@ -195,12 +201,14 @@
     object-fit: cover;
     width: 100%;
   }
+
   #own-design > .section-content-wrapper {
     max-height: fit-content;
     min-height: fit-content;
     max-width: 80vw;
     min-width: 300px;
   }
+
   #own-design-text-container {
     max-height: fit-content;
     min-height: fit-content;
@@ -210,6 +218,10 @@
 
   #env-initiatives-btn {
     width: 100%;
+  }
+  .own-design-info-box {
+    height: 75px;
+    width: 75px;
   }
 }
 
