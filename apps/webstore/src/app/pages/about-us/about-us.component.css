@@ -222,6 +222,14 @@
   min-height: fit-content;
 }
 
+#background-svg {
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
 #newsletter-signup > h1 {
   width: 80%;
   text-align: center;
@@ -275,6 +283,7 @@
   padding: 20px;
   margin: 10px;
   text-align: left;
+  background-color: white;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
