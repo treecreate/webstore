@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 1.25em;
 }
 
 .link {
@@ -23,46 +24,48 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 
-  max-height: 55vh;
-  min-height: 600px;
-  max-width: 80vw;
-  min-width: 300px;
-  margin-top: 25px;
+  width: 80vw;
+  min-width: 800px;
+  margin-top: 50px;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
   .section-container {
     flex-direction: column;
 
     max-height: fit-content;
     min-height: fit-content;
+    min-width: 300px;
   }
 }
 
 /* ====== Our Story Section ====== */
 
 #our-story > img {
-  max-height: 55vh;
-  min-height: 600px;
-  max-width: 30vw;
-  min-width: 200px;
+  width: 50%;
+}
+
+#our-story.section-container {
+  background-color: #f9e9d8;
 }
 
 #our-story > .section-content-wrapper {
-  max-height: 55vh;
-  min-height: 600px;
-  max-width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  max-width: 50%;
   min-width: 300px;
   padding: 10px;
   background-color: #f9e9d8;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
   #our-story > img {
-    height: 100%;
-    max-width: 80vw;
-    min-width: 300px;
+    object-fit: cover;
+    width: 100%;
   }
   #our-story > .section-content-wrapper {
     max-height: fit-content;
@@ -76,28 +79,25 @@
 
 #modernizing-homes {
   flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 #modernizing-homes > img {
-  height: 400px;
-  width: auto;
-  max-width: 30vw;
-  min-width: 200px;
+  width: 50%;
+  padding: 0;
+  margin: 0;
   filter: drop-shadow(0px 4px 23px rgba(0, 0, 0, 0.2));
 }
 
 #modernizing-homes > .section-content-wrapper {
   max-height: 55vh;
   min-height: 600px;
-  max-width: 30vw;
-  min-width: 300px;
+  width: 50%;
   padding: 10px;
 }
 
 #moderning-homes-text-1-container {
   height: 100%;
-  max-width: 30vw;
-  min-width: 200px;
   padding: 10px;
 }
 
@@ -111,15 +111,14 @@
   width: 10vw;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
   #modernizing-homes {
     flex-direction: column;
   }
 
   #modernizing-homes > img {
-    height: 100%;
-    max-width: 80vw;
-    min-width: 300px;
+    object-fit: cover;
+    width: 100%;
   }
   #modernizing-homes > .section-content-wrapper {
     max-height: fit-content;
@@ -142,10 +141,9 @@
 /* ====== Your Own Design Section ====== */
 
 #own-design > img {
-  height: 400px;
+  height: 600px;
   width: auto;
-  max-width: 30vw;
-  min-width: 200px;
+  margin: 20px;
   filter: drop-shadow(0px 4px 23px rgba(0, 0, 0, 0.2));
 }
 
@@ -153,14 +151,17 @@
   max-height: 55vh;
   min-height: 600px;
   max-width: 30vw;
-  min-width: 300px;
+  min-width: 400px;
   padding: 10px;
 }
 
 #own-design-text-container {
-  height: 100%;
-  max-width: 30vw;
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 600px;
+  max-width: 50%;
+  min-width: 350px;
   padding: 10px;
 }
 
@@ -177,7 +178,6 @@
 .own-design-info-box {
   text-align: center;
   width: 100px;
-  height: 100px;
   background-color: white;
   font-size: small;
 }
@@ -186,15 +186,14 @@
   font-size: large;
   font-weight: bolder;
 }
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
   #own-design {
     flex-direction: column;
   }
 
   #own-design > img {
-    height: 100%;
-    max-width: 80vw;
-    min-width: 300px;
+    object-fit: cover;
+    width: 100%;
   }
   #own-design > .section-content-wrapper {
     max-height: fit-content;
@@ -279,13 +278,18 @@
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
+.team-person-container > img {
+  width: 100%;
+}
+
 .team-person-links-container {
   display: flex;
   flex-direction: row;
   justify-items: flex-start;
+  font-size: small;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
   .team-list-container {
     display: flex;
     flex-direction: column;
