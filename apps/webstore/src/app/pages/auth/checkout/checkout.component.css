@@ -70,23 +70,6 @@
   flex-grow: 1;
 }
 
-.back-to-basket {
-  margin-left: 10px;
-  transition: 0.5s;
-  text-decoration: none;
-}
-
-.back-to-basket:hover {
-  text-decoration: none;
-  margin-left: 5px;
-  color: var(--second-action-color) !important;
-}
-
-.back-to-basket-container {
-  text-align: left;
-  width: 100%;
-}
-
 .city-code-section {
   display: flex;
   flex-shrink: 1;
@@ -184,6 +167,51 @@
 
 .checkout-item-list {
   z-index: 1;
+}
+
+.input-error {
+  flex-grow: 1;
+  min-width: 250px;
+  background-color: var(--red-color);
+  color: white;
+  margin: 10px 5px;
+  padding: 20px;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  align-self: flex-start;
+}
+.red-text {
+  color: var(--red-color);
+}
+
+.parcel-selection-info {
+  padding-left: 40px;
+  opacity: 0.6;
+  font-size: var(--extra-small-font);
+}
+
+.parcel-checkmark {
+  top: 6px !important;
+}
+
+.blocker {
+  position: fixed;
+  display: flex;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: ' ';
+  background: white;
+  opacity: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-success {
+  color: var(--green-color);
 }
 
 @media screen and (max-width: 600px) {

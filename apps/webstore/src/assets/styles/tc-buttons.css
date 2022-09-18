@@ -95,7 +95,7 @@ strong {
 }
 
 .green {
-  background-color: var(--green-color);
+  background-color: var(--green-color) !important;
 }
 
 .red {

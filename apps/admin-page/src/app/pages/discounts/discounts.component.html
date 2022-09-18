@@ -13,11 +13,11 @@
                 </button>
                 <button
                     mat-raised-button
-                    (click)="showDisabled = !showDisabled; updateList()"
+                    (click)="showInactive = !showInactive; updateList()"
                     class="item"
-                    [ngStyle]="{ opacity: showDisabled ? 1 : 0.5 }"
+                    [ngStyle]="{ opacity: showInactive ? 1 : 0.5 }"
                 >
-                    Disabled
+                    Inactive
                 </button>
                 <button
                     mat-raised-button
@@ -109,7 +109,7 @@
             <!-- Expires at Column -->
             <ng-container matColumnDef="expiresAt">
                 <th mat-header-cell *matHeaderCellDef>Expires at</th>
-                <td mat-cell *matCellDef="let discount">{{ discount.expiresAt | date: 'dd/MM/yyyy' }}</td>
+                <td mat-cell *matCellDef="let discount">{{ discount.expiresAt | date: 'dd/MM/yy' }}</td>
             </ng-container>
 
             <!-- Expires at Column -->

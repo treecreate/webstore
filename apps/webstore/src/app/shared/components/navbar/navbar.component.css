@@ -21,9 +21,6 @@
   text-decoration: none;
   opacity: 0.5;
 }
-.nav-section:hover > .navbar-basket-icon {
-  transform: scale(0.95);
-}
 .nav-start {
   display: flex;
   align-items: center;
@@ -65,6 +62,9 @@
 }
 .navbar-toggler:focus {
   box-shadow: none !important;
+}
+.navbar-toggler {
+  border: none !important;
 }
 .language-icon {
   padding: 10px 15px;
@@ -137,13 +137,13 @@
   width: 80px !important;
 }
 .navbar-basket-icon {
-  background-color: var(--green-color);
   border: none;
   transition: 0.5s;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 60px !important;
 }
 .nav-icon-mobile {
   width: 18px;
@@ -212,10 +212,17 @@
   width: 20px;
   margin: 5px;
 }
+.remove-on-desktop {
+  display: none !important;
+}
 
 @media all and (max-width: 992px) {
   .remove-on-mobile {
-    display: none;
+    display: none !important;
+  }
+  .d-inline-block {
+    text-align: center;
+    flex-direction: column;
   }
   .show-on-mobile {
     display: flex !important;

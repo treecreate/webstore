@@ -7,8 +7,9 @@
 .modal-footer {
   margin-top: 0 !important;
   display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
+  justify-content: flex-end;
+  flex-direction: column-reverse;
+  align-items: end;
   width: 20% !important;
 }
 
@@ -21,7 +22,7 @@ h2 {
 }
 
 .modal-footer .tc-button-50:first-child {
-  margin: 1em 0 0 0 !important;
+  margin: 0.75em 0 0 0 !important;
 }
 
 .modal-footer .tc-button-50 {
@@ -61,11 +62,13 @@ a {
   .cookie-prompt-container {
     flex-direction: column;
     align-items: flex-start;
+    align-items: center;
   }
 
   .cookie-text-section {
     width: 90%;
     font-size: var(--extra-small-font);
+    padding: 0.5em 1em 0em 1em;
   }
 
   h2 {
@@ -105,10 +108,6 @@ a {
   }
 
   .cookie-text-section {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    flex-direction: column;
     font-size: var(--medium-small-font);
   }
 }

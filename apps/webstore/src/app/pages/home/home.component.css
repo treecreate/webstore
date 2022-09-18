@@ -1,3 +1,13 @@
+.page-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.page-wrapper {
+  max-width: 1600px;
+}
+
 .title {
   font-size: 36px !important;
   text-shadow: 0px 0px 10px #0000;
@@ -16,7 +26,7 @@
 .main-section {
   min-height: 500px;
   height: 100vh;
-  width: 100vw;
+  max-width: 100vw;
   display: flex;
   /* Background image properties */
   background-image: url('apps/webstore/src/assets/img/main-img-02.jpg');
@@ -26,7 +36,8 @@
 
 .darkener {
   position: absolute;
-  width: 100%;
+  max-width: 1600px;
+  width: 100vw;
   height: 100%;
   background: rgb(0, 0, 0);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.12) 60%, rgba(0, 0, 0, 0) 100%);
@@ -35,9 +46,14 @@
 .main-text-container {
   z-index: 901;
   width: 45vw;
-  margin: 100px 0 0 50px;
+  margin: 125px 0 0 50px;
+  height: 100vh;
   letter-spacing: 2px;
   color: white;
+}
+
+.main-text {
+  filter: drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.25));
 }
 
 .descriptive-content-container {
@@ -78,7 +94,7 @@ figure {
 }
 
 .background-image-container {
-  width: 50%;
+  width: 800px;
   position: absolute;
   height: 100%;
   overflow: hidden;
@@ -169,7 +185,7 @@ figure {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 420px;
+  height: 430px;
   overflow: scroll;
 }
 
@@ -194,6 +210,10 @@ figure {
   width: 225px;
   height: 225px;
   margin-bottom: 0.5em;
+}
+
+.trustpilot-reviews {
+  width: 300px;
 }
 
 .values-container,
@@ -282,7 +302,7 @@ figure {
 }
 
 .trustpilot-section {
-  margin: 1.25em 0 0.5em 0;
+  margin: 1.25em 0 0 0;
   display: flex;
   align-items: center;
 }
@@ -293,10 +313,13 @@ figure {
 }
 
 .trustpilot-rating-number {
-  margin-left: 0.5em;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 1.5em;
   font-weight: 700;
+}
+
+.trustpilot-rating {
+  margin-left: 0.5em;
 }
 
 .trustpilot-rating-text {
@@ -329,6 +352,11 @@ figure {
 .button-section {
   display: flex;
   justify-content: space-between;
+}
+
+.trustpilot-link {
+  text-decoration: none;
+  text-align: center;
 }
 
 @media screen and (max-width: 1100px) {
@@ -369,6 +397,10 @@ figure {
     justify-content: center;
   }
 
+  .main-text {
+    filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
+  }
+
   #image {
     max-width: 300px;
     min-width: 200px;
@@ -389,16 +421,10 @@ figure {
     width: 100%;
     min-width: 350px;
   }
+
   /* Old */
   .main-text-container {
     width: 70vw;
-    margin-top: 12vw;
-  }
-
-  .text-container {
-    width: 60vw;
-    text-align: center;
-    margin-top: 20px;
   }
 
   .descriptive-img {
@@ -418,7 +444,7 @@ figure {
   }
 
   .main-text-container {
-    height: 45vh;
+    height: 65vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -451,11 +477,13 @@ figure {
 
   .main-text-container {
     height: 35vh;
-    margin-top: 50px;
+    margin-top: 6em;
   }
 
   .trustpilot-section {
     margin-top: 2em;
+    display: flex;
+    justify-content: center;
   }
 
   .trustpilot-rating {
@@ -471,11 +499,19 @@ figure {
   .trustpilot-rating-text {
     font-size: 0.7em;
   }
+
+  .trustpilot-reviews {
+    width: 240px;
+  }
+
+  .page-container {
+    display: inline;
+  }
 }
 
 @media screen and (max-width: 470px) {
   .main-text-container {
-    margin-top: 7em;
+    margin-top: 6em;
   }
 
   .left-content {

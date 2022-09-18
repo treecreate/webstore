@@ -8,6 +8,10 @@
   transform: rotate(-90deg);
 }
 
+::ng-deep tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .down {
   transform: rotate(90deg);
 }
