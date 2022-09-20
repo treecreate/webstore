@@ -1,0 +1,3 @@
+<span *ngIf="input.length < min">Too short</span>
+<span *ngIf="input.length > max">Too long</span>
+<span *ngIf="input.match('^[^0-9]+$')">Invalid Character</span>

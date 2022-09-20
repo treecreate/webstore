@@ -356,7 +356,7 @@
                                 i18n="@@invalid-postcode"
                                 data-cy="billing-address-postcode-error-message"
                             >
-                                Invalid danish postcode.
+                                <webstore-input-error-messages [input]="this.billingAddressForm.get('billingPostcode').value"></webstore-input-error-messages>
                             </div>
                         </div>
                     </div>

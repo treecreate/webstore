@@ -15,6 +15,7 @@ import {
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { isInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
@@ -324,6 +325,57 @@ export class CheckoutComponent implements OnInit {
       }
     }
   }
+
+  // shippingInputErrorMessageCheck() {
+  //   const inputNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
+  //   for (const input in inputNames) {
+  //     if (this.checkoutForm.get(inputNames[input]).invalid) {
+  //       switch (inputNames[input]) {
+  //         case 'name':
+  //           if (input.length < 3) {
+  //             return 'Name is too short';
+  //           } else if (input.length > 50) {
+  //             return 'Name is too long';
+  //           } else if (input.match('^[^0-9]+$')) {
+  //             return 'Name contains an invalid character';
+  //           }
+  //           return;
+  //         case 'email':
+  //           if (input === '') {
+  //             return 'Please provide an email.';
+  //           } 
+  //           return;
+  //         case 'streetAddress':
+  //           if (input.length < 3) {
+  //             return 'Address is too short';
+  //           } else if (input.length > 50) {
+  //             return 'Address is too long';
+  //           } else if (input === '') {
+  //             return 'Please provide a street address'
+  //           }
+  //           return;
+  //         case 'city':
+  //           if (input.length < 2) {
+  //             return 'City is too short'
+  //           } else if (input.length > 50) {
+  //             return 'City is too long'
+  //           } else if (input.match('^[^0-9]+$')) {
+  //             return 'City contains an invalid character';
+  //           }
+  //           return;
+  //         case 'postcode':
+  //           if (parseInt(input, 10) < 555){
+  //             return 'Not a valid danish postcode (too low). Please try again'
+  //           } else if (parseInt(input, 10) > 9999){
+  //             return 'Not a valid danish postcode (too high). Please try again'
+  //           }
+  //           return;
+  //         default:
+  //           break;
+  //       }
+  //     }
+  //   }
+  // }
 
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
