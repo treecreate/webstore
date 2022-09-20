@@ -10,7 +10,8 @@ export class InputErrorMessagesComponent {
   @Input() input! : string;
   @Input() min?: number = 3;
   @Input() max?: number = 50;
-  @Input() wrongChar?: boolean;
+  @Input() wrongCharNum?: boolean;
+  @Input() wrongCharString?: boolean;
 
   constructor() { }
 
