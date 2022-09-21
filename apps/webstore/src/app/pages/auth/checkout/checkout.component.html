@@ -59,7 +59,7 @@
                         i18n="@@invalid-name"
                         data-cy="checkout-form-name-error-message"
                     >
-                    <webstore-input-error-messages [input]="this.checkoutForm.get('name').value"></webstore-input-error-messages>
+                    <span>{{shippingInputErrorMessageCheck()}}</span>
                     </div>
 
                     <div class="tc-input-group field">
@@ -84,7 +84,7 @@
                         i18n="@@invalid-phone-number"
                         data-cy="checkout-form-phone-number-error-message"
                     >
-                        Invalid phone number.
+                    <span>{{shippingInputErrorMessageCheck()}}</span>
                     </div>
 
                     <div class="tc-input-group field">
@@ -128,7 +128,7 @@
                         i18n="@@invalid-street-address"
                         data-cy="checkout-form-street-address-error-message"
                     >
-                    <webstore-input-error-messages [input]="this.checkoutForm.get('streetaddress').value"></webstore-input-error-messages>
+                    <span>{{shippingInputErrorMessageCheck()}}</span>
                     </div>
 
                     <div class="tc-input-group field">
@@ -179,7 +179,7 @@
                             i18n="@@invalid-city"
                             data-cy="checkout-form-city-error-message"
                         >
-                        <webstore-input-error-messages [input]="this.checkoutForm.get('city').value"></webstore-input-error-messages>
+                        <span>{{shippingInputErrorMessageCheck()}}</span>
                         </div>
                     </div>
 
@@ -203,7 +203,7 @@
                             i18n="@@invalid-postcode"
                             data-cy="checkout-form-postcode-error-message"
                         >
-                        <webstore-input-error-messages [input]="this.checkoutForm.get('postcode').value"></webstore-input-error-messages>
+                        <span>{{shippingInputErrorMessageCheck()}}</span>
                         </div>
                     </div>
                 </div>
@@ -248,7 +248,7 @@
                             i18n="@@invalid-name"
                             data-cy="billing-address-name-error-message"
                         >
-                        <webstore-input-error-messages [input]="this.billingAddressForm.get('billingName').value"></webstore-input-error-messages>
+                            <span>{{billingInputErrorMessageCheck()}}</span>
                         </div>
 
                         <div class="tc-input-group field">
@@ -277,7 +277,7 @@
                             i18n="@@invalid-street-address"
                             data-cy="billing-address-street-address-error-message"
                         >
-                        <webstore-input-error-messages [input]="this.billingAddressForm.get('billingStreetAddress').value"></webstore-input-error-messages>
+                        <span>{{billingInputErrorMessageCheck()}}</span>
                         </div>
 
                         <div class="tc-input-group field">
@@ -328,7 +328,7 @@
                                 i18n="@@invalid-city"
                                 data-cy="billing-address-city-error-message"
                             >
-                            <webstore-input-error-messages [input]="this.billingAddressForm.get('billingCity').value"></webstore-input-error-messages>
+                            <span>{{billingInputErrorMessageCheck()}}</span>
                             </div>
                         </div>
 
@@ -356,7 +356,7 @@
                                 i18n="@@invalid-postcode"
                                 data-cy="billing-address-postcode-error-message"
                             >
-                                <webstore-input-error-messages [input]="this.billingAddressForm.get('billingPostcode').value"></webstore-input-error-messages>
+                            <span>{{billingInputErrorMessageCheck()}}</span>
                             </div>
                         </div>
                     </div>
