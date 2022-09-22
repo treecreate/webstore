@@ -329,7 +329,7 @@ export class CheckoutComponent implements OnInit {
     if (this.checkoutForm.get(fieldName).invalid) {
       switch (fieldName) {
         case 'name':
-          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
             return 'Name is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 3) {
             return 'Name is too short';
@@ -340,14 +340,14 @@ export class CheckoutComponent implements OnInit {
           }
           return;
         case 'email':
-          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
             return 'Email is required';
           } else if (!this.checkoutForm.get(fieldName).value.email) {
             return 'Please provide a valid email';
           }
           return;
         case 'streetAddress':
-          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
             return 'Address is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 3) {
             return 'Address is too short';
@@ -356,7 +356,7 @@ export class CheckoutComponent implements OnInit {
           }
           return;
         case 'city':
-          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
             return 'City is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 2) {
             return 'City is too short';
@@ -367,7 +367,7 @@ export class CheckoutComponent implements OnInit {
           }
           return;
         case 'postcode':
-          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
             return 'Postcode is required';
           } else if (this.checkoutForm.get(fieldName).value < 555) {
             return 'Not a valid danish postcode (too low). Please try again';
@@ -388,8 +388,8 @@ export class CheckoutComponent implements OnInit {
       switch (fieldName) {
         case 'billingName':
           if (
-            this.billingAddressForm.get(fieldName).value == null ||
-            this.billingAddressForm.get(fieldName).value == ''
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
           ) {
             return 'Name is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
@@ -402,8 +402,8 @@ export class CheckoutComponent implements OnInit {
           return;
         case 'billingStreetAddress':
           if (
-            this.billingAddressForm.get(fieldName).value == null ||
-            this.billingAddressForm.get(fieldName).value == ''
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
           ) {
             return 'Address is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
@@ -414,8 +414,8 @@ export class CheckoutComponent implements OnInit {
           return;
         case 'billingCity':
           if (
-            this.billingAddressForm.get(fieldName).value == null ||
-            this.billingAddressForm.get(fieldName).value == ''
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
           ) {
             return 'City is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 2) {
@@ -428,8 +428,8 @@ export class CheckoutComponent implements OnInit {
           return;
         case 'billingPostcode':
           if (
-            this.billingAddressForm.get(fieldName).value == null ||
-            this.billingAddressForm.get(fieldName).value == ''
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
           ) {
             return 'Postcode is required';
           } else if (this.billingAddressForm.get(fieldName).value < 555) {
