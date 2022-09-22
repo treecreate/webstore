@@ -335,7 +335,7 @@ export class CheckoutComponent implements OnInit {
             return 'Name is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
             return 'Name is too long';
-          } else if (this.checkoutForm.get(fieldName).value.match('^[^0-9+]*')) {
+          } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
             return 'Name contains an invalid character(s)';
           }
           return;
@@ -362,7 +362,7 @@ export class CheckoutComponent implements OnInit {
             return 'City is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
             return 'City is too long';
-          } else if (this.checkoutForm.get(fieldName).value.match('^[^0-9+]*')) {
+          } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
             return 'City contains an invalid character(s)';
           }
           return;
@@ -373,7 +373,7 @@ export class CheckoutComponent implements OnInit {
             return 'Not a valid danish postcode (too low). Please try again';
           } else if (this.checkoutForm.get(fieldName).value > 9999) {
             return 'Not a valid danish postcode (too high). Please try again';
-          } else if (this.checkoutForm.get(fieldName).value.match('^[0-9]+')) {
+          } else if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
             return 'Postcode contains invalid character(s)';
           }
           return;
@@ -396,7 +396,7 @@ export class CheckoutComponent implements OnInit {
             return 'Name is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
             return 'Name is too long';
-          } else if (this.billingAddressForm.get(fieldName).value.match('^[^0-9+]*')) {
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
             return 'Name contains an invalid character(s)';
           }
           return;
@@ -422,7 +422,7 @@ export class CheckoutComponent implements OnInit {
             return 'City is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
             return 'City is too long';
-          } else if (this.billingAddressForm.get(fieldName).value.match('^[^0-9+]*')) {
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
             return 'City contains an invalid character(s)';
           }
           return;
@@ -436,7 +436,7 @@ export class CheckoutComponent implements OnInit {
             return 'Not a valid danish postcode (too low). Please try again';
           } else if (this.billingAddressForm.get(fieldName).value > 9999) {
             return 'Not a valid danish postcode (too high). Please try again';
-          } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9]+')) {
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[^0-9]*')) {
             return 'Postcode contains invalid character(s)';
           }
           return;
