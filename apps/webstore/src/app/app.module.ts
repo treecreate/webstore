@@ -53,7 +53,6 @@ import { StickyNewsletterButtonComponent } from './shared/components/sticky-news
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
-import { InputErrorMessagesComponent } from './shared/components/input-error-messages/input-error-messages.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +101,6 @@ import { InputErrorMessagesComponent } from './shared/components/input-error-mes
     CustomOrderComponent,
     CustomOrderDisplayComponent,
     StickyNewsletterButtonComponent,
-    InputErrorMessagesComponent,
   ],
   imports: [
     BrowserModule,
