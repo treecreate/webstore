@@ -340,10 +340,10 @@ export class CheckoutComponent implements OnInit {
           }
           return;
         case 'phoneNumber':
-            if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
-              return 'Please provide a valid phone number';
-            }
-            return;
+          if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
+            return 'Please provide a valid phone number';
+          }
+          return;
         case 'email':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
             return 'Email is required';
