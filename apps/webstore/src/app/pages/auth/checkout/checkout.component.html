@@ -59,7 +59,7 @@
                         i18n="@@invalid-name"
                         data-cy="checkout-form-name-error-message"
                     >
-                    <span>{{shippingInputErrorMessageCheck()}}</span>
+                        <span>{{ shippingInputErrorMessageCheck('name') }}</span>
                     </div>
 
                     <div class="tc-input-group field">
@@ -84,7 +84,7 @@
                         i18n="@@invalid-phone-number"
                         data-cy="checkout-form-phone-number-error-message"
                     >
-                    <span>{{shippingInputErrorMessageCheck()}}</span>
+                        <span>{{ shippingInputErrorMessageCheck() }}</span>
                     </div>
 
                     <div class="tc-input-group field">
@@ -100,6 +100,14 @@
                             #checkoutEmailInput
                         />
                         <label for="email" class="tc-input-label">E-mail <span class="red-text"> *</span></label>
+                    </div>
+                    <div
+                        class="error-message"
+                        *ngIf="this.checkoutForm.get('email').dirty && this.checkoutForm.get('email').invalid"
+                        i18n="@@invalid-email"
+                        data-cy="checkout-form-email-error-message"
+                    >
+                        <span>{{ shippingInputErrorMessageCheck('email') }}</span>
                     </div>
 
                     <div class="tc-input-group field">
@@ -128,7 +136,7 @@
                         i18n="@@invalid-street-address"
                         data-cy="checkout-form-street-address-error-message"
                     >
-                    <span>{{shippingInputErrorMessageCheck()}}</span>
+                        <span>{{ shippingInputErrorMessageCheck('streetAddress') }}</span>
                     </div>
 
                     <div class="tc-input-group field">
@@ -179,7 +187,7 @@
                             i18n="@@invalid-city"
                             data-cy="checkout-form-city-error-message"
                         >
-                        <span>{{shippingInputErrorMessageCheck()}}</span>
+                            <span>{{ shippingInputErrorMessageCheck('city') }}</span>
                         </div>
                     </div>
 
@@ -203,7 +211,7 @@
                             i18n="@@invalid-postcode"
                             data-cy="checkout-form-postcode-error-message"
                         >
-                        <span>{{shippingInputErrorMessageCheck()}}</span>
+                            <span onformchange="">{{ shippingInputErrorMessageCheck('postcode') }}</span>
                         </div>
                     </div>
                 </div>
@@ -248,7 +256,7 @@
                             i18n="@@invalid-name"
                             data-cy="billing-address-name-error-message"
                         >
-                            <span>{{billingInputErrorMessageCheck()}}</span>
+                            <span>{{ billingInputErrorMessageCheck('billingName') }}</span>
                         </div>
 
                         <div class="tc-input-group field">
@@ -277,7 +285,7 @@
                             i18n="@@invalid-street-address"
                             data-cy="billing-address-street-address-error-message"
                         >
-                        <span>{{billingInputErrorMessageCheck()}}</span>
+                            <span>{{ billingInputErrorMessageCheck('billingStreetAddress') }}</span>
                         </div>
 
                         <div class="tc-input-group field">
@@ -328,7 +336,7 @@
                                 i18n="@@invalid-city"
                                 data-cy="billing-address-city-error-message"
                             >
-                            <span>{{billingInputErrorMessageCheck()}}</span>
+                                <span>{{ billingInputErrorMessageCheck('billingCity') }}</span>
                             </div>
                         </div>
 
@@ -356,7 +364,7 @@
                                 i18n="@@invalid-postcode"
                                 data-cy="billing-address-postcode-error-message"
                             >
-                            <span>{{billingInputErrorMessageCheck()}}</span>
+                                <span>{{ billingInputErrorMessageCheck('billingPostcode') }}</span>
                             </div>
                         </div>
                     </div>

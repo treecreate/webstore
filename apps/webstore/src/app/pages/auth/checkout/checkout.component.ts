@@ -15,7 +15,6 @@ import {
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { isInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
@@ -326,110 +325,139 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  shippingInputErrorMessageCheck() {
-    const inputNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
-    for (const input in inputNames) {
-      if (this.checkoutForm.get(inputNames[input]).invalid) {
-        switch (inputNames[input]) {
-          case 'name':
-            if (input.match('^[0-9+]*$')) {
-              return 'Name contains an invalid character';
-            } else if (input.length > 50) {
-              return 'Name is too long';
-            } else if (input.length < 3) {
-              return 'Name is too short';
-            } else if (input === '') {
-              return 'Name is required';
-            } 
-            return;
-          case 'email':
-            if (input === '') {
-              return 'Please provide an email';
-            } 
-            return;
-          case 'streetAddress':
-            if (input.length < 3) {
-              return 'Address is too short';
-            } else if (input.length > 50) {
-              return 'Address is too long';
-            } else if (input === '') {
-              return 'Address is required'
-            }
-            return;
-          case 'city':
-            if (input.length < 2) {
-              return 'City is too short'
-            } else if (input.length > 50) {
-              return 'City is too long'
-            } else if (input.match('^[^0-9]+$')) {
-              return 'City contains an invalid character';
-            } else if (input === '') {
-              return 'City is required';
-            }
-            return;
-          case 'postcode':
-            if (parseInt(input, 10) < 555){
-              return 'Not a valid danish postcode (too low). Please try again'
-            } else if (parseInt(input, 10) > 9999){
-              return 'Not a valid danish postcode (too high). Please try again'
-            } else if (input === ''){
-              return 'Postcode is required'
-            }
-            return;
-          default:
-            break;
-        }
+  shippingInputErrorMessageCheck(fieldName: string): string {
+    if (this.checkoutForm.get(fieldName).invalid) {
+      switch (fieldName) {
+        case 'name':
+          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+            return 'Name is required';
+          } else if (this.checkoutForm.get(fieldName).value.length < 3) {
+            return 'Name is too short';
+          } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            return 'Name is too long';
+          } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*$')) {
+            return 'Name contains an invalid character(s)';
+          }
+          return;
+        case 'email':
+          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+            return 'Email is required';
+          } else if (!this.checkoutForm.get(fieldName).value.email) {
+            return 'Please provide a valid email';
+          }
+          return;
+        case 'streetAddress':
+          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+            return 'Address is required';
+          } else if (this.checkoutForm.get(fieldName).value.length < 3) {
+            return 'Address is too short';
+          } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            return 'Address is too long';
+          }
+          return;
+        case 'city':
+          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+            return 'City is required';
+          } else if (this.checkoutForm.get(fieldName).value.length < 2) {
+            return 'City is too short';
+          } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            return 'City is too long';
+          } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*$')) {
+            return 'City contains an invalid character(s)';
+          }
+          return;
+        case 'postcode':
+          if (this.checkoutForm.get(fieldName).value == null || this.checkoutForm.get(fieldName).value == '') {
+            return 'Postcode is required';
+          } else if (this.checkoutForm.get(fieldName).value < 555) {
+            return 'Not a valid danish postcode (too low). Please try again';
+          } else if (this.checkoutForm.get(fieldName).value > 9999) {
+            return 'Not a valid danish postcode (too high). Please try again';
+          } else if (this.checkoutForm.get(fieldName).value.match('^[^0-9]+$')) {
+            return 'Postcode contains invalid character(s)';
+          }
+          return;
+        default:
+          break;
       }
     }
   }
 
-  billingInputErrorMessageCheck() {
-    const inputNames = ['name', 'streetAddress', 'city', 'postcode'];
+  billingInputErrorMessageCheck(fieldName: string): string {
+    if (this.billingAddressForm.get(fieldName).invalid) {
+      switch (fieldName) {
+        case 'billingName':
+          if (
+            this.billingAddressForm.get(fieldName).value == null ||
+            this.billingAddressForm.get(fieldName).value == ''
+          ) {
+            return 'Name is required';
+          } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
+            return 'Name is too short';
+          } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            return 'Name is too long';
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*$')) {
+            return 'Name contains an invalid character(s)';
+          }
+          return;
+        case 'billingStreetAddress':
+          if (
+            this.billingAddressForm.get(fieldName).value == null ||
+            this.billingAddressForm.get(fieldName).value == ''
+          ) {
+            return 'Address is required';
+          } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
+            return 'Address is too short';
+          } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            return 'Address is too long';
+          }
+          return;
+        case 'billingCity':
+          if (
+            this.billingAddressForm.get(fieldName).value == null ||
+            this.billingAddressForm.get(fieldName).value == ''
+          ) {
+            return 'City is required';
+          } else if (this.billingAddressForm.get(fieldName).value.length < 2) {
+            return 'City is too short';
+          } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            return 'City is too long';
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*$')) {
+            return 'City contains an invalid character(s)';
+          }
+          return;
+        case 'billingPostcode':
+          if (
+            this.billingAddressForm.get(fieldName).value == null ||
+            this.billingAddressForm.get(fieldName).value == ''
+          ) {
+            return 'Postcode is required';
+          } else if (this.billingAddressForm.get(fieldName).value < 555) {
+            return 'Not a valid danish postcode (too low). Please try again';
+          } else if (this.billingAddressForm.get(fieldName).value > 9999) {
+            return 'Not a valid danish postcode (too high). Please try again';
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[^0-9]+$')) {
+            return 'Postcode contains invalid character(s)';
+          }
+          return;
+        default:
+          break;
+      }
+    }
+  }
+
+  billingNameInputCheck() {
+    const inputNames = ['billingName'];
     for (const input in inputNames) {
-      if (this.checkoutForm.get(inputNames[input]).invalid) {
-        switch (inputNames[input]) {
-          case 'name':
-            if (input.match('^[0-9+]*$')) {
-              return 'Name contains an invalid character';
-            } else if (input.length > 50) {
-              return 'Name is too long';
-            } else if (input.length < 3) {
-              return 'Name is too short';
-            } else if (input === '') {
-              return 'Name is required';
-            } 
-            return;
-          case 'streetAddress':
-            if (input.length < 3) {
-              return 'Address is too short';
-            } else if (input.length > 50) {
-              return 'Address is too long';
-            } else if (input === '') {
-              return 'Address is required'
-            }
-            return;
-          case 'city':
-            if (input.length < 2) {
-              return 'City is too short'
-            } else if (input.length > 50) {
-              return 'City is too long'
-            } else if (input.match('^[^0-9]+$')) {
-              return 'City contains an invalid character';
-            } else if (input === '') {
-              return 'City is required';
-            }
-            return;
-          case 'postcode':
-            if (parseInt(input, 10) < 555){
-              return 'Not a valid danish postcode (too low). Please try again'
-            } else if (parseInt(input, 10) > 9999){
-              return 'Not a valid danish postcode (too high). Please try again'
-            } else if (input === ''){
-              return 'Postcode is required'
-            }
-            return;
-          default:
-            break;
+      if (this.billingAddressForm.get(inputNames[input]).invalid) {
+        if (input.match('^[0-9+]*$')) {
+          return 'Name contains an invalid character';
+        } else if (input.length > 50) {
+          return 'Name is too long';
+        } else if (input.length < 3) {
+          return 'Name is too short';
+        } else if (input === '') {
+          return 'Name is required';
         }
       }
     }
