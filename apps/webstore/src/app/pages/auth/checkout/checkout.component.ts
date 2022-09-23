@@ -451,23 +451,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  billingNameInputCheck() {
-    const inputNames = ['billingName'];
-    for (const input in inputNames) {
-      if (this.billingAddressForm.get(inputNames[input]).invalid) {
-        if (input.match('^[0-9+]*$')) {
-          return 'Name contains an invalid character';
-        } else if (input.length > 50) {
-          return 'Name is too long';
-        } else if (input.length < 3) {
-          return 'Name is too short';
-        } else if (input === '') {
-          return 'Name is required';
-        }
-      }
-    }
-  }
-
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
       this.errorlogsService.create('webstore.checkout.create-order-new-user-attempted-with-invalid-data');
