@@ -51,6 +51,9 @@
   transform: scale(1.1);
 }
 
+.section-content-wrapper {
+}
+
 /* ======= OUR STORY ====== */
 
 #our-story {
@@ -73,13 +76,17 @@
 }
 
 #modernizing-homes .section-content-wrapper {
-  padding: 2em;
+  padding: 0em 4em 0em 0em;
   line-height: 2em;
+}
+
+#modernizing-homes .main-text {
+  margin-bottom: 2em;
 }
 
 #moderning-homes-text-2-container {
   display: flex;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 #moderning-homes-text-2-container img {
