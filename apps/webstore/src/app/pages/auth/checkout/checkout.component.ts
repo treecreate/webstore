@@ -325,60 +325,79 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  //TODO: Add translated messages to commented out return statements.
   shippingInputErrorMessageCheck(fieldName: string): string {
     if (this.checkoutForm.get(fieldName).invalid) {
       switch (fieldName) {
         case 'name':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            //  return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is required';
             return 'Name is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 3) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too short';
             return 'Name is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too long';
             return 'Name is too long';
           } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name contains an invalid character(s)';
             return 'Name contains an invalid character(s)';
           }
           return;
         case 'phoneNumber':
           if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Please provide a valid phone number';
             return 'Please provide a valid phone number';
           }
           return;
         case 'email':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            //return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Email is required';
             return 'Email is required';
           } else if (!this.checkoutForm.get(fieldName).value.email) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Please provide a valid email';
             return 'Please provide a valid email';
           }
           return;
         case 'streetAddress':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is required';
             return 'Address is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 3) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too short';
             return 'Address is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too long';
             return 'Address is too long';
           }
           return;
         case 'city':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is required';
             return 'City is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 2) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too short';
             return 'City is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too long';
             return 'City is too long';
           } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City contains an invalid character(s)';
             return 'City contains an invalid character(s)';
           }
           return;
         case 'postcode':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode is required';
             return 'Postcode is required';
           } else if (this.checkoutForm.get(fieldName).value < 555) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too low). Please try again';
             return 'Not a valid danish postcode (too low). Please try again';
           } else if (this.checkoutForm.get(fieldName).value > 9999) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too high). Please try again';
             return 'Not a valid danish postcode (too high). Please try again';
           } else if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode contains invalid character(s)';
             return 'Postcode contains invalid character(s)';
           }
           return;
@@ -388,6 +407,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  //TODO: Add Translated messages to commented out return statements
   billingInputErrorMessageCheck(fieldName: string): string {
     if (this.billingAddressForm.get(fieldName).invalid) {
       switch (fieldName) {
@@ -396,12 +416,16 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is required';
             return 'Name is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too short';
             return 'Name is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too long';
             return 'Name is too long';
           } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name contains an invalid character(s)';
             return 'Name contains an invalid character(s)';
           }
           return;
@@ -410,10 +434,13 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is required';
             return 'Address is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too short';
             return 'Address is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too long';
             return 'Address is too long';
           }
           return;
@@ -422,12 +449,16 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is required';
             return 'City is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 2) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too short';
             return 'City is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too long';
             return 'City is too long';
           } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City contains an invalid character(s)';
             return 'City contains an invalid character(s)';
           }
           return;
@@ -436,12 +467,16 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode is required';
             return 'Postcode is required';
           } else if (this.billingAddressForm.get(fieldName).value < 555) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too low). Please try again';
             return 'Not a valid danish postcode (too low). Please try again';
           } else if (this.billingAddressForm.get(fieldName).value > 9999) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too high). Please try again';
             return 'Not a valid danish postcode (too high). Please try again';
           } else if (this.billingAddressForm.get(fieldName).value.match('^[^0-9]*')) {
+            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode contains invalid character(s)';
             return 'Postcode contains invalid character(s)';
           }
           return;
@@ -450,6 +485,7 @@ export class CheckoutComponent implements OnInit {
       }
     }
   }
+
 
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
