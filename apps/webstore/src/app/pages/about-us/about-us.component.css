@@ -44,11 +44,11 @@
   margin: 0 0.5em;
   width: 35px !important;
   height: 35px;
+  transition: 0.5s;
 }
 
-@media screen and (max-width: 1100px) {
-  .so-me-container {
-  }
+.so-me-icon:hover {
+  transform: scale(1.1);
 }
 
 /* ======= OUR STORY ====== */
@@ -64,6 +64,26 @@
 #our-story .section-content-wrapper {
   padding: 2em;
   line-height: 2em;
+}
+
+/* ====== MODERNIZING ========= */
+
+#modernizing-homes {
+  flex-direction: row-reverse;
+}
+
+#modernizing-homes .section-content-wrapper {
+  padding: 2em;
+  line-height: 2em;
+}
+
+#moderning-homes-text-2-container {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+#moderning-homes-text-2-container img {
+  margin-right: 1em;
 }
 
 /* @media screen and (max-width: 850px) {
