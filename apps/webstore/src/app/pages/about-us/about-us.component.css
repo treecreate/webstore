@@ -51,7 +51,8 @@
   transform: scale(1.1);
 }
 
-.section-content-wrapper {
+h1 {
+  margin-bottom: 0.5em;
 }
 
 /* ======= OUR STORY ====== */
@@ -60,7 +61,10 @@
   background-color: #f9e9d8;
 }
 
-#our-story img {
+#our-story img,
+#modernizing-homes img,
+#own-design img {
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.25);
   width: 400px;
 }
 
@@ -80,10 +84,6 @@
   line-height: 2em;
 }
 
-#modernizing-homes img {
-  width: 400px;
-}
-
 #modernizing-homes .main-text {
   margin-bottom: 2em;
 }
@@ -96,9 +96,45 @@
 #moderning-homes-text-2-container img {
   width: 150px;
   margin-right: 2em;
+  box-shadow: none !important;
 }
 
 /* ========== YOUR DESIGN =========== */
+
+#own-design .section-content-wrapper {
+  padding: 0em 0em 0em 4em;
+  line-height: 2em;
+}
+
+#background-svg {
+  position: absolute;
+  width: 100vw !important;
+  z-index: -1;
+  box-shadow: none !important;
+}
+
+#own-design-info-box-container {
+  display: flex;
+}
+
+.own-design-info-box {
+  background-color: white;
+  padding: 1.3em;
+  margin: 0.5em;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.12);
+}
+
+.own-design-info-box-header {
+  font-size: 3em;
+}
 
 /* @media screen and (max-width: 850px) {
   .section-container {
