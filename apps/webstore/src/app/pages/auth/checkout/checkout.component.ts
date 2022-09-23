@@ -486,7 +486,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-
   async createOrderWithNewUser() {
     if (!this.isDisabled()) {
       this.errorlogsService.create('webstore.checkout.create-order-new-user-attempted-with-invalid-data');
