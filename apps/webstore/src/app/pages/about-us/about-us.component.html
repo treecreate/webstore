@@ -90,10 +90,10 @@
         <img id="background-svg" alt="TODO" src="/assets/img/about-us/background.svg" />
     </section>
 
-    <section class="section-container" id="#newsletter-signup">
-        <div class="newsletter-signup-wrapper">
+    <section class="section-container" id="newsletter-signup">
+        <div class="section-content-wrapper">
             <!-- I do not associate myself with this text ~@Kwandes -->
-            <h1 i18n="@@about-us-newsletter-signup-title">Register to our newsletter for glory and hapiness</h1>
+            <h1 i18n="@@about-us-newsletter-signup-title">Register to our newsletter for special deals</h1>
             <form [formGroup]="newsletterForm" (ngSubmit)="registerNewsletter()" id="newsletter-signup-form">
                 <div id="newsletter-signup-input-container">
                     <input
@@ -118,7 +118,6 @@
                 <button
                     class="tc-button-25 margin-top low-dropshadow"
                     type="submit"
-                    [disabled]="!isNewsletterReadyForSignup()"
                     data-cy="about-us-register-newsletter-button"
                 >
                     <span i18n="@@signup" *ngIf="!isLoading">Sign up</span>

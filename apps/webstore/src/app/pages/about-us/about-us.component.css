@@ -59,12 +59,12 @@ h1 {
 
 #our-story {
   background-color: #f9e9d8;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.125);
 }
 
 #our-story img,
 #modernizing-homes img,
 #own-design img {
-  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.25);
   width: 400px;
 }
 
@@ -77,6 +77,10 @@ h1 {
 
 #modernizing-homes {
   flex-direction: row-reverse;
+}
+
+#modernizing-homes img {
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.25);
 }
 
 #modernizing-homes .section-content-wrapper {
@@ -104,6 +108,10 @@ h1 {
 #own-design .section-content-wrapper {
   padding: 0em 0em 0em 4em;
   line-height: 2em;
+}
+
+#own-design img {
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.25);
 }
 
 #background-svg {
@@ -136,6 +144,54 @@ h1 {
   font-size: 3em;
 }
 
+/* ======= NEWSLETTER ========= */
+
+#newsletter-signup {
+  display: flex;
+  align-items: center;
+}
+
+#newsletter-signup h1 {
+  width: 500px;
+  text-align: center;
+  padding-bottom: 0.5em;
+}
+
+#newsletter-signup .section-content-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#newsletter-signup-input {
+  height: 40px;
+  border: none;
+  padding-left: 10px;
+  width: 500px;
+  border-bottom: 2px solid white;
+  transition: 0.5s;
+  margin-bottom: 5px;
+}
+
+#newsletter-signup-input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--second-action-color);
+}
+
+#newsletter-signup .tc-button-25 {
+  border-radius: 0;
+  height: 40px;
+  min-width: 150px;
+}
+
+#newsletter-signup-input {
+}
+
+#newsletter-signup-form {
+  display: flex;
+  justify-content: center;
+}
 /* @media screen and (max-width: 850px) {
   .section-container {
     flex-direction: column;
