@@ -439,6 +439,12 @@ h1 {
   max-height: none;
 }
 
+.team-slogans-container img {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
 .team-slogans-container {
   display: flex;
   flex-direction: column;
