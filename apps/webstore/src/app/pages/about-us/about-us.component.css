@@ -80,6 +80,10 @@
   line-height: 2em;
 }
 
+#modernizing-homes img {
+  width: 400px;
+}
+
 #modernizing-homes .main-text {
   margin-bottom: 2em;
 }
@@ -90,8 +94,11 @@
 }
 
 #moderning-homes-text-2-container img {
-  margin-right: 1em;
+  width: 150px;
+  margin-right: 2em;
 }
+
+/* ========== YOUR DESIGN =========== */
 
 /* @media screen and (max-width: 850px) {
   .section-container {
