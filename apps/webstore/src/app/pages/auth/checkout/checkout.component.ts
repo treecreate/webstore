@@ -331,74 +331,56 @@ export class CheckoutComponent implements OnInit {
       switch (fieldName) {
         case 'name':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
-            //  return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is required';
-            return 'Name is required';
+             return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn påkrævet' : 'Name is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 3) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too short';
-            return 'Name is too short';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn er for kort' : 'Name is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too long';
-            return 'Name is too long';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn er for langt' : 'Name is too long';
           } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name contains an invalid character(s)';
-            return 'Name contains an invalid character(s)';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn indeholder ugyldige tegn' : 'Name contains an invalid character(s)';
           }
           return;
         case 'phoneNumber':
           if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Please provide a valid phone number';
-            return 'Please provide a valid phone number';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Ugyldigt telefonnummer' : 'Please provide a valid phone number';
           }
           return;
         case 'email':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
-            //return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Email is required';
-            return 'Email is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Email er påkrævet' : 'Email is required';
           } else if (!this.checkoutForm.get(fieldName).value.email) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Please provide a valid email';
-            return 'Please provide a valid email';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Ugyldig email' : 'Please provide a valid email';
           }
           return;
         case 'streetAddress':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is required';
-            return 'Address is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Adresse er påkrævet' : 'Address is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 3) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too short';
-            return 'Address is too short';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Adressen er for kort' : 'Address is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too long';
-            return 'Address is too long';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Adressen er for lang' : 'Address is too long';
           }
           return;
         case 'city':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is required';
-            return 'City is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'By er påkrævet' : 'City is required';
           } else if (this.checkoutForm.get(fieldName).value.length < 2) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too short';
-            return 'City is too short';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Bynavn er for kort' : 'City is too short';
           } else if (this.checkoutForm.get(fieldName).value.length > 50) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too long';
-            return 'City is too long';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Bynavn er for lang' : 'City is too long';
           } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City contains an invalid character(s)';
-            return 'City contains an invalid character(s)';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Bynavn indeholder ugyldige tegn' : 'City contains an invalid character(s)';
           }
           return;
         case 'postcode':
           if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode is required';
-            return 'Postcode is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Postnummer er påkrævet' : 'Postcode is required';
           } else if (this.checkoutForm.get(fieldName).value < 555) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too low). Please try again';
-            return 'Not a valid danish postcode (too low). Please try again';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Ugyldig dansk postnummer (tal for lavt). Prøv venligst igen' : 'Not a valid danish postcode (too low). Please try again';
           } else if (this.checkoutForm.get(fieldName).value > 9999) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too high). Please try again';
-            return 'Not a valid danish postcode (too high). Please try again';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Ugyldig dansk postnummer (tal for højt). Prøv venligst igen' : 'Not a valid danish postcode (too high). Please try again';
           } else if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode contains invalid character(s)';
-            return 'Postcode contains invalid character(s)';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Postnummer indeholder ugyldige tegn' : 'Postcode contains invalid character(s)';
           }
           return;
         default:
@@ -416,17 +398,13 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is required';
-            return 'Name is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn påkrævet' : 'Name is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too short';
-            return 'Name is too short';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn er for kort' : 'Name is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name is too long';
-            return 'Name is too long';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn er for langt' : 'Name is too long';
           } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Name contains an invalid character(s)';
-            return 'Name contains an invalid character(s)';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Navn indeholder ugyldige tegn' : 'Name contains an invalid character(s)';
           }
           return;
         case 'billingStreetAddress':
@@ -434,14 +412,11 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is required';
-            return 'Address is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Adresse er påkrævet' : 'Address is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too short';
-            return 'Address is too short';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Adressen er for kort' : 'Address is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Address is too long';
-            return 'Address is too long';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Adressen er for lang' : 'Address is too long';
           }
           return;
         case 'billingCity':
@@ -449,17 +424,13 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is required';
-            return 'City is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'By er påkrævet' : 'City is required';
           } else if (this.billingAddressForm.get(fieldName).value.length < 2) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too short';
-            return 'City is too short';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Bynavn er for kort' : 'City is too short';
           } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City is too long';
-            return 'City is too long';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Bynavn er for lang' : 'City is too long';
           } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'City contains an invalid character(s)';
-            return 'City contains an invalid character(s)';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Bynavn indeholder ugyldige tegn' : 'City contains an invalid character(s)';
           }
           return;
         case 'billingPostcode':
@@ -467,17 +438,13 @@ export class CheckoutComponent implements OnInit {
             this.billingAddressForm.get(fieldName).value === null ||
             this.billingAddressForm.get(fieldName).value === ''
           ) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode is required';
-            return 'Postcode is required';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Postnummer er påkrævet' : 'Postcode is required';
           } else if (this.billingAddressForm.get(fieldName).value < 555) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too low). Please try again';
-            return 'Not a valid danish postcode (too low). Please try again';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Ugyldig dansk postnummer (tal for lavt). Prøv venligst igen' : 'Not a valid danish postcode (too low). Please try again';
           } else if (this.billingAddressForm.get(fieldName).value > 9999) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Not a valid danish postcode (too high). Please try again';
-            return 'Not a valid danish postcode (too high). Please try again';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Ugyldig dansk postnummer (tal for højt). Prøv venligst igen' : 'Not a valid danish postcode (too high). Please try again';
           } else if (this.billingAddressForm.get(fieldName).value.match('^[^0-9]*')) {
-            // return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? '' : 'Postcode contains invalid character(s)';
-            return 'Postcode contains invalid character(s)';
+            return this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da ? 'Postnummer indeholder ugyldige tegn' : 'Postcode contains invalid character(s)';
           }
           return;
         default:
