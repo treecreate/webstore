@@ -143,13 +143,19 @@ export class DiscountsComponent implements OnInit {
       return;
     } else if (this.showAmount) {
       // Only show amount
-      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent && DiscountType.future);
+      this.discountDisplayList = this.discountDisplayList.filter(
+        (discount) => discount.type !== DiscountType.percent && DiscountType.future
+      );
     } else if (this.showPercent) {
       // Only show percent
-      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount && DiscountType.future);
+      this.discountDisplayList = this.discountDisplayList.filter(
+        (discount) => discount.type !== DiscountType.amount && DiscountType.future
+      );
     } else if (this.showFuture) {
-      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent && DiscountType.amount);
-    }else {
+      this.discountDisplayList = this.discountDisplayList.filter(
+        (discount) => discount.type !== DiscountType.percent && DiscountType.amount
+      );
+    } else {
       this.discountDisplayList = [];
     }
     this.sortData();
