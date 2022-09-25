@@ -47,6 +47,7 @@ export class DiscountsComponent implements OnInit {
   showActive = true;
   showAsc = true;
   showAmount = true;
+  showFuture = true;
   showPercent = true;
   sortSelectForm: UntypedFormGroup;
 
@@ -142,11 +143,13 @@ export class DiscountsComponent implements OnInit {
       return;
     } else if (this.showAmount) {
       // Only show amount
-      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent);
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent && DiscountType.future);
     } else if (this.showPercent) {
       // Only show percent
-      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount);
-    } else {
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount && DiscountType.future);
+    } else if (this.showFuture) {
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent && DiscountType.amount);
+    }else {
       this.discountDisplayList = [];
     }
     this.sortData();

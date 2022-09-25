@@ -37,6 +37,14 @@
                 </button>
                 <button
                     mat-raised-button
+                    (click)="showPercent = !showPercent; updateList()"
+                    class="item"
+                    [ngStyle]="{ opacity: showPercent ? 1 : 0.5 }"
+                >
+                    Future
+            </button>
+                <button
+                    mat-raised-button
                     color="primary"
                     (click)="openCreateDiscountDialog()"
                     class="item"
