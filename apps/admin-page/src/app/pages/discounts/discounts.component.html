@@ -37,9 +37,9 @@
                 </button>
                 <button
                     mat-raised-button
-                    (click)="showPercent = !showPercent; updateList()"
+                    (click)="showFuture = !showFuture; updateList()"
                     class="item"
-                    [ngStyle]="{ opacity: showPercent ? 1 : 0.5 }"
+                    [ngStyle]="{ opacity: showFuture ? 1 : 0.5 }"
                 >
                     Future
                 </button>
@@ -111,7 +111,7 @@
             <!-- Expires at Column -->
             <ng-container matColumnDef="startsAt">
                 <th mat-header-cell *matHeaderCellDef>Starts at</th>
-                <td mat-cell *matCellDef="let discount">{{ discount.startsAt | date: 'hh:mm  dd/MM' }}</td>
+                <td mat-cell *matCellDef="let discount">{{ discount.startsAt | date: 'hh:mm  dd/MM/yy' }}</td>
             </ng-container>
 
             <!-- Expires at Column -->
