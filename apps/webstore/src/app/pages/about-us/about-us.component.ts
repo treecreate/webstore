@@ -10,7 +10,7 @@ import { OrderService } from '../../shared/services/order/order.service';
 @Component({
   selector: 'webstore-about-us',
   templateUrl: './about-us.component.html',
-  styleUrls: ['./about-us.component.css'],
+  styleUrls: ['./about-us.component.css', './about-us.mobile.component.scss'],
 })
 export class AboutUsComponent implements OnInit {
   treesPlanted = 666;

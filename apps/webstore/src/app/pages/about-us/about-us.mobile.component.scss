@@ -1,0 +1,39 @@
+@media screen and (max-width: 850px) {
+  .section-container {
+    flex-direction: column !important;
+    min-width: 80vw;
+    width: 80vw;
+    align-items: center;
+
+    .section-image {
+      height: 80vw;
+      width: 80vw !important;
+      object-fit: cover;
+    }
+
+    .section-content-wrapper {
+      padding: 2em 0em 0em 0em !important;
+    }
+  }
+
+  #background-svg {
+    margin-top: 425px;
+  }
+
+  #newsletter-signup .section-content-wrapper {
+    padding: 0 !important;
+  }
+
+  #our-story .section-content-wrapper {
+    padding: 2em !important;
+  }
+
+  #newsletter-signup-input {
+    width: 65vw;
+  }
+
+  #newsletter-signup-form .tc-button-25 {
+    width: 15vw;
+    min-width: 15vw;
+  }
+}

@@ -149,6 +149,13 @@ h1 {
   font-size: 3em;
 }
 
+@media screen and (max-width: 1000px) {
+  .own-design-info-box {
+    width: 110px;
+    height: 110px;
+  }
+}
+
 /* ======= NEWSLETTER ========= */
 
 #newsletter-signup {
@@ -190,22 +197,10 @@ h1 {
   min-width: 150px;
 }
 
-#newsletter-signup-input {
-}
-
 #newsletter-signup-form {
   display: flex;
   justify-content: center;
 }
-/* @media screen and (max-width: 850px) {
-  .section-container {
-    flex-direction: column;
-
-    max-height: fit-content;
-    min-height: fit-content;
-    min-width: 300px;
-  }
-} */
 
 /* ====== Team Section ====== */
 
