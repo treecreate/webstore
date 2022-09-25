@@ -108,6 +108,8 @@ h1 {
 #own-design .section-content-wrapper {
   padding: 0em 0em 0em 4em;
   line-height: 2em;
+  display: flex;
+  flex-direction: column;
 }
 
 #own-design img {
@@ -117,27 +119,30 @@ h1 {
 #background-svg {
   position: absolute;
   width: 100vw !important;
+  min-width: 1230px;
   z-index: -1;
   box-shadow: none !important;
 }
 
 #own-design-info-box-container {
   display: flex;
+  justify-content: space-between;
 }
 
 .own-design-info-box {
   background-color: white;
   padding: 1.3em;
+  font-size: 0.75em;
   margin: 0.5em;
-  width: 150px;
-  height: 150px;
+  width: 125px;
+  height: 125px;
   text-align: center;
   line-height: normal;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.075);
 }
 
 .own-design-info-box-header {
@@ -200,234 +205,6 @@ h1 {
     min-height: fit-content;
     min-width: 300px;
   }
-} */
-
-/* ====== Our Story Section ====== */
-/* 
-#our-story > img {
-  width: 40%;
-}
-
-#our-story h1 {
-  font-size: 2.5em;
-  font-weight: 900;
-}
-
-#our-story.section-container {
-  background-color: #f9e9d8;
-}
-
-#our-story > .section-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
-  max-width: 50%;
-  min-width: 300px;
-  padding: 2em;
-  font-weight: 400;
-  font-size: 1.25em;
-  line-height: 45px;
-}
-
-@media screen and (max-width: 850px) {
-  #our-story > img {
-    object-fit: cover;
-    width: 100%;
-  }
-  #our-story > .section-content-wrapper {
-    max-height: fit-content;
-    min-height: fit-content;
-    min-width: 300px;
-  }
-} */
-
-/* ====== Moderning Home Section ====== */
-/* 
-#modernizing-homes {
-  flex-direction: row-reverse;
-  justify-content: space-between;
-}
-
-#modernizing-homes > img {
-  width: 50%;
-  padding: 0;
-  margin: 0;
-  filter: drop-shadow(0px 4px 23px rgba(0, 0, 0, 0.2));
-}
-
-#modernizing-homes > .section-content-wrapper {
-  max-height: 55vh;
-  min-height: 600px;
-  width: 50%;
-  padding: 10px;
-}
-
-#moderning-homes-text-1-container {
-  height: 100%;
-  padding: 10px;
-}
-
-#moderning-homes-text-2-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-@media screen and (max-width: 850px) {
-  #modernizing-homes {
-    flex-direction: column;
-  }
-
-  #modernizing-homes > img {
-    object-fit: cover;
-    width: 100%;
-  }
-  #modernizing-homes > .section-content-wrapper {
-    max-height: fit-content;
-    min-height: fit-content;
-    min-width: 300px;
-  }
-  #moderning-homes-text-1-container {
-    max-height: fit-content;
-    min-height: fit-content;
-    min-width: 300px;
-  }
-
-  #buy-now-btn {
-    width: 100%;
-  }
-} */
-
-/* ====== Your Own Design Section ====== */
-/* 
-#own-design > img {
-  height: 600px;
-  width: auto;
-  margin: 20px;
-  filter: drop-shadow(0px 4px 23px rgba(0, 0, 0, 0.2));
-}
-
-#own-design > .section-content-wrapper {
-  max-height: 55vh;
-  min-height: 600px;
-  min-width: 400px;
-  padding: 10px;
-}
-
-#own-design-text-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 600px;
-  max-width: 50%;
-  min-width: 350px;
-  padding: 10px;
-}
-
-#env-initiatives-btn {
-  margin: 10px 0 20px 0;
-}
-
-#own-design-info-box-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.own-design-info-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 100px;
-  width: 100px;
-  background-color: white;
-  font-size: small;
-}
-
-.own-design-info-box-header {
-  font-size: x-large;
-  font-weight: bolder;
-}
-
-@media screen and (max-width: 850px) {
-  #own-design {
-    flex-direction: column;
-  }
-
-  #own-design > img {
-    object-fit: cover;
-    width: 100%;
-  }
-
-  #own-design > .section-content-wrapper {
-    max-height: fit-content;
-    min-height: fit-content;
-    min-width: 300px;
-  }
-
-  #own-design-text-container {
-    max-height: fit-content;
-    min-height: fit-content;
-    min-width: 300px;
-  }
-
-  #env-initiatives-btn {
-    width: 100%;
-  }
-  .own-design-info-box {
-    height: 75px;
-    width: 75px;
-  }
-} */
-
-/* ====== Newsletter Signup Section ====== */
-/* 
-#newsletter-signup {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  margin: 0;
-  max-height: fit-content;
-  min-height: fit-content;
-}
-
-#newsletter-signup .newsletter-signup-wrapper {
-  margin: 3em;
-  max-width: 1400px;
-}
-
-#background-svg {
-  position: absolute;
-  width: 100vw;
-  min-height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-}
-
-#newsletter-signup > h1 {
-  width: 80%;
-  text-align: center;
-}
-
-#newsletter-signup-form {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-#newsletter-signup-input-container {
-  width: 60%;
-}
-#newsletter-signup-input {
-  width: 100%;
-  border: none;
-  background-color: white;
-}
-#newsletter-signup-form > .tc-button-25 {
-  width: 30%;
 } */
 
 /* ====== Team Section ====== */
