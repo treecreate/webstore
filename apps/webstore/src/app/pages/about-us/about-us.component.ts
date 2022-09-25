@@ -52,6 +52,7 @@ export class AboutUsComponent implements OnInit {
           console.error(error);
           this.errorlogsService.create('webstore.about-us.newsletter-signup-failed', ErrorlogPriorityEnum.high, error);
           this.toastService.showAlert('Invalid email', 'Ugyldig email', 'danger', 5000);
+          this.emailInput.nativeElement.focus();
           this.isLoading = false;
         }
       );
@@ -65,7 +66,7 @@ export class AboutUsComponent implements OnInit {
   fetchPlantedTreesTotal(): void {
     this.ordersService.getPlantedTreesTotal().subscribe({
       next: (plantedTreesTotal) => {
-        this.treesPlanted = plantedTreesTotal.plantedTrees;
+        this.treesPlanted = Math.ceil(plantedTreesTotal.plantedTrees / 10) * 10;
       },
       error: (error) => {
         console.error(error);
@@ -76,9 +77,5 @@ export class AboutUsComponent implements OnInit {
         );
       },
     });
-  }
-
-  isNewsletterReadyForSignup(): boolean {
-    return this.newsletterForm.dirty && this.newsletterForm.valid && !this.isLoading;
   }
 }
