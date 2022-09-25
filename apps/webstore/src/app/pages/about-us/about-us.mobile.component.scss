@@ -1,13 +1,13 @@
 @media screen and (max-width: 850px) {
   .section-container {
     flex-direction: column !important;
-    min-width: 80vw;
-    width: 80vw;
+    min-width: 90vw;
+    width: 90vw;
     align-items: center;
 
     .section-image {
-      height: 80vw;
-      width: 80vw !important;
+      height: 90vw;
+      width: 90vw !important;
       object-fit: cover;
     }
 
@@ -35,5 +35,32 @@
   #newsletter-signup-form .tc-button-25 {
     width: 15vw;
     min-width: 15vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .section-container {
+    margin: 3em 0 0 0;
+  }
+
+  .section-container:first-of-type {
+    margin-top: 60px;
+  }
+
+  #moderning-homes-text-2-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #moderning-homes-text-2-container img {
+    margin: 0 0 1.5em 0;
+  }
+
+  #moderning-homes-text-1-container {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
   }
 }
