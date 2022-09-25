@@ -56,11 +56,35 @@
     margin: 0 0 1.5em 0;
   }
 
-  #moderning-homes-text-1-container {
+  #moderning-homes-text-1-container,
+  #own-design {
     text-align: center;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+  }
+
+  #own-design .section-content-wrapper {
+    width: 90vw;
+  }
+
+  .own-design-info-box {
+    width: 30vw;
+    height: 30vw;
+    padding: 0;
+  }
+
+  #newsletter-signup h1 {
+    width: 90vw;
+  }
+
+  #newsletter-signup-input {
+    width: 60vw;
+  }
+
+  #newsletter-signup-form .tc-button-25 {
+    width: 20vw;
+    min-width: 20vw;
   }
 }
