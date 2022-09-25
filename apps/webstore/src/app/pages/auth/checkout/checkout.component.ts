@@ -325,7 +325,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  //TODO: Add translated messages to commented out return statements.
   shippingInputErrorMessageCheck(fieldName: string): string {
     if (this.checkoutForm.get(fieldName).invalid) {
       switch (fieldName) {
@@ -425,7 +424,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  //TODO: Add Translated messages to commented out return statements
   billingInputErrorMessageCheck(fieldName: string): string {
     if (this.billingAddressForm.get(fieldName).invalid) {
       switch (fieldName) {
