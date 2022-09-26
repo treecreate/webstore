@@ -1,0 +1,94 @@
+@media screen and (max-width: 850px) {
+  .section-container {
+    flex-direction: column !important;
+    min-width: 90vw;
+    width: 90vw;
+    align-items: center;
+
+    .section-image {
+      height: 90vw;
+      width: 90vw !important;
+      object-fit: cover;
+    }
+
+    .section-content-wrapper {
+      padding: 2em 0em 0em 0em !important;
+    }
+  }
+
+  #background-svg {
+    margin-top: 425px;
+  }
+
+  #newsletter-signup .section-content-wrapper {
+    padding: 0 !important;
+  }
+
+  #our-story .section-content-wrapper {
+    padding: 2em !important;
+  }
+
+  #newsletter-signup-input {
+    width: 65vw;
+  }
+
+  #newsletter-signup-form .tc-button-25 {
+    width: 15vw;
+    min-width: 15vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .section-container {
+    margin: 4em 0 0 0;
+  }
+
+  .section-container:first-of-type {
+    margin-top: 75px;
+  }
+
+  #moderning-homes-text-2-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #moderning-homes-text-2-container img {
+    margin: 0 0 1.5em 0;
+  }
+
+  #moderning-homes-text-1-container,
+  #own-design {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #own-design .section-content-wrapper {
+    width: 90vw;
+  }
+
+  .own-design-info-box {
+    width: 30vw;
+    height: 30vw;
+    padding: 0;
+  }
+
+  #newsletter-signup h1 {
+    width: 90vw;
+  }
+
+  #newsletter-signup-input {
+    width: 60vw;
+  }
+
+  #newsletter-signup-form .tc-button-25 {
+    width: 20vw;
+    min-width: 20vw;
+  }
+
+  #background-svg {
+    min-width: 0;
+  }
+}
