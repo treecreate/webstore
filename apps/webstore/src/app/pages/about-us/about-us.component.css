@@ -23,7 +23,7 @@
 }
 
 .section-container:last-of-type {
-  margin-bottom: 50px;
+  margin-bottom: 5em;
 }
 
 .section-container {
@@ -33,7 +33,7 @@
   min-width: 800px;
   margin-top: 50px;
   max-width: 1000px;
-  margin: 3em;
+  margin: 5em 2em;
 }
 
 .so-me-buttons {
