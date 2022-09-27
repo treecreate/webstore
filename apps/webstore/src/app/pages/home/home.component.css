@@ -272,6 +272,7 @@ figure {
   margin: 1.25em 0 0 0;
   display: flex;
   align-items: center;
+  z-index: 10;
 }
 
 .trustpilot-rating {
@@ -292,23 +293,6 @@ figure {
 .trustpilot-rating-text {
   font-size: 1em;
   font-weight: 400;
-}
-
-.video-title {
-  margin-bottom: 1.25em;
-}
-
-.video-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 2em 0;
-}
-
-.i-frame-video {
-  width: 90vw;
-  height: 49vw;
 }
 
 .link {
