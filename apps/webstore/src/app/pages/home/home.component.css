@@ -29,7 +29,7 @@
   max-width: 100vw;
   display: flex;
   /* Background image properties */
-  background-image: url('apps/webstore/src/assets/img/main-img-02.jpg');
+  background-image: url('apps/webstore/src/assets/img/home/main-img-02.jpg');
   background-size: cover;
   background-position: bottom center;
 }

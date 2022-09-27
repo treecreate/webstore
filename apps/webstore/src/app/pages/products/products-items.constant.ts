@@ -46,7 +46,7 @@ const unique: ProductsItem = {
   descriptionDk:
     'En enestående mulighed for at bringe dit billede eller design ud på. Få lavet en fuldkommen brugerdefineret design skåret i egetræ. Med Treecreate kan du skabe noget helt unikt på dine egne vilkår.',
   prices: [399],
-  imgSrc: '/assets/img/description2.jpg',
+  imgSrc: '/assets/img/component-images/custom-image.jpg',
   altText: 'Dit unikke produkt. Præcis som du vil have det.',
   specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
   routerLink: 'custom-order',
