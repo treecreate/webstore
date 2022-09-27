@@ -84,7 +84,7 @@
       </trans-unit>
       <trans-unit id="trees-planted" datatype="html">
         <source>Trees Planted</source>
-        <target>Træet plantet</target>
+        <target>Træer plantet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">81</context>
@@ -96,7 +96,7 @@
       </trans-unit>
       <trans-unit id="av-rating" datatype="html">
         <source>av. Rating</source>
-        <target>av. Rating</target>
+        <target>Gns. anmeldelse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">84</context>
@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="about-us-newsletter-signup-title" datatype="html">
         <source>Register to our newsletter for special deals</source>
-        <target>Regristrer til vores nyhedsbre for specielle tilbud</target>
+        <target>Tilmeld til vores nyhedsbre for specielle tilbud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">98</context>
@@ -2627,6 +2627,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
           <context context-type="linenumber">180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about-us" datatype="html">
+        <source>About Us</source>
+        <target>Om os</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="orders" datatype="html">
