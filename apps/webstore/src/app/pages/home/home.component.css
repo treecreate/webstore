@@ -339,3 +339,24 @@ figure {
 
 /* ========= MISSION STATEMENT =========== */
 
+#our-mission-statement {
+  width: 100%;
+  padding: 8em 3em;
+  display: flex;
+  justify-content: center;
+  line-height: 2em;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+}
+
+#our-mission-statement h1 {
+  font-size: 36px !important;
+}
+
+#our-mission-statement h2 {
+  max-width: 900px;
+  width: 90vw;
+  font-size: 1.5em;
+}
