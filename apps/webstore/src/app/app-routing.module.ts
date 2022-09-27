@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserRoles } from '@models';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
 import { CollectionComponent } from './pages/auth/collection/collection.component';
@@ -23,6 +24,7 @@ import { AuthGuard } from './shared/guards/auth/auth.guard';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', redirectTo: '' }, // Handle legacy /home route
+  { path: 'about-us', component: AboutUsComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'resetPassword/:token',

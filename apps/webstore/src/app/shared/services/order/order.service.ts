@@ -24,6 +24,10 @@ export class OrderService {
     return this.http.get<IOrder[]>(`${env.apiUrl}/orders/me`);
   }
 
+  public getPlantedTreesTotal(): Observable<{ plantedTrees: number }> {
+    return this.http.get<{ plantedTrees: number }>(`${env.apiUrl}/orders/planted-trees`);
+  }
+
   /**
    * Send custom order information to the backend for processing
    * @param params custom order information
