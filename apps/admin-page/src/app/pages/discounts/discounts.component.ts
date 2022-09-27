@@ -314,23 +314,23 @@ export class DiscountsComponent implements OnInit {
 
     this.discountPageInfo = [
       {
-        amount: discountCount.future,
-        description: 'Future',
-        color: 'green',
-      },
-      {
-        amount: discountCount.expired,
-        description: 'Expired',
-        color: 'grey',
-      },
-      {
         amount: discountCount.active,
         description: 'Active',
         color: 'green',
       },
       {
+        amount: discountCount.future,
+        description: 'Future',
+        color: 'green',
+      },
+      {
         amount: discountCount.runOut,
         description: 'RunOut',
+        color: 'grey',
+      },
+      {
+        amount: discountCount.expired,
+        description: 'Expired',
         color: 'grey',
       },
       {
