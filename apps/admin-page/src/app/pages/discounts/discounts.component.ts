@@ -130,10 +130,17 @@ export class DiscountsComponent implements OnInit {
         this.discounts.filter((discount) => this.getDiscountState(discount) === DiscountState.active)
       );
     }
-    // Check to display default
+    // Check to display inactive
     if (this.showInactive) {
       this.discountDisplayList = this.discountDisplayList.concat(
         this.discounts.filter((discount) => this.getDiscountState(discount) !== DiscountState.active)
+      );
+    }
+
+    // Check to display future
+    if (this.showFuture) {
+      this.discountDisplayList = this.discountDisplayList.concat(
+        this.discounts.filter((discount) => this.getDiscountState(discount) === DiscountState.future)
       );
     }
 
@@ -150,10 +157,6 @@ export class DiscountsComponent implements OnInit {
       // Only show percent
       this.discountDisplayList = this.discountDisplayList.filter(
         (discount) => discount.type !== DiscountType.amount && DiscountType.future
-      );
-    } else if (this.showFuture) {
-      this.discountDisplayList = this.discountDisplayList.filter(
-        (discount) => discount.type !== DiscountType.percent && DiscountType.amount
       );
     } else {
       this.discountDisplayList = [];
@@ -275,4 +278,72 @@ export class DiscountsComponent implements OnInit {
         },
       });
   }
+
+  countDiscounts() {
+    const discountCount: { [key: string]: number } = {
+      future: 0,
+      expired: 0,
+      active: 0,
+      runOut: 0,
+      disabled: 0
+    };
+
+    for (const discount of this.discounts) {
+      switch(this.getDiscountState(discount)){
+        case "Future":
+          discountCount.future++;
+          return;
+        case "Expired":
+          discountCount.expired++;
+          return;
+        case "Active":
+          discountCount.active++;
+          return;
+        case "RunOut":
+          discountCount.runOut++;
+          return;
+        case "Disabled":
+          discountCount.disabled++;
+          return;
+        default:
+          return;
+      }
+
+    }
+    // this.discountService.getDiscounts.(() => {
+    //   if (DiscountState.active) {
+    //     discountCount.active += 1;
+    //   } else if (DiscountState.expired) {
+    //     discountCount.expired += 1;
+    //   } else if (DiscountState.runOut) {
+    //     discountCount.runOut += 1;
+    //   } else if (DiscountState.future) {
+    //     discountCount.future += 1;
+    //   } else {
+    //     discountCount.disabled += 1;
+    //   }
+    // });
+
+    // this.discountsService.getDiscounts().subscribe({
+    //   error: (error: HttpErrorResponse) => {
+    //     console.error(error);
+    //   },
+    //   next: (discounts: IDiscount[]) => {
+    //     if (DiscountState.active) {
+    //           discountCount.active += 1;
+    //         } else if (DiscountState.expired) {
+    //           discountCount.expired += 1;
+    //         } else if (DiscountState.runOut) {
+    //           discountCount.runOut += 1;
+    //         } else if (DiscountState.future) {
+    //           discountCount.future += 1;
+    //         } else {
+    //           discountCount.disabled += 1;
+    //         }
+    //   },
+    // });
+
+    return `Active: ${discountCount.active}, Expired: ${discountCount.expired}, Run-out: ${discountCount.runOut}, Future: ${discountCount.future}, Disabled: ${discountCount.disabled}`;
+  }
+
 }
