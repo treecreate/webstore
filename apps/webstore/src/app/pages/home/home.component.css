@@ -309,3 +309,29 @@ figure {
   text-decoration: none;
   text-align: center;
 }
+
+/* ========= UPDATED =========== */
+
+#our-mission-values-1 {
+  background-color: white;
+  width: 100%;
+  padding: 6em 4em 8em 4em;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  line-height: 2em;
+}
+
+#our-mission-values-1 .text-section-wrapper {
+  padding: 3em 4em 3em 0em;
+  width: 500px;
+}
+
+#our-mission-values-1 img {
+  width: 500px;
+  height: 500px;
+}
+
+#our-mission-values-1 h2 {
+  padding-bottom: 0.5em;
+}
