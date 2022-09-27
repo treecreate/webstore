@@ -1,4 +1,10 @@
-<webstore-item-card title="Discounts" [content]="content" [isLoading]="isLoading" data-cy="discounts-card">
+<webstore-item-card
+    title="Discounts"
+    [content]="content"
+    [isLoading]="isLoading"
+    [amountInfo]="discountPageInfo"
+    data-cy="discounts-card"
+>
     <ng-template #content>
         <div class="header">
             <div class="sub-header">
@@ -73,7 +79,7 @@
             <ng-container matColumnDef="code">
                 <th mat-header-cell *matHeaderCellDef>Code</th>
                 <td mat-cell *matCellDef="let discount" class="id-container">
-                    <span matTooltip="{{discount.discountCode}}" [matTooltipPosition]="'right'" class="id"
+                    <span matTooltip="{{ discount.discountCode }}" [matTooltipPosition]="'right'" class="id"
                         >{{ getShortText(discount.discountCode, false) }}
                         {{ discount.discountCode.length > 10 ? ' ...' : '' }}
                     </span>

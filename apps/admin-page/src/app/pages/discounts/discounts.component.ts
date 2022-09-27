@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DiscountType, IDiscount } from '@interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Sort } from '@angular/material/sort';
+import { DiscountType, IDiscount, ItemInfo } from '@interfaces';
 import { ClipboardService } from 'ngx-clipboard';
 import { CreateDiscountDialogComponent } from '../../components/create-discount-dialog/create-discount-dialog.component';
 import { DiscountsService } from '../../services/discounts/discounts.service';
-import { Sort } from '@angular/material/sort';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 enum DiscountSortEnum {
   createdAt = 'createdAt',
@@ -50,6 +50,7 @@ export class DiscountsComponent implements OnInit {
   showFuture = true;
   showPercent = true;
   sortSelectForm: UntypedFormGroup;
+  discountPageInfo: ItemInfo[] = [];
 
   constructor(
     private discountsService: DiscountsService,
@@ -100,6 +101,7 @@ export class DiscountsComponent implements OnInit {
         this.discounts = discounts;
         this.discountDisplayList = discounts;
         this.updateList();
+        this.countDiscounts();
       },
     });
   }
@@ -285,65 +287,57 @@ export class DiscountsComponent implements OnInit {
       expired: 0,
       active: 0,
       runOut: 0,
-      disabled: 0
+      disabled: 0,
     };
 
     for (const discount of this.discounts) {
-      switch(this.getDiscountState(discount)){
-        case "Future":
+      switch (this.getDiscountState(discount)) {
+        case 'Future':
           discountCount.future++;
-          return;
-        case "Expired":
+          break;
+        case 'Expired':
           discountCount.expired++;
-          return;
-        case "Active":
+          break;
+        case 'Active':
           discountCount.active++;
-          return;
-        case "RunOut":
+          break;
+        case 'RunOut':
           discountCount.runOut++;
-          return;
-        case "Disabled":
+          break;
+        case 'Disabled':
           discountCount.disabled++;
-          return;
+          break;
         default:
-          return;
+          break;
       }
-
     }
-    // this.discountService.getDiscounts.(() => {
-    //   if (DiscountState.active) {
-    //     discountCount.active += 1;
-    //   } else if (DiscountState.expired) {
-    //     discountCount.expired += 1;
-    //   } else if (DiscountState.runOut) {
-    //     discountCount.runOut += 1;
-    //   } else if (DiscountState.future) {
-    //     discountCount.future += 1;
-    //   } else {
-    //     discountCount.disabled += 1;
-    //   }
-    // });
 
-    // this.discountsService.getDiscounts().subscribe({
-    //   error: (error: HttpErrorResponse) => {
-    //     console.error(error);
-    //   },
-    //   next: (discounts: IDiscount[]) => {
-    //     if (DiscountState.active) {
-    //           discountCount.active += 1;
-    //         } else if (DiscountState.expired) {
-    //           discountCount.expired += 1;
-    //         } else if (DiscountState.runOut) {
-    //           discountCount.runOut += 1;
-    //         } else if (DiscountState.future) {
-    //           discountCount.future += 1;
-    //         } else {
-    //           discountCount.disabled += 1;
-    //         }
-    //   },
-    // });
-
-    return `Active: ${discountCount.active}, Expired: ${discountCount.expired}, Run-out: ${discountCount.runOut}, Future: ${discountCount.future}, Disabled: ${discountCount.disabled}`;
+    this.discountPageInfo = [
+      {
+        amount: discountCount.future,
+        description: 'Future',
+        color: 'green',
+      },
+      {
+        amount: discountCount.expired,
+        description: 'Expired',
+        color: 'grey',
+      },
+      {
+        amount: discountCount.active,
+        description: 'Active',
+        color: 'green',
+      },
+      {
+        amount: discountCount.runOut,
+        description: 'RunOut',
+        color: 'grey',
+      },
+      {
+        amount: discountCount.disabled,
+        description: 'Disabled',
+        color: 'red',
+      },
+    ];
   }
-
 }
