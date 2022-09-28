@@ -153,12 +153,12 @@ export class DiscountsComponent implements OnInit {
     } else if (this.showAmount) {
       // Only show amount
       this.discountDisplayList = this.discountDisplayList.filter(
-        (discount) => discount.type !== DiscountType.percent && DiscountType.future
+        (discount) => discount.type !== DiscountType.percent
       );
     } else if (this.showPercent) {
       // Only show percent
       this.discountDisplayList = this.discountDisplayList.filter(
-        (discount) => discount.type !== DiscountType.amount && DiscountType.future
+        (discount) => discount.type !== DiscountType.amount
       );
     } else {
       this.discountDisplayList = [];
