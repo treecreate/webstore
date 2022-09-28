@@ -9,6 +9,7 @@ import {
   CreateUpdateOrderRequest,
   DesignDimensionEnum,
   DesignTypeEnum,
+  DiscountType,
   IOrder,
   ITransactionItem,
   OrderStatusEnum,
@@ -277,6 +278,10 @@ export class OrderDetailsComponent implements OnInit {
             return 99999999;
         }
     }
+  }
+
+  getSavedAmount(): number {
+    return this.order!.subtotal - (this.order!.total - this.getDeliveryPrice() - this.getPlantedTreesPrice());
   }
 
   getDesignViewOnlyUrl(id: string): string {
