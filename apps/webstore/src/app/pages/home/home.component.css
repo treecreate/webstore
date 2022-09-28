@@ -62,6 +62,10 @@
   align-items: center;
 }
 
+.reversed {
+  flex-direction: row-reverse;
+}
+
 figure {
   margin: 0;
 }
@@ -100,17 +104,25 @@ figure {
   overflow: hidden;
 }
 
-#background-image {
+#background-image,
+#background-image-family {
   height: 100%;
   -webkit-filter: blur(8px);
-  background-image: url('/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg');
   background-size: cover;
   background-position: center center;
   position: absolute;
   transform: scale(1.1);
   width: 100%;
-  z-index: -10;
   filter: brightness(70%) blur(8px);
+  z-index: -10;
+}
+
+#background-image {
+  background-image: url('/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg');
+}
+
+#background-image-family {
+  background-image: url('/assets/img/home/family-tree-baby.jpg');
 }
 
 .hide .arrow-up-item,
@@ -313,27 +325,31 @@ figure {
 /* ========= UPDATED =========== */
 /* ========= OUR MISSION 1 =========== */
 
-#our-mission-values-1 {
+#our-mission-values-2 {
   background-color: white;
   width: 100%;
-  padding: 6em 4em 8em 4em;
+  padding: 8em 0em 2em 0em;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
   line-height: 2em;
 }
 
-#our-mission-values-1 .text-section-wrapper {
+#our-mission-values-2 .text-section-wrapper {
   padding: 3em 4em 3em 0em;
-  width: 500px;
+  width: 80vw;
+  max-width: 500px;
 }
 
-#our-mission-values-1 img {
+#our-mission-values-2 img {
   width: 500px;
+  max-width: 80vw;
   height: 500px;
+  max-height: 80vw;
+  filter: drop-shadow(0px 5px 30px rgba(0, 0, 0, 0.2));
 }
 
-#our-mission-values-1 h2 {
+#our-mission-values-2 h2 {
   padding-bottom: 0.5em;
 }
 

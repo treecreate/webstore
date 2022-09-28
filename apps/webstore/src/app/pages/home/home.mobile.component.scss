@@ -10,7 +10,7 @@
   }
 }
 
-@media screen and (max-width: 945px) {
+@media screen and (max-width: 950px) {
   .right-content {
     padding: 7em 2em 2em 2em;
     height: 100vh;
@@ -69,6 +69,16 @@
   .descriptive-img {
     width: 60vw;
     height: 60vw;
+  }
+
+  #our-mission-values-2 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #our-mission-values-2 .text-section-wrapper {
+    padding: 3em 0em;
   }
 }
 
@@ -163,8 +173,7 @@
   }
 
   .right-content {
-    padding: 10em 2em 2em 2em;
-    height: 100vh;
+    padding: 7em 2em 2em 2em;
   }
 
   .descriptive-content-container {
