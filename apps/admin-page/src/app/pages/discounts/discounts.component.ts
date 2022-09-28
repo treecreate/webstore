@@ -152,14 +152,10 @@ export class DiscountsComponent implements OnInit {
       return;
     } else if (this.showAmount) {
       // Only show amount
-      this.discountDisplayList = this.discountDisplayList.filter(
-        (discount) => discount.type !== DiscountType.percent
-      );
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.percent);
     } else if (this.showPercent) {
       // Only show percent
-      this.discountDisplayList = this.discountDisplayList.filter(
-        (discount) => discount.type !== DiscountType.amount
-      );
+      this.discountDisplayList = this.discountDisplayList.filter((discount) => discount.type !== DiscountType.amount);
     } else {
       this.discountDisplayList = [];
     }
