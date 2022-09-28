@@ -251,16 +251,31 @@ export class OrderDetailsComponent implements OnInit {
    * @param dimension - the dimension of the transaction item.
    * @returns the price of the item.
    */
-  getItemPrice(quantity: number, dimension: DesignDimensionEnum): number {
-    switch (dimension) {
-      case DesignDimensionEnum.small:
-        return quantity * 499;
-      case DesignDimensionEnum.medium:
-        return quantity * 699;
-      case DesignDimensionEnum.large:
-        return quantity * 999;
+  getItemPrice(quantity: number, dimension: DesignDimensionEnum, designType: DesignTypeEnum): number {
+    switch (designType) {
+      case DesignTypeEnum.familyTree:
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return quantity * 499;
+          case DesignDimensionEnum.medium:
+            return quantity * 699;
+          case DesignDimensionEnum.large:
+            return quantity * 999;
+          default:
+            return 99999999;
+        }
+      case DesignTypeEnum.quotable:
       default:
-        return 99999999;
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return quantity * 299;
+          case DesignDimensionEnum.medium:
+            return quantity * 399;
+          case DesignDimensionEnum.large:
+            return quantity * 499;
+          default:
+            return 99999999;
+        }
     }
   }
 
