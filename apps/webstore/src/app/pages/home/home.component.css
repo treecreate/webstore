@@ -216,8 +216,7 @@ figure {
   width: 300px;
 }
 
-.values-container,
-.team-container {
+.values-container {
   min-height: 55vh;
   display: flex;
   align-items: center;
@@ -234,31 +233,6 @@ figure {
   text-align: center;
   margin: 1em 2em;
   width: 200px;
-}
-
-.member-wrapper {
-  margin: 1em;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.15));
-  padding: 1em;
-  background-color: white;
-  border-radius: 5px;
-}
-
-.member-wrapper h3 {
-  font-size: 1.5em;
-}
-
-.member-wrapper img {
-  margin-bottom: 1em;
-  object-fit: cover;
-  height: 268px;
-}
-
-.member-info a {
-  margin-right: 1em;
 }
 
 .value-wrapper h3 {
@@ -278,13 +252,6 @@ figure {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-}
-
-.members {
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .values h3 {
