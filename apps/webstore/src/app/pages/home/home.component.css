@@ -102,6 +102,7 @@ figure {
   position: absolute;
   height: 100%;
   overflow: hidden;
+  z-index: -1;
 }
 
 #background-image,
@@ -114,7 +115,6 @@ figure {
   transform: scale(1.1);
   width: 100%;
   filter: brightness(70%) blur(8px);
-  z-index: -10;
 }
 
 #background-image {
@@ -233,8 +233,9 @@ figure {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 3.5em 2em 2em 2em;
-  background-color: white;
+  padding: 3.5em 2em;
+  margin: 3em 0em 5em 0em;
+  background-color: #f9e9d8;
 }
 
 .values-container {
@@ -328,15 +329,15 @@ figure {
 #our-mission-values-2 {
   background-color: white;
   width: 100%;
-  padding: 8em 0em 2em 0em;
+  padding: 8em 0em;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: center;
   line-height: 2em;
 }
 
 #our-mission-values-2 .text-section-wrapper {
-  padding: 3em 4em 3em 0em;
+  padding: 3em 0em 3em 3em;
   width: 80vw;
   max-width: 500px;
 }
