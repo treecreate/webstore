@@ -50,7 +50,7 @@ const quotable: ProductsItem = {
   descriptionDk:
     "Med Treecreate's citat ramme, får du muligheden for at skrive en hilsen eller en tekst i egetræ til en du elsker. Quotable er en unik og personlig måde at give en hilsen eller gave på. Og så er den endda miljøvenlig ligesom Treecreate's andre produkter.",
   prices: [299, 399, 499],
-  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  imgSrc: '/assets/img/quotable-img/quotable.jpg',
   altText: 'En smuk citat ramme med dit personlige citat på. Perfekt som gave.',
   specialOffer: '',
   routerLink: 'quotable',
@@ -65,7 +65,7 @@ const babySign: ProductsItem = {
   descriptionDk:
     'Ønsker du en unik, personlig og miljøvenlig måde at foreviggøre mindet om fødslen og dagen hvor dit spædbarn kom til verden? Så få designet dit helt eget Baby Skilt, som vi indgraverer på et lækkert stykke egetræ i høj kvalitet. Den perfekte gave til de nybagte forældre.',
   prices: [299, 399, 499],
-  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  imgSrc: '/assets/img/products-images/baby-sign-01.jpg',
   altText: 'Et flot baby skilt. Perfekt som barnedåbs gave.',
   specialOffer: '',
   routerLink: 'quotable',
@@ -80,7 +80,7 @@ const loveLetter: ProductsItem = {
   descriptionDk:
     'Med Treecreates Kærlighedsbrev får du muligheden for at give den mest personlige og unikke gave til din kæreste. Vælg din egen ramme, og skriv en besked om hvor meget du elsker din partner. Den perfekte gave til årsdagen eller fødselsdag.',
   prices: [299, 399, 499],
-  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  imgSrc: '/assets/img/products-images/love-letter.jpg',
   altText: 'Et romantisk kærlighedsbrev skåret i egetræ.',
   specialOffer: '',
   routerLink: 'quotable',
@@ -95,7 +95,7 @@ const anniversary: ProductsItem = {
   descriptionDk:
     'Et bryllup er noget helt specielt, så derfor kræver det også en helt speciel gave. Hos Treecreate kan du give din mand eller kone et minde for livet om bryllupsdagen, som passer ind i hvilket som helst hjem.',
   prices: [299, 399, 499],
-  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  imgSrc: '/assets/img/products-images/anniversary.jpg',
   altText: 'Et romantisk kærlighedsbrev skåret i egetræ.',
   specialOffer: '',
   routerLink: 'quotable',
