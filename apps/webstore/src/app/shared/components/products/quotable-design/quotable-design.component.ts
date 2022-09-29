@@ -13,7 +13,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IQoutable } from '@interfaces';
+import { IQoutable, QuotableType } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { take } from 'rxjs';
@@ -35,6 +35,9 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   @Input()
   design: IQoutable;
+
+  @Input()
+  quotableType: QuotableType;
 
   @Output()
   isDesignValidEvent = new EventEmitter<boolean>();
@@ -132,7 +135,18 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       return false;
     }
 
-    this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
+    // Save the design depending on quotable type
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
+        break;
+      case QuotableType.loveLetter:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
+        break;
+      case QuotableType.quotable:
+      default:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
+    }
   }
 
   getSizeDependingOnWidth(number: number): number {

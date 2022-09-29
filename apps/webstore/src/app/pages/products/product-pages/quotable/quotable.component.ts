@@ -111,7 +111,6 @@ export class QuotableComponent implements OnInit {
       default:
         this.productFrames = quotableFrames;
     }
-    console.log(this.productFrames);
 
     // Set default design
     this.design = {
@@ -238,7 +237,9 @@ export class QuotableComponent implements OnInit {
         this.loadDesignFromLocalStorage(queryParams.designId);
       }
     } else {
-      this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+      // Load quotable design specific to type
+      this.loadTypeSpecificDesign();
+
       // apply the design
       if (this.design === null || this.design === undefined) {
         // set the defaults
@@ -250,6 +251,20 @@ export class QuotableComponent implements OnInit {
         };
       }
       this.isMutable = true;
+    }
+  }
+
+  loadTypeSpecificDesign() {
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
+        break;
+      case QuotableType.loveLetter:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
+        break;
+      case QuotableType.quotable:
+      default:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
     }
   }
 
@@ -283,7 +298,18 @@ export class QuotableComponent implements OnInit {
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {
-          this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
+          // Get the correct design type
+          switch (this.quotableType) {
+            case QuotableType.babySign:
+              this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
+              break;
+            case QuotableType.loveLetter:
+              this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
+              break;
+            case QuotableType.quotable:
+            default:
+              this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
+          }
           // apply the design
           this.isMutable = result.mutable;
         }
@@ -309,7 +335,7 @@ export class QuotableComponent implements OnInit {
     }
     const persist = { params };
     this.quotableDesign.saveDesign();
-    this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    this.loadTypeSpecificDesign();
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn) {
       if (!withAlert) {
@@ -329,6 +355,7 @@ export class QuotableComponent implements OnInit {
     }
     const queryParams = this.route.snapshot.queryParams;
     const design: IQoutable = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+
     if (queryParams.designId !== undefined) {
       // design exists, save using the designId
       this.designService
