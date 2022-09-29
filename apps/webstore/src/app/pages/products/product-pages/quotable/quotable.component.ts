@@ -94,16 +94,16 @@ export class QuotableComponent implements OnInit {
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
+    // Get product type
+    this.route.queryParams.subscribe((params) => {
+      this.quotableType = params.productType;
+    });
   }
 
   ngOnInit() {
     this.getFontList();
     this.loadDesign();
     this.setMetaData();
-
-    this.route.queryParams.subscribe((params) => {
-      this.quotableType = params.productType;
-    });
   }
 
   setMetaData() {
@@ -149,7 +149,7 @@ export class QuotableComponent implements OnInit {
   changeDesign(direction: string): void {
     switch (direction) {
       case 'next':
-        if (this.currentDesign < 12) {
+        if (this.currentDesign < quotableFrames.length - 1) {
           this.currentDesign = this.currentDesign + 1;
         } else {
           this.currentDesign = 0;
@@ -159,7 +159,7 @@ export class QuotableComponent implements OnInit {
         if (this.currentDesign > 0) {
           this.currentDesign = this.currentDesign - 1;
         } else {
-          this.currentDesign = 12;
+          this.currentDesign = quotableFrames.length - 1;
         }
     }
     this.design.designSrc = quotableFrames[this.currentDesign].src;
