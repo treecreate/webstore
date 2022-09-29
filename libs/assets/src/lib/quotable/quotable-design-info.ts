@@ -72,3 +72,36 @@ export const quotableFrames: QuotableFrameInfo[] = [
     nameEn: QuotableDesignNameEnglishEnum.frame12,
   },
 ];
+
+export const loveLetterFrames: QuotableFrameInfo[] = [
+  {
+    src: QuotableDesignEnum.noFrame,
+    nameDk: QuotableDesignNameDanishEnum.noFrame,
+    nameEn: QuotableDesignNameEnglishEnum.noFrame,
+  },
+  {
+    src: QuotableDesignEnum.frame13,
+    nameDk: QuotableDesignNameDanishEnum.frame7,
+    nameEn: QuotableDesignNameEnglishEnum.frame7,
+  },
+  {
+    src: QuotableDesignEnum.frame14,
+    nameDk: QuotableDesignNameDanishEnum.frame8,
+    nameEn: QuotableDesignNameEnglishEnum.frame8,
+  },
+  {
+    src: QuotableDesignEnum.frame15,
+    nameDk: QuotableDesignNameDanishEnum.frame9,
+    nameEn: QuotableDesignNameEnglishEnum.frame9,
+  },
+  {
+    src: QuotableDesignEnum.frame16,
+    nameDk: QuotableDesignNameDanishEnum.frame10,
+    nameEn: QuotableDesignNameEnglishEnum.frame10,
+  },
+  {
+    src: QuotableDesignEnum.frame17,
+    nameDk: QuotableDesignNameDanishEnum.frame11,
+    nameEn: QuotableDesignNameEnglishEnum.frame11,
+  },
+];

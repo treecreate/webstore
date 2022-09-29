@@ -1,4 +1,5 @@
 export enum QuotableDesignEnum {
+  // Quotable
   noFrame = 'assets/quotable/frame-design/frame0-no-design.svg',
   frame1 = 'assets/quotable/frame-design/frame1.svg',
   frame2 = 'assets/quotable/frame-design/frame2.svg',
@@ -12,9 +13,17 @@ export enum QuotableDesignEnum {
   frame10 = 'assets/quotable/frame-design/frame10.svg',
   frame11 = 'assets/quotable/frame-design/frame11.svg',
   frame12 = 'assets/quotable/frame-design/frame12.svg',
+  // Love letter
+  frame13 = 'assets/quotable/frame-design/frame13.svg',
+  frame14 = 'assets/quotable/frame-design/frame14.svg',
+  frame15 = 'assets/quotable/frame-design/frame15.svg',
+  frame16 = 'assets/quotable/frame-design/frame16.svg',
+  frame17 = 'assets/quotable/frame-design/frame17.svg',
+  // Baby sign
 }
 
 export enum QuotableDesignNameDanishEnum {
+  // Quotable
   noFrame = 'Ingen Ramme',
   frame1 = 'Simpel Stil',
   frame2 = 'Frugt Ramme',
@@ -28,9 +37,17 @@ export enum QuotableDesignNameDanishEnum {
   frame10 = 'Blomster Buket',
   frame11 = 'Simpel Blomst U',
   frame12 = 'Blomsterkrans',
+  // Love letter
+  frame13 = 'Blomster ramme',
+  frame14 = 'Hjerte streg',
+  frame15 = 'Lille hjerte',
+  frame16 = 'Blomster stilk',
+  frame17 = 'Oliven gren',
+  // Baby sign
 }
 
 export enum QuotableDesignNameEnglishEnum {
+  // Quotable
   noFrame = 'No Frame',
   frame1 = 'Simple Style',
   frame2 = 'Fruit Frame',
@@ -44,4 +61,11 @@ export enum QuotableDesignNameEnglishEnum {
   frame10 = 'Flower Bouquet',
   frame11 = 'Simple Flower U',
   frame12 = 'Flower Wreath',
+  // Love letter
+  frame13 = 'Flower frame',
+  frame14 = 'Love string',
+  frame15 = 'Little heart',
+  frame16 = 'Flower stick',
+  frame17 = 'Olive branch',
+  // Baby sign
 }
