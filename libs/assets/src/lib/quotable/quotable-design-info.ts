@@ -81,27 +81,60 @@ export const loveLetterFrames: QuotableFrameInfo[] = [
   },
   {
     src: QuotableDesignEnum.frame13,
-    nameDk: QuotableDesignNameDanishEnum.frame7,
-    nameEn: QuotableDesignNameEnglishEnum.frame7,
+    nameDk: QuotableDesignNameDanishEnum.frame13,
+    nameEn: QuotableDesignNameEnglishEnum.frame13,
   },
   {
     src: QuotableDesignEnum.frame14,
-    nameDk: QuotableDesignNameDanishEnum.frame8,
-    nameEn: QuotableDesignNameEnglishEnum.frame8,
+    nameDk: QuotableDesignNameDanishEnum.frame14,
+    nameEn: QuotableDesignNameEnglishEnum.frame14,
   },
   {
     src: QuotableDesignEnum.frame15,
-    nameDk: QuotableDesignNameDanishEnum.frame9,
-    nameEn: QuotableDesignNameEnglishEnum.frame9,
+    nameDk: QuotableDesignNameDanishEnum.frame15,
+    nameEn: QuotableDesignNameEnglishEnum.frame15,
   },
   {
     src: QuotableDesignEnum.frame16,
-    nameDk: QuotableDesignNameDanishEnum.frame10,
-    nameEn: QuotableDesignNameEnglishEnum.frame10,
+    nameDk: QuotableDesignNameDanishEnum.frame16,
+    nameEn: QuotableDesignNameEnglishEnum.frame16,
   },
   {
     src: QuotableDesignEnum.frame17,
-    nameDk: QuotableDesignNameDanishEnum.frame11,
-    nameEn: QuotableDesignNameEnglishEnum.frame11,
+    nameDk: QuotableDesignNameDanishEnum.frame17,
+    nameEn: QuotableDesignNameEnglishEnum.frame17,
+  },
+];
+
+export const BabySignFrames: QuotableFrameInfo[] = [
+  {
+    src: QuotableDesignEnum.noFrame,
+    nameDk: QuotableDesignNameDanishEnum.noFrame,
+    nameEn: QuotableDesignNameEnglishEnum.noFrame,
+  },
+  {
+    src: QuotableDesignEnum.frame18,
+    nameDk: QuotableDesignNameDanishEnum.frame18,
+    nameEn: QuotableDesignNameEnglishEnum.frame18,
+  },
+  {
+    src: QuotableDesignEnum.frame19,
+    nameDk: QuotableDesignNameDanishEnum.frame19,
+    nameEn: QuotableDesignNameEnglishEnum.frame19,
+  },
+  {
+    src: QuotableDesignEnum.frame20,
+    nameDk: QuotableDesignNameDanishEnum.frame20,
+    nameEn: QuotableDesignNameEnglishEnum.frame20,
+  },
+  {
+    src: QuotableDesignEnum.frame21,
+    nameDk: QuotableDesignNameDanishEnum.frame21,
+    nameEn: QuotableDesignNameEnglishEnum.frame21,
+  },
+  {
+    src: QuotableDesignEnum.frame22,
+    nameDk: QuotableDesignNameDanishEnum.frame22,
+    nameEn: QuotableDesignNameEnglishEnum.frame22,
   },
 ];
