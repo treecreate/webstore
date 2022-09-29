@@ -103,32 +103,22 @@ export class QuotableComponent implements OnInit {
     switch (this.quotableType) {
       case QuotableType.babySign:
         this.productFrames = babySignFrames;
-        this.design = {
-          font: this.defaultFont,
-          fontSize: this.fontSize,
-          designSrc: babySignFrames[0].src,
-          text: '',
-        };
         break;
       case QuotableType.loveLetter:
         this.productFrames = loveLetterFrames;
-        this.design = {
-          font: this.defaultFont,
-          fontSize: this.fontSize,
-          designSrc: loveLetterFrames[0].src,
-          text: '',
-        };
         break;
       case QuotableType.quotable:
       default:
         this.productFrames = quotableFrames;
-        this.design = {
-          font: this.defaultFont,
-          fontSize: this.fontSize,
-          designSrc: quotableFrames[0].src,
-          text: '',
-        };
     }
+
+    // Set default design
+    this.design = {
+      font: this.defaultFont,
+      fontSize: this.fontSize,
+      designSrc: this.productFrames[0].src,
+      text: '',
+    };
   }
 
   ngOnInit() {
