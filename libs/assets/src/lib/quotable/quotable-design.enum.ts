@@ -14,17 +14,17 @@ export enum QuotableDesignEnum {
   frame11 = 'assets/quotable/frame-design/frame11.svg',
   frame12 = 'assets/quotable/frame-design/frame12.svg',
   // Love letter
-  frame13 = 'assets/quotable/frame-design/frame13.svg',
-  frame14 = 'assets/quotable/frame-design/frame14.svg',
-  frame15 = 'assets/quotable/frame-design/frame15.svg',
-  frame16 = 'assets/quotable/frame-design/frame16.svg',
-  frame17 = 'assets/quotable/frame-design/frame17.svg',
+  frame13 = 'assets/quotable/frame-design/love-letter/frame13.svg',
+  frame14 = 'assets/quotable/frame-design/love-letter/frame14.svg',
+  frame15 = 'assets/quotable/frame-design/love-letter/frame15.svg',
+  frame16 = 'assets/quotable/frame-design/love-letter/frame16.svg',
+  frame17 = 'assets/quotable/frame-design/love-letter/frame17.svg',
   // Baby sign
-  frame18 = 'assets/quotable/frame-design/frame18.svg',
-  frame19 = 'assets/quotable/frame-design/frame19.svg',
-  frame20 = 'assets/quotable/frame-design/frame20.svg',
-  frame21 = 'assets/quotable/frame-design/frame21.svg',
-  frame22 = 'assets/quotable/frame-design/frame22.svg',
+  frame18 = 'assets/quotable/frame-design/baby-sign/frame18.svg',
+  frame19 = 'assets/quotable/frame-design/baby-sign/frame19.svg',
+  frame20 = 'assets/quotable/frame-design/baby-sign/frame20.svg',
+  frame21 = 'assets/quotable/frame-design/baby-sign/frame21.svg',
+  frame22 = 'assets/quotable/frame-design/baby-sign/frame22.svg',
 }
 
 export enum QuotableDesignNameDanishEnum {
