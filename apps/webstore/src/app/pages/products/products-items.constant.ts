@@ -72,6 +72,21 @@ const loveLetter: ProductsItem = {
   productType: QuotableType.loveLetter,
 };
 
+const anniversary: ProductsItem = {
+  titleEn: 'Wedding anniversary',
+  titleDk: 'Bryllupsdag',
+  descriptionEn:
+    'A wedding is something completely special and deserves a special gift. With Treecreate you can give your wife or husband a memory for life of the wedding anniversary, which will fit any home.',
+  descriptionDk:
+    'Et bryllup er noget helt specielt, så derfor kræver det også en helt speciel gave. Hos Treecreate kan du give din mand eller kone et minde for livet om bryllupsdagen, som passer ind i hvilket som helst hjem.',
+  prices: [299, 399, 499],
+  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  altText: 'Et romantisk kærlighedsbrev skåret i egetræ.',
+  specialOffer: '',
+  routerLink: 'quotable',
+  productType: QuotableType.anniversary,
+};
+
 const unique: ProductsItem = {
   titleEn: 'Custom order',
   titleDk: 'Specialbestilling',

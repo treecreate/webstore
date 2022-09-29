@@ -3,5 +3,5 @@ export enum QuotableType {
   babySign = 'BABY_SIGN',
   personal = 'PERSONAL',
   loveLetter = 'LOVE_LETTER',
-  weddingSign = 'WEDDING_SIGN',
+  anniversary = 'ANNIVERSARY',
 }
