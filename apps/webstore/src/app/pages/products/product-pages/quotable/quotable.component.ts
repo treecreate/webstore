@@ -111,6 +111,7 @@ export class QuotableComponent implements OnInit {
       default:
         this.productFrames = quotableFrames;
     }
+    console.log(this.productFrames);
 
     // Set default design
     this.design = {
@@ -193,13 +194,15 @@ export class QuotableComponent implements OnInit {
   }
 
   getDesignName(): string {
-    return this.isEnglish() ? quotableFrames[this.currentDesign].nameEn : quotableFrames[this.currentDesign].nameDk;
+    return this.isEnglish()
+      ? this.productFrames[this.currentDesign].nameEn
+      : this.productFrames[this.currentDesign].nameDk;
   }
 
   changeDesign(direction: string): void {
     switch (direction) {
       case 'next':
-        if (this.currentDesign < quotableFrames.length - 1) {
+        if (this.currentDesign < this.productFrames.length - 1) {
           this.currentDesign = this.currentDesign + 1;
         } else {
           this.currentDesign = 0;
@@ -209,10 +212,10 @@ export class QuotableComponent implements OnInit {
         if (this.currentDesign > 0) {
           this.currentDesign = this.currentDesign - 1;
         } else {
-          this.currentDesign = quotableFrames.length - 1;
+          this.currentDesign = this.productFrames.length - 1;
         }
     }
-    this.design.designSrc = quotableFrames[this.currentDesign].src;
+    this.design.designSrc = this.productFrames[this.currentDesign].src;
   }
 
   /**
@@ -242,7 +245,7 @@ export class QuotableComponent implements OnInit {
         this.design = {
           font: this.defaultFont,
           fontSize: this.fontSize,
-          designSrc: quotableFrames[this.currentDesign].src,
+          designSrc: this.productFrames[this.currentDesign].src,
           text: 'Lorem Ipsum',
         };
       }
