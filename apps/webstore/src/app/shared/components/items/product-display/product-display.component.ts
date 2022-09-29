@@ -18,11 +18,12 @@ export class ProductDisplayComponent {
 
   navigateToProduct() {
     if (this.product.productType) {
-      this.router.navigate([this.product.routerLink], { queryParams: { productType: this.product.productType } });
+      this.router.navigate(['/products/' + this.product.routerLink], {
+        queryParams: { productType: this.product.productType },
+      });
     } else {
-      this.router.navigate([this.product.routerLink]);
+      this.router.navigate(['/products/' + this.product.routerLink]);
     }
-
     this.scrollTop();
   }
 
