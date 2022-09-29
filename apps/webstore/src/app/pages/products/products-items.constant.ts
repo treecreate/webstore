@@ -27,6 +27,21 @@ const familyTree: ProductsItem = {
   routerLink: 'family-tree',
 };
 
+const unique: ProductsItem = {
+  titleEn: 'Custom order',
+  titleDk: 'Specialbestilling',
+  descriptionEn:
+    'A unique chance to bring out your message in your own way. Get a completely user defined engraved piece of wood. Your own images and descriptions to what the design should be.',
+  descriptionDk:
+    'En enestående mulighed for at bringe dit billede eller design ud på. Få lavet en fuldkommen brugerdefineret design skåret i egetræ. Med Treecreate kan du skabe noget helt unikt på dine egne vilkår.',
+  prices: [399],
+  imgSrc: '/assets/img/component-images/custom-image.jpg',
+  altText: 'Dit unikke produkt. Præcis som du vil have det.',
+  specialOffer: '',
+  routerLink: 'custom-order',
+};
+
+// QUOTABLE PRODUCTS
 const quotable: ProductsItem = {
   titleEn: 'Quotable',
   titleDk: 'Citat ramme',
@@ -87,20 +102,6 @@ const anniversary: ProductsItem = {
   productType: QuotableType.anniversary,
 };
 
-const unique: ProductsItem = {
-  titleEn: 'Custom order',
-  titleDk: 'Specialbestilling',
-  descriptionEn:
-    'A unique chance to bring out your message in your own way. Get a completely user defined engraved piece of wood. Your own images and descriptions to what the design should be.',
-  descriptionDk:
-    'En enestående mulighed for at bringe dit billede eller design ud på. Få lavet en fuldkommen brugerdefineret design skåret i egetræ. Med Treecreate kan du skabe noget helt unikt på dine egne vilkår.',
-  prices: [399],
-  imgSrc: '/assets/img/component-images/custom-image.jpg',
-  altText: 'Dit unikke produkt. Præcis som du vil have det.',
-  specialOffer: '',
-  routerLink: 'custom-order',
-};
-
-const productsList: ProductsItem[] = [quotable, babySign, loveLetter, familyTree, unique];
+const productsList: ProductsItem[] = [quotable, babySign, anniversary, loveLetter, familyTree, unique];
 
 export default productsList;
