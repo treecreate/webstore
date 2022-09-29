@@ -63,8 +63,8 @@ const routes: Routes = [
     path: 'products',
     children: [
       { path: 'family-tree', component: FamilyTreeComponent },
-      { path: 'quotable', component: QuotableComponent },
       { path: 'custom-order', component: CustomOrderComponent },
+      { path: 'quotable', component: QuotableComponent },
     ],
   },
   {

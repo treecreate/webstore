@@ -1,3 +1,5 @@
+import { QuotableType } from '@interfaces';
+
 export interface ProductsItem {
   titleEn: string;
   titleDk: string;
@@ -8,6 +10,7 @@ export interface ProductsItem {
   altText: string;
   specialOffer?: string;
   routerLink: string;
+  productType?: string;
 }
 
 const familyTree: ProductsItem = {
@@ -38,6 +41,21 @@ const quotable: ProductsItem = {
   routerLink: 'quotable',
 };
 
+const babySign: ProductsItem = {
+  titleEn: 'Baby sign',
+  titleDk: 'Baby skilt',
+  descriptionEn:
+    'Do you want a unique, personal and sustainable way to immortalize the memory of the birth of your child? Then you can design your very own Baby Sign which we will engrave on a nice piece of oakwood. The perfect gift for the fresh, new parent.',
+  descriptionDk:
+    'Ønsker du en unik, personlig og miljøvenlig måde at foreviggøre mindet om fødslen og dagen hvor dit spædbarn kom til verden? Så få designet dit helt eget Baby Skilt, som vi indgraverer på et lækkert stykke egetræ i høj kvalitet. Den perfekte gave til de nybagte forældre.',
+  prices: [299, 399, 499],
+  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  altText: 'En smuk citat ramme med dit personlige citat på. Perfekt som gave.',
+  specialOffer: '',
+  routerLink: 'quotable',
+  productType: QuotableType.babySign,
+};
+
 const unique: ProductsItem = {
   titleEn: 'Custom order',
   titleDk: 'Specialbestilling',
@@ -52,6 +70,6 @@ const unique: ProductsItem = {
   routerLink: 'custom-order',
 };
 
-const productsList: ProductsItem[] = [quotable, familyTree, unique];
+const productsList: ProductsItem[] = [quotable, babySign, familyTree, unique];
 
 export default productsList;
