@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, quotableFrames } from '@assets';
+import { BoxOptionsDesignEnum, quotableFrames, loveLetterFrames, babySignFrames } from '@assets';
 import {
   DesignFontEnum,
   DesignTypeEnum,
@@ -11,6 +11,7 @@ import {
   IDesign,
   IQoutable,
   ITransactionItem,
+  QuotableFrameInfo,
   QuotableType,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -56,12 +57,9 @@ export class QuotableComponent implements OnInit {
     ceil: 70,
   };
   currentDesign = 1;
-  design: IQoutable = {
-    font: this.defaultFont,
-    fontSize: this.fontSize,
-    designSrc: quotableFrames[this.currentDesign].src,
-    text: 'Lorem Ipsum',
-  };
+  design: IQoutable;
+
+  productFrames: QuotableFrameInfo[];
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -88,16 +86,49 @@ export class QuotableComponent implements OnInit {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
+
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
     this.localeCode = this.locale$.getValue();
     this.locale$.subscribe(() => {
       console.log('Locale changed to: ' + this.locale$.getValue());
     });
+
     // Get product type
     this.route.queryParams.subscribe((params) => {
       this.quotableType = params.productType;
     });
+
+    // Set product frames
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.productFrames = babySignFrames;
+        this.design = {
+          font: this.defaultFont,
+          fontSize: this.fontSize,
+          designSrc: babySignFrames[0].src,
+          text: '',
+        };
+        break;
+      case QuotableType.loveLetter:
+        this.productFrames = loveLetterFrames;
+        this.design = {
+          font: this.defaultFont,
+          fontSize: this.fontSize,
+          designSrc: loveLetterFrames[0].src,
+          text: '',
+        };
+        break;
+      case QuotableType.quotable:
+      default:
+        this.productFrames = quotableFrames;
+        this.design = {
+          font: this.defaultFont,
+          fontSize: this.fontSize,
+          designSrc: quotableFrames[0].src,
+          text: '',
+        };
+    }
   }
 
   ngOnInit() {
@@ -107,16 +138,45 @@ export class QuotableComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('Citat eller minde skåret i træ');
-    this.meta.updateTag({
-      name: 'description',
-      content:
-        'Få skåret dit yndlingscitat, et lykkeligt minde, en besked til kæresten eller bare et lækkert navneskilt i træ.',
-    });
-    this.meta.updateTag({
-      name: 'keywords',
-      content: 'Minder, ferieminder, ferie, citat, quote, livsmotto, liv, gave',
-    });
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.metaTitle.setTitle('Fødselsminde indgraveret i træ');
+        this.meta.updateTag({
+          name: 'description',
+          content:
+            'Foreviggør livets mirakel med Baby Skiltet fra Treecreate. Få dit barns navn, fødselsdag og størrelse indgraveret i egetræ.',
+        });
+        this.meta.updateTag({
+          name: 'keywords',
+          content: 'Spædbarn, baby, barn, børneminder, fødsel, nybagt forælder, forældre, gave til forældre',
+        });
+        break;
+      case QuotableType.loveLetter:
+        this.metaTitle.setTitle('Personlig og unik kærlighedserklæring i træ');
+        this.meta.updateTag({
+          name: 'description',
+          content:
+            'Giv din kæreste eller livspartner en gave for livet. Med Treecreate kan du give en unik og personlig gave til den du elsker.',
+        });
+        this.meta.updateTag({
+          name: 'keywords',
+          content:
+            'unik og personlig gave, kærlighed, kæreste, gave til kæreste, gave til partner, kærlighedserklæring',
+        });
+        break;
+      case QuotableType.quotable:
+      default:
+        this.metaTitle.setTitle('Citat eller minde skåret i træ');
+        this.meta.updateTag({
+          name: 'description',
+          content:
+            'Få skåret dit yndlingscitat, et lykkeligt minde, en besked til kæresten eller bare et lækkert navneskilt i træ.',
+        });
+        this.meta.updateTag({
+          name: 'keywords',
+          content: 'Minder, ferieminder, ferie, citat, quote, livsmotto, liv, gave',
+        });
+    }
   }
 
   isEnglish(): boolean {

@@ -106,7 +106,7 @@ export const loveLetterFrames: QuotableFrameInfo[] = [
   },
 ];
 
-export const BabySignFrames: QuotableFrameInfo[] = [
+export const babySignFrames: QuotableFrameInfo[] = [
   {
     src: QuotableDesignEnum.noFrame,
     nameDk: QuotableDesignNameDanishEnum.noFrame,
