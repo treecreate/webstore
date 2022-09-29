@@ -58,13 +58,15 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },
+  { path: 'products', pathMatch: 'full', component: ProductsComponent },
   {
     path: 'products',
-    component: ProductsComponent,
+    children: [
+      { path: 'family-tree', component: FamilyTreeComponent },
+      { path: 'quotable', component: QuotableComponent },
+      { path: 'custom-order', component: CustomOrderComponent },
+    ],
   },
-  { path: 'products/family-tree', component: FamilyTreeComponent },
-  { path: 'products/quotable', component: QuotableComponent },
-  { path: 'products/custom-order', component: CustomOrderComponent },
   {
     path: 'payment',
     children: [
