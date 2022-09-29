@@ -20,6 +20,11 @@ export enum QuotableDesignEnum {
   frame16 = 'assets/quotable/frame-design/frame16.svg',
   frame17 = 'assets/quotable/frame-design/frame17.svg',
   // Baby sign
+  frame18 = 'assets/quotable/frame-design/frame18.svg',
+  frame19 = 'assets/quotable/frame-design/frame19.svg',
+  frame20 = 'assets/quotable/frame-design/frame20.svg',
+  frame21 = 'assets/quotable/frame-design/frame21.svg',
+  frame22 = 'assets/quotable/frame-design/frame22.svg',
 }
 
 export enum QuotableDesignNameDanishEnum {
@@ -44,6 +49,11 @@ export enum QuotableDesignNameDanishEnum {
   frame16 = 'Blomster stilk',
   frame17 = 'Oliven gren',
   // Baby sign
+  frame18 = 'Mor og barn',
+  frame19 = 'Baby hænder',
+  frame20 = 'Forældre',
+  frame21 = 'Foster',
+  frame22 = 'Sovende baby',
 }
 
 export enum QuotableDesignNameEnglishEnum {
@@ -68,4 +78,9 @@ export enum QuotableDesignNameEnglishEnum {
   frame16 = 'Flower stick',
   frame17 = 'Olive branch',
   // Baby sign
+  frame18 = 'Mother and child',
+  frame19 = 'Baby hands',
+  frame20 = 'Parents',
+  frame21 = 'Fetus',
+  frame22 = 'Sleeping baby',
 }
