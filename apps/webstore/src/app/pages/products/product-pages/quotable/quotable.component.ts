@@ -11,6 +11,7 @@ import {
   IDesign,
   IQoutable,
   ITransactionItem,
+  QuotableType,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -39,6 +40,7 @@ export class QuotableComponent implements OnInit {
   @ViewChild('quotableDesign', { static: false })
   quotableDesign: QuotableDesignComponent;
   toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
+  quotableType: QuotableType;
 
   isDesignValid = false;
   isMutable = false;
@@ -98,6 +100,10 @@ export class QuotableComponent implements OnInit {
     this.getFontList();
     this.loadDesign();
     this.setMetaData();
+
+    this.route.queryParams.subscribe((params) => {
+      this.quotableType = params.productType;
+    });
   }
 
   setMetaData() {
