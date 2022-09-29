@@ -23,7 +23,7 @@ const familyTree: ProductsItem = {
   prices: [499, 699, 999],
   imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
   altText: 'Et helt unikt familietræ perfekt som gave.',
-  specialOffer: '- 25% off when purchasing 4',
+  specialOffer: '',
   routerLink: 'family-tree',
 };
 
@@ -37,8 +37,9 @@ const quotable: ProductsItem = {
   prices: [299, 399, 499],
   imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
   altText: 'En smuk citat ramme med dit personlige citat på. Perfekt som gave.',
-  specialOffer: '- 25% off when purchasing 4',
+  specialOffer: '',
   routerLink: 'quotable',
+  productType: QuotableType.quotable,
 };
 
 const babySign: ProductsItem = {
@@ -50,10 +51,25 @@ const babySign: ProductsItem = {
     'Ønsker du en unik, personlig og miljøvenlig måde at foreviggøre mindet om fødslen og dagen hvor dit spædbarn kom til verden? Så få designet dit helt eget Baby Skilt, som vi indgraverer på et lækkert stykke egetræ i høj kvalitet. Den perfekte gave til de nybagte forældre.',
   prices: [299, 399, 499],
   imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
-  altText: 'En smuk citat ramme med dit personlige citat på. Perfekt som gave.',
+  altText: 'Et flot baby skilt. Perfekt som barnedåbs gave.',
   specialOffer: '',
   routerLink: 'quotable',
   productType: QuotableType.babySign,
+};
+
+const loveLetter: ProductsItem = {
+  titleEn: 'Love letter',
+  titleDk: 'Kærlighedsbrevet',
+  descriptionEn:
+    'With Treecreate’s Love Letter you will get the opportunity to give the most personal and unique gift to your significant other. Choose your own frame and write a message about how much you love each other. The perfect gift for the anniversary or a birthday.',
+  descriptionDk:
+    'Med Treecreates Kærlighedsbrev får du muligheden for at give den mest personlige og unikke gave til din kæreste. Vælg din egen ramme, og skriv en besked om hvor meget du elsker din partner. Den perfekte gave til årsdagen eller fødselsdag.',
+  prices: [299, 399, 499],
+  imgSrc: '/assets/img/quotable-img/quotable-02.jpg',
+  altText: 'Et romantisk kærlighedsbrev skåret i egetræ.',
+  specialOffer: '',
+  routerLink: 'quotable',
+  productType: QuotableType.loveLetter,
 };
 
 const unique: ProductsItem = {
@@ -66,10 +82,10 @@ const unique: ProductsItem = {
   prices: [399],
   imgSrc: '/assets/img/component-images/custom-image.jpg',
   altText: 'Dit unikke produkt. Præcis som du vil have det.',
-  specialOffer: '- Logo, Tegning, Billede eller noget helt andet.',
+  specialOffer: '',
   routerLink: 'custom-order',
 };
 
-const productsList: ProductsItem[] = [quotable, babySign, familyTree, unique];
+const productsList: ProductsItem[] = [quotable, babySign, loveLetter, familyTree, unique];
 
 export default productsList;
