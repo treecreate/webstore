@@ -1,18 +1,42 @@
-<div>
-    <div class="orders-info">
-        <div class="title">
-            <span>orders</span>
-            <span>initial</span>
-            <span>new</span>
-            <span>orders</span>
-            <span>orders</span>
+<webstore-item-card title="Dashboard" [content]="content" data-cy="dashboard-card">
+    <ng-template #content>
+        <div class="header">
         </div>
-        <div class="info">
-            <span>{{orders}}</span>
-            <span>{{initial}}</span>
-            <span>{{newOrders}}</span>
-            <span>{{orders}}</span>
-            <span>{{orders}}</span>
-        </div>
-    </div>
-</div>
+        <table mat-table class="mat-elevation-z8 table" data-cy="dashboard-table">
+            <!-- Category Column -->
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let discount" class="id-container">
+                </td>
+            </ng-container>
+
+            <!-- Week Column -->
+            <ng-container matColumnDef="week">
+                <th mat-header-cell *matHeaderCellDef>Week</th>
+                <td mat-cell *matCellDef="let discount">
+                </td>
+            </ng-container>
+
+            <!-- Month Column -->
+            <ng-container matColumnDef="month">
+                <th mat-header-cell *matHeaderCellDef>Month</th>
+                <td mat-cell *matCellDef="let discount">{{ discount.remainingUses }}</td>
+            </ng-container>
+
+            <!-- 3 Month Column -->
+            <ng-container matColumnDef="3-month">
+                <th mat-header-cell *matHeaderCellDef>3 Month</th>
+                <td mat-cell *matCellDef="let discount">{{ discount.totalUses }}</td>
+            </ng-container>
+
+            <!-- 6 Month Column -->
+            <ng-container matColumnDef="6-month">
+                <th mat-header-cell *matHeaderCellDef>6 Month</th>
+                <td mat-cell *matCellDef="let discount">{{ getSixMonthOrders(today) }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" data-cy="discounts-table-header"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" data-cy="discounts-table-row"></tr>
+        </table>
+    </ng-template>
+</webstore-item-card>
