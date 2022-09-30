@@ -111,13 +111,7 @@ export class QuotableComponent implements OnInit {
         this.productFrames = quotableFrames;
     }
 
-    // Set default design
-    this.design = {
-      font: this.defaultFont,
-      fontSize: this.fontSize,
-      designSrc: this.productFrames[0].src,
-      text: '',
-    };
+    this.setDefaultDesign();
   }
 
   ngOnInit() {
@@ -241,13 +235,7 @@ export class QuotableComponent implements OnInit {
 
       // apply the design
       if (this.design === null || this.design === undefined) {
-        // set the defaults
-        this.design = {
-          font: this.defaultFont,
-          fontSize: this.fontSize,
-          designSrc: this.productFrames[this.currentDesign].src,
-          text: 'Lorem Ipsum',
-        };
+        this.setDefaultDesign();
       }
       this.isMutable = true;
     }
@@ -268,6 +256,8 @@ export class QuotableComponent implements OnInit {
   }
 
   loadDesignFromLocalStorage(designId: string) {
+    console.log('running this loadDesignFromLocal');
+    
     // Get transactionItems from localstorage
     const itemList: ITransactionItem[] = this.localStorageService.getItem<ITransactionItem[]>(
       LocalStorageVars.transactionItems
@@ -283,6 +273,16 @@ export class QuotableComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
+  }
+
+  setDefaultDesign(): void {
+    // Set default design
+    this.design = {
+      font: this.defaultFont,
+      fontSize: this.fontSize,
+      designSrc: this.productFrames[1].src,
+      text: 'Lorem Ipsum',
+    };
   }
 
   loadDesignFromDB(queryParams) {
