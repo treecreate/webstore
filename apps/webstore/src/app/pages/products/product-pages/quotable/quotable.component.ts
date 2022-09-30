@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, quotableFrames, loveLetterFrames, babySignFrames } from '@assets';
+import { BoxOptionsDesignEnum, quotableFrames, loveLetterFrames, babySignFrames, QuotableFrameInfo } from '@assets';
 import {
   DesignFontEnum,
   DesignTypeEnum,
@@ -11,7 +11,6 @@ import {
   IDesign,
   IQoutable,
   ITransactionItem,
-  QuotableFrameInfo,
   QuotableType,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';

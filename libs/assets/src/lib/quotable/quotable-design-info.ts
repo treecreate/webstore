@@ -1,9 +1,14 @@
-import { QuotableFrameInfo } from '@interfaces';
 import {
   QuotableDesignEnum,
   QuotableDesignNameDanishEnum,
   QuotableDesignNameEnglishEnum,
 } from './quotable-design.enum';
+
+export interface QuotableFrameInfo {
+  src: string;
+  nameDk: string;
+  nameEn: string;
+}
 
 export const quotableFrames: QuotableFrameInfo[] = [
   {
