@@ -9,197 +9,152 @@ import { OrdersService } from '../../services/orders/orders.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(
-    private ordersService: OrdersService
-  ) {}
+  constructor(private ordersService: OrdersService) {}
 
-  displayedColumns: string[] = [
-    'category',
-    'week',
-    'month',
-    '3-month',
-    '6-month',
-  ];
+  displayedColumns: string[] = ['category', 'week', 'month', '3-month', '6-month'];
 
   today = new Date();
-  
+
   ngOnInit(): void {
-    this.getSixMonthOrders(this.today);
+    console.log(this.getWeekOrderTotal());
   }
 
   fetchAllData() {
-    this.getSixMonthOrders;
+    this.getSixMonthOrders(this.today);
   }
 
-  getDateDiff(days: number): Date {
-    //TODO: 
+  //TODO: Implement this logic so that it can be called in methods to provide a date
+  // Will give a date in the past, which can then be compared to todays date
+  // For the purpose of filtering orders
+  getDateDiff(days: number) {
+    const previousDate = new Date(this.today);
+    previousDate.setDate(previousDate.getDate() - days);
+    return previousDate;
   }
 
-  //TODO: 
+  //TODO:
   // Methods for weekly data
-  getWeekOrders(today: Date): number {
-    let count = 0;
-    const todaysDate = new Date(today);
-    console.log(todaysDate);
-    todaysDate.setDate(today.getDate() -7)
-    console.log(todaysDate);
-    this.ordersService.getOrders().forEach((order) => {
-      count++;
-      order.forEach((single) => {
-        if (single.createdAt <= todaysDate) {
-          count++;
-        }
-      })
-    })
-    console.log(count);
-    
-    return count;
-  };
-
-  //TODO: Implement the logic
-  calculateWeekOrderDifference() {
-
-  };
-
-  //TODO: Implement the logic
-  getWeekRevenue() {
-
+  getWeekOrderTotal() {
+    let currentPeriodCount = 0;
+    let previousPeriodCount = 0;
+    this.ordersService.getOrders().subscribe({
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+      },
+      next: (orders: IOrder[]) => {
+        orders.forEach((order) => {
+          if (order.createdAt >= this.getDateDiff(7)) {
+            console.log('skrrr');
+            currentPeriodCount++;
+          } else if (order.createdAt < this.getDateDiff(7) && order.createdAt >= this.getDateDiff(14)) {
+            previousPeriodCount++;
+          }
+        });
+      },
+    });
+    return currentPeriodCount;
   }
 
   //TODO: Implement the logic
-  calculateWeekRevenueDifference() {
+  calculateWeekOrderDifference() {}
 
-  }
+  //TODO: Implement the logic
+  getWeekRevenue() {}
+
+  //TODO: Implement the logic
+  calculateWeekRevenueDifference() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  getWeekSurplus() {
-
-  }
+  getWeekSurplus() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  calculateWeekSurplusDifference() {
-
-  }
+  calculateWeekSurplusDifference() {}
 
   //TODO: Implement the logic
-  getWeekSubscribers() {
-
-  }
+  getWeekSubscribers() {}
 
   //TODO: Implement the logic
-  calculateWeekSubscriberDifference() {
-
-  }
-
+  calculateWeekSubscriberDifference() {}
 
   //TODO: Implement the logic
   // Methods for monthly data
   getMonthOrders(today: Date): number {
     let count = 0;
     const todaysDate = new Date(today);
-    todaysDate.setDate(today.getDate() - 30)
+    todaysDate.setDate(today.getDate() - 30);
     this.ordersService.getOrders().forEach((order) => {
       order.forEach((single) => {
         if (single.createdAt <= todaysDate) {
           count++;
         }
-      })
-    })
+      });
+    });
     return count;
-  };
-
-  //TODO: Implement the logic
-  calculateMonthOrderDifference() {
-
-  };
-
-  //TODO: Implement the logic
-  getMonthRevenue() {
-
   }
 
   //TODO: Implement the logic
-  calculateMonthRevenueDifference() {
+  calculateMonthOrderDifference() {}
 
-  }
+  //TODO: Implement the logic
+  getMonthRevenue() {}
+
+  //TODO: Implement the logic
+  calculateMonthRevenueDifference() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  getMonthSurplus() {
-
-  }
+  getMonthSurplus() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  calculateMonthSurplusDifference() {
-
-  }
+  calculateMonthSurplusDifference() {}
 
   //TODO: Implement the logic
-  getMonthSubscribers() {
-
-  }
+  getMonthSubscribers() {}
 
   //TODO: Implement the logic
-  calculateMonthSubscriberDifference() {
-
-  }
-
+  calculateMonthSubscriberDifference() {}
 
   //TODO: Implement the logic
   // Methods for 3 month data
   getThreeMonthOrders(today: Date): number {
     let count = 0;
     const todaysDate = new Date(today);
-    todaysDate.setDate(today.getDate() - 90)
+    todaysDate.setDate(today.getDate() - 90);
     this.ordersService.getOrders().forEach((order) => {
       order.forEach((single) => {
         if (single.createdAt <= todaysDate) {
           count++;
         }
-      })
-    })
+      });
+    });
     return count;
-  };
-
-  //TODO: Implement the logic
-  calculateThreeMonthOrderDifference() {
-
-  };
-
-  //TODO: Implement the logic
-  getThreeMonthRevenue() {
-
   }
 
   //TODO: Implement the logic
-  calculateThreeMonthRevenueDifference() {
+  calculateThreeMonthOrderDifference() {}
 
-  }
+  //TODO: Implement the logic
+  getThreeMonthRevenue() {}
+
+  //TODO: Implement the logic
+  calculateThreeMonthRevenueDifference() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  getThreeMonthSurplus() {
-
-  }
+  getThreeMonthSurplus() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  calculateThreeMonthSurplusDifference() {
-
-  }
+  calculateThreeMonthSurplusDifference() {}
 
   //TODO: Implement the logic
-  getThreeMonthSubscribers() {
-
-  }
+  getThreeMonthSubscribers() {}
 
   //TODO: Implement the logic
-  calculateThreeMonthSubscriberDifference() {
-
-  }
+  calculateThreeMonthSubscriberDifference() {}
 
   //TODO: Implement the logic
   // Methods for 6 month data
@@ -207,61 +162,46 @@ export class DashboardComponent implements OnInit {
     let count = 0;
     const todaysDate = new Date(today);
     console.log(todaysDate);
-    todaysDate.setDate(today.getDate() - 180)
-    console.log(todaysDate)
-    this.ordersService.getOrders().subscribe({ 
+    todaysDate.setDate(today.getDate() - 180);
+    console.log(todaysDate);
+    this.ordersService.getOrders().subscribe({
       error: (error: HttpErrorResponse) => {
-        console.log(error)
+        console.log(error);
       },
       next: (orders: IOrder[]) => {
         console.log(orders);
-        
+
         orders.forEach((order) => {
-        if ((order.createdAt.getDate() - todaysDate.getDate()) >= (todaysDate.getDate() - 180)) {
-          count++;
-        }
-      })
-    },
-  });
+          if (order.createdAt.getDate() - todaysDate.getDate() >= todaysDate.getDate() - 180) {
+            count++;
+          }
+        });
+      },
+    });
     //alert(count);
     return count;
-  };
-
-  //TODO: Implement the logic
-  calculateSixMonthOrderDifference() {
-
-  };
-
-  //TODO: Implement the logic
-  getSixMonthRevenue() {
-
   }
 
   //TODO: Implement the logic
-  calculateSixMonthRevenueDifference() {
+  calculateSixMonthOrderDifference() {}
 
-  }
+  //TODO: Implement the logic
+  getSixMonthRevenue() {}
 
+  //TODO: Implement the logic
+  calculateSixMonthRevenueDifference() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  getSixMonthSurplus() {
-
-  }
+  getSixMonthSurplus() {}
 
   //TODO: Implement the logic
   // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
-  calculateSixMonthSurplusDifference() {
-
-  }
+  calculateSixMonthSurplusDifference() {}
 
   //TODO: Implement the logic
-  getSixMonthSubscribers() {
-
-  }
+  getSixMonthSubscribers() {}
 
   //TODO: Implement the logic
-  calculateSixMonthSubscriberDifference() {
-
-  }
+  calculateSixMonthSubscriberDifference() {}
 }

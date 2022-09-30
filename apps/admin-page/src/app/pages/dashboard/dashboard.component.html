@@ -1,20 +1,17 @@
 <webstore-item-card title="Dashboard" [content]="content" data-cy="dashboard-card">
     <ng-template #content>
-        <div class="header">
-        </div>
+        <div class="header"></div>
         <table mat-table class="mat-elevation-z8 table" data-cy="dashboard-table">
             <!-- Category Column -->
             <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef>Category</th>
-                <td mat-cell *matCellDef="let discount" class="id-container">
-                </td>
+                <td mat-cell *matCellDef="let discount" class="id-container"></td>
             </ng-container>
 
             <!-- Week Column -->
             <ng-container matColumnDef="week">
                 <th mat-header-cell *matHeaderCellDef>Week</th>
-                <td mat-cell *matCellDef="let discount">
-                </td>
+                <td mat-cell *matCellDef="let discount"></td>
             </ng-container>
 
             <!-- Month Column -->
