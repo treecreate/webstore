@@ -60,7 +60,7 @@ export class FamilyTreeComponent implements OnInit {
   design: IFamilyTree = {
     font: this.defaultFont,
     backgroundTreeDesign: this.defaultBackgroundTreeDesign,
-    banner: { text: 'Familietræet', style: 'first' },
+    banner: { text: 'Stamtræet', style: 'first' },
     boxSize: 40,
     boxes: [],
   };
@@ -122,15 +122,15 @@ export class FamilyTreeComponent implements OnInit {
   }
 
   setMetaData() {
-    this.metaTitle.setTitle('Familietræ skåret i træ i høj kvalitet');
+    this.metaTitle.setTitle('Stamtræ skåret i træ i høj kvalitet');
     this.meta.updateTag({
       name: 'description',
       content:
-        'Hos Treecreate kan du få lavet et lækkert familietræ i den bedste kvalitet - for dig der ønsker at forevige familien.',
+        'Hos Treecreate kan du få lavet et lækkert stamtræ i den bedste kvalitet - for dig der ønsker at forevige familien.',
     });
     this.meta.updateTag({
       name: 'keywords',
-      content: 'Familietræ, familie, familiegave, gave til familien, morsdag, farsdag, gave',
+      content: 'stamtræ, stamtavle, familietræ, familie, familiegave, gave til familien, morsdag, farsdag, gave',
     });
   }
 
@@ -193,7 +193,7 @@ export class FamilyTreeComponent implements OnInit {
         this.design = {
           font: this.defaultFont,
           backgroundTreeDesign: this.defaultBackgroundTreeDesign,
-          banner: { text: 'Familietræet', style: 'first' },
+          banner: { text: 'Stamtræet', style: 'first' },
           boxSize: 20,
           boxes: [],
         };
