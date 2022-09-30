@@ -452,6 +452,7 @@ export class QuotableComponent implements OnInit {
     this.saveDesign({ persist: false }, true);
     const modalRef = this.modalService.open(AddToBasketModalComponent);
     modalRef.componentInstance.designType = DesignTypeEnum.quotable;
+    modalRef.componentInstance.quotableType = this.quotableType;
   }
 
   onIsDesignValidEvent($event) {

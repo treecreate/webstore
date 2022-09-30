@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="about-us-newsletter-signup-title" datatype="html">
         <source>Register to our newsletter for special deals</source>
-        <target>Tilmeld til vores nyhedsbre for specielle tilbud</target>
+        <target>Tilmeld til vores nyhedsbrev for specielle tilbud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">98</context>

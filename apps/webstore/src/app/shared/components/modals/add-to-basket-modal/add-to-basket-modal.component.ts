@@ -10,6 +10,7 @@ import {
   IFamilyTree,
   IQoutable,
   ITransactionItem,
+  QuotableType,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -32,6 +33,9 @@ import { GoToBasketModalComponent } from '../go-to-basket-modal/go-to-basket-mod
 export class AddToBasketModalComponent implements OnInit, OnChanges {
   @Input()
   designType?: DesignTypeEnum;
+
+  @Input()
+  quotableType?: QuotableType;
 
   addToBasketForm: UntypedFormGroup;
   price = 0;
@@ -91,10 +95,27 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
       this.designType = DesignTypeEnum.familyTree;
     }
 
-    if (this.designType === DesignTypeEnum.familyTree) {
-      this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
-    } else if (this.designType === DesignTypeEnum.quotable) {
-      this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    switch (this.designType) {
+      case DesignTypeEnum.familyTree:
+        this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+        break;
+      case DesignTypeEnum.quotable:
+      default:
+        if (this.quotableType) {
+          switch (this.quotableType) {
+            case QuotableType.babySign:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
+              break;
+            case QuotableType.loveLetter:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
+              break;
+            case QuotableType.quotable:
+            default:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+          }
+        } else {
+          this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+        }
     }
 
     this.addToBasketForm.setValue({
