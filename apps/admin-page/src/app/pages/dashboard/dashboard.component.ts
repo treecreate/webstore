@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IOrder } from '@interfaces';
+import { CurrencyEnum, DiscountType, IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { OrdersService } from '../../services/orders/orders.service';
 
 @Component({
@@ -15,51 +15,104 @@ export class DashboardComponent implements OnInit {
 
   today = new Date();
 
+  fullOrdersList!: IOrder[];
+
   ngOnInit(): void {
-    console.log(this.getWeekOrderTotal());
+    this.fetchAllData();
   }
 
   fetchAllData() {
-    this.getSixMonthOrders(this.today);
+    this.ordersService.getOrders().subscribe({
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+      next: (ordersList: IOrder[]) => {
+        this.fullOrdersList = ordersList;
+        this.getPeriodOrders(7);
+        this.getWeekRevenue();
+      },
+    });
   }
 
-  //TODO: Implement this logic so that it can be called in methods to provide a date
-  // Will give a date in the past, which can then be compared to todays date
-  // For the purpose of filtering orders
-  getDateDiff(days: number) {
-    const previousDate = new Date(this.today);
-    previousDate.setDate(previousDate.getDate() - days);
-    return previousDate;
+  /*
+  Will return an array of orders that were created between today 
+  and a user-defined day in the past 
+  7 days - Week, 30 days - Month, 90 days - 3 months, 180 days - 6 months.
+  */
+  getPeriodOrders(days: number): IOrder[] {
+    const pastDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+
+    const periodOrders = this.fullOrdersList.filter((order) => new Date(order.createdAt) >= pastDate);
+
+    return periodOrders;
+  }
+
+  /*
+  Will return an array of orders that were created between two user-defined dates.
+  The first date is the start of the period (the end of the period chronologically)
+  The second date is the end of the period (the start of the period chronologically)
+  E.g. to select 2 weeks ago: (7, 14) would be the provided numbers
+  */
+  getPreviousPeriodOrders(dayStart: number, dayEnd: number): IOrder[] {
+    const startDate = new Date(Date.now() - dayStart * 24 * 60 * 60 * 1000);
+    const endDate = new Date(Date.now() - dayEnd * 24 * 60 * 60 * 1000);
+
+    const periodOrders = this.fullOrdersList.filter(
+      (order) => new Date(order.createdAt) >= endDate && new Date(order.createdAt) < startDate
+    );
+    console.log(periodOrders);
+
+    return periodOrders;
+  }
+
+  /**
+   * Gets the delivery price based on the shipping method.
+   *
+   * @returns the delivery price.
+   */
+  getDeliveryPrice(order: IOrder): number {
+    if (order.shippingMethod === ShippingMethodEnum.homeDelivery) {
+      if (order.total > 350) {
+        return 25;
+      } else {
+        return 65;
+      }
+    } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint) {
+      if (order.total > 350) {
+        return 0;
+      } else {
+        return 45;
+      }
+    }
+    return 0;
   }
 
   //TODO:
   // Methods for weekly data
-  getWeekOrderTotal() {
-    let currentPeriodCount = 0;
-    let previousPeriodCount = 0;
-    this.ordersService.getOrders().subscribe({
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      },
-      next: (orders: IOrder[]) => {
-        orders.forEach((order) => {
-          if (order.createdAt >= this.getDateDiff(7)) {
-            console.log('skrrr');
-            currentPeriodCount++;
-          } else if (order.createdAt < this.getDateDiff(7) && order.createdAt >= this.getDateDiff(14)) {
-            previousPeriodCount++;
-          }
-        });
-      },
-    });
-    return currentPeriodCount;
+  getWeekOrders() {
+    const currentPeriodOrders = this.getPeriodOrders(7).length;
+
+    return currentPeriodOrders;
   }
 
   //TODO: Implement the logic
-  calculateWeekOrderDifference() {}
+  calculateWeekOrderDifference() {
+    const currentPeriodOrders = this.getPeriodOrders(7).length;
+    const previousPeriodOrders = this.getPreviousPeriodOrders(7, 14).length;
 
-  //TODO: Implement the logic
-  getWeekRevenue() {}
+    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    return percentageDiff;
+  }
+
+  
+  getWeekRevenue() {
+    const thisPeriodOrders = this.getPeriodOrders(7);
+    let revenue = 0
+    thisPeriodOrders.forEach((order) => {
+      revenue += order.total;
+    });
+    return revenue;
+  }
 
   //TODO: Implement the logic
   calculateWeekRevenueDifference() {}
@@ -80,25 +133,29 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   // Methods for monthly data
-  getMonthOrders(today: Date): number {
-    let count = 0;
-    const todaysDate = new Date(today);
-    todaysDate.setDate(today.getDate() - 30);
-    this.ordersService.getOrders().forEach((order) => {
-      order.forEach((single) => {
-        if (single.createdAt <= todaysDate) {
-          count++;
-        }
-      });
-    });
-    return count;
+  getMonthOrders() {
+    const currentPeriodOrders = this.getPeriodOrders(30).length;
+
+    return currentPeriodOrders;
   }
 
   //TODO: Implement the logic
-  calculateMonthOrderDifference() {}
+  calculateMonthOrderDifference() {
+    const currentPeriodOrders = this.getPeriodOrders(30).length;
+    const previousPeriodOrders = this.getPreviousPeriodOrders(30, 60).length;
+    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    return percentageDiff;
+  }
 
   //TODO: Implement the logic
-  getMonthRevenue() {}
+  getMonthRevenue() {
+    const thisPeriodOrders = this.getPeriodOrders(7);
+    let revenue = 0
+    thisPeriodOrders.forEach((order) => {
+      revenue += order.total;
+    });
+    return revenue;
+  }
 
   //TODO: Implement the logic
   calculateMonthRevenueDifference() {}
@@ -119,25 +176,29 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   // Methods for 3 month data
-  getThreeMonthOrders(today: Date): number {
-    let count = 0;
-    const todaysDate = new Date(today);
-    todaysDate.setDate(today.getDate() - 90);
-    this.ordersService.getOrders().forEach((order) => {
-      order.forEach((single) => {
-        if (single.createdAt <= todaysDate) {
-          count++;
-        }
-      });
-    });
-    return count;
+  getThreeMonthOrders() {
+    const currentPeriodOrders = this.getPeriodOrders(90).length;
+
+    return currentPeriodOrders;
   }
 
   //TODO: Implement the logic
-  calculateThreeMonthOrderDifference() {}
+  calculateThreeMonthOrderDifference() {
+    const currentPeriodOrders = this.getPeriodOrders(90).length;
+    const previousPeriodOrders = this.getPreviousPeriodOrders(90, 180).length;
+    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    return percentageDiff;
+  }
 
   //TODO: Implement the logic
-  getThreeMonthRevenue() {}
+  getThreeMonthRevenue() {
+    const thisPeriodOrders = this.getPeriodOrders(90);
+    let revenue = 0
+    thisPeriodOrders.forEach((order) => {
+      revenue += order.total;
+    });
+    return revenue;
+  }
 
   //TODO: Implement the logic
   calculateThreeMonthRevenueDifference() {}
@@ -158,35 +219,28 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   // Methods for 6 month data
-  getSixMonthOrders(today: Date): number {
-    let count = 0;
-    const todaysDate = new Date(today);
-    console.log(todaysDate);
-    todaysDate.setDate(today.getDate() - 180);
-    console.log(todaysDate);
-    this.ordersService.getOrders().subscribe({
-      error: (error: HttpErrorResponse) => {
-        console.log(error);
-      },
-      next: (orders: IOrder[]) => {
-        console.log(orders);
-
-        orders.forEach((order) => {
-          if (order.createdAt.getDate() - todaysDate.getDate() >= todaysDate.getDate() - 180) {
-            count++;
-          }
-        });
-      },
-    });
-    //alert(count);
-    return count;
+  getSixMonthOrders() {
+    const currentPeriodOrders = this.getPeriodOrders(180).length;
+    return currentPeriodOrders;
   }
 
   //TODO: Implement the logic
-  calculateSixMonthOrderDifference() {}
+  calculateSixMonthOrderDifference() {
+    const currentPeriodOrders = this.getPeriodOrders(180).length;
+    const previousPeriodOrders = this.getPreviousPeriodOrders(180, 360).length;
+    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    return percentageDiff;
+  }
 
   //TODO: Implement the logic
-  getSixMonthRevenue() {}
+  getSixMonthRevenue() {
+    const thisPeriodOrders = this.getPeriodOrders(180);
+    let revenue = 0
+    thisPeriodOrders.forEach((order) => {
+      revenue += order.total;
+    });
+    return revenue;
+  }
 
   //TODO: Implement the logic
   calculateSixMonthRevenueDifference() {}
@@ -204,4 +258,58 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   calculateSixMonthSubscriberDifference() {}
+}
+
+function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+function createdAt(days: number): Date {
+  const createdAt = new Date();
+  createdAt.setDate(createdAt.getDate() - (days * 24 * 60 * 60 * 1000));
+
+  return createdAt;
+}
+
+function mockOrder(status: OrderStatusEnum, days: number): IOrder {
+  return {
+    status: status,
+    billingInfo: {
+      city: 'cph',
+      country: 'Denmark',
+      email: 'example@hotdeals.dev',
+      name: 'John Doe',
+      phoneNumber: '+4512345678',
+      postcode: '9999',
+      streetAddress: 'StreetGade 123',
+    },
+    contactInfo: {
+      city: 'cph',
+      country: 'Denmark',
+      email: 'example@hotdeals.dev',
+      name: 'John Doe',
+      phoneNumber: '+4512345678',
+      postcode: '9999',
+      streetAddress: 'StreetGade 123',
+    },
+    createdAt: createdAt(days),
+    currency: CurrencyEnum.dkk,
+    discount: {
+      discountCode: 'suck it',
+      type: DiscountType.amount,
+      amount: 0,
+      remainingUses: 1,
+      totalUses: 2,
+      isEnabled: true,
+    },
+    orderId: 'MakeMeWantIt',
+    paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+    plantedTrees: 1,
+    shippingMethod: ShippingMethodEnum.homeDelivery,
+    //State    -- not implemented
+    subtotal: 424,
+    total: 399,
+    transactionItems: [],
+    userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
+  };
 }
