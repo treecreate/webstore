@@ -12,11 +12,6 @@ export interface QuotableFrameInfo {
 
 export const quotableFrames: QuotableFrameInfo[] = [
   {
-    src: QuotableDesignEnum.noFrame,
-    nameDk: QuotableDesignNameDanishEnum.noFrame,
-    nameEn: QuotableDesignNameEnglishEnum.noFrame,
-  },
-  {
     src: QuotableDesignEnum.frame1,
     nameDk: QuotableDesignNameDanishEnum.frame1,
     nameEn: QuotableDesignNameEnglishEnum.frame1,
@@ -76,14 +71,14 @@ export const quotableFrames: QuotableFrameInfo[] = [
     nameDk: QuotableDesignNameDanishEnum.frame12,
     nameEn: QuotableDesignNameEnglishEnum.frame12,
   },
-];
-
-export const loveLetterFrames: QuotableFrameInfo[] = [
   {
     src: QuotableDesignEnum.noFrame,
     nameDk: QuotableDesignNameDanishEnum.noFrame,
     nameEn: QuotableDesignNameEnglishEnum.noFrame,
   },
+];
+
+export const loveLetterFrames: QuotableFrameInfo[] = [
   {
     src: QuotableDesignEnum.frame13,
     nameDk: QuotableDesignNameDanishEnum.frame13,
@@ -109,14 +104,14 @@ export const loveLetterFrames: QuotableFrameInfo[] = [
     nameDk: QuotableDesignNameDanishEnum.frame17,
     nameEn: QuotableDesignNameEnglishEnum.frame17,
   },
-];
-
-export const babySignFrames: QuotableFrameInfo[] = [
   {
     src: QuotableDesignEnum.noFrame,
     nameDk: QuotableDesignNameDanishEnum.noFrame,
     nameEn: QuotableDesignNameEnglishEnum.noFrame,
   },
+];
+
+export const babySignFrames: QuotableFrameInfo[] = [
   {
     src: QuotableDesignEnum.frame18,
     nameDk: QuotableDesignNameDanishEnum.frame18,
@@ -141,5 +136,10 @@ export const babySignFrames: QuotableFrameInfo[] = [
     src: QuotableDesignEnum.frame22,
     nameDk: QuotableDesignNameDanishEnum.frame22,
     nameEn: QuotableDesignNameEnglishEnum.frame22,
+  },
+  {
+    src: QuotableDesignEnum.noFrame,
+    nameDk: QuotableDesignNameDanishEnum.noFrame,
+    nameEn: QuotableDesignNameEnglishEnum.noFrame,
   },
 ];
