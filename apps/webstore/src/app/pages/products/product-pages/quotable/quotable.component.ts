@@ -98,6 +98,17 @@ export class QuotableComponent implements OnInit {
       this.quotableType = params.productType;
     });
 
+    this.setProductFrames();
+    this.setDefaultDesign();
+  }
+
+  ngOnInit() {
+    this.getFontList();
+    this.loadDesign();
+    this.setMetaData();
+  }
+
+  setProductFrames(): void {
     // Set product frames
     switch (this.quotableType) {
       case QuotableType.babySign:
@@ -110,14 +121,6 @@ export class QuotableComponent implements OnInit {
       default:
         this.productFrames = quotableFrames;
     }
-
-    this.setDefaultDesign();
-  }
-
-  ngOnInit() {
-    this.getFontList();
-    this.loadDesign();
-    this.setMetaData();
   }
 
   setMetaData() {
@@ -160,14 +163,6 @@ export class QuotableComponent implements OnInit {
           content: 'Minder, ferieminder, ferie, citat, quote, livsmotto, liv, gave',
         });
     }
-  }
-
-  isEnglish(): boolean {
-    return this.localeCode === 'en-US';
-  }
-
-  openQuotableTemplateModal(): void {
-    this.modalService.open(QuotableTemplateModalComponent);
   }
 
   getFontList(): void {
@@ -241,23 +236,9 @@ export class QuotableComponent implements OnInit {
     }
   }
 
-  loadTypeSpecificDesign() {
-    switch (this.quotableType) {
-      case QuotableType.babySign:
-        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
-        break;
-      case QuotableType.loveLetter:
-        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
-        break;
-      case QuotableType.quotable:
-      default:
-        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
-    }
-  }
-
   loadDesignFromLocalStorage(designId: string) {
     console.log('running this loadDesignFromLocal');
-    
+
     // Get transactionItems from localstorage
     const itemList: ITransactionItem[] = this.localStorageService.getItem<ITransactionItem[]>(
       LocalStorageVars.transactionItems
@@ -280,7 +261,7 @@ export class QuotableComponent implements OnInit {
     this.design = {
       font: this.defaultFont,
       fontSize: this.fontSize,
-      designSrc: this.productFrames[1].src,
+      designSrc: this.productFrames[0].src,
       text: 'Lorem Ipsum',
     };
   }
@@ -297,18 +278,7 @@ export class QuotableComponent implements OnInit {
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {
-          // Get the correct design type
-          switch (this.quotableType) {
-            case QuotableType.babySign:
-              this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
-              break;
-            case QuotableType.loveLetter:
-              this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
-              break;
-            case QuotableType.quotable:
-            default:
-              this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
-          }
+          this.setProductInLocal();
           // apply the design
           this.isMutable = result.mutable;
         }
@@ -325,6 +295,49 @@ export class QuotableComponent implements OnInit {
         return;
       }
     );
+  }
+
+  loadTypeSpecificDesign() {
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
+        break;
+      case QuotableType.loveLetter:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
+        break;
+      case QuotableType.quotable:
+      default:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    }
+  }
+
+  setProductInLocal(): void {
+    // Get the correct design type
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
+        break;
+      case QuotableType.loveLetter:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
+        break;
+      case QuotableType.quotable:
+      default:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
+    }
+  }
+
+  removeProductFromLocal(): void {
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.localStorageService.removeItem(LocalStorageVars.designBabySign);
+        break;
+      case QuotableType.loveLetter:
+        this.localStorageService.removeItem(LocalStorageVars.designLoveLetter);
+        break;
+      case QuotableType.quotable:
+      default:
+        this.localStorageService.removeItem(LocalStorageVars.designQuotable);
+    }
   }
 
   saveDesign(params: { persist?: boolean }, withAlert?: boolean) {
@@ -417,7 +430,8 @@ export class QuotableComponent implements OnInit {
   }
 
   clearDesign() {
-    this.localStorageService.removeItem(LocalStorageVars.designQuotable);
+    this.removeProductFromLocal();
+
     if (this.route.snapshot.queryParams.designId === undefined) {
       // trigger reload of the page by switching to another page and back
       const currentUrl = this.router.url;
@@ -446,7 +460,6 @@ export class QuotableComponent implements OnInit {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }
 
-  // TODO - either make addToBasket modal recognize designType or create a new modal for quotable
   openAddToBasketModal() {
     this.saveDesign({ persist: false }, true);
     const modalRef = this.modalService.open(AddToBasketModalComponent);
@@ -458,5 +471,13 @@ export class QuotableComponent implements OnInit {
     console.warn('Design state has changed. Valid:', $event);
     this.isDesignValid = $event;
     this.cdr.detectChanges();
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
+
+  openQuotableTemplateModal(): void {
+    this.modalService.open(QuotableTemplateModalComponent);
   }
 }
