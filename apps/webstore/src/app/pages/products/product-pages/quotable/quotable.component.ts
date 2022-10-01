@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, quotableFrames, loveLetterFrames, babySignFrames, QuotableFrameInfo } from '@assets';
+import { BoxOptionsDesignEnum, quotableFrames, QuotableFrameInfo } from '@assets';
 import {
   DesignFontEnum,
   DesignTypeEnum,
@@ -55,10 +55,11 @@ export class QuotableComponent implements OnInit {
     floor: 10,
     ceil: 70,
   };
-  currentDesign = 0;
+  currentDesign = 1;
   design: IQoutable;
 
-  productFrames: QuotableFrameInfo[];
+  quotableFrames: QuotableFrameInfo[];
+  productSpecificFrames: QuotableFrameInfo[];
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -98,7 +99,8 @@ export class QuotableComponent implements OnInit {
       this.quotableType = params.productType;
     });
 
-    this.setProductFrames();
+    this.quotableFrames = quotableFrames;
+    this.productSpecificFrames = this.quotableFrames.filter((frame) => frame.productType.includes(this.quotableType));
     this.setDefaultDesign();
   }
 
@@ -106,21 +108,6 @@ export class QuotableComponent implements OnInit {
     this.getFontList();
     this.loadDesign();
     this.setMetaData();
-  }
-
-  setProductFrames(): void {
-    // Set product frames
-    switch (this.quotableType) {
-      case QuotableType.babySign:
-        this.productFrames = babySignFrames;
-        break;
-      case QuotableType.loveLetter:
-        this.productFrames = loveLetterFrames;
-        break;
-      case QuotableType.quotable:
-      default:
-        this.productFrames = quotableFrames;
-    }
   }
 
   setMetaData() {
@@ -182,16 +169,16 @@ export class QuotableComponent implements OnInit {
 
   getDesignName(): string {
     return this.isEnglish()
-      ? this.productFrames[this.currentDesign].nameEn
-      : this.productFrames[this.currentDesign].nameDk;
+      ? this.productSpecificFrames[this.currentDesign].nameEn
+      : this.productSpecificFrames[this.currentDesign].nameDk;
   }
 
   changeDesign(direction: string): void {
     console.log('\ndir:' + direction);
-    console.log('curr:' + this.currentDesign, 'url:' + this.productFrames[this.currentDesign].src);
+    console.log('curr:' + this.currentDesign, 'url:' + this.productSpecificFrames[this.currentDesign].src);
     switch (direction) {
       case 'next':
-        if (this.currentDesign < this.productFrames.length - 1) {
+        if (this.currentDesign < this.productSpecificFrames.length - 1) {
           this.currentDesign = this.currentDesign + 1;
         } else {
           this.currentDesign = 0;
@@ -201,11 +188,10 @@ export class QuotableComponent implements OnInit {
         if (this.currentDesign > 0) {
           this.currentDesign = this.currentDesign - 1;
         } else {
-          this.currentDesign = this.productFrames.length - 1;
+          this.currentDesign = this.productSpecificFrames.length - 1;
         }
     }
-    this.design.designSrc = this.productFrames[this.currentDesign].src;
-    console.log('curr:' + this.currentDesign, 'url:' + this.productFrames[this.currentDesign].src);
+    this.design.designSrc = this.productSpecificFrames[this.currentDesign].src;
   }
 
   loadDesign() {
@@ -396,7 +382,7 @@ export class QuotableComponent implements OnInit {
   }
 
   setDefaultDesign(): void {
-    this.currentDesign = 0;
+    this.currentDesign = 1;
     this.fontSize = 40;
     this.displayFont = this.defaultFont;
 
@@ -404,7 +390,7 @@ export class QuotableComponent implements OnInit {
     this.design = {
       font: this.defaultFont,
       fontSize: this.fontSize,
-      designSrc: this.productFrames[0].src,
+      designSrc: this.productSpecificFrames[1].src,
       text: 'Din tekst',
     };
   }
