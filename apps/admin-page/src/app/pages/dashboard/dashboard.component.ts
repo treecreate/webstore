@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
         this.fullOrdersList = ordersList;
         this.getPeriodOrders(7);
         this.getWeekRevenue();
+        this.calculateThreeMonthRevenueDifference();
       },
     });
   }
@@ -60,8 +61,6 @@ export class DashboardComponent implements OnInit {
     const periodOrders = this.fullOrdersList.filter(
       (order) => new Date(order.createdAt) >= endDate && new Date(order.createdAt) < startDate
     );
-    console.log(periodOrders);
-
     return periodOrders;
   }
 
@@ -109,7 +108,6 @@ export class DashboardComponent implements OnInit {
     return revenue;
   }
 
-  //TODO: Add test orders to array to test everything.
   calculateWeekRevenueDifference() {
     const thisPeriodOrders = this.getPeriodOrders(7);
     const lastPeriodOrders = this.getPreviousPeriodOrders(7, 14);
@@ -122,16 +120,6 @@ export class DashboardComponent implements OnInit {
       lastPeriodRevenue += order.total;
     });
 
-    const thisTestPeriodOrders = this.getPeriodOrders(7);
-    const lastTestPeriodOrders = this.getPreviousPeriodOrders(7, 14);
-    let thisTestPeriodRevenue = 0;
-    let lastTestPeriodRevenue = 0;
-    thisTestPeriodOrders.forEach((order) => {
-      thisTestPeriodRevenue += order.total;
-    });
-    lastTestPeriodOrders.forEach((order) => {
-      lastTestPeriodRevenue += order.total;
-    });
     return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
   }
 
@@ -176,8 +164,20 @@ export class DashboardComponent implements OnInit {
     return revenue;
   }
 
-  //TODO: Implement the logic
-  calculateMonthRevenueDifference() {}
+  calculateMonthRevenueDifference() {
+    const thisPeriodOrders = this.getPeriodOrders(30);
+    const lastPeriodOrders = this.getPreviousPeriodOrders(30, 60);
+    let thisPeriodRevenue = 0;
+    let lastPeriodRevenue = 0;
+    thisPeriodOrders.forEach((order) => {
+      thisPeriodRevenue += order.total;
+    });
+    lastPeriodOrders.forEach((order) => {
+      lastPeriodRevenue += order.total;
+    });
+
+    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+  }
 
   //TODO: Implement the logic
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -192,6 +192,8 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   calculateMonthSubscriberDifference() {}
+
+  // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   //TODO: Implement the logic
   // Methods for 3 month data
@@ -219,8 +221,20 @@ export class DashboardComponent implements OnInit {
     return revenue;
   }
 
-  //TODO: Implement the logic
-  calculateThreeMonthRevenueDifference() {}
+  calculateThreeMonthRevenueDifference() {
+    const thisPeriodOrders = this.getPeriodOrders(7);
+    const lastPeriodOrders = this.getPreviousPeriodOrders(7, 14);
+    let thisPeriodRevenue = 0;
+    let lastPeriodRevenue = 0;
+    thisPeriodOrders.forEach((order) => {
+      thisPeriodRevenue += order.total;
+    });
+    lastPeriodOrders.forEach((order) => {
+      lastPeriodRevenue += order.total;
+    });
+
+    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+  }
 
   //TODO: Implement the logic
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -235,6 +249,8 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   calculateThreeMonthSubscriberDifference() {}
+
+  // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   //TODO: Implement the logic
   // Methods for 6 month data
@@ -262,7 +278,20 @@ export class DashboardComponent implements OnInit {
   }
 
   //TODO: Implement the logic
-  calculateSixMonthRevenueDifference() {}
+  calculateSixMonthRevenueDifference() {
+    const thisPeriodOrders = this.getPeriodOrders(7);
+    const lastPeriodOrders = this.getPreviousPeriodOrders(7, 14);
+    let thisPeriodRevenue = 0;
+    let lastPeriodRevenue = 0;
+    thisPeriodOrders.forEach((order) => {
+      thisPeriodRevenue += order.total;
+    });
+    lastPeriodOrders.forEach((order) => {
+      lastPeriodRevenue += order.total;
+    });
+
+    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+  }
 
   //TODO: Implement the logic
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -270,7 +299,36 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   // Surplus = Total - production cost - (trees planted > 1) - shipping
-  calculateSixMonthSurplusDifference() {}
+  calculateSixMonthSurplusDifference() {
+    // Testing portion of the function. TODO: Delete after testing.
+    const thisTestPeriodOrders: IOrder[] = [];
+    const lastTestPeriodOrders: IOrder[] = [];
+    let thisTestPeriodRevenue = 0;
+    let lastTestPeriodRevenue = 0;
+
+    const mockOrderOne = mockOrder(OrderStatusEnum.initial, 89);
+    thisTestPeriodOrders.push(mockOrderOne);
+    const mockOrderTwo = mockOrder(OrderStatusEnum.initial, 90);
+    thisTestPeriodOrders.push(mockOrderTwo);
+    const mockOrderThree = mockOrder(OrderStatusEnum.initial, 7);
+    thisTestPeriodOrders.push(mockOrderThree);
+    thisTestPeriodOrders.forEach((order) => {
+      thisTestPeriodRevenue += order.total;
+    });
+
+    const mockOrderFour = mockOrder(OrderStatusEnum.initial, 91);
+    lastTestPeriodOrders.push(mockOrderFour);
+    const mockOrderFive = mockOrder(OrderStatusEnum.initial, 120);
+    lastTestPeriodOrders.push(mockOrderFive);
+    const mockOrderSix = mockOrder(OrderStatusEnum.initial, 175);
+    lastTestPeriodOrders.push(mockOrderSix);
+    const mockOrderSeven = mockOrder(OrderStatusEnum.initial, 177);
+    lastTestPeriodOrders.push(mockOrderSeven);
+    lastTestPeriodOrders.forEach((order) => {
+      lastTestPeriodRevenue += order.total;
+    });
+    console.log(((thisTestPeriodRevenue - lastTestPeriodRevenue) / thisTestPeriodRevenue) * 100);
+  }
 
   //TODO: Implement the logic
   getSixMonthSubscribers() {}
@@ -284,10 +342,10 @@ function compare(a: number | string | Date, b: number | string | Date, isAsc: bo
 }
 
 function createdAt(days: number): Date {
-  const createdAt = new Date();
-  createdAt.setDate(createdAt.getDate() - days * 24 * 60 * 60 * 1000);
+  const creationDate = new Date();
+  creationDate.setDate(creationDate.getDate() - days * 24 * 60 * 60 * 1000);
 
-  return createdAt;
+  return creationDate;
 }
 
 function mockOrder(status: OrderStatusEnum, days: number): IOrder {
@@ -326,8 +384,8 @@ function mockOrder(status: OrderStatusEnum, days: number): IOrder {
     plantedTrees: 1,
     shippingMethod: ShippingMethodEnum.homeDelivery,
     //State    -- not implemented
-    subtotal: 424,
-    total: 399,
+    subtotal: 399,
+    total: 424,
     transactionItems: [],
     userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
   };
