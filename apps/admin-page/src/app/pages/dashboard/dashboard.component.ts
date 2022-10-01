@@ -100,14 +100,13 @@ export class DashboardComponent implements OnInit {
     const currentPeriodOrders = this.getPeriodOrders(7).length;
     const previousPeriodOrders = this.getPreviousPeriodOrders(7, 14).length;
 
-    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
     return percentageDiff;
   }
 
-  
   getWeekRevenue() {
     const thisPeriodOrders = this.getPeriodOrders(7);
-    let revenue = 0
+    let revenue = 0;
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
@@ -143,14 +142,14 @@ export class DashboardComponent implements OnInit {
   calculateMonthOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(30).length;
     const previousPeriodOrders = this.getPreviousPeriodOrders(30, 60).length;
-    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
     return percentageDiff;
   }
 
   //TODO: Implement the logic
   getMonthRevenue() {
     const thisPeriodOrders = this.getPeriodOrders(7);
-    let revenue = 0
+    let revenue = 0;
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
@@ -186,14 +185,14 @@ export class DashboardComponent implements OnInit {
   calculateThreeMonthOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(90).length;
     const previousPeriodOrders = this.getPreviousPeriodOrders(90, 180).length;
-    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
     return percentageDiff;
   }
 
   //TODO: Implement the logic
   getThreeMonthRevenue() {
     const thisPeriodOrders = this.getPeriodOrders(90);
-    let revenue = 0
+    let revenue = 0;
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
@@ -228,14 +227,14 @@ export class DashboardComponent implements OnInit {
   calculateSixMonthOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(180).length;
     const previousPeriodOrders = this.getPreviousPeriodOrders(180, 360).length;
-    const percentageDiff = (currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders * 100;
+    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
     return percentageDiff;
   }
 
   //TODO: Implement the logic
   getSixMonthRevenue() {
     const thisPeriodOrders = this.getPeriodOrders(180);
-    let revenue = 0
+    let revenue = 0;
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
@@ -266,7 +265,7 @@ function compare(a: number | string | Date, b: number | string | Date, isAsc: bo
 
 function createdAt(days: number): Date {
   const createdAt = new Date();
-  createdAt.setDate(createdAt.getDate() - (days * 24 * 60 * 60 * 1000));
+  createdAt.setDate(createdAt.getDate() - days * 24 * 60 * 60 * 1000);
 
   return createdAt;
 }
