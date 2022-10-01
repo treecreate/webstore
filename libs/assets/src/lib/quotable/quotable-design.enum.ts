@@ -1,6 +1,6 @@
 export enum QuotableDesignEnum {
+  noFrame = 'assets/quotable/frame-design/frame0-no-design.svg',
   // Quotable
-  noFrame = 'assets/quotable/frame-design/quotable/frame0-no-design.svg',
   frame1 = 'assets/quotable/frame-design/quotable/frame1.svg',
   frame2 = 'assets/quotable/frame-design/quotable/frame2.svg',
   frame3 = 'assets/quotable/frame-design/quotable/frame3.svg',

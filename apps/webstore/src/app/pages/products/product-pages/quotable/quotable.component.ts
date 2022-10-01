@@ -55,7 +55,7 @@ export class QuotableComponent implements OnInit {
     floor: 10,
     ceil: 70,
   };
-  currentDesign = 1;
+  currentDesign = 0;
   design: IQoutable;
 
   productFrames: QuotableFrameInfo[];
@@ -187,6 +187,8 @@ export class QuotableComponent implements OnInit {
   }
 
   changeDesign(direction: string): void {
+    console.log('\ndir:' + direction);
+    console.log('curr:' + this.currentDesign, 'url:' + this.productFrames[this.currentDesign].src);
     switch (direction) {
       case 'next':
         if (this.currentDesign < this.productFrames.length - 1) {
@@ -203,15 +205,7 @@ export class QuotableComponent implements OnInit {
         }
     }
     this.design.designSrc = this.productFrames[this.currentDesign].src;
-  }
-
-  /**
-   * Recreates the design object so it gets detected by ngOnChanges in the design component
-   */
-  changeFontSize(): void {
-    this.design = {
-      ...this.design,
-    };
+    console.log('curr:' + this.currentDesign, 'url:' + this.productFrames[this.currentDesign].src);
   }
 
   loadDesign() {
@@ -256,16 +250,6 @@ export class QuotableComponent implements OnInit {
     this.design = itemList[designId].design.designProperties;
   }
 
-  setDefaultDesign(): void {
-    // Set default design
-    this.design = {
-      font: this.defaultFont,
-      fontSize: this.fontSize,
-      designSrc: this.productFrames[0].src,
-      text: 'Lorem Ipsum',
-    };
-  }
-
   loadDesignFromDB(queryParams) {
     const designId = queryParams.designId;
     this.designService.getDesign(designId).subscribe(
@@ -295,49 +279,6 @@ export class QuotableComponent implements OnInit {
         return;
       }
     );
-  }
-
-  loadTypeSpecificDesign() {
-    switch (this.quotableType) {
-      case QuotableType.babySign:
-        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
-        break;
-      case QuotableType.loveLetter:
-        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
-        break;
-      case QuotableType.quotable:
-      default:
-        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
-    }
-  }
-
-  setProductInLocal(): void {
-    // Get the correct design type
-    switch (this.quotableType) {
-      case QuotableType.babySign:
-        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
-        break;
-      case QuotableType.loveLetter:
-        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
-        break;
-      case QuotableType.quotable:
-      default:
-        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
-    }
-  }
-
-  removeProductFromLocal(): void {
-    switch (this.quotableType) {
-      case QuotableType.babySign:
-        this.localStorageService.removeItem(LocalStorageVars.designBabySign);
-        break;
-      case QuotableType.loveLetter:
-        this.localStorageService.removeItem(LocalStorageVars.designLoveLetter);
-        break;
-      case QuotableType.quotable:
-      default:
-        this.localStorageService.removeItem(LocalStorageVars.designQuotable);
-    }
   }
 
   saveDesign(params: { persist?: boolean }, withAlert?: boolean) {
@@ -433,11 +374,7 @@ export class QuotableComponent implements OnInit {
     this.removeProductFromLocal();
 
     if (this.route.snapshot.queryParams.designId === undefined) {
-      // trigger reload of the page by switching to another page and back
-      const currentUrl = this.router.url;
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-      });
+      this.setDefaultDesign();
     } else {
       // clear the designId param, triggering refetching of data
       this.router.navigate([], {
@@ -447,6 +384,72 @@ export class QuotableComponent implements OnInit {
       });
     }
     this.eventsService.create(`webstore.quotable.design-cleared`);
+  }
+
+  /**
+   * Recreates the design object so it gets detected by ngOnChanges in the design component
+   */
+  changeFontSize(): void {
+    this.design = {
+      ...this.design,
+    };
+  }
+
+  setDefaultDesign(): void {
+    this.currentDesign = 0;
+    this.fontSize = 40;
+    this.displayFont = this.defaultFont;
+
+    // Set default design
+    this.design = {
+      font: this.defaultFont,
+      fontSize: this.fontSize,
+      designSrc: this.productFrames[0].src,
+      text: 'Lorem Ipsum',
+    };
+  }
+
+  loadTypeSpecificDesign() {
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
+        break;
+      case QuotableType.loveLetter:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
+        break;
+      case QuotableType.quotable:
+      default:
+        this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    }
+  }
+
+  setProductInLocal(): void {
+    // Get the correct design type
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
+        break;
+      case QuotableType.loveLetter:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
+        break;
+      case QuotableType.quotable:
+      default:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
+    }
+  }
+
+  removeProductFromLocal(): void {
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.localStorageService.removeItem(LocalStorageVars.designBabySign);
+        break;
+      case QuotableType.loveLetter:
+        this.localStorageService.removeItem(LocalStorageVars.designLoveLetter);
+        break;
+      case QuotableType.quotable:
+      default:
+        this.localStorageService.removeItem(LocalStorageVars.designQuotable);
+    }
   }
 
   @HostListener('window:resize')
