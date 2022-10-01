@@ -62,5 +62,26 @@ describe('BabySignProductPage', () => {
       cy.get('[data-cy=next-design-button]').click({ force: true });
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame0-no-design.svg');
     });
+
+    it('resets to the correct values', () => {
+      // Assert
+      cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
+
+      // Act
+      cy.get('[data-cy=prev-design-button]').click({ force: true });
+      cy.get('[data-cy=font-select-option]')
+        .click()
+        .then(() => {
+          cy.get('button').contains('calendasItalic').click();
+        });
+      cy.get('[data-cy=font]').should('have.text', 'calendas-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame0-no-design.svg');
+      cy.get('[data-cy=reset-button]').click({ force: true });
+
+      // Expect
+      cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
+    });
   });
 });
