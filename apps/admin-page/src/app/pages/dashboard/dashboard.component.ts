@@ -87,19 +87,15 @@ export class DashboardComponent implements OnInit {
     return 0;
   }
 
-  //TODO:
   // Methods for weekly data
   getWeekOrders() {
     const currentPeriodOrders = this.getPeriodOrders(7).length;
-
     return currentPeriodOrders;
   }
 
-  //TODO: Implement the logic
   calculateWeekOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(7).length;
     const previousPeriodOrders = this.getPreviousPeriodOrders(7, 14).length;
-
     const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
     return percentageDiff;
   }
@@ -113,15 +109,38 @@ export class DashboardComponent implements OnInit {
     return revenue;
   }
 
-  //TODO: Implement the logic
-  calculateWeekRevenueDifference() {}
+  //TODO: Add test orders to array to test everything.
+  calculateWeekRevenueDifference() {
+    const thisPeriodOrders = this.getPeriodOrders(7);
+    const lastPeriodOrders = this.getPreviousPeriodOrders(7, 14);
+    let thisPeriodRevenue = 0;
+    let lastPeriodRevenue = 0;
+    thisPeriodOrders.forEach((order) => {
+      thisPeriodRevenue += order.total;
+    });
+    lastPeriodOrders.forEach((order) => {
+      lastPeriodRevenue += order.total;
+    });
+
+    const thisTestPeriodOrders = this.getPeriodOrders(7);
+    const lastTestPeriodOrders = this.getPreviousPeriodOrders(7, 14);
+    let thisTestPeriodRevenue = 0;
+    let lastTestPeriodRevenue = 0;
+    thisTestPeriodOrders.forEach((order) => {
+      thisTestPeriodRevenue += order.total;
+    });
+    lastTestPeriodOrders.forEach((order) => {
+      lastTestPeriodRevenue += order.total;
+    });
+    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+  }
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   getWeekSurplus() {}
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   calculateWeekSurplusDifference() {}
 
   //TODO: Implement the logic
@@ -130,11 +149,12 @@ export class DashboardComponent implements OnInit {
   //TODO: Implement the logic
   calculateWeekSubscriberDifference() {}
 
+  // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   //TODO: Implement the logic
   // Methods for monthly data
   getMonthOrders() {
     const currentPeriodOrders = this.getPeriodOrders(30).length;
-
     return currentPeriodOrders;
   }
 
@@ -148,7 +168,7 @@ export class DashboardComponent implements OnInit {
 
   //TODO: Implement the logic
   getMonthRevenue() {
-    const thisPeriodOrders = this.getPeriodOrders(7);
+    const thisPeriodOrders = this.getPeriodOrders(30);
     let revenue = 0;
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
@@ -160,11 +180,11 @@ export class DashboardComponent implements OnInit {
   calculateMonthRevenueDifference() {}
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   getMonthSurplus() {}
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   calculateMonthSurplusDifference() {}
 
   //TODO: Implement the logic
@@ -203,11 +223,11 @@ export class DashboardComponent implements OnInit {
   calculateThreeMonthRevenueDifference() {}
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   getThreeMonthSurplus() {}
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   calculateThreeMonthSurplusDifference() {}
 
   //TODO: Implement the logic
@@ -245,11 +265,11 @@ export class DashboardComponent implements OnInit {
   calculateSixMonthRevenueDifference() {}
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   getSixMonthSurplus() {}
 
   //TODO: Implement the logic
-  // Surplus = Order Revenue - Full production price (115kr - Mini | 135kr - Small | 161kr - Med | 205kr - Large)
+  // Surplus = Total - production cost - (trees planted > 1) - shipping
   calculateSixMonthSurplusDifference() {}
 
   //TODO: Implement the logic
