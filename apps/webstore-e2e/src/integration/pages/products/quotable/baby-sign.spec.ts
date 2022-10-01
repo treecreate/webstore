@@ -24,37 +24,40 @@ describe('BabySignProductPage', () => {
   });
 
   describe('Baby sign product page', () => {
-    it('has the right frames', () => {
-
+    it('has the correct default settings', () => {
+      cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
+      cy.get('[data-cy=font-size]').should('contain', '40');
+      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
     });
 
     it('goes to the right frame when pressing prev', () => {
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame18.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
 
       cy.get('[data-cy=prev-design-button]').click({ force: true });
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame0-no-design.svg');
 
       cy.get('[data-cy=prev-design-button]').click({ force: true });
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame22.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame22.svg');
 
       cy.get('[data-cy=prev-design-button]').click({ force: true });
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame21.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame21.svg');
     });
 
     it('goes to the right frame when pressing next', () => {
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame18.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
 
       cy.get('[data-cy=next-design-button]').click({ force: true });
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame19.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame19.svg');
 
       cy.get('[data-cy=next-design-button]').click({ force: true });
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame20.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame20.svg');
 
       cy.get('[data-cy=next-design-button]').click({ force: true });
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame21.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame21.svg');
 
       cy.get('[data-cy=next-design-button]').click({ force: true });
-      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame22.svg');
+      cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame22.svg');
 
       cy.get('[data-cy=next-design-button]').click({ force: true });
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame0-no-design.svg');
