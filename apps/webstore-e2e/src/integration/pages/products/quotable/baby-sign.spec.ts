@@ -28,7 +28,7 @@ describe('BabySignProductPage', () => {
       cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
       cy.get('[data-cy=font-size]').should('contain', '40');
-      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
+      cy.get('[data-cy=text]').should('contain', 'Din tekst');
     });
 
     it('goes to the right frame when pressing prev', () => {

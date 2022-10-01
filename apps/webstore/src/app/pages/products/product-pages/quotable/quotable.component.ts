@@ -405,7 +405,7 @@ export class QuotableComponent implements OnInit {
       font: this.defaultFont,
       fontSize: this.fontSize,
       designSrc: this.productFrames[0].src,
-      text: 'Lorem Ipsum',
+      text: 'Din tekst',
     };
   }
 

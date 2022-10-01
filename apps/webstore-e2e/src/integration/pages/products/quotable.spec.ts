@@ -30,7 +30,7 @@ describe('QuotableProductPage', () => {
       cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame1.svg');
       cy.get('[data-cy=font-size]').should('contain', '40');
-      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
+      cy.get('[data-cy=text]').should('contain', 'Din tekst');
     });
 
     it('next design changes the design correctly', () => {
@@ -87,7 +87,7 @@ describe('QuotableProductPage', () => {
 
     it('should change the text correctly', () => {
       // Assert
-      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
+      cy.get('[data-cy=text]').should('contain', 'Din tekst');
 
       // Act
       cy.get('[data-cy=text-input-field]').clear().type('skrt skrt skrt');
@@ -100,7 +100,7 @@ describe('QuotableProductPage', () => {
   describe('Unauthenticated user actions', () => {
     it('should not get to fetch design based on the id when accessing the products page as an unauthenticated user', () => {
       cy.visit('/products/quotable?designId=c0a80121-7ac0-190b-817a-c08ab0a12345');
-      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
+      cy.get('[data-cy=text]').should('contain', 'Din tekst');
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame1.svg');
     });
 
@@ -116,7 +116,7 @@ describe('QuotableProductPage', () => {
       cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/frame1.svg');
       cy.get('[data-cy=font-size]').should('contain', '40');
-      cy.get('[data-cy=text]').should('contain', 'Lorem Ipsum');
+      cy.get('[data-cy=text]').should('contain', 'Din tekst');
 
       // Act
       // Change design
