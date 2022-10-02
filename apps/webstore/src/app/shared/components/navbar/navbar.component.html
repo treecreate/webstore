@@ -52,20 +52,10 @@
                     aria-labelledby="dropdownBasic"
                     #languageChange
                 >
-                    <a
-                        ngbDropdownItem
-                        (click)="changeLocale('en')"
-                        href="/{{ localeCode }}/"
-                        data-cy="navbar-localization-en"
-                        i18n="@@english"
+                    <a ngbDropdownItem (click)="changeLocale('en')" data-cy="navbar-localization-en" i18n="@@english"
                         >English</a
                     >
-                    <a
-                        ngbDropdownItem
-                        (click)="changeLocale('da')"
-                        href="/"
-                        data-cy="navbar-localization-dk"
-                        i18n="@@danish"
+                    <a ngbDropdownItem (click)="changeLocale('da')" data-cy="navbar-localization-dk" i18n="@@danish"
                         >Danish</a
                     >
                 </div>
@@ -89,6 +79,11 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link waves-light" routerLink="/" (click)="autoCollapse()">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light" routerLink="/about-us" (click)="autoCollapse()" i18n="@@about-us"
+                        >About Us</a
+                    >
                 </li>
                 <li class="nav-item">
                     <a
@@ -166,17 +161,11 @@
                         <a
                             ngbDropdownItem
                             (click)="changeLocale('en')"
-                            href="/{{ localeCode }}/"
                             data-cy="navbar-localization-en"
                             i18n="@@english"
                             >English</a
                         >
-                        <a
-                            ngbDropdownItem
-                            (click)="changeLocale('da')"
-                            href="/"
-                            data-cy="navbar-localization-dk"
-                            i18n="@@danish"
+                        <a ngbDropdownItem (click)="changeLocale('da')" data-cy="navbar-localization-dk" i18n="@@danish"
                             >Danish</a
                         >
                     </div>

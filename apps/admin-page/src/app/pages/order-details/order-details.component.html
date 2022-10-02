@@ -91,7 +91,7 @@
                     <ng-container matColumnDef="price">
                         <th mat-header-cell *matHeaderCellDef>Price</th>
                         <td mat-cell *matCellDef="let item">
-                            {{ getItemPrice(item.quantity, item.dimension) }}
+                            {{ getItemPrice(item.quantity, item.dimension, item.designType) }}
                         </td>
                     </ng-container>
 
@@ -149,27 +149,27 @@
                 </div>
                 <div class="row">
                     <span class="mat-body-strong"> Subtotal: </span>
-                    <span>{{ order!.subtotal }} DKK</span>
+                    <span>{{ order!.subtotal.toFixed(2) }} DKK</span>
                 </div>
                 <div class="row">
                     <span class="mat-body-strong"> Saved: </span>
-                    <span>{{ order!.subtotal - order!.total }} DKK</span>
+                    <span>{{ getSavedAmount().toFixed(2) }} DKK</span>
                 </div>
                 <div class="row">
                     <span class="mat-body-strong"> Delivery price: </span>
-                    <span>{{ getDeliveryPrice() }} DKK</span>
+                    <span>{{ getDeliveryPrice().toFixed(2) }} DKK</span>
                 </div>
                 <div class="row">
                     <span class="mat-body-strong"> Trees planted price: </span>
-                    <span>{{ getPlantedTreesPrice() }} DKK</span>
+                    <span>{{ getPlantedTreesPrice().toFixed(2) }} DKK</span>
                 </div>
                 <div class="row">
                     <span class="mat-body-strong"> Total amount payed: </span>
-                    <span>{{ order!.total }} DKK</span>
+                    <span>{{ order!.total.toFixed(2) }} DKK</span>
                 </div>
                 <div class="row">
                     <span class="mat-body-strong"> VAT: </span>
-                    <span>{{ getVAT() }} DKK</span>
+                    <span>{{ getVAT().toFixed(2) }} DKK</span>
                 </div>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="7" data-cy="payment-right">
@@ -187,7 +187,11 @@
                 </div>
                 <div class="row" *ngIf="order!.discount">
                     <span class="mat-body-strong"> Discount amount: </span>
-                    <span>{{ order!.discount!.amount }}</span>
+                    <span>{{
+                        order!.discount!.type === 'AMOUNT'
+                            ? order!.discount!.amount.toFixed(2) + ' DKK'
+                            : order!.discount!.amount + ' %'
+                    }}</span>
                 </div>
                 <div class="row">
                     <span class="mat-body-strong"> Delivery type: </span>
