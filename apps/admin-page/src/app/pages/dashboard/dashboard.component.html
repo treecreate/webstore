@@ -10,8 +10,8 @@
 
             <!-- Week Column -->
             <ng-container matColumnDef="2-week">
-                <th mat-header-cell *matHeaderCellDef>Week</th>
-                <td mat-cell *matCellDef="let discount"></td>
+                <th mat-header-cell *matHeaderCellDef>2 Week</th>
+                <td mat-cell *matCellDef="let discount" [ngStyle]="{ 'color': current > past ? 'green' : 'red'}"></td>
             </ng-container>
 
             <!-- Month Column -->

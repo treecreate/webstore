@@ -43,6 +43,16 @@ export class DashboardComponent implements OnInit {
         this.calculateThreeMonthRevenueDifference();
       },
     });
+    this.newsLetterService.getNewsletters().subscribe({
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+      next: (newsletterList: INewsletter[]) => {
+        this.fullNewsletterList = newsletterList;
+        console.log(this.fullNewsletterList);
+        
+      },
+    });
   }
 
   /*
@@ -83,6 +93,24 @@ export class DashboardComponent implements OnInit {
     return previousPeriodRevenue;
   }
 
+  getPeriodNewsletterSignups(days: number): INewsletter[] {
+    const pastDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+
+    const periodNewsletters = this.fullNewsletterList.filter((newsletter) => new Date(newsletter.createdAt) >= pastDate)
+
+    return periodNewsletters;
+  }
+
+  getPreviousPeriodNewsletters(dayStart: number, dayEnd: number): INewsletter[] {
+    const startDate = new Date(Date.now() - dayStart * 24 * 60 * 60 * 1000);
+    const endDate = new Date(Date.now() - dayEnd * 24 * 60 * 60 * 1000);
+
+    const periodNewsletters = this.fullNewsletterList.filter(
+      (newsletter) => new Date(newsletter.createdAt) >= endDate && new Date(newsletter.createdAt) < startDate
+    );
+    return periodNewsletters;
+  };
+
   /**
    * Gets the delivery price based on the shipping method.
    *
@@ -105,9 +133,13 @@ export class DashboardComponent implements OnInit {
     return 0;
   }
 
+  past = 1;
+  current = 2;
+
   // Methods for weekly data
   getTwoWeekOrders() {
     const currentPeriodOrders = this.getPeriodOrders(14).length;
+    const previousPeriodOrders = this.getPreviousPeriodOrders(14, 28).length;
     return currentPeriodOrders;
   }
 
