@@ -9,7 +9,7 @@
 
 .design-wrapper {
   position: relative;
-  height: 94%;
+  height: 100%;
   width: 100%;
 }
 
@@ -20,9 +20,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
-#textField {
+#textField,
+#textField2 {
   width: 80%;
   background: none;
   border: none;
@@ -30,6 +32,8 @@
   text-decoration: none !important;
   resize: none;
   -webkit-text-size-adjust: none;
+  overflow: hidden;
+  white-space: pre-wrap;
 }
 
 #backgroundImage {
@@ -43,17 +47,14 @@
   border: 2px solid black;
 }
 
-#textField {
-  overflow: hidden;
-  white-space: pre-wrap;
-}
-
-#textField:disabled {
+#textField:disabled,
+#textField2:disabled {
   opacity: 1;
   color: black;
   resize: none;
 }
 
-#textField:disabled:hover {
+#textField:disabled:hover,
+#textField2:disabled:hover {
   box-shadow: none;
 }
