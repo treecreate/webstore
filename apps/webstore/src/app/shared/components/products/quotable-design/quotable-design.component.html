@@ -4,7 +4,7 @@
         <div
             #textVerticalPlacement
             id="textVerticalPlacement"
-            [ngClass]="{ 'show-dashed-line': showInputFieldOptions }"
+            [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }"
         >
             <div [ngClass]="{ hide: hideTitle }">
                 <textarea
@@ -28,7 +28,7 @@
                 <button
                     class="remove-text-btn"
                     (click)="hideTitle = !hideTitle"
-                    [ngClass]="{ hide: !showInputFieldOptions }"
+                    [ngClass]="{ hide: !showInputFieldOptions || !isMutable }"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
@@ -57,7 +57,7 @@
                 <button
                     class="remove-text-btn"
                     (click)="hideText = !hideText"
-                    [ngClass]="{ hide: !showInputFieldOptions }"
+                    [ngClass]="{ hide: !showInputFieldOptions || !isMutable }"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
