@@ -29,43 +29,31 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('autosizeTitle') autosizeTitle: CdkTextareaAutosize;
 
-  @ViewChild('quotableTitleInput')
-  titleInput: ElementRef;
+  @ViewChild('textHeight') textHeight: ElementRef;
+  @ViewChild('quotableTitleInput') titleInput: ElementRef;
+  @ViewChild('quotableTextInput') textInput: ElementRef;
 
-  @ViewChild('quotableTextInput')
-  textInput: ElementRef;
+  @Input() isMutable = false;
+  @Input() design: IQoutable;
+  @Input() quotableType: QuotableType;
 
-  @Input()
-  isMutable = false;
-
-  @Input()
-  design: IQoutable;
-
-  @Input()
-  quotableType: QuotableType;
-
-  @Output()
-  isDesignValidEvent = new EventEmitter<boolean>();
-
-  @Output()
-  changeText = new EventEmitter<string>();
-
-  @Output()
-  changeTitleText = new EventEmitter<string>();
+  @Output() isDesignValidEvent = new EventEmitter<boolean>();
+  @Output() changeText = new EventEmitter<string>();
+  @Output() changeTitleText = new EventEmitter<string>();
 
   @ViewChild('designWrapper') designWrapper;
-
   @ViewChild('inputWrapper') inputWrapper;
 
   originalFontSize: number;
-
   rows: number;
 
   isDesignValid = false;
   hasInitialized = false;
+  showOptions = true;
 
   fontSize = 10;
   inputHeight = 10;
+  verticalTextPlacement = 0;
 
   autosaveInterval;
   // design autosave frequency, in seconds

@@ -24,7 +24,7 @@
 }
 
 #textField,
-#textField2 {
+#titleField {
   width: 80%;
   background: none;
   border: none;
@@ -34,6 +34,13 @@
   -webkit-text-size-adjust: none;
   overflow: hidden;
   white-space: pre-wrap;
+}
+
+.show-dashed-line #textField,
+.show-dashed-line #titleField {
+  // Show interaction space
+  border: 2px dashed rgba($color: #000000, $alpha: 0.3);
+  border-radius: 4px;
 }
 
 #backgroundImage {
@@ -48,13 +55,13 @@
 }
 
 #textField:disabled,
-#textField2:disabled {
+#titleField:disabled {
   opacity: 1;
   color: black;
   resize: none;
 }
 
 #textField:disabled:hover,
-#textField2:disabled:hover {
+#titleField:disabled:hover {
   box-shadow: none;
 }
