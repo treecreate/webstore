@@ -11,7 +11,7 @@ import {
   OrderStatusEnum,
   ShippingMethodEnum,
 } from '@interfaces';
-import { Subscriber } from 'rxjs';
+import { lastValueFrom, Subscriber } from 'rxjs';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { OrdersService } from '../../services/orders/orders.service';
 
@@ -98,12 +98,6 @@ export class DashboardComponent implements OnInit {
     return periodOrders;
   }
 
-  /*
-  Will return an array of orders that were created between two user-defined dates.
-  The first date is the start of the period (the end of the period chronologically)
-  The second date is the end of the period (the start of the period chronologically)
-  E.g. to select 2 weeks ago: (7, 14) would be the provided numbers
-  */
   getPreviousPeriodOrders(dayStart: number, dayEnd: number): IOrder[] {
     const startDate = new Date(Date.now() - dayStart * 24 * 60 * 60 * 1000);
     const endDate = new Date(Date.now() - dayEnd * 24 * 60 * 60 * 1000);
@@ -143,41 +137,54 @@ export class DashboardComponent implements OnInit {
     return periodNewsletters;
   }
 
-  /**
-   * Gets the delivery price based on the shipping method.
-   *
-   * @returns the delivery price.
-   */
-  getDeliveryPrice(order: IOrder): number {
-    if (order.shippingMethod === ShippingMethodEnum.homeDelivery) {
-      if (order.total > 350) {
-        return 25;
-      } else {
-        return 65;
-      }
-    } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint) {
-      if (order.total > 350) {
-        return 0;
-      } else {
-        return 45;
-      }
+  getPercentDiff(thisPeriod: number, lastPeriod: number) {
+    return (((thisPeriod - lastPeriod) / thisPeriod) * 100).toFixed(1);
+  }
+
+  subtractDimensionSize(itemDimension: DesignDimensionEnum): number {
+    if (itemDimension === DesignDimensionEnum.small) {
+      return 135;
+    } else if (itemDimension === DesignDimensionEnum.medium) {
+      return 161;
+    } else if (itemDimension === DesignDimensionEnum.large) {
+      return 205;
+    } else {
+      return 115;
     }
-    return 0;
+  }
+
+  subtractPlantedTrees(order: IOrder): number {
+    if (order.plantedTrees > 1) {
+      return (order.plantedTrees - 1) * 10;
+    } else {
+      return 0;
+    }
+  }
+
+  subtractShippingCost(shippingMethod: ShippingMethodEnum, orderTotal: number): number {
+    if (shippingMethod === ShippingMethodEnum.homeDelivery && orderTotal > 350) {
+      return 25;
+    } else if (shippingMethod === ShippingMethodEnum.homeDelivery && orderTotal <= 350) {
+      return 65;
+    } else if (shippingMethod === ShippingMethodEnum.pickUpPoint && orderTotal <= 350) {
+      return 45;
+    } else {
+      return 0;
+    }
   }
 
   // Methods for weekly data
   getTwoWeekOrders() {
-    const currentPeriodOrders = this.getPeriodOrders(14).length;
-    this.twoWeekOrders = currentPeriodOrders;
-    return currentPeriodOrders;
+    const thisPeriodOrders = this.getPeriodOrders(14).length;
+    this.twoWeekOrders = thisPeriodOrders;
+    return thisPeriodOrders;
   }
 
   calculateTwoWeekOrderDifference() {
-    const currentPeriodOrders = this.getPeriodOrders(14).length;
+    const thisPeriodOrders = this.getPeriodOrders(14).length;
     const lastPeriodOrders = this.getPreviousPeriodOrders(14, 28).length;
-    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
     this.twoPastWeekOrders = lastPeriodOrders;
-    return percentageDiff;
+    return this.getPercentDiff(thisPeriodOrders, lastPeriodOrders);
   }
 
   getTwoWeekRevenue() {
@@ -202,7 +209,7 @@ export class DashboardComponent implements OnInit {
       lastPeriodRevenue += order.total;
     });
     this.twoPastWeekRevenue = lastPeriodRevenue;
-    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+    return this.getPercentDiff(thisPeriodRevenue, lastPeriodRevenue);
   }
 
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -212,26 +219,10 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          surplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          surplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          surplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          surplus - 115;
-        }
+        surplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        surplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        surplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        surplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        surplus - 45;
-      }
+      surplus -= this.subtractPlantedTrees(order);
+      surplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
     this.twoWeekSurplus = surplus;
     return surplus;
@@ -244,26 +235,10 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          thisPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          thisPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          thisPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          thisPeriodSurplus - 115;
-        }
+        thisPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        thisPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        thisPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        thisPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        thisPeriodSurplus - 45;
-      }
+      thisPeriodSurplus -= this.subtractPlantedTrees(order);
+      thisPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
 
     const lastPeriodOrders = this.getPreviousPeriodOrders(14, 28);
@@ -271,30 +246,13 @@ export class DashboardComponent implements OnInit {
 
     lastPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          lastPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          lastPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          lastPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          lastPeriodSurplus - 115;
-        }
+        lastPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        lastPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        lastPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        lastPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        lastPeriodSurplus - 45;
-      }
+      lastPeriodSurplus -= this.subtractPlantedTrees(order);
+      lastPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
     this.twoPastWeekSurplus = lastPeriodSurplus;
-
-    return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
+    return this.getPercentDiff(thisPeriodSurplus, lastPeriodSurplus);
   }
 
   getTwoWeekSubscribers() {
@@ -307,7 +265,7 @@ export class DashboardComponent implements OnInit {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(14).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(14, 28).length;
     this.twoPastWeekSubscribers = lastPeriodSubscribers;
-    return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
+    return this.getPercentDiff(thisPeriodSubscribers, lastPeriodSubscribers);
   }
 
   // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -315,19 +273,16 @@ export class DashboardComponent implements OnInit {
   // Methods for monthly data
 
   getMonthOrders() {
-    const currentPeriodOrders = this.getPeriodOrders(30).length;
-    this.monthOrders = currentPeriodOrders;
-    return currentPeriodOrders;
+    const thisPeriodOrders = this.getPeriodOrders(30).length;
+    this.monthOrders = thisPeriodOrders;
+    return thisPeriodOrders;
   }
 
   calculateMonthOrderDifference() {
-    const currentPeriodOrders = this.getPeriodOrders(30).length;
+    const thisPeriodOrders = this.getPeriodOrders(30).length;
     const lastPeriodOrders = this.getPreviousPeriodOrders(30, 60).length;
-
     this.monthPastOrders = lastPeriodOrders;
-
-    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
-    return percentageDiff;
+    return this.getPercentDiff(thisPeriodOrders, lastPeriodOrders);
   }
 
   getMonthRevenue() {
@@ -352,7 +307,7 @@ export class DashboardComponent implements OnInit {
       lastPeriodRevenue += order.total;
     });
     this.monthPastRevenue = lastPeriodRevenue;
-    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+    return this.getPercentDiff(thisPeriodRevenue, lastPeriodRevenue);
   }
 
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -362,30 +317,12 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          surplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          surplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          surplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          surplus - 115;
-        }
+        surplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        surplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        surplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        surplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        surplus - 45;
-      }
+      surplus -= this.subtractPlantedTrees(order);
+      surplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
-
-    this.monthSurplus = surplus;
-
+    this.twoWeekSurplus = surplus;
     return surplus;
   }
 
@@ -396,26 +333,10 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          thisPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          thisPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          thisPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          thisPeriodSurplus - 115;
-        }
+        thisPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        thisPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        thisPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        thisPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        thisPeriodSurplus - 45;
-      }
+      thisPeriodSurplus -= this.subtractPlantedTrees(order);
+      thisPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
 
     const lastPeriodOrders = this.getPreviousPeriodOrders(30, 60);
@@ -423,30 +344,13 @@ export class DashboardComponent implements OnInit {
 
     lastPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          lastPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          lastPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          lastPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          lastPeriodSurplus - 115;
-        }
+        lastPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        lastPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        lastPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        lastPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        lastPeriodSurplus - 45;
-      }
+      lastPeriodSurplus -= this.subtractPlantedTrees(order);
+      lastPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
     this.monthPastSurplus = lastPeriodSurplus;
-
-    return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
+    return this.getPercentDiff(thisPeriodSurplus, lastPeriodSurplus);
   }
 
   getMonthSubscribers() {
@@ -459,7 +363,7 @@ export class DashboardComponent implements OnInit {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(30).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(30, 60).length;
     this.monthPastSubscribers = lastPeriodSubscribers;
-    return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
+    return this.getPercentDiff(thisPeriodSubscribers, lastPeriodSubscribers);
   }
 
   // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -467,17 +371,16 @@ export class DashboardComponent implements OnInit {
   // Methods for 3 month data
 
   getThreeMonthOrders() {
-    const currentPeriodOrders = this.getPeriodOrders(90).length;
-    this.threeMonthOrders = currentPeriodOrders;
-    return currentPeriodOrders;
+    const thisPeriodOrders = this.getPeriodOrders(90).length;
+    this.threeMonthOrders = thisPeriodOrders;
+    return thisPeriodOrders;
   }
 
   calculateThreeMonthOrderDifference() {
-    const currentPeriodOrders = this.getPeriodOrders(90).length;
+    const thisPeriodOrders = this.getPeriodOrders(90).length;
     const lastPeriodOrders = this.getPreviousPeriodOrders(90, 180).length;
-    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
     this.threePastMonthOrders = lastPeriodOrders;
-    return percentageDiff;
+    return this.getPercentDiff(thisPeriodOrders, lastPeriodOrders);
   }
 
   getThreeMonthRevenue() {
@@ -502,7 +405,7 @@ export class DashboardComponent implements OnInit {
       lastPeriodRevenue += order.total;
     });
     this.threePastMonthRevenue = lastPeriodRevenue;
-    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+    return this.getPercentDiff(thisPeriodRevenue, lastPeriodRevenue);
   }
 
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -512,28 +415,12 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          surplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          surplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          surplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          surplus - 115;
-        }
+        surplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        surplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        surplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        surplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        surplus - 45;
-      }
+      surplus -= this.subtractPlantedTrees(order);
+      surplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
-    this.threeMonthSurplus = surplus;
+    this.twoWeekSurplus = surplus;
     return surplus;
   }
 
@@ -544,26 +431,10 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          thisPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          thisPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          thisPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          thisPeriodSurplus - 115;
-        }
+        thisPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        thisPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        thisPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        thisPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        thisPeriodSurplus - 45;
-      }
+      thisPeriodSurplus -= this.subtractPlantedTrees(order);
+      thisPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
 
     const lastPeriodOrders = this.getPreviousPeriodOrders(90, 180);
@@ -571,29 +442,13 @@ export class DashboardComponent implements OnInit {
 
     lastPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          lastPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          lastPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          lastPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          lastPeriodSurplus - 115;
-        }
+        lastPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        lastPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        lastPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        lastPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        lastPeriodSurplus - 45;
-      }
+      lastPeriodSurplus -= this.subtractPlantedTrees(order);
+      lastPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
     this.threePastMonthSurplus = lastPeriodSurplus;
-    return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
+    return this.getPercentDiff(thisPeriodSurplus, lastPeriodSurplus);
   }
 
   getThreeMonthSubscribers() {
@@ -606,7 +461,7 @@ export class DashboardComponent implements OnInit {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(90).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(90, 180).length;
     this.threePastMonthSubscribers = lastPeriodSubscribers;
-    return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
+    return this.getPercentDiff(thisPeriodSubscribers, lastPeriodSubscribers);
   }
 
   // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -614,17 +469,16 @@ export class DashboardComponent implements OnInit {
   // Methods for 6 month data
 
   getSixMonthOrders() {
-    const currentPeriodOrders = this.getPeriodOrders(180).length;
-    this.sixMonthOrders = currentPeriodOrders;
-    return currentPeriodOrders;
+    const thisPeriodOrders = this.getPeriodOrders(180).length;
+    this.sixMonthOrders = thisPeriodOrders;
+    return thisPeriodOrders;
   }
 
   calculateSixMonthOrderDifference() {
-    const currentPeriodOrders = this.getPeriodOrders(180).length;
+    const thisPeriodOrders = this.getPeriodOrders(180).length;
     const lastPeriodOrders = this.getPreviousPeriodOrders(180, 360).length;
-    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
     this.sixPastMonthOrders = lastPeriodOrders;
-    return percentageDiff;
+    return this.getPercentDiff(thisPeriodOrders, lastPeriodOrders);
   }
 
   getSixMonthRevenue() {
@@ -649,7 +503,7 @@ export class DashboardComponent implements OnInit {
       lastPeriodRevenue += order.total;
     });
     this.sixPastMonthRevenue = lastPeriodRevenue;
-    return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
+    return this.getPercentDiff(thisPeriodRevenue, lastPeriodRevenue);
   }
 
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -659,28 +513,12 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          surplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          surplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          surplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          surplus - 115;
-        }
+        surplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        surplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        surplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        surplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        surplus - 45;
-      }
+      surplus -= this.subtractPlantedTrees(order);
+      surplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
-    this.sixMonthSurplus = surplus;
+    this.twoWeekSurplus = surplus;
     return surplus;
   }
 
@@ -691,26 +529,10 @@ export class DashboardComponent implements OnInit {
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          thisPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          thisPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          thisPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          thisPeriodSurplus - 115;
-        }
+        thisPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        thisPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        thisPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        thisPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        thisPeriodSurplus - 45;
-      }
+      thisPeriodSurplus -= this.subtractPlantedTrees(order);
+      thisPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
 
     const lastPeriodOrders = this.getPreviousPeriodOrders(180, 360);
@@ -718,29 +540,13 @@ export class DashboardComponent implements OnInit {
 
     lastPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
-        if (item.dimension === DesignDimensionEnum.small) {
-          lastPeriodSurplus - 135;
-        } else if (item.dimension === DesignDimensionEnum.medium) {
-          lastPeriodSurplus - 161;
-        } else if (item.dimension === DesignDimensionEnum.large) {
-          lastPeriodSurplus - 205;
-        } else if (item.dimension === DesignDimensionEnum.mini) {
-          lastPeriodSurplus - 115;
-        }
+        lastPeriodSurplus -= this.subtractDimensionSize(item.dimension);
       });
-      if (order.plantedTrees > 1) {
-        lastPeriodSurplus - (10 * order.plantedTrees - 1);
-      }
-      if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total > 350) {
-        lastPeriodSurplus - 25;
-      } else if (order.shippingMethod === ShippingMethodEnum.homeDelivery && order.total <= 350) {
-        lastPeriodSurplus - 65;
-      } else if (order.shippingMethod === ShippingMethodEnum.pickUpPoint && order.total <= 350) {
-        lastPeriodSurplus - 45;
-      }
+      lastPeriodSurplus -= this.subtractPlantedTrees(order);
+      lastPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
     this.sixPastMonthSurplus = lastPeriodSurplus;
-    return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
+    return this.getPercentDiff(thisPeriodSurplus, lastPeriodSurplus);
   }
 
   getSixMonthSubscribers() {
@@ -753,6 +559,6 @@ export class DashboardComponent implements OnInit {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(180).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(180, 360).length;
     this.sixPastMonthSubscribers = lastPeriodSubscribers;
-    return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
+    return this.getPercentDiff(thisPeriodSubscribers, lastPeriodSubscribers);
   }
 }

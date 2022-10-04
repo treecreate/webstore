@@ -1,36 +1,119 @@
 <div class="background">
-   <div class="container">
+    <div class="container">
         <div class="table">
             <div class="table-header">
-                <div class="header__item"><a id="name" class="filter__link" href="#">Name</a></div>
-                <div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Wins</a></div>
-                <div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Draws</a></div>
-                <div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Losses</a></div>
-                <div class="header__item"><a id="total" class="filter__link filter__link--number" href="#">Total</a></div>
+                <div class="header__item"><a id="name" class="filter__link" href="#">Category</a></div>
+                <div class="header__item">
+                    <a id="wins" class="filter__link filter__link--number" href="#">2-Week</a>
+                </div>
+                <div class="header__item">
+                    <a id="draws" class="filter__link filter__link--number" href="#">Month</a>
+                </div>
+                <div class="header__item">
+                    <a id="losses" class="filter__link filter__link--number" href="#">3-Month</a>
+                </div>
+                <div class="header__item">
+                    <a id="total" class="filter__link filter__link--number" href="#">6-Month</a>
+                </div>
             </div>
-            <div class="table-content">	
-                <div class="table-row">		
-                    <div class="table-data">Tom</div>
-                    <div class="table-data">2</div>
-                    <div class="table-data">0</div>
-                    <div class="table-data">1</div>
-                    <div class="table-data">5</div>
+            <div class="table-content">
+                <div class="table-row">
+                    <div class="table-data">Orders</div>
+                    <div class="table-data" [ngStyle]="{ color: twoWeekOrders > twoPastWeekOrders ? 'green' : 'red' }">
+                        {{ twoWeekOrders }} / {{ twoPastWeekOrders }}%
+                    </div>
+                    <div class="table-data" [ngStyle]="{ color: monthOrders > monthPastOrders ? 'green' : 'red' }">
+                        {{ getMonthOrders() }} / {{ calculateMonthOrderDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: threeMonthOrders > threePastMonthOrders ? 'green' : 'red' }"
+                    >
+                        {{ getThreeMonthOrders() }} / {{ calculateThreeMonthOrderDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: sixMonthOrders > sixPastMonthOrders ? 'green' : 'red' }"
+                    >
+                        {{ getSixMonthOrders() }} / {{ calculateSixMonthOrderDifference() }}%
+                    </div>
                 </div>
                 <div class="table-row">
-                    <div class="table-data">Dick</div>
-                    <div class="table-data">1</div>
-                    <div class="table-data">1</div>
-                    <div class="table-data">2</div>
-                    <div class="table-data">3</div>
+                    <div class="table-data">Revenue</div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: twoWeekRevenue > twoPastWeekRevenue ? 'green' : 'red' }"
+                    >
+                        {{ getTwoWeekRevenue() }} / {{ calculateTwoWeekRevenueDifference() }}%
+                    </div>
+                    <div class="table-data" [ngStyle]="{ color: monthRevenue > monthPastRevenue ? 'green' : 'red' }">
+                        {{ getMonthRevenue() }} / {{ calculateMonthRevenueDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: threeMonthRevenue > threePastMonthRevenue ? 'green' : 'red' }"
+                    >
+                        {{ getThreeMonthRevenue() }} / {{ calculateThreeMonthRevenueDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: sixMonthRevenue > sixPastMonthRevenue ? 'green' : 'red' }"
+                    >
+                        {{ getSixMonthRevenue() }} / {{ calculateSixMonthRevenueDifference() }}%
+                    </div>
                 </div>
                 <div class="table-row">
-                    <div class="table-data">Harry</div>
-                    <div class="table-data">0</div>
-                    <div class="table-data">2</div>
-                    <div class="table-data">2</div>
-                    <div class="table-data">2</div>
+                    <div class="table-data">Surplus</div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: twoWeekSurplus > twoPastWeekSurplus ? 'green' : 'red' }"
+                    >
+                        {{ getTwoWeekSurplus() }} / {{ calculateTwoWeekSurplusDifference() }}%
+                    </div>
+                    <div class="table-data" [ngStyle]="{ color: monthSurplus > monthPastSurplus ? 'green' : 'red' }">
+                        {{ getMonthSurplus() }} / {{ calculateMonthSurplusDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: threeMonthSurplus > threePastMonthSurplus ? 'green' : 'red' }"
+                    >
+                        {{ getThreeMonthSurplus() }} / {{ calculateThreeMonthSurplusDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: sixMonthSurplus > sixPastMonthSurplus ? 'green' : 'red' }"
+                    >
+                        {{ getSixMonthSurplus() }} / {{ calculateSixMonthSurplusDifference() }}%
+                    </div>
                 </div>
-            </div>	
+                <div class="table-row">
+                    <div class="table-data">Subscribers</div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: twoWeekSubscribers > twoPastWeekSubscribers ? 'green' : 'red' }"
+                    >
+                        {{ getTwoWeekSubscribers() }} / {{ calculateTwoWeekSubscriberDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: monthSubscribers > monthPastSubscribers ? 'green' : 'red' }"
+                    >
+                        {{ getMonthSubscribers() }} / {{ calculateMonthSubscriberDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: threeMonthSubscribers > threePastMonthSubscribers ? 'green' : 'red' }"
+                    >
+                        {{ getThreeMonthSubscribers() }} / {{ calculateThreeMonthSubscriberDifference() }}%
+                    </div>
+                    <div
+                        class="table-data"
+                        [ngStyle]="{ color: sixMonthSubscribers > sixPastMonthSubscribers ? 'green' : 'red' }"
+                    >
+                        {{ getSixMonthSubscribers() }} / {{ calculateSixMonthSubscriberDifference() }}%
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
