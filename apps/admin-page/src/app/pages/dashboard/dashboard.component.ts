@@ -35,11 +35,11 @@ export class DashboardComponent implements OnInit {
   twoPastWeekSubscribers = 0;
 
   monthOrders = 0;
-  pastMonthOrders = 0;
+  monthPastOrders = 0;
   monthRevenue = 0;
-  pastMonthRevenue = 0;
+  monthPastRevenue = 0;
   monthSurplus = 0;
-  pastMonthSurplus = 0;
+  monthPastSurplus = 0;
   monthSubscribers = 0;
   monthPastSubscribers = 0;
 
@@ -170,13 +170,15 @@ export class DashboardComponent implements OnInit {
   // Methods for weekly data
   getTwoWeekOrders() {
     const currentPeriodOrders = this.getPeriodOrders(14).length;
+    this.twoWeekOrders = currentPeriodOrders;
     return currentPeriodOrders;
   }
 
   calculateTwoWeekOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(14).length;
-    const previousPeriodOrders = this.getPreviousPeriodOrders(14, 28).length;
-    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
+    const lastPeriodOrders = this.getPreviousPeriodOrders(14, 28).length;
+    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
+    this.twoPastWeekOrders = lastPeriodOrders;
     return percentageDiff;
   }
 
@@ -186,6 +188,7 @@ export class DashboardComponent implements OnInit {
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
+    this.twoWeekRevenue = revenue;
     return revenue;
   }
 
@@ -200,7 +203,7 @@ export class DashboardComponent implements OnInit {
     lastPeriodOrders.forEach((order) => {
       lastPeriodRevenue += order.total;
     });
-
+    this.twoPastWeekRevenue = lastPeriodRevenue;
     return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
   }
 
@@ -232,6 +235,8 @@ export class DashboardComponent implements OnInit {
         surplus - 45;
       }
     });
+    this.twoWeekSurplus = surplus;
+    return surplus;
   }
 
   // Surplus = Total - production cost - (trees planted > 1) - shipping
@@ -289,18 +294,21 @@ export class DashboardComponent implements OnInit {
         lastPeriodSurplus - 45;
       }
     });
+    this.twoPastWeekSurplus = lastPeriodSurplus;
 
     return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
   }
 
   getTwoWeekSubscribers() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(14).length;
+    this.twoWeekSubscribers = thisPeriodSubscribers;
     return thisPeriodSubscribers;
   }
 
   calculateTwoWeekSubscriberDifference() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(14).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(14, 28).length;
+    this.twoPastWeekSubscribers = lastPeriodSubscribers;
     return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
   }
 
@@ -310,13 +318,17 @@ export class DashboardComponent implements OnInit {
 
   getMonthOrders() {
     const currentPeriodOrders = this.getPeriodOrders(30).length;
+    this.monthOrders = currentPeriodOrders;
     return currentPeriodOrders;
   }
 
   calculateMonthOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(30).length;
-    const previousPeriodOrders = this.getPreviousPeriodOrders(30, 60).length;
-    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
+    const lastPeriodOrders = this.getPreviousPeriodOrders(30, 60).length;
+
+    this.monthPastOrders = lastPeriodOrders;
+
+    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
     return percentageDiff;
   }
 
@@ -326,6 +338,7 @@ export class DashboardComponent implements OnInit {
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
+    this.monthRevenue = revenue;
     return revenue;
   }
 
@@ -340,7 +353,7 @@ export class DashboardComponent implements OnInit {
     lastPeriodOrders.forEach((order) => {
       lastPeriodRevenue += order.total;
     });
-
+    this.monthPastRevenue = lastPeriodRevenue;
     return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
   }
 
@@ -372,6 +385,9 @@ export class DashboardComponent implements OnInit {
         surplus - 45;
       }
     });
+
+    this.monthSurplus = surplus;
+
     return surplus;
   }
 
@@ -430,20 +446,21 @@ export class DashboardComponent implements OnInit {
         lastPeriodSurplus - 45;
       }
     });
+    this.monthPastSurplus = lastPeriodSurplus;
 
     return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
   }
 
   getMonthSubscribers() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(30).length;
-
+    this.monthSubscribers = thisPeriodSubscribers;
     return thisPeriodSubscribers;
   }
 
   calculateMonthSubscriberDifference() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(30).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(30, 60).length;
-
+    this.monthPastSubscribers = lastPeriodSubscribers;
     return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
   }
 
@@ -453,13 +470,15 @@ export class DashboardComponent implements OnInit {
 
   getThreeMonthOrders() {
     const currentPeriodOrders = this.getPeriodOrders(90).length;
+    this.threeMonthOrders = currentPeriodOrders;
     return currentPeriodOrders;
   }
 
   calculateThreeMonthOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(90).length;
-    const previousPeriodOrders = this.getPreviousPeriodOrders(90, 180).length;
-    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
+    const lastPeriodOrders = this.getPreviousPeriodOrders(90, 180).length;
+    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
+    this.threePastMonthOrders = lastPeriodOrders;
     return percentageDiff;
   }
 
@@ -469,6 +488,7 @@ export class DashboardComponent implements OnInit {
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
+    this.threeMonthRevenue = revenue;
     return revenue;
   }
 
@@ -483,7 +503,7 @@ export class DashboardComponent implements OnInit {
     lastPeriodOrders.forEach((order) => {
       lastPeriodRevenue += order.total;
     });
-
+    this.threePastMonthRevenue = lastPeriodRevenue;
     return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
   }
 
@@ -515,6 +535,7 @@ export class DashboardComponent implements OnInit {
         surplus - 45;
       }
     });
+    this.threeMonthSurplus = surplus;
     return surplus;
   }
 
@@ -573,20 +594,20 @@ export class DashboardComponent implements OnInit {
         lastPeriodSurplus - 45;
       }
     });
-
+    this.threePastMonthSurplus = lastPeriodSurplus;
     return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
   }
 
   getThreeMonthSubscribers() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(90).length;
-
+    this.threeMonthSubscribers = thisPeriodSubscribers;
     return thisPeriodSubscribers;
   }
 
   calculateThreeMonthSubscriberDifference() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(90).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(90, 180).length;
-
+    this.threePastMonthSubscribers = lastPeriodSubscribers;
     return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
   }
 
@@ -596,13 +617,15 @@ export class DashboardComponent implements OnInit {
 
   getSixMonthOrders() {
     const currentPeriodOrders = this.getPeriodOrders(180).length;
+    this.sixMonthOrders = currentPeriodOrders;
     return currentPeriodOrders;
   }
 
   calculateSixMonthOrderDifference() {
     const currentPeriodOrders = this.getPeriodOrders(180).length;
-    const previousPeriodOrders = this.getPreviousPeriodOrders(180, 360).length;
-    const percentageDiff = ((currentPeriodOrders - previousPeriodOrders) / currentPeriodOrders) * 100;
+    const lastPeriodOrders = this.getPreviousPeriodOrders(180, 360).length;
+    const percentageDiff = ((currentPeriodOrders - lastPeriodOrders) / currentPeriodOrders) * 100;
+    this.sixPastMonthOrders = lastPeriodOrders;
     return percentageDiff;
   }
 
@@ -612,6 +635,7 @@ export class DashboardComponent implements OnInit {
     thisPeriodOrders.forEach((order) => {
       revenue += order.total;
     });
+    this.sixMonthRevenue = revenue;
     return revenue;
   }
 
@@ -626,7 +650,7 @@ export class DashboardComponent implements OnInit {
     lastPeriodOrders.forEach((order) => {
       lastPeriodRevenue += order.total;
     });
-
+    this.sixPastMonthRevenue = lastPeriodRevenue;
     return ((thisPeriodRevenue - lastPeriodRevenue) / thisPeriodRevenue) * 100;
   }
 
@@ -658,6 +682,7 @@ export class DashboardComponent implements OnInit {
         surplus - 45;
       }
     });
+    this.sixMonthSurplus = surplus;
     return surplus;
   }
 
@@ -716,73 +741,24 @@ export class DashboardComponent implements OnInit {
         lastPeriodSurplus - 45;
       }
     });
-
+    this.sixPastMonthSurplus = lastPeriodSurplus;
     return ((thisPeriodSurplus - lastPeriodSurplus) / thisPeriodSurplus) * 100;
   }
 
   getSixMonthSubscribers() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(180).length;
+    this.sixMonthSubscribers = thisPeriodSubscribers;
     return thisPeriodSubscribers;
   }
 
   calculateSixMonthSubscriberDifference() {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(180).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(180, 360).length;
-
+    this.sixPastMonthSubscribers = lastPeriodSubscribers;
     return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
   }
 }
 
 function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-
-function createdAt(days: number): Date {
-  const creationDate = new Date();
-  creationDate.setDate(creationDate.getDate() - days * 24 * 60 * 60 * 1000);
-
-  return creationDate;
-}
-
-function mockOrder(status: OrderStatusEnum, days: number): IOrder {
-  return {
-    status: status,
-    billingInfo: {
-      city: 'cph',
-      country: 'Denmark',
-      email: 'example@hotdeals.dev',
-      name: 'John Doe',
-      phoneNumber: '+4512345678',
-      postcode: '9999',
-      streetAddress: 'StreetGade 123',
-    },
-    contactInfo: {
-      city: 'cph',
-      country: 'Denmark',
-      email: 'example@hotdeals.dev',
-      name: 'John Doe',
-      phoneNumber: '+4512345678',
-      postcode: '9999',
-      streetAddress: 'StreetGade 123',
-    },
-    createdAt: createdAt(days),
-    currency: CurrencyEnum.dkk,
-    discount: {
-      discountCode: 'suck it',
-      type: DiscountType.amount,
-      amount: 0,
-      remainingUses: 1,
-      totalUses: 2,
-      isEnabled: true,
-    },
-    orderId: 'MakeMeWantIt',
-    paymentId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
-    plantedTrees: 1,
-    shippingMethod: ShippingMethodEnum.homeDelivery,
-    //State    -- not implemented
-    subtotal: 399,
-    total: 424,
-    transactionItems: [],
-    userId: 'c0a80121-7ac0-190b-812a1-c08ab0a12345',
-  };
 }
