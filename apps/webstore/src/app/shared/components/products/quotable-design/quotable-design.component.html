@@ -1,43 +1,60 @@
 <div class="design-wrapper" #designWrapper [ngStyle]="{ 'font-family': this.design.font }">
     <!-- (click)="input.nativeElement.focus()" -->
     <div class="above-canvas">
-        <div #textHeight [ngClass]="{ 'show-dashed-line': showInputFieldOptions }">
-            <textarea
-                matInput
-                id="textField"
-                cdkTextareaAutosize
-                #quotableTitleInput
-                #autosizeTitle="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="25"
-                spellcheck="false"
-                [rows]="rows"
-                [ngStyle]="{ 'font-size': fontSize * 2 + 'px' }"
-                [maxlength]="1000"
-                autocomplete="off"
-                [ngModel]="design.titleText"
-                (ngModelChange)="updateTitleText($event)"
-                [disabled]="!isMutable"
-                data-cy="text-input-field"
-            ></textarea>
-            <textarea
-                matInput
-                id="titleField"
-                cdkTextareaAutosize
-                #quotableTextInput
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="25"
-                spellcheck="false"
-                [rows]="rows"
-                [ngStyle]="{ 'font-size': fontSize + 'px' }"
-                [maxlength]="200"
-                autocomplete="off"
-                [ngModel]="design.text"
-                (ngModelChange)="updateText($event)"
-                [disabled]="!isMutable"
-                data-cy="text-input-field2"
-            ></textarea>
+        <div
+            #textVerticalPlacement
+            id="textVerticalPlacement"
+            [ngClass]="{ 'show-dashed-line': showInputFieldOptions }"
+        >
+            <div [ngClass]="{ hide: hideTitle }">
+                <textarea
+                    matInput
+                    id="titleField"
+                    cdkTextareaAutosize
+                    #quotableTitleInput
+                    #autosizeTitle="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="25"
+                    spellcheck="false"
+                    [rows]="rows"
+                    [ngStyle]="{ 'font-size': fontSize * 2 + 'px' }"
+                    [maxlength]="200"
+                    autocomplete="off"
+                    [ngModel]="design.titleText"
+                    (ngModelChange)="updateTitleText($event)"
+                    [disabled]="!isMutable"
+                    data-cy="text-input-field"
+                ></textarea>
+                <button class="remove-text-btn" (click)="hideTitle = !hideTitle">
+                    <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
+                </button>
+            </div>
+            <div *ngIf="hideTitle" [ngClass]="{ hide: !hideTitle }">hey</div>
+
+            <div class="text-container" *ngIf="!hideText">
+                <textarea
+                    matInput
+                    id="textField"
+                    cdkTextareaAutosize
+                    #quotableTextInput
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="25"
+                    spellcheck="false"
+                    [rows]="rows"
+                    [ngStyle]="{ 'font-size': fontSize + 'px' }"
+                    [maxlength]="1000"
+                    autocomplete="off"
+                    [ngModel]="design.text"
+                    (ngModelChange)="updateText($event)"
+                    [disabled]="!isMutable"
+                    data-cy="text-input-field2"
+                ></textarea>
+                <button class="remove-text-btn" (click)="hideText = !hideText">
+                    <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
+                </button>
+            </div>
+            <div *ngIf="hideText">hey</div>
         </div>
     </div>
     <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" />

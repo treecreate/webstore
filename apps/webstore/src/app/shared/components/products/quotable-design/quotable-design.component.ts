@@ -4,7 +4,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Host,
   HostListener,
   Input,
   NgZone,
@@ -30,7 +29,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('autosizeTitle') autosizeTitle: CdkTextareaAutosize;
 
-  @ViewChild('textHeight') textHeight: ElementRef;
+  @ViewChild('textVerticalPlacement') textVerticalPlacement: ElementRef;
   @ViewChild('quotableTitleInput') titleInput: ElementRef;
   @ViewChild('quotableTextInput') textInput: ElementRef;
 
@@ -51,9 +50,12 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   isDesignValid = false;
   hasInitialized = false;
+  hideTitle = false;
+  hideText = false;
 
   fontSize = 10;
-  inputHeight = 10;
+  inputTextHeight = 10;
+  inputTitleHeight = 10;
   verticalTextPlacement = 0;
 
   autosaveInterval;
@@ -95,7 +97,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       const temp = this.design.text;
       this.design.text = '';
       this.design.text = temp;
-    }, 100);
+    }, 200);
     window.dispatchEvent(new Event('resize'));
   }
 
@@ -164,7 +166,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   /**
    * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
    */
-  @HostListener('window:resize')
+  // @HostListener('window:resize')
   adjustInputDimensions(): void {
     if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
       this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
@@ -174,14 +176,18 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       this.textInput.nativeElement.style.minHeight = '0px';
       this.titleInput.nativeElement.style.height = '0px';
       this.titleInput.nativeElement.style.minHeight = '0px';
-      this.inputHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
-      //this.textInput.nativeElement.style.height = this.inputHeight + 'px';
-      //this.titleInput.nativeElement.style.height = this.inputHeight + 'px';
+
+      this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+      this.inputTitleHeight = Math.round(this.titleInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+      console.log(this.inputTextHeight, this.inputTitleHeight);
+
+      this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
+      this.titleInput.nativeElement.style.height = this.inputTitleHeight + 'px';
     }
     this.triggerResize();
   }
 
   adjustTextHeight(): void {
-    this.textHeight;
+    this.textVerticalPlacement;
   }
 }
