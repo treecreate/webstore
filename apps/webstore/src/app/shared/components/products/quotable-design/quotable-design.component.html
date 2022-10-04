@@ -1,4 +1,4 @@
-<div class="design-wrapper" #designWrapper>
+<div class="design-wrapper" #designWrapper [ngStyle]="{ 'font-family': this.design.font }">
     <!-- (click)="input.nativeElement.focus()" -->
     <div class="above-canvas">
         <textarea

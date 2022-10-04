@@ -165,17 +165,17 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   getSizeDependingOnWidth(number: number): number {
-    const scale = (this.designWrapper.nativeElement.offsetWidth / 601) * 7 / 11;
-    console.log(this.designWrapper.nativeElement.offsetWidth / 641 * 7, scale);
+    const scale = ((this.designWrapper.nativeElement.offsetWidth / 601) * 7) / 11;
+    console.log((this.designWrapper.nativeElement.offsetWidth / 641) * 7, scale);
     this.designWrapper.nativeElement.style.height = this.designWrapper.nativeElement.offsetWidth + 'px';
-    const displaySize = Math.round(number * scale * 10) / 10;    
+    const displaySize = Math.round(number * scale * 10) / 10;
     return displaySize;
   }
 
   /**
    * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
    */
-  
+
   adjustInputDimensions(): void {
     if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
       this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
