@@ -5,6 +5,7 @@ export interface IQoutable {
   fontSize: number;
   designSrc: string;
   text?: string;
+  titleText?: string;
 }
 
 export interface IQuotableTemplate {

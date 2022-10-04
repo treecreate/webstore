@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   NgZone,
   OnChanges,
@@ -26,9 +27,13 @@ import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 })
 export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit, OnChanges {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  @ViewChild('autosizeTitle') autosizeTitle: CdkTextareaAutosize;
 
-  @ViewChild('quotableInput')
-  input: ElementRef;
+  @ViewChild('quotableTitleInput')
+  titleInput: ElementRef;
+
+  @ViewChild('quotableTextInput')
+  textInput: ElementRef;
 
   @Input()
   isMutable = false;
@@ -44,6 +49,9 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   @Output()
   changeText = new EventEmitter<string>();
+
+  @Output()
+  changeTitleText = new EventEmitter<string>();
 
   @ViewChild('designWrapper') designWrapper;
 
@@ -61,7 +69,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   autosaveInterval;
   // design autosave frequency, in seconds
-  autosaveFrequencyInSeconds = 30;
+  autosaveFrequencyInSeconds = 15;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -69,15 +77,17 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     private errorlogsService: ErrorlogsService
   ) {}
 
-  triggerResize() {
-    // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
-  }
-
   ngOnInit(): void {
     if (this.design) {
       this.originalFontSize = this.design.fontSize;
     }
+    this.triggerResize();
+  }
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
+    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
   }
 
   ngAfterViewInit(): void {
@@ -124,6 +134,11 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     this.adjustInputDimensions();
   }
 
+  updateTitleText($event) {
+    this.changeTitleText.emit($event);
+    this.adjustInputDimensions();
+  }
+
   saveDesign() {
     if (!this.isMutable) {
       return;
@@ -150,26 +165,29 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   getSizeDependingOnWidth(number: number): number {
-    const scale = Math.round((this.designWrapper.nativeElement.offsetWidth / 641) * 6) / 10;
-    const displaySize = Math.round(number * scale * 10) / 10;
-    if (this.designWrapper.nativeElement.offsetWidth <= 641) {
-      return displaySize;
-    } else {
-      return number;
-    }
+    const scale = (this.designWrapper.nativeElement.offsetWidth / 601) * 7 / 11;
+    console.log(this.designWrapper.nativeElement.offsetWidth / 641 * 7, scale);
+    this.designWrapper.nativeElement.style.height = this.designWrapper.nativeElement.offsetWidth + 'px';
+    const displaySize = Math.round(number * scale * 10) / 10;    
+    return displaySize;
   }
 
   /**
    * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
    */
+  
   adjustInputDimensions(): void {
-    if (this.input !== undefined && this.input.nativeElement !== undefined) {
+    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
       this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
 
       const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
-      this.input.nativeElement.style.height = '0px';
-      this.inputHeight = Math.round(this.input.nativeElement.scrollHeight * inputToWindowWidthRatio);
-      this.input.nativeElement.style.height = this.inputHeight + 'px';
+      this.textInput.nativeElement.style.height = '0px';
+      this.textInput.nativeElement.style.minHeight = '0px';
+      this.titleInput.nativeElement.style.height = '0px';
+      this.titleInput.nativeElement.style.minHeight = '0px';
+      this.inputHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+      //this.textInput.nativeElement.style.height = this.inputHeight + 'px';
+      //this.titleInput.nativeElement.style.height = this.inputHeight + 'px';
     }
     this.triggerResize();
   }

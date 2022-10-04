@@ -1,22 +1,41 @@
-<div class="design-wrapper" #designWrapper (click)="input.nativeElement.focus()">
+<div class="design-wrapper" #designWrapper>
+    <!-- (click)="input.nativeElement.focus()" -->
     <div class="above-canvas">
         <textarea
             matInput
             id="textField"
             cdkTextareaAutosize
-            #quotableInput
+            #quotableTitleInput
+            #autosizeTitle="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="25"
+            spellcheck="false"
+            [rows]="rows"
+            [ngStyle]="{ 'font-size': fontSize * 2 + 'px' }"
+            [maxlength]="1000"
+            autocomplete="off"
+            [ngModel]="design.titleText"
+            (ngModelChange)="updateTitleText($event)"
+            [disabled]="!isMutable"
+            data-cy="text-input-field"
+        ></textarea>
+        <textarea
+            matInput
+            id="textField2"
+            cdkTextareaAutosize
+            #quotableTextInput
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="25"
             spellcheck="false"
             [rows]="rows"
             [ngStyle]="{ 'font-size': fontSize + 'px' }"
-            [maxlength]="1000"
+            [maxlength]="200"
             autocomplete="off"
             [ngModel]="design.text"
             (ngModelChange)="updateText($event)"
             [disabled]="!isMutable"
-            data-cy="text-input-field"
+            data-cy="text-input-field2"
         ></textarea>
     </div>
     <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" />
