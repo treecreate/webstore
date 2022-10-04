@@ -18,12 +18,10 @@ import { OrdersService } from '../../services/orders/orders.service';
 @Component({
   selector: 'webstore-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   constructor(private ordersService: OrdersService, private newsLetterService: NewsletterService) {}
-
-  displayedColumns: string[] = ['category', '2-week', 'month', '3-month', '6-month'];
 
   twoWeekOrders = 0;
   twoPastWeekOrders = 0;
@@ -757,8 +755,4 @@ export class DashboardComponent implements OnInit {
     this.sixPastMonthSubscribers = lastPeriodSubscribers;
     return ((thisPeriodSubscribers - lastPeriodSubscribers) / thisPeriodSubscribers) * 100;
   }
-}
-
-function compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
