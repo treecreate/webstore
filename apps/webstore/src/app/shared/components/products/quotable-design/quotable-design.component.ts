@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Host,
   HostListener,
   Input,
   NgZone,
@@ -36,6 +37,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   @Input() isMutable = false;
   @Input() design: IQoutable;
   @Input() quotableType: QuotableType;
+  @Input() showInputFieldOptions: boolean;
 
   @Output() isDesignValidEvent = new EventEmitter<boolean>();
   @Output() changeText = new EventEmitter<string>();
@@ -49,7 +51,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   isDesignValid = false;
   hasInitialized = false;
-  showOptions = true;
 
   fontSize = 10;
   inputHeight = 10;
@@ -163,7 +164,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   /**
    * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
    */
-
+  @HostListener('window:resize')
   adjustInputDimensions(): void {
     if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
       this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
@@ -178,5 +179,9 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       //this.titleInput.nativeElement.style.height = this.inputHeight + 'px';
     }
     this.triggerResize();
+  }
+
+  adjustTextHeight(): void {
+    this.textHeight;
   }
 }

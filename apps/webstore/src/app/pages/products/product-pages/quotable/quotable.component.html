@@ -11,6 +11,7 @@
             [isMutable]="isMutable"
             [design]="design"
             style="text-align: center"
+            [showInputFieldOptions]="showInputFieldOptions"
             [quotableType]="quotableType"
             (changeText)="design.text = $event"
             (changeTitleText)="design.titleText = $event"
@@ -171,6 +172,19 @@
         </button>
         <button class="option-toggler tc-button-square" type="button" (click)="showOptions()" *ngIf="isMutable">
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
+        </button>
+        <button
+            class="toggle-box-options tc-button-square"
+            type="button"
+            (click)="toggleUserOptions()"
+            title="Hide/Show box options"
+        >
+            <img
+                class="toggle-box-options-icon"
+                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+                alt="Toggle box options"
+                [src]="toggleUserOptionsIcon"
+            />
         </button>
     </div>
 </div>

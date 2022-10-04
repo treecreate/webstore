@@ -39,13 +39,14 @@ import { EventsService } from '../../../../shared/services/events/events.service
 export class QuotableComponent implements OnInit {
   @ViewChild('quotableDesign', { static: false })
   quotableDesign: QuotableDesignComponent;
-  toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
+  toggleUserOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
   quotableType: QuotableType;
 
   isDesignValid = false;
   isMutable = false;
   isMobileOptionOpen = false;
-  showSuggestion = true;
+  showInputFieldOptions = true;
+
   // set the default font
   defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
   displayFont = this.defaultFont;
@@ -54,6 +55,11 @@ export class QuotableComponent implements OnInit {
   fontSizeOptions = {
     floor: 10,
     ceil: 70,
+  };
+  verticalTextPlacement = 0;
+  verticalTextPlacementOptions = {
+    floor: -50,
+    ceil: 50,
   };
   currentDesign = 1;
   design: IQoutable;
@@ -112,6 +118,13 @@ export class QuotableComponent implements OnInit {
     this.getFontList();
     this.loadDesign();
     this.setMetaData();
+  }
+
+  toggleUserOptions(): void {
+    this.showInputFieldOptions = !this.showInputFieldOptions;
+    this.toggleUserOptionsIcon = this.showInputFieldOptions
+      ? BoxOptionsDesignEnum.boxOptionsVisible
+      : BoxOptionsDesignEnum.boxOptionsHidden;
   }
 
   setMetaData() {
