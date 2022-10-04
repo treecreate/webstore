@@ -27,7 +27,6 @@
 #titleField {
   width: 80%;
   background: none;
-  border: none;
   text-align: center;
   text-decoration: none !important;
   resize: none;
@@ -35,6 +34,7 @@
   overflow: hidden;
   white-space: pre-wrap;
   //border: 2px solid rgba($color: #000000, $alpha: 0);
+  border: none;
 
   &:focus {
     outline: none;
@@ -92,4 +92,8 @@
 
 #textVerticalPlacement {
   width: 100%;
+}
+
+#textVerticalPlacement div {
+  margin: -6px 0;
 }

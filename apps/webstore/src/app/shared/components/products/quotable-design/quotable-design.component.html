@@ -6,7 +6,7 @@
             id="textVerticalPlacement"
             [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }"
         >
-            <div [ngClass]="{ hide: hideTitle }">
+            <div class="text-container" *ngIf="!hideTitle">
                 <textarea
                     matInput
                     id="titleField"
@@ -28,7 +28,8 @@
                 <button
                     class="remove-text-btn"
                     (click)="hideTitle = !hideTitle"
-                    [ngClass]="{ hide: !showInputFieldOptions || !isMutable }"
+                    *ngIf="isMutable"
+                    [ngClass]="{ hide: !showInputFieldOptions }"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
@@ -57,7 +58,8 @@
                 <button
                     class="remove-text-btn"
                     (click)="hideText = !hideText"
-                    [ngClass]="{ hide: !showInputFieldOptions || !isMutable }"
+                    *ngIf="isMutable"
+                    [ngClass]="{ hide: !showInputFieldOptions }"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
