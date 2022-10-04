@@ -25,7 +25,11 @@
                     [disabled]="!isMutable"
                     data-cy="text-input-field"
                 ></textarea>
-                <button class="remove-text-btn" (click)="hideTitle = !hideTitle">
+                <button
+                    class="remove-text-btn"
+                    (click)="hideTitle = !hideTitle"
+                    [ngClass]="{ hide: !showInputFieldOptions }"
+                >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
@@ -50,7 +54,11 @@
                     [disabled]="!isMutable"
                     data-cy="text-input-field2"
                 ></textarea>
-                <button class="remove-text-btn" (click)="hideText = !hideText">
+                <button
+                    class="remove-text-btn"
+                    (click)="hideText = !hideText"
+                    [ngClass]="{ hide: !showInputFieldOptions }"
+                >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
