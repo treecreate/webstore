@@ -97,3 +97,21 @@
 #textVerticalPlacement div {
   margin: -6px 0;
 }
+
+.add-option {
+  position: absolute;
+  align-items: center;
+  width: 100%;
+
+  & button {
+    position: relative;
+  }
+
+  & #addTitle {
+    top: -50px;
+  }
+
+  & #addText {
+    bottom: -15px;
+  }
+}

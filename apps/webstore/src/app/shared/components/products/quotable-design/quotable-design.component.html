@@ -34,7 +34,11 @@
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
-            <div *ngIf="hideTitle" [ngClass]="{ hide: !hideTitle }">hey</div>
+            <div *ngIf="hideTitle" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button id="addTitle" class="tc-button-sm-square" (click)="hideTitle = !hideTitle; resize()">
+                    + add title
+                </button>
+            </div>
 
             <div class="text-container" *ngIf="!hideText">
                 <textarea
@@ -64,7 +68,11 @@
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
-            <div *ngIf="hideText">hey</div>
+            <div *ngIf="hideText" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button id="addText" class="tc-button-sm-square" (click)="hideText = !hideText; resize()">
+                    + add text
+                </button>
+            </div>
         </div>
     </div>
     <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" />

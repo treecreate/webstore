@@ -50,7 +50,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   isDesignValid = false;
   hasInitialized = false;
-  hideTitle = false;
+  hideTitle = true;
   hideText = false;
 
   fontSize = 10;
@@ -168,23 +168,30 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
    */
   // @HostListener('window:resize')
   adjustInputDimensions(): void {
-    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
-      this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
+    this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
+    const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
 
-      const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
+    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
       this.textInput.nativeElement.style.height = '0px';
       this.textInput.nativeElement.style.minHeight = '0px';
+      this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+      this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
+    }
+
+    if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
       this.titleInput.nativeElement.style.height = '0px';
       this.titleInput.nativeElement.style.minHeight = '0px';
-
-      this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
       this.inputTitleHeight = Math.round(this.titleInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
-      console.log(this.inputTextHeight, this.inputTitleHeight);
-
-      this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
       this.titleInput.nativeElement.style.height = this.inputTitleHeight + 'px';
     }
+
     this.triggerResize();
+  }
+
+  resize() {
+    setTimeout(() => {
+      this.adjustInputDimensions();
+    }, 100);
   }
 
   adjustTextHeight(): void {
