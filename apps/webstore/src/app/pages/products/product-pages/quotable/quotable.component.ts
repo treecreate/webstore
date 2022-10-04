@@ -58,7 +58,7 @@ export class QuotableComponent implements OnInit {
   currentDesign = 1;
   design: IQoutable;
 
-  quotableFrames: QuotableFrameInfo[];
+  quotableFrames: QuotableFrameInfo[] = quotableFrames;
   productSpecificFrames: QuotableFrameInfo[];
 
   public isLoggedIn: boolean;
@@ -99,8 +99,12 @@ export class QuotableComponent implements OnInit {
       this.quotableType = params.productType;
     });
 
-    this.quotableFrames = quotableFrames;
-    this.productSpecificFrames = this.quotableFrames.filter((frame) => frame.productType.includes(this.quotableType));
+    // Set product frames dependent on prodcut type
+    this.productSpecificFrames = this.quotableType
+      ? this.quotableFrames.filter((frame) => frame.productType.includes(this.quotableType))
+      : this.quotableFrames;
+
+    // Set default design
     this.setDefaultDesign();
   }
 
@@ -158,10 +162,6 @@ export class QuotableComponent implements OnInit {
     });
   }
 
-  updateText($event) {
-    this.design.text = $event;
-  }
-
   changeFont(font: { key: string; value: string }): void {
     this.design.font = DesignFontEnum[font.key];
     this.displayFont = font.value;
@@ -217,8 +217,6 @@ export class QuotableComponent implements OnInit {
   }
 
   loadDesignFromLocalStorage(designId: string) {
-    console.log('running this loadDesignFromLocal');
-
     // Get transactionItems from localstorage
     const itemList: ITransactionItem[] = this.localStorageService.getItem<ITransactionItem[]>(
       LocalStorageVars.transactionItems

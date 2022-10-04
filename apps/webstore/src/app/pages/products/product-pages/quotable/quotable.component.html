@@ -12,7 +12,8 @@
             [design]="design"
             style="text-align: center"
             [quotableType]="quotableType"
-            (changeText)="updateText($event)"
+            (changeText)="design.text = $event"
+            (changeTitleText)="design.titleText = $event"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
         ></webstore-quotable-design>
 
