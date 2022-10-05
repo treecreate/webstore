@@ -32,6 +32,8 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   @ViewChild('textVerticalPlacement') textVerticalPlacement: ElementRef;
   @ViewChild('quotableTitleInput') titleInput: ElementRef;
   @ViewChild('quotableTextInput') textInput: ElementRef;
+  @ViewChild('designWrapper') designWrapper: ElementRef;
+  @ViewChild('inputWrapper') inputWrapper: ElementRef;
 
   @Input() isMutable = false;
   @Input() design: IQoutable;
@@ -42,13 +44,11 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   @Output() changeText = new EventEmitter<string>();
   @Output() changeTitleText = new EventEmitter<string>();
 
-  @ViewChild('designWrapper') designWrapper;
-  @ViewChild('inputWrapper') inputWrapper;
-
   originalFontSize: number;
   rows: number;
 
   isDesignValid = false;
+  isLoading = true;
   hasInitialized = false;
   hideTitle = true;
   hideText = false;
@@ -72,13 +72,13 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     if (this.design) {
       this.originalFontSize = this.design.fontSize;
     }
-    this.triggerResize();
-  }
 
-  triggerResize() {
-    // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
-    this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
+    const loadElement = setInterval(() => {
+      if (this.designWrapper !== undefined && this.designWrapper.nativeElement !== undefined) {
+        this.isLoading = false;
+        clearInterval(loadElement);
+      }
+    }, 100);
   }
 
   ngAfterViewInit(): void {
@@ -90,10 +90,9 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
     this.hasInitialized = true;
-    // This will throw an ExpressionChangedAfterItHasBeenCheckedError if it is not set in an async method.
+
     setTimeout(() => {
       this.adjustInputDimensions();
-      // re-assign the text to force resizing
       const temp = this.design.text;
       this.design.text = '';
       this.design.text = temp;
@@ -157,41 +156,49 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   getSizeDependingOnWidth(number: number): number {
     const scale = ((this.designWrapper.nativeElement.offsetWidth / 601) * 7) / 11;
-    console.log((this.designWrapper.nativeElement.offsetWidth / 641) * 7, scale);
     this.designWrapper.nativeElement.style.height = this.designWrapper.nativeElement.offsetWidth + 'px';
-    const displaySize = Math.round(number * scale * 10) / 10;
-    return displaySize;
+    return Math.round(number * scale * 10) / 10;
   }
 
   /**
    * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
    */
-  // @HostListener('window:resize')
+  @HostListener('window:resize')
   adjustInputDimensions(): void {
-    this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
-    const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
-
-    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
-      this.textInput.nativeElement.style.height = '0px';
-      this.textInput.nativeElement.style.minHeight = '0px';
-      this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
-      this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
+    if (this.isLoading) {
+      return;
     }
 
-    if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
-      this.titleInput.nativeElement.style.height = '0px';
-      this.titleInput.nativeElement.style.minHeight = '0px';
-      this.inputTitleHeight = Math.round(this.titleInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
-      this.titleInput.nativeElement.style.height = this.inputTitleHeight + 'px';
-    }
+    setTimeout(() => {
+      this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
+      const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
 
-    this.triggerResize();
+      if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
+        this.textInput.nativeElement.style.height = '0px';
+        this.textInput.nativeElement.style.minHeight = '0px';
+        this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+        this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
+      }
+
+      if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
+        this.titleInput.nativeElement.style.height = '0px';
+        this.titleInput.nativeElement.style.minHeight = '0px';
+        this.inputTitleHeight = Math.round(this.titleInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+        this.titleInput.nativeElement.style.height = this.inputTitleHeight + 'px';
+      }
+
+      this.triggerResize();
+    }, 15);
   }
 
-  resize() {
-    setTimeout(() => {
-      this.adjustInputDimensions();
-    }, 100);
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
+      this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
+    }
+    if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
+      this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
+    }
   }
 
   adjustTextHeight(): void {
