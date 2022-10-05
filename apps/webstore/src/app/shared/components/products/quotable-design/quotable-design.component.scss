@@ -54,11 +54,10 @@
 .show-dashed-line #textField,
 .show-dashed-line #titleField {
   // Show interaction space
-  border: 2px dashed rgba($color: #000000, $alpha: 0.3);
-  border-radius: 4px;
+  outline: 2px dashed rgba($color: #000000, $alpha: 0.3);
+  outline-offset: 5px;
 
   &:focus {
-    border: 2px solid rgba($color: #000000, $alpha: 0);
     outline: 2px solid blue;
   }
 }
@@ -113,5 +112,17 @@
 
   & #addText {
     bottom: -15px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .remove-text-btn {
+    & img {
+      width: 2em;
+    }
+  }
+
+  .add-option {
+    transform: scale(0.8);
   }
 }
