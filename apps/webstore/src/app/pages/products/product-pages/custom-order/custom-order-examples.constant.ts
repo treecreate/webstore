@@ -49,6 +49,6 @@ export const customOrderExamples = [
       'En charmerende, bæredygtig og smuk nøglering i træ i høj kvalitet. Helt perfekt til din virksomheds medarbejdere.',
     price: 400,
     altText: 'Bæredygtig nøglering ',
-    imgSrc: '/assets/img/description2.jpg',
+    imgSrc: '/assets/img/component-images/custom-image.jpg',
   },
 ];
