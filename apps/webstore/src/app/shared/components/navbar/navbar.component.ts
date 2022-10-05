@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit {
   private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
   public isMenuCollapsed = true;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
@@ -42,10 +41,8 @@ export class NavbarComponent implements OnInit {
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
+    this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).subscribe((locale) => {
+      this.localeCode = locale;
     });
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -72,7 +69,7 @@ export class NavbarComponent implements OnInit {
         this.localeCode = LocaleType.en;
         break;
     }
-    this.locale$ = this.localStorageService.setItem<LocaleType>(LocalStorageVars.locale, this.localeCode);
+    this.localStorageService.setItem<LocaleType>(LocalStorageVars.locale, this.localeCode);
   }
 
   getItemsInBasket() {
