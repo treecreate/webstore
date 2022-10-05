@@ -1,31 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
-
 $base-spacing-unit: 24px;
 $half-spacing-unit: $base-spacing-unit / 2;
-
-$color-alpha: #1772ff;
-$color-form-highlight: #eeeeee;
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-.blocker {
-  position: fixed;
-  display: flex;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  content: ' ';
-  background: white;
-  opacity: 60%;
-  align-items: center;
-  justify-content: center;
-}
 
 .background {
   display: flex;
@@ -48,7 +22,7 @@ $color-form-highlight: #eeeeee;
 
 .table {
   width: 100%;
-  border: 1px solid $color-form-highlight;
+  border: 1px solid;
   border-radius: 10px;
 }
 
@@ -57,25 +31,19 @@ $color-form-highlight: #eeeeee;
   width: 100%;
   background: #000;
   padding: ($half-spacing-unit * 1.5) 0;
+  border-radius: 10px;
 }
 
 .table-row {
   display: flex;
   width: 100%;
   padding: ($half-spacing-unit * 1.5) 0;
-
-  &:nth-of-type(odd) {
-    background: $color-form-highlight;
-  }
 }
 
 .table-data,
 .header__item {
   flex: 1 1 100%;
   text-align: center;
-}
-
-.header__item {
   text-transform: uppercase;
 }
 
@@ -86,22 +54,4 @@ $color-form-highlight: #eeeeee;
   display: inline-block;
   padding-left: $base-spacing-unit;
   padding-right: $base-spacing-unit;
-
-  &::after {
-    content: '';
-    position: absolute;
-    right: -($half-spacing-unit * 1.5);
-    color: white;
-    font-size: $half-spacing-unit;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  &.desc::after {
-    content: '(desc)';
-  }
-
-  &.asc::after {
-    content: '(asc)';
-  }
 }

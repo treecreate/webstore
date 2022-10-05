@@ -3,5 +3,4 @@ export enum DesignDimensionEnum {
   medium = 'MEDIUM',
   large = 'LARGE',
   oneSize = 'ONE_SIZE',
-  mini = 'MINI',
 }
