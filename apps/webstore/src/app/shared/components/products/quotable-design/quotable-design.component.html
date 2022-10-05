@@ -1,6 +1,5 @@
 <div class="design-wrapper" #designWrapper [ngStyle]="{ 'font-family': this.design.font }">
-    <!-- (click)="input.nativeElement.focus()" -->
-    <div class="above-canvas">
+    <div class="above-canvas" *ngIf="!isLoading">
         <div
             #textVerticalPlacement
             id="textVerticalPlacement"
@@ -34,8 +33,12 @@
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
-            <div *ngIf="hideTitle" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button id="addTitle" class="tc-button-sm-square" (click)="hideTitle = !hideTitle; resize()">
+            <div *ngIf="hideTitle && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button
+                    id="addTitle"
+                    class="tc-button-sm-square"
+                    (click)="hideTitle = !hideTitle; adjustInputDimensions()"
+                >
                     + add title
                 </button>
             </div>
@@ -68,12 +71,16 @@
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
-            <div *ngIf="hideText" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button id="addText" class="tc-button-sm-square" (click)="hideText = !hideText; resize()">
+            <div *ngIf="hideText && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button
+                    id="addText"
+                    class="tc-button-sm-square"
+                    (click)="hideText = !hideText; adjustInputDimensions()"
+                >
                     + add text
                 </button>
             </div>
         </div>
     </div>
-    <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" />
+    <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" *ngIf="!isLoading" />
 </div>
