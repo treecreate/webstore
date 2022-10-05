@@ -77,8 +77,9 @@
   flex-direction: column;
 }
 
-.mobile-title {
-  display: none;
+.basket-title {
+  margin: 10px 0;
+  text-align: center;
 }
 
 .basket-content-wrapper {
@@ -240,12 +241,13 @@
   opacity: 0.5;
 }
 
+.back-container {
+  height: 0;
+  position: relative;
+  top: -20px;
+}
+
 @media screen and (max-width: 1095px) {
-  .mobile-title {
-    text-align: center;
-    display: block;
-    margin: 10px 0;
-  }
   .desktop-title {
     display: none;
   }
