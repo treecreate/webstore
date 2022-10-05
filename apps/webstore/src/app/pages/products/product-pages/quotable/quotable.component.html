@@ -1,11 +1,11 @@
 <main class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
-    <div class="back-container" *ngIf="!isMutable">
-        <a onclick="history.back()" class="back add-transition" data-cy="view-only-back-button">
-            < <span i18n="@@back">Back</span>
-        </a>
-    </div>
     <!-- Design -->
     <section class="design-screen">
+        <div class="back-container" *ngIf="!isMutable">
+            <a onclick="history.back()" class="back add-transition" data-cy="view-only-back-button">
+                < <span i18n="@@back">Back</span>
+            </a>
+        </div>
         <webstore-quotable-design
             #quotableDesign
             [isMutable]="isMutable"

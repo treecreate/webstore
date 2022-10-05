@@ -233,14 +233,14 @@ export class DiscountsComponent implements OnInit {
    */
   getDiscountState(discount: IDiscount): string {
     if (discount.startsAt && discount.expiresAt) {
-      // Check if is active
-      if (!discount.isEnabled) return DiscountState.disabled;
-      // Check if is in the future
-      if (this.isInTheFuture(discount.startsAt)) return DiscountState.future;
-      // Check if it expired
-      if (this.hasExpired(discount.expiresAt)) return DiscountState.expired;
       // Check if it has uses left
       if (discount.remainingUses < 1) return DiscountState.runOut;
+      // Check if is active
+      if (!discount.isEnabled) return DiscountState.disabled;
+      // Check if it expired
+      if (this.hasExpired(discount.expiresAt)) return DiscountState.expired;
+      // Check if is in the future
+      if (this.isInTheFuture(discount.startsAt)) return DiscountState.future;
     }
     return DiscountState.active;
   }
