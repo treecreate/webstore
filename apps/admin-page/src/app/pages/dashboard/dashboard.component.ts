@@ -23,6 +23,8 @@ import { OrdersService } from '../../services/orders/orders.service';
 export class DashboardComponent implements OnInit {
   constructor(private ordersService: OrdersService, private newsLetterService: NewsletterService) {}
 
+  isLoading = true;
+
   twoWeekOrders = 0;
   twoPastWeekOrders = 0;
   twoWeekRevenue = 0;
@@ -67,12 +69,14 @@ export class DashboardComponent implements OnInit {
   }
 
   fetchAllData() {
+    this.isLoading = true;
     this.ordersService.getOrders().subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
       },
       next: (ordersList: IOrder[]) => {
         this.fullOrdersList = ordersList;
+        this.isLoading = false;
         this.getPeriodOrderCount(14);
         this.getPeriodOrderCount(30);
         this.getPeriodOrderCount(90);
@@ -88,7 +92,7 @@ export class DashboardComponent implements OnInit {
         this.calculatePeriodRevenueDifference(14, 28);
         this.calculatePeriodRevenueDifference(30, 60);
         this.calculatePeriodRevenueDifference(90, 180);
-        this.calculatePeriodRevenueDifference(180, 260);
+        this.calculatePeriodRevenueDifference(180, 360);
         this.getPeriodSurplus(14);
         this.getPeriodSurplus(30);
         this.getPeriodSurplus(90);

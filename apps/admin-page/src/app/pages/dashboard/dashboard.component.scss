@@ -12,6 +12,21 @@ $color-form-highlight: #eeeeee;
   box-sizing: border-box;
 }
 
+.blocker {
+  position: fixed;
+  display: flex;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: ' ';
+  background: white;
+  opacity: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
 .background {
   display: flex;
   flex-direction: column;
