@@ -6,19 +6,8 @@
         class="item-image"
     ></webstore-store-item>
     <div class="item-info">
-        <div class="item-title" [ngSwitch]="item.design.designType">
-            <strong
-                *ngSwitchCase="designTypeEnum.familyTree"
-                data-cy="checkout-item-family-tree-title"
-                i18n="@@design-type-family-tree"
-                >Family tree</strong
-            >
-            <strong
-                *ngSwitchCase="designTypeEnum.quotable"
-                data-cy="checkout-item-quotable-title"
-                i18n="@@design-type-quotable"
-                >Quotable</strong
-            >
+        <div class="item-title">
+            <strong i18n="@@design-type-family-tree">{{ getDesignName() }}</strong>
         </div>
         <div class="info-container">
             <div class="info-line">
