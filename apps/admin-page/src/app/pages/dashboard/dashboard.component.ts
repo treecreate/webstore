@@ -77,30 +77,7 @@ export class DashboardComponent implements OnInit {
       next: (ordersList: IOrder[]) => {
         this.fullOrdersList = ordersList;
         this.isLoading = false;
-        this.getPeriodOrderCount(14);
-        this.getPeriodOrderCount(30);
-        this.getPeriodOrderCount(90);
-        this.getPeriodOrderCount(180);
-        this.calculatePeriodOrderCountDifference(14, 28);
-        this.calculatePeriodOrderCountDifference(30, 60);
-        this.calculatePeriodOrderCountDifference(90, 180);
-        this.calculatePeriodOrderCountDifference(180, 360);
-        this.getPeriodRevenue(14);
-        this.getPeriodRevenue(30);
-        this.getPeriodRevenue(90);
-        this.getPeriodRevenue(180);
-        this.calculatePeriodRevenueDifference(14, 28);
-        this.calculatePeriodRevenueDifference(30, 60);
-        this.calculatePeriodRevenueDifference(90, 180);
-        this.calculatePeriodRevenueDifference(180, 360);
-        this.getPeriodSurplus(14);
-        this.getPeriodSurplus(30);
-        this.getPeriodSurplus(90);
-        this.getPeriodSurplus(180);
-        this.calculatePeriodSurplusDifference(14, 28);
-        this.calculatePeriodSurplusDifference(30, 60);
-        this.calculatePeriodSurplusDifference(90, 180);
-        this.calculatePeriodSurplusDifference(180, 360);
+        this.setOrderTableData();
       },
     });
     this.newsLetterService.getNewsletters().subscribe({
@@ -109,16 +86,47 @@ export class DashboardComponent implements OnInit {
       },
       next: (newsletterList: INewsletter[]) => {
         this.fullNewsletterList = newsletterList;
-        this.getPeriodSubscriberCount(14);
-        this.getPeriodSubscriberCount(30);
-        this.getPeriodSubscriberCount(90);
-        this.getPeriodSubscriberCount(180);
-        this.calculatePeriodSubscriberCountDifference(14, 28);
-        this.calculatePeriodSubscriberCountDifference(30, 60);
-        this.calculatePeriodSubscriberCountDifference(90, 180);
-        this.calculatePeriodSubscriberCountDifference(180, 360);
+        this.setNewsletterTableData();
       },
     });
+  }
+
+  setOrderTableData() {
+    this.getPeriodOrderCount(14);
+    this.getPeriodOrderCount(30);
+    this.getPeriodOrderCount(90);
+    this.getPeriodOrderCount(180);
+    this.calculatePeriodOrderCountDifference(14, 28);
+    this.calculatePeriodOrderCountDifference(30, 60);
+    this.calculatePeriodOrderCountDifference(90, 180);
+    this.calculatePeriodOrderCountDifference(180, 360);
+    this.getPeriodRevenue(14);
+    this.getPeriodRevenue(30);
+    this.getPeriodRevenue(90);
+    this.getPeriodRevenue(180);
+    this.calculatePeriodRevenueDifference(14, 28);
+    this.calculatePeriodRevenueDifference(30, 60);
+    this.calculatePeriodRevenueDifference(90, 180);
+    this.calculatePeriodRevenueDifference(180, 360);
+    this.getPeriodSurplus(14);
+    this.getPeriodSurplus(30);
+    this.getPeriodSurplus(90);
+    this.getPeriodSurplus(180);
+    this.calculatePeriodSurplusDifference(14, 28);
+    this.calculatePeriodSurplusDifference(30, 60);
+    this.calculatePeriodSurplusDifference(90, 180);
+    this.calculatePeriodSurplusDifference(180, 360);
+  }
+
+  setNewsletterTableData() {
+    this.getPeriodSubscriberCount(14);
+    this.getPeriodSubscriberCount(30);
+    this.getPeriodSubscriberCount(90);
+    this.getPeriodSubscriberCount(180);
+    this.calculatePeriodSubscriberCountDifference(14, 28);
+    this.calculatePeriodSubscriberCountDifference(30, 60);
+    this.calculatePeriodSubscriberCountDifference(90, 180);
+    this.calculatePeriodSubscriberCountDifference(180, 360);
   }
 
   getPeriodOrders(days: number): IOrder[] {
@@ -169,7 +177,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPercentDiff(thisPeriod: number, lastPeriod: number) {
-    return (((thisPeriod - lastPeriod) / thisPeriod) * 100).toFixed(1);
+    return (((thisPeriod - lastPeriod) / lastPeriod) * 100).toFixed(1);
   }
 
   subtractDimensionSize(itemDimension: DesignDimensionEnum): number {
@@ -206,15 +214,22 @@ export class DashboardComponent implements OnInit {
 
   getPeriodOrderCount(period: number) {
     const thisPeriodOrderCount = this.getPeriodOrders(period).length;
-    if (period === 14) {
-      return (this.twoWeekOrders = thisPeriodOrderCount);
-    } else if (period === 30) {
-      return (this.monthOrders = thisPeriodOrderCount);
-    } else if (period === 90) {
-      return (this.threeMonthOrders = thisPeriodOrderCount);
-    } else {
-      return (this.sixMonthOrders = thisPeriodOrderCount);
+    switch (period) {
+      case 14:
+        this.twoWeekOrders = thisPeriodOrderCount;
+        break;
+      case 30:
+        this.monthOrders = thisPeriodOrderCount;
+        break;
+      case 90:
+        this.threeMonthOrders = thisPeriodOrderCount;
+        break;
+      case 180:
+      default:
+        this.sixMonthOrders = thisPeriodOrderCount;
+        break;
     }
+    return thisPeriodOrderCount;
   }
 
   calculatePeriodOrderCountDifference(periodStart: number, periodEnd: number) {
@@ -237,21 +252,21 @@ export class DashboardComponent implements OnInit {
     let thisPeriodRevenue = 0;
     thisPeriodOrders.forEach((order) => {
       thisPeriodRevenue += order.total;
-      switch (period) {
-        case 14:
-          this.twoWeekRevenue = thisPeriodRevenue;
-          break;
-        case 30:
-          this.monthRevenue = thisPeriodRevenue;
-          break;
-        case 90:
-          this.threeMonthRevenue = thisPeriodRevenue;
-          break;
-        case 180:
-        default:
-          this.sixMonthRevenue = thisPeriodRevenue;
-      }
     });
+    switch (period) {
+      case 14:
+        this.twoWeekRevenue = thisPeriodRevenue;
+        break;
+      case 30:
+        this.monthRevenue = thisPeriodRevenue;
+        break;
+      case 90:
+        this.threeMonthRevenue = thisPeriodRevenue;
+        break;
+      case 180:
+      default:
+        this.sixMonthRevenue = thisPeriodRevenue;
+    }
     return thisPeriodRevenue;
   }
 
