@@ -1,6 +1,6 @@
 <div class="background">
     <div class="container">
-        <div class="table" *ngIf="!isLoading">
+        <div class="table">
             <div class="table-header">
                 <div class="header__item"><a id="category" class="filter__link" href="#">Category</a></div>
                 <div class="header__item">
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="table-content">
-                <div class="table-row">
+                <div class="table-row" *ngIf="!ordersIsLoading">
                     <div class="table-data">Orders</div>
                     <div class="table-data" [ngStyle]="{ color: twoWeekOrders > twoPastWeekOrders ? 'green' : 'red' }">
                         {{ twoWeekOrders }} / {{ twoPastWeekOrders }}%
@@ -38,7 +38,7 @@
                         {{ sixMonthOrders }} / {{ sixPastMonthOrders }}%
                     </div>
                 </div>
-                <div class="table-row">
+                <div class="table-row" *ngIf="!ordersIsLoading">
                     <div class="table-data">Revenue</div>
                     <div
                         class="table-data"
@@ -62,7 +62,7 @@
                         {{ sixMonthRevenue }} / {{ sixPastMonthRevenue }}%
                     </div>
                 </div>
-                <div class="table-row">
+                <div class="table-row" *ngIf="!ordersIsLoading">
                     <div class="table-data">Surplus</div>
                     <div
                         class="table-data"
@@ -86,7 +86,7 @@
                         {{ sixMonthSurplus }} / {{ sixPastMonthSurplus }}%
                     </div>
                 </div>
-                <div class="table-row">
+                <div class="table-row" *ngIf="!newslettersIsLoading">
                     <div class="table-data">Subscribers</div>
                     <div
                         class="table-data"

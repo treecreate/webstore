@@ -2,16 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  CurrencyEnum,
-  DesignDimensionEnum,
-  DiscountType,
-  INewsletter,
-  IOrder,
-  OrderStatusEnum,
-  ShippingMethodEnum,
-} from '@interfaces';
-import { lastValueFrom, Subscriber } from 'rxjs';
+import { DesignDimensionEnum, INewsletter, IOrder, ShippingMethodEnum } from '@interfaces';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { OrdersService } from '../../services/orders/orders.service';
 
@@ -23,7 +14,8 @@ import { OrdersService } from '../../services/orders/orders.service';
 export class DashboardComponent implements OnInit {
   constructor(private ordersService: OrdersService, private newsLetterService: NewsletterService) {}
 
-  isLoading = true;
+  ordersIsLoading = true;
+  newslettersIsLoading = true;
 
   twoWeekOrders = 0;
   twoPastWeekOrders = 0;
@@ -69,14 +61,13 @@ export class DashboardComponent implements OnInit {
   }
 
   fetchAllData() {
-    this.isLoading = true;
     this.ordersService.getOrders().subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
       },
       next: (ordersList: IOrder[]) => {
         this.fullOrdersList = ordersList;
-        this.isLoading = false;
+        this.ordersIsLoading = false;
         this.setOrderTableData();
       },
     });
@@ -86,6 +77,7 @@ export class DashboardComponent implements OnInit {
       },
       next: (newsletterList: INewsletter[]) => {
         this.fullNewsletterList = newsletterList;
+        this.newslettersIsLoading = false;
         this.setNewsletterTableData();
       },
     });
@@ -176,7 +168,7 @@ export class DashboardComponent implements OnInit {
     return periodNewsletters;
   }
 
-  getPercentDiff(thisPeriod: number, lastPeriod: number) {
+  getPercentDiff(thisPeriod: number, lastPeriod: number): string {
     return (((thisPeriod - lastPeriod) / lastPeriod) * 100).toFixed(1);
   }
 
@@ -212,7 +204,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  getPeriodOrderCount(period: number) {
+  getPeriodOrderCount(period: number): number {
     const thisPeriodOrderCount = this.getPeriodOrders(period).length;
     switch (period) {
       case 14:
@@ -232,7 +224,7 @@ export class DashboardComponent implements OnInit {
     return thisPeriodOrderCount;
   }
 
-  calculatePeriodOrderCountDifference(periodStart: number, periodEnd: number) {
+  calculatePeriodOrderCountDifference(periodStart: number, periodEnd: number): string {
     const thisPeriodOrderCount = this.getPeriodOrders(periodStart).length;
     const lastPeriodOrderCount = this.getPreviousPeriodOrders(periodStart, periodEnd).length;
     if (periodStart === 14 && periodEnd === 28) {
@@ -247,7 +239,7 @@ export class DashboardComponent implements OnInit {
     return this.getPercentDiff(thisPeriodOrderCount, lastPeriodOrderCount);
   }
 
-  getPeriodRevenue(period: number) {
+  getPeriodRevenue(period: number): number {
     const thisPeriodOrders = this.getPeriodOrders(period);
     let thisPeriodRevenue = 0;
     thisPeriodOrders.forEach((order) => {
@@ -270,7 +262,7 @@ export class DashboardComponent implements OnInit {
     return thisPeriodRevenue;
   }
 
-  calculatePeriodRevenueDifference(periodStart: number, periodEnd: number) {
+  calculatePeriodRevenueDifference(periodStart: number, periodEnd: number): string {
     const thisPeriodOrders = this.getPeriodOrders(periodStart);
     const lastPeriodOrders = this.getPreviousPeriodOrders(periodStart, periodEnd);
     let thisPeriodRevenue = 0;
@@ -295,8 +287,7 @@ export class DashboardComponent implements OnInit {
     return this.getPercentDiff(thisPeriodRevenue, lastPeriodRevenue);
   }
 
-  // Surplus = Total - production cost - (trees planted > 1) - shipping
-  getPeriodSurplus(period: number) {
+  getPeriodSurplus(period: number): number {
     const thisPeriodOrders = this.getPeriodOrders(period);
     let surplus = this.getPeriodRevenue(period);
 
@@ -325,8 +316,7 @@ export class DashboardComponent implements OnInit {
     return surplus;
   }
 
-  // Surplus = Total - production cost - (trees planted > 1) - shipping
-  calculatePeriodSurplusDifference(periodStart: number, periodEnd: number) {
+  calculatePeriodSurplusDifference(periodStart: number, periodEnd: number): string {
     const thisPeriodOrders = this.getPeriodOrders(periodStart);
     const lastPeriodOrders = this.getPreviousPeriodOrders(periodStart, periodEnd);
     let thisPeriodSurplus = 0;
@@ -358,7 +348,7 @@ export class DashboardComponent implements OnInit {
     return this.getPercentDiff(thisPeriodSurplus, lastPeriodSurplus);
   }
 
-  getPeriodSubscriberCount(period: number) {
+  getPeriodSubscriberCount(period: number): number {
     const subscribers = this.getPeriodNewsletterSignups(period).length;
     switch (period) {
       case 14:
@@ -378,7 +368,7 @@ export class DashboardComponent implements OnInit {
     return subscribers;
   }
 
-  calculatePeriodSubscriberCountDifference(periodStart: number, periodEnd: number) {
+  calculatePeriodSubscriberCountDifference(periodStart: number, periodEnd: number): string {
     const thisPeriodSubscribers = this.getPeriodNewsletterSignups(periodStart).length;
     const lastPeriodSubscribers = this.getPreviousPeriodNewsletterSignups(periodStart, periodEnd).length;
 
