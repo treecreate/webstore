@@ -55,7 +55,6 @@
 .show-dashed-line #titleField {
   // Show interaction space
   outline: 2px dashed rgba($color: #000000, $alpha: 0.3);
-  outline-offset: 5px;
 
   &:focus {
     outline: 2px solid blue;

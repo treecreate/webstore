@@ -37,6 +37,9 @@ import { EventsService } from '../../../../shared/services/events/events.service
   ],
 })
 export class QuotableComponent implements OnInit {
+  quotableFrames: QuotableFrameInfo[] = quotableFrames;
+  productSpecificFrames: QuotableFrameInfo[];
+
   @ViewChild('quotableDesign', { static: false })
   quotableDesign: QuotableDesignComponent;
   toggleUserOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
@@ -47,7 +50,6 @@ export class QuotableComponent implements OnInit {
   isMobileOptionOpen = false;
   showInputFieldOptions = true;
 
-  // set the default font
   defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
   displayFont = this.defaultFont;
   fontOptions = [];
@@ -56,16 +58,13 @@ export class QuotableComponent implements OnInit {
     floor: 10,
     ceil: 70,
   };
-  verticalTextPlacement = 0;
-  verticalTextPlacementOptions = {
-    floor: -50,
-    ceil: 50,
-  };
   currentDesign = 1;
   design: IQoutable;
-
-  quotableFrames: QuotableFrameInfo[] = quotableFrames;
-  productSpecificFrames: QuotableFrameInfo[];
+  // verticalTextPlacement = 0;
+  // verticalTextPlacementOptions = {
+  //   floor: -50,
+  //   ceil: 50,
+  // };
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -402,7 +401,10 @@ export class QuotableComponent implements OnInit {
       font: this.defaultFont,
       fontSize: this.fontSize,
       designSrc: this.productSpecificFrames[1].src,
+      title: 'Navn',
+      showTitle: true,
       text: 'Din tekst',
+      showText: true,
     };
   }
 

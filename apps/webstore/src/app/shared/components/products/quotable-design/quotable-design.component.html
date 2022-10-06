@@ -5,7 +5,7 @@
             id="textVerticalPlacement"
             [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }"
         >
-            <div class="text-container" *ngIf="!hideTitle">
+            <div class="text-container" *ngIf="design.showTitle ?? false">
                 <textarea
                     matInput
                     id="titleField"
@@ -19,31 +19,25 @@
                     [ngStyle]="{ 'font-size': fontSize * 2 + 'px' }"
                     [maxlength]="200"
                     autocomplete="off"
-                    [ngModel]="design.titleText"
+                    [ngModel]="design.title ?? ''"
                     (ngModelChange)="updateTitleText($event)"
                     [disabled]="!isMutable"
                     data-cy="text-input-field"
                 ></textarea>
                 <button
                     class="remove-text-btn"
-                    (click)="hideTitle = !hideTitle"
+                    (click)="changeTitleDisplay()"
                     *ngIf="isMutable"
                     [ngClass]="{ hide: !showInputFieldOptions }"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
-            <div *ngIf="hideTitle && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button
-                    id="addTitle"
-                    class="tc-button-sm-square"
-                    (click)="hideTitle = !hideTitle; adjustInputDimensions()"
-                >
-                    + add title
-                </button>
+            <div *ngIf="!design.showTitle && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button id="addTitle" class="tc-button-sm-square" (click)="changeTitleDisplay()">+ add title</button>
             </div>
 
-            <div class="text-container" *ngIf="!hideText">
+            <div class="text-container" *ngIf="design.showText ?? true">
                 <textarea
                     matInput
                     id="textField"
@@ -64,21 +58,15 @@
                 ></textarea>
                 <button
                     class="remove-text-btn"
-                    (click)="hideText = !hideText"
+                    (click)="changeTextDisplay()"
                     *ngIf="isMutable"
                     [ngClass]="{ hide: !showInputFieldOptions }"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
-            <div *ngIf="hideText && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button
-                    id="addText"
-                    class="tc-button-sm-square"
-                    (click)="hideText = !hideText; adjustInputDimensions()"
-                >
-                    + add text
-                </button>
+            <div *ngIf="!design.showText && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button id="addText" class="tc-button-sm-square" (click)="changeTextDisplay()">+ add text</button>
             </div>
         </div>
     </div>

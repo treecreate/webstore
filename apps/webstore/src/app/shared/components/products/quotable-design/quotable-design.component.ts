@@ -50,13 +50,11 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   isDesignValid = false;
   isLoading = true;
   hasInitialized = false;
-  hideTitle = true;
-  hideText = false;
 
   fontSize = 10;
   inputTextHeight = 10;
   inputTitleHeight = 10;
-  verticalTextPlacement = 0;
+  // verticalTextPlacement = 0;
 
   autosaveInterval;
   // design autosave frequency, in seconds
@@ -152,6 +150,24 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       default:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
     }
+  }
+
+  changeTitleDisplay() {
+    if (this.design.showTitle !== undefined) {
+      this.design.showTitle = !this.design.showTitle;
+    } else {
+      this.design.showTitle = true;
+    }
+    this.adjustInputDimensions();
+  }
+
+  changeTextDisplay() {
+    if (this.design.showText !== undefined) {
+      this.design.showText = !this.design.showText;
+    } else {
+      this.design.showText = true;
+    }
+    this.adjustInputDimensions();
   }
 
   getSizeDependingOnWidth(number: number): number {
