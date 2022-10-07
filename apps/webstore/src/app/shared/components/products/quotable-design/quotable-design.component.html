@@ -65,7 +65,7 @@
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
-            <div *ngIf="!design.showText && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+            <div *ngIf="showAddTextButton()" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
                 <button id="addText" class="tc-button-sm-square" (click)="changeTextDisplay()">+ add text</button>
             </div>
         </div>

@@ -106,6 +106,14 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     }
   }
 
+  showAddTextButton(): boolean {
+    if (!this.design.showText && this.isMutable) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getDesignSrc(): string {
     const isDepricatedSrc =
       !this.design.designSrc.includes('frame0-no-design.svg') &&

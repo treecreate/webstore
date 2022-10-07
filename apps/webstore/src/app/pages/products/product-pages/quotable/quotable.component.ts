@@ -259,10 +259,15 @@ export class QuotableComponent implements OnInit {
     this.designService.getDesign(designId).subscribe(
       (result: IDesign) => {
         if (result.designType !== DesignTypeEnum.quotable) {
-          console.warn('The requested design is not a family tree!');
+          console.warn('The requested design is not a Quotable product!');
           return;
         }
         this.design = <IQoutable>result.designProperties;
+
+        // for deprecated designs
+        this.design.showText = this.design.showText ?? true;
+        this.design.showTitle = this.design.showTitle ?? false;
+
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {
