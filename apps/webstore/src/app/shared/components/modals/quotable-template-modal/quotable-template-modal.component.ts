@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { QuotableDesignEnum } from '@assets';
-import { DesignFontEnum, IQoutable, IQuotableTemplate, QuotableType } from '@interfaces';
+import { IQoutable, IQuotableTemplate, QuotableType } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -36,7 +35,7 @@ export class QuotableTemplateModalComponent implements OnInit {
       (selectedTemplate) => selectedTemplate.name === templateName
     );
 
-    let quotableDesign = this.getCurrentDesign();
+    const quotableDesign = this.getCurrentDesign();
 
     quotableDesign.fontSize = template.fontSize;
     quotableDesign.showTitle = template.showTitle;

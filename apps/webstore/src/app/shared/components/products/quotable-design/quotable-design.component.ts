@@ -52,7 +52,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   inputTextHeight = 10;
   inputTitleHeight = 10;
 
-  verticalPlacementOptions = {
+  verticalPlacementOptions: Options = {
     floor: 5,
     ceil: 95,
     vertical: true,
