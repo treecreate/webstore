@@ -108,6 +108,15 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     }
   }
 
+  getDesignSrc(): string {
+    // for depricated src links
+    if (this.design.designSrc.includes('assets/quotable/frame-design/frame')) {
+      return this.design.designSrc.replace('assets/quotable/frame-design/', 'assets/quotable/frame-design/quotable/');
+    } else {
+      return this.design.designSrc;
+    }
+  }
+
   handleFailedResourceLoading(message: string) {
     console.error(message);
     // stop the design autosave
