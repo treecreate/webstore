@@ -3,6 +3,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DesignDimensionEnum, INewsletter, IOrder, ShippingMethodEnum } from '@interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { OrdersService } from '../../services/orders/orders.service';
 
@@ -12,7 +13,14 @@ import { OrdersService } from '../../services/orders/orders.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private ordersService: OrdersService, private newsLetterService: NewsletterService) {}
+  /**
+   * @param snackBar
+   */
+  constructor(
+    private ordersService: OrdersService,
+    private newsLetterService: NewsletterService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ordersIsLoading = true;
   newslettersIsLoading = true;
@@ -64,6 +72,7 @@ export class DashboardComponent implements OnInit {
     this.ordersService.getOrders().subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
+        this.snackBar.open('Failed to get orders', 'You should try again', { duration: 5000 });
       },
       next: (ordersList: IOrder[]) => {
         this.fullOrdersList = ordersList;
@@ -74,6 +83,7 @@ export class DashboardComponent implements OnInit {
     this.newsLetterService.getNewsletters().subscribe({
       error: (error: HttpErrorResponse) => {
         console.error(error);
+        this.snackBar.open('Failed to get newletters', 'You should try again', { duration: 5000 });
       },
       next: (newsletterList: INewsletter[]) => {
         this.fullNewsletterList = newsletterList;
