@@ -37,7 +37,6 @@ import { EventsService } from '../../../../shared/services/events/events.service
   ],
 })
 export class QuotableComponent implements OnInit {
-  quotableFrames: QuotableFrameInfo[] = quotableFrames;
   productSpecificFrames: QuotableFrameInfo[];
 
   @ViewChild('quotableDesign', { static: false })
@@ -103,8 +102,8 @@ export class QuotableComponent implements OnInit {
 
     // Set product frames dependent on prodcut type
     this.productSpecificFrames = this.quotableType
-      ? this.quotableFrames.filter((frame) => frame.productType.includes(this.quotableType))
-      : this.quotableFrames;
+      ? quotableFrames.filter((frame) => frame.productType.includes(this.quotableType))
+      : quotableFrames;
 
     // Set default design
     this.setDefaultDesign();
@@ -177,6 +176,9 @@ export class QuotableComponent implements OnInit {
   }
 
   getDesignName(): string {
+    // Update currentDesign before getting name
+    this.currentDesign = this.productSpecificFrames.findIndex((frame) => this.design.designSrc === frame.src);
+
     return this.isEnglish()
       ? this.productSpecificFrames[this.currentDesign].nameEn
       : this.productSpecificFrames[this.currentDesign].nameDk;
