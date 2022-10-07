@@ -36,7 +36,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
     showText: true,
     showTitle: true,
     title: 'Navn',
-    fontSize: 20,
+    fontSize: 26,
     type: QuotableType.loveLetter,
   },
   //   BABY SIGN

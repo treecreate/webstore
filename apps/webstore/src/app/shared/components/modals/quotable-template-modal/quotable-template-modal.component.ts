@@ -36,39 +36,35 @@ export class QuotableTemplateModalComponent implements OnInit {
       (selectedTemplate) => selectedTemplate.name === templateName
     );
 
-    let quotableDesign: IQoutable;
+    let quotableDesign = this.getCurrentDesign();
 
+    quotableDesign.fontSize = template.fontSize;
+    quotableDesign.showTitle = template.showTitle;
+    quotableDesign.title = template.title;
+    quotableDesign.showText = template.showText;
+    quotableDesign.text = template.text;
+
+    this.setNewDesignFromTemplate(quotableDesign);
+
+    this.eventsService.create(`webstore.quotable-template-modal.applied-template.${templateName}`);
+    this.router.navigate(['/products/quotable']);
+    location.reload();
+  }
+
+  getCurrentDesign(): IQoutable {
     // Get design from localstorage
     switch (this.quotableType) {
       case QuotableType.babySign:
-        quotableDesign = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
-        break;
+        return this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
       case QuotableType.loveLetter:
-        quotableDesign = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
-        break;
+        return this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
       case QuotableType.quotable:
       default:
-        quotableDesign = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+        return this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
     }
+  }
 
-    if (quotableDesign) {
-      quotableDesign.fontSize = template.fontSize;
-      quotableDesign.showTitle = template.showTitle;
-      quotableDesign.title = template.title;
-      quotableDesign.showText = template.showText;
-      quotableDesign.text = template.text;
-    } else {
-      quotableDesign = {
-        font: DesignFontEnum.calendasItalic,
-        fontSize: template.fontSize,
-        designSrc: QuotableDesignEnum.frame1,
-        text: template.text,
-        title: template.title,
-        showText: template.showText,
-        showTitle: template.showTitle,
-      };
-    }
-
+  setNewDesignFromTemplate(quotableDesign: IQoutable): void {
     // Set the new design in localstorage
     switch (this.quotableType) {
       case QuotableType.babySign:
@@ -81,9 +77,5 @@ export class QuotableTemplateModalComponent implements OnInit {
       default:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, quotableDesign);
     }
-
-    this.eventsService.create(`webstore.quotable-template-modal.applied-template.${templateName}`);
-    this.router.navigate(['/products/quotable']);
-    location.reload();
   }
 }
