@@ -53,7 +53,11 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   fontSize = 10;
   inputTextHeight = 10;
   inputTitleHeight = 10;
-  // verticalTextPlacement = 0;
+  verticalPlacement = 50;
+  verticalPlacementOptions = {
+    floor: 0,
+    ceil: 100,
+  };
 
   autosaveInterval;
   // design autosave frequency, in seconds
@@ -75,7 +79,15 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
         this.isLoading = false;
         clearInterval(loadElement);
       }
-    }, 100);
+    }, 10);
+
+    // Has to be seperate from the previous interval since it has to be done loading
+    const loadHeight = setInterval(() => {
+      if (this.inputWrapper !== undefined && this.inputWrapper.nativeElement !== undefined) {
+        this.changeVerticalPlacement();
+        clearInterval(loadHeight);
+      }
+    }, 200);
   }
 
   ngAfterViewInit(): void {
@@ -104,6 +116,16 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     if (changes.design !== undefined) {
       this.adjustInputDimensions();
     }
+  }
+
+  changeVerticalPlacement() {
+    const textHeight = this.inputWrapper.nativeElement.offsetHeight;
+    const canvasHeight = this.designWrapper.nativeElement.offsetHeight;
+    const x = canvasHeight - textHeight;
+    const placement = this.verticalPlacement * (x / 100);
+
+    this.inputWrapper.nativeElement.style.top = placement + 'px';
+    console.log(this.verticalPlacement, textHeight, canvasHeight, placement);
   }
 
   showAddTextButton(): boolean {

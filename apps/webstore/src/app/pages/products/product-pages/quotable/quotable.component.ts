@@ -62,11 +62,6 @@ export class QuotableComponent implements OnInit {
   };
   currentDesign = 1;
   design: IQoutable;
-  // verticalTextPlacement = 0;
-  // verticalTextPlacementOptions = {
-  //   floor: -50,
-  //   ceil: 50,
-  // };
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;

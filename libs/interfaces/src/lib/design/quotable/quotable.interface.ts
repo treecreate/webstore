@@ -8,6 +8,7 @@ export interface IQoutable {
   showTitle?: boolean;
   text?: string;
   showText?: boolean;
+  verticalPlacement?: number;
 }
 
 export interface IQuotableTemplate {

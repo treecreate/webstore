@@ -1,7 +1,8 @@
 <div class="design-wrapper" #designWrapper [ngStyle]="{ 'font-family': this.design.font }">
     <div class="above-canvas" *ngIf="!isLoading">
         <div
-            #textVerticalPlacement
+            #inputWrapper
+            style="border: 1px solid black; position: relative"
             id="textVerticalPlacement"
             [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }"
         >
@@ -68,6 +69,13 @@
             <div *ngIf="showAddTextButton()" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
                 <button id="addText" class="tc-button-sm-square" (click)="changeTextDisplay()">+ add text</button>
             </div>
+
+            <ngx-slider
+                (userChange)="changeVerticalPlacement()"
+                [(value)]="verticalPlacement"
+                [options]="verticalPlacementOptions"
+                data-cy="font-size-slider"
+            ></ngx-slider>
         </div>
     </div>
     <img [src]="getDesignSrc()" alt="Desing frame image" id="backgroundImage" *ngIf="!isLoading" />
