@@ -256,10 +256,11 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
-    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
+    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined && this.design.showText) {
       this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
     }
-    if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
+
+    if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined && this.design.showTitle) {
       this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
     }
 
