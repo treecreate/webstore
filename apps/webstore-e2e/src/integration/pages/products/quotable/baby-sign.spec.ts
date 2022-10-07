@@ -5,8 +5,11 @@ import { CookieStatus, LocalStorageVars } from '@models';
 const quotableDesing: IQoutable = {
   font: DesignFontEnum.archaMedium,
   fontSize: 40,
-  designSrc: QuotableDesignEnum.frame18,
+  designSrc: QuotableDesignEnum.frame2,
   text: 'skrt skrt',
+  title: 'wow',
+  showText: true,
+  showTitle: true,
 };
 const mockQuotableDesign: IDesign = {
   designId: 'MOCK_ID',
@@ -29,6 +32,9 @@ describe('BabySignProductPage', () => {
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
       cy.get('[data-cy=font-size]').should('contain', '40');
       cy.get('[data-cy=text]').should('contain', 'Din tekst');
+      cy.get('[data-cy=title]').should('contain', 'Navn');
+      cy.get('[data-cy=show-text]').should('contain', 'true');
+      cy.get('[data-cy=show-title]').should('contain', 'true');
     });
 
     it('goes to the right frame when pressing prev', () => {
