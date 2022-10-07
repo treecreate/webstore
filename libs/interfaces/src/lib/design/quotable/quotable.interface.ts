@@ -1,4 +1,4 @@
-import { DesignFontEnum } from '..';
+import { DesignFontEnum, QuotableType } from '..';
 
 export interface IQoutable {
   font: DesignFontEnum;
@@ -17,4 +17,5 @@ export interface IQuotableTemplate {
   text?: string;
   showText?: boolean;
   fontSize: number;
+  type: QuotableType;
 }
