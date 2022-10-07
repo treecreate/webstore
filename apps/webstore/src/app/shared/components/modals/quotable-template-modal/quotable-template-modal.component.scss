@@ -70,10 +70,15 @@
   border-radius: 3px;
   border: 1px solid var(--second-action-color);
   display: flex;
-  font-size: 0.75em;
   justify-content: center;
   align-items: center;
   white-space: pre-line;
   text-align: center;
   font-family: 'calendas-italic';
+  flex-direction: column;
+  font-size: 0.75em;
+
+  & .title {
+    font-size: 1.5em;
+  }
 }

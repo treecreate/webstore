@@ -21,7 +21,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
     type: QuotableType.quotable,
   },
   {
-    name: 'Til Mor/Far',
+    name: 'Til Mor/Far 2',
     text: 'jeg vil gerne takke dig\nfor at have spillet en så utrolig\nrolle i mit liv.\n\nJeg elsker dig nu og for evigt.\nNAVN',
     showText: true,
     showTitle: true,
@@ -42,11 +42,11 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   //   BABY SIGN
   {
     name: 'Børne tavle',
-    text: '01.01.21 - kl.00.00\n\n4000g - 50cm',
+    text: '\n01.01.21 - kl.00.00\n\n4000g - 50cm',
     showText: true,
     showTitle: true,
     title: 'Navn',
-    fontSize: 20,
+    fontSize: 30,
     type: QuotableType.babySign,
   },
   {
@@ -55,7 +55,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
     showText: true,
     showTitle: true,
     title: 'Navn',
-    fontSize: 20,
+    fontSize: 30,
     type: QuotableType.babySign,
   },
 ];
