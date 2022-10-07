@@ -16,7 +16,16 @@
             (changeText)="design.text = $event"
             (changeTitleText)="design.title = $event"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
+            [ngClass]="{ 'opacity-change': !hasLoadedDesign }"
         ></webstore-quotable-design>
+        <div *ngIf="!hasLoadedDesign" class="opacity-change-spinner">
+            <span
+                class="spinner-border spinner-border-sm"
+                style="margin: 0 10px"
+                role="status"
+                aria-hidden="true"
+            ></span>
+        </div>
 
         <!-- FOR CY TESTS -->
         <div class="hide">

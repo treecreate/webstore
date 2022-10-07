@@ -46,9 +46,11 @@ export class QuotableComponent implements OnInit {
   quotableType: QuotableType;
 
   isDesignValid = false;
+
   isMutable = false;
   isMobileOptionOpen = false;
   showInputFieldOptions = true;
+  hasLoadedDesign = false;
 
   defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
   displayFont = this.defaultFont;
@@ -225,6 +227,9 @@ export class QuotableComponent implements OnInit {
         this.setDefaultDesign();
       }
       this.isMutable = true;
+      setTimeout(() => {
+        this.hasLoadedDesign = true;
+      }, 200);
     }
   }
 
@@ -244,6 +249,9 @@ export class QuotableComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
+    setTimeout(() => {
+      this.hasLoadedDesign = true;
+    }, 200);
   }
 
   loadDesignFromDB(queryParams) {
@@ -262,6 +270,9 @@ export class QuotableComponent implements OnInit {
           // apply the design
           this.isMutable = result.mutable;
         }
+        setTimeout(() => {
+          this.hasLoadedDesign = true;
+        }, 200);
       },
       (err: HttpErrorResponse) => {
         console.error('Failed to fetch the', err);

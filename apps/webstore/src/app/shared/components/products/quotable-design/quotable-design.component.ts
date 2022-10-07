@@ -49,7 +49,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   isDesignValid = false;
   isLoading = true;
-  hasInitialized = false;
 
   fontSize = 10;
   inputTextHeight = 10;
@@ -87,14 +86,13 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     }
     this.isDesignValid = true;
     this.isDesignValidEvent.emit(this.isDesignValid);
-    this.hasInitialized = true;
 
     setTimeout(() => {
       this.adjustInputDimensions();
       const temp = this.design.text;
       this.design.text = '';
       this.design.text = temp;
-    }, 200);
+    }, 100);
     window.dispatchEvent(new Event('resize'));
   }
 
