@@ -83,13 +83,14 @@
   border: none;
   background-color: transparent;
 
-  & img {
+  &img {
     width: 3em;
   }
 }
 
 #textVerticalPlacement {
   width: 100%;
+  position: relative;
 }
 
 #textVerticalPlacement div {
@@ -101,22 +102,41 @@
   align-items: center;
   width: 100%;
 
-  & button {
+  &button {
     position: relative;
   }
 
-  & #addTitle {
+  &#addTitle {
     top: -50px;
   }
 
-  & #addText {
+  &#addText {
     bottom: -15px;
+  }
+}
+
+::ng-deep.ngx-slider.vertical-slider {
+  margin: 0 !important;
+
+  .ngx-slider-bar {
+    opacity: 0 !important;
+  }
+
+  .ngx-slider-pointer {
+    background-image: url('/assets/icons/up-down-arrows-icon.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 24px;
+
+    &:after {
+      background: transparent !important;
+    }
   }
 }
 
 @media screen and (max-width: 640px) {
   .remove-text-btn {
-    & img {
+    &img {
       width: 2em;
     }
   }

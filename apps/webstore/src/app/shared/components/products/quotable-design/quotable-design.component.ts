@@ -19,6 +19,7 @@ import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { take } from 'rxjs';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'webstore-quotable-design',
@@ -55,8 +56,10 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   inputTitleHeight = 10;
   verticalPlacement = 50;
   verticalPlacementOptions = {
-    floor: 0,
-    ceil: 100,
+    floor: 5,
+    ceil: 95,
+    vertical: true,
+    rightToLeft: true,
   };
 
   autosaveInterval;
