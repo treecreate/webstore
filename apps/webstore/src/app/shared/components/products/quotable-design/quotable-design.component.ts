@@ -45,8 +45,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   @Output() changeText = new EventEmitter<string>();
   @Output() changeTitleText = new EventEmitter<string>();
 
-  rows: number;
-
   isDesignValid = false;
   isLoading = true;
 
@@ -118,15 +116,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     if (changes.design !== undefined) {
       this.adjustInputDimensions();
     }
-  }
-
-  changeVerticalPlacement() {
-    const textHeight = this.inputWrapper.nativeElement.offsetHeight;
-    const canvasHeight = this.designWrapper.nativeElement.offsetHeight;
-    const x = canvasHeight - textHeight;
-    const placement = this.design.verticalPlacement * (x / 100);
-
-    this.inputWrapper.nativeElement.style.top = placement + 'px';
   }
 
   showAddTextButton(): boolean {
@@ -217,6 +206,25 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     return Math.round(number * scale * 10) / 10;
   }
 
+  @HostListener('document:keydown.enter')
+  @HostListener('document:keydown.backspace')
+  reCenterText(): void {
+    // To recenter text after a new row has been created or deleted.
+    // Adding or removing a row doesnt trigger ngChange
+    setTimeout(() => {
+      this.changeVerticalPlacement();
+    }, 50);
+  }
+
+  changeVerticalPlacement() {
+    const textHeight = this.inputWrapper.nativeElement.offsetHeight;
+    const canvasHeight = this.designWrapper.nativeElement.offsetHeight;
+    const x = canvasHeight - textHeight;
+    const placement = this.design.verticalPlacement * (x / 100);
+
+    this.inputWrapper.nativeElement.style.top = placement + 'px';
+  }
+
   /**
    * Adjust height of the input element to match its contents and amount fo rows. Based on the scroll height.
    */
@@ -225,6 +233,8 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     if (this.isLoading) {
       return;
     }
+
+    this.changeVerticalPlacement();
 
     this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
     const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
@@ -254,9 +264,5 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
       this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
     }
-  }
-
-  adjustTextHeight(): void {
-    this.textVerticalPlacement;
   }
 }

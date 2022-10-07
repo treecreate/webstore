@@ -11,6 +11,7 @@
   position: relative;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .above-canvas {
@@ -84,7 +85,7 @@
   background-color: transparent;
 
   &img {
-    width: 3em;
+    width: 2em;
   }
 }
 
@@ -141,12 +142,27 @@
 
 @media screen and (max-width: 640px) {
   .remove-text-btn {
-    &img {
-      width: 2em;
+    & img {
+      width: 1.75em;
     }
   }
 
   .add-option {
     transform: scale(0.8);
+  }
+
+  ::ng-deep.ngx-slider.vertical-slider {
+    margin: 0 !important;
+    right: 13px;
+
+    .ngx-slider-bar {
+      opacity: 0 !important;
+    }
+
+    .ngx-slider-pointer {
+      background-size: 20px;
+      width: 1.75em !important;
+      height: 1.75em !important;
+    }
   }
 }
