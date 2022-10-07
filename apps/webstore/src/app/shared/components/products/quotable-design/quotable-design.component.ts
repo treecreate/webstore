@@ -234,8 +234,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       return;
     }
 
-    this.changeVerticalPlacement();
-
     this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
     const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
 
@@ -264,5 +262,10 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
       this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
     }
+
+    // re adjust hight
+    setTimeout(() => {
+      this.changeVerticalPlacement();
+    }, 100);
   }
 }

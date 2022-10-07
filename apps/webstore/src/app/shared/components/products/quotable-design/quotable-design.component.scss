@@ -84,7 +84,7 @@
   border: none;
   background-color: transparent;
 
-  &img {
+  & img {
     width: 2em;
   }
 }
@@ -103,15 +103,15 @@
   align-items: center;
   width: 100%;
 
-  &button {
+  & button {
     position: relative;
   }
 
-  &#addTitle {
+  & #addTitle {
     top: -50px;
   }
 
-  &#addText {
+  & #addText {
     bottom: -15px;
   }
 }
