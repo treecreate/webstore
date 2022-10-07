@@ -107,8 +107,11 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   getDesignSrc(): string {
+    const isDepricatedSrc =
+      !this.design.designSrc.includes('frame0-no-design.svg') &&
+      this.design.designSrc.includes('assets/quotable/frame-design/frame');
     // for depricated src links
-    if (this.design.designSrc.includes('assets/quotable/frame-design/frame')) {
+    if (isDepricatedSrc) {
       return this.design.designSrc.replace('assets/quotable/frame-design/', 'assets/quotable/frame-design/quotable/');
     } else {
       return this.design.designSrc;
