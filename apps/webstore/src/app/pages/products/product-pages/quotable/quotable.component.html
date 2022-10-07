@@ -33,6 +33,9 @@
             <div data-cy="design">{{ design.designSrc }}</div>
             <div data-cy="font-size">{{ design.fontSize }}</div>
             <div data-cy="text">{{ design.text }}</div>
+            <div data-cy="title">{{ design.title }}</div>
+            <div data-cy="show-title">{{ design.showTitle }}</div>
+            <div data-cy="show-text">{{ design.showText }}</div>
         </div>
         <!-- END CY TESTS -->
     </section>
@@ -187,6 +190,7 @@
             type="button"
             (click)="toggleUserOptions()"
             title="Hide/Show box options"
+            data-cy="hide-quotable-options"
         >
             <img
                 class="toggle-box-options-icon"
