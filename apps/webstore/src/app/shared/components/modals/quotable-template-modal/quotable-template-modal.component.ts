@@ -15,7 +15,7 @@ import { quotableTemplateList } from './quotable-template-list';
 })
 export class QuotableTemplateModalComponent implements OnInit {
   @Input()
-  quotableType?: QuotableType;
+  quotableType!: QuotableType;
 
   templateList: IQuotableTemplate[];
 
@@ -28,21 +28,34 @@ export class QuotableTemplateModalComponent implements OnInit {
 
   ngOnInit() {
     // Set templates to display based of quotable type
-    this.templateList = this.quotableType
-      ? quotableTemplateList.filter((template) => template.type === this.quotableType)
-      : quotableTemplateList;
+    this.templateList = quotableTemplateList.filter((template) => template.type === this.quotableType);
   }
 
   applyTemplate(templateName: string): void {
-    const template: IQuotableTemplate = this.templateList.find(
+    const template: IQuotableTemplate = quotableTemplateList.find(
       (selectedTemplate) => selectedTemplate.name === templateName
     );
 
-    // Get transactionItems from localstorage
-    let quotableDesign: IQoutable = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    let quotableDesign: IQoutable;
+
+    // Get design from localstorage
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        quotableDesign = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
+        break;
+      case QuotableType.loveLetter:
+        quotableDesign = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
+        break;
+      case QuotableType.quotable:
+      default:
+        quotableDesign = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    }
 
     if (quotableDesign) {
       quotableDesign.fontSize = template.fontSize;
+      quotableDesign.showTitle = template.showTitle;
+      quotableDesign.title = template.title;
+      quotableDesign.showText = template.showText;
       quotableDesign.text = template.text;
     } else {
       quotableDesign = {
@@ -50,10 +63,25 @@ export class QuotableTemplateModalComponent implements OnInit {
         fontSize: template.fontSize,
         designSrc: QuotableDesignEnum.frame1,
         text: template.text,
+        title: template.title,
+        showText: template.showText,
+        showTitle: template.showTitle,
       };
     }
 
-    this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, quotableDesign);
+    // Set the new design in localstorage
+    switch (this.quotableType) {
+      case QuotableType.babySign:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, quotableDesign);
+        break;
+      case QuotableType.loveLetter:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, quotableDesign);
+        break;
+      case QuotableType.quotable:
+      default:
+        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, quotableDesign);
+    }
+
     this.eventsService.create(`webstore.quotable-template-modal.applied-template.${templateName}`);
     this.router.navigate(['/products/quotable']);
     location.reload();
