@@ -21,19 +21,26 @@
                     [ngModel]="design.title ?? ''"
                     (ngModelChange)="updateTitleText($event)"
                     [disabled]="!isMutable"
-                    data-cy="text-input-field"
+                    data-cy="title-input-field"
                 ></textarea>
                 <button
                     class="remove-text-btn"
+                    data-cy="remove-title-button"
                     (click)="changeTitleDisplay()"
-                    *ngIf="isMutable"
-                    [ngClass]="{ hide: !showInputFieldOptions }"
+                    *ngIf="isMutable && showInputFieldOptions"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
             <div *ngIf="!design.showTitle && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button id="addTitle" class="tc-button-sm-square" (click)="changeTitleDisplay()">+ add title</button>
+                <button
+                    id="addTitle"
+                    data-cy="add-title-button"
+                    class="tc-button-sm-square"
+                    (click)="changeTitleDisplay()"
+                >
+                    + add title
+                </button>
             </div>
 
             <div class="text-container" *ngIf="design.showText ?? true">
@@ -52,19 +59,26 @@
                     [ngModel]="design.text"
                     (ngModelChange)="updateText($event)"
                     [disabled]="!isMutable"
-                    data-cy="text-input-field2"
+                    data-cy="text-input-field"
                 ></textarea>
                 <button
                     class="remove-text-btn"
+                    data-cy="remove-text-button"
                     (click)="changeTextDisplay()"
-                    *ngIf="isMutable"
-                    [ngClass]="{ hide: !showInputFieldOptions }"
+                    *ngIf="isMutable && showInputFieldOptions"
                 >
                     <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
                 </button>
             </div>
             <div *ngIf="showAddTextButton()" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button id="addText" class="tc-button-sm-square" (click)="changeTextDisplay()">+ add text</button>
+                <button
+                    id="addText"
+                    data-cy="add-text-button"
+                    class="tc-button-sm-square"
+                    (click)="changeTextDisplay()"
+                >
+                    + add text
+                </button>
             </div>
         </div>
     </div>
@@ -74,7 +88,10 @@
         [(value)]="design.verticalPlacement"
         [options]="verticalPlacementOptions"
         class="vertical-slider"
-        data-cy="font-size-slider"
+        data-cy="vertical-placement-slider"
         *ngIf="showInputFieldOptions && isMutable"
     ></ngx-slider>
+    <div class="hide">
+        <div data-cy="vertical-placement">{{ design.verticalPlacement }}</div>
+    </div>
 </div>
