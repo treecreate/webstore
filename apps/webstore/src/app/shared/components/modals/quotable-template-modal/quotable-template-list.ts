@@ -1,6 +1,7 @@
 import { IQuotableTemplate, QuotableType } from '@interfaces';
 
 export const quotableTemplateList: IQuotableTemplate[] = [
+  //    QUOTABLE
   {
     name: 'Til Farmor/Farfar',
     text: 'Det eneste bedre \nend at have dig som \nMOR/FAR\n\nEr at mine børn har dig\nsom FARMOR/FARFAR',
@@ -28,6 +29,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
     fontSize: 20,
     type: QuotableType.quotable,
   },
+  //   LOVE LETTER
   {
     name: 'Til Ham/Hende',
     text: 'Jeg skrev dit navn i skyerne,\nmen vinden blæste det væk.\n\nJeg skrev dit navn i sandet,\nmen bølgerne skyllede det væk.\n\nJeg skrev dit navn i mit hjerte,\nog for evigt vil det blive der.',
@@ -37,6 +39,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
     fontSize: 20,
     type: QuotableType.loveLetter,
   },
+  //   BABY SIGN
   {
     name: 'Børne tavle',
     text: '01.01.21 - kl.00.00\n\n4000g - 50cm',

@@ -496,6 +496,8 @@ export class QuotableComponent implements OnInit {
   }
 
   openQuotableTemplateModal(): void {
-    this.modalService.open(QuotableTemplateModalComponent);
+    const modalRef = this.modalService.open(QuotableTemplateModalComponent);
+    modalRef.componentInstance.designType = DesignTypeEnum.quotable;
+    modalRef.componentInstance.quotableType = this.quotableType;
   }
 }

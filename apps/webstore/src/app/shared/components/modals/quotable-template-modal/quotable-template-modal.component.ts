@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuotableDesignEnum } from '@assets';
-import { DesignFontEnum, IQoutable, IQuotableTemplate } from '@interfaces';
+import { DesignFontEnum, IQoutable, IQuotableTemplate, QuotableType } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,8 +13,11 @@ import { quotableTemplateList } from './quotable-template-list';
   templateUrl: './quotable-template-modal.component.html',
   styleUrls: ['./quotable-template-modal.component.scss', '../../../../../assets/styles/terms-and-conditions.css'],
 })
-export class QuotableTemplateModalComponent {
-  templateList: IQuotableTemplate[] = quotableTemplateList;
+export class QuotableTemplateModalComponent implements OnInit {
+  @Input()
+  quotableType?: QuotableType;
+
+  templateList: IQuotableTemplate[];
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -22,6 +25,13 @@ export class QuotableTemplateModalComponent {
     private router: Router,
     private eventsService: EventsService
   ) {}
+
+  ngOnInit() {
+    // Set templates to display based of quotable type
+    this.templateList = this.quotableType
+      ? quotableTemplateList.filter((template) => template.type === this.quotableType)
+      : quotableTemplateList;
+  }
 
   applyTemplate(templateName: string): void {
     const template: IQuotableTemplate = this.templateList.find(
