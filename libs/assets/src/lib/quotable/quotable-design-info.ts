@@ -4,6 +4,7 @@ import {
   QuotableDesignNameEnglishEnum,
 } from './quotable-design.enum';
 
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { QuotableType } from '@interfaces';
 
 export interface QuotableFrameInfo {

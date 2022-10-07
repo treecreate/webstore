@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
 import { ErrorlogPriorityEnum, IAuthUser, IUser } from '@interfaces';
@@ -40,6 +40,10 @@ export class CustomOrderComponent implements OnInit {
     message: string;
     dismissible: boolean;
   };
+
+  @ViewChild('nameInput') nameInput: ElementRef;
+  @ViewChild('emailInput') emailInput: ElementRef;
+  @ViewChild('descriptionInput') descriptionInput: ElementRef;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -97,7 +101,7 @@ export class CustomOrderComponent implements OnInit {
       ]),
       customerEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
       description: new UntypedFormControl('', [
-        Validators.maxLength(1000),
+        Validators.maxLength(2000),
         Validators.minLength(1),
         Validators.required,
       ]),
@@ -120,7 +124,18 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitCustomOrder() {
-    this.createCustomOrder();
+    if (!this.customOrderForm.valid || !this.isImageRequirementsRead) {
+      // Go to earliest occurence of invalid input
+      if (this.customOrderForm.get('name').invalid) {
+        this.nameInput.nativeElement.focus();
+      } else if (this.customOrderForm.get('customerEmail').invalid) {
+        this.emailInput.nativeElement.focus();
+      } else if (this.customOrderForm.get('description').invalid) {
+        this.descriptionInput.nativeElement.focus();
+      }
+    } else {
+      this.createCustomOrder();
+    }
   }
 
   isDisabled() {

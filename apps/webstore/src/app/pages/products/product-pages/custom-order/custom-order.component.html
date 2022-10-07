@@ -16,6 +16,7 @@
 
                 <div class="tc-input-group field">
                     <input
+                        #nameInput
                         type="text"
                         class="tc-input-field"
                         formControlName="name"
@@ -38,6 +39,7 @@
 
                 <div class="tc-input-group field">
                     <input
+                        #emailInput
                         type="email"
                         class="tc-input-field"
                         placeholder="E-mail"
@@ -64,6 +66,7 @@
 
                 <div class="tc-input-group field">
                     <textarea
+                        #descriptionInput
                         type="text"
                         class="tc-textarea-field"
                         name="description"
@@ -136,7 +139,7 @@
                         aria-hidden="true"
                     ></span>
                 </button>
-                <!-- TODO - make the uploaded files list pretty -->
+
                 <button
                     [ngClass]="[
                         uploadedFiles.length > 0 ? 'file-list-styling' : 'custom-order-uploaded-files-container'
@@ -181,12 +184,7 @@
                         <span i18n="@@confirm-image-requirements">I have read the image requirements</span>
                     </div>
                 </div>
-                <button
-                    class="tc-button-50 brown margin-top"
-                    type="submit"
-                    [disabled]="!isDisabled()"
-                    data-cy="custom-order-send-button"
-                >
+                <button class="tc-button-50 brown margin-top" type="submit" data-cy="custom-order-send-button">
                     <span i18n="@@send-custom-order" *ngIf="!isLoading">Send</span>
                     <span
                         *ngIf="isLoading"

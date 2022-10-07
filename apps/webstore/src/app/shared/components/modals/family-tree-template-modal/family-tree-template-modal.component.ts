@@ -14,7 +14,6 @@ import { templates } from './templates';
 })
 export class FamilyTreeTemplateModalComponent {
   templateList: ITemplateFamilyTree[] = templates;
-  showMoreExamples = false;
 
   /**
    * @param activeModal

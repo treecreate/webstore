@@ -90,7 +90,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // default the designType to Fmaily tree if it's null
+    // default the designType to Family tree if it's null
     if (this.designType === undefined || this.designType === null) {
       this.designType = DesignTypeEnum.familyTree;
     }

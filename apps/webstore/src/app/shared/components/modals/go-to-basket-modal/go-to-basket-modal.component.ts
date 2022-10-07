@@ -21,6 +21,7 @@ export class GoToBasketModalComponent implements OnInit {
   basketPrice = 0;
   isLoading = false;
   authUser$: BehaviorSubject<IAuthUser>;
+
   constructor(
     public activeModal: NgbActiveModal,
     private route: ActivatedRoute,

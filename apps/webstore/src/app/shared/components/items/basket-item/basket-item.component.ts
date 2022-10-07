@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { DesignDimensionEnum, DesignTypeEnum, ErrorlogPriorityEnum, IAuthUser, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
@@ -39,6 +39,8 @@ export class BasketItemComponent implements OnInit {
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
   public designTypeEnum = DesignTypeEnum;
+  public localeCode: LocaleType;
+  public locale$: BehaviorSubject<LocaleType>;
 
   constructor(
     private calculatePriceService: CalculatePriceService,
@@ -55,6 +57,9 @@ export class BasketItemComponent implements OnInit {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
+    // Listen to changes to locale
+    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
+    this.localeCode = this.locale$.getValue();
   }
 
   ngOnInit(): void {
@@ -66,6 +71,21 @@ export class BasketItemComponent implements OnInit {
     this.priceChangeEvent.emit({ newItem: this.item, index: this.index });
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
+
+  getDesignName() {
+    switch (this.item.design.designType) {
+      case DesignTypeEnum.quotable:
+        // TODO: Get quotable product type
+        return this.isEnglish() ? 'Quotable' : 'Citat ramme';
+      case DesignTypeEnum.familyTree:
+      default:
+        return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+    }
   }
 
   goToDesign() {

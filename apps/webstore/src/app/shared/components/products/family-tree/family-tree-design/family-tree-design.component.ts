@@ -70,7 +70,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // FPS of the render loop
   framesPerSecond = 60;
   // design autosave frequency, in seconds
-  autosaveFrequencyInSeconds = 30;
+  autosaveFrequencyInSeconds = 15;
 
   canvasResolution = {
     height: 2000,

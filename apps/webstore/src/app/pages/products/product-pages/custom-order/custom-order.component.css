@@ -70,6 +70,7 @@
 
 .file-list-styling {
   width: 47%;
+  border: none;
 }
 
 .tc-button-square {
@@ -83,6 +84,8 @@
 
 .file-list-styling li {
   padding-top: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .actions {
@@ -143,6 +146,7 @@
 .tc-textarea-field {
   height: 200px;
   border-radius: 3px;
+  padding: 7px !important;
 }
 
 .textarea-label {
@@ -185,6 +189,7 @@
 .custom-order-examples h2 {
   margin-top: 0.6em;
 }
+
 @media screen and (max-width: 600px) {
   .custom-order-requirements-section {
     display: flex;

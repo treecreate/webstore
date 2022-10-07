@@ -21,3 +21,18 @@
   height: 80vh;
   width: 80vh;
 }
+
+.back-container {
+  padding: 0;
+}
+
+.opacity-change {
+  opacity: 0;
+}
+
+.opacity-change-spinner {
+  display: block;
+  height: 0;
+  position: relative;
+  top: -51%;
+}

@@ -13,7 +13,8 @@
             <ng-template ngbSlide *ngFor="let template of templateList">
                 <div class="template-container">
                     <div class="template-text-container">
-                        {{ template.text }}
+                        <span *ngIf="template.showTitle" class="title">{{ template.title }}</span>
+                        <span *ngIf="template.showText">{{ template.text }}</span>
                     </div>
                     <div class="template-title-container">
                         {{ template.name }}

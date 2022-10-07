@@ -1,20 +1,31 @@
 <main class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
-    <div class="back-container" *ngIf="!isMutable">
-        <a onclick="history.back()" class="back add-transition" data-cy="view-only-back-button">
-            < <span i18n="@@back">Back</span>
-        </a>
-    </div>
     <!-- Design -->
-    <section class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
+    <section class="design-screen">
+        <div class="back-container" *ngIf="!isMutable">
+            <a onclick="history.back()" class="back add-transition" data-cy="view-only-back-button">
+                < <span i18n="@@back">Back</span>
+            </a>
+        </div>
         <webstore-quotable-design
             #quotableDesign
             [isMutable]="isMutable"
             [design]="design"
             style="text-align: center"
+            [showInputFieldOptions]="showInputFieldOptions"
             [quotableType]="quotableType"
-            (changeText)="updateText($event)"
+            (changeText)="design.text = $event"
+            (changeTitleText)="design.title = $event"
             (isDesignValidEvent)="onIsDesignValidEvent($event)"
+            [ngClass]="{ 'opacity-change': !hasLoadedDesign }"
         ></webstore-quotable-design>
+        <div *ngIf="!hasLoadedDesign" class="opacity-change-spinner">
+            <span
+                class="spinner-border spinner-border-sm"
+                style="margin: 0 10px"
+                role="status"
+                aria-hidden="true"
+            ></span>
+        </div>
 
         <!-- FOR CY TESTS -->
         <div class="hide">
@@ -22,6 +33,9 @@
             <div data-cy="design">{{ design.designSrc }}</div>
             <div data-cy="font-size">{{ design.fontSize }}</div>
             <div data-cy="text">{{ design.text }}</div>
+            <div data-cy="title">{{ design.title }}</div>
+            <div data-cy="show-title">{{ design.showTitle }}</div>
+            <div data-cy="show-text">{{ design.showText }}</div>
         </div>
         <!-- END CY TESTS -->
     </section>
@@ -163,13 +177,27 @@
     </aside>
 </main>
 <!-- Floating icons -->
-<div class="mobile-option-buttons-container">
+<div class="mobile-option-buttons-container" *ngIf="isMutable">
     <div class="mobile-options">
         <button class="option-toggler tc-button-square green" (click)="openAddToBasketModal()">
             <img src="/assets/icons/add-to-basket-icon.svg" alt="basket icon" />
         </button>
-        <button class="option-toggler tc-button-square" type="button" (click)="showOptions()" *ngIf="isMutable">
+        <button class="option-toggler tc-button-square" type="button" (click)="showOptions()">
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
+        </button>
+        <button
+            class="toggle-box-options tc-button-square"
+            type="button"
+            (click)="toggleUserOptions()"
+            title="Hide/Show box options"
+            data-cy="hide-quotable-options"
+        >
+            <img
+                class="toggle-box-options-icon"
+                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+                alt="Toggle box options"
+                [src]="toggleUserOptionsIcon"
+            />
         </button>
     </div>
 </div>

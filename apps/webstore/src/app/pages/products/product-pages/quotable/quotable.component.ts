@@ -37,16 +37,20 @@ import { EventsService } from '../../../../shared/services/events/events.service
   ],
 })
 export class QuotableComponent implements OnInit {
+  productSpecificFrames: QuotableFrameInfo[];
+
   @ViewChild('quotableDesign', { static: false })
   quotableDesign: QuotableDesignComponent;
-  toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
+  toggleUserOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
   quotableType: QuotableType;
 
   isDesignValid = false;
+
   isMutable = false;
   isMobileOptionOpen = false;
-  showSuggestion = true;
-  // set the default font
+  showInputFieldOptions = true;
+  hasLoadedDesign = false;
+
   defaultFont = DesignFontEnum[Object.keys(DesignFontEnum)[3]];
   displayFont = this.defaultFont;
   fontOptions = [];
@@ -57,9 +61,6 @@ export class QuotableComponent implements OnInit {
   };
   currentDesign = 1;
   design: IQoutable;
-
-  quotableFrames: QuotableFrameInfo[];
-  productSpecificFrames: QuotableFrameInfo[];
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -99,8 +100,12 @@ export class QuotableComponent implements OnInit {
       this.quotableType = params.productType;
     });
 
-    this.quotableFrames = quotableFrames;
-    this.productSpecificFrames = this.quotableFrames.filter((frame) => frame.productType.includes(this.quotableType));
+    // Set product frames dependent on prodcut type
+    this.productSpecificFrames = this.quotableType
+      ? quotableFrames.filter((frame) => frame.productType.includes(this.quotableType))
+      : quotableFrames;
+
+    // Set default design
     this.setDefaultDesign();
   }
 
@@ -108,6 +113,13 @@ export class QuotableComponent implements OnInit {
     this.getFontList();
     this.loadDesign();
     this.setMetaData();
+  }
+
+  toggleUserOptions(): void {
+    this.showInputFieldOptions = !this.showInputFieldOptions;
+    this.toggleUserOptionsIcon = this.showInputFieldOptions
+      ? BoxOptionsDesignEnum.boxOptionsVisible
+      : BoxOptionsDesignEnum.boxOptionsHidden;
   }
 
   setMetaData() {
@@ -158,16 +170,15 @@ export class QuotableComponent implements OnInit {
     });
   }
 
-  updateText($event) {
-    this.design.text = $event;
-  }
-
   changeFont(font: { key: string; value: string }): void {
     this.design.font = DesignFontEnum[font.key];
     this.displayFont = font.value;
   }
 
   getDesignName(): string {
+    // Update currentDesign before getting name
+    this.currentDesign = this.productSpecificFrames.findIndex((frame) => this.design.designSrc === frame.src);
+
     return this.isEnglish()
       ? this.productSpecificFrames[this.currentDesign].nameEn
       : this.productSpecificFrames[this.currentDesign].nameDk;
@@ -213,12 +224,13 @@ export class QuotableComponent implements OnInit {
         this.setDefaultDesign();
       }
       this.isMutable = true;
+      setTimeout(() => {
+        this.hasLoadedDesign = true;
+      }, 200);
     }
   }
 
   loadDesignFromLocalStorage(designId: string) {
-    console.log('running this loadDesignFromLocal');
-
     // Get transactionItems from localstorage
     const itemList: ITransactionItem[] = this.localStorageService.getItem<ITransactionItem[]>(
       LocalStorageVars.transactionItems
@@ -234,6 +246,9 @@ export class QuotableComponent implements OnInit {
     }
     // Load design
     this.design = itemList[designId].design.designProperties;
+    setTimeout(() => {
+      this.hasLoadedDesign = true;
+    }, 200);
   }
 
   loadDesignFromDB(queryParams) {
@@ -241,10 +256,15 @@ export class QuotableComponent implements OnInit {
     this.designService.getDesign(designId).subscribe(
       (result: IDesign) => {
         if (result.designType !== DesignTypeEnum.quotable) {
-          console.warn('The requested design is not a family tree!');
+          console.warn('The requested design is not a Quotable product!');
           return;
         }
         this.design = <IQoutable>result.designProperties;
+
+        // for deprecated designs
+        this.design.showText = this.design.showText ?? true;
+        this.design.showTitle = this.design.showTitle ?? false;
+
         if (result.designProperties === undefined) {
           console.warn('Fetched data was invalid!');
         } else {
@@ -252,6 +272,9 @@ export class QuotableComponent implements OnInit {
           // apply the design
           this.isMutable = result.mutable;
         }
+        setTimeout(() => {
+          this.hasLoadedDesign = true;
+        }, 200);
       },
       (err: HttpErrorResponse) => {
         console.error('Failed to fetch the', err);
@@ -391,7 +414,10 @@ export class QuotableComponent implements OnInit {
       font: this.defaultFont,
       fontSize: this.fontSize,
       designSrc: this.productSpecificFrames[1].src,
+      title: 'Navn',
+      showTitle: true,
       text: 'Din tekst',
+      showText: true,
     };
   }
 
@@ -467,6 +493,8 @@ export class QuotableComponent implements OnInit {
   }
 
   openQuotableTemplateModal(): void {
-    this.modalService.open(QuotableTemplateModalComponent);
+    const modalRef = this.modalService.open(QuotableTemplateModalComponent);
+    modalRef.componentInstance.designType = DesignTypeEnum.quotable;
+    modalRef.componentInstance.quotableType = this.quotableType;
   }
 }
