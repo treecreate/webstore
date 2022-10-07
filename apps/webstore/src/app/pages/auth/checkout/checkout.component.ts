@@ -482,8 +482,16 @@ export class CheckoutComponent implements OnInit {
           email: this.checkoutForm.get('email').value,
           password: passwordGen,
         })
-        .toPromise();
+        .toPromise()
+        .catch((error) => {
+          console.warn(error);
+          this.isLoading = false;
+        });
       this.eventsService.create('webstore.checkout.registered-on-order');
+
+      if (!user) {
+        return;
+      }
       // set the new user logged in data
       this.authService.saveAuthUser(user);
       await this.transactionItemService.createBulkTransactionItem({ transactionItems: this.itemList }).toPromise();
@@ -524,7 +532,6 @@ export class CheckoutComponent implements OnInit {
           dismissible: false,
         };
       }
-    } finally {
       this.isLoading = false;
     }
   }

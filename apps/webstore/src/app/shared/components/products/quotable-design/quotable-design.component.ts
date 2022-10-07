@@ -45,7 +45,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   @Output() changeText = new EventEmitter<string>();
   @Output() changeTitleText = new EventEmitter<string>();
 
-  originalFontSize: number;
   rows: number;
 
   isDesignValid = false;
@@ -54,7 +53,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   fontSize = 10;
   inputTextHeight = 10;
   inputTitleHeight = 10;
-  verticalPlacement = 50;
+
   verticalPlacementOptions = {
     floor: 5,
     ceil: 95,
@@ -73,8 +72,8 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   ) {}
 
   ngOnInit(): void {
-    if (this.design) {
-      this.originalFontSize = this.design.fontSize;
+    if (this.design.verticalPlacement === undefined) {
+      this.design.verticalPlacement = 50;
     }
 
     const loadElement = setInterval(() => {
@@ -125,10 +124,9 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     const textHeight = this.inputWrapper.nativeElement.offsetHeight;
     const canvasHeight = this.designWrapper.nativeElement.offsetHeight;
     const x = canvasHeight - textHeight;
-    const placement = this.verticalPlacement * (x / 100);
+    const placement = this.design.verticalPlacement * (x / 100);
 
     this.inputWrapper.nativeElement.style.top = placement + 'px';
-    console.log(this.verticalPlacement, textHeight, canvasHeight, placement);
   }
 
   showAddTextButton(): boolean {
@@ -228,26 +226,24 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       return;
     }
 
-    setTimeout(() => {
-      this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
-      const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
+    this.fontSize = this.getSizeDependingOnWidth(this.design.fontSize);
+    const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
 
-      if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
-        this.textInput.nativeElement.style.height = '0px';
-        this.textInput.nativeElement.style.minHeight = '0px';
-        this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
-        this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
-      }
+    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
+      this.textInput.nativeElement.style.height = '0px';
+      this.textInput.nativeElement.style.minHeight = '0px';
+      this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+      this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
+    }
 
-      if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
-        this.titleInput.nativeElement.style.height = '0px';
-        this.titleInput.nativeElement.style.minHeight = '0px';
-        this.inputTitleHeight = Math.round(this.titleInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
-        this.titleInput.nativeElement.style.height = this.inputTitleHeight + 'px';
-      }
+    if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
+      this.titleInput.nativeElement.style.height = '0px';
+      this.titleInput.nativeElement.style.minHeight = '0px';
+      this.inputTitleHeight = Math.round(this.titleInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
+      this.titleInput.nativeElement.style.height = this.inputTitleHeight + 'px';
+    }
 
-      this.triggerResize();
-    }, 15);
+    this.triggerResize();
   }
 
   triggerResize() {
