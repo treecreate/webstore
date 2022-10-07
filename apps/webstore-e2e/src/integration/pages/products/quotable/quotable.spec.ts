@@ -101,6 +101,94 @@ describe('QuotableProductPage', () => {
       // Expect
       cy.get('[data-cy=text]').should('contain', 'skrt skrt skrt');
     });
+
+    it('should change the title correctly', () => {
+      // Assert
+      cy.get('[data-cy=title]').should('contain', 'Navn');
+
+      // Act
+      cy.get('[data-cy=title-input-field]').clear().type('skrt skrt skrt');
+
+      // Expect
+      cy.get('[data-cy=title]').should('contain', 'skrt skrt skrt');
+    });
+  });
+
+  describe('design options', () => {
+    it('clicking removeTitle should remove title', () => {
+      cy.get('[data-cy=add-title-button]').should('not.exist');
+      cy.get('[data-cy=remove-title-button]').should('exist');
+
+      cy.get('[data-cy=remove-title-button]').should('exist').click({ force: true });
+      cy.get('[data-cy=add-title-button]').should('exist');
+    });
+
+    it('clicking removeText should remove Text', () => {
+      cy.get('[data-cy=add-text-button]').should('not.exist');
+      cy.get('[data-cy=remove-text-button]').should('exist');
+
+      cy.get('[data-cy=remove-text-button]').should('exist').click({ force: true });
+      cy.get('[data-cy=add-text-button]').should('exist');
+    });
+
+    it('should save showTitle and showText', () => {
+      cy.get('[data-cy=remove-title-button]').should('exist').click({ force: true });
+      cy.get('[data-cy=remove-text-button]').should('exist').click({ force: true });
+
+      cy.get('[data-cy=save-button]').click({ force: true });
+      cy.visit('/products/quotable');
+
+      cy.get('[data-cy=add-text-button]').should('exist');
+      cy.get('[data-cy=add-title-button]').should('exist');
+    });
+
+    it('should change the texts vertical placement', () => {
+      cy.get('[data-cy=vertical-placement]').should('contain', '50');
+
+      const rightArrows = '{rightarrow}'.repeat(50);
+      cy.get('[data-cy=vertical-placement-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(rightArrows);
+      });
+
+      cy.get('[data-cy=vertical-placement]').should('contain', '5');
+
+      const leftArrows = '{leftarrow}'.repeat(100);
+      cy.get('[data-cy=vertical-placement-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(leftArrows);
+      });
+
+      cy.get('[data-cy=vertical-placement]').should('contain', '95');
+    });
+
+    it('should hide options when clicking hide', () => {
+      cy.get('[data-cy=hide-quotable-options]').should('exist');
+
+      // Check that options are there
+      cy.get('[data-cy=vertical-placement-slider]').should('exist');
+      cy.get('[data-cy=remove-title-button]').should('exist');
+      cy.get('[data-cy=remove-text-button]').should('exist');
+
+      cy.get('[data-cy=hide-quotable-options]').click({ force: true });
+
+      // Check that options are hidden
+      cy.get('[data-cy=vertical-placement-slider]').should('not.exist');
+      cy.get('[data-cy=remove-title-button]').should('not.exist');
+      cy.get('[data-cy=remove-text-button]').should('not.exist');
+    });
+
+    it('saves the vertical placement', () => {
+      cy.get('[data-cy=vertical-placement]').should('contain', '50');
+
+      const rightArrows = '{rightarrow}'.repeat(50);
+      cy.get('[data-cy=vertical-placement-slider]').within(() => {
+        cy.get('[role=slider]').focus().type(rightArrows);
+      });
+
+      cy.get('[data-cy=save-button]').click({ force: true });
+
+      cy.visit('/products/quotable');
+      cy.get('[data-cy=vertical-placement]').should('contain', '5');
+    });
   });
 
   describe('Unauthenticated user actions', () => {
