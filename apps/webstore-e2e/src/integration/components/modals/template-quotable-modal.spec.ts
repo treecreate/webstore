@@ -24,6 +24,12 @@ describe('Template selection modal', () => {
     cy.get('[data-cy=template-select-btn]').first().click({ force: true });
     cy.get('[data-cy=save-button]').click({ force: true });
     cy.visit('/products/quotable');
+
     cy.get('[data-cy=text]').should('contain', 'Det eneste bedre');
+    cy.get('[data-cy=font-size]').should('contain', '40');
+    cy.get('[data-cy=title-input-field]').should('not.exist');
+    cy.get('[data-cy=show-text]').should('contain', 'true');
+    cy.get('[data-cy=show-title]').should('contain', 'false');
+    cy.get('[data-cy=vertical-placement]').should('contain', '35');
   });
 });
