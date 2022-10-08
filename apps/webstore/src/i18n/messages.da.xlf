@@ -1919,7 +1919,7 @@
       </trans-unit>
       <trans-unit id="our-mission-values-text-1" datatype="html">
         <source>We use no plastic, and all our wood comes from sustainable sources so you can always be certain that whatever you bring home, has been made with care for the environment. </source>
-        <target>Vi bruger 0% plastik og al vores træ stammer fra bæredygtige kilder, så du altid være sikker på, at hvad end du bestiller hjem, er blevet lavet med omtanke for miljøet.</target>
+        <target>Vi bruger 0% plastik og al vores træ stammer fra bæredygtige kilder, så du altid kan være sikker på, at hvad end du bestiller hjem, er blevet lavet med omtanke for miljøet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">73,76</context>
