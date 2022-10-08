@@ -416,9 +416,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     this.myBoxes.push(newBox);
     this.frameChanged = true;
 
-    if (this.myBoxes.length === 1) {
-      this.modalService.open(FamilyTreeTemplateModalComponent, { size: 'md' });
-    }
   }
 
   // Draw the entire canvas with the boxes etc
