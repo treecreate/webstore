@@ -190,6 +190,26 @@
   margin-top: 0.6em;
 }
 
+.input-error {
+  flex-grow: 1;
+  min-width: 250px;
+  background-color: var(--red-color);
+  color: white;
+  margin: 2em 0;
+  padding: 20px;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.input-error-wrapper {
+  width: 60vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media screen and (max-width: 600px) {
   .custom-order-requirements-section {
     display: flex;

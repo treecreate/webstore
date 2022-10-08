@@ -31,6 +31,7 @@ export class CustomOrderComponent implements OnInit {
   isLoggedIn = false;
   isLoading = false;
   isImageRequirementsRead = false;
+  sendCustomOrderClicked = false;
 
   uploadedFiles: File[] = [];
   maxFileSize = 20971520; // in bytes
@@ -124,6 +125,8 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitCustomOrder() {
+    this.sendCustomOrderClicked = true;
+
     if (!this.customOrderForm.valid || !this.isImageRequirementsRead) {
       // Go to earliest occurence of invalid input
       if (this.customOrderForm.get('name').invalid) {

@@ -197,6 +197,23 @@
             </div>
         </form>
     </div>
+    <div class="input-error-wrapper">
+        <div
+            class="input-error"
+            *ngIf="sendCustomOrderClicked && (customOrderForm.invalid || !isImageRequirementsRead)"
+            data-cy="checkout-shipping-input-error-message"
+        >
+            <span i18n="@@shipping-form-is-not-valid">Shipping address is not completed:</span>
+            <!-- Checkout form input fields -->
+            <li *ngIf="customOrderForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
+            <li *ngIf="customOrderForm.get('customerEmail').invalid" i18n="@@email-is-invalid">Email is invalid</li>
+            <li *ngIf="customOrderForm.get('description').invalid" i18n="@@missing-description">Missing description</li>
+            <li *ngIf="uploadedFiles.length === 0" i18n="@@missing-images">You need to upload at least one image</li>
+            <li *ngIf="!isImageRequirementsRead" i18n="@@read-image-description">
+                Please acknowledge that you have read the image requirements
+            </li>
+        </div>
+    </div>
     <div class="custom-order-examples">
         <h2 i18n="@@other-examples">Other examples</h2>
         <div class="custom-order-examples-container">
