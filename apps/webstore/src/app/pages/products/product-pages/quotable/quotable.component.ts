@@ -178,9 +178,13 @@ export class QuotableComponent implements OnInit {
 
   getDesignName(): string {
     // Update currentDesign before getting name
-    this.currentDesign = quotableFrames.findIndex((frame) => this.design.designSrc === frame.src);
+    this.currentDesign = this.productSpecificFrames.findIndex((frame) => this.design.designSrc === frame.src);
+    const allFramesIndex = quotableFrames.findIndex((frame) => this.design.designSrc === frame.src);
 
-    return this.isEnglish() ? quotableFrames[this.currentDesign].nameEn : quotableFrames[this.currentDesign].nameDk;
+    // Check that frame exists on product type || take it from the full list
+    const currentFrame = this.productSpecificFrames[this.currentDesign] ?? quotableFrames[allFramesIndex];
+
+    return this.isEnglish() ? currentFrame.nameEn : currentFrame.nameEn;
   }
 
   changeDesign(direction: string): void {
