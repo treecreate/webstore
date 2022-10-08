@@ -66,7 +66,6 @@ export class QuotableComponent implements OnInit {
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
 
   constructor(
@@ -90,12 +89,7 @@ export class QuotableComponent implements OnInit {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
 
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
-    });
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
 
     // Get product type
     this.route.queryParams.subscribe((params) => {

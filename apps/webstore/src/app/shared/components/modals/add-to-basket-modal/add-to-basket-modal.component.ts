@@ -42,7 +42,6 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   isMoreThan4 = false;
   itemsInBasket = 0;
   totalPrice = 0;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   design: IFamilyTree | IQoutable;
   isLoading = false;
@@ -67,13 +66,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
-    });
-
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
 

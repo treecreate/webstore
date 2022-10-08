@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DesignTypeEnum, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject } from 'rxjs';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 
 @Component({
@@ -18,12 +17,9 @@ export class CheckoutItemComponent implements OnInit {
   public designTypeEnum = DesignTypeEnum;
 
   public localeCode: LocaleType;
-  public locale$: BehaviorSubject<LocaleType>;
 
   constructor(private calculatePriceService: CalculatePriceService, private localStorageService: LocalStorageService) {
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
   ngOnInit(): void {

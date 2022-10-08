@@ -37,7 +37,6 @@ export class CheckoutComponent implements OnInit {
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
 
   isLoggedIn = false;
@@ -93,9 +92,7 @@ export class CheckoutComponent implements OnInit {
     private errorlogsService: ErrorlogsService,
     private toastService: ToastService
   ) {
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {

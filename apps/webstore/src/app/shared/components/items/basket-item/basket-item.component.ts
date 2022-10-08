@@ -40,7 +40,6 @@ export class BasketItemComponent implements OnInit {
   private authUser$: BehaviorSubject<IAuthUser>;
   public designTypeEnum = DesignTypeEnum;
   public localeCode: LocaleType;
-  public locale$: BehaviorSubject<LocaleType>;
 
   constructor(
     private calculatePriceService: CalculatePriceService,
@@ -57,9 +56,7 @@ export class BasketItemComponent implements OnInit {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
   ngOnInit(): void {

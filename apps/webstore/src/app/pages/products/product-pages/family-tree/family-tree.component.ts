@@ -69,7 +69,6 @@ export class FamilyTreeComponent implements OnInit {
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
 
   constructor(
@@ -92,13 +91,7 @@ export class FamilyTreeComponent implements OnInit {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
-    });
-
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     this.isIphone = this.iOS();
   }
 
@@ -396,25 +389,25 @@ export class FamilyTreeComponent implements OnInit {
   getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameDanishEnum | TreeDesignNameEnglishEnum {
     switch (treeDesign) {
       case TreeDesignEnum.tree1:
-        if (this.locale$.getValue() === LocaleType.da) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree1;
         } else {
           return TreeDesignNameEnglishEnum.tree1;
         }
       case TreeDesignEnum.tree2:
-        if (this.locale$.getValue() === LocaleType.da) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree2;
         } else {
           return TreeDesignNameEnglishEnum.tree2;
         }
       case TreeDesignEnum.tree3:
-        if (this.locale$.getValue() === LocaleType.da) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree3;
         } else {
           return TreeDesignNameEnglishEnum.tree3;
         }
       case TreeDesignEnum.tree4:
-        if (this.locale$.getValue() === LocaleType.da) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree4;
         } else {
           return TreeDesignNameEnglishEnum.tree4;
