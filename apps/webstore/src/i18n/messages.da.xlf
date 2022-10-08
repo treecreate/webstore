@@ -274,6 +274,22 @@
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="environmental-gifting" datatype="html">
+        <source>Environmental gifting</source>
+        <target>Miljøvenlige gaver</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="our-mission-values-text-2" datatype="html">
+        <source>The time of giving your aunt a vase or a floral carpet is over - with Treecreate you can with ease filter and find your way to the perfect gift to give a family member for christmas or birthday. </source>
+        <target>At give din tante en ligegyldig vase eller et blomster-mønstret gulvtæppe i gave er fortid - Med Treecreate kan du nemt finde og lave den perfekte gave at give familien til jul, fødselsdag eller en anden helligdag.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">151,154</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="values" datatype="html">
         <source>Values</source>
         <target>Værdier</target>
@@ -1883,6 +1899,46 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no-mass-production" datatype="html">
+        <source>No mass production,</source>
+        <target>Ingen masseproduktion</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="and-wastefull-production" datatype="html">
+        <source>and wastefull production</source>
+        <target>og spildproduktion</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="our-mission-values-text-1" datatype="html">
+        <source>We use no plastic, and all our wood comes from sustainable sources so you can always be certain that whatever you bring home, has been made with care for the environment. </source>
+        <target>Vi bruger 0% plastik og al vores træ stammer fra bæredygtige kilder, så du altid være sikker på, at hvad end du bestiller hjem, er blevet lavet med omtanke for miljøet.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">73,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="our-mission" datatype="html">
+        <source>Our mission</source>
+        <target>Vores mission</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="our-mission-statement" datatype="html">
+        <source>To make it possible for everyone to give a unique and personal gift of high quality in a sustainable way.</source>
+        <target>At gøre det muligt for alle at give en unik og personlig gave i høj kvalitet på en miljøvenlig måde.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">107,110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="title" datatype="html">
