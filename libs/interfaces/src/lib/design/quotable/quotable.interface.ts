@@ -1,4 +1,3 @@
-import { QuotableDesignEnum } from '@assets';
 import { DesignFontEnum, QuotableType } from '..';
 
 export interface IQoutable {

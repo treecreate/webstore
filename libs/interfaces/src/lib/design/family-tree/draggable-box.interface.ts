@@ -1,4 +1,6 @@
 import { ComponentRef } from '@angular/core';
+
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { BoxDesignEnum } from '@assets';
 
 export interface IDraggableBox {
