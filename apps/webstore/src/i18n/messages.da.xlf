@@ -1941,14 +1941,6 @@
           <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="use-template" datatype="html">
-        <source>Use template</source>
-        <target>Brug skabelon</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">191</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="add-to-basket-tooltip" datatype="html">
         <source>You need to login before adding to basket. Dont worry, your design will still be here if you go to the login page and come back.</source>
         <target>Du skal være logget ind før du kan ligge dit design i kurven. Frygt ej, dit design vil stadig være her efter du er logget ind. </target> 
