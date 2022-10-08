@@ -1,11 +1,11 @@
 import { QuotableDesignEnum } from '@assets';
-import { DesignFontEnum, IQuotableTemplate, QuotableType } from '@interfaces';
+import { DesignFontEnum, IQuotableTemplate, QuotableTypeEnum } from '@interfaces';
 
 export const quotableTemplateList: IQuotableTemplate[] = [
   //    QUOTABLE
   {
     name: 'Til Farmor/Farfar',
-    type: QuotableType.quotable,
+    type: QuotableTypeEnum.quotable,
     designProps: {
       showText: true,
       showTitle: false,
@@ -19,7 +19,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Til Mor/Far',
-    type: QuotableType.quotable,
+    type: QuotableTypeEnum.quotable,
     designProps: {
       showText: true,
       showTitle: false,
@@ -33,7 +33,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Til Mor/Far 2',
-    type: QuotableType.quotable,
+    type: QuotableTypeEnum.quotable,
     designProps: {
       showText: true,
       showTitle: true,
@@ -47,7 +47,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Kærligheds citat',
-    type: QuotableType.quotable,
+    type: QuotableTypeEnum.quotable,
     designProps: {
       showText: true,
       showTitle: true,
@@ -62,7 +62,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   //   LOVE LETTER
   {
     name: 'Dit navn i skyrne',
-    type: QuotableType.loveLetter,
+    type: QuotableTypeEnum.loveLetter,
     designProps: {
       showText: true,
       showTitle: true,
@@ -76,7 +76,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Min elskede',
-    type: QuotableType.loveLetter,
+    type: QuotableTypeEnum.loveLetter,
     designProps: {
       showText: true,
       showTitle: true,
@@ -90,7 +90,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Blomsterkransen',
-    type: QuotableType.loveLetter,
+    type: QuotableTypeEnum.loveLetter,
     designProps: {
       showText: true,
       showTitle: true,
@@ -105,7 +105,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   //   BABY SIGN
   {
     name: 'Kærnefamilien',
-    type: QuotableType.babySign,
+    type: QuotableTypeEnum.babySign,
     designProps: {
       showText: true,
       showTitle: true,
@@ -119,7 +119,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Børne tavle',
-    type: QuotableType.babySign,
+    type: QuotableTypeEnum.babySign,
     designProps: {
       showText: true,
       showTitle: true,
@@ -133,7 +133,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Mor og barn',
-    type: QuotableType.babySign,
+    type: QuotableTypeEnum.babySign,
     designProps: {
       showText: true,
       showTitle: true,
@@ -147,7 +147,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Forældrene',
-    type: QuotableType.babySign,
+    type: QuotableTypeEnum.babySign,
     designProps: {
       showText: true,
       showTitle: true,
@@ -161,7 +161,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Den nyfødte',
-    type: QuotableType.babySign,
+    type: QuotableTypeEnum.babySign,
     designProps: {
       showText: true,
       showTitle: true,
@@ -175,7 +175,7 @@ export const quotableTemplateList: IQuotableTemplate[] = [
   },
   {
     name: 'Barnets forældre',
-    type: QuotableType.babySign,
+    type: QuotableTypeEnum.babySign,
     designProps: {
       showText: true,
       showTitle: true,

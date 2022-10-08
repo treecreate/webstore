@@ -1,4 +1,4 @@
-export enum QuotableType {
+export enum QuotableTypeEnum {
   quotable = 'QUOTABLE',
   babySign = 'BABY_SIGN',
   personal = 'PERSONAL',

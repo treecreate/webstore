@@ -1,4 +1,4 @@
-import { QuotableType } from '@interfaces';
+import { QuotableTypeEnum } from '@interfaces';
 
 export interface ProductsItem {
   titleEn: string;
@@ -54,7 +54,7 @@ const quotable: ProductsItem = {
   altText: 'En smuk citat ramme med dit personlige citat på. Perfekt som gave.',
   specialOffer: '',
   routerLink: 'quotable',
-  productType: QuotableType.quotable,
+  productType: QuotableTypeEnum.quotable,
 };
 
 const babySign: ProductsItem = {
@@ -69,7 +69,7 @@ const babySign: ProductsItem = {
   altText: 'Et flot baby skilt. Perfekt som barnedåbs gave.',
   specialOffer: '',
   routerLink: 'quotable',
-  productType: QuotableType.babySign,
+  productType: QuotableTypeEnum.babySign,
 };
 
 const loveLetter: ProductsItem = {
@@ -84,7 +84,7 @@ const loveLetter: ProductsItem = {
   altText: 'Et romantisk kærlighedsbrev skåret i egetræ.',
   specialOffer: '',
   routerLink: 'quotable',
-  productType: QuotableType.loveLetter,
+  productType: QuotableTypeEnum.loveLetter,
 };
 
 // const anniversary: ProductsItem = {
@@ -99,7 +99,7 @@ const loveLetter: ProductsItem = {
 //   altText: 'Et romantisk kærlighedsbrev skåret i egetræ.',
 //   specialOffer: '',
 //   routerLink: 'quotable',
-//   productType: QuotableType.anniversary,
+//   productType: QuotableTypeEnum.anniversary,
 // };
 
 const productsList: ProductsItem[] = [familyTree, babySign, quotable, loveLetter, unique];

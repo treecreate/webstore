@@ -1,3 +1,4 @@
+import { Options } from '@angular-slider/ngx-slider';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {
   AfterViewInit,
@@ -14,12 +15,11 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IQoutable, QuotableType } from '@interfaces';
+import { IQoutable, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { take } from 'rxjs';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
-import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'webstore-quotable-design',
@@ -38,7 +38,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   @Input() isMutable = false;
   @Input() design: IQoutable;
-  @Input() quotableType: QuotableType;
+  @Input() QuotableTypeEnum: QuotableTypeEnum;
   @Input() showInputFieldOptions: boolean;
 
   @Output() isDesignValidEvent = new EventEmitter<boolean>();
@@ -170,14 +170,14 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     }
 
     // Save the design depending on quotable type
-    switch (this.quotableType) {
-      case QuotableType.babySign:
+    switch (this.QuotableTypeEnum) {
+      case QuotableTypeEnum.babySign:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
         break;
-      case QuotableType.loveLetter:
+      case QuotableTypeEnum.loveLetter:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
         break;
-      case QuotableType.quotable:
+      case QuotableTypeEnum.quotable:
       default:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
     }

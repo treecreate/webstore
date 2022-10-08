@@ -9,8 +9,11 @@ import {
   ErrorlogPriorityEnum,
   IAuthUser,
   IDesign,
-  IQoutable, IQuotableFrameInfo, ITransactionItem, quotableFrames,
-  QuotableType
+  IQoutable,
+  IQuotableFrameInfo,
+  ITransactionItem,
+  quotableFrames,
+  QuotableTypeEnum,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -41,7 +44,7 @@ export class QuotableComponent implements OnInit {
   @ViewChild('quotableDesign', { static: false })
   quotableDesign: QuotableDesignComponent;
   toggleUserOptionsIcon = BoxOptionsDesignEnum.boxOptionsVisible;
-  quotableType: QuotableType;
+  quotableType: QuotableTypeEnum;
 
   isDesignValid = false;
 
@@ -123,7 +126,7 @@ export class QuotableComponent implements OnInit {
 
   setMetaData() {
     switch (this.quotableType) {
-      case QuotableType.babySign:
+      case QuotableTypeEnum.babySign:
         this.metaTitle.setTitle('Fødselsminde indgraveret i træ');
         this.meta.updateTag({
           name: 'description',
@@ -135,7 +138,7 @@ export class QuotableComponent implements OnInit {
           content: 'Spædbarn, baby, barn, børneminder, fødsel, nybagt forælder, forældre, gave til forældre',
         });
         break;
-      case QuotableType.loveLetter:
+      case QuotableTypeEnum.loveLetter:
         this.metaTitle.setTitle('Personlig og unik kærlighedserklæring i træ');
         this.meta.updateTag({
           name: 'description',
@@ -148,7 +151,7 @@ export class QuotableComponent implements OnInit {
             'unik og personlig gave, kærlighed, kæreste, gave til kæreste, gave til partner, kærlighedserklæring',
         });
         break;
-      case QuotableType.quotable:
+      case QuotableTypeEnum.quotable:
       default:
         this.metaTitle.setTitle('Citat eller minde skåret i træ');
         this.meta.updateTag({
@@ -425,13 +428,13 @@ export class QuotableComponent implements OnInit {
 
   loadTypeSpecificDesign() {
     switch (this.quotableType) {
-      case QuotableType.babySign:
+      case QuotableTypeEnum.babySign:
         this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
         break;
-      case QuotableType.loveLetter:
+      case QuotableTypeEnum.loveLetter:
         this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
         break;
-      case QuotableType.quotable:
+      case QuotableTypeEnum.quotable:
       default:
         this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
     }
@@ -440,13 +443,13 @@ export class QuotableComponent implements OnInit {
   setProductInLocal(): void {
     // Get the correct design type
     switch (this.quotableType) {
-      case QuotableType.babySign:
+      case QuotableTypeEnum.babySign:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
         break;
-      case QuotableType.loveLetter:
+      case QuotableTypeEnum.loveLetter:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, this.design);
         break;
-      case QuotableType.quotable:
+      case QuotableTypeEnum.quotable:
       default:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, this.design);
     }
@@ -454,13 +457,13 @@ export class QuotableComponent implements OnInit {
 
   removeProductFromLocal(): void {
     switch (this.quotableType) {
-      case QuotableType.babySign:
+      case QuotableTypeEnum.babySign:
         this.localStorageService.removeItem(LocalStorageVars.designBabySign);
         break;
-      case QuotableType.loveLetter:
+      case QuotableTypeEnum.loveLetter:
         this.localStorageService.removeItem(LocalStorageVars.designLoveLetter);
         break;
-      case QuotableType.quotable:
+      case QuotableTypeEnum.quotable:
       default:
         this.localStorageService.removeItem(LocalStorageVars.designQuotable);
     }
@@ -497,6 +500,6 @@ export class QuotableComponent implements OnInit {
   openQuotableTemplateModal(): void {
     const modalRef = this.modalService.open(QuotableTemplateModalComponent);
     modalRef.componentInstance.designType = DesignTypeEnum.quotable;
-    modalRef.componentInstance.quotableType = this.quotableType ?? QuotableType.quotable;
+    modalRef.componentInstance.quotableType = this.quotableType ?? QuotableTypeEnum.quotable;
   }
 }

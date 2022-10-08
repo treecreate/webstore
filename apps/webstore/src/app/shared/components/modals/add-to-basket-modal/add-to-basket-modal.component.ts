@@ -10,7 +10,7 @@ import {
   IFamilyTree,
   IQoutable,
   ITransactionItem,
-  QuotableType,
+  QuotableTypeEnum,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -35,7 +35,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   designType?: DesignTypeEnum;
 
   @Input()
-  quotableType?: QuotableType;
+  quotableType?: QuotableTypeEnum;
 
   addToBasketForm: UntypedFormGroup;
   price = 0;
@@ -103,13 +103,13 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
       default:
         if (this.quotableType) {
           switch (this.quotableType) {
-            case QuotableType.babySign:
+            case QuotableTypeEnum.babySign:
               this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
               break;
-            case QuotableType.loveLetter:
+            case QuotableTypeEnum.loveLetter:
               this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
               break;
-            case QuotableType.quotable:
+            case QuotableTypeEnum.quotable:
             default:
               this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
           }

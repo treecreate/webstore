@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IQoutable, IQuotableTemplate, QuotableType } from '@interfaces';
+import { IQoutable, IQuotableTemplate, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +14,7 @@ import { quotableTemplateList } from './quotable-template-list';
 })
 export class QuotableTemplateModalComponent implements OnInit {
   @Input()
-  quotableType!: QuotableType;
+  quotableType!: QuotableTypeEnum;
 
   templateList: IQuotableTemplate[];
 
@@ -50,11 +50,11 @@ export class QuotableTemplateModalComponent implements OnInit {
   getCurrentDesign(): IQoutable {
     // Get design from localstorage
     switch (this.quotableType) {
-      case QuotableType.babySign:
+      case QuotableTypeEnum.babySign:
         return this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
-      case QuotableType.loveLetter:
+      case QuotableTypeEnum.loveLetter:
         return this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
-      case QuotableType.quotable:
+      case QuotableTypeEnum.quotable:
       default:
         return this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
     }
@@ -63,13 +63,13 @@ export class QuotableTemplateModalComponent implements OnInit {
   setNewDesignFromTemplate(quotableDesign: IQoutable): void {
     // Set the new design in localstorage
     switch (this.quotableType) {
-      case QuotableType.babySign:
+      case QuotableTypeEnum.babySign:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, quotableDesign);
         break;
-      case QuotableType.loveLetter:
+      case QuotableTypeEnum.loveLetter:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designLoveLetter, quotableDesign);
         break;
-      case QuotableType.quotable:
+      case QuotableTypeEnum.quotable:
       default:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, quotableDesign);
     }
