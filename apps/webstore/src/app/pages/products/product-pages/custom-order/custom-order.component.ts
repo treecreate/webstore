@@ -101,7 +101,7 @@ export class CustomOrderComponent implements OnInit {
       ]),
       customerEmail: new UntypedFormControl('', [Validators.required, Validators.email]),
       description: new UntypedFormControl('', [
-        Validators.maxLength(2000),
+        Validators.maxLength(1000),
         Validators.minLength(1),
         Validators.required,
       ]),

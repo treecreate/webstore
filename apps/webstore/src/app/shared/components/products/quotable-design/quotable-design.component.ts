@@ -61,7 +61,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   autosaveInterval;
   // design autosave frequency, in seconds
-  autosaveFrequencyInSeconds = 15;
+  autosaveFrequencyInSeconds = 30;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -121,26 +121,22 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   showAddTextButton(): boolean {
-    if (!this.design.showText && this.isMutable) {
-      return true;
-    } else {
-      return false;
-    }
+    return !this.design.showText && this.isMutable;
   }
 
   getDesignSrc(): string {
-    const isDepricatedSrc =
+    const isDeprecatedSrc =
       !this.design.designSrc.includes('frame0-no-design.svg') &&
       this.design.designSrc.includes('assets/quotable/frame-design/frame');
     // for depricated src links
-    if (isDepricatedSrc) {
+    if (isDeprecatedSrc) {
       return this.design.designSrc.replace('assets/quotable/frame-design/', 'assets/quotable/frame-design/quotable/');
     } else {
       return this.design.designSrc;
     }
   }
 
-  handleFailedResourceLoading(message: string) {
+  handleFailedResourceLoading(message: string): void {
     console.error(message);
     // stop the design autosave
     clearInterval(this.autosaveInterval);
@@ -149,17 +145,17 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     this.isDesignValidEvent.emit(this.isDesignValid);
   }
 
-  updateText($event) {
+  updateText($event): void {
     this.changeText.emit($event);
     this.adjustInputDimensions();
   }
 
-  updateTitleText($event) {
+  updateTitleText($event): void {
     this.changeTitleText.emit($event);
     this.adjustInputDimensions();
   }
 
-  saveDesign() {
+  saveDesign(): void {
     if (!this.isMutable) {
       return;
     }
@@ -167,7 +163,6 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     if (!this.isDesignValid) {
       console.warn('The design is not valid, and thus it cannot get saved!');
       this.errorlogsService.create('webstore.quotable-design.save-design-because-invalid');
-      return false;
     }
 
     // Save the design depending on quotable type

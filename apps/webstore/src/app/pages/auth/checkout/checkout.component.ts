@@ -17,6 +17,7 @@ import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
+import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
@@ -89,7 +90,8 @@ export class CheckoutComponent implements OnInit {
     private authService: AuthService,
     private orderService: OrderService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private toastService: ToastService
   ) {
     // Listen to changes to locale
     this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
@@ -485,13 +487,17 @@ export class CheckoutComponent implements OnInit {
         .toPromise()
         .catch((error) => {
           console.warn(error);
+          this.errorlogsService.create('webstore.about-us.newsletter-signup-failed', ErrorlogPriorityEnum.high, error);
+          this.toastService.showAlert('Invalid email', 'Ugyldig email', 'danger', 5000);
           this.isLoading = false;
         });
-      this.eventsService.create('webstore.checkout.registered-on-order');
 
       if (!user) {
         return;
       }
+
+      this.eventsService.create('webstore.checkout.registered-on-order');
+
       // set the new user logged in data
       this.authService.saveAuthUser(user);
       await this.transactionItemService.createBulkTransactionItem({ transactionItems: this.itemList }).toPromise();

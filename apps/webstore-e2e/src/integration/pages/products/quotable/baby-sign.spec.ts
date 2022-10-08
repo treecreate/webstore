@@ -37,7 +37,7 @@ describe('BabySignProductPage', () => {
       cy.get('[data-cy=show-title]').should('contain', 'true');
     });
 
-    it('goes to the right frame when pressing prev', () => {
+    it('changes the frame correctly', () => {
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/baby-sign/frame18.svg');
 
       cy.get('[data-cy=prev-design-button]').click({ force: true });
