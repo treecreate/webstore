@@ -60,7 +60,7 @@ export class FamilyTreeComponent implements OnInit {
   design: IFamilyTree = {
     font: this.defaultFont,
     backgroundTreeDesign: this.defaultBackgroundTreeDesign,
-    banner: { text: 'Stamtræet', style: 'first' },
+    banner: { text: 'Familietræet', style: 'first' },
     boxSize: 40,
     boxes: [],
   };
@@ -193,7 +193,7 @@ export class FamilyTreeComponent implements OnInit {
         this.design = {
           font: this.defaultFont,
           backgroundTreeDesign: this.defaultBackgroundTreeDesign,
-          banner: { text: 'Stamtræet', style: 'first' },
+          banner: { text: 'Familietræet', style: 'first' },
           boxSize: 20,
           boxes: [],
         };
