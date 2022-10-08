@@ -21,4 +21,6 @@ canvas {
   top: 2.5%;
   height: 95%;
   width: 95%;
+  outline: 2px solid rgba($color: #000000, $alpha: 0.25);
+  outline-offset: 7px;
 }

@@ -18,18 +18,18 @@
 }
 
 .template-container {
-  margin: 2em 4em;
+  margin: 2em 3em;
   min-width: 250px;
   width: 450px;
   min-height: 350px;
   text-align: center;
 
   &:first-of-type {
-    margin-left: 8em;
+    margin-left: 6em;
   }
 
   &:last-of-type {
-    margin-right: 8em;
+    margin-right: 6em;
   }
 
   & webstore-quotable-design {
@@ -55,4 +55,18 @@
 ::-webkit-scrollbar-thumb {
   background: var(--second-action-color);
   border-radius: 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .template-container {
+    margin: 2em 1.25em;
+
+    &:first-of-type {
+      margin-left: 2em;
+    }
+
+    &:last-of-type {
+      margin-right: 2em;
+    }
+  }
 }
