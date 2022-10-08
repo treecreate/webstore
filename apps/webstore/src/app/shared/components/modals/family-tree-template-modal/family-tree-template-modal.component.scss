@@ -1,6 +1,6 @@
 .modal-body {
   padding: 0 !important;
-  height: fit-content !important;
+  height: auto !important;
 }
 
 .modal-body span {
@@ -31,8 +31,28 @@
 
 .template-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 2em;
+  min-width: 350px;
+  margin: 2em 4em;
+  overflow-x: scroll;
+  overflow-y: auto;
+  min-height: 350px;
+  max-height: 500px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  background-color: var(--light-action-color);
+  border-radius: 10px;
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--second-action-color);
+  border-radius: 10px;
 }
