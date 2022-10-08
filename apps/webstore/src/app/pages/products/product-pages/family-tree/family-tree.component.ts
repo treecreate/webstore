@@ -486,4 +486,9 @@ export class FamilyTreeComponent implements OnInit {
       this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsHidden;
     }
   }
+
+  conditionalTemplateOpen() {
+    console.log(this.design.boxes);
+    
+  }
 }

@@ -27,8 +27,10 @@ import {
 import { ErrorlogPriorityEnum, IDesign, IDraggableBox, IFamilyTree } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
 import { ErrorlogsService } from '../../../../services/errorlog/errorlog.service';
+import { FamilyTreeTemplateModalComponent } from '../../../modals/family-tree-template-modal/family-tree-template-modal.component';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({
@@ -70,7 +72,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
   // FPS of the render loop
   framesPerSecond = 60;
   // design autosave frequency, in seconds
-  autosaveFrequencyInSeconds = 30;
+  autosaveFrequencyInSeconds = 15;
 
   canvasResolution = {
     height: 2000,
@@ -171,7 +173,8 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     private cdr: ChangeDetectorRef,
     private localStorageService: LocalStorageService,
     private familyTreeDesignService: FamilyTreeDesignService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private modalService: NgbModal,
   ) {}
 
   ngOnInit(): void {
@@ -412,6 +415,10 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
     this.myBoxes.push(newBox);
     this.frameChanged = true;
+    
+    if(this.myBoxes.length === 1){
+      this.modalService.open(FamilyTreeTemplateModalComponent, {size: 'md'})
+    }
   }
 
   // Draw the entire canvas with the boxes etc
