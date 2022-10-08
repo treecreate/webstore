@@ -37,11 +37,11 @@ export class QuotableTemplateModalComponent implements OnInit {
 
     const quotableDesign = this.getCurrentDesign();
 
-    quotableDesign.fontSize = template.fontSize;
-    quotableDesign.showTitle = template.showTitle;
-    quotableDesign.title = template.title;
-    quotableDesign.showText = template.showText;
-    quotableDesign.text = template.text;
+    quotableDesign.fontSize = template.designProps.fontSize;
+    quotableDesign.showTitle = template.designProps.showTitle;
+    quotableDesign.title = template.designProps.title;
+    quotableDesign.showText = template.designProps.showText;
+    quotableDesign.text = template.designProps.text;
 
     this.setNewDesignFromTemplate(quotableDesign);
 
