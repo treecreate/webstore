@@ -1,11 +1,5 @@
-import {
-  QuotableDesignEnum,
-  QuotableDesignNameDanishEnum,
-  QuotableDesignNameEnglishEnum,
-} from './quotable-design.enum';
-
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import { QuotableType } from '@interfaces';
+import { QuotableDesignEnum, QuotableDesignNameDanishEnum, QuotableDesignNameEnglishEnum } from '@assets';
+import { QuotableType } from './quotable.design-type.enum';
 
 export interface QuotableFrameInfo {
   src: string;

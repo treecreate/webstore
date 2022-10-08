@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoxOptionsDesignEnum, quotableFrames, QuotableFrameInfo } from '@assets';
+import { BoxOptionsDesignEnum } from '@assets';
 import {
   DesignFontEnum,
   DesignTypeEnum,
@@ -11,6 +11,8 @@ import {
   IDesign,
   IQoutable,
   ITransactionItem,
+  QuotableFrameInfo,
+  quotableFrames,
   QuotableType,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
