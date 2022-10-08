@@ -18,7 +18,7 @@ import { customOrderExamples } from './custom-order-examples.constant';
 @Component({
   selector: 'webstore-custom-order',
   templateUrl: './custom-order.component.html',
-  styleUrls: ['./custom-order.component.css', '../../../../../assets/styles/tc-input-field.scss'],
+  styleUrls: ['./custom-order.component.scss', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class CustomOrderComponent implements OnInit {
   customOrderExampleList: CustomOrderExampleType[] = customOrderExamples;

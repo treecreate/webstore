@@ -5,6 +5,11 @@
   margin-top: 100px;
   min-height: 100vh;
   margin: 5em 1em 1em 1em;
+
+  & .back-container {
+    width: 60vw;
+    padding-left: 0;
+  }
 }
 
 .custom-order-content-container {
@@ -229,5 +234,12 @@
 
   .custom-order-upload-image-section {
     flex-direction: column-reverse;
+  }
+
+  .custom-order-container {
+    & .back-container {
+      width: 100%;
+      margin-left: 1em;
+    }
   }
 }
