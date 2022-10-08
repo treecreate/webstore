@@ -174,7 +174,7 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
     private localStorageService: LocalStorageService,
     private familyTreeDesignService: FamilyTreeDesignService,
     private errorlogsService: ErrorlogsService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -415,9 +415,9 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
     this.myBoxes.push(newBox);
     this.frameChanged = true;
-    
-    if(this.myBoxes.length === 1){
-      this.modalService.open(FamilyTreeTemplateModalComponent, {size: 'md'})
+
+    if (this.myBoxes.length === 1) {
+      this.modalService.open(FamilyTreeTemplateModalComponent, { size: 'md' });
     }
   }
 

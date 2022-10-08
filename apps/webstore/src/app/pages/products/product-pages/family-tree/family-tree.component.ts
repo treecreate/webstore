@@ -486,5 +486,4 @@ export class FamilyTreeComponent implements OnInit {
       this.toggleBoxOptionsIcon = BoxOptionsDesignEnum.boxOptionsHidden;
     }
   }
-
 }

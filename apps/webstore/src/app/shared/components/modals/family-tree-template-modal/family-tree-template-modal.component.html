@@ -11,27 +11,27 @@
     <div class="modal-body">
         <div class="template-container">
             <div *ngFor="let template of templateList">
-                    <div class="template-img-container">
-                        <img
-                            [src]="'assets/img/family-tree/family-tree-template-img/' + template.name + '.png'"
-                            [alt]="'template image: ' + template.name"
-                            class="template-img"
-                        />
-                    </div>
-                    <div class="template-title-container">
-                        {{ template.title }}
-                    </div>
-                    <button
-                        type="button"
-                        class="tc-button-50"
-                        (click)="applyTemplate(template.name)"
-                        data-cy="template-select-btn"
-                        i18n="@@select"
-                    >
-                        Select
-                    </button>
+                <div class="template-img-container">
+                    <img
+                        [src]="'assets/img/family-tree/family-tree-template-img/' + template.name + '.png'"
+                        [alt]="'template image: ' + template.name"
+                        class="template-img"
+                    />
                 </div>
+                <div class="template-title-container">
+                    {{ template.title }}
+                </div>
+                <button
+                    type="button"
+                    class="tc-button-50"
+                    (click)="applyTemplate(template.name)"
+                    data-cy="template-select-btn"
+                    i18n="@@select"
+                >
+                    Select
+                </button>
             </div>
+        </div>
     </div>
 </div>
 <div class="hide" data-cy="template-option" *ngFor="let template of templateList">{{ template.name }}</div>
