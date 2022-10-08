@@ -9,8 +9,7 @@
         </div>
     </div>
     <div class="modal-body">
-        <ngb-carousel class="carousel-container">
-            <ng-template ngbSlide *ngFor="let template of templateList">
+            <div *ngFor="let template of templateList">
                 <div class="template-container">
                     <div class="template-img-container">
                         <img
@@ -32,9 +31,7 @@
                         Select
                     </button>
                 </div>
-            </ng-template>
-        </ngb-carousel>
-        <span></span>
+            </div>
     </div>
 </div>
 <div class="hide" data-cy="template-option" *ngFor="let template of templateList">{{ template.name }}</div>
