@@ -58,7 +58,7 @@ public class Errorlog {
   private String browser;
 
   @NotBlank
-  @Size(max = 50)
+  @Size(max = 100)
   @ApiModelProperty(name = "Page url", example = "https://treecreate.dk/login", required = true)
   private String url;
 
