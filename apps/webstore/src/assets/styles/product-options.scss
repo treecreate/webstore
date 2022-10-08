@@ -224,17 +224,6 @@
   margin: 10px 0 0px !important;
 }
 
-// ::ng-deep.ngx-slider .ngx-slider-pointer {
-//   width: 20px !important;
-//   height: 20px !important;
-//   top: -8px !important;
-// }
-
-// ::ng-deep.ngx-slider .ngx-slider-pointer:after {
-//   top: 6px !important;
-//   left: 6px !important;
-// }
-
 // vertical slider
 
 ::ng-deep.ngx-slider.vertical {
@@ -261,7 +250,7 @@
 @media screen and (max-width: 640px) {
   .mobile-options-items {
     transform: scale(0.7);
-    bottom: -4em !important;
+    bottom: -3em !important;
     left: -2.25em;
   }
 
