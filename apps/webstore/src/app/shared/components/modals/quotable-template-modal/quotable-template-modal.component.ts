@@ -35,18 +35,15 @@ export class QuotableTemplateModalComponent implements OnInit {
       (selectedTemplate) => selectedTemplate.name === templateName
     );
 
-    const quotableDesign = this.getCurrentDesign();
-
-    quotableDesign.fontSize = template.designProps.fontSize;
-    quotableDesign.showTitle = template.designProps.showTitle;
-    quotableDesign.title = template.designProps.title;
-    quotableDesign.showText = template.designProps.showText;
-    quotableDesign.text = template.designProps.text;
-
-    this.setNewDesignFromTemplate(quotableDesign);
+    this.setNewDesignFromTemplate(template.designProps);
 
     this.eventsService.create(`webstore.quotable-template-modal.applied-template.${templateName}`);
-    this.router.navigate(['/products/quotable']);
+    this.router.navigate(['/products/quotable'], {
+      queryParams: {
+        designId: null,
+      },
+      queryParamsHandling: 'merge',
+    });
     location.reload();
   }
 

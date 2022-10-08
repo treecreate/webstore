@@ -16,6 +16,7 @@ import {
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { quotableTemplateList } from 'apps/webstore/src/app/shared/components/modals/quotable-template-modal/quotable-template-list';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
 import { QuotableTemplateModalComponent } from '../../../../shared/components/modals/quotable-template-modal/quotable-template-modal.component';
@@ -177,11 +178,9 @@ export class QuotableComponent implements OnInit {
 
   getDesignName(): string {
     // Update currentDesign before getting name
-    this.currentDesign = this.productSpecificFrames.findIndex((frame) => this.design.designSrc === frame.src);
+    this.currentDesign = quotableFrames.findIndex((frame) => this.design.designSrc === frame.src);
 
-    return this.isEnglish()
-      ? this.productSpecificFrames[this.currentDesign].nameEn
-      : this.productSpecificFrames[this.currentDesign].nameDk;
+    return this.isEnglish() ? quotableFrames[this.currentDesign].nameEn : quotableFrames[this.currentDesign].nameDk;
   }
 
   changeDesign(direction: string): void {
