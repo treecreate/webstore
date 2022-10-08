@@ -484,8 +484,13 @@ export class CheckoutComponent implements OnInit {
         .toPromise()
         .catch((error) => {
           console.warn(error);
-          this.errorlogsService.create('webstore.about-us.newsletter-signup-failed', ErrorlogPriorityEnum.high, error);
-          this.toastService.showAlert('Invalid email', 'Ugyldig email', 'danger', 5000);
+          this.errorlogsService.create('webstore.about-us.register-on-order-failed', ErrorlogPriorityEnum.high, error);
+          this.toastService.showAlert(
+            'Failed to create order, please try again',
+            'Der skete en fejl ved ordren, prøv venligst igen',
+            'danger',
+            5000
+          );
           this.isLoading = false;
         });
 

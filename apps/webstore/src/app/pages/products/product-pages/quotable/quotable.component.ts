@@ -96,7 +96,7 @@ export class QuotableComponent implements OnInit {
       this.quotableType = params.productType;
     });
 
-    // Set product frames dependent on prodcut type
+    // Set product frames dependent on product type
     this.productSpecificFrames = this.quotableType
       ? quotableFrames.filter((frame) => frame.productType.includes(this.quotableType))
       : quotableFrames;
@@ -183,8 +183,6 @@ export class QuotableComponent implements OnInit {
   }
 
   changeDesign(direction: string): void {
-    console.log('\ndir:' + direction);
-    console.log('curr:' + this.currentDesign, 'url:' + this.productSpecificFrames[this.currentDesign].src);
     switch (direction) {
       case 'next':
         if (this.currentDesign < this.productSpecificFrames.length - 1) {
