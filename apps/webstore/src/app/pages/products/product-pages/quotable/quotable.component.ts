@@ -9,11 +9,8 @@ import {
   ErrorlogPriorityEnum,
   IAuthUser,
   IDesign,
-  IQoutable,
-  ITransactionItem,
-  QuotableFrameInfo,
-  quotableFrames,
-  QuotableType,
+  IQoutable, IQuotableFrameInfo, ITransactionItem, quotableFrames,
+  QuotableType
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -39,7 +36,7 @@ import { EventsService } from '../../../../shared/services/events/events.service
   ],
 })
 export class QuotableComponent implements OnInit {
-  productSpecificFrames: QuotableFrameInfo[];
+  productSpecificFrames: IQuotableFrameInfo[];
 
   @ViewChild('quotableDesign', { static: false })
   quotableDesign: QuotableDesignComponent;

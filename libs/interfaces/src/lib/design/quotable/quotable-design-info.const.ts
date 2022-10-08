@@ -1,8 +1,8 @@
 import { QuotableDesignEnum, QuotableDesignNameDanishEnum, QuotableDesignNameEnglishEnum } from '@assets';
-import { QuotableFrameInfo } from './quotable-design-info.interface';
+import { IQuotableFrameInfo } from './quotable-design-info.interface';
 import { QuotableType } from './quotable.design-type.enum';
 
-export const quotableFrames: QuotableFrameInfo[] = [
+export const quotableFrames: IQuotableFrameInfo[] = [
   {
     src: QuotableDesignEnum.noFrame,
     nameDk: QuotableDesignNameDanishEnum.noFrame,
