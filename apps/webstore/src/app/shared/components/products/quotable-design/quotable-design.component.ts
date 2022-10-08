@@ -74,12 +74,16 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       this.design.verticalPlacement = 50;
     }
 
-    const loadElement = setInterval(() => {
-      if (this.designWrapper !== undefined && this.designWrapper.nativeElement !== undefined) {
-        this.isLoading = false;
-        clearInterval(loadElement);
-      }
-    }, 10);
+    if (this.designWrapper !== undefined && this.designWrapper.nativeElement !== undefined) {
+      this.isLoading = false;
+    } else {
+      const loadElement = setInterval(() => {
+        if (this.designWrapper !== undefined && this.designWrapper.nativeElement !== undefined) {
+          this.isLoading = false;
+          clearInterval(loadElement);
+        }
+      }, 20);
+    }
 
     // Has to be seperate from the previous interval since it has to be done loading
     const loadHeight = setInterval(() => {
