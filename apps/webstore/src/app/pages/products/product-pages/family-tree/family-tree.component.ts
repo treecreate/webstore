@@ -487,8 +487,4 @@ export class FamilyTreeComponent implements OnInit {
     }
   }
 
-  conditionalTemplateOpen() {
-    console.log(this.design.boxes);
-    
-  }
 }

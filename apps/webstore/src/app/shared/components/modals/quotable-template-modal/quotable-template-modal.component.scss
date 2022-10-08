@@ -7,10 +7,6 @@
   margin-bottom: 20px;
 }
 
-::ng-deep .carousel-container:focus {
-  outline: none !important;
-}
-
 .template-img-container {
   display: flex;
   align-items: center;
@@ -33,27 +29,6 @@
 .modal-footer {
   display: flex;
   justify-content: center;
-}
-
-::ng-deep .carousel-indicators li {
-  background-color: var(--second-action-color);
-  opacity: 0.3;
-}
-
-::ng-deep .carousel-indicators {
-  margin-bottom: 0;
-}
-
-::ng-deep .carousel-control-prev-icon {
-  background-image: url('/assets/icons/keyboard-arrow-left.svg');
-  top: 18px;
-  position: relative;
-}
-
-::ng-deep .carousel-control-next-icon {
-  background-image: url('/assets/icons/keyboard-arrow-right.svg');
-  top: 18px;
-  position: relative;
 }
 
 .template-container {
