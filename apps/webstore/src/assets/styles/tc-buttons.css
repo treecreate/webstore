@@ -66,6 +66,23 @@ a {
   height: 35px;
   min-width: 35px;
 }
+/* For iphone specific css */
+@supports (-webkit-touch-callout: none) {
+  .view,
+  .edit,
+  .add-to-basket-specific {
+    width: 50px !important;
+  }
+  .add-to-basket-specific img {
+    position: relative;
+    left: -7px;
+  }
+  .view img,
+  .edit img {
+    position: relative;
+    left: -3px;
+  }
+}
 /* END BUTTON SECTION */
 
 strong {

@@ -163,7 +163,7 @@
                 </div>
                 <div class="option">
                     <button
-                        class="btn-add-to-cart tc-button-100 green remove-on-mobile"
+                        class="tc-button-100 green remove-on-mobile"
                         (click)="openAddToBasketModal()"
                         [disabled]="!isDesignValid"
                         data-cy="add-quotable-to-basket-button"
@@ -179,7 +179,7 @@
 <!-- Floating icons -->
 <div class="mobile-option-buttons-container" *ngIf="isMutable">
     <div class="mobile-options">
-        <button class="option-toggler tc-button-square green" (click)="openAddToBasketModal()">
+        <button class="option-toggler tc-button-square green add-to-basket-specific" (click)="openAddToBasketModal()">
             <img src="/assets/icons/add-to-basket-icon.svg" alt="basket icon" />
         </button>
         <button class="option-toggler tc-button-square" type="button" (click)="showOptions()">
