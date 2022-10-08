@@ -6,12 +6,12 @@ describe('Template selection modal', () => {
     cy.visit('/products/quotable');
   });
 
-  it('opens when clicking select a template', () => {
+  it.skip('opens when clicking select a template', () => {
     cy.get('[data-cy=quotable-template-button]').click({ force: true });
     cy.get('[data-cy=quotable-template-modal]').should('exist');
   });
 
-  it('closes when clicking the x button', () => {
+  it.skip('closes when clicking the x button', () => {
     cy.get('[data-cy=quotable-template-button]').click({ force: true });
     cy.get('[data-cy=quotable-template-modal]').should('exist');
     cy.get('[data-cy=quotable-template-modal-x-btn]').click({ force: true });

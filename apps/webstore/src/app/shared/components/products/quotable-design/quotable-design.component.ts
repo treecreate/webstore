@@ -114,7 +114,9 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.design !== undefined) {
-      this.adjustInputDimensions();
+      setTimeout(() => {
+        this.adjustInputDimensions();
+      }, 100);
     }
   }
 

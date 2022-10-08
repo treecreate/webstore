@@ -418,6 +418,7 @@ export class QuotableComponent implements OnInit {
       showTitle: true,
       text: 'Din tekst',
       showText: true,
+      verticalPlacement: 50,
     };
   }
 
@@ -495,6 +496,6 @@ export class QuotableComponent implements OnInit {
   openQuotableTemplateModal(): void {
     const modalRef = this.modalService.open(QuotableTemplateModalComponent);
     modalRef.componentInstance.designType = DesignTypeEnum.quotable;
-    modalRef.componentInstance.quotableType = this.quotableType;
+    modalRef.componentInstance.quotableType = this.quotableType ?? QuotableType.quotable;
   }
 }
