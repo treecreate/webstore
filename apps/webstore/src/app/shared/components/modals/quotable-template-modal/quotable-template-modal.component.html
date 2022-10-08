@@ -8,29 +8,29 @@
             </div>
         </div>
     </div>
-    <div class="modal-body" id="quotable-template">
-        <ngb-carousel class="carousel-container">
-            <ng-template ngbSlide *ngFor="let template of templateList">
-                <div class="template-container">
-                    <div class="template-text-container">
-                        <span *ngIf="template.showTitle" class="title">{{ template.title }}</span>
-                        <span *ngIf="template.showText">{{ template.text }}</span>
-                    </div>
-                    <div class="template-title-container">
-                        {{ template.name }}
-                    </div>
-                    <button
-                        type="button"
-                        class="tc-button-50"
-                        (click)="applyTemplate(template.name)"
-                        data-cy="template-select-btn"
-                        i18n="@@select"
-                    >
-                        Select
-                    </button>
+    <div class="modal-body">
+        <div class="template-list-container">
+            <div *ngFor="let template of templateList" class="template-container">
+                <webstore-quotable-design
+                    [isMutable]="false"
+                    [design]="template.designProps"
+                    [showInputFieldOptions]="false"
+                    [quotableType]="template.type"
+                ></webstore-quotable-design>
+                <div>
+                    {{ template.name }}
                 </div>
-            </ng-template>
-        </ngb-carousel>
+                <button
+                    type="button"
+                    class="tc-button-50"
+                    (click)="applyTemplate(template.name)"
+                    data-cy="template-select-btn"
+                    i18n="@@select"
+                >
+                    Select
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="hide" data-cy="template-option" *ngFor="let template of templateList">{{ template.name }}</div>
