@@ -25,6 +25,8 @@ public class CustomPropertiesConfig {
 
   private int jwtRefreshExpirationMs;
 
+  private String trustpilotAFSEmail;
+
   public String getQuickpayApiKey() {
     return quickpayApiKey;
   }
@@ -95,5 +97,13 @@ public class CustomPropertiesConfig {
 
   public void setJwtRefreshExpirationMs(int jwtRefreshExpirationMs) {
     this.jwtRefreshExpirationMs = jwtRefreshExpirationMs;
+  }
+
+  public void setTrustpilotAFSEmail(String trustpilotAFSEmail) {
+    this.trustpilotAFSEmail = trustpilotAFSEmail;
+  }
+
+  public String getTrustpilotAFSEmail() {
+    return this.trustpilotAFSEmail;
   }
 }
