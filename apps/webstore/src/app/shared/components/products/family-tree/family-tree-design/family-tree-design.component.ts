@@ -415,7 +415,6 @@ export class FamilyTreeDesignComponent implements AfterViewInit, OnInit, OnChang
 
     this.myBoxes.push(newBox);
     this.frameChanged = true;
-
   }
 
   // Draw the entire canvas with the boxes etc
