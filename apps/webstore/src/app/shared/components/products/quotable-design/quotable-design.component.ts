@@ -38,7 +38,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   @Input() isMutable = false;
   @Input() design: IQoutable;
-  @Input() QuotableTypeEnum: QuotableTypeEnum;
+  @Input() quotableType: QuotableTypeEnum;
   @Input() showInputFieldOptions: boolean;
 
   @Output() isDesignValidEvent = new EventEmitter<boolean>();
@@ -170,7 +170,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     }
 
     // Save the design depending on quotable type
-    switch (this.QuotableTypeEnum) {
+    switch (this.quotableType) {
       case QuotableTypeEnum.babySign:
         this.localStorageService.setItem<IQoutable>(LocalStorageVars.designBabySign, this.design);
         break;
