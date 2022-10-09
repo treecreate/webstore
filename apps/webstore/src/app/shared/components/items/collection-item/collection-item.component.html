@@ -9,9 +9,8 @@
     </div>
     <hr />
 
-    <div class="title" [ngSwitch]="design.designType">
-        <strong *ngSwitchCase="designTypeEnum.familyTree" i18n="@@design-type-family-tree">Family tree</strong>
-        <strong *ngSwitchCase="designTypeEnum.quotable" i18n="@@design-type-quotable">Quotable</strong>
+    <div class="title">
+        <strong>{{ getProductName() }}</strong>
     </div>
     <button
         type="button"

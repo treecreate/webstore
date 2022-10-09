@@ -15,7 +15,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IQoutable, QuotableTypeEnum } from '@interfaces';
+import { IQoutable, quotableFrames, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { take } from 'rxjs';
@@ -70,6 +70,15 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   ) {}
 
   ngOnInit(): void {
+    // For depricated designs that dont have a quotableType yet
+    if (this.design.quotableType === undefined && this.quotableType === undefined) {
+      const frame = quotableFrames.find((frame) => frame.src === this.getDesignSrc());
+      const frameIndex = quotableFrames.indexOf(frame);
+      this.design.quotableType = this.quotableType = quotableFrames[frameIndex].productType[0];
+    } else if (this.quotableType !== undefined) {
+      this.design.quotableType = this.quotableType;
+    }
+
     if (this.design.verticalPlacement === undefined) {
       this.design.verticalPlacement = 50;
     }

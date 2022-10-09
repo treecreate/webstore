@@ -9,6 +9,7 @@ export interface IQoutable {
   text?: string;
   showText?: boolean;
   verticalPlacement?: number;
+  quotableType?: QuotableTypeEnum;
 }
 
 export interface IQuotableTemplate {

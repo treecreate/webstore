@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DesignTypeEnum, ErrorlogPriorityEnum, IDesign, IFamilyTree } from '@interfaces';
+import { DesignTypeEnum, ErrorlogPriorityEnum, IDesign, IFamilyTree, IQoutable, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -76,6 +76,28 @@ export class CollectionItemComponent {
       case DesignTypeEnum.quotable: {
         return '/products/quotable';
       }
+    }
+  }
+
+  getProductName(): string {
+    switch (this.design.designType) {
+      case DesignTypeEnum.familyTree:
+        return 'Stamtræ';
+      case DesignTypeEnum.quotable:
+      default:
+        if ((this.design.designProperties as IQoutable).quotableType !== undefined) {
+          switch ((this.design.designProperties as IQoutable).quotableType) {
+            case QuotableTypeEnum.babySign:
+              return 'Baby skilt';
+            case QuotableTypeEnum.loveLetter:
+              return 'Kærlighedsbrevet';
+            case QuotableTypeEnum.quotable:
+            default:
+              return 'Citat ramme';
+          }
+        } else {
+          return 'Citat ramme';
+        }
     }
   }
 }

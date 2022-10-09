@@ -86,7 +86,7 @@ export const quotableFrames: IQuotableFrameInfo[] = [
     src: QuotableDesignEnum.frame13,
     nameDk: QuotableDesignNameDanishEnum.frame13,
     nameEn: QuotableDesignNameEnglishEnum.frame13,
-    productType: [QuotableTypeEnum.quotable, QuotableTypeEnum.loveLetter],
+    productType: [QuotableTypeEnum.loveLetter, QuotableTypeEnum.quotable],
   },
   {
     src: QuotableDesignEnum.frame14,
@@ -104,13 +104,13 @@ export const quotableFrames: IQuotableFrameInfo[] = [
     src: QuotableDesignEnum.frame16,
     nameDk: QuotableDesignNameDanishEnum.frame16,
     nameEn: QuotableDesignNameEnglishEnum.frame16,
-    productType: [QuotableTypeEnum.quotable, QuotableTypeEnum.loveLetter],
+    productType: [QuotableTypeEnum.loveLetter, QuotableTypeEnum.quotable],
   },
   {
     src: QuotableDesignEnum.frame17,
     nameDk: QuotableDesignNameDanishEnum.frame17,
     nameEn: QuotableDesignNameEnglishEnum.frame17,
-    productType: [QuotableTypeEnum.quotable, QuotableTypeEnum.loveLetter],
+    productType: [QuotableTypeEnum.loveLetter, QuotableTypeEnum.quotable],
   },
   // Baby sign specific
   {

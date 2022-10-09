@@ -123,6 +123,7 @@
 }
 
 ::ng-deep.ngx-slider.vertical-slider {
+  z-index: 2;
   margin: 0 !important;
   right: 25px;
 
