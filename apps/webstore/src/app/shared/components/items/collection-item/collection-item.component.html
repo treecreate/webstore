@@ -1,5 +1,5 @@
 <div class="design-container" data-cy="family-tree-collection-item">
-    <div class="design-image">
+    <div class="design-image" *ngIf="!isLoading">
         <webstore-store-item
             #productDesign
             [isMutable]="false"
@@ -9,7 +9,7 @@
     </div>
     <hr />
 
-    <div class="title">
+    <div class="title" *ngIf="!isLoading">
         <strong>{{ getProductName() }}</strong>
     </div>
     <button

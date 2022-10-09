@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DesignTypeEnum, ErrorlogPriorityEnum, IDesign, IFamilyTree, IQoutable, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DesignService } from '../../../services/design/design.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
@@ -15,12 +15,14 @@ import { ToastService } from '../../toast/toast-service';
   templateUrl: './collection-item.component.html',
   styleUrls: ['./collection-item.component.css'],
 })
-export class CollectionItemComponent {
+export class CollectionItemComponent implements OnInit {
   @Input() design: IDesign;
   isLoading = false;
 
   @Output() deleteEvent = new EventEmitter();
   public designTypeEnum = DesignTypeEnum;
+
+  localeCode: LocaleType;
 
   constructor(
     private toastService: ToastService,
@@ -30,6 +32,10 @@ export class CollectionItemComponent {
     private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
+
+  ngOnInit(): void {
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+  }
 
   deleteDesign() {
     this.isLoading = true;
@@ -79,24 +85,24 @@ export class CollectionItemComponent {
     }
   }
 
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
+
   getProductName(): string {
     switch (this.design.designType) {
       case DesignTypeEnum.familyTree:
-        return 'Stamtræ';
+        return this.isEnglish() ? 'Family tree' : 'Stamtræ';
       case DesignTypeEnum.quotable:
       default:
-        if ((this.design.designProperties as IQoutable).quotableType !== undefined) {
-          switch ((this.design.designProperties as IQoutable).quotableType) {
-            case QuotableTypeEnum.babySign:
-              return 'Baby skilt';
-            case QuotableTypeEnum.loveLetter:
-              return 'Kærlighedsbrevet';
-            case QuotableTypeEnum.quotable:
-            default:
-              return 'Citat ramme';
-          }
-        } else {
-          return 'Citat ramme';
+        switch ((this.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            return this.isEnglish() ? 'Baby sign' : 'Baby skilt';
+          case QuotableTypeEnum.loveLetter:
+            return this.isEnglish() ? 'Love letter' : 'Kærlighedsbrevet';
+          case QuotableTypeEnum.quotable:
+          default:
+            return this.isEnglish() ? 'Quotable' : 'Citat ramme';
         }
     }
   }
