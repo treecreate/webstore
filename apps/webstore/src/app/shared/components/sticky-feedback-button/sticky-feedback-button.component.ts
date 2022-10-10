@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FeedbackModalComponent } from '../modals/feedback-modal/feedback-modal.component';
 
 @Component({
   selector: 'webstore-sticky-feedback-button',
@@ -13,7 +14,6 @@ export class StickyFeedbackButtonComponent {
   constructor(private modalService: NgbModal) {}
 
   openfeedbackModal() {
-    // TODO - open the modal
-    // this.modalService.open(feedbackModalComponent);
+    this.modalService.open(FeedbackModalComponent);
   }
 }

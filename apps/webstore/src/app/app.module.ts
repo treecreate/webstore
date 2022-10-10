@@ -39,6 +39,7 @@ import { ChangePasswordModalComponent } from './shared/components/modals/change-
 import { CookiePromptModalComponent } from './shared/components/modals/cookie-prompt-modal/cookie-prompt-modal.component';
 import { FamilyTreeIntroModalComponent } from './shared/components/modals/family-tree-intro-modal/family-tree-intro-modal.component';
 import { FamilyTreeTemplateModalComponent } from './shared/components/modals/family-tree-template-modal/family-tree-template-modal.component';
+import { FeedbackModalComponent } from './shared/components/modals/feedback-modal/feedback-modal.component';
 import { ForgotPasswordModalComponent } from './shared/components/modals/forgot-password-modal/forgot-password-modal.component';
 import { GoToBasketModalComponent } from './shared/components/modals/go-to-basket-modal/go-to-basket-modal.component';
 import { NewsletterSignupModalComponent } from './shared/components/modals/newsletter-signup-modal/newsletter-signup-modal.component';
@@ -72,6 +73,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     PrivacyNoticeModalComponent,
     FamilyTreeComponent,
     ForgotPasswordModalComponent,
+    FeedbackModalComponent,
     ResetPasswordComponent,
     CollectionComponent,
     ProfileComponent,
