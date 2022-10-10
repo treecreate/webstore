@@ -188,9 +188,6 @@ export class DashboardComponent implements OnInit {
   getPercentDiff(thisPeriod: number, lastPeriod: number): string {
     if (lastPeriod === 0) {
       return '1000';
-    }
-    if (thisPeriod > thisPeriod) {
-      return ('+' + ((thisPeriod / lastPeriod) * 100 - 100).toFixed(1));
     } else {
       return ((thisPeriod / lastPeriod) * 100 - 100).toFixed(1);
     }
