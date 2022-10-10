@@ -19,20 +19,20 @@ const mockQuotableDesign: IDesign = {
   designType: DesignTypeEnum.quotable,
 };
 
-describe('BabySignProductPage', () => {
+describe('LoveLetterProductPage', () => {
   beforeEach(() => {
     localStorage.setItem(LocalStorageVars.cookiesAccepted, `"${CookieStatus.accepted}"`);
     localStorage.setItem(LocalStorageVars.firstVisit, 'true');
     cy.visit('/products/quotable?productType=LOVE_LETTER');
   });
 
-  describe('Baby sign product page', () => {
+  describe('Love letter product page', () => {
     it('has the correct default settings', () => {
       cy.get('[data-cy=font]').should('contain', 'bairol-bold-italic');
       cy.get('[data-cy=design]').should('contain', 'assets/quotable/frame-design/love-letter/frame13.svg');
       cy.get('[data-cy=font-size]').should('contain', '40');
-      cy.get('[data-cy=text]').should('contain', 'Din tekst');
-      cy.get('[data-cy=title]').should('contain', 'Navn');
+      cy.get('[data-cy=text]').should('contain', '');
+      cy.get('[data-cy=title]').should('contain', '');
       cy.get('[data-cy=show-text]').should('contain', 'true');
       cy.get('[data-cy=show-title]').should('contain', 'true');
     });
