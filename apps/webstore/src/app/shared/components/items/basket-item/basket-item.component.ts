@@ -1,7 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, ErrorlogPriorityEnum, IAuthUser, ITransactionItem } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IQoutable,
+  ITransactionItem,
+  QuotableTypeEnum,
+} from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
@@ -74,14 +82,21 @@ export class BasketItemComponent implements OnInit {
     return this.localeCode === 'en-US';
   }
 
-  getDesignName() {
+  getDesignName(): string {
     switch (this.item.design.designType) {
-      case DesignTypeEnum.quotable:
-        // TODO: Get quotable product type
-        return this.isEnglish() ? 'Quotable' : 'Citat ramme';
       case DesignTypeEnum.familyTree:
-      default:
         return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+      case DesignTypeEnum.quotable:
+      default:
+        switch ((this.item.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            return this.isEnglish() ? 'Baby sign' : 'Baby skilt';
+          case QuotableTypeEnum.loveLetter:
+            return this.isEnglish() ? 'Love letter' : 'Kærlighedsbrevet';
+          case QuotableTypeEnum.quotable:
+          default:
+            return this.isEnglish() ? 'Quotable' : 'Citat ramme';
+        }
     }
   }
 
