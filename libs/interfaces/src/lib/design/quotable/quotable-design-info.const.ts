@@ -114,15 +114,15 @@ export const quotableFrames: IQuotableFrameInfo[] = [
   },
   // Baby sign specific
   {
-    src: QuotableDesignEnum.frame18,
-    nameDk: QuotableDesignNameDanishEnum.frame18,
-    nameEn: QuotableDesignNameEnglishEnum.frame18,
-    productType: [QuotableTypeEnum.babySign],
-  },
-  {
     src: QuotableDesignEnum.frame19,
     nameDk: QuotableDesignNameDanishEnum.frame19,
     nameEn: QuotableDesignNameEnglishEnum.frame19,
+    productType: [QuotableTypeEnum.babySign],
+  },
+  {
+    src: QuotableDesignEnum.frame18,
+    nameDk: QuotableDesignNameDanishEnum.frame18,
+    nameEn: QuotableDesignNameEnglishEnum.frame18,
     productType: [QuotableTypeEnum.babySign],
   },
   {
