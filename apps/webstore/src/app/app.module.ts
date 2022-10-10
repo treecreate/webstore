@@ -50,6 +50,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
 import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
+import { StickyFeedbackButtonComponent } from './shared/components/sticky-feedback-button/sticky-feedback-button.component';
 import { StickyNewsletterButtonComponent } from './shared/components/sticky-newsletter-button/sticky-newsletter-button.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
@@ -103,6 +104,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     CustomOrderComponent,
     CustomOrderDisplayComponent,
     StickyNewsletterButtonComponent,
+    StickyFeedbackButtonComponent,
   ],
   imports: [
     BrowserModule,

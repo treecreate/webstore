@@ -19,4 +19,6 @@
     <webstore-sticky-newsletter-button
         *ngIf="router.url === '/' || router.url === '/products'"
     ></webstore-sticky-newsletter-button>
+
+    <webstore-sticky-feedback-button *ngIf="shouldShowFeedbackButton()"></webstore-sticky-feedback-button>
 </div>
