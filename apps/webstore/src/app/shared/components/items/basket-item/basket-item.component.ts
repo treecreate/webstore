@@ -39,6 +39,7 @@ export class BasketItemComponent implements OnInit {
 
   itemPrice: number;
   isLoading = false;
+  isLoadingDesign = true;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -70,6 +71,12 @@ export class BasketItemComponent implements OnInit {
   ngOnInit(): void {
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
+  }
+
+  ngAfterContentInit() {
+    setTimeout(() => {
+      this.isLoadingDesign = false;
+    }, 100);
   }
 
   updatePrice() {

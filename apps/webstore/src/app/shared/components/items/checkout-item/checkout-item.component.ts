@@ -14,8 +14,9 @@ export class CheckoutItemComponent implements OnInit {
 
   itemPrice: number;
   itemUnitPrice: number;
-  public designTypeEnum = DesignTypeEnum;
+  isLoadingDesign = true;
 
+  public designTypeEnum = DesignTypeEnum;
   public localeCode: LocaleType;
 
   constructor(private calculatePriceService: CalculatePriceService, private localStorageService: LocalStorageService) {
@@ -28,6 +29,12 @@ export class CheckoutItemComponent implements OnInit {
       this.item.design.designType
     );
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
+  }
+
+  ngAfterContentInit() {
+    setTimeout(() => {
+      this.isLoadingDesign = false;
+    }, 100);
   }
 
   isEnglish(): boolean {

@@ -38,10 +38,6 @@ export class CollectionItemComponent implements OnInit {
     this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
-  ngAfterContentInit() {
-    this.isLoadingDesign = false;
-  }
-
   deleteDesign() {
     this.isLoading = true;
     this.designService.deleteDesign(this.design.designId).subscribe({

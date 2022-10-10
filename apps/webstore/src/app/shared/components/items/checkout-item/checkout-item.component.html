@@ -6,8 +6,8 @@
         class="item-image"
     ></webstore-store-item>
     <div class="item-info">
-        <div class="item-title">
-            <strong i18n="@@design-type-family-tree">{{ getDesignName() }}</strong>
+        <div class="item-title" *ngIf="!isLoadingDesign">
+            <strong>{{ getDesignName() }}</strong>
         </div>
         <div class="info-container">
             <div class="info-line">
