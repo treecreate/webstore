@@ -188,9 +188,9 @@ export class DashboardComponent implements OnInit {
   getPercentDiff(thisPeriod: number, lastPeriod: number): string {
     if (lastPeriod === 0) {
       return '1000';
-    } 
+    }
     if (thisPeriod > thisPeriod) {
-      return '+' + ((thisPeriod / lastPeriod) * 100 - 100).toFixed(1);
+      return ('+' + ((thisPeriod / lastPeriod) * 100 - 100).toFixed(1));
     } else {
       return ((thisPeriod / lastPeriod) * 100 - 100).toFixed(1);
     }
@@ -365,7 +365,7 @@ export class DashboardComponent implements OnInit {
         this.sixMonthSurplus = surplus;
         break;
     }
-    
+
     return surplus;
   }
 
@@ -398,10 +398,6 @@ export class DashboardComponent implements OnInit {
     } else {
       this.sixPastMonthSurplus = lastPeriodSurplus;
     }
-    console.log(thisPeriodSurplus);
-    
-    console.log(lastPeriodSurplus);
-    
     return this.getPercentDiff(thisPeriodSurplus, lastPeriodSurplus);
   }
 
