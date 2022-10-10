@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { IQoutable, quotableFrames, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { take } from 'rxjs';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
 
@@ -47,6 +47,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
 
   isDesignValid = false;
   isLoading = true;
+  public localeCode: LocaleType;
 
   fontSize = 10;
   inputTextHeight = 10;
@@ -67,18 +68,21 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     private localStorageService: LocalStorageService,
     private _ngZone: NgZone,
     private errorlogsService: ErrorlogsService
-  ) {}
+  ) {
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+  }
 
   ngOnInit(): void {
     // For depricated designs that dont have a quotableType yet
+    // If quotable type is not set, find the frame from the list of all quotable frames
     if (this.design.quotableType === undefined && this.quotableType === undefined) {
       const frame = quotableFrames.find((frame) => frame.src === this.getDesignSrc());
       const frameIndex = quotableFrames.indexOf(frame);
       this.design.quotableType = this.quotableType = quotableFrames[frameIndex].productType[0];
-    } else if (this.quotableType !== undefined) {
-      this.design.quotableType = this.quotableType;
     }
 
+    // For depricated designs that dont have a vertical placement
+    // If not set, set to center (50)
     if (this.design.verticalPlacement === undefined) {
       this.design.verticalPlacement = 50;
     }
@@ -131,6 +135,24 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
         this.adjustInputDimensions();
       }, 100);
     }
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
+
+  getTitlePlaceholder(): string {
+    if (!this.isMutable) {
+      return '';
+    }
+    return this.isEnglish() ? 'Name' : 'Navn';
+  }
+
+  getTextPlaceholder(): string {
+    if (!this.isMutable) {
+      return '';
+    }
+    return this.isEnglish() ? 'Write your text here' : 'Skriv din tekst her';
   }
 
   showAddTextButton(): boolean {
@@ -248,14 +270,12 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     const inputToWindowWidthRatio = this.designWrapper.nativeElement.offsetWidth / window.innerWidth;
 
     if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
-      this.textInput.nativeElement.style.height = '0px';
       this.textInput.nativeElement.style.minHeight = '0px';
       this.inputTextHeight = Math.round(this.textInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
       this.textInput.nativeElement.style.height = this.inputTextHeight + 'px';
     }
 
     if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
-      this.titleInput.nativeElement.style.height = '0px';
       this.titleInput.nativeElement.style.minHeight = '0px';
       this.inputTitleHeight = Math.round(this.titleInput.nativeElement.scrollHeight * inputToWindowWidthRatio);
       this.titleInput.nativeElement.style.height = this.inputTitleHeight + 'px';
@@ -264,22 +284,40 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     this.triggerResize();
   }
 
+  resizeText() {
+    // If undefined (depricated) set to true and resize input
+    if (this.design.showText === undefined) {
+      this.design.showText = true;
+      // If show text is false, dont resize
+    } else if (!this.design.showText) {
+      return;
+    }
+
+    if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
+      this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
+    }
+  }
+
+  resizeTitle() {
+    // If undefined (depricated) set to false and dont resize input
+    if (this.design.showTitle === undefined) {
+      this.design.showTitle = false;
+      return;
+      // If show title is false, dont resize
+    } else if (!this.design.showTitle) {
+      return;
+    }
+
+    if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
+      this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
+    }
+  }
+
   triggerResize() {
-    // Wait for changes to be applied, then trigger textarea resize.
-    if (this.design.showText) {
-    }
-
-    if (this.design.showTitle) {
-    }
-
+    this.resizeText();
+    this.resizeTitle();
     // re adjust hight
     setTimeout(() => {
-      if (this.textInput !== undefined && this.textInput.nativeElement !== undefined) {
-        this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
-      }
-      if (this.titleInput !== undefined && this.titleInput.nativeElement !== undefined) {
-        this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosizeTitle.resizeToFitContent(true));
-      }
       this.changeVerticalPlacement();
     }, 50);
   }
