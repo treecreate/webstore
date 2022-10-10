@@ -22,7 +22,7 @@
                     (ngModelChange)="updateTitleText($event)"
                     [disabled]="!isMutable"
                     data-cy="title-input-field"
-                    placeholder="Navn"
+                    [placeholder]="getTitlePlaceholder()"
                 ></textarea>
                 <button
                     class="remove-text-btn"
@@ -61,7 +61,7 @@
                     (ngModelChange)="updateText($event)"
                     [disabled]="!isMutable"
                     data-cy="text-input-field"
-                    placeholder="Skriv din tekst her"
+                    [placeholder]="getTextPlaceholder()"
                 ></textarea>
                 <button
                     class="remove-text-btn"
