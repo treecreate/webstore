@@ -76,8 +76,8 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     // For depricated designs that dont have a quotableType yet
     // If quotable type is not set, find the frame from the list of all quotable frames
     if (this.design.quotableType === undefined && this.quotableType === undefined) {
-      const frame = quotableFrames.find((frame) => frame.src === this.getDesignSrc());
-      const frameIndex = quotableFrames.indexOf(frame);
+      const selectedFrame = quotableFrames.find((frame) => frame.src === this.getDesignSrc());
+      const frameIndex = quotableFrames.indexOf(selectedFrame);
       this.design.quotableType = this.quotableType = quotableFrames[frameIndex].productType[0];
     }
 
