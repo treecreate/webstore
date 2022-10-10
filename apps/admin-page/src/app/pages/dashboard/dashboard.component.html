@@ -56,22 +56,26 @@
                 <div class="table-row" *ngIf="!ordersIsLoading">
                     <div class="table-data">Orders</div>
                     <div class="table-data" [ngStyle]="{ color: twoWeekOrders > twoPastWeekOrders ? 'green' : 'red' }">
-                        {{ twoWeekOrders }} / <span *ngIf="twoWeekOrders > twoPastWeekOrders">+</span>{{ getPercentDiff(twoWeekOrders, twoPastWeekOrders) }}%
+                        {{ twoWeekOrders }} / <span *ngIf="twoWeekOrders > twoPastWeekOrders">+</span
+                        >{{ getPercentDiff(twoWeekOrders, twoPastWeekOrders) }}%
                     </div>
                     <div class="table-data" [ngStyle]="{ color: monthOrders > monthPastOrders ? 'green' : 'red' }">
-                        {{ monthOrders }} / <span *ngIf="monthOrders > monthPastOrders">+</span>{{ getPercentDiff(monthOrders, monthPastOrders) }}%
+                        {{ monthOrders }} / <span *ngIf="monthOrders > monthPastOrders">+</span
+                        >{{ getPercentDiff(monthOrders, monthPastOrders) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: threeMonthOrders > threePastMonthOrders ? 'green' : 'red' }"
                     >
-                        {{ threeMonthOrders }} / <span *ngIf="threeMonthOrders > threePastMonthOrders">+</span>{{ getPercentDiff(threeMonthOrders, threePastMonthOrders) }}%
+                        {{ threeMonthOrders }} / <span *ngIf="threeMonthOrders > threePastMonthOrders">+</span
+                        >{{ getPercentDiff(threeMonthOrders, threePastMonthOrders) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: sixMonthOrders > sixPastMonthOrders ? 'green' : 'red' }"
                     >
-                        {{ sixMonthOrders }} / <span *ngIf="sixMonthOrders > sixPastMonthOrders">+</span>{{ getPercentDiff(sixMonthOrders, sixPastMonthOrders) }}%
+                        {{ sixMonthOrders }} / <span *ngIf="sixMonthOrders > sixPastMonthOrders">+</span
+                        >{{ getPercentDiff(sixMonthOrders, sixPastMonthOrders) }}%
                     </div>
                 </div>
                 <div class="table-row" *ngIf="!ordersIsLoading">
@@ -80,22 +84,26 @@
                         class="table-data"
                         [ngStyle]="{ color: twoWeekRevenue > twoPastWeekRevenue ? 'green' : 'red' }"
                     >
-                        {{ twoWeekRevenue }} / <span *ngIf="twoWeekRevenue > twoPastWeekRevenue">+</span>{{ getPercentDiff(twoWeekRevenue, twoPastWeekRevenue) }}%
+                        {{ twoWeekRevenue }} / <span *ngIf="twoWeekRevenue > twoPastWeekRevenue">+</span
+                        >{{ getPercentDiff(twoWeekRevenue, twoPastWeekRevenue) }}%
                     </div>
                     <div class="table-data" [ngStyle]="{ color: monthRevenue > monthPastRevenue ? 'green' : 'red' }">
-                        {{ monthRevenue }} / <span *ngIf="monthRevenue > monthPastRevenue">+</span>{{ getPercentDiff(monthRevenue, monthPastRevenue) }}%
+                        {{ monthRevenue }} / <span *ngIf="monthRevenue > monthPastRevenue">+</span
+                        >{{ getPercentDiff(monthRevenue, monthPastRevenue) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: threeMonthRevenue > threePastMonthRevenue ? 'green' : 'red' }"
                     >
-                        {{ threeMonthRevenue }} / <span *ngIf="threeMonthRevenue > threePastMonthRevenue">+</span>{{ getPercentDiff(threeMonthRevenue, threePastMonthRevenue) }}%
+                        {{ threeMonthRevenue }} / <span *ngIf="threeMonthRevenue > threePastMonthRevenue">+</span
+                        >{{ getPercentDiff(threeMonthRevenue, threePastMonthRevenue) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: sixMonthRevenue > sixPastMonthRevenue ? 'green' : 'red' }"
                     >
-                        {{ sixMonthRevenue }} / <span *ngIf="sixMonthRevenue > sixPastMonthRevenue">+</span>{{ getPercentDiff(sixMonthRevenue, sixPastMonthRevenue) }}%
+                        {{ sixMonthRevenue }} / <span *ngIf="sixMonthRevenue > sixPastMonthRevenue">+</span
+                        >{{ getPercentDiff(sixMonthRevenue, sixPastMonthRevenue) }}%
                     </div>
                 </div>
                 <div class="table-row" *ngIf="!ordersIsLoading">
@@ -104,22 +112,26 @@
                         class="table-data"
                         [ngStyle]="{ color: twoWeekSurplus > twoPastWeekSurplus ? 'green' : 'red' }"
                     >
-                        {{ twoWeekSurplus }} / <span *ngIf="twoWeekSurplus > twoPastWeekSurplus">+</span>{{ getPercentDiff(twoPastWeekSurplus, twoPastWeekSurplus) }}%
+                        {{ twoWeekSurplus }} / <span *ngIf="twoWeekSurplus > twoPastWeekSurplus">+</span
+                        >{{ getPercentDiff(twoPastWeekSurplus, twoPastWeekSurplus) }}%
                     </div>
                     <div class="table-data" [ngStyle]="{ color: monthSurplus > monthPastSurplus ? 'green' : 'red' }">
-                        {{ monthSurplus }} / <span *ngIf="monthSurplus > monthPastSurplus">+</span>{{ getPercentDiff(monthSurplus, monthPastSurplus) }}%
+                        {{ monthSurplus }} / <span *ngIf="monthSurplus > monthPastSurplus">+</span
+                        >{{ getPercentDiff(monthSurplus, monthPastSurplus) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: threeMonthSurplus > threePastMonthSurplus ? 'green' : 'red' }"
                     >
-                        {{ threeMonthSurplus }} / <span *ngIf="threeMonthSurplus > threePastMonthSurplus">+</span>{{ getPercentDiff(threeMonthSurplus, threePastMonthSurplus) }}%
+                        {{ threeMonthSurplus }} / <span *ngIf="threeMonthSurplus > threePastMonthSurplus">+</span
+                        >{{ getPercentDiff(threeMonthSurplus, threePastMonthSurplus) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: sixMonthSurplus > sixPastMonthSurplus ? 'green' : 'red' }"
                     >
-                        {{ sixMonthSurplus }} / <span *ngIf="sixMonthSurplus > sixPastMonthSurplus">+</span>{{ getPercentDiff(sixMonthSurplus, sixPastMonthSurplus) }}%
+                        {{ sixMonthSurplus }} / <span *ngIf="sixMonthSurplus > sixPastMonthSurplus">+</span
+                        >{{ getPercentDiff(sixMonthSurplus, sixPastMonthSurplus) }}%
                     </div>
                 </div>
                 <div class="table-row" *ngIf="!newslettersIsLoading">
@@ -128,26 +140,30 @@
                         class="table-data"
                         [ngStyle]="{ color: twoWeekSubscribers > twoPastWeekSubscribers ? 'green' : 'red' }"
                     >
-                        {{ twoWeekSubscribers }} / <span *ngIf="twoWeekSubscribers > twoPastWeekSubscribers">+</span>{{ getPercentDiff(twoWeekSubscribers, twoPastWeekSubscribers) }}%
+                        {{ twoWeekSubscribers }} / <span *ngIf="twoWeekSubscribers > twoPastWeekSubscribers">+</span
+                        >{{ getPercentDiff(twoWeekSubscribers, twoPastWeekSubscribers) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: monthSubscribers > monthPastSubscribers ? 'green' : 'red' }"
                     >
-                        {{ monthSubscribers }} / <span *ngIf="monthSubscribers > monthPastSubscribers">+</span>{{ getPercentDiff(monthSubscribers, monthPastSubscribers) }}%
+                        {{ monthSubscribers }} / <span *ngIf="monthSubscribers > monthPastSubscribers">+</span
+                        >{{ getPercentDiff(monthSubscribers, monthPastSubscribers) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: threeMonthSubscribers > threePastMonthSubscribers ? 'green' : 'red' }"
                     >
                         {{ threeMonthSubscribers }} /
-                        <span *ngIf="threeMonthSubscribers > threePastMonthSubscribers">+</span>{{ getPercentDiff(threeMonthSubscribers, threePastMonthSubscribers) }}%
+                        <span *ngIf="threeMonthSubscribers > threePastMonthSubscribers">+</span
+                        >{{ getPercentDiff(threeMonthSubscribers, threePastMonthSubscribers) }}%
                     </div>
                     <div
                         class="table-data"
                         [ngStyle]="{ color: sixMonthSubscribers > sixPastMonthSubscribers ? 'green' : 'red' }"
                     >
-                        {{ sixMonthSubscribers }} / <span *ngIf="sixMonthSubscribers > sixPastMonthSubscribers">+</span>{{ getPercentDiff(sixMonthSubscribers, sixPastMonthSubscribers) }}%
+                        {{ sixMonthSubscribers }} / <span *ngIf="sixMonthSubscribers > sixPastMonthSubscribers">+</span
+                        >{{ getPercentDiff(sixMonthSubscribers, sixPastMonthSubscribers) }}%
                     </div>
                 </div>
             </div>
