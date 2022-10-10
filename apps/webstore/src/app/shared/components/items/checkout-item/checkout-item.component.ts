@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DesignTypeEnum, ITransactionItem } from '@interfaces';
+import { DesignTypeEnum, IQoutable, ITransactionItem, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
@@ -36,12 +36,19 @@ export class CheckoutItemComponent implements OnInit {
 
   getDesignName() {
     switch (this.item.design.designType) {
-      case DesignTypeEnum.quotable:
-        // TODO: Get quotable product type
-        return this.isEnglish() ? 'Quotable' : 'Citat ramme';
       case DesignTypeEnum.familyTree:
-      default:
         return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+      case DesignTypeEnum.quotable:
+      default:
+        switch ((this.item.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            return this.isEnglish() ? 'Baby sign' : 'Baby skilt';
+          case QuotableTypeEnum.loveLetter:
+            return this.isEnglish() ? 'Love letter' : 'Kærlighedsbrevet';
+          case QuotableTypeEnum.quotable:
+          default:
+            return this.isEnglish() ? 'Quotable' : 'Citat ramme';
+        }
     }
   }
 
