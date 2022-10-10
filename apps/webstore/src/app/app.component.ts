@@ -161,8 +161,8 @@ export class AppComponent {
   }
 
   shouldShowFeedbackButton(): boolean {
-    console.log(this.router.url);
     // TODO - implement logic for selecting which pages to show the feedback button on
+    // TODO - add event log
     return true;
   }
 }

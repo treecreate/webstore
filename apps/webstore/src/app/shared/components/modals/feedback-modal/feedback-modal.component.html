@@ -1,6 +1,84 @@
 <div class="modal-container">
     <div class="modal-content" data-cy="feedback-modal">
-        <h1>Feedback?</h1>
-        <button>here ya go!</button>
+        <form class="feedback-content" name="feedbackForm" [formGroup]="feedbackForm" (ngSubmit)="submitFeedback()">
+            <!-- Contact Info and order description -->
+            <div class="feedback-section">
+                <br />
+                <div class="title-container" style="margin-bottom: 5px">
+                    <span class="title" i18n="@@feedback">Feedback</span>
+                </div>
+
+                <div class="tc-input-group field">
+                    <input
+                        type="email"
+                        class="tc-input-field"
+                        placeholder="E-mail"
+                        formControlName="customerEmail"
+                        name="customerEmail"
+                        id="customerEmail"
+                        autocomplete="email"
+                        data-cy="feedback-form-email-input"
+                    />
+                    <label for="customerEmail" class="tc-input-label">E-mail *</label>
+                </div>
+
+                <div
+                    class="error-message"
+                    *ngIf="
+                        this.feedbackForm.get('customerEmail').dirty && this.feedbackForm.get('customerEmail').invalid
+                    "
+                    i18n="@@invalid-email"
+                    data-cy="checkout-form-email-error-message"
+                >
+                    Invalid email.
+                </div>
+
+                <div class="tc-input-group field">
+                    <textarea
+                        type="text"
+                        class="tc-textarea-field"
+                        name="description"
+                        formControlName="description"
+                        id="description"
+                        placeholder="description"
+                        maxlength="1000"
+                        data-cy="feedback-form-description-input"
+                    ></textarea>
+                    <label for="description" class="tc-input-label textarea-label"
+                        ><span i18n="@@description">Describe your product wishes</span>*
+                    </label>
+                    <div
+                        class="error-message offset"
+                        *ngIf="
+                            this.feedbackForm.get('description').dirty && this.feedbackForm.get('description').invalid
+                        "
+                        i18n="@@invalid-description"
+                        data-cy="feedback-form-description-error-message"
+                    >
+                        The description is required.
+                    </div>
+                </div>
+            </div>
+            <!-- Requirements -->
+
+            <!-- Actions -->
+            <div class="actions">
+                <button
+                    class="tc-button-50 brown margin-top"
+                    type="submit"
+                    [disabled]="!isDisabled()"
+                    data-cy="feedback-send-button"
+                >
+                    <span i18n="@@send-feedback" *ngIf="!isLoading">Send</span>
+                    <span
+                        *ngIf="isLoading"
+                        class="spinner-border spinner-border-sm text-light"
+                        style="margin: 5px"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
