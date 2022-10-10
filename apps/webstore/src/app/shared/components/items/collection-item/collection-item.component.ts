@@ -18,6 +18,7 @@ import { ToastService } from '../../toast/toast-service';
 export class CollectionItemComponent implements OnInit {
   @Input() design: IDesign;
   isLoading = false;
+  isLoadingDesign = true;
 
   @Output() deleteEvent = new EventEmitter();
   public designTypeEnum = DesignTypeEnum;
@@ -35,6 +36,10 @@ export class CollectionItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+  }
+
+  ngAfterContentInit() {
+    this.isLoadingDesign = false;
   }
 
   deleteDesign() {

@@ -287,13 +287,20 @@ export class QuotableComponent implements OnInit {
   }
 
   saveDesign(params: { persist?: boolean }, withAlert?: boolean) {
+    // If mutable, return
     if (!this.isMutable) {
       console.warn('This design cannot be updated');
       return;
     }
+    // get params
     const persist = { params };
+
+    // Save design
     this.quotableDesign.saveDesign();
+
+    // Update this.design with localstorage design
     this.loadTypeSpecificDesign();
+
     // don't persist the design if the user is not logged in
     if (!this.isLoggedIn) {
       if (!withAlert) {
@@ -307,20 +314,22 @@ export class QuotableComponent implements OnInit {
       this.eventsService.create(`webstore.quotable.design-updated.local-storage`);
       return;
     }
-    // Don't save the tree to the collection/database. Used in combindation with the addToBasketModal
+    // Don't save the quotable to the collection/database. Used in combindation with the addToBasketModal
     if (!persist) {
       return;
     }
-    const queryParams = this.route.snapshot.queryParams;
-    const design: IQoutable = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
 
+    // Get id if set in URL
+    const queryParams = this.route.snapshot.queryParams;
+
+    // If id is set, update the design
     if (queryParams.designId !== undefined) {
       // design exists, save using the designId
       this.designService
         .updateDesign({
           designId: queryParams.designId,
           designType: DesignTypeEnum.quotable,
-          designProperties: design,
+          designProperties: this.design,
         })
         .subscribe(
           () => {
@@ -348,7 +357,7 @@ export class QuotableComponent implements OnInit {
       this.designService
         .createDesign({
           designType: DesignTypeEnum.quotable,
-          designProperties: design,
+          designProperties: this.design,
           mutable: true,
         })
         .subscribe({
