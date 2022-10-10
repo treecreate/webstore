@@ -410,11 +410,12 @@ export class QuotableComponent implements OnInit {
       font: this.defaultFont,
       fontSize: this.fontSize,
       designSrc: this.productSpecificFrames[1].src,
-      title: 'Navn',
+      title: '',
       showTitle: true,
-      text: 'Din tekst',
+      text: '',
       showText: true,
-      verticalPlacement: 50,
+      // If baby sign, set to 35, otherwise center to 50
+      verticalPlacement: this.quotableType === QuotableTypeEnum.babySign ? 35 : 50,
     };
   }
 
