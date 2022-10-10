@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { DesignDimensionEnum, INewsletter, IOrder, ShippingMethodEnum } from '@interfaces';
+import { DesignDimensionEnum, INewsletter, IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { OrdersService } from '../../services/orders/orders.service';
@@ -59,6 +59,14 @@ export class DashboardComponent implements OnInit {
   sixMonthSubscribers = 0;
   sixPastMonthSubscribers = 0;
 
+  ordersCount = 0;
+  ordersInitial = 0;
+  ordersNew = 0;
+  ordersPending = 0;
+  ordersAssembling = 0;
+  ordersShipping = 0;
+  ordersDelivered = 0;
+
   fullOrdersList!: IOrder[];
   fullNewsletterList!: INewsletter[];
 
@@ -76,6 +84,7 @@ export class DashboardComponent implements OnInit {
         this.fullOrdersList = ordersList;
         this.ordersIsLoading = false;
         this.setOrderTableData();
+        this.setTrackingTableData();
       },
     });
     this.newsLetterService.getNewsletters().subscribe({
@@ -91,7 +100,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  setOrderTableData() {
+  setTrackingTableData() {
     this.getPeriodOrderCount(14);
     this.getPeriodOrderCount(30);
     this.getPeriodOrderCount(90);
@@ -177,7 +186,42 @@ export class DashboardComponent implements OnInit {
   }
 
   getPercentDiff(thisPeriod: number, lastPeriod: number): string {
-    return (((thisPeriod - lastPeriod) / lastPeriod) * 100).toFixed(1);
+    if (lastPeriod === 0) {
+      return '1000';
+    } 
+    if (thisPeriod > thisPeriod) {
+      return '+' + ((thisPeriod / lastPeriod) * 100 - 100).toFixed(1);
+    } else {
+      return ((thisPeriod / lastPeriod) * 100 - 100).toFixed(1);
+    }
+  }
+
+  setOrderTableData() {
+    const allOrders = this.fullOrdersList;
+    allOrders.forEach((order) => {
+      this.ordersCount += 1;
+      switch (order.status) {
+        case OrderStatusEnum.initial:
+          this.ordersInitial += 1;
+          break;
+        case OrderStatusEnum.new:
+          this.ordersNew += 1;
+          break;
+        case OrderStatusEnum.pending:
+          this.ordersPending += 1;
+          break;
+        case OrderStatusEnum.assembling:
+          this.ordersAssembling += 1;
+          break;
+        case OrderStatusEnum.shipped:
+          this.ordersShipping += 1;
+          break;
+        case OrderStatusEnum.delivered:
+        default:
+          this.ordersDelivered += 1;
+          break;
+      }
+    });
   }
 
   subtractDimensionSize(itemDimension: DesignDimensionEnum): number {
@@ -321,14 +365,15 @@ export class DashboardComponent implements OnInit {
         this.sixMonthSurplus = surplus;
         break;
     }
+    
     return surplus;
   }
 
   calculatePeriodSurplusDifference(periodStart: number, periodEnd: number): string {
     const thisPeriodOrders = this.getPeriodOrders(periodStart);
     const lastPeriodOrders = this.getPreviousPeriodOrders(periodStart, periodEnd);
-    let thisPeriodSurplus = 0;
-    let lastPeriodSurplus = 0;
+    let thisPeriodSurplus = this.getPeriodRevenue(periodStart);
+    let lastPeriodSurplus = this.getPreviousPeriodRevenue(periodStart, periodEnd);
 
     thisPeriodOrders.forEach((order) => {
       order.transactionItems.forEach((item) => {
@@ -353,6 +398,10 @@ export class DashboardComponent implements OnInit {
     } else {
       this.sixPastMonthSurplus = lastPeriodSurplus;
     }
+    console.log(thisPeriodSurplus);
+    
+    console.log(lastPeriodSurplus);
+    
     return this.getPercentDiff(thisPeriodSurplus, lastPeriodSurplus);
   }
 
