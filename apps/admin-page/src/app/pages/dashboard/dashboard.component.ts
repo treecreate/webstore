@@ -232,7 +232,7 @@ export class DashboardComponent implements OnInit {
     order.transactionItems.forEach((item) => {
       switch (item.design.designType) {
         case DesignTypeEnum.familyTree:
-          switch(item.dimension) {
+          switch (item.dimension) {
             case DesignDimensionEnum.small:
               amount = 135;
               break;
@@ -241,30 +241,29 @@ export class DashboardComponent implements OnInit {
               break;
             case DesignDimensionEnum.large:
             default:
-              amount = 205
+              amount = 205;
               break;
           }
-        break;
+          break;
         case DesignTypeEnum.quotable:
         default:
-          switch(item.dimension) {
+          switch (item.dimension) {
             case DesignDimensionEnum.small:
               amount = 115;
               break;
             case DesignDimensionEnum.medium:
-              amount = 135
+              amount = 135;
               break;
             case DesignDimensionEnum.large:
             default:
               amount = 161;
-            break;
+              break;
           }
-        break;
+          break;
       }
-  });
+    });
     return amount;
   }
-
 
   subtractPlantedTrees(order: IOrder): number {
     if (order.plantedTrees > 1) {
