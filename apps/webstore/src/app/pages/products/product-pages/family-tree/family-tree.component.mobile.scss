@@ -5,15 +5,11 @@
   .design-screen {
     height: 100vw;
   }
-  .back-container {
-    padding-left: 5px;
-    padding-bottom: 5px;
-  }
 }
 
 @media screen and (max-width: 400px) {
   .design-screen {
-    width: 95vw;
+    height: 100vw;
   }
 }
 
