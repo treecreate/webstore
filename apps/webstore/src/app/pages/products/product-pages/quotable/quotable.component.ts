@@ -105,7 +105,7 @@ export class QuotableComponent implements OnInit {
     this.setDefaultDesign();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getFontList();
     this.loadDesign();
     this.setMetaData();
@@ -118,7 +118,7 @@ export class QuotableComponent implements OnInit {
       : BoxOptionsDesignEnum.boxOptionsHidden;
   }
 
-  setMetaData() {
+  setMetaData(): void {
     switch (this.quotableType) {
       case QuotableTypeEnum.babySign:
         this.metaTitle.setTitle('Fødselsminde indgraveret i træ');
@@ -201,7 +201,7 @@ export class QuotableComponent implements OnInit {
     this.design.designSrc = this.productSpecificFrames[this.currentDesign].src;
   }
 
-  loadDesign() {
+  loadDesign(): void {
     const queryParams = this.route.snapshot.queryParams;
     if (queryParams.designId !== undefined) {
       if (this.isLoggedIn) {
@@ -226,7 +226,7 @@ export class QuotableComponent implements OnInit {
     }
   }
 
-  loadDesignFromLocalStorage(designId: string) {
+  loadDesignFromLocalStorage(designId: string): void {
     // Get transactionItems from localstorage
     const itemList: ITransactionItem[] = this.localStorageService.getItem<ITransactionItem[]>(
       LocalStorageVars.transactionItems
@@ -247,7 +247,7 @@ export class QuotableComponent implements OnInit {
     }, 200);
   }
 
-  loadDesignFromDB(queryParams) {
+  loadDesignFromDB(queryParams): void {
     const designId = queryParams.designId;
     this.designService.getDesign(designId).subscribe(
       (result: IDesign) => {
@@ -286,7 +286,7 @@ export class QuotableComponent implements OnInit {
     );
   }
 
-  saveDesign(params: { persist?: boolean }, withAlert?: boolean) {
+  saveDesign(params: { persist?: boolean }, withAlert?: boolean): void {
     // If mutable, return
     if (!this.isMutable) {
       console.warn('This design cannot be updated');
@@ -384,7 +384,7 @@ export class QuotableComponent implements OnInit {
     }
   }
 
-  clearDesign() {
+  clearDesign(): void {
     this.removeProductFromLocal();
 
     if (this.route.snapshot.queryParams.designId === undefined) {
@@ -428,7 +428,7 @@ export class QuotableComponent implements OnInit {
     };
   }
 
-  loadTypeSpecificDesign() {
+  loadTypeSpecificDesign(): void {
     switch (this.quotableType) {
       case QuotableTypeEnum.babySign:
         this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
@@ -472,24 +472,24 @@ export class QuotableComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  closeOptionsOnScreenResize() {
+  closeOptionsOnScreenResize(): void {
     if (window.innerWidth > 1130) {
       this.isMobileOptionOpen = false;
     }
   }
 
-  showOptions() {
+  showOptions(): void {
     this.isMobileOptionOpen = !this.isMobileOptionOpen;
   }
 
-  openAddToBasketModal() {
+  openAddToBasketModal(): void {
     this.saveDesign({ persist: false }, true);
     const modalRef = this.modalService.open(AddToBasketModalComponent);
     modalRef.componentInstance.designType = DesignTypeEnum.quotable;
     modalRef.componentInstance.quotableType = this.quotableType;
   }
 
-  onIsDesignValidEvent($event) {
+  onIsDesignValidEvent($event): void {
     console.warn('Design state has changed. Valid:', $event);
     this.isDesignValid = $event;
     this.cdr.detectChanges();

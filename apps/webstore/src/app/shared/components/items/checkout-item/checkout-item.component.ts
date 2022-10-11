@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
 import { DesignTypeEnum, IQoutable, ITransactionItem, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -9,7 +9,7 @@ import { CalculatePriceService } from '../../../services/calculate-price/calcula
   templateUrl: './checkout-item.component.html',
   styleUrls: ['./checkout-item.component.css'],
 })
-export class CheckoutItemComponent implements OnInit {
+export class CheckoutItemComponent implements OnInit, AfterContentInit {
   @Input() item: ITransactionItem;
 
   itemPrice: number;
@@ -31,7 +31,7 @@ export class CheckoutItemComponent implements OnInit {
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     setTimeout(() => {
       this.isLoadingDesign = false;
     }, 100);
@@ -41,7 +41,7 @@ export class CheckoutItemComponent implements OnInit {
     return this.localeCode === 'en-US';
   }
 
-  getDesignName() {
+  getDesignName(): string {
     switch (this.item.design.designType) {
       case DesignTypeEnum.familyTree:
         return this.isEnglish() ? 'Family tree' : 'Stamtræ';

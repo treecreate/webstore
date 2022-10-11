@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   DesignDimensionEnum,
@@ -24,7 +24,7 @@ import { TransactionItemService } from '../../../services/transaction-item/trans
   templateUrl: './basket-item.component.html',
   styleUrls: ['./basket-item.component.css', '../../../../../assets/styles/tc-input-field.scss'],
 })
-export class BasketItemComponent implements OnInit {
+export class BasketItemComponent implements OnInit, AfterContentInit {
   @Output()
   priceChangeEvent = new EventEmitter();
 
@@ -73,13 +73,13 @@ export class BasketItemComponent implements OnInit {
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     setTimeout(() => {
       this.isLoadingDesign = false;
     }, 100);
   }
 
-  updatePrice() {
+  updatePrice(): void {
     this.priceChangeEvent.emit({ newItem: this.item, index: this.index });
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
@@ -107,7 +107,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  goToDesign() {
+  goToDesign(): void {
     if (this.isLoggedIn) {
       // use design.designId for logged in users
       switch (this.item.design.designType) {
@@ -144,7 +144,7 @@ export class BasketItemComponent implements OnInit {
     this.scrollTop();
   }
 
-  decreaseQuantity() {
+  decreaseQuantity(): void {
     this.isLoading = true;
     if (this.item.quantity > 1) {
       this.item.quantity = this.item.quantity - 1;
@@ -152,13 +152,13 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  increaseQuantity() {
+  increaseQuantity(): void {
     this.isLoading = true;
     this.item.quantity = this.item.quantity + 1;
     this.updatePrice();
   }
 
-  increaseDimension() {
+  increaseDimension(): void {
     this.isLoading = true;
     switch (this.item.dimension) {
       case DesignDimensionEnum.small:
@@ -172,7 +172,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  decreaseDimension() {
+  decreaseDimension(): void {
     this.isLoading = true;
     switch (this.item.dimension) {
       case DesignDimensionEnum.medium:
@@ -186,7 +186,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  updateTransactionItem() {
+  updateTransactionItem(): void {
     // Check if user is logged in
     if (this.isLoggedIn) {
       // Update DB transaction item
@@ -203,7 +203,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  updateTransactionItemDB() {
+  updateTransactionItemDB(): void {
     this.transactionItemService
       .updateTransactionItem(this.item.transactionItemId, {
         quantity: this.item.quantity,
@@ -264,7 +264,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  deleteTransactionItem() {
+  deleteTransactionItem(): void {
     this.isLoading = true;
     if (this.isLoggedIn) {
       // Delete transactionItem from DB
@@ -289,7 +289,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  deleteItemFromDB() {
+  deleteItemFromDB(): void {
     const transactionId = this.item.transactionItemId;
     this.transactionItemService.deleteTransactionItem(transactionId).subscribe(
       () => {
@@ -319,7 +319,7 @@ export class BasketItemComponent implements OnInit {
       }
     );
   }
-  scrollTop() {
+  scrollTop(): void {
     window.scrollTo(0, 0);
   }
 }
