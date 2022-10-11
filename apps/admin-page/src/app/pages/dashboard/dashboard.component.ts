@@ -1,6 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { DesignDimensionEnum, INewsletter, IOrder, OrderStatusEnum, ShippingMethodEnum } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  INewsletter,
+  IOrder,
+  OrderStatusEnum,
+  ShippingMethodEnum,
+} from '@interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NewsletterService } from '../../services/newsletter/newsletter.service';
 import { OrdersService } from '../../services/orders/orders.service';
@@ -21,7 +28,6 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ordersIsLoading = true;
-  newslettersIsLoading = true;
 
   twoWeekOrders = 0;
   twoPastWeekOrders = 0;
@@ -94,7 +100,6 @@ export class DashboardComponent implements OnInit {
       },
       next: (newsletterList: INewsletter[]) => {
         this.fullNewsletterList = newsletterList;
-        this.newslettersIsLoading = false;
         this.setNewsletterTableData();
       },
     });
@@ -221,17 +226,45 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  subtractDimensionSize(itemDimension: DesignDimensionEnum): number {
-    if (itemDimension === DesignDimensionEnum.small) {
-      return 135;
-    } else if (itemDimension === DesignDimensionEnum.medium) {
-      return 161;
-    } else if (itemDimension === DesignDimensionEnum.large) {
-      return 205;
-    } else {
-      return 115;
-    }
+  //TODO: Update the logic once the size naming for quotable is adjusted
+  subtractDimensionSize(order: IOrder): number {
+    let amount = 0;
+    order.transactionItems.forEach((item) => {
+      switch (item.design.designType) {
+        case DesignTypeEnum.familyTree:
+          switch(item.dimension) {
+            case DesignDimensionEnum.small:
+              amount = 135;
+              break;
+            case DesignDimensionEnum.medium:
+              amount = 161;
+              break;
+            case DesignDimensionEnum.large:
+            default:
+              amount = 205
+              break;
+          }
+        break;
+        case DesignTypeEnum.quotable:
+        default:
+          switch(item.dimension) {
+            case DesignDimensionEnum.small:
+              amount = 115;
+              break;
+            case DesignDimensionEnum.medium:
+              amount = 135
+              break;
+            case DesignDimensionEnum.large:
+            default:
+              amount = 161;
+            break;
+          }
+        break;
+      }
+  });
+    return amount;
   }
+
 
   subtractPlantedTrees(order: IOrder): number {
     if (order.plantedTrees > 1) {
@@ -341,9 +374,7 @@ export class DashboardComponent implements OnInit {
     let surplus = this.getPeriodRevenue(period);
 
     thisPeriodOrders.forEach((order) => {
-      order.transactionItems.forEach((item) => {
-        surplus -= this.subtractDimensionSize(item.dimension);
-      });
+      surplus -= this.subtractDimensionSize(order);
       surplus -= this.subtractPlantedTrees(order);
       surplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
@@ -373,16 +404,12 @@ export class DashboardComponent implements OnInit {
     let lastPeriodSurplus = this.getPreviousPeriodRevenue(periodStart, periodEnd);
 
     thisPeriodOrders.forEach((order) => {
-      order.transactionItems.forEach((item) => {
-        thisPeriodSurplus -= this.subtractDimensionSize(item.dimension);
-      });
+      thisPeriodSurplus -= this.subtractDimensionSize(order);
       thisPeriodSurplus -= this.subtractPlantedTrees(order);
       thisPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
     lastPeriodOrders.forEach((order) => {
-      order.transactionItems.forEach((item) => {
-        lastPeriodSurplus -= this.subtractDimensionSize(item.dimension);
-      });
+      lastPeriodSurplus -= this.subtractDimensionSize(order);
       lastPeriodSurplus -= this.subtractPlantedTrees(order);
       lastPeriodSurplus -= this.subtractShippingCost(order.shippingMethod, order.total);
     });
