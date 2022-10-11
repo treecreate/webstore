@@ -16,7 +16,7 @@ const familyTree: ProductsItem = {
   descriptionEn:
     'The Treecreate family tree is for you if you want to give your family a gift to remember. Design your own family tree and have it carved in beautiful oak wood. If you are looking for this years best christmas gift, this if for you.',
   descriptionDk:
-    'Treecreate Familietræet er for dig, der vil give din familie en gave de aldrig glemmer. Design dit eget familietræ i bæredygtigt træ (eg). Hvis du leder efter årets julegave 2022, så er Treecreate familietræet noget for dig',
+    'Treecreate Familietræet er for dig, der vil give din familie en gave de aldrig glemmer. Design dit eget familietræ og få det skåret træ (eg) af høj kvalitet. Hvis du leder efter årets julegave 2022, så er Treecreate familietræet noget for dig',
   prices: [499, 699, 999],
   imgSrc: '/assets/img/family-tree/family-tree-display-img/family-tree-02.jpg',
   altText: 'Et helt unikt familietræ perfekt som gave.',

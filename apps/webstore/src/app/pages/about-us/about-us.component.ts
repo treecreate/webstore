@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { ErrorlogPriorityEnum, INewsletter } from '@interfaces';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { ErrorlogsService } from '../../shared/services/errorlog/errorlog.service';
@@ -23,7 +24,9 @@ export class AboutUsComponent implements OnInit {
     private ordersService: OrderService,
     private toastService: ToastService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {
     this.newsletterForm = new UntypedFormGroup({
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
@@ -32,6 +35,19 @@ export class AboutUsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPlantedTreesTotal();
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle("Om os - Treecreate's historie bag teamet");
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Med Treecreate har du frihed til fuldstændigt selv at designe dit helt eget design på et smukt stykke bæredygtigt egetræ i høj kvalitet.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'gave, kvalitet, miljøvenlig, interiør, moderne, hjemmet, design, dekoration, gaveide, bæredygtig',
+    });
   }
 
   registerNewsletter(): void {
