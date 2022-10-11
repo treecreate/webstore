@@ -12,7 +12,7 @@ export const customOrderExamples = [
   {
     customer: 'We Do Agency',
     descriptionEn: '4 unique prices at a BMW event, where the prises gifted to the winners.',
-    descriptionDk: '4 personlige præmier til et BMW event, hvor prierne blev uddelt til vinderne. ',
+    descriptionDk: '4 personlige præmier unikt skåret til et BMW event, hvor prierne blev uddelt til vinderne. ',
     price: 1400,
     altText: 'En serie af præmier for BMW',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-3.png',
@@ -20,7 +20,7 @@ export const customOrderExamples = [
   {
     customer: 'Jakobsen',
     descriptionEn: "A beautiful display in the memory of the family's golden retriever named Bella.",
-    descriptionDk: 'En flot tavle i minde om familiens golden retriever ved navn Bella.',
+    descriptionDk: 'En flot tavle, efter deres helt eget design, i minde om familiens golden retriever, Bella.',
     price: 400,
     altText: 'En hundetavle med familiens og hundens navn',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-1.png',
