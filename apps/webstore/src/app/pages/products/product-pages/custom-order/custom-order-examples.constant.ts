@@ -6,7 +6,7 @@ export const customOrderExamples = [
     descriptionDk:
       'Et unik plade med Penneos logo på, kombineret med Nasdaq navnet. Lavet i en fejring af at blive en del af Nasdaq-indexet.',
     price: 700,
-    altText: 'Penneo\'s og nasdaq logo mash til et firma event',
+    altText: "Penneo's og nasdaq logo mash til et firma event",
     imgSrc: '/assets/img/custom-order-example/custom-order-img-2.png',
   },
   {
