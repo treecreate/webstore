@@ -123,7 +123,7 @@ export class FamilyTreeComponent implements OnInit {
     });
     this.meta.updateTag({
       name: 'keywords',
-      content: 'stamtræ, stamtavle, familietræ, familie, familiegave, gave til familien, morsdag, farsdag, gave',
+      content: 'stamtræ, stamtavle, stamtræ, familie, familiegave, gave til familien, morsdag, farsdag, gave',
     });
   }
 
