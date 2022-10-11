@@ -172,7 +172,7 @@
       </trans-unit>
       <trans-unit id="about-us-team-text" datatype="html">
         <source> We are a small but passionate team from Copenhagen, and together with you we want to create a community and an experience of high value gift giving that&apos;s bringing home something truly personal and environmental. Treecreate would be nothing without you and your feedback, and we always try to improve the experience for everyone using that feedback. </source>
-        <target>Vi er et lille, men passioneret hold fra København og sammen med dig vil vi lave et fællesskab og en give oplevelsen af at komme hjem med en gave med høj værdi, som både er personlig og bæredygtig Treecreate ville være intet uden dig og din feedback og vi prøver altid at forbedre oplevelsen for dig og alle andre.</target>
+        <target>Vi er et lille, men passioneret hold fra København og sammen med dig vil vi lave et fællesskab og en give oplevelsen af at komme hjem med en gave med høj værdi, som både er personlig og bæredygtig. Treecreates historie ville være intet uden dig og din feedback og vi prøver altid at forbedre oplevelsen for dig og alle andre.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">142,147</context>
