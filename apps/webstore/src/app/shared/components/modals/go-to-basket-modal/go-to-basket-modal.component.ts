@@ -39,11 +39,7 @@ export class GoToBasketModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    if (this.isLoggedIn) {
-      this.getBasketInfoFromDB();
-    } else {
-      this.getBasketInfoFromLocalStorage();
-    }
+    this.isLoggedIn ? this.getBasketInfoFromDB() : this.getBasketInfoFromLocalStorage();
   }
 
   getBasketInfoFromLocalStorage() {
@@ -85,37 +81,47 @@ export class GoToBasketModalComponent implements OnInit {
   }
 
   createNew() {
+    // this.clearDesign();
     this.activeModal.close();
-    this.clearDesign();
+    this.router.navigate(['/products']);
   }
 
-  clearDesign() {
-    let itemType = LocalStorageVars.designFamilyTree;
+  // I commented this out since its not certain that the user wishes to clear their design.
+  // Instead i just redirect to products page since the user always has the option to clear design later.
+  // This is also in case the user adds a design to basket (normally removing it from local) and there
+  // being a spelling error or something they want to change. Then they have to re-create the design
+  // but since it stays in local they can just re add it after changes and remove the wrong one from basket.
 
-    switch (this.router.url) {
-      case '/products/family-tree': {
-        itemType = LocalStorageVars.designFamilyTree;
-        break;
-      }
-      case '/products/quotable': {
-        itemType = LocalStorageVars.designQuotable;
-        break;
-      }
-    }
-    this.localStorageService.removeItem(itemType);
-    if (this.route.snapshot.queryParams.designId === undefined) {
-      // trigger reload of the page by switching to another page and back
-      const currentUrl = this.router.url;
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-      });
-    } else {
-      // clear the designId param, triggering refetching of data
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: { designId: null },
-        queryParamsHandling: 'merge', // remove to replace all query params by provided
-      });
-    }
-  }
+  // clearDesign() {
+  //   // Check what product page the user is on
+  //   if (this.router.url.includes('/products/quotable')) {
+  //     // Get quotable type from params
+  //     // Remove product from local storage
+  //     switch (this.route.snapshot.queryParams.productType) {
+  //       case QuotableTypeEnum.babySign:
+  //         this.localStorageService.removeItem(LocalStorageVars.designBabySign);
+  //         break;
+  //       case QuotableTypeEnum.loveLetter:
+  //         this.localStorageService.removeItem(LocalStorageVars.designLoveLetter);
+  //         break;
+  //       case QuotableTypeEnum.quotable:
+  //       default:
+  //         this.localStorageService.removeItem(LocalStorageVars.designQuotable);
+  //     }
+  //   } else if (this.router.url.includes('/products/family-tree')) {
+  //     // Remove family tree from local storage
+  //     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
+  //   }
+
+  //   if (this.route.snapshot.queryParams.designId === undefined) {
+  //     this.router.navigate(['/products']);
+  //   } else {
+  //     // clear the designId param, triggering refetching of data
+  //     this.router.navigate([], {
+  //       relativeTo: this.route,
+  //       queryParams: { designId: null },
+  //       queryParamsHandling: 'merge', // remove to replace all query params by provided
+  //     });
+  //   }
+  // }
 }
