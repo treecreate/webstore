@@ -63,11 +63,49 @@ export class CollectionItemComponent implements OnInit {
   }
 
   addDesignToBasket() {
-    this.localStorageService.setItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree,
-      <IFamilyTree>this.design.designProperties
-    );
-    this.modalService.open(AddToBasketModalComponent);
+    console.log('design being put into design', this.design.designProperties);
+
+    switch (this.design.designType) {
+      case DesignTypeEnum.quotable:
+        // Set design in localstorage based off quotable type
+        switch ((this.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            this.localStorageService.setItem<IQoutable>(
+              LocalStorageVars.designBabySign,
+              <IQoutable>this.design.designProperties
+            );
+            this.eventsService.create('webstore.collection-item.baby-sign-added-to-basket');
+            break;
+          case QuotableTypeEnum.loveLetter:
+            this.localStorageService.setItem<IQoutable>(
+              LocalStorageVars.designLoveLetter,
+              <IQoutable>this.design.designProperties
+            );
+            this.eventsService.create('webstore.collection-item.love-letter-added-to-basket');
+            break;
+          case QuotableTypeEnum.quotable:
+          default:
+            this.localStorageService.setItem<IQoutable>(
+              LocalStorageVars.designQuotable,
+              <IQoutable>this.design.designProperties
+            );
+            this.eventsService.create('webstore.collection-item.quotable-added-to-basket');
+            break;
+        }
+        // Create modal ref and add design type and quotable type
+        const modalRef = this.modalService.open(AddToBasketModalComponent);
+        modalRef.componentInstance.designType = DesignTypeEnum.quotable;
+        modalRef.componentInstance.quotableType = (this.design.designProperties as IQoutable).quotableType;
+        break;
+      case DesignTypeEnum.familyTree:
+      default:
+        this.localStorageService.setItem<IFamilyTree>(
+          LocalStorageVars.designFamilyTree,
+          <IFamilyTree>this.design.designProperties
+        );
+        this.modalService.open(AddToBasketModalComponent);
+        this.eventsService.create('webstore.collection-item.family-tree-added-to-basket');
+    }
     this.eventsService.create('webstore.collection-item.item-added-to-basket');
   }
 
