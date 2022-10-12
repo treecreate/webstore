@@ -94,6 +94,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .antMatchers(HttpMethod.GET, "/orders/planted-trees")
         .permitAll()
+        .antMatchers(HttpMethod.POST, "/feedback")
+        .permitAll()
         .antMatchers("/healthcheck")
         .permitAll()
         .antMatchers(

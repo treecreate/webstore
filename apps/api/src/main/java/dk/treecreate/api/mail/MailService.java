@@ -1,6 +1,7 @@
 package dk.treecreate.api.mail;
 
 import dk.treecreate.api.config.CustomPropertiesConfig;
+import dk.treecreate.api.feedback.dto.CreateFeedbackRequest;
 import dk.treecreate.api.order.Order;
 import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
@@ -116,7 +117,8 @@ public class MailService {
           break;
         }
     }
-    // Calculate delivery price. Calulcations return total + delivery price, so we substract the
+    // Calculate delivery price. Calulcations return total + delivery price, so we
+    // substract the
     // total
     BigDecimal deliveryPrice =
         orderService
@@ -152,6 +154,14 @@ public class MailService {
         context,
         MailTemplate.CUSTOM_ORDER_REQUEST,
         orderInfo.getImages());
+  }
+
+  public void sendFeedbackEmail(CreateFeedbackRequest feedbackInfo)
+      throws UnsupportedEncodingException, MessagingException {
+    Context context = new Context(Locale.ENGLISH);
+    context.setVariable("feedback", feedbackInfo);
+    String subject = "Feedback information";
+    sendMail(MailDomain.INFO.label, MailDomain.INFO, subject, context, MailTemplate.FEEDBACK);
   }
 
   // No BCC email and no attachments

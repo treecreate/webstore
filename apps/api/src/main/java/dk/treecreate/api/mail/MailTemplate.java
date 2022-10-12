@@ -7,6 +7,7 @@ public enum MailTemplate {
   RESET_PASSWORD("reset-password"),
   ORDER_CONFIRMATION("order-confirmation"),
   CUSTOM_ORDER_REQUEST("custom-order-request"),
+  FEEDBACK("feedback"),
   NEWSLETTER_DISCOUNT("newsletter-discount");
 
   public final String label;
