@@ -1,7 +1,6 @@
 <div class="modal-container">
     <div class="modal-content" data-cy="feedback-modal">
         <form class="feedback-content" name="feedbackForm" [formGroup]="feedbackForm" (ngSubmit)="submitFeedback()">
-            <!-- Contact Info and order description -->
             <div class="feedback-section">
                 <br />
                 <div class="title-container" style="margin-bottom: 5px">
@@ -59,13 +58,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Requirements -->
-            <div>
-                <p id="feedback-note" i18n="feedback-note">
-                    Note: For every design you purchase, you are automatically planting a tree. Thereby you support
-                    re-floreshing the forrest, which has never been a more vital task. THANK YOU FOR YOUR SUPPORT!
-                </p>
-            </div>
+
+            <p id="feedback-note" i18n="feedback-note">
+                Note: For every design you purchase, you are automatically planting a tree. Thereby you support
+                re-floreshing the forrest, which has never been a more vital task. THANK YOU FOR YOUR SUPPORT!
+            </p>
 
             <!-- Actions -->
             <div class="actions">
