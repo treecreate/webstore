@@ -56,7 +56,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/product-display/product-display.component.html</context>
-          <context context-type="linenumber">24,26</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="your-own-design" datatype="html">
@@ -121,7 +121,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/forgot-password-modal/forgot-password-modal.component.html</context>
@@ -197,7 +197,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">76,80</context>
+          <context context-type="linenumber">75,79</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
@@ -233,97 +233,97 @@
           <context context-type="linenumber">20,22</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket-upper" datatype="html">
         <source>BASKET</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="no-items-text" datatype="html">
         <source>You have no items in your basket</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="start-creating" datatype="html">
         <source> Start Creating </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">41,43</context>
+          <context context-type="linenumber">40,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-title" datatype="html">
         <source>You are not only getting a unique and personal gift:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-item-1" datatype="html">
         <source> You are also planting a tree for each item in your order. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">58,60</context>
+          <context context-type="linenumber">57,59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-item-2" datatype="html">
         <source> You are supporting local and environmental businesses. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">60,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket-subtext-item-3" datatype="html">
         <source> You are getting a memory that will last a lifetime. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">64,66</context>
+          <context context-type="linenumber">63,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plant-extra-trees" datatype="html">
         <source>Plant an extra tree - 10kr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="apply-discount" datatype="html">
         <source>Apply</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="amount-discount" datatype="html">
         <source>Amount dicount:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subtotal" datatype="html">
         <source>Subtotal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">142</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">526,527</context>
+          <context context-type="linenumber">524,525</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -334,26 +334,26 @@
         <source>You save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">150</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">530,531</context>
+          <context context-type="linenumber">528,529</context>
         </context-group>
       </trans-unit>
       <trans-unit id="delivery" datatype="html">
         <source>Delivery</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">154</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">370,373</context>
+          <context context-type="linenumber">368,371</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">534,535</context>
+          <context context-type="linenumber">532,533</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -364,15 +364,15 @@
         <source>Total</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="linenumber">159</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">538,539</context>
+          <context context-type="linenumber">536,537</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -383,11 +383,11 @@
         <source>VAT</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">166</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">542,543</context>
+          <context context-type="linenumber">540,541</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -398,7 +398,7 @@
         <source> Go to checkout </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">178,180</context>
+          <context context-type="linenumber">176,178</context>
         </context-group>
       </trans-unit>
       <trans-unit id="back-to-basket" datatype="html">
@@ -434,7 +434,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">238,240</context>
+          <context context-type="linenumber">240,242</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
@@ -442,7 +442,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -453,49 +453,19 @@
           <context context-type="linenumber">156</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="invalid-name" datatype="html">
-        <source> Invalid name. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">62,65</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">251,254</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
-          <context context-type="linenumber">46,48</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">35,37</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="invalid-phone-number" datatype="html">
-        <source> Invalid phone number. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">87,90</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
-          <context context-type="linenumber">69,71</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="street-address" datatype="html">
         <source> Street address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">117,119</context>
+          <context context-type="linenumber">122,124</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">145,148</context>
+          <context context-type="linenumber">149,152</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">266,268</context>
+          <context context-type="linenumber">267,269</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -522,15 +492,7 @@
         <source> The address is too long. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">131,134</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">159,162</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">280,283</context>
+          <context context-type="linenumber">163,166</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -549,7 +511,7 @@
         <source>City</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">174,176</context>
+          <context context-type="linenumber">178,180</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
@@ -568,30 +530,15 @@
           <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="invalid-city" datatype="html">
-        <source> The city name is too long. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">182,186</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">331,333</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
-          <context context-type="linenumber">169,171</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="postcode" datatype="html">
         <source>Postcode</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">198,200</context>
+          <context context-type="linenumber">201,203</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">347,349</context>
+          <context context-type="linenumber">346,348</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
@@ -606,26 +553,11 @@
           <context context-type="linenumber">174</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="invalid-postcode" datatype="html">
-        <source> Invalid danish postcode. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">206,209</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">359,361</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
-          <context context-type="linenumber">192,194</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="billing-address" datatype="html">
         <source>Billing address </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">222,226</context>
+          <context context-type="linenumber">224,228</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -636,56 +568,56 @@
         <source>Parcelshop delivery</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">388,389</context>
+          <context context-type="linenumber">386,387</context>
         </context-group>
       </trans-unit>
       <trans-unit id="parcel-selection-info" datatype="html">
         <source> This automatically selects the nearest parcel shop </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">392,394</context>
+          <context context-type="linenumber">390,392</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home-delivery" datatype="html">
         <source>Home delivery</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">456,457</context>
+          <context context-type="linenumber">454,455</context>
         </context-group>
       </trans-unit>
       <trans-unit id="your-order" datatype="html">
         <source>Your Order</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">467,470</context>
+          <context context-type="linenumber">465,468</context>
         </context-group>
       </trans-unit>
       <trans-unit id="thank-you-for-planting" datatype="html">
         <source>Thank you for planting</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">512,515</context>
+          <context context-type="linenumber">510,513</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tree" datatype="html">
         <source>tree(s)!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">517,519</context>
+          <context context-type="linenumber">515,517</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accept-terms" datatype="html">
         <source>I accept terms and conditions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">562,564</context>
+          <context context-type="linenumber">560,562</context>
         </context-group>
       </trans-unit>
       <trans-unit id="read-here" datatype="html">
         <source>Read here</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">568,571</context>
+          <context context-type="linenumber">566,569</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/signup/signup.component.html</context>
@@ -696,79 +628,87 @@
         <source>Go to payment</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">577,579</context>
+          <context context-type="linenumber">575,577</context>
         </context-group>
       </trans-unit>
       <trans-unit id="shipping-form-is-not-valid" datatype="html">
         <source>Shipping address is not completed:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">593,596</context>
+          <context context-type="linenumber">591,594</context>
         </context-group>
       </trans-unit>
       <trans-unit id="name-is-invalid" datatype="html">
         <source> Name is invalid </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">600,603</context>
+          <context context-type="linenumber">598,601</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">651,654</context>
+          <context context-type="linenumber">649,652</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit id="email-is-invalid" datatype="html">
         <source> Email is invalid </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">607,610</context>
+          <context context-type="linenumber">605,608</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">210</context>
         </context-group>
       </trans-unit>
       <trans-unit id="street-address-is-invalid" datatype="html">
         <source> Street address is invalid </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">614,617</context>
+          <context context-type="linenumber">612,615</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">658,661</context>
+          <context context-type="linenumber">656,659</context>
         </context-group>
       </trans-unit>
       <trans-unit id="city-is-invalid" datatype="html">
         <source> City is invalid </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">621,624</context>
+          <context context-type="linenumber">619,622</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">665,668</context>
+          <context context-type="linenumber">663,666</context>
         </context-group>
       </trans-unit>
       <trans-unit id="postcode-is-invalid" datatype="html">
         <source> Postcode is invalid </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">628,631</context>
+          <context context-type="linenumber">626,629</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">672,676</context>
+          <context context-type="linenumber">670,674</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accept-sales-terms" datatype="html">
         <source> Please accept our terms of sale </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">635,639</context>
+          <context context-type="linenumber">633,637</context>
         </context-group>
       </trans-unit>
       <trans-unit id="billing-form-is-not-valid" datatype="html">
         <source>Billing address is not completed:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">643,647</context>
+          <context context-type="linenumber">641,645</context>
         </context-group>
       </trans-unit>
       <trans-unit id="your-collection" datatype="html">
@@ -801,11 +741,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">131</context>
+          <context context-type="linenumber">121</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">199</context>
+          <context context-type="linenumber">183</context>
         </context-group>
       </trans-unit>
       <trans-unit id="no-designs" datatype="html">
@@ -853,7 +793,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="password" datatype="html">
@@ -896,7 +836,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">208</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact" datatype="html">
@@ -910,6 +850,24 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="invalid-name" datatype="html">
+        <source> Invalid name </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">46,48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">38,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-phone-number" datatype="html">
+        <source> Invalid phone number </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">69,71</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="address" datatype="html">
         <source>Address line</source>
         <context-group purpose="location">
@@ -919,6 +877,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
           <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-city" datatype="html">
+        <source> The city name is too long </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">169,171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="invalid-postcode" datatype="html">
+        <source> Invalid danish postcode </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/profile/profile.component.html</context>
+          <context context-type="linenumber">192,194</context>
         </context-group>
       </trans-unit>
       <trans-unit id="updating" datatype="html">
@@ -1240,7 +1212,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="our-mission-statement" datatype="html">
-        <source> To give people a feeling of community and love. To give people the opportunity to give back to those who has given everything. </source>
+        <source> To make it possible for everyone to give a unique and personal gift of high quality in a sustainable way. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">107,110</context>
@@ -1394,180 +1366,180 @@
         <source>Custom order</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="description" datatype="html">
         <source>Describe your product wishes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invalid-description" datatype="html">
         <source> The description is required. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">88,90</context>
+          <context context-type="linenumber">93,95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="include-description" datatype="html">
         <source> In the description please include: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="product-size" datatype="html">
         <source>Product Size</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="image-printed-text" datatype="html">
         <source>The image you want printed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="specification-and-questions" datatype="html">
         <source>Specification and questions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="image-requirements" datatype="html">
         <source>Image requirements:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="black-and-white" datatype="html">
         <source>Black and white</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dont-include" datatype="html">
         <source>No shadows / fading colors</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="total-file-size" datatype="html">
         <source>Total file size less than 20MB</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="custom-order-upload-image" datatype="html">
         <source>Upload image</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="custom-order-not-files-uploaded" datatype="html">
         <source>No files uploaded</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">148</context>
+          <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filesize-too-high" datatype="html">
         <source> The uploaded files are too big. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">162,164</context>
+          <context context-type="linenumber">167,169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="confirm-image-requirements" datatype="html">
         <source>I have read the image requirements</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">181</context>
+          <context context-type="linenumber">186</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="send-custom-order" datatype="html">
-        <source>Send</source>
+      <trans-unit id="form-is-not-valid" datatype="html">
+        <source>Form is not completed:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">190</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="missing-description" datatype="html">
+        <source>Missing description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">211</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="missing-images" datatype="html">
+        <source>You need to upload at least one image</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="read-image-description" datatype="html">
+        <source> Please acknowledge that you have read the image requirements </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">213,215</context>
         </context-group>
       </trans-unit>
       <trans-unit id="other-examples" datatype="html">
         <source>Other examples</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">203</context>
+          <context context-type="linenumber">219</context>
         </context-group>
       </trans-unit>
       <trans-unit id="box-size" datatype="html">
         <source>Box Size</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="save" datatype="html">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">167</context>
+          <context context-type="linenumber">168</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reset" datatype="html">
         <source>Reset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">171</context>
+          <context context-type="linenumber">172</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">133</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="use-template" datatype="html">
-        <source>Use template</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">178</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="add" datatype="html">
-        <source>Add</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">189</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">156</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="font-size" datatype="html">
-        <source>Font Size</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="select-a-template" datatype="html">
         <source>Select a template</source>
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
+          <context context-type="linenumber">179</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">160</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
@@ -1576,6 +1548,24 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/quotable-template-modal/quotable-template-modal.component.html</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="add" datatype="html">
+        <source>Add</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
+          <context context-type="linenumber">190</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="font-size" datatype="html">
+        <source>Font Size</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="product" datatype="html">
@@ -1590,7 +1580,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="collection" datatype="html">
@@ -1601,11 +1591,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">111</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">211</context>
+          <context context-type="linenumber">195</context>
         </context-group>
       </trans-unit>
       <trans-unit id="basket" datatype="html">
@@ -1658,7 +1648,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/custom-order-display/custom-order-display.component.html</context>
@@ -1696,7 +1686,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -1718,44 +1708,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">43,45</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="design-type-family-tree" datatype="html">
-        <source>Family tree</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
-          <context context-type="linenumber">56</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="design-type-quotable" datatype="html">
-        <source>Quotable</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">42,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add-to-basket" datatype="html">
         <source> Add to basket </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">21,23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
@@ -1766,7 +1726,7 @@
         <source> Edit </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">34,36</context>
+          <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="order-number" datatype="html">
@@ -2019,11 +1979,11 @@
         <source> Select </source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/family-tree-template-modal/family-tree-template-modal.component.html</context>
-          <context context-type="linenumber">31,33</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/quotable-template-modal/quotable-template-modal.component.html</context>
-          <context context-type="linenumber">27,29</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="forgotten-password" datatype="html">
@@ -2128,51 +2088,51 @@
         <source>English</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">177</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="danish" datatype="html">
         <source>Danish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">185</context>
+          <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="about-us" datatype="html">
         <source>About Us</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="orders" datatype="html">
         <source>Orders</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">131</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">213</context>
+          <context context-type="linenumber">197</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout" datatype="html">
         <source>Log out</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">142</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">214</context>
+          <context context-type="linenumber">198</context>
         </context-group>
       </trans-unit>
       <trans-unit id="get-10-off" datatype="html">
