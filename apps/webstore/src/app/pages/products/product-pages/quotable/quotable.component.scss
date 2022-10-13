@@ -21,3 +21,20 @@
   height: 80vh;
   width: 80vh;
 }
+
+.back-container {
+  padding-left: 0 !important;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.opacity-change {
+  opacity: 0;
+}
+
+.opacity-change-spinner {
+  display: block;
+  height: 0;
+  position: relative;
+  top: -51%;
+}

@@ -118,6 +118,10 @@ export class AppComponent {
     });
   }
 
+  isProductsPage(): boolean {
+    return this.router.url.includes('/products/');
+  }
+
   initMetaPixel() {
     let metaPixelId = '1050174159116278';
     if (environment.production) {

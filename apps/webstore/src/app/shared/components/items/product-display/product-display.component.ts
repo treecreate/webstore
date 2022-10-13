@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsItem } from '../../../../pages/products/products-items.constant';
 
 @Component({
@@ -13,7 +14,18 @@ export class ProductDisplayComponent {
   @Input()
   isEnglish!: boolean;
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  navigateToProduct() {
+    if (this.product.productType) {
+      this.router.navigate(['/products/' + this.product.routerLink], {
+        queryParams: { productType: this.product.productType },
+      });
+    } else {
+      this.router.navigate(['/products/' + this.product.routerLink]);
+    }
+    this.scrollTop();
+  }
 
   scrollTop() {
     window.scrollTo(0, 0);

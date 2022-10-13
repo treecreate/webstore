@@ -10,14 +10,13 @@
             router.url !== '/resetPassword' &&
             router.url !== '/payment/success' &&
             router.url !== '/checkout' &&
-            router.url !== '/products/family-tree' &&
-            router.url !== '/products/quotable'
+            !isProductsPage()
         "
     ></webstore-footer>
     <webstore-toasts></webstore-toasts>
     <webstore-cookie-prompt-modal *ngIf="showCookiePrompt"></webstore-cookie-prompt-modal>
     <webstore-sticky-newsletter-button
-        *ngIf="router.url === '/' || router.url === '/products'"
+        *ngIf="router.url === '/' || router.url === '/products' || router.url === '/about-us'"
     ></webstore-sticky-newsletter-button>
 
     <webstore-sticky-feedback-button *ngIf="shouldShowFeedbackButton()"></webstore-sticky-feedback-button>
