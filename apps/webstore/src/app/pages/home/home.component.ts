@@ -1,9 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from '@local-storage';
-import { reviewList } from './reviews.constant';
 import { Meta, Title } from '@angular/platform-browser';
+import { LocalStorageService } from '@local-storage';
+import { LocaleType, LocalStorageVars } from '@models';
+import { reviewList } from './reviews.constant';
 
 @Component({
   selector: 'webstore-home',
@@ -14,16 +13,13 @@ export class HomeComponent implements OnInit {
   initialTop: 0;
   showUpArrow = false;
   showStartButton = false;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   reviews = reviewList;
 
   title = 'homeComponent';
 
   constructor(private localStorageService: LocalStorageService, private metaTitle: Title, private meta: Meta) {
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
   ngOnInit(): void {

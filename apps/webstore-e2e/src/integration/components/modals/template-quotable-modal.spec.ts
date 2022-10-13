@@ -18,12 +18,42 @@ describe('Template selection modal', () => {
     cy.get('[data-cy=quotable-template-modal]').should('not.exist');
   });
 
-  it('selects the correct template', () => {
+  it('selects the quotable correct template', () => {
     cy.get('[data-cy=quotable-template-button]').click({ force: true });
     cy.get('[data-cy=quotable-template-modal]').should('exist');
     cy.get('[data-cy=template-select-btn]').first().click({ force: true });
-    cy.get('[data-cy=save-button]').click({ force: true });
-    cy.visit('/products/quotable');
+
     cy.get('[data-cy=text]').should('contain', 'Det eneste bedre');
+    cy.get('[data-cy=font-size]').should('contain', '40');
+    cy.get('[data-cy=title-input-field]').should('not.exist');
+    cy.get('[data-cy=show-text]').should('contain', 'true');
+    cy.get('[data-cy=show-title]').should('contain', 'false');
+    cy.get('[data-cy=vertical-placement]').should('contain', '35');
+  });
+
+  it('shows the correct baby sign templates', () => {
+    cy.visit('/products/quotable?productType=BABY_SIGN');
+    cy.get('[data-cy=quotable-template-button]').click({ force: true });
+    cy.get('[data-cy=template-select-btn]').first().click({ force: true });
+
+    cy.get('[data-cy=title]').should('contain', 'Fulde navn');
+    cy.get('[data-cy=text]').should('contain', '01.01.2022');
+    cy.get('[data-cy=font-size]').should('contain', '30');
+    cy.get('[data-cy=show-text]').should('contain', 'true');
+    cy.get('[data-cy=show-title]').should('contain', 'true');
+    cy.get('[data-cy=vertical-placement]').should('contain', '81');
+  });
+
+  it('shows the correct love letter templates', () => {
+    cy.visit('/products/quotable?productType=LOVE_LETTER');
+    cy.get('[data-cy=quotable-template-button]').click({ force: true });
+    cy.get('[data-cy=template-select-btn]').first().click({ force: true });
+
+    cy.get('[data-cy=title]').should('contain', 'Fulde navn');
+    cy.get('[data-cy=text]').should('contain', 'Jeg skrev dit navn i skyerne');
+    cy.get('[data-cy=font-size]').should('contain', '26');
+    cy.get('[data-cy=show-text]').should('contain', 'true');
+    cy.get('[data-cy=show-title]').should('contain', 'true');
+    cy.get('[data-cy=vertical-placement]').should('contain', '50');
   });
 });

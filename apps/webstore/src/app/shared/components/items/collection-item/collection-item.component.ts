@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DesignTypeEnum, ErrorlogPriorityEnum, IDesign, IFamilyTree } from '@interfaces';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DesignTypeEnum, ErrorlogPriorityEnum, IDesign, IFamilyTree, IQoutable, QuotableTypeEnum } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DesignService } from '../../../services/design/design.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
@@ -15,12 +15,15 @@ import { ToastService } from '../../toast/toast-service';
   templateUrl: './collection-item.component.html',
   styleUrls: ['./collection-item.component.css'],
 })
-export class CollectionItemComponent {
+export class CollectionItemComponent implements OnInit {
   @Input() design: IDesign;
   isLoading = false;
+  isLoadingDesign = true;
 
   @Output() deleteEvent = new EventEmitter();
   public designTypeEnum = DesignTypeEnum;
+
+  localeCode: LocaleType;
 
   constructor(
     private toastService: ToastService,
@@ -30,6 +33,10 @@ export class CollectionItemComponent {
     private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
+
+  ngOnInit(): void {
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+  }
 
   deleteDesign() {
     this.isLoading = true;
@@ -56,11 +63,51 @@ export class CollectionItemComponent {
   }
 
   addDesignToBasket() {
-    this.localStorageService.setItem<IFamilyTree>(
-      LocalStorageVars.designFamilyTree,
-      <IFamilyTree>this.design.designProperties
-    );
-    this.modalService.open(AddToBasketModalComponent);
+    console.log('design being put into design', this.design.designProperties);
+
+    switch (this.design.designType) {
+      case DesignTypeEnum.familyTree:
+        this.localStorageService.setItem<IFamilyTree>(
+          LocalStorageVars.designFamilyTree,
+          <IFamilyTree>this.design.designProperties
+        );
+        this.modalService.open(AddToBasketModalComponent);
+        this.eventsService.create('webstore.col-item.family-tree-added-to-basket');
+        // End this function call so it doesn't continue the code
+        return;
+      case DesignTypeEnum.quotable:
+      default:
+        // Set design in localstorage based off quotable type
+        switch ((this.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            this.localStorageService.setItem<IQoutable>(
+              LocalStorageVars.designBabySign,
+              <IQoutable>this.design.designProperties
+            );
+            this.eventsService.create('webstore.collection-item.baby-sign-added-to-basket');
+            break;
+          case QuotableTypeEnum.loveLetter:
+            this.localStorageService.setItem<IQoutable>(
+              LocalStorageVars.designLoveLetter,
+              <IQoutable>this.design.designProperties
+            );
+            this.eventsService.create('webstore.collection-item.love-letter-added-to-basket');
+            break;
+          case QuotableTypeEnum.quotable:
+          default:
+            this.localStorageService.setItem<IQoutable>(
+              LocalStorageVars.designQuotable,
+              <IQoutable>this.design.designProperties
+            );
+            this.eventsService.create('webstore.collection-item.quotable-added-to-basket');
+            break;
+        }
+        break;
+    }
+    // Create modal ref and add design type and quotable type
+    const modalRef = this.modalService.open(AddToBasketModalComponent);
+    modalRef.componentInstance.designType = DesignTypeEnum.quotable;
+    modalRef.componentInstance.quotableType = (this.design.designProperties as IQoutable).quotableType;
     this.eventsService.create('webstore.collection-item.item-added-to-basket');
   }
 
@@ -76,6 +123,28 @@ export class CollectionItemComponent {
       case DesignTypeEnum.quotable: {
         return '/products/quotable';
       }
+    }
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
+
+  getProductName(): string {
+    switch (this.design.designType) {
+      case DesignTypeEnum.familyTree:
+        return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+      case DesignTypeEnum.quotable:
+      default:
+        switch ((this.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            return this.isEnglish() ? 'Baby sign' : 'Baby skilt';
+          case QuotableTypeEnum.loveLetter:
+            return this.isEnglish() ? 'Love letter' : 'Kærlighedsbrevet';
+          case QuotableTypeEnum.quotable:
+          default:
+            return this.isEnglish() ? 'Quotable' : 'Citat ramme';
+        }
     }
   }
 }

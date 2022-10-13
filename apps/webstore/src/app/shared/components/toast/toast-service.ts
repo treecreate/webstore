@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from '@local-storage';
+import { LocaleType, LocalStorageVars } from '@models';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
   // get locale to determine what language to display the toast in
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
+
   constructor(private localStorageService: LocalStorageService) {
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
   toasts = [];

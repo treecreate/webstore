@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="about-us-newsletter-signup-title" datatype="html">
         <source>Register to our newsletter for special deals</source>
-        <target>Tilmeld til vores nyhedsbre for specielle tilbud</target>
+        <target>Tilmeld til vores nyhedsbrev for specielle tilbud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">98</context>
@@ -268,7 +268,7 @@
       </trans-unit>
       <trans-unit id="create-my-family-tree" datatype="html">
         <source>Create my family tree</source>
-        <target>Lav mit familietræ</target>
+        <target>Lav mit stamtræ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">80</context>
@@ -1919,7 +1919,7 @@
       </trans-unit>
       <trans-unit id="our-mission-values-text-1" datatype="html">
         <source>We use no plastic, and all our wood comes from sustainable sources so you can always be certain that whatever you bring home, has been made with care for the environment. </source>
-        <target>Vi bruger 0% plastik og al vores træ stammer fra bæredygtige kilder, så du altid være sikker på, at hvad end du bestiller hjem, er blevet lavet med omtanke for miljøet.</target>
+        <target>Vi bruger 0% plastik og al vores træ stammer fra bæredygtige kilder, så du altid kan være sikker på, at hvad end du bestiller hjem, er blevet lavet med omtanke for miljøet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">73,76</context>
@@ -2135,7 +2135,7 @@
       </trans-unit>
       <trans-unit id="design-type-family-tree" datatype="html">
         <source>Family tree</source>
-        <target>Familietræ</target>
+        <target>Stamtræ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
           <context context-type="linenumber">14</context>
@@ -2599,7 +2599,7 @@
       </trans-unit>
       <trans-unit id="go-to-basket-title" datatype="html">
         <source>The family tree has been added to your basket</source>
-        <target>Familietræet er blevet lagt i din kurv</target> 
+        <target>Stamtræet er blevet lagt i din kurv</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">7</context>
