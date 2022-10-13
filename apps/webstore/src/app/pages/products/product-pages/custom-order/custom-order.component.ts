@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
 import { ErrorlogPriorityEnum, IAuthUser, IUser } from '@interfaces';
@@ -18,7 +18,7 @@ import { customOrderExamples } from './custom-order-examples.constant';
 @Component({
   selector: 'webstore-custom-order',
   templateUrl: './custom-order.component.html',
-  styleUrls: ['./custom-order.component.css', '../../../../../assets/styles/tc-input-field.scss'],
+  styleUrls: ['./custom-order.component.scss', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class CustomOrderComponent implements OnInit {
   customOrderExampleList: CustomOrderExampleType[] = customOrderExamples;
@@ -31,6 +31,7 @@ export class CustomOrderComponent implements OnInit {
   isLoggedIn = false;
   isLoading = false;
   isImageRequirementsRead = false;
+  sendCustomOrderClicked = false;
 
   uploadedFiles: File[] = [];
   maxFileSize = 20971520; // in bytes
@@ -40,6 +41,10 @@ export class CustomOrderComponent implements OnInit {
     message: string;
     dismissible: boolean;
   };
+
+  @ViewChild('nameInput') nameInput: ElementRef;
+  @ViewChild('emailInput') emailInput: ElementRef;
+  @ViewChild('descriptionInput') descriptionInput: ElementRef;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -120,7 +125,20 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitCustomOrder() {
-    this.createCustomOrder();
+    this.sendCustomOrderClicked = true;
+
+    if (!this.customOrderForm.valid || !this.isImageRequirementsRead) {
+      // Go to earliest occurence of invalid input
+      if (this.customOrderForm.get('name').invalid) {
+        this.nameInput.nativeElement.focus();
+      } else if (this.customOrderForm.get('customerEmail').invalid) {
+        this.emailInput.nativeElement.focus();
+      } else if (this.customOrderForm.get('description').invalid) {
+        this.descriptionInput.nativeElement.focus();
+      }
+    } else {
+      this.createCustomOrder();
+    }
   }
 
   isDisabled() {

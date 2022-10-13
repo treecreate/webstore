@@ -1,5 +1,7 @@
-<!-- Code stolen from checkout.component.html etc -->
-<div class="custom-order-container">
+<main class="custom-order-container">
+    <div class="back-container">
+        <a onclick="history.back()" class="back" data-cy="view-only-back-button"> < <span i18n="@@back">Back</span> </a>
+    </div>
     <div class="custom-order-content-container">
         <form
             class="custom-order-content"
@@ -16,6 +18,7 @@
 
                 <div class="tc-input-group field">
                     <input
+                        #nameInput
                         type="text"
                         class="tc-input-field"
                         formControlName="name"
@@ -38,6 +41,7 @@
 
                 <div class="tc-input-group field">
                     <input
+                        #emailInput
                         type="email"
                         class="tc-input-field"
                         placeholder="E-mail"
@@ -64,6 +68,7 @@
 
                 <div class="tc-input-group field">
                     <textarea
+                        #descriptionInput
                         type="text"
                         class="tc-textarea-field"
                         name="description"
@@ -136,7 +141,7 @@
                         aria-hidden="true"
                     ></span>
                 </button>
-                <!-- TODO - make the uploaded files list pretty -->
+
                 <button
                     [ngClass]="[
                         uploadedFiles.length > 0 ? 'file-list-styling' : 'custom-order-uploaded-files-container'
@@ -181,13 +186,8 @@
                         <span i18n="@@confirm-image-requirements">I have read the image requirements</span>
                     </div>
                 </div>
-                <button
-                    class="tc-button-50 brown margin-top"
-                    type="submit"
-                    [disabled]="!isDisabled()"
-                    data-cy="custom-order-send-button"
-                >
-                    <span i18n="@@send-custom-order" *ngIf="!isLoading">Send</span>
+                <button class="tc-button-50 brown margin-top" type="submit" data-cy="custom-order-send-button">
+                    <span i18n="@@send" *ngIf="!isLoading">Send</span>
                     <span
                         *ngIf="isLoading"
                         class="spinner-border spinner-border-sm text-light"
@@ -199,6 +199,22 @@
             </div>
         </form>
     </div>
+    <div class="input-error-wrapper">
+        <div
+            class="input-error"
+            *ngIf="sendCustomOrderClicked && (customOrderForm.invalid || !isImageRequirementsRead)"
+        >
+            <span i18n="@@form-is-not-valid">Form is not completed:</span>
+            <!-- Checkout form input fields -->
+            <li *ngIf="customOrderForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
+            <li *ngIf="customOrderForm.get('customerEmail').invalid" i18n="@@email-is-invalid">Email is invalid</li>
+            <li *ngIf="customOrderForm.get('description').invalid" i18n="@@missing-description">Missing description</li>
+            <li *ngIf="uploadedFiles.length === 0" i18n="@@missing-images">You need to upload at least one image</li>
+            <li *ngIf="!isImageRequirementsRead" i18n="@@read-image-description">
+                Please acknowledge that you have read the image requirements
+            </li>
+        </div>
+    </div>
     <div class="custom-order-examples">
         <h2 i18n="@@other-examples">Other examples</h2>
         <div class="custom-order-examples-container">
@@ -209,4 +225,4 @@
             ></webstore-custom-order-display>
         </div>
     </div>
-</div>
+</main>
