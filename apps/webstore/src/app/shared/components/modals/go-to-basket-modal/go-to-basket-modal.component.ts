@@ -39,7 +39,11 @@ export class GoToBasketModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.isLoggedIn ? this.getBasketInfoFromDB() : this.getBasketInfoFromLocalStorage();
+    if (this.isLoggedIn) {
+      this.getBasketInfoFromDB();
+    } else {
+      this.getBasketInfoFromLocalStorage();
+    }
   }
 
   getBasketInfoFromLocalStorage() {

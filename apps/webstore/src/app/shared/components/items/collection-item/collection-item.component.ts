@@ -66,7 +66,17 @@ export class CollectionItemComponent implements OnInit {
     console.log('design being put into design', this.design.designProperties);
 
     switch (this.design.designType) {
+      case DesignTypeEnum.familyTree:
+        this.localStorageService.setItem<IFamilyTree>(
+          LocalStorageVars.designFamilyTree,
+          <IFamilyTree>this.design.designProperties
+        );
+        this.modalService.open(AddToBasketModalComponent);
+        this.eventsService.create('webstore.col-item.family-tree-added-to-basket');
+        // End this function call so it doesn't continue the code
+        return;
       case DesignTypeEnum.quotable:
+      default:
         // Set design in localstorage based off quotable type
         switch ((this.design.designProperties as IQoutable).quotableType) {
           case QuotableTypeEnum.babySign:
@@ -92,20 +102,12 @@ export class CollectionItemComponent implements OnInit {
             this.eventsService.create('webstore.collection-item.quotable-added-to-basket');
             break;
         }
-        // Create modal ref and add design type and quotable type
-        const modalRef = this.modalService.open(AddToBasketModalComponent);
-        modalRef.componentInstance.designType = DesignTypeEnum.quotable;
-        modalRef.componentInstance.quotableType = (this.design.designProperties as IQoutable).quotableType;
         break;
-      case DesignTypeEnum.familyTree:
-      default:
-        this.localStorageService.setItem<IFamilyTree>(
-          LocalStorageVars.designFamilyTree,
-          <IFamilyTree>this.design.designProperties
-        );
-        this.modalService.open(AddToBasketModalComponent);
-        this.eventsService.create('webstore.collection-item.family-tree-added-to-basket');
     }
+    // Create modal ref and add design type and quotable type
+    const modalRef = this.modalService.open(AddToBasketModalComponent);
+    modalRef.componentInstance.designType = DesignTypeEnum.quotable;
+    modalRef.componentInstance.quotableType = (this.design.designProperties as IQoutable).quotableType;
     this.eventsService.create('webstore.collection-item.item-added-to-basket');
   }
 
