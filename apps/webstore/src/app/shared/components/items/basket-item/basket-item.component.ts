@@ -1,9 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { DesignDimensionEnum, DesignTypeEnum, ErrorlogPriorityEnum, IAuthUser, ITransactionItem } from '@interfaces';
+import {
+  DesignDimensionEnum,
+  DesignTypeEnum,
+  ErrorlogPriorityEnum,
+  IAuthUser,
+  IQoutable,
+  ITransactionItem,
+  QuotableTypeEnum,
+} from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
@@ -16,7 +24,7 @@ import { TransactionItemService } from '../../../services/transaction-item/trans
   templateUrl: './basket-item.component.html',
   styleUrls: ['./basket-item.component.css', '../../../../../assets/styles/tc-input-field.scss'],
 })
-export class BasketItemComponent implements OnInit {
+export class BasketItemComponent implements OnInit, AfterContentInit {
   @Output()
   priceChangeEvent = new EventEmitter();
 
@@ -31,6 +39,7 @@ export class BasketItemComponent implements OnInit {
 
   itemPrice: number;
   isLoading = false;
+  isLoadingDesign = true;
   alert: {
     type: 'success' | 'info' | 'warning' | 'danger';
     message: string;
@@ -39,6 +48,7 @@ export class BasketItemComponent implements OnInit {
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
   public designTypeEnum = DesignTypeEnum;
+  public localeCode: LocaleType;
 
   constructor(
     private calculatePriceService: CalculatePriceService,
@@ -55,6 +65,7 @@ export class BasketItemComponent implements OnInit {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
   ngOnInit(): void {
@@ -62,13 +73,41 @@ export class BasketItemComponent implements OnInit {
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  updatePrice() {
+  ngAfterContentInit(): void {
+    setTimeout(() => {
+      this.isLoadingDesign = false;
+    }, 100);
+  }
+
+  updatePrice(): void {
     this.priceChangeEvent.emit({ newItem: this.item, index: this.index });
     this.updateTransactionItem();
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
   }
 
-  goToDesign() {
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
+
+  getDesignName(): string {
+    switch (this.item.design.designType) {
+      case DesignTypeEnum.familyTree:
+        return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+      case DesignTypeEnum.quotable:
+      default:
+        switch ((this.item.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            return this.isEnglish() ? 'Baby sign' : 'Baby skilt';
+          case QuotableTypeEnum.loveLetter:
+            return this.isEnglish() ? 'Love letter' : 'Kærlighedsbrevet';
+          case QuotableTypeEnum.quotable:
+          default:
+            return this.isEnglish() ? 'Quotable' : 'Citat ramme';
+        }
+    }
+  }
+
+  goToDesign(): void {
     if (this.isLoggedIn) {
       // use design.designId for logged in users
       switch (this.item.design.designType) {
@@ -105,7 +144,7 @@ export class BasketItemComponent implements OnInit {
     this.scrollTop();
   }
 
-  decreaseQuantity() {
+  decreaseQuantity(): void {
     this.isLoading = true;
     if (this.item.quantity > 1) {
       this.item.quantity = this.item.quantity - 1;
@@ -113,13 +152,13 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  increaseQuantity() {
+  increaseQuantity(): void {
     this.isLoading = true;
     this.item.quantity = this.item.quantity + 1;
     this.updatePrice();
   }
 
-  increaseDimension() {
+  increaseDimension(): void {
     this.isLoading = true;
     switch (this.item.dimension) {
       case DesignDimensionEnum.small:
@@ -133,7 +172,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  decreaseDimension() {
+  decreaseDimension(): void {
     this.isLoading = true;
     switch (this.item.dimension) {
       case DesignDimensionEnum.medium:
@@ -147,7 +186,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  updateTransactionItem() {
+  updateTransactionItem(): void {
     // Check if user is logged in
     if (this.isLoggedIn) {
       // Update DB transaction item
@@ -164,7 +203,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  updateTransactionItemDB() {
+  updateTransactionItemDB(): void {
     this.transactionItemService
       .updateTransactionItem(this.item.transactionItemId, {
         quantity: this.item.quantity,
@@ -225,7 +264,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  deleteTransactionItem() {
+  deleteTransactionItem(): void {
     this.isLoading = true;
     if (this.isLoggedIn) {
       // Delete transactionItem from DB
@@ -250,7 +289,7 @@ export class BasketItemComponent implements OnInit {
     }
   }
 
-  deleteItemFromDB() {
+  deleteItemFromDB(): void {
     const transactionId = this.item.transactionItemId;
     this.transactionItemService.deleteTransactionItem(transactionId).subscribe(
       () => {
@@ -280,7 +319,7 @@ export class BasketItemComponent implements OnInit {
       }
     );
   }
-  scrollTop() {
+  scrollTop(): void {
     window.scrollTo(0, 0);
   }
 }

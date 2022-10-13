@@ -1,79 +1,72 @@
 .modal-body {
-  padding: 0 !important;
-}
-
-#quotable-template {
-  height: auto;
+  padding: 0;
   margin-bottom: 20px;
+  height: auto !important;
 }
 
-::ng-deep .carousel-container:focus {
-  outline: none !important;
+::ng-deep .template-container webstore-quotable-design {
+  height: fit-content !important;
+
+  #backgroundImage {
+    z-index: 0 !important;
+  }
 }
 
-.template-img-container {
+.template-list-container {
+  overflow-x: scroll;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 2em;
-}
-
-.template-img {
-  height: 300px;
-  width: 300px;
-}
-
-.template-title-container {
-  text-align: center;
-  margin: 1rem 0 1.5rem 0;
-  font-weight: 900;
-  font-size: 1.5em;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: center;
-}
-
-::ng-deep .carousel-indicators li {
-  background-color: var(--second-action-color);
-  opacity: 0.3;
-}
-
-::ng-deep .carousel-indicators {
-  margin-bottom: 0;
-}
-
-::ng-deep .carousel-control-prev-icon {
-  background-image: url('/assets/icons/keyboard-arrow-left.svg');
-  top: 18px;
-  position: relative;
-}
-
-::ng-deep .carousel-control-next-icon {
-  background-image: url('/assets/icons/keyboard-arrow-right.svg');
-  top: 18px;
-  position: relative;
 }
 
 .template-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 2em;
+  margin: 2em 3em;
+  min-width: 250px;
+  width: 450px;
+  min-height: 350px;
+  text-align: center;
+
+  &:first-of-type {
+    margin-left: 6em;
+  }
+
+  &:last-of-type {
+    margin-right: 6em;
+  }
+
+  & webstore-quotable-design {
+    & + div {
+      margin: 1em 0;
+    }
+  }
 }
 
-.template-text-container {
-  min-height: 250px;
-  width: 250px;
-  border-radius: 3px;
-  border: 1px solid var(--second-action-color);
-  display: flex;
-  font-size: 0.75em;
-  justify-content: center;
-  align-items: center;
-  white-space: pre-line;
-  text-align: center;
-  font-family: 'calendas-italic';
+/* width */
+::-webkit-scrollbar {
+  background-color: var(--light-action-color);
+  border-radius: 10px;
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--second-action-color);
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .template-container {
+    margin: 2em 1.25em;
+
+    &:first-of-type {
+      margin-left: 2em;
+    }
+
+    &:last-of-type {
+      margin-right: 2em;
+    }
+  }
 }

@@ -5,6 +5,8 @@ export enum LocalStorageVars {
   eventLogUserId = 'eventLogUserId',
   designFamilyTree = 'designFamilyTree',
   designQuotable = 'designQuotable',
+  designLoveLetter = 'designLoveLetter',
+  designBabySign = 'designBabySign',
   discount = 'discount',
   plantedTrees = 'plantedTrees',
   transactionItems = 'transactionItems',

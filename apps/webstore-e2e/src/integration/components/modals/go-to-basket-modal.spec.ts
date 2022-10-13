@@ -75,10 +75,4 @@ describe('go to basket modal', () => {
     cy.get('[data-cy=go-to-basket-go-to-basket-button]').click();
     cy.url().should('contain', '/basket');
   });
-
-  it('should redirect to products/family-tree page with a reset design', () => {
-    cy.get('[data-cy=go-to-basket-create-new-button]').click();
-    cy.url().should('contain', '/products/family-tree');
-    cy.url().should('not.contain', '?designId=');
-  });
 });
