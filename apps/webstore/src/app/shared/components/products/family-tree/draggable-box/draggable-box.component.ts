@@ -11,7 +11,6 @@ import {
 import { BoxOptionsDesignEnum } from '@assets';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'webstore-draggable-box',
@@ -96,11 +95,10 @@ export class DraggableBoxComponent implements AfterViewInit {
   boxOptionsDesignEnum = BoxOptionsDesignEnum;
 
   // get locale to determine what language to display the toast in
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
+
   constructor(private localStorageService: LocalStorageService) {
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
   /**

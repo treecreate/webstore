@@ -1,5 +1,5 @@
 <div class="design-container" data-cy="family-tree-collection-item">
-    <div class="design-image">
+    <div class="design-image" *ngIf="!isLoading">
         <webstore-store-item
             #productDesign
             [isMutable]="false"
@@ -9,9 +9,8 @@
     </div>
     <hr />
 
-    <div class="title" [ngSwitch]="design.designType">
-        <strong *ngSwitchCase="designTypeEnum.familyTree" i18n="@@design-type-family-tree">Family tree</strong>
-        <strong *ngSwitchCase="designTypeEnum.quotable" i18n="@@design-type-quotable">Quotable</strong>
+    <div class="title" *ngIf="!isLoadingDesign">
+        <strong>{{ getProductName() }}</strong>
     </div>
     <button
         type="button"

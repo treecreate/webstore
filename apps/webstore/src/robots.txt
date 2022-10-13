@@ -7,3 +7,4 @@ Disallow: /collection
 Disallow: /orders
 Disallow: /basket
 Disallow: /checkout
+Disallow: /404

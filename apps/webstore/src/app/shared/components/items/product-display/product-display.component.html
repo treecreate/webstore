@@ -16,13 +16,6 @@
                 <span class="price-container"><span i18n="@@from">From </span> {{ product.prices[0] }} DKK </span>
             </div>
         </div>
-        <button
-            class="tc-button-100 text-field"
-            [routerLink]="product.routerLink"
-            (click)="scrollTop()"
-            i18n="@@buy-now"
-        >
-            Buy Now
-        </button>
+        <button class="tc-button-100 text-field" (click)="navigateToProduct()" i18n="@@buy-now">Buy Now</button>
     </div>
 </article>
