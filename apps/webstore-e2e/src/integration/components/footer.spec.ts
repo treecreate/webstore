@@ -5,7 +5,7 @@ describe('FooterComponent', () => {
       LocalStorageVars.cookiesAccepted,
       `"${CookieStatus.accepted}"` // localStorage saves the data differently from our LocalStorageService
     );
-    cy.visit('/home');
+    cy.visit('/');
   });
 
   it('should contain a footer', () => {

@@ -12,6 +12,49 @@
   font-weight: 300;
 }
 
+.basket-subtext {
+  max-width: 85vw;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+    position: relative;
+    padding: 0 0 0 20px;
+    font-size: var(--extra-small-font);
+  }
+
+  li.heart::before,
+  li.heart::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 5px;
+    width: 7px;
+    height: 12px;
+    background: var(--second-action-color);
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+  }
+
+  li.heart::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+  }
+}
+
 .margin-bottom {
   margin-bottom: 10px;
 }
@@ -24,10 +67,19 @@
 .mobile-title {
   font-weight: 400;
   margin: 0 20px;
+  width: 100%;
+  padding-left: 10px;
 }
 
-.mobile-title {
-  display: none;
+.wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.basket-title {
+  margin: 10px 0;
+  text-align: center;
 }
 
 .basket-content-wrapper {
@@ -159,6 +211,7 @@
 }
 
 .no-items-text {
+  text-align: center;
   margin: 20px;
   font-size: var(--regular-font);
   font-weight: 500;
@@ -188,12 +241,13 @@
   opacity: 0.5;
 }
 
+.back-container {
+  height: 0;
+  position: relative;
+  top: -20px;
+}
+
 @media screen and (max-width: 1095px) {
-  .mobile-title {
-    text-align: center;
-    display: block;
-    margin: 10px 0;
-  }
   .desktop-title {
     display: none;
   }
@@ -209,11 +263,16 @@
   .basket-options-item {
     margin: 10px 0;
   }
+  .basket-subtext {
+    margin-top: 1.3em;
+    text-align: center;
+    padding-right: 1em;
+  }
 }
 
 @media screen and (max-width: 750px) {
   .basket-content-wrapper {
-    margin-top: 65px;
+    margin-top: 80px;
   }
   .basket-items-container {
     width: 90vw;
@@ -226,5 +285,8 @@
   }
   .no-items {
     width: 100%;
+  }
+  .basket-subtext {
+    text-align: start;
   }
 }

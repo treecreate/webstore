@@ -62,7 +62,10 @@ public class LinkService {
   private String getPath(@Nullable Locale locale, String route, boolean isApi) {
     String lang = "";
     if (!isApi) {
-      lang = locale.equals(Locale.ENGLISH) ? "/en-US" : "/dk";
+      lang =
+          locale.equals(Locale.ENGLISH)
+              ? "/en-US"
+              : ""; // Danish locale uses the default url, no lang path param
     }
     switch (customProperties.getEnvironment()) {
       case PRODUCTION:

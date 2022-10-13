@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
 import productsItems, { ProductsItem } from './products-items.constant';
@@ -8,13 +9,30 @@ import productsItems, { ProductsItem } from './products-items.constant';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   productsList: ProductsItem[] = productsItems;
 
   localeCode: LocaleType;
 
-  constructor(private localStorage: LocalStorageService) {
+  constructor(private localStorage: LocalStorageService, private metaTitle: Title, private meta: Meta) {
     this.localeCode = this.localStorage.getItem<LocaleType>(LocalStorageVars.locale).value;
+  }
+
+  ngOnInit(): void {
+    this.setMetaData();
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('Giv en personlig og miljøvenlig gave i høj kvalitet');
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Køb årets bedste gave nu! Hos Treecreate får du altid træ i den bedste kvalitet, og kun fra bæredygtige kilder.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Træ, kvalitet, træskilt, skilt i træ, julegave, 2022, 2023, gave',
+    });
   }
 
   isEnglish(): boolean {

@@ -174,8 +174,8 @@ class AuthControllerTests {
           .thenReturn(java.util.Optional.of(user));
       Mockito.when(roleRepository.findByName(ERole.ROLE_USER))
           .thenReturn(java.util.Optional.of(new Role(ERole.ROLE_USER)));
-      Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("dk"));
-      Mockito.doNothing().when(mailService).sendSignupEmail(user.getEmail(), new Locale("dk"));
+      Mockito.when(localeService.getLocale(null)).thenReturn(new Locale("da"));
+      Mockito.doNothing().when(mailService).sendSignupEmail(user.getEmail(), new Locale("da"));
 
       mvc.perform(
               post("/auth/signup")

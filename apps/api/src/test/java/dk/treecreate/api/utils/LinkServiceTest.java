@@ -26,7 +26,7 @@ public class LinkServiceTest {
             Environment.DEVELOPMENT, Locale.ENGLISH, true, "http://localhost:4200/payment/success"),
         Arguments.of(
             Environment.DEVELOPMENT,
-            new Locale("dk"),
+            new Locale("da"),
             true,
             "http://localhost:4200/payment/success"),
         Arguments.of(
@@ -36,7 +36,7 @@ public class LinkServiceTest {
             "http://localhost:4200/payment/cancelled"),
         Arguments.of(
             Environment.DEVELOPMENT,
-            new Locale("dk"),
+            new Locale("da"),
             false,
             "http://localhost:4200/payment/cancelled"),
         Arguments.of(
@@ -46,9 +46,9 @@ public class LinkServiceTest {
             "https://testing.treecreate.dk/en-US/payment/success"),
         Arguments.of(
             Environment.STAGING,
-            new Locale("dk"),
+            new Locale("da"),
             true,
-            "https://testing.treecreate.dk/dk/payment/success"),
+            "https://testing.treecreate.dk/payment/success"),
         Arguments.of(
             Environment.STAGING,
             Locale.ENGLISH,
@@ -56,9 +56,9 @@ public class LinkServiceTest {
             "https://testing.treecreate.dk/en-US/payment/cancelled"),
         Arguments.of(
             Environment.STAGING,
-            new Locale("dk"),
+            new Locale("da"),
             false,
-            "https://testing.treecreate.dk/dk/payment/cancelled"),
+            "https://testing.treecreate.dk/payment/cancelled"),
         Arguments.of(
             Environment.PRODUCTION,
             Locale.ENGLISH,
@@ -66,9 +66,9 @@ public class LinkServiceTest {
             "https://treecreate.dk/en-US/payment/success"),
         Arguments.of(
             Environment.PRODUCTION,
-            new Locale("dk"),
+            new Locale("da"),
             true,
-            "https://treecreate.dk/dk/payment/success"),
+            "https://treecreate.dk/payment/success"),
         Arguments.of(
             Environment.PRODUCTION,
             Locale.ENGLISH,
@@ -76,9 +76,9 @@ public class LinkServiceTest {
             "https://treecreate.dk/en-US/payment/cancelled"),
         Arguments.of(
             Environment.PRODUCTION,
-            new Locale("dk"),
+            new Locale("da"),
             false,
-            "https://treecreate.dk/dk/payment/cancelled"));
+            "https://treecreate.dk/payment/cancelled"));
   }
 
   private static Stream<Arguments> generateCallbackUrlArguments() {
@@ -107,19 +107,19 @@ public class LinkServiceTest {
             "https://treecreate.dk/en-US/resetPassword/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
-            new Locale("dk"),
+            new Locale("da"),
             Environment.DEVELOPMENT,
             "http://localhost:4200/resetPassword/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
-            new Locale("dk"),
+            new Locale("da"),
             Environment.STAGING,
-            "https://testing.treecreate.dk/dk/resetPassword/00000000-0000-0000-0000-000000000000"),
+            "https://testing.treecreate.dk/resetPassword/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
-            new Locale("dk"),
+            new Locale("da"),
             Environment.PRODUCTION,
-            "https://treecreate.dk/dk/resetPassword/00000000-0000-0000-0000-000000000000"));
+            "https://treecreate.dk/resetPassword/00000000-0000-0000-0000-000000000000"));
   }
 
   private static Stream<Arguments> generateNewsletterUnsubscribeLinkArguments() {
@@ -141,19 +141,19 @@ public class LinkServiceTest {
             "https://treecreate.dk/en-US/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
-            new Locale("dk"),
+            new Locale("da"),
             Environment.DEVELOPMENT,
             "http://localhost:4200/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
-            new Locale("dk"),
+            new Locale("da"),
             Environment.STAGING,
-            "https://testing.treecreate.dk/dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
+            "https://testing.treecreate.dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"),
         Arguments.of(
             new UUID(0, 0),
-            new Locale("dk"),
+            new Locale("da"),
             Environment.PRODUCTION,
-            "https://treecreate.dk/dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"));
+            "https://treecreate.dk/newsletter/unsubscribe/00000000-0000-0000-0000-000000000000"));
   }
 
   @ParameterizedTest

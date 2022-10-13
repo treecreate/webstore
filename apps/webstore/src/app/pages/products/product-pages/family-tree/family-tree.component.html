@@ -1,12 +1,13 @@
 <main class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
-    <div class="back-container" *ngIf="!isMutable">
-        <a href="javascript:history.back()" class="back add-transition" data-cy="view-only-back-button">
-            < <span i18n="@@back">Back</span>
-        </a>
-    </div>
-    <div class="design-screen" [ngStyle]="{ 'font-family': this.design.font }">
+    <div class="design-screen">
+        <div class="back-container">
+            <a onclick="history.back()" class="back add-transition" data-cy="view-only-back-button">
+                < <span i18n="@@back">Back</span>
+            </a>
+        </div>
         <webstore-family-tree-design
             #familyTreeDesignCanvas
+            [ngStyle]="{ 'font-family': this.design.font }"
             [design]="design"
             [isMutable]="isMutable"
             [showOptionBoxButtons]="showOptionBoxButtons"
@@ -165,69 +166,69 @@
                     data-cy="save-family-tree-button"
                 >
                     <span i18n="@@save">Save</span>
-                    <img src="/assets/icons/save-icon.svg" class="option-icon" />
+                    <img src="/assets/icons/save-icon.svg" class="option-icon" alt="Save icon" />
                 </button>
                 <button class="tc-button-50" (click)="clearDesignCanvas()">
-                    Reset
-                    <img src="/assets/icons/reset-icon.svg" class="option-icon" />
+                    <span i18n="@@reset">Reset</span>
+                    <img src="/assets/icons/reset-icon.svg" class="option-icon" alt="Reset icon" />
                 </button>
             </div>
 
             <div class="option">
                 <button class="tc-button-100" (click)="openTemplateModal()" data-cy="family-tree-template-button">
-                    <span i18n="@@use-template">Use template</span>
-                    <img src="/assets/icons/template-icon.svg" class="option-icon" />
+                    <span i18n="@@select-a-template">Select a template</span>
+                    <img src="/assets/icons/template-icon.svg" class="option-icon" alt="Template" />
                 </button>
             </div>
             <div class="option">
                 <button
-                    class="btn-add-to-cart tc-button-100 green"
+                    class="tc-button-100 green"
                     (click)="openAddToBasketModal()"
                     data-cy="add-family-tree-to-basket-button"
                     [disabled]="!isDesignValid"
                 >
                     <span i18n="@@add">Add</span>
-                    <img src="/assets/icons/basket-white-icon.svg" class="option-icon" />
+                    <img src="/assets/icons/basket-white-icon.svg" class="option-icon" alt="Basket icon" />
                 </button>
             </div>
         </menu>
     </aside>
 </main>
 
-<div class="mobile-option-buttons-container">
+<div class="mobile-option-buttons-container" *ngIf="isMutable">
     <div class="mobile-options">
+        <button class="option-toggler tc-button-square green add-to-basket-specific" (click)="openAddToBasketModal()">
+            <img src="/assets/icons/add-to-basket-icon.svg" alt="basket icon" />
+        </button>
         <button
-            class="option-toggler"
+            class="option-toggler tc-button-square edit"
             data-cy="mobile-options-toggler"
             type="button"
             (click)="showOptions()"
-            *ngIf="isMutable"
         >
-            <img class="toggle-box-options-icon" alt="option" src="/assets/icons/pen-icon.svg" />
+            <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
         </button>
         <button
-            class="intro-modal-option"
-            type="button"
-            (click)="openIntroModal()"
-            *ngIf="isMutable"
-            title="Hide/Show box options"
-            data-cy="family-tree-intro-modal-option-button"
-        >
-            ?
-        </button>
-        <button
-            class="toggle-box-options"
+            class="toggle-box-options tc-button-square view"
             type="button"
             (click)="toggleBoxOptions()"
-            *ngIf="isMutable"
             title="Hide/Show box options"
         >
             <img
                 class="toggle-box-options-icon"
                 [ngClass]="!isMobileOptionOpen ? '' : 'active'"
-                alt="toggle box options"
+                alt="Toggle box options"
                 [src]="toggleBoxOptionsIcon"
             />
+        </button>
+        <button
+            class="intro-modal-option tc-button-square"
+            type="button"
+            (click)="openIntroModal()"
+            title="Hide/Show box options"
+            data-cy="family-tree-intro-modal-option-button"
+        >
+            ?
         </button>
     </div>
 </div>

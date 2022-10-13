@@ -35,7 +35,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -106,7 +113,14 @@ public class AuthController {
                   "Event userId of not logged in user, to be replaced with logged in user id",
               example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
           @RequestParam(required = false)
-          UUID eventLogUserId) {
+          UUID eventLogUserId,
+      @Parameter(
+              name = "lang",
+              description =
+                  "Language of the email. Defaults to danish (dk)." + "\nValid values: 'en', 'da'",
+              example = "en")
+          @RequestParam(required = false)
+          String lang) {
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error: Email is already in use!");
     }
@@ -132,9 +146,9 @@ public class AuthController {
     try {
       if (sendPasswordEmail) {
         mailService.sendSignupEmailOnOrder(
-            user.getEmail(), user.getToken(), localeService.getLocale(null));
+            user.getEmail(), user.getToken(), localeService.getLocale(lang));
       } else {
-        mailService.sendSignupEmail(user.getEmail(), localeService.getLocale(null));
+        mailService.sendSignupEmail(user.getEmail(), localeService.getLocale(lang));
       }
     } catch (Exception e) {
       LOGGER.error("Failed to process a signup email", e);

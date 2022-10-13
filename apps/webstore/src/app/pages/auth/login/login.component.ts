@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum, ILoginResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -36,10 +37,13 @@ export class LoginComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private transactionItemService: TransactionItemService,
     private eventsService: EventsService,
-    private errorlogService: ErrorlogsService
+    private errorlogService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {}
 
   ngOnInit(): void {
+    this.setMetaData();
     // if user is already logged in redirect to products page
     if (this.authService.isAccessTokenValid()) {
       this.router.navigate(['/products']);
@@ -48,6 +52,18 @@ export class LoginComponent implements OnInit {
     this.loginForm = new UntypedFormGroup({
       email: new UntypedFormControl('', [Validators.required, Validators.email]),
       password: new UntypedFormControl('', [Validators.required]),
+    });
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('Login til Treecreate og bliv en del af fællesskabet');
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Opret flere designs og gem til når det er tid til fødselsdag, jul eller en anden gave højtid.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Designs, tid, fødselsdag, jul, højtid, gave, fællesskab, treecreate',
     });
   }
 

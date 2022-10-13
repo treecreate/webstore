@@ -1,5 +1,6 @@
 package dk.treecreate.api.mail;
 
+import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.order.Order;
 import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
@@ -7,6 +8,7 @@ import dk.treecreate.api.utils.LinkService;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -31,6 +33,7 @@ public class MailService {
 
   @Autowired LinkService linkService;
   @Autowired OrderService orderService;
+  @Autowired CustomPropertiesConfig customPropertiesConfig;
 
   public MailService(
       TemplateEngine templateEngine,
@@ -46,7 +49,7 @@ public class MailService {
     Context context = new Context(locale);
     context.setVariable("email", to);
     String subject =
-        locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+        locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
   }
 
@@ -56,7 +59,7 @@ public class MailService {
     context.setVariable("email", to);
     context.setVariable("resetPasswordLink", linkService.generateResetPasswordLink(token, locale));
     String subject =
-        locale.getLanguage().equals("dk") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+        locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP_ON_ORDER);
   }
 
@@ -68,7 +71,7 @@ public class MailService {
     context.setVariable("unsubscribeNewsletterUrl", unsubscribeNewsletterUrl);
     context.setVariable("discountCode", discountCode);
     String subject =
-        locale.getLanguage().equals("dk")
+        locale.getLanguage().equals("da")
             ? "Her er din rabatkode - Team Treecreate!"
             : "Here's your discount - Team Treecreate!";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT);
@@ -79,7 +82,7 @@ public class MailService {
     Context context = new Context(locale);
     context.setVariable("email", to);
     context.setVariable("resetPasswordLink", linkService.generateResetPasswordLink(token, locale));
-    String subject = locale.getLanguage().equals("dk") ? "Skift kodeord" : "Reset password";
+    String subject = locale.getLanguage().equals("da") ? "Skift kodeord" : "Reset password";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.RESET_PASSWORD);
   }
 
@@ -120,13 +123,19 @@ public class MailService {
             .calculateDeliveryPrice(order.getShippingMethod(), calculatedTotal)
             .subtract(calculatedTotal);
     // Set Variables
-    Context context = new Context(new Locale("dk"));
+    Context context = new Context(new Locale("da"));
     context.setVariable("email", to);
     context.setVariable("order", order);
     context.setVariable("deliveryPrice", deliveryPrice);
     String subject = "Treecreate - Order Confirmation";
 
-    sendMail(to, MailDomain.INFO, subject, context, MailTemplate.ORDER_CONFIRMATION);
+    sendMail(
+        to,
+        MailDomain.INFO,
+        subject,
+        context,
+        MailTemplate.ORDER_CONFIRMATION,
+        customPropertiesConfig.getTrustpilotAFSEmail());
     sendMail(
         MailDomain.ORDER.label, MailDomain.INFO, subject, context, MailTemplate.ORDER_CONFIRMATION);
   }
@@ -145,22 +154,35 @@ public class MailService {
         orderInfo.getImages());
   }
 
+  // No BCC email and no attachments
   private void sendMail(
       String to, MailDomain from, String subject, Context context, MailTemplate template)
       throws MessagingException, UnsupportedEncodingException {
-    String process = templateEngine.process("emails/" + template.label, context);
-    JavaMailSender mailSender = getMailSender(from);
-    javax.mail.internet.MimeMessage mimeMessage = mailSender.createMimeMessage();
-    MimeMessageHelper helper =
-        new MimeMessageHelper(
-            mimeMessage,
-            MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-            StandardCharsets.UTF_8.name());
-    helper.setFrom(new InternetAddress(from.label, "Treecreate"));
-    helper.setSubject(subject);
-    helper.setText(process, true);
-    helper.setTo(to);
-    mailSender.send(mimeMessage);
+    sendMail(to, from, subject, context, template, null, new ArrayList<MultipartFile>());
+  }
+
+  // BCC Email included
+  private void sendMail(
+      String to,
+      MailDomain from,
+      String subject,
+      Context context,
+      MailTemplate template,
+      String bccEmail)
+      throws MessagingException, UnsupportedEncodingException {
+    sendMail(to, from, subject, context, template, bccEmail, new ArrayList<MultipartFile>());
+  }
+
+  // No BCC email but there are attachments
+  private void sendMail(
+      String to,
+      MailDomain from,
+      String subject,
+      Context context,
+      MailTemplate template,
+      List<MultipartFile> attachmentFiles)
+      throws MessagingException, UnsupportedEncodingException {
+    sendMail(to, from, subject, context, template, null, attachmentFiles);
   }
 
   private void sendMail(
@@ -169,6 +191,7 @@ public class MailService {
       String subject,
       Context context,
       MailTemplate template,
+      String bccEmail,
       List<MultipartFile> attachmentFiles)
       throws MessagingException, UnsupportedEncodingException {
     String process = templateEngine.process("emails/" + template.label, context);
@@ -183,8 +206,14 @@ public class MailService {
     helper.setSubject(subject);
     helper.setText(process, true);
     helper.setTo(to);
-    for (MultipartFile file : attachmentFiles) {
-      helper.addAttachment(file.getOriginalFilename(), file);
+
+    if (!attachmentFiles.isEmpty()) {
+      for (MultipartFile file : attachmentFiles) {
+        helper.addAttachment(file.getOriginalFilename(), file);
+      }
+    }
+    if (bccEmail != null) {
+      helper.addBcc(bccEmail);
     }
     mailSender.send(mimeMessage);
   }

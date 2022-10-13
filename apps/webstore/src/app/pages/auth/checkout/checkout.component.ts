@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   ContactInfo,
@@ -17,6 +17,7 @@ import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { TermsOfSaleModalComponent } from '../../../shared/components/modals/terms-of-sale-modal/terms-of-sale-modal.component';
+import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
@@ -36,7 +37,6 @@ export class CheckoutComponent implements OnInit {
 
   currentUser: IUser;
   authUser$: BehaviorSubject<IAuthUser>;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
 
   isLoggedIn = false;
@@ -48,6 +48,18 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   isTermsAndConditionsAccepted = false;
   locale;
+  goToPaymentClicked = false;
+
+  @ViewChild('checkoutNameInput') checkoutNameInput: ElementRef;
+  @ViewChild('checkoutEmailInput') checkoutEmailInput: ElementRef;
+  @ViewChild('checkoutStreetAddressInput') checkoutStreetAddressInput: ElementRef;
+  @ViewChild('checkoutCityInput') checkoutCityInput: ElementRef;
+  @ViewChild('checkoutPostcodeInput') checkoutPostcodeInput: ElementRef;
+
+  @ViewChild('billingNameInput') billingNameInput: ElementRef;
+  @ViewChild('billingStreetAddressInput') billingStreetAddressInput: ElementRef;
+  @ViewChild('billingCityInput') billingCityInput: ElementRef;
+  @ViewChild('billingPostcodeInput') billingPostcodeInput: ElementRef;
 
   priceInfo: IPricing = {
     fullPrice: 0,
@@ -77,11 +89,10 @@ export class CheckoutComponent implements OnInit {
     private authService: AuthService,
     private orderService: OrderService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private toastService: ToastService
   ) {
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {
@@ -219,7 +230,7 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  isEnglish() {
+  isDanish() {
     return this.localeCode === 'en-US';
   }
 
@@ -236,10 +247,216 @@ export class CheckoutComponent implements OnInit {
   }
 
   submitCheckout() {
+    this.goToPaymentClicked = true;
+    // check checkout form and if terms are accepted
+    this.checkFormValidity();
+
     if (this.isLoggedIn) {
       this.createOrder();
     } else {
       this.createOrderWithNewUser();
+    }
+  }
+
+  checkFormValidity(): void {
+    if (!this.checkoutForm.valid || !this.isTermsAndConditionsAccepted) {
+      this.checkShippingInputFields();
+      if (!this.billingAddressIsTheSame && !this.billingAddressForm.valid) {
+        this.checkBillingInputFields();
+        return;
+      }
+      return;
+    }
+
+    // check if billing address is the same
+    if (!this.billingAddressIsTheSame) {
+      if (!this.billingAddressForm.valid) {
+        this.checkBillingInputFields();
+        return;
+      }
+    }
+  }
+
+  checkShippingInputFields(): void {
+    const fieldNames = ['name', 'email', 'streetAddress', 'city', 'postcode'];
+    for (const field in fieldNames) {
+      if (this.checkoutForm.get(fieldNames[field]).invalid) {
+        switch (fieldNames[field]) {
+          case 'name':
+            this.checkoutNameInput.nativeElement.focus();
+            return;
+          case 'email':
+            this.checkoutEmailInput.nativeElement.focus();
+            return;
+          case 'streetAddress':
+            this.checkoutStreetAddressInput.nativeElement.focus();
+            return;
+          case 'city':
+            this.checkoutCityInput.nativeElement.focus();
+            return;
+          case 'postcode':
+          default:
+            this.checkoutPostcodeInput.nativeElement.focus();
+        }
+      }
+    }
+  }
+
+  checkBillingInputFields(): void {
+    const fieldNames = ['billingName', 'billingStreetAddress', 'billingCity', 'billingPostcode'];
+    for (const field in fieldNames) {
+      if (this.billingAddressForm.get(fieldNames[field]).invalid) {
+        switch (fieldNames[field]) {
+          case 'billingName':
+            this.billingNameInput.nativeElement.focus();
+            return;
+          case 'billingStreetAddress':
+            this.billingStreetAddressInput.nativeElement.focus();
+            return;
+          case 'billingCity':
+            this.billingCityInput.nativeElement.focus();
+            return;
+          case 'billingPostcode':
+          default:
+            this.billingPostcodeInput.nativeElement.focus();
+        }
+      }
+    }
+  }
+
+  shippingInputErrorMessageCheck(fieldName: string): string {
+    const isDanish = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da;
+    if (this.checkoutForm.get(fieldName).invalid) {
+      switch (fieldName) {
+        case 'name':
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            return isDanish ? 'Navn påkrævet' : 'Name is required';
+          } else if (this.checkoutForm.get(fieldName).value.length < 3) {
+            return isDanish ? 'Navn er for kort' : 'Name is too short';
+          } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            return isDanish ? 'Navn er for langt' : 'Name is too long';
+          } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
+            return isDanish ? 'Navn indeholder ugyldige tegn' : 'Name contains an invalid character(s)';
+          }
+          return;
+        case 'phoneNumber':
+          if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
+            return isDanish ? 'Ugyldigt telefonnummer' : 'Please provide a valid phone number';
+          }
+          return;
+        case 'email':
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            return isDanish ? 'Email er påkrævet' : 'Email is required';
+          } else if (!this.checkoutForm.get(fieldName).value.email) {
+            return isDanish ? 'Ugyldig email' : 'Please provide a valid email';
+          }
+          return;
+        case 'streetAddress':
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            return isDanish ? 'Adresse er påkrævet' : 'Address is required';
+          } else if (this.checkoutForm.get(fieldName).value.length < 3) {
+            return isDanish ? 'Adressen er for kort' : 'Address is too short';
+          } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            return isDanish ? 'Adressen er for lang' : 'Address is too long';
+          }
+          return;
+        case 'city':
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            return isDanish ? 'By er påkrævet' : 'City is required';
+          } else if (this.checkoutForm.get(fieldName).value.length < 2) {
+            return isDanish ? 'Bynavn er for kort' : 'City is too short';
+          } else if (this.checkoutForm.get(fieldName).value.length > 50) {
+            return isDanish ? 'Bynavn er for lang' : 'City is too long';
+          } else if (this.checkoutForm.get(fieldName).value.match('^[0-9+]*')) {
+            return isDanish ? 'Bynavn indeholder ugyldige tegn' : 'City contains an invalid character(s)';
+          }
+          return;
+        case 'postcode':
+          if (this.checkoutForm.get(fieldName).value === null || this.checkoutForm.get(fieldName).value === '') {
+            return isDanish ? 'Postnummer er påkrævet' : 'Postcode is required';
+          } else if (this.checkoutForm.get(fieldName).value < 555) {
+            return isDanish
+              ? 'Ugyldig dansk postnummer (tal for lavt). Prøv venligst igen'
+              : 'Not a valid danish postcode (too low). Please try again';
+          } else if (this.checkoutForm.get(fieldName).value > 9999) {
+            return isDanish
+              ? 'Ugyldig dansk postnummer (tal for højt). Prøv venligst igen'
+              : 'Not a valid danish postcode (too high). Please try again';
+          } else if (this.checkoutForm.get(fieldName).value.match('^[^0-9]*')) {
+            return isDanish ? 'Postnummer indeholder ugyldige tegn' : 'Postcode contains invalid character(s)';
+          }
+          return;
+        default:
+          break;
+      }
+    }
+  }
+
+  billingInputErrorMessageCheck(fieldName: string): string {
+    const isDanish = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value === LocaleType.da;
+    if (this.billingAddressForm.get(fieldName).invalid) {
+      switch (fieldName) {
+        case 'billingName':
+          if (
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
+          ) {
+            return isDanish ? 'Navn påkrævet' : 'Name is required';
+          } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
+            return isDanish ? 'Navn er for kort' : 'Name is too short';
+          } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            return isDanish ? 'Navn er for langt' : 'Name is too long';
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
+            return isDanish ? 'Navn indeholder ugyldige tegn' : 'Name contains an invalid character(s)';
+          }
+          return;
+        case 'billingStreetAddress':
+          if (
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
+          ) {
+            return isDanish ? 'Adresse er påkrævet' : 'Address is required';
+          } else if (this.billingAddressForm.get(fieldName).value.length < 3) {
+            return isDanish ? 'Adressen er for kort' : 'Address is too short';
+          } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            return isDanish ? 'Adressen er for lang' : 'Address is too long';
+          }
+          return;
+        case 'billingCity':
+          if (
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
+          ) {
+            return isDanish ? 'By er påkrævet' : 'City is required';
+          } else if (this.billingAddressForm.get(fieldName).value.length < 2) {
+            return isDanish ? 'Bynavn er for kort' : 'City is too short';
+          } else if (this.billingAddressForm.get(fieldName).value.length > 50) {
+            return isDanish ? 'Bynavn er for lang' : 'City is too long';
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[0-9+]*')) {
+            return isDanish ? 'Bynavn indeholder ugyldige tegn' : 'City contains an invalid character(s)';
+          }
+          return;
+        case 'billingPostcode':
+          if (
+            this.billingAddressForm.get(fieldName).value === null ||
+            this.billingAddressForm.get(fieldName).value === ''
+          ) {
+            return isDanish ? 'Postnummer er påkrævet' : 'Postcode is required';
+          } else if (this.billingAddressForm.get(fieldName).value < 555) {
+            return isDanish
+              ? 'Ugyldig dansk postnummer (tal for lavt). Prøv venligst igen'
+              : 'Not a valid danish postcode (too low). Please try again';
+          } else if (this.billingAddressForm.get(fieldName).value > 9999) {
+            return isDanish
+              ? 'Ugyldig dansk postnummer (tal for højt). Prøv venligst igen'
+              : 'Not a valid danish postcode (too high). Please try again';
+          } else if (this.billingAddressForm.get(fieldName).value.match('^[^0-9]*')) {
+            return isDanish ? 'Postnummer indeholder ugyldige tegn' : 'Postcode contains invalid character(s)';
+          }
+          return;
+        default:
+          break;
+      }
     }
   }
 
@@ -264,8 +481,25 @@ export class CheckoutComponent implements OnInit {
           email: this.checkoutForm.get('email').value,
           password: passwordGen,
         })
-        .toPromise();
+        .toPromise()
+        .catch((error) => {
+          console.warn(error);
+          this.errorlogsService.create('webstore.checkout.register-on-order-failed', ErrorlogPriorityEnum.high, error);
+          this.toastService.showAlert(
+            'Failed to create order, please try again',
+            'Der skete en fejl ved ordren, prøv venligst igen',
+            'danger',
+            5000
+          );
+          this.isLoading = false;
+        });
+
+      if (!user) {
+        return;
+      }
+
       this.eventsService.create('webstore.checkout.registered-on-order');
+
       // set the new user logged in data
       this.authService.saveAuthUser(user);
       await this.transactionItemService.createBulkTransactionItem({ transactionItems: this.itemList }).toPromise();
@@ -286,7 +520,7 @@ export class CheckoutComponent implements OnInit {
           null
         );
         this.alert = {
-          message: this.isEnglish()
+          message: this.isDanish()
             ? 'Failed to create your order, email is already in use. Please log in to finish your order.'
             : 'Fejl ved bestilling. Din email er allerede i brug. Log venligst ind for at gennemføre dit køb.',
           type: 'danger',
@@ -299,14 +533,13 @@ export class CheckoutComponent implements OnInit {
           error
         );
         this.alert = {
-          message: this.isEnglish()
+          message: this.isDanish()
             ? 'Failed to create your order, please try again and if the issue persists contact us at info@treecreate.dk'
             : 'Fejl ved bestilling. Prøv venligst igen. Hvis fejlen fortsætter kan du kontakte os på info@treecreate.dk',
           type: 'danger',
           dismissible: false,
         };
       }
-    } finally {
       this.isLoading = false;
     }
   }
@@ -378,7 +611,6 @@ export class CheckoutComponent implements OnInit {
       })
       .subscribe({
         next: (paymentLink: IPaymentLink) => {
-          this.isLoading = false;
           this.localStorageService.removeItem(LocalStorageVars.discount);
           this.localStorageService.removeItem(LocalStorageVars.plantedTrees);
           this.eventsService.create('webstore.checkout.payment-initiated');

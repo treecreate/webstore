@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxOptionsDesignEnum, TreeDesignEnum, TreeDesignNameDanishEnum, TreeDesignNameEnglishEnum } from '@assets';
 import {
@@ -31,6 +32,7 @@ import { EventsService } from '../../../../shared/services/events/events.service
     './family-tree.component.scss',
     './family-tree.component.mobile.scss',
     '../../../../../assets/styles/tc-input-field.scss',
+    '../../../../../assets/styles/product-options.scss',
   ],
 })
 export class FamilyTreeComponent implements OnInit {
@@ -67,7 +69,6 @@ export class FamilyTreeComponent implements OnInit {
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
 
   constructor(
@@ -80,7 +81,9 @@ export class FamilyTreeComponent implements OnInit {
     private toastService: ToastService,
     private authService: AuthService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -88,17 +91,13 @@ export class FamilyTreeComponent implements OnInit {
       // Check if the access token is still valid
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
-    });
-
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     this.isIphone = this.iOS();
   }
 
   ngOnInit() {
+    this.setMetaData();
+
     // The subscription will get triggered right away, loading the design
     this.route.queryParams.subscribe(() => {
       this.loadDesign();
@@ -113,6 +112,19 @@ export class FamilyTreeComponent implements OnInit {
         this.localStorageService.setItem<boolean>(LocalStorageVars.firstVisit, true);
       }
     }, 500);
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('Stamtræ skåret i træ i høj kvalitet');
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Hos Treecreate kan du få lavet et lækkert stamtræ i den bedste kvalitet - for dig der ønsker at forevige familien.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'stamtræ, stamtavle, stamtræ, familie, familiegave, gave til familien, morsdag, farsdag, gave',
+    });
   }
 
   isEnglish(): boolean {
@@ -260,7 +272,7 @@ export class FamilyTreeComponent implements OnInit {
     if (!this.isLoggedIn) {
       this.toastService.showAlert(
         'Your design has been temporarily saved. Log in or create an account if you want to have access to your own Collection.',
-        'Dit design er bleven midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
+        'Dit design er blevet midlertidigt gemt. Log ind eller lav en konto hvis du vil gemme den til din egen samling.',
         'success',
         7000
       );
@@ -285,7 +297,7 @@ export class FamilyTreeComponent implements OnInit {
           () => {
             this.toastService.showAlert(
               'Your design has been updated',
-              'Dit design er bleven opdateret',
+              'Dit design er blevet opdateret',
               'success',
               5000
             );
@@ -317,7 +329,7 @@ export class FamilyTreeComponent implements OnInit {
         })
         .subscribe({
           next: (result) => {
-            this.toastService.showAlert('Your design has been saved', 'Dit design er bleven gemt', 'success', 5000);
+            this.toastService.showAlert('Your design has been saved', 'Dit design er blevet gemt', 'success', 5000);
             this.eventsService.create(`webstore.family-tree.design-created.db`);
             this.router.navigate([], {
               relativeTo: this.route,
@@ -377,25 +389,25 @@ export class FamilyTreeComponent implements OnInit {
   getDesignName(treeDesign: TreeDesignEnum): TreeDesignNameDanishEnum | TreeDesignNameEnglishEnum {
     switch (treeDesign) {
       case TreeDesignEnum.tree1:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree1;
         } else {
           return TreeDesignNameEnglishEnum.tree1;
         }
       case TreeDesignEnum.tree2:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree2;
         } else {
           return TreeDesignNameEnglishEnum.tree2;
         }
       case TreeDesignEnum.tree3:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree3;
         } else {
           return TreeDesignNameEnglishEnum.tree3;
         }
       case TreeDesignEnum.tree4:
-        if (this.locale$.getValue() === LocaleType.dk) {
+        if (this.localeCode === LocaleType.da) {
           return TreeDesignNameDanishEnum.tree4;
         } else {
           return TreeDesignNameEnglishEnum.tree4;

@@ -10,6 +10,7 @@ import {
   IFamilyTree,
   IQoutable,
   ITransactionItem,
+  QuotableTypeEnum,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -33,12 +34,14 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   @Input()
   designType?: DesignTypeEnum;
 
+  @Input()
+  quotableType?: QuotableTypeEnum;
+
   addToBasketForm: UntypedFormGroup;
   price = 0;
   isMoreThan4 = false;
   itemsInBasket = 0;
   totalPrice = 0;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   design: IFamilyTree | IQoutable;
   isLoading = false;
@@ -63,13 +66,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
-    });
-
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
 
@@ -86,15 +83,32 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // default the designType to Fmaily tree if it's null
+    // default the designType to Family tree if it's null
     if (this.designType === undefined || this.designType === null) {
       this.designType = DesignTypeEnum.familyTree;
     }
 
-    if (this.designType === DesignTypeEnum.familyTree) {
-      this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
-    } else if (this.designType === DesignTypeEnum.quotable) {
-      this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    switch (this.designType) {
+      case DesignTypeEnum.familyTree:
+        this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+        break;
+      case DesignTypeEnum.quotable:
+      default:
+        if (this.quotableType) {
+          switch (this.quotableType) {
+            case QuotableTypeEnum.babySign:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
+              break;
+            case QuotableTypeEnum.loveLetter:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
+              break;
+            case QuotableTypeEnum.quotable:
+            default:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+          }
+        } else {
+          this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+        }
     }
 
     this.addToBasketForm.setValue({

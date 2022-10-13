@@ -181,3 +181,30 @@ hr {
 .tc-input-group {
   width: 100%;
 }
+
+.back {
+  font-weight: 700;
+  margin-left: 10px;
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: none;
+  margin-left: 5px;
+  color: var(--second-action-color) !important;
+}
+
+.back-container {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  padding-left: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .back {
+    font-size: 12px;
+    margin: 0;
+  }
+}

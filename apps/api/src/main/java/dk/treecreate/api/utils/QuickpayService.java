@@ -125,7 +125,7 @@ public class QuickpayService {
     // multiplying by 100
     createPaymentLinkRequest.amount = total.multiply(new BigDecimal(100)).intValue();
     // TODO - convert locale to use ISO-639-codes (danish is da not dk)
-    if (locale.getLanguage().equals("dk")) {
+    if (locale.getLanguage().equals("da")) {
       createPaymentLinkRequest.language = "da";
     } else {
       createPaymentLinkRequest.language = locale.getLanguage();

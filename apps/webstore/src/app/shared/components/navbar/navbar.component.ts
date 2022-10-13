@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit {
   private authUser$: BehaviorSubject<IAuthUser>;
   public isLoggedIn: boolean;
   public isMenuCollapsed = true;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   public environment: IEnvironment;
 
@@ -42,10 +41,8 @@ export class NavbarComponent implements OnInit {
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
+    this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).subscribe((locale) => {
+      this.localeCode = locale;
     });
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -54,29 +51,32 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = this.authUser$.getValue() != null && this.authService.isAccessTokenValid();
     });
     this.environment = environment;
+
+    this.localStorageService.getItem<ITransactionItem[]>(LocalStorageVars.transactionItems).subscribe({
+      next: (newList) => {
+        this.itemList = newList;
+        this.getItemsInBasket();
+      },
+    });
   }
 
   changeLocale(language: string) {
     switch (language) {
-      case 'dk':
-        this.localeCode = LocaleType.dk;
+      case 'da':
+        this.localeCode = LocaleType.da;
         break;
       case 'en':
         this.localeCode = LocaleType.en;
         break;
     }
-    this.locale$ = this.localStorageService.setItem<LocaleType>(LocalStorageVars.locale, this.localeCode);
+    this.localStorageService.setItem<LocaleType>(LocalStorageVars.locale, this.localeCode);
   }
 
   getItemsInBasket() {
     if (this.isLoggedIn) {
       this.transactionItemService.getTransactionItems().subscribe(
         (itemList: ITransactionItem[]) => {
-          let sum = 0;
-          for (let i = 0; i < itemList.length; i++) {
-            sum += itemList[i].quantity;
-          }
-          this.itemsInBasket = sum;
+          this.itemsInBasket = this.calculateItemsInBasket(itemList);
         },
         (error: HttpErrorResponse) => {
           console.error(error.error);
@@ -92,11 +92,19 @@ export class NavbarComponent implements OnInit {
         LocalStorageVars.transactionItems
       ).value;
       if (localStorageItemsList !== null) {
-        this.itemsInBasket = localStorageItemsList.length;
+        this.itemsInBasket = this.calculateItemsInBasket(localStorageItemsList);
       } else {
         this.itemsInBasket = 0;
       }
     }
+  }
+
+  calculateItemsInBasket(itemList: ITransactionItem[]): number {
+    let sum = 0;
+    itemList.forEach((item) => {
+      sum += item.quantity;
+    });
+    return sum;
   }
 
   /**
@@ -124,7 +132,7 @@ export class NavbarComponent implements OnInit {
   }
 
   isDanish() {
-    return this.localeCode === LocaleType.dk;
+    return this.localeCode === LocaleType.da;
   }
 
   showProfileMenu() {

@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum, INewsletter, IRegisterResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -10,7 +11,7 @@ import { ToastService } from '../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../shared/services/authentication/auth.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
 import { EventsService } from '../../../shared/services/events/events.service';
-import { NewsletterService } from '../../../shared/services/order/newsletter/newsletter.service';
+import { NewsletterService } from '../../../shared/services/newsletter/newsletter.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 @Component({
   selector: 'webstore-signup',
@@ -35,10 +36,13 @@ export class SignupComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private transactionItemService: TransactionItemService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {}
 
   ngOnInit(): void {
+    this.setMetaData();
     // if user is already logged in redirect to products page
     if (this.authService.getAuthUser()) {
       this.router.navigate(['/products']);
@@ -57,6 +61,16 @@ export class SignupComponent implements OnInit {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z0-9$§!"#€%&/()=?`´^*\'@~±≠¶™∞£§“¡]{8,}$'),
       ]),
     });
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('Lav en bruger hos Treecreate og få fordele');
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Bliv en af et fællesskab af kreative designere, og vis dem frem for familien. Giv dem som gaver eller til dig selv',
+    });
+    this.meta.updateTag({ name: 'keywords', content: 'Designere, kreativ, familien, gaver, selvforkælelse' });
   }
 
   onSubmit(): void {
@@ -105,7 +119,7 @@ export class SignupComponent implements OnInit {
 
           this.toastService.showAlert(
             'Welcome to Treecreate, you have successfully been registered!',
-            'Velkommen til Treecreate, du er nu bleven registreret!',
+            'Velkommen til Treecreate, du er nu blevet registreret!',
             'success',
             3500
           );
@@ -157,5 +171,37 @@ export class SignupComponent implements OnInit {
 
   showTermsOfUse() {
     this.modalService.open(TermsOfUseModalComponent, { size: 'lg' });
+  }
+
+  isLengthValid(): string {
+    if (this.signupForm.get('password').value.length >= 8) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasUppercase(): string {
+    if (this.signupForm.get('password').value.match('[A-Z]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasLowercase(): string {
+    if (this.signupForm.get('password').value.match('[a-z]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasNumber(): string {
+    if (this.signupForm.get('password').value.match('[0-9]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
   }
 }

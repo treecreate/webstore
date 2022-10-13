@@ -7,7 +7,9 @@
 .modal-footer {
   margin-top: 0 !important;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  flex-direction: column-reverse;
+  align-items: end;
   width: 20% !important;
 }
 
@@ -19,11 +21,15 @@ h2 {
   font-weight: 500;
 }
 
+.modal-footer .tc-button-50:first-child {
+  margin: 0.75em 0 0 0 !important;
+}
+
 .modal-footer .tc-button-50 {
   width: 67% !important;
   position: relative;
   right: 40px;
-  margin: auto !important;
+  margin: 0.5em 0 0 0 !important;
 }
 
 .reject {
@@ -34,6 +40,7 @@ h2 {
 
 .cookie-prompt-container {
   position: sticky;
+  z-index: 1000;
   bottom: 0;
   left: 0;
   background-color: white;
@@ -43,7 +50,7 @@ h2 {
 }
 
 .cookie-text-section {
-  padding: 0.5em 1em;
+  padding: 0.5em 1em 1em 1em;
   font-size: var(--medium-small-font);
 }
 
@@ -55,11 +62,13 @@ a {
   .cookie-prompt-container {
     flex-direction: column;
     align-items: flex-start;
+    align-items: center;
   }
 
   .cookie-text-section {
     width: 90%;
     font-size: var(--extra-small-font);
+    padding: 0.5em 1em 0em 1em;
   }
 
   h2 {
@@ -70,6 +79,11 @@ a {
   .modal-footer .tc-button-50 {
     right: 0;
     width: 48% !important;
+    margin: 0 0 0 0 !important;
+  }
+
+  .modal-footer .tc-button-50:first-child {
+    margin: 0 0.5em 0 0 !important;
   }
 
   .modal-footer {
@@ -94,10 +108,6 @@ a {
   }
 
   .cookie-text-section {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    flex-direction: column;
     font-size: var(--medium-small-font);
   }
 }

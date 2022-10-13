@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAuthUser, ILoginRequestParams, ILoginResponse, IRegisterRequestParams, IRegisterResponse } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../../environments/environment';
 
@@ -45,9 +45,13 @@ export class AuthService {
    */
   register(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
+    let locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value;
+    if (locale === null) {
+      locale = LocaleType.da;
+    }
     const eventLogUserId = this.localStorageService.getItem(LocalStorageVars.eventLogUserId).value;
     return this.http.post<IRegisterResponse>(
-      `${env.apiUrl}/auth/signup${eventLogUserId ? '?eventLogUserId=' + eventLogUserId : ''}`,
+      `${env.apiUrl}/auth/signup?lang=${locale}${eventLogUserId ? '&eventLogUserId=' + eventLogUserId : ''}`,
       {
         email,
         password,
@@ -63,9 +67,15 @@ export class AuthService {
    */
   registerOnOrder(params: IRegisterRequestParams): Observable<IRegisterResponse> {
     const { email, password } = params;
+    let locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).value;
+    if (locale === null) {
+      locale = LocaleType.da;
+    }
     const eventLogUserId = this.localStorageService.getItem(LocalStorageVars.eventLogUserId).value;
     return this.http.post<IRegisterResponse>(
-      `${env.apiUrl}/auth/signup?sendPasswordEmail=true${eventLogUserId ? '&eventLogUserId=' + eventLogUserId : ''}`,
+      `${env.apiUrl}/auth/signup?sendPasswordEmail=true&lang=${locale}${
+        eventLogUserId ? '&eventLogUserId=' + eventLogUserId : ''
+      }`,
       {
         email,
         password,
@@ -85,7 +95,7 @@ export class AuthService {
     this.localStorageService.removeItem(LocalStorageVars.authUser);
     this.localStorageService.removeItem(LocalStorageVars.designFamilyTree);
     this.localStorageService.removeItem(LocalStorageVars.transactionItems);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 
   /**

@@ -18,6 +18,7 @@ declare let gtag: Function;
 })
 export class AppComponent {
   title = 'Treecreate';
+  showCookiePrompt = false;
 
   constructor(
     public router: Router,
@@ -25,14 +26,11 @@ export class AppComponent {
     private errorlogsService: ErrorlogsService
   ) {
     // Setup localization language
-    this.router.events.subscribe(() => {
-      const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
-      // if the website is deployed the url has locale in it and has to be adjusted to match local storage
-      if (window.location.href.includes('/en-US/') && locale === LocaleType.dk) {
-        window.location.href = window.location.href.replace('/en-US/', '/dk/');
-      } else if (window.location.href.includes('/dk/') && locale === LocaleType.en) {
-        window.location.href = window.location.href.replace('/dk/', '/en-US/');
-      }
+    this.router.events.subscribe(async () => {
+      this.updateLocale();
+    });
+    this.localStorageService.getItem(LocalStorageVars.locale).subscribe(async () => {
+      this.updateLocale();
     });
 
     // Third party cookies and tracking
@@ -51,6 +49,40 @@ export class AppComponent {
       window['prerenderReady'] = true;
       document.getElementById('prerenderScriptTag').innerHTML = 'window.prerenderReady = true';
     }, 5000);
+
+    setTimeout(() => {
+      this.showCookiePrompt = true;
+    }, 2000);
+  }
+
+  /**
+   * Update the url locale information to match users preference (stored in local storage)
+   * @returns
+   */
+  updateLocale() {
+    const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+    // Don't apply url lang path param logic on localhost aka local development
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return;
+    }
+    // if the website is deployed the url has locale in it and has to be adjusted to match local storage
+    if (window.location.href.includes('/en-US') && locale === LocaleType.da) {
+      // English locale while the user has selected Danish
+      console.warn('Redirecting you to your chosen locale: DA');
+      window.location.href = window.location.href.replace('/en-US', '');
+    } else if (!window.location.href.includes('/en-US') && locale === LocaleType.en) {
+      // Danish locale while the user has selected English
+      console.warn('Redirecting you to your chosen locale: en-US');
+      window.location.href = window.location.origin + '/en-US' + window.location.pathname + window.location.search;
+    } else if (window.location.href.includes('/da')) {
+      // Legacy URL
+      console.warn('Redirecting you to our updated locale');
+      window.location.href = window.location.href.replace('/da', '');
+    } else if (window.location.href.includes('/dk')) {
+      // Legacy URL
+      console.warn('Redirecting you to our updated locale');
+      window.location.href = window.location.href.replace('/dk', '');
+    }
   }
 
   initGoogleAnalytics() {
@@ -84,6 +116,10 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  isProductsPage(): boolean {
+    return this.router.url.includes('/products/');
   }
 
   initMetaPixel() {

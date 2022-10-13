@@ -21,7 +21,7 @@
   align-items: center;
   text-align: center;
   border-radius: 3px;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.25);
   /* effect */
   outline: none !important;
   transition: 0.5s;
@@ -34,9 +34,9 @@
 .tc-button-square:hover,
 .tc-button-sm-square:hover,
 .tc-button-static:hover {
-  -webkit-transform: scale(1.05);
-  transform: scale(1.05);
-  box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.25);
+  -webkit-transform: scale(0.95);
+  transform: scale(0.95);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
 }
 
 a {
@@ -65,6 +65,23 @@ a {
 .tc-button-sm-square {
   height: 35px;
   min-width: 35px;
+}
+/* For iphone specific css */
+@supports (-webkit-touch-callout: none) {
+  .view,
+  .edit,
+  .add-to-basket-specific {
+    width: 50px !important;
+  }
+  .add-to-basket-specific img {
+    position: relative;
+    left: -7px;
+  }
+  .view img,
+  .edit img {
+    position: relative;
+    left: -3px;
+  }
 }
 /* END BUTTON SECTION */
 
@@ -95,7 +112,7 @@ strong {
 }
 
 .green {
-  background-color: var(--green-color);
+  background-color: var(--green-color) !important;
 }
 
 .red {

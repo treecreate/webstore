@@ -3,7 +3,7 @@
     <div class="title" i18n="@@go-to-basket-title">The family tree has been added to your basket</div>
     <div class="sub-title" *ngIf="!isLoading">
         <span i18n="@@you-have">You have</span> {{ itemsInBasket }}
-        <span i18n="@@items-in-your-basket">items in your basket</span> ({{ basketPrice }}
+        <span i18n="@@items-in-your-basket">items in your basket </span> ({{ basketPrice }}
         DKK )
     </div>
     <div *ngIf="isLoading" style="text-align: center">
@@ -15,7 +15,7 @@
 <div class="modal-footer">
     <button
         type="button"
-        class="tc-button-33 green"
+        class="tc-button-50 green"
         routerLink="/basket"
         (click)="activeModal.close()"
         i18n="@@go-to-basket"
@@ -25,11 +25,11 @@
     </button>
     <button
         type="button"
-        class="tc-button-33"
+        class="tc-button-50"
         (click)="createNew()"
-        i18n="@@create-new"
+        i18n="@@continue-shopping"
         data-cy="go-to-basket-create-new-button"
     >
-        Create new
+        Continue shopping
     </button>
 </div>

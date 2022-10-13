@@ -17,7 +17,7 @@ describe('Signup Page', () => {
     });
 
     it('should properly create a new user with correct credentials', () => {
-      cy.intercept('POST', `/auth/signup`, {
+      cy.intercept('POST', `/auth/signup?lang=da`, {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
       }).as('signupRequest');
@@ -116,7 +116,7 @@ describe('Signup Page', () => {
       );
       cy.visit('/signup');
 
-      cy.url().should('contain', '/home');
+      cy.url().should('contain', '/');
 
       cy.get('[data-cy=navbar]').contains('Log in').should('exist');
       cy.get('[data-cy=navbar]').contains('Profile').should('not.exist');

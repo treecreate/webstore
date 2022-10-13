@@ -1,23 +1,99 @@
-<div class="design-wrapper" #designWrapper>
-    <div class="above-canvas">
-        <textarea
-            matInput
-            id="textField"
-            cdkTextareaAutosize
-            #quotableInput
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="25"
-            spellcheck="false"
-            [rows]="rows"
-            [ngStyle]="{ 'font-size': fontSize + 'px' }"
-            [maxlength]="1000"
-            autocomplete="off"
-            [ngModel]="design.text"
-            (ngModelChange)="updateText($event)"
-            [disabled]="!isMutable"
-            data-cy="text-input-field"
-        ></textarea>
+<div class="design-wrapper" #designWrapper [ngStyle]="{ 'font-family': this.design.font }">
+    <div class="above-canvas" *ngIf="!isLoading">
+        <div
+            #inputWrapper
+            id="textVerticalPlacement"
+            [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }"
+        >
+            <div class="text-container" *ngIf="design.showTitle ?? false">
+                <textarea
+                    matInput
+                    id="titleField"
+                    cdkTextareaAutosize
+                    #quotableTitleInput
+                    #autosizeTitle="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="25"
+                    spellcheck="false"
+                    [ngStyle]="{ 'font-size': fontSize * 2 + 'px' }"
+                    [maxlength]="200"
+                    autocomplete="off"
+                    [ngModel]="design.title ?? ''"
+                    (ngModelChange)="updateTitleText($event)"
+                    [disabled]="!isMutable"
+                    data-cy="title-input-field"
+                    [placeholder]="getTitlePlaceholder()"
+                ></textarea>
+                <button
+                    class="remove-text-btn"
+                    data-cy="remove-title-button"
+                    (click)="changeTitleDisplay()"
+                    *ngIf="isMutable && showInputFieldOptions"
+                >
+                    <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
+                </button>
+            </div>
+            <div *ngIf="!design.showTitle && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button
+                    id="addTitle"
+                    data-cy="add-title-button"
+                    class="tc-button-sm-square"
+                    (click)="changeTitleDisplay()"
+                >
+                    + add title
+                </button>
+            </div>
+
+            <div class="text-container" *ngIf="design.showText ?? true">
+                <textarea
+                    matInput
+                    id="textField"
+                    cdkTextareaAutosize
+                    #quotableTextInput
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="25"
+                    spellcheck="false"
+                    [ngStyle]="{ 'font-size': fontSize + 'px' }"
+                    [maxlength]="1000"
+                    autocomplete="off"
+                    [ngModel]="design.text"
+                    (ngModelChange)="updateText($event)"
+                    [disabled]="!isMutable"
+                    data-cy="text-input-field"
+                    [placeholder]="getTextPlaceholder()"
+                ></textarea>
+                <button
+                    class="remove-text-btn"
+                    data-cy="remove-text-button"
+                    (click)="changeTextDisplay()"
+                    *ngIf="isMutable && showInputFieldOptions"
+                >
+                    <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
+                </button>
+            </div>
+            <div *ngIf="showAddTextButton()" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
+                <button
+                    id="addText"
+                    data-cy="add-text-button"
+                    class="tc-button-sm-square"
+                    (click)="changeTextDisplay()"
+                >
+                    + add text
+                </button>
+            </div>
+        </div>
     </div>
-    <img [src]="design.designSrc" alt="Desing frame image" id="backgroundImage" />
+    <img [src]="getDesignSrc()" alt="Desing frame image" id="backgroundImage" *ngIf="!isLoading" />
+    <ngx-slider
+        (userChange)="changeVerticalPlacement()"
+        [(value)]="design.verticalPlacement"
+        [options]="verticalPlacementOptions"
+        class="vertical-slider"
+        data-cy="vertical-placement-slider"
+        *ngIf="showInputFieldOptions && isMutable"
+    ></ngx-slider>
+    <div class="hide">
+        <div data-cy="vertical-placement">{{ design.verticalPlacement }}</div>
+    </div>
 </div>

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { ErrorlogPriorityEnum, IAuthUser, IUser } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -12,57 +13,15 @@ import { ErrorlogsService } from '../../../../shared/services/errorlog/errorlog.
 import { EventsService } from '../../../../shared/services/events/events.service';
 import { OrderService } from '../../../../shared/services/order/order.service';
 import { UserService } from '../../../../shared/services/user/user.service';
+import { customOrderExamples } from './custom-order-examples.constant';
 
 @Component({
   selector: 'webstore-custom-order',
   templateUrl: './custom-order.component.html',
-  styleUrls: ['./custom-order.component.css', '../../../../../assets/styles/tc-input-field.scss'],
+  styleUrls: ['./custom-order.component.scss', '../../../../../assets/styles/tc-input-field.scss'],
 })
 export class CustomOrderComponent implements OnInit {
-  customOrderExampleList: CustomOrderExampleType[] = [
-    {
-      customer: 'Penneo',
-      descriptionEn:
-        'A unique display of the Penneo logo combined with the Nasdaq name in celebration of being listed on the main market.',
-      descriptionDk:
-        'Et unik plade med Penneos logo på, kombineret med Nasdaq navnet. Lavet i en fejring af at blive en del af Nasdaq-indexet.',
-      price: 700,
-      altText: '',
-      imgSrc: '/assets/img/custom-order-example/custom-order-img-2.png',
-    },
-    {
-      customer: 'We Do Agency',
-      descriptionEn: '4 unique prices at a BMW event, where the prises gifted to the winners.',
-      descriptionDk: '4 personlige præmier til et BMW event, hvor prierne blev uddelt til vinderne. ',
-      price: 1400,
-      altText: '',
-      imgSrc: '/assets/img/custom-order-example/custom-order-img-3.png',
-    },
-    {
-      customer: 'Jakobsen',
-      descriptionEn: "A beautiful display in the memory of the family's golden retriever named Bella.",
-      descriptionDk: 'En flot tavle i minde om familiens golden retriever ved navn Bella.',
-      price: 400,
-      altText: '',
-      imgSrc: '/assets/img/custom-order-example/custom-order-img-1.png',
-    },
-    {
-      customer: 'Helene',
-      descriptionEn: 'A gift from Helene to her boyfriend for their 2 year anniversary.',
-      descriptionDk: 'En gave fra Helene til hendes kæreste til deres 2 års dag sammen.',
-      price: 700,
-      altText: '',
-      imgSrc: '/assets/img/custom-order-example/custom-order-img-4.png',
-    },
-    {
-      customer: 'Sara',
-      descriptionEn: 'A display for Saras dog named Buster, with the addition of some puppy paws by the name.',
-      descriptionDk: 'En smuk tavle for Saras hund ved navn Buster. Navnet buster fik nogle hundepoter over sit navn.',
-      price: 400,
-      altText: '',
-      imgSrc: '/assets/img/custom-order-example/custom-order-img-5.png',
-    },
-  ];
+  customOrderExampleList: CustomOrderExampleType[] = customOrderExamples;
   customOrderForm: UntypedFormGroup;
 
   currentUser: IUser;
@@ -72,6 +31,7 @@ export class CustomOrderComponent implements OnInit {
   isLoggedIn = false;
   isLoading = false;
   isImageRequirementsRead = false;
+  sendCustomOrderClicked = false;
 
   uploadedFiles: File[] = [];
   maxFileSize = 20971520; // in bytes
@@ -82,6 +42,10 @@ export class CustomOrderComponent implements OnInit {
     dismissible: boolean;
   };
 
+  @ViewChild('nameInput') nameInput: ElementRef;
+  @ViewChild('emailInput') emailInput: ElementRef;
+  @ViewChild('descriptionInput') descriptionInput: ElementRef;
+
   constructor(
     private localStorageService: LocalStorageService,
     private userService: UserService,
@@ -89,7 +53,9 @@ export class CustomOrderComponent implements OnInit {
     private orderService: OrderService,
     private toastService: ToastService,
     private eventsService: EventsService,
-    private errorlogsService: ErrorlogsService
+    private errorlogsService: ErrorlogsService,
+    private metaTitle: Title,
+    private meta: Meta
   ) {
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
@@ -104,6 +70,8 @@ export class CustomOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setMetaData();
+
     this.initForms();
     if (this.isLoggedIn) {
       //Get user and update form
@@ -112,6 +80,16 @@ export class CustomOrderComponent implements OnInit {
         this.updateFormValues();
       });
     }
+  }
+
+  setMetaData() {
+    this.metaTitle.setTitle('Lav dit helt eget design og få det skåret ud i træ');
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Med Treecreates specialbestilling kan du helt selv designe dit eget træskilt, eller uploade et billede der skal laserskæres.',
+    });
+    this.meta.updateTag({ name: 'keywords', content: 'Design, trædesign, laserskærer, indgravering, gave' });
   }
 
   initForms() {
@@ -147,7 +125,20 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitCustomOrder() {
-    this.createCustomOrder();
+    this.sendCustomOrderClicked = true;
+
+    if (!this.customOrderForm.valid || !this.isImageRequirementsRead) {
+      // Go to earliest occurence of invalid input
+      if (this.customOrderForm.get('name').invalid) {
+        this.nameInput.nativeElement.focus();
+      } else if (this.customOrderForm.get('customerEmail').invalid) {
+        this.emailInput.nativeElement.focus();
+      } else if (this.customOrderForm.get('description').invalid) {
+        this.descriptionInput.nativeElement.focus();
+      }
+    } else {
+      this.createCustomOrder();
+    }
   }
 
   isDisabled() {

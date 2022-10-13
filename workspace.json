@@ -319,7 +319,7 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "dk": "apps/webstore/src/i18n/messages.dk.xlf"
+          "": "apps/webstore/src/i18n/messages.da.xlf"
         }
       },
       "targets": {
@@ -336,6 +336,7 @@
               "apps/webstore/src/favicon.ico",
               "apps/webstore/src/assets",
               "apps/webstore/src/robots.txt",
+              "apps/webstore/src/sitemap.xml",
               {
                 "input": "libs/assets/src/lib",
                 "glob": "**/*",
@@ -385,14 +386,14 @@
                 }
               ]
             },
-            "dk": {
+            "da": {
               "fileReplacements": [
                 {
                   "replace": "apps/webstore/src/environments/environment.ts",
-                  "with": "apps/webstore/src/environments/environment.dk.ts"
+                  "with": "apps/webstore/src/environments/environment.da.ts"
                 }
               ],
-              "localize": ["dk"]
+              "localize": ["da"]
             }
           },
           "defaultConfiguration": "development"
@@ -407,8 +408,8 @@
             "production": {
               "browserTarget": "webstore:build:production"
             },
-            "dk": {
-              "browserTarget": "webstore:build:dk"
+            "da": {
+              "browserTarget": "webstore:build:da"
             }
           }
         },
@@ -454,8 +455,8 @@
             "production": {
               "devServerTarget": "webstore:serve:production"
             },
-            "dk": {
-              "devServerTarget": "webstore:serve:dk"
+            "da": {
+              "devServerTarget": "webstore:serve:da"
             }
           }
         },

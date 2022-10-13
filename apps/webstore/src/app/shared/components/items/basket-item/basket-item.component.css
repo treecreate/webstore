@@ -29,11 +29,12 @@ hr {
 
 .item-image-container {
   margin: 10px;
-  width: 60%;
+  width: 100%;
   min-height: 200px;
 }
 
 .item-container {
+  padding-left: 10px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -110,6 +111,9 @@ hr {
 }
 
 @media screen and (max-width: 735px) {
+  .item-container {
+    padding-left: 0;
+  }
   .basket-item-container {
     flex-wrap: wrap;
     justify-content: center;

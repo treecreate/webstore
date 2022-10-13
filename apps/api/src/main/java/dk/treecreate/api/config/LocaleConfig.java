@@ -17,7 +17,7 @@ public class LocaleConfig implements WebMvcConfigurer {
     // Although the default is Danish, if someone specifies an invalid locale the email will be sent
     // in english
     // messages.properties is read by default and it is in english
-    slr.setDefaultLocale(new Locale("dk"));
+    slr.setDefaultLocale(new Locale("da"));
     return slr;
   }
 

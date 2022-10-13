@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+
+<url>
+  <loc>https://www.treecreate.dk/</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>1.0000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/products</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>1.0000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/products</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>1.0000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/products/family-tree</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/products/quotableproductType=LOVE_LETTER</loc>
+  <lastmod>2022-10-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/products/quotable?productType=BABY_SIGN</loc>
+  <lastmod>2022-10-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/products/quotable?productType=QUOTABLE</loc>
+  <lastmod>2022-10-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/products/custom-order</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/basket</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/checkout</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.6000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/login</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.3000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/signup</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.3000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/collection</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/profile</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.1000</priority>
+</url>
+<url>
+  <loc>https://www.treecreate.dk/orders</loc>
+  <lastmod>2022-09-01T11:23:45+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.1000</priority>
+</url>
+
+</urlset>

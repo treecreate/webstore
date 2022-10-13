@@ -33,7 +33,7 @@
     "e2e:ci": "nx run-many --target=e2e --all --maxParallel=5 --browser chrome",
     "e2e:open": "nx e2e webstore-e2e --watch",
     "e2e:open:prod": "nx e2e webstore-e2e --watch --configuration=production",
-    "e2e:open:dk": "nx e2e webstore-e2e --watch --configuration=dk",
+    "e2e:open:da": "nx e2e webstore-e2e --watch --configuration=da",
     "e2e:open:admin": "nx e2e admin-page-e2e --watch",
     "e2e:open:admin:prod": "nx e2e admin-e2e --watch --configuration=production",
     "affected:apps": "nx affected:apps",
@@ -78,6 +78,7 @@
     "@nrwl/cli": "14.5.4",
     "@nrwl/nx-cloud": "14.3.0",
     "@nrwl/workspace": "14.5.4",
+    "@nxrocks/nx-spring-boot": "4.1.0",
     "@popperjs/core": "^2.11.5",
     "bootstrap": "^5.0.0",
     "ngx-clipboard": "^15.1.0",
@@ -85,8 +86,7 @@
     "rxjs": "^7.4.0",
     "tslib": "^2.0.0",
     "typescript": "4.7.4",
-    "zone.js": "0.11.4",
-    "@nxrocks/nx-spring-boot": "4.1.0"
+    "zone.js": "0.11.4"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "14.0.2",

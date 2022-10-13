@@ -49,16 +49,10 @@
                     <div class="section-row">
                         <div class="line" [ngSwitch]="item.design.designType">
                             <span class="sub-title" i18n="@@title">Title </span>
-                            <span
-                                *ngSwitchCase="designTypeEnum.familyTree"
-                                data-cy="order-item-design-item-title"
-                                i18n="@@design-type-family-tree"
+                            <span *ngSwitchCase="designTypeEnum.familyTree" data-cy="order-item-design-item-title"
                                 >Family Tree</span
                             >
-                            <span
-                                *ngSwitchCase="designTypeEnum.quotable"
-                                data-cy="order-item-design-item-title"
-                                i18n="@@design-type-quotable"
+                            <span *ngSwitchCase="designTypeEnum.quotable" data-cy="order-item-design-item-title"
                                 >Quotable</span
                             >
                         </div>
@@ -94,7 +88,7 @@
                         [queryParams]="{ designId: item.design.designId }"
                         data-cy="order-item-view-button"
                     >
-                        <img src="/assets/icons/eye-white-icon.svg" alt="" class="icon" />
+                        <img src="/assets/icons/eye-white-icon.svg" alt="Eye icon" class="icon" />
                     </button>
                 </div>
             </div>

@@ -1,173 +1,199 @@
 <main class="page-container">
-    <section class="main-section add-transition">
-        <div class="darkener"></div>
-        <div class="main-text-container add-transition">
-            <h1 class="title title-font" data-cy="home-title">
-                <strong i18n="@@home-01-title">A gift with care</strong>
-            </h1>
-            <h2 class="main-subtext" i18n="@@home-01-text">Create something environmental, unique and personal.</h2>
-            <h5 class="price-text"><span i18n="@@prices-from">From </span> 299 DKK</h5>
-            <button class="tc-button-static title-font" routerLink="/products" (click)="scrollTop()">
-                <div i18n="@@buy-now">Buy now</div>
-            </button>
-        </div>
-    </section>
-
-    <section class="review-section">
-        <h2 i18n="@@reviews">Reviews</h2>
-        <div class="reviews-container">
-            <div *ngFor="let review of reviews" class="review-wrapper">
-                <img [src]="review.url" [alt]="review.alt" />
-                <p class="review-name">{{ review.name }}</p>
-                <p>{{ isEnglish() ? review.textEn : review.textDk }}</p>
-            </div>
-        </div>
-        <!-- TrustBox widget - Micro Review Count -->
-        <div class="trustpilot-section">
-            <span class="trustpilot-rating-number">Excellent</span>
-            <img
-                src="https://cdn.trustpilot.net/brand-assets/4.1.0/stars/stars-4.5.svg"
-                class="css-14xdocs-StarRatingImage eovnzyq0 trustpilot-rating"
-                alt="Trustpilot 5 stjernet bedømmelser"
-            />
-            <span class="trustpilot-rating-number">4.5 <span class="trustpilot-rating-text">out of 5</span> </span>
-        </div>
-        <div
-            class="trustpilot-widget"
-            data-locale="en-US"
-            data-template-id="5419b6a8b0d04a076446a9ad"
-            data-businessunit-id="6278fc669c36a16dd3a56788"
-            data-style-height="24px"
-            data-style-width="100%"
-            data-theme="light"
-            data-min-review-count="10"
-        >
-            <a href="https://www.trustpilot.com/review/treecreate.dk" target="_blank" rel="noopener">Trustpilot</a>
-        </div>
-        <!-- End TrustBox widget -->
-    </section>
-
-    <section class="descriptive-content-container">
-        <figure class="left-content">
-            <img
-                src="/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg"
-                id="image"
-                alt="Unikt familietræ i naturen"
-            />
-            <div class="background-image-container">
-                <div id="background-image"></div>
-            </div>
-        </figure>
-
-        <article class="right-content">
-            <h2 class="discriptive-title title-font" i18n="@@home-main-text-title">
-                A completely unique gift, exactly as you want it
-            </h2>
-            <p class="descriptive-text" i18n="@@home-main-text-subtitle">
-                At Treecreate you get to create something completely unique in high quality. You can create a Quote
-                table with your own personal message for the one you care about, create your family tree or make
-                something completely custom. All products are carved into a beautiful piece of oak wood and varnished.
-            </p>
-            <div class="button-section">
-                <div class="so-me-container">
-                    <a href="https://www.facebook.com/TreeCreate.dk" target="_blank"
-                        ><img class="so-me-icon" src="/assets/logos/soMe/facebook.svg" alt="Treecreate facebook side"
-                    /></a>
-                    <a href="https://www.instagram.com/treecreate.dk/" target="_blank"
-                        ><img class="so-me-icon" src="/assets/logos/soMe/instagram.svg" alt="Treecreate instagram side"
-                    /></a>
-                </div>
-                <button
-                    class="tc-button-50 purchase-button"
-                    i18n="@@create-my-family-tree"
-                    routerLink="/products/family-tree"
-                >
-                    Create my family tree
+    <div class="page-wrapper">
+        <section class="main-section add-transition">
+            <div class="darkener"></div>
+            <div class="main-text-container add-transition">
+                <h1 class="title title-font main-text" data-cy="home-title">
+                    <strong i18n="@@home-01-title">A gift with care</strong>
+                </h1>
+                <h2 class="main-subtext main-text" i18n="@@home-01-text">
+                    Create something environmental, unique and personal.
+                </h2>
+                <h5 class="price-text main-text"><span i18n="@@prices-from">From </span> 299 DKK</h5>
+                <button class="tc-button-static title-font" routerLink="/products" (click)="scrollTop()">
+                    <div i18n="@@buy-now">Buy now</div>
                 </button>
             </div>
-        </article>
-    </section>
+        </section>
 
-    <section class="values-container">
-        <h2 class="title title-font" i18n="@@values">Values</h2>
-        <div class="values">
-            <div class="value-wrapper">
-                <img src="/assets/icons/home-page-icons/personal-icon.svg" alt="Personligt icon" />
-                <h3 i18n="@@personal">Personal</h3>
-                <p i18n="@@personal-subtext">
-                    Gifts created personally are often the best, and with Treecreate you kan be sure to always bring
-                    something personal back home.
-                </p>
-            </div>
-            <div class="value-wrapper">
-                <img src="/assets/icons/home-page-icons/environmental-icon.svg" alt="Miljøvenligt icon" />
-                <h3 i18n="@@environmental">Environmental</h3>
-                <p i18n="@@environmental-subtext">
-                    We go the extra mile to make sure that our wood comes from reliable sources and by with planting a
-                    tree for each product sold.
-                </p>
-            </div>
-            <div class="value-wrapper">
-                <img src="/assets/icons/home-page-icons/unique-icon.svg" alt="Unikt icon" />
-                <h3 i18n="@@quality">Quality</h3>
-                <p i18n="@@quality-subtext">
-                    At Treecreate we care about quality. So much so, that we create and varnish all products ourselves
-                    to maintain the highest quality possible.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="video-container">
-        <h2 class="title title-font video-title" i18n="@@who-are-we">Who are we</h2>
-        <iframe
-            class="i-frame-video"
-            src="https://www.youtube.com/embed/172i_ze4mhk"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-        ></iframe>
-    </section>
-
-    <section class="team-container">
-        <h2 class="title title-font">Team</h2>
-        <div class="members">
-            <div class="member-wrapper">
-                <img src="/assets/img/team/Teo-TC-2022.png" alt="Treecreate founder billede" />
-                <h3>Teodor Jonasson</h3>
-                <span>Founder / CEO</span>
-                <span class="member-info">
-                    <a href="https://www.linkedin.com/in/teodor-jonasson-74066169/" target="_blank" class="link"
-                        >LinkedIn</a
-                    >
-                    <a href="mailto: teodor_jonasson@hotmail.com" target="_blank" class="link">Email</a>
-                    <a href="tel:+4526192327" target="_blank" class="link" i18n="@@phone-number">Phone nr</a>
-                </span>
-            </div>
-            <div class="member-wrapper">
-                <img src="/assets/img/team/Chris-TC-2022.jpeg" alt="Treecreate partner billede" />
-                <h3>Christopher Grøn</h3>
-                <span>Partner / CMO</span>
-                <a href="https://www.linkedin.com/in/christophertgroen/" target="_blank" class="link">LinkedIn</a>
-            </div>
-            <div class="member-wrapper">
-                <img src="/assets/img/team/Calli-TC-2022.jpeg" alt="Treecreate co founder billede" />
-                <h3>Calli Bogoryja</h3>
-                <span>Co-Founder / CTO</span>
-                <a href="https://www.linkedin.com/in/jan-bogoryja-zakrzewski/" target="_blank" class="link">LinkedIn</a>
-            </div>
-        </div>
-    </section>
-
-    <div class="arrow-up-container" [ngClass]="showUpArrow ? 'show' : 'hide'">
-        <div class="arrow-up-item" (click)="scrollTop()">
-            <button class="up-arrow">
-                <div class="icon">
-                    <div class="up-bar1"></div>
-                    <div class="up-bar2"></div>
+        <section class="review-section">
+            <h2 i18n="@@reviews">Reviews</h2>
+            <div class="reviews-container">
+                <div *ngFor="let review of reviews" class="review-wrapper">
+                    <img [src]="review.url" [alt]="review.alt" />
+                    <p class="review-name">{{ review.name }}</p>
+                    <p>{{ isEnglish() ? review.textEn : review.textDk }}</p>
                 </div>
-            </button>
+            </div>
+
+            <!-- TrustBox widget - Micro Review Count -->
+            <a
+                href="https://www.trustpilot.com/review/treecreate.dk"
+                class="trustpilot-link"
+                target="_blank"
+                rel="noopener"
+            >
+                <div class="trustpilot-section">
+                    <span class="trustpilot-rating-number">Excellent</span>
+                    <img
+                        src="https://cdn.trustpilot.net/brand-assets/4.1.0/stars/stars-4.5.svg"
+                        class="css-14xdocs-StarRatingImage eovnzyq0 trustpilot-rating"
+                        alt="Trustpilot 5 stjernet bedømmelser"
+                    />
+                    <span class="trustpilot-rating-number trustpilot-rating"
+                        >4.5 <span class="trustpilot-rating-text">out of 5</span>
+                    </span>
+                </div>
+                <img
+                    class="trustpilot-reviews"
+                    alt="Treecreate trustpilot reviews 4.5 stjerner"
+                    src="/assets/logos/soMe/trustpilot-21.png"
+                />
+            </a>
+            <!-- End TrustBox widget -->
+        </section>
+
+        <section class="descriptive-content-container">
+            <figure class="left-content">
+                <img
+                    src="/assets/img/home/family-tree-baby.jpg"
+                    id="image"
+                    alt="farmor og barnebarn der kigger på deres stamtræ"
+                />
+                <div class="background-image-container">
+                    <div id="background-image-family"></div>
+                </div>
+            </figure>
+
+            <article class="right-content">
+                <h2 class="discriptive-title title-font">
+                    <span i18n="@@no-mass-production">No mass production,</span><br />
+                    <span i18n="@@and-wastefull-production">and wastefull production</span>
+                </h2>
+                <p class="descriptive-text" i18n="@@our-mission-values-text-1">
+                    We use no plastic, and all our wood comes from sustainable sources so you can always be certain that
+                    whatever you bring home, has been made with care for the environment.
+                </p>
+                <div class="button-section">
+                    <div class="so-me-container">
+                        <a href="https://www.facebook.com/TreeCreate.dk" target="_blank" rel="noopener"
+                            ><img
+                                class="so-me-icon"
+                                src="/assets/logos/soMe/facebook.svg"
+                                alt="Treecreate facebook side"
+                        /></a>
+                        <a href="https://www.instagram.com/treecreate.dk/" target="_blank" rel="noopener"
+                            ><img
+                                class="so-me-icon"
+                                src="/assets/logos/soMe/instagram.svg"
+                                alt="Treecreate instagram side"
+                        /></a>
+                        <a href="https://www.tiktok.com/@treecreate.dk" target="_blank" rel="noopener"
+                            ><img class="so-me-icon" src="/assets/logos/soMe/tiktok.svg" alt="Treecreate tiktok side"
+                        /></a>
+                        <a href="https://www.pinterest.dk/Treecreatedk/" target="_blank" rel="noopener"
+                            ><img
+                                class="so-me-icon"
+                                src="/assets/logos/soMe/pinterest.svg"
+                                alt="Treecreate printerest side"
+                        /></a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section id="our-mission-statement">
+            <h1 i18n="@@our-mission">Our mission</h1>
+            <h2 i18n="@@our-mission-statement">
+                To make it possible for everyone to give a unique and personal gift of high quality in a sustainable
+                way.
+            </h2>
+        </section>
+
+        <section class="descriptive-content-container reversed">
+            <figure class="left-content">
+                <img
+                    src="/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg"
+                    id="image"
+                    alt="Unikt stamtræ i naturen"
+                />
+                <div class="background-image-container">
+                    <div id="background-image"></div>
+                </div>
+            </figure>
+
+            <article class="right-content">
+                <h2 class="discriptive-title title-font" i18n="@@home-main-text-title">
+                    A completely unique gift, exactly as you want it
+                </h2>
+                <p class="descriptive-text" i18n="@@home-main-text-subtitle">
+                    At Treecreate you get to create something completely unique in high quality. You can create a Quote
+                    table with your own personal message for the one you care about, create your family tree or make
+                    something completely custom. All products are carved into a beautiful piece of oak wood and
+                    varnished.
+                </p>
+                <div class="button-section">
+                    <button
+                        class="tc-button-50 purchase-button"
+                        i18n="@@create-my-family-tree"
+                        routerLink="/products/family-tree"
+                    >
+                        Create my family tree
+                    </button>
+                </div>
+            </article>
+        </section>
+
+        <section id="our-mission-values-2">
+            <img src="/assets/img/home/family-tree-christmas.jpg" alt="Et smukt stamtræ i julen" />
+            <div class="text-section-wrapper">
+                <h2 i18n="@@environmental-gifting">Environmental gifting</h2>
+                <p i18n="@@our-mission-values-text-2">
+                    The time of giving your aunt a vase or a floral carpet is over - with Treecreate you can with ease
+                    filter and find your way to the perfect gift to give a family member for christmas or birthday.
+                </p>
+            </div>
+        </section>
+
+        <section class="values-container">
+            <h2 class="title title-font" i18n="@@values">Values</h2>
+            <div class="values">
+                <div class="value-wrapper">
+                    <img src="/assets/icons/home-page-icons/personal-icon.svg" alt="Personligt icon" />
+                    <h3 i18n="@@personal">Personal</h3>
+                    <p i18n="@@personal-subtext">
+                        Gifts created personally are often the best, and with Treecreate you kan be sure to always bring
+                        something personal back home.
+                    </p>
+                </div>
+                <div class="value-wrapper">
+                    <img src="/assets/icons/home-page-icons/environmental-icon.svg" alt="Miljøvenligt icon" />
+                    <h3 i18n="@@environmental">Environmental</h3>
+                    <p i18n="@@environmental-subtext">
+                        We go the extra mile to make sure that our wood comes from reliable sources and by with planting
+                        a tree for each product sold.
+                    </p>
+                </div>
+                <div class="value-wrapper">
+                    <img src="/assets/icons/home-page-icons/unique-icon.svg" alt="Unikt icon" />
+                    <h3 i18n="@@quality">Quality</h3>
+                    <p i18n="@@quality-subtext">
+                        At Treecreate we care about quality. So much so, that we create and varnish all products
+                        ourselves to maintain the highest quality possible.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="arrow-up-container" [ngClass]="showUpArrow ? 'show' : 'hide'">
+            <div class="arrow-up-item" (click)="scrollTop()">
+                <button class="up-arrow">
+                    <div class="icon">
+                        <div class="up-bar1"></div>
+                        <div class="up-bar2"></div>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 </main>

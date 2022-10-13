@@ -1,0 +1,351 @@
+// DESKTOP
+.desktop-options-container {
+  display: inline-block;
+}
+
+.desktop-options-container {
+  margin: 30px 30px 30px 15px;
+  width: 300px;
+}
+
+.questionmark-icon {
+  padding-bottom: 3px;
+}
+
+.option-title {
+  font-size: var(--medium-font) !important;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.checkbox-container {
+  padding-top: 3px;
+}
+
+.option {
+  padding: 7px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.option-icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 3px;
+}
+
+.option-font-size {
+  align-items: center;
+  display: block;
+}
+
+.option-box-size {
+  align-items: center;
+  display: block;
+}
+
+.option-frame-design,
+.option-font-select,
+.option-tree-design {
+  display: flex;
+  flex-direction: column;
+}
+
+.font-dropdown-container {
+  text-align: center;
+  width: 100%;
+  border: 2px solid var(--second-action-color);
+  border-radius: 3px;
+}
+
+::ng-deep.dropdown-toggle {
+  width: 100%;
+}
+
+.btn {
+  padding: 0.2rem 0rem;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.option-design-title {
+  width: 100%;
+  border-radius: 3px;
+  border: 2px solid var(--second-action-color);
+}
+
+.title-input {
+  border: none;
+  width: 100%;
+  text-align: center;
+}
+
+.title-input:focus {
+  outline: none;
+}
+
+.option-frame-design-btn,
+.option-tree-design-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.display {
+  border: 2px solid var(--second-action-color);
+  border-radius: 3px;
+  width: 100%;
+  margin: 0 5px;
+  padding-top: 3px;
+}
+
+.arrow-left,
+.arrow-right {
+  border: solid white;
+  border-width: 0px 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+}
+
+.arrow-left {
+  margin: 6px 0 0 4px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.arrow-right {
+  margin: 6px 0 0 -4px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.option-questionmark {
+  display: flex;
+}
+
+.banner-input {
+  margin-bottom: 10px;
+}
+
+/* option toggle button */
+.option-toggler,
+.toggle-box-options,
+.intro-modal-option {
+  background-color: var(--second-action-color);
+  transition: 0.5s;
+  border-radius: 50%;
+  border: none;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-toggler {
+  display: none;
+}
+
+.mobile-options {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 10px;
+}
+
+.option-icon {
+  margin-left: 4px;
+}
+
+.hide {
+  display: none;
+}
+
+.blocker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: ' ';
+  background: rgba(0, 0, 0, 0);
+}
+
+.mobile-options-items {
+  position: fixed;
+  bottom: 3em;
+  right: 0;
+  border: 2px solid var(--second-action-color);
+  border-radius: 3px;
+  transition: 0.5s;
+  transform: scale(0.9);
+  width: 300px;
+  background: white;
+  padding: 10px 25px 20px 25px;
+  z-index: 1000;
+}
+
+.remove {
+  display: none !important;
+}
+
+.mobile-option-buttons-container {
+  bottom: 1em;
+  width: 100%;
+  position: fixed;
+}
+
+.option-icon,
+.toggle-box-options-icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 3px;
+}
+
+// slider section
+::ng-deep.ngx-slider .ngx-slider-pointer {
+  background-color: var(--second-action-color) !important;
+  outline: none !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-bar {
+  background-color: var(--second-action-color) !important;
+  opacity: 0.5;
+}
+
+::ng-deep.ngx-slider .ngx-slider-pointer:after {
+  background-color: white !important;
+}
+
+::ng-deep.ngx-slider .ngx-slider-bubble {
+  display: none !important;
+}
+
+::ng-deep.ngx-slider {
+  margin: 10px 0 0px !important;
+}
+
+// vertical slider
+
+::ng-deep.ngx-slider.vertical {
+  position: absolute !important;
+  right: 0;
+}
+
+// MOBILE
+
+@media screen and (max-width: 1130px) {
+  .desktop-options-container,
+  .remove-on-mobile {
+    display: none;
+  }
+  .option-toggler,
+  .toggle-box-options {
+    display: block;
+  }
+  .mobile-options-items {
+    box-shadow: 0px 4px 15px 2px rgb(0 0 0 / 20%);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .mobile-options-items {
+    transform: scale(0.7);
+    bottom: -3em !important;
+    left: -2.25em;
+  }
+
+  .mobile-option-buttons-container {
+    right: 1em;
+  }
+
+  .mobile-options {
+    margin: 0;
+    right: -1em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .mobile-options-items {
+    right: -30px;
+    bottom: 1em;
+  }
+}
+
+@media screen and (max-width: 700px) and (orientation: landscape) {
+  .mobile-options-items {
+    bottom: -8em;
+    transform: scale(0.6) !important;
+    left: -17px;
+  }
+}
+
+// an attempt to center the GODDAMN toggle button icons in products pages on iphone.
+// the issue cannot be replicated unless the page is hosted....
+
+// /* iphone 6, 6s, 7, 8 */
+// @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+//   _::-webkit-full-page-media,
+//   .option-icon {
+//     position: relative;
+//     left: -10px;
+//   }
+//   _::-webkit-full-page-media,
+//   .toggle-box-options-icon {
+//     position: relative;
+//     left: -5px;
+//   }
+// }
+
+// /* iphone 6+, 6s+, 7+, 8+ */
+// @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) {
+//   _::-webkit-full-page-media,
+//   .option-icon {
+//     position: relative;
+//     left: -10px;
+//   }
+//   _::-webkit-full-page-media,
+//   .toggle-box-options-icon {
+//     position: relative;
+//     left: -5px;
+//   }
+// }
+
+// /* iphone X , XS, 11 Pro, 12 Mini */
+// @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+//   _::-webkit-full-page-media,
+//   .option-icon {
+//     position: relative;
+//     left: -10px;
+//   }
+//   _::-webkit-full-page-media,
+//   .toggle-box-options-icon {
+//     position: relative;
+//     left: -5px;
+//   }
+// }
+
+// /* iphone 12, 12 Pro */
+// @media only screen and (min-device-width: 390px) and (max-device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+//   _::-webkit-full-page-media,
+//   .option-icon {
+//     position: relative;
+//     left: -10px;
+//   }
+//   _::-webkit-full-page-media,
+//   .toggle-box-options-icon {
+//     position: relative;
+//     left: -5px;
+//   }
+// }
+
+// /* iphone XR, 11 */
+// @media only screen and (min-device-width: 414px) and (max-device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+//   _::-webkit-full-page-media.option-icon {
+//     position: relative;
+//     left: -10px;
+//   }
+//   _::-webkit-full-page-media.toggle-box-options-icon {
+//     position: relative;
+//     left: -5px;
+//   }
+// }

@@ -10,6 +10,7 @@ import dk.treecreate.api.exceptionhandling.ResourceNotFoundException;
 import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
 import dk.treecreate.api.order.dto.CreateOrderRequest;
 import dk.treecreate.api.order.dto.GetAllOrdersResponse;
+import dk.treecreate.api.order.dto.GetPlantedTreesResponse;
 import dk.treecreate.api.order.dto.UpdateOrderRequest;
 import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
@@ -36,7 +37,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -131,7 +141,7 @@ public class OrderController {
       @Parameter(
               name = "lang",
               description =
-                  "Language of the email. Defaults to danish (dk)." + "\nValid values: 'en', 'dk'",
+                  "Language of the email. Defaults to danish (dk)." + "\nValid values: 'en', 'da'",
               example = "en")
           @RequestParam(required = false)
           String lang) {
@@ -277,5 +287,11 @@ public class OrderController {
     LOGGER.info("Custom order request receieved from " + request.getEmail());
     Sentry.setExtra("request", request.toJsonString());
     Sentry.captureMessage("New order has been created");
+  }
+
+  @GetMapping("planted-trees")
+  @Operation(summary = "Get a total of planted trees")
+  public GetPlantedTreesResponse getTotalPlantedTrees() {
+    return new GetPlantedTreesResponse(this.orderRepository.getPlantedTrees());
   }
 }

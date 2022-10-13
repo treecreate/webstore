@@ -88,4 +88,35 @@ export class ResetPasswordComponent implements OnInit {
         }
       );
   }
+  isLengthValid(): string {
+    if (this.changePasswordForm.get('password').value.length >= 8) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasUppercase(): string {
+    if (this.changePasswordForm.get('password').value.match('[A-Z]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasLowercase(): string {
+    if (this.changePasswordForm.get('password').value.match('[a-z]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
+
+  hasNumber(): string {
+    if (this.changePasswordForm.get('password').value.match('[0-9]')) {
+      return 'validText';
+    } else {
+      return 'invalidText';
+    }
+  }
 }
