@@ -30,7 +30,6 @@ import { LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FamilyTreeDesignService } from '../../../../services/design/family-tree-design.service';
 import { ErrorlogsService } from '../../../../services/errorlog/errorlog.service';
-import { FamilyTreeTemplateModalComponent } from '../../../modals/family-tree-template-modal/family-tree-template-modal.component';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
 
 @Component({

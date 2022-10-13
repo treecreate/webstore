@@ -187,7 +187,7 @@
                     </div>
                 </div>
                 <button class="tc-button-50 brown margin-top" type="submit" data-cy="custom-order-send-button">
-                    <span i18n="@@send-custom-order" *ngIf="!isLoading">Send</span>
+                    <span i18n="@@send" *ngIf="!isLoading">Send</span>
                     <span
                         *ngIf="isLoading"
                         class="spinner-border spinner-border-sm text-light"
@@ -203,9 +203,8 @@
         <div
             class="input-error"
             *ngIf="sendCustomOrderClicked && (customOrderForm.invalid || !isImageRequirementsRead)"
-            data-cy="checkout-shipping-input-error-message"
         >
-            <span i18n="@@shipping-form-is-not-valid">Shipping address is not completed:</span>
+            <span i18n="@@form-is-not-valid">Form is not completed:</span>
             <!-- Checkout form input fields -->
             <li *ngIf="customOrderForm.get('name').invalid" i18n="@@name-is-invalid">Name is invalid</li>
             <li *ngIf="customOrderForm.get('customerEmail').invalid" i18n="@@email-is-invalid">Email is invalid</li>
