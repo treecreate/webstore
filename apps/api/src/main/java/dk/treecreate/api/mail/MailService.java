@@ -1,28 +1,41 @@
 package dk.treecreate.api.mail;
 
-import dk.treecreate.api.config.CustomPropertiesConfig;
-import dk.treecreate.api.order.Order;
-import dk.treecreate.api.order.OrderService;
-import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
-import dk.treecreate.api.utils.LinkService;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+
+import dk.treecreate.api.config.CustomPropertiesConfig;
+import dk.treecreate.api.order.Order;
+import dk.treecreate.api.order.OrderService;
+import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
+import dk.treecreate.api.utils.LinkService;
+import io.sentry.Sentry;
 
 @Service
 public class MailService {
@@ -31,9 +44,14 @@ public class MailService {
   private final JavaMailSender infoMailSender;
   private final JavaMailSender orderMailSender;
 
-  @Autowired LinkService linkService;
-  @Autowired OrderService orderService;
-  @Autowired CustomPropertiesConfig customPropertiesConfig;
+  private static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
+
+  @Autowired
+  LinkService linkService;
+  @Autowired
+  OrderService orderService;
+  @Autowired
+  CustomPropertiesConfig customPropertiesConfig;
 
   public MailService(
       TemplateEngine templateEngine,
@@ -48,8 +66,7 @@ public class MailService {
       throws UnsupportedEncodingException, MessagingException {
     Context context = new Context(locale);
     context.setVariable("email", to);
-    String subject =
-        locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+    String subject = locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP);
   }
 
@@ -58,8 +75,7 @@ public class MailService {
     Context context = new Context(locale);
     context.setVariable("email", to);
     context.setVariable("resetPasswordLink", linkService.generateResetPasswordLink(token, locale));
-    String subject =
-        locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
+    String subject = locale.getLanguage().equals("da") ? "Velkomment til Treecreate" : "Welcome to Treecreate";
     sendMail(to, MailDomain.INFO, subject, context, MailTemplate.SIGNUP_ON_ORDER);
   }
 
@@ -70,11 +86,29 @@ public class MailService {
     context.setVariable("email", to);
     context.setVariable("unsubscribeNewsletterUrl", unsubscribeNewsletterUrl);
     context.setVariable("discountCode", discountCode);
-    String subject =
-        locale.getLanguage().equals("da")
-            ? "Her er din rabatkode - Team Treecreate!"
-            : "Here's your discount - Team Treecreate!";
-    sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT);
+    String subject = locale.getLanguage().equals("da")
+        ? "Her er din rabatkode - Team Treecreate!"
+        : "Here's your discount - Team Treecreate!";
+    // Add the marketing pdf to the email
+    List<MultipartFile> attachmentsList = new ArrayList<>();
+    try {
+      File pdf = new File(getClass().getResource("/assets/pdf/Top_10_julegaveideer_2022.pdf").getFile());
+      FileItem fileItem = new DiskFileItem(
+          "mainFile",
+          Files.probeContentType(pdf.toPath()),
+          false,
+          pdf.getName(),
+          (int) pdf.length(),
+          pdf.getParentFile());
+      IOUtils.copy(new FileInputStream(pdf), fileItem.getOutputStream());
+      MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+      attachmentsList.add(multipartFile);
+    } catch (Exception e) {
+      LOGGER.error("Failed to attach the marketing pdf to the newsletter signup email", e);
+      Sentry.captureException(e);
+    }
+    sendMail(
+        to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT, attachmentsList);
   }
 
   public void sendResetPasswordEmail(String to, UUID token, Locale locale)
@@ -92,36 +126,35 @@ public class MailService {
     BigDecimal calculatedTotal = order.getTotal();
     switch (order.getShippingMethod()) {
       case PICK_UP_POINT: // delivery price is either 0 or 25
-        {
-          BigDecimal substratedTotal = order.getTotal().subtract(new BigDecimal(25));
-          if (substratedTotal.compareTo(new BigDecimal(350)) <= 0) {
-            calculatedTotal = substratedTotal;
-          }
-          break;
+      {
+        BigDecimal substratedTotal = order.getTotal().subtract(new BigDecimal(25));
+        if (substratedTotal.compareTo(new BigDecimal(350)) <= 0) {
+          calculatedTotal = substratedTotal;
         }
+        break;
+      }
       case HOME_DELIVERY: // delivery price is either 25 or 65
-        {
-          BigDecimal substratedTotal = order.getTotal().subtract(new BigDecimal(65));
-          if (substratedTotal.compareTo(new BigDecimal(350)) <= 0) {
-            calculatedTotal = substratedTotal;
-          } else {
-            calculatedTotal = order.getTotal().subtract(new BigDecimal(25));
-          }
-          break;
+      {
+        BigDecimal substratedTotal = order.getTotal().subtract(new BigDecimal(65));
+        if (substratedTotal.compareTo(new BigDecimal(350)) <= 0) {
+          calculatedTotal = substratedTotal;
+        } else {
+          calculatedTotal = order.getTotal().subtract(new BigDecimal(25));
         }
+        break;
+      }
 
-      case OWN_DELIVERY:
-        {
-          calculatedTotal = order.getTotal().subtract(new BigDecimal(100));
-          break;
-        }
+      case OWN_DELIVERY: {
+        calculatedTotal = order.getTotal().subtract(new BigDecimal(100));
+        break;
+      }
     }
-    // Calculate delivery price. Calulcations return total + delivery price, so we substract the
+    // Calculate delivery price. Calulcations return total + delivery price, so we
+    // substract the
     // total
-    BigDecimal deliveryPrice =
-        orderService
-            .calculateDeliveryPrice(order.getShippingMethod(), calculatedTotal)
-            .subtract(calculatedTotal);
+    BigDecimal deliveryPrice = orderService
+        .calculateDeliveryPrice(order.getShippingMethod(), calculatedTotal)
+        .subtract(calculatedTotal);
     // Set Variables
     Context context = new Context(new Locale("da"));
     context.setVariable("email", to);
@@ -197,11 +230,10 @@ public class MailService {
     String process = templateEngine.process("emails/" + template.label, context);
     JavaMailSender mailSender = getMailSender(from);
     javax.mail.internet.MimeMessage mimeMessage = mailSender.createMimeMessage();
-    MimeMessageHelper helper =
-        new MimeMessageHelper(
-            mimeMessage,
-            MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-            StandardCharsets.UTF_8.name());
+    MimeMessageHelper helper = new MimeMessageHelper(
+        mimeMessage,
+        MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+        StandardCharsets.UTF_8.name());
     helper.setFrom(new InternetAddress(from.label, "Treecreate"));
     helper.setSubject(subject);
     helper.setText(process, true);
@@ -220,7 +252,8 @@ public class MailService {
 
   public boolean isValidEmail(String email) {
     // Java mail does not check for length
-    if (email.length() > 255) return false;
+    if (email.length() > 255)
+      return false;
     try {
       new InternetAddress(email).validate();
       return true;
