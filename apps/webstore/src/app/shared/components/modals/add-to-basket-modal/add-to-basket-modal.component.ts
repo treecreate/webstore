@@ -266,6 +266,14 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     }
   }
 
+  getDesignType(): string {
+    if (this.designType === DesignTypeEnum.familyTree) {
+      return 'family-tree';
+    } else {
+      return 'quotable';
+    }
+  }
+
   saveToLocalStorage(): void {
     // design id should be null
     this.transactionItemService.saveToLocalStorage(

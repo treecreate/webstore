@@ -183,21 +183,22 @@
   height: 300px;
 
   & div {
-    border: 2px solid rgba($color: #000000, $alpha: .3);
+    border: 2px solid rgba($color: #000000, $alpha: 0.3);
     background-color: white;
     position: absolute;
 
-    .horizontal, .vertical {
+    .horizontal,
+    .vertical {
       position: absolute;
       font-size: 12px;
       font-weight: 400;
       font-family: 'Abel';
-      color: rgba(0, 0, 0, 0.4)
+      color: rgba(0, 0, 0, 0.4);
     }
 
-    .horizontal {    
+    .horizontal {
       top: 0px;
-      right: 14px;  
+      right: 14px;
     }
 
     .vertical {
@@ -212,13 +213,13 @@
     height: 150px;
     width: 150px;
   }
-  
+
   .medium-box {
     z-index: 1;
     height: 200px;
     width: 200px;
   }
-  
+
   .large-box {
     z-index: 0;
     height: 250px;
