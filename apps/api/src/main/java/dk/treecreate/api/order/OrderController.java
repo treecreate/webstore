@@ -252,8 +252,7 @@ public class OrderController {
         orderRepository
             .findByOrderId(orderId)
             .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-
-    if (order.getUserId() != currentUser.getUserId()) {
+    if (order.getUserId().compareTo(currentUser.getUserId()) != 0) {
       // Determine whether the user is an admin or not
       boolean isAdmin = false;
       var roles = currentUser.getRoles();
