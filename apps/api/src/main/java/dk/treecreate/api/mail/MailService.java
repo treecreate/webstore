@@ -6,9 +6,13 @@ import dk.treecreate.api.order.Order;
 import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
 import dk.treecreate.api.utils.LinkService;
+import io.sentry.Sentry;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -16,12 +20,18 @@ import java.util.UUID;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -31,6 +41,8 @@ public class MailService {
 
   private final JavaMailSender infoMailSender;
   private final JavaMailSender orderMailSender;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
 
   @Autowired LinkService linkService;
   @Autowired OrderService orderService;
@@ -75,7 +87,28 @@ public class MailService {
         locale.getLanguage().equals("da")
             ? "Her er din rabatkode - Team Treecreate!"
             : "Here's your discount - Team Treecreate!";
-    sendMail(to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT);
+    // Add the marketing pdf to the email
+    List<MultipartFile> attachmentsList = new ArrayList<>();
+    try {
+      File pdf =
+          new File(getClass().getResource("/assets/pdf/Top_10_julegaveideer_2022.pdf").getFile());
+      FileItem fileItem =
+          new DiskFileItem(
+              "mainFile",
+              Files.probeContentType(pdf.toPath()),
+              false,
+              pdf.getName(),
+              (int) pdf.length(),
+              pdf.getParentFile());
+      IOUtils.copy(new FileInputStream(pdf), fileItem.getOutputStream());
+      MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+      attachmentsList.add(multipartFile);
+    } catch (Exception e) {
+      LOGGER.error("Failed to attach the marketing pdf to the newsletter signup email", e);
+      Sentry.captureException(e);
+    }
+    sendMail(
+        to, MailDomain.INFO, subject, context, MailTemplate.NEWSLETTER_DISCOUNT, attachmentsList);
   }
 
   public void sendResetPasswordEmail(String to, UUID token, Locale locale)
