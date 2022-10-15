@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="about-us-newsletter-signup-title" datatype="html">
         <source>Register to our newsletter for special deals</source>
-        <target>Tilmeld til vores nyhedsbre for specielle tilbud</target>
+        <target>Tilmeld til vores nyhedsbrev for specielle tilbud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">98</context>
@@ -172,7 +172,7 @@
       </trans-unit>
       <trans-unit id="about-us-team-text" datatype="html">
         <source> We are a small but passionate team from Copenhagen, and together with you we want to create a community and an experience of high value gift giving that&apos;s bringing home something truly personal and environmental. Treecreate would be nothing without you and your feedback, and we always try to improve the experience for everyone using that feedback. </source>
-        <target>Vi er et lille, men passioneret hold fra København og sammen med dig vil vi lave et fællesskab og en give oplevelsen af at komme hjem med en gave med høj værdi, som både er personlig og bæredygtig Treecreate ville være intet uden dig og din feedback og vi prøver altid at forbedre oplevelsen for dig og alle andre.</target>
+        <target>Vi er et lille, men passioneret hold fra København og sammen med dig vil vi lave et fællesskab og en give oplevelsen af at komme hjem med en gave med høj værdi, som både er personlig og bæredygtig. Treecreates historie ville være intet uden dig og din feedback og vi prøver altid at forbedre oplevelsen for dig og alle andre.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/about-us/about-us.component.html</context>
           <context context-type="linenumber">142,147</context>
@@ -268,7 +268,7 @@
       </trans-unit>
       <trans-unit id="create-my-family-tree" datatype="html">
         <source>Create my family tree</source>
-        <target>Lav mit familietræ</target>
+        <target>Lav mit stamtræ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">80</context>
@@ -910,11 +910,15 @@
         <target>Navn er ikke udfyldt korrekt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">604,607</context>
+          <context context-type="linenumber">598,601</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">656,659</context>
+          <context context-type="linenumber">649,652</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit id="email-is-invalid" datatype="html">
@@ -922,7 +926,11 @@
         <target>Email er ikke udfyldt korrekt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/checkout/checkout.component.html</context>
-          <context context-type="linenumber">611,614</context>
+          <context context-type="linenumber">605,608</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">210</context>
         </context-group>
       </trans-unit>
       <trans-unit id="street-address-is-invalid" datatype="html">
@@ -1625,16 +1633,24 @@
         <source>Back</source>
         <target>Tilbage</target> 
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">20,22</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home" datatype="html">
@@ -1861,6 +1877,38 @@
           <context context-type="linenumber">179</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="form-is-not-valid" datatype="html">
+        <source>Form is not completed:</source>
+        <target>Formen er ikke udfyldt korrekt:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="missing-description" datatype="html">
+        <source>Missing description</source>
+        <target>Mangler beskrivelse</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">211</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="missing-images" datatype="html">
+        <source>You need to upload at least one image</source>
+        <target>Du skal uploade mindst et billede</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="read-image-description" datatype="html">
+        <source> Please acknowledge that you have read the image requirements </source>
+        <target>Godkend at du har læst billed kravene</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
+          <context context-type="linenumber">213,215</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="other-examples" datatype="html">
         <source>Other examples</source>
         <target>Andre eksempler</target>
@@ -1919,7 +1967,7 @@
       </trans-unit>
       <trans-unit id="our-mission-values-text-1" datatype="html">
         <source>We use no plastic, and all our wood comes from sustainable sources so you can always be certain that whatever you bring home, has been made with care for the environment. </source>
-        <target>Vi bruger 0% plastik og al vores træ stammer fra bæredygtige kilder, så du altid være sikker på, at hvad end du bestiller hjem, er blevet lavet med omtanke for miljøet.</target>
+        <target>Vi bruger 0% plastik og al vores træ stammer fra bæredygtige kilder, så du altid kan være sikker på, at hvad end du bestiller hjem, er blevet lavet med omtanke for miljøet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">73,76</context>
@@ -1995,14 +2043,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
           <context context-type="linenumber">133</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="use-template" datatype="html">
-        <source>Use template</source>
-        <target>Brug skabelon</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">191</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add-to-basket-tooltip" datatype="html">
@@ -2143,7 +2183,7 @@
       </trans-unit>
       <trans-unit id="design-type-family-tree" datatype="html">
         <source>Family tree</source>
-        <target>Familietræ</target>
+        <target>Stamtræ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
           <context context-type="linenumber">14</context>
@@ -2607,7 +2647,7 @@
       </trans-unit>
       <trans-unit id="go-to-basket-title" datatype="html">
         <source>The family tree has been added to your basket</source>
-        <target>Familietræet er blevet lagt i din kurv</target> 
+        <target>Stamtræet er blevet lagt i din kurv</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">7</context>

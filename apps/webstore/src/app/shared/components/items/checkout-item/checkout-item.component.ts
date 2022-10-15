@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DesignTypeEnum, ITransactionItem } from '@interfaces';
+import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
+import { DesignTypeEnum, IQoutable, ITransactionItem, QuotableTypeEnum } from '@interfaces';
+import { LocalStorageService } from '@local-storage';
+import { LocaleType, LocalStorageVars } from '@models';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 
 @Component({
@@ -7,14 +9,19 @@ import { CalculatePriceService } from '../../../services/calculate-price/calcula
   templateUrl: './checkout-item.component.html',
   styleUrls: ['./checkout-item.component.css'],
 })
-export class CheckoutItemComponent implements OnInit {
+export class CheckoutItemComponent implements OnInit, AfterContentInit {
   @Input() item: ITransactionItem;
 
   itemPrice: number;
   itemUnitPrice: number;
-  public designTypeEnum = DesignTypeEnum;
+  isLoadingDesign = true;
 
-  constructor(private calculatePriceService: CalculatePriceService) {}
+  public designTypeEnum = DesignTypeEnum;
+  public localeCode: LocaleType;
+
+  constructor(private calculatePriceService: CalculatePriceService, private localStorageService: LocalStorageService) {
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+  }
 
   ngOnInit(): void {
     this.itemUnitPrice = this.calculatePriceService.calculateItemUnitPrice(
@@ -22,6 +29,34 @@ export class CheckoutItemComponent implements OnInit {
       this.item.design.designType
     );
     this.itemPrice = this.calculatePriceService.calculateItemPrice(this.item);
+  }
+
+  ngAfterContentInit(): void {
+    setTimeout(() => {
+      this.isLoadingDesign = false;
+    }, 100);
+  }
+
+  isEnglish(): boolean {
+    return this.localeCode === 'en-US';
+  }
+
+  getDesignName(): string {
+    switch (this.item.design.designType) {
+      case DesignTypeEnum.familyTree:
+        return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+      case DesignTypeEnum.quotable:
+      default:
+        switch ((this.item.design.designProperties as IQoutable).quotableType) {
+          case QuotableTypeEnum.babySign:
+            return this.isEnglish() ? 'Baby sign' : 'Baby skilt';
+          case QuotableTypeEnum.loveLetter:
+            return this.isEnglish() ? 'Love letter' : 'Kærlighedsbrevet';
+          case QuotableTypeEnum.quotable:
+          default:
+            return this.isEnglish() ? 'Quotable' : 'Citat ramme';
+        }
+    }
   }
 
   /**
