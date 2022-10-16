@@ -1,10 +1,11 @@
 package dk.treecreate.api.errorlog;
 
+import dk.treecreate.api.utils.HashMapConverter;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -14,14 +15,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import dk.treecreate.api.utils.HashMapConverter;
-import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "errorlogs")
@@ -44,7 +41,7 @@ public class Errorlog {
   private UUID errorlogId;
 
   @NotBlank
-  @Size(max = 80)
+  @Size(max = 100)
   @ApiModelProperty(
       name = "The name of the errorlog",
       example = "webstore.login.login-failed",

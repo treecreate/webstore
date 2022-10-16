@@ -1,20 +1,18 @@
 package dk.treecreate.api.errorlog.dto;
 
+import dk.treecreate.api.errorlog.ErrorPriority;
+import dk.treecreate.api.utils.HashMapConverter;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.persistence.Convert;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import dk.treecreate.api.errorlog.ErrorPriority;
-import dk.treecreate.api.utils.HashMapConverter;
-import io.swagger.annotations.ApiModelProperty;
-
 public class CreateErrorlogRequest {
   @NotBlank
-  @Size(max = 80)
+  @Size(max = 100)
   @ApiModelProperty(example = "webstore.example.com", required = true)
   private String name;
 
