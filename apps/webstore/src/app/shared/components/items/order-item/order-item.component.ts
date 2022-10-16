@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   DesignTypeEnum,
+  ErrorlogPriorityEnum,
   IOrder,
   ITransactionItem,
   OrderStatusDisplayNameEnum,
@@ -8,6 +10,8 @@ import {
   ShippingMethodEnum,
 } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { OrderService } from '../../../services/order/order.service';
 
 @Component({
   selector: 'webstore-order-item',
@@ -17,16 +21,46 @@ import { CalculatePriceService } from '../../../services/calculate-price/calcula
 export class OrderItemComponent implements OnInit {
   @Input() order: IOrder;
   @Input() orderNumber: number;
-  isLoading = false;
+  isPaymentLinkLoading = false;
+  paymentLink?: string;
+  shouldShowPaymentLink = false;
   public designTypeEnum = DesignTypeEnum;
 
-  constructor(private calculePriceService: CalculatePriceService) {}
+  constructor(
+    private ordersService: OrderService,
+    private calculatePriceService: CalculatePriceService,
+    private errorlogsService: ErrorlogsService
+  ) {}
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.order.status === OrderStatusEnum.initial || this.order.status === OrderStatusEnum.rejected) {
+      this.shouldShowPaymentLink = true;
+    }
+    this.fetchOrderLink();
+  }
+
+  fetchOrderLink(): void {
+    if (this.shouldShowPaymentLink) {
+      this.ordersService.getPaymentLink(this.order.orderId).subscribe({
+        next: (response) => {
+          this.isPaymentLinkLoading = false;
+          this.paymentLink = response.url;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error(error.error);
+          this.errorlogsService.create(
+            'webstore.orders.order-payment-link-load-failed',
+            ErrorlogPriorityEnum.medium,
+            error
+          );
+        },
+      });
+    }
+  }
 
   getPrice(transactionItem: ITransactionItem): number {
-    return this.calculePriceService.calculateItemPrice(transactionItem);
+    return this.calculatePriceService.calculateItemPrice(transactionItem);
   }
 
   /**

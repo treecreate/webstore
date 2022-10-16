@@ -43,4 +43,13 @@ export class OrderService {
     });
     return this.http.post<void>(`${env.apiUrl}/orders/custom`, formData);
   }
+
+  /**
+   * Get the payment link associated with the given order.
+   * @param orderId the id of the order.
+   * @returns the url.
+   */
+  public getPaymentLink(orderId: string): Observable<{ url: string }> {
+    return this.http.get<{ url: string }>(`${env.apiUrl}/orders/${orderId}/link`);
+  }
 }
