@@ -40,6 +40,17 @@
             </div>
         </div>
     </div>
+    <div class="line" *ngIf="shouldShowPaymentLink">
+        <a *ngIf="!isPaymentLinkLoading" href="{{ paymentLink }}">
+            <button
+                class="tc-button-square button-placement"
+                data-cy="order-pay-now-button"
+                i18n="@@order-complete-payment"
+            >
+                Complete the payment
+            </button>
+        </a>
+    </div>
     <div class="title" i18n="@@items">Items</div>
     <hr />
     <div class="order-items-container">
