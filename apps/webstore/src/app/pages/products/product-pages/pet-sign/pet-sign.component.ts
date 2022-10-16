@@ -20,7 +20,6 @@ import { LocaleType, LocalStorageVars } from '@models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AddToBasketModalComponent } from '../../../../shared/components/modals/add-to-basket-modal/add-to-basket-modal.component';
-import { QuotableTemplateModalComponent } from '../../../../shared/components/modals/quotable-template-modal/quotable-template-modal.component';
 import { PetSignDesignComponent } from '../../../../shared/components/products/pet-sign-design/pet-sign-design.component';
 import { ToastService } from '../../../../shared/components/toast/toast-service';
 import { AuthService } from '../../../../shared/services/authentication/auth.service';
@@ -391,7 +390,7 @@ export class PetSignComponent implements OnInit {
   }
 
   setProductInLocal(): void {
-    this.localStorageService.setItem<IQoutable>(LocalStorageVars.designPetSign, this.design);
+    this.localStorageService.setItem<IPetSign>(LocalStorageVars.designPetSign, this.design);
   }
 
   removeProductFromLocal(): void {
@@ -423,11 +422,5 @@ export class PetSignComponent implements OnInit {
 
   isEnglish(): boolean {
     return this.localeCode === 'en-US';
-  }
-
-  openTemplateModal(): void {
-    // TODO - create template modal component for PetSign
-    const modalRef = this.modalService.open(QuotableTemplateModalComponent);
-    modalRef.componentInstance.designType = DesignTypeEnum.petSign;
   }
 }
