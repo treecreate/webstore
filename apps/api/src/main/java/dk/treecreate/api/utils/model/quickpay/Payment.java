@@ -9,6 +9,8 @@ public class Payment {
   public PaymentAddress shipping_address;
   public PaymentShipping shipping;
   public PaymentVariables variables;
+  public PaymentLink link;
+  public String state;
 
   @Override
   public String toString() {
@@ -21,8 +23,24 @@ public class Payment {
         + '\''
         + ", currency="
         + currency
+        + '\''
+        + ", invoice_address="
+        + invoice_address
+        + '\''
+        + ", shipping_address="
+        + shipping_address
+        + '\''
+        + ", shipping="
+        + shipping
+        + '\''
         + ", variables="
+        + '\''
         + variables
+        + ", link='"
+        + link
+        + '\''
+        + ", state="
+        + state
         + '}';
   }
 }
