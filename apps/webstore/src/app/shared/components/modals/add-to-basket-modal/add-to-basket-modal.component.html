@@ -112,20 +112,23 @@
         <div class="size-selection">
             <div
                 class="small-box"
-                [ngStyle]="{
-                    'background-color': this.addToBasketForm.get('dimension').value === 'SMALL' ? '#AF7949' : '#FFFFFF'
-                }"
+                [ngClass]="{active: this.addToBasketForm.get('dimension').value === 'SMALL'}"
             >
-                <span class="horizontal" *ngIf="getDesignType() === 'family-tree'">20 cm</span>
-                <span class="horizontal" *ngIf="getDesignType() === 'quotable'">15 cm</span>
-                <span class="vertical" *ngIf="getDesignType() === 'family-tree'">20 cm</span>
-                <span class="vertical" *ngIf="getDesignType() === 'quotable'">15 cm</span>
+                <span [ngSwitch]="designType">
+                    <span *ngSwitchCase="'FAMILY_TREE'">
+                        <span class="horizontal">20 cm</span>
+                        <span class="vertical">20 cm</span>
+                    </span>
+                    <span *ngSwitchCase="'QUOTABLE'">
+                        <span class="horizontal">15 cm</span>
+                        <span class="vertical">15 cm</span>
+                    </span>
+                    
+                </span>
             </div>
             <div
                 class="medium-box"
-                [ngStyle]="{
-                    'background-color': this.addToBasketForm.get('dimension').value === 'MEDIUM' ? '#AF7949' : '#FFFFFF'
-                }"
+                [ngClass]="{active: this.addToBasketForm.get('dimension').value === 'MEDIUM'}"
             >
                 <span class="horizontal" *ngIf="getDesignType() === 'family-tree'">25 cm</span>
                 <span class="horizontal" *ngIf="getDesignType() === 'quotable'">20 cm</span>
@@ -134,9 +137,7 @@
             </div>
             <div
                 class="large-box"
-                [ngStyle]="{
-                    'background-color': this.addToBasketForm.get('dimension').value === 'LARGE' ? '#AF7949' : '#FFFFFF'
-                }"
+                [ngClass]="{active: this.addToBasketForm.get('dimension').value === 'LARGE'}"
             >
                 <span class="horizontal" *ngIf="getDesignType() === 'family-tree'">30 cm</span>
                 <span class="horizontal" *ngIf="getDesignType() === 'quotable'">25 cm</span>
