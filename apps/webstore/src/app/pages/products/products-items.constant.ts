@@ -87,6 +87,20 @@ const loveLetter: ProductsItem = {
   productType: QuotableTypeEnum.loveLetter,
 };
 
+// PET SIGN
+// TODO - add proper description and alt text. Add proper img source.
+const petSign: ProductsItem = {
+  titleEn: 'Pet Sign',
+  titleDk: '',
+  descriptionEn: `With Pet Sign, you can honor your beloved dead bird or something. Put them on wood and place your new decoration above where your pet used to sleep. Let it serve as a permanent reminder of what you've lost.`,
+  descriptionDk: '',
+  prices: [299, 399, 499],
+  imgSrc: '/assets/img/products-images/love-letter.jpg',
+  altText: '',
+  specialOffer: '',
+  routerLink: 'pet-sign',
+};
+
 // const anniversary: ProductsItem = {
 //   titleEn: 'Wedding anniversary',
 //   titleDk: 'Bryllupsdag',
@@ -102,6 +116,6 @@ const loveLetter: ProductsItem = {
 //   productType: QuotableTypeEnum.anniversary,
 // };
 
-const productsList: ProductsItem[] = [familyTree, babySign, quotable, loveLetter, unique];
+const productsList: ProductsItem[] = [familyTree, babySign, quotable, loveLetter, petSign, unique];
 
 export default productsList;
