@@ -6,7 +6,12 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,7 +41,7 @@ public class Errorlog {
   private UUID errorlogId;
 
   @NotBlank
-  @Size(max = 80)
+  @Size(max = 100)
   @ApiModelProperty(
       name = "The name of the errorlog",
       example = "webstore.login.login-failed",
@@ -61,6 +66,19 @@ public class Errorlog {
   @Size(max = 100)
   @ApiModelProperty(name = "Page url", example = "https://treecreate.dk/login", required = true)
   private String url;
+
+  @Size(max = 7)
+  @ApiModelProperty(name = "Locale", example = "en-US", required = true)
+  @Column(columnDefinition = "varchar(7) default 'N/A'")
+  private String locale = "N/A";
+
+  @ApiModelProperty(name = "Is the browser mobile", example = "true", required = true)
+  @Column(columnDefinition = "boolean default null")
+  private Boolean isMobile = null;
+
+  @ApiModelProperty(name = "Was the user logged in", example = "true", required = true)
+  @Column(columnDefinition = "boolean default null")
+  private Boolean isLoggedIn = null;
 
   @NotNull
   @ApiModelProperty(
@@ -136,6 +154,30 @@ public class Errorlog {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public String getLocale() {
+    return locale;
+  }
+
+  public void setLocale(String locale) {
+    this.locale = locale;
+  }
+
+  public Boolean getIsMobile() {
+    return isMobile;
+  }
+
+  public void setIsMobile(Boolean isMobile) {
+    this.isMobile = isMobile;
+  }
+
+  public Boolean getIsLoggedIn() {
+    return isLoggedIn;
+  }
+
+  public void setIsLoggedIn(Boolean isLoggedIn) {
+    this.isLoggedIn = isLoggedIn;
   }
 
   public Boolean getProduction() {

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorlogPriorityEnum, IEvent } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { environment as env } from '../../../../environments/environment';
 import { AuthService } from '../authentication/auth.service';
 import { ErrorlogsService } from '../errorlog/errorlog.service';
@@ -26,6 +26,10 @@ export class EventsService {
   public create(name: string): void {
     try {
       const authUser = this.authService.getAuthUser();
+      const browserInfo = this.getBrowserVersion();
+      const url = window.location.href;
+      const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+      const isMobile = navigator.maxTouchPoints !== 0;
 
       // If logged in, use the actual UserId
       if (authUser != null && this.authService.isAccessTokenValid()) {
@@ -33,6 +37,11 @@ export class EventsService {
           .post<IEvent>(`${env.apiUrl}/events`, {
             name,
             userId: authUser.userId,
+            url,
+            browser: browserInfo,
+            locale: locale,
+            isMobile: isMobile,
+            isLoggedIn: true,
           })
           .subscribe();
       } else {
@@ -43,6 +52,11 @@ export class EventsService {
             .post<IEvent>(`${env.apiUrl}/events`, {
               name,
               userId: userId,
+              url,
+              browser: browserInfo,
+              locale: locale,
+              isMobile: isMobile,
+              isLoggedIn: false,
             })
             .subscribe();
         } else {
@@ -53,6 +67,11 @@ export class EventsService {
             .post<IEvent>(`${env.apiUrl}/events`, {
               name,
               userId: newUserId,
+              url,
+              browser: browserInfo,
+              locale: locale,
+              isMobile: isMobile,
+              isLoggedIn: false,
             })
             .subscribe();
         }
@@ -86,5 +105,28 @@ export class EventsService {
       uuidValue += (k === 12 ? 4 : k === 16 ? (randomValue & 3) | 8 : randomValue).toString(16);
     }
     return uuidValue;
+  }
+
+  /**
+   * Get human-readable browser name and version infromation.
+   * @returns browser name and version
+   */
+  private getBrowserVersion(): string {
+    const userAgent = navigator.userAgent;
+    let matchTest = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let temp: any[];
+
+    if (/trident/i.test(matchTest[1])) {
+      temp = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
+      return 'IE ' + (temp[1] || '');
+    }
+    if (matchTest[1] === 'Chrome') {
+      temp = userAgent.match(/\b(OPR|Edge)\/(\d+)/);
+      if (temp != null) return temp.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    matchTest = matchTest[2] ? [matchTest[1], matchTest[2]] : [navigator.appName, navigator.appVersion, '-?'];
+    if ((temp = userAgent.match(/version\/(\d+)/i)) != null) matchTest.splice(1, 1, temp[1]);
+    return matchTest.join(' ');
   }
 }
