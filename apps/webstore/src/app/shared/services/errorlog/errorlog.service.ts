@@ -112,7 +112,7 @@ export class ErrorlogsService {
   }
 
   /**
-   * Get human-readable berwoser name and version infromation.
+   * Get human-readable browser name and version infromation.
    * @returns browser name and version
    */
   private getBrowserVersion(): string {
