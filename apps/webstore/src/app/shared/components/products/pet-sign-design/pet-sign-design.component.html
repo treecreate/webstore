@@ -24,24 +24,6 @@
                     data-cy="title-input-field"
                     [placeholder]="getTitlePlaceholder()"
                 ></textarea>
-                <button
-                    class="remove-text-btn"
-                    data-cy="remove-title-button"
-                    (click)="changeTitleDisplay()"
-                    *ngIf="isMutable && showInputFieldOptions"
-                >
-                    <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
-                </button>
-            </div>
-            <div *ngIf="!design.showTitle && isMutable" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button
-                    id="addTitle"
-                    data-cy="add-title-button"
-                    class="tc-button-sm-square"
-                    (click)="changeTitleDisplay()"
-                >
-                    + add title
-                </button>
             </div>
 
             <div class="text-container" *ngIf="design.showText ?? true">
@@ -63,24 +45,6 @@
                     data-cy="text-input-field"
                     [placeholder]="getTextPlaceholder()"
                 ></textarea>
-                <button
-                    class="remove-text-btn"
-                    data-cy="remove-text-button"
-                    (click)="changeTextDisplay()"
-                    *ngIf="isMutable && showInputFieldOptions"
-                >
-                    <img src="assets/family-tree/box-options/close-button.svg" alt="close button" />
-                </button>
-            </div>
-            <div *ngIf="showAddTextButton()" class="add-option" [ngClass]="{ hide: !showInputFieldOptions }">
-                <button
-                    id="addText"
-                    data-cy="add-text-button"
-                    class="tc-button-sm-square"
-                    (click)="changeTextDisplay()"
-                >
-                    + add text
-                </button>
             </div>
         </div>
     </div>

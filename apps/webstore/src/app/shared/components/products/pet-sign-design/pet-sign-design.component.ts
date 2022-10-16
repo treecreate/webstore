@@ -189,24 +189,6 @@ export class PetSignDesignComponent implements AfterViewInit, OnDestroy, OnInit,
     this.localStorageService.setItem<IPetSign>(LocalStorageVars.designPetSign, this.design);
   }
 
-  changeTitleDisplay() {
-    if (this.design.showTitle !== undefined) {
-      this.design.showTitle = !this.design.showTitle;
-    } else {
-      this.design.showTitle = true;
-    }
-    this.adjustInputDimensions();
-  }
-
-  changeTextDisplay() {
-    if (this.design.showText !== undefined) {
-      this.design.showText = !this.design.showText;
-    } else {
-      this.design.showText = true;
-    }
-    this.adjustInputDimensions();
-  }
-
   getSizeDependingOnWidth(number: number): number {
     const scale = ((this.designWrapper.nativeElement.offsetWidth / 601) * 7) / 11;
     this.designWrapper.nativeElement.style.height = this.designWrapper.nativeElement.offsetWidth + 'px';
