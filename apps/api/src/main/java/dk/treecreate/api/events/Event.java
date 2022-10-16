@@ -58,20 +58,25 @@ public class Event {
       name = "The URL event happened on",
       example = "https://treecreate.dk/products",
       required = true)
+  @Column(columnDefinition = "varchar(100) default 'N/A'")
   private String url;
 
   @Size(max = 30)
   @ApiModelProperty(name = "Clients browser information", example = "Chrome 105", required = true)
+  @Column(columnDefinition = "varchar(30) default 'N/A'")
   private String browser;
 
   @Size(max = 7)
   @ApiModelProperty(name = "Locale", example = "en-US", required = true)
+  @Column(columnDefinition = "varchar(7) default 'N/A'")
   private String locale;
 
   @ApiModelProperty(name = "Is the browser mobile", example = "true", required = true)
+  @Column(columnDefinition = "boolean default null")
   private Boolean isMobile;
 
   @ApiModelProperty(name = "Was the user logged in", example = "true", required = true)
+  @Column(columnDefinition = "boolean default null")
   private Boolean isLoggedIn;
 
   @ApiModelProperty(
