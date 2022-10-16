@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 
 public class CreateErrorlogRequest {
   @NotBlank
-  @Size(max = 80)
+  @Size(max = 100)
   @ApiModelProperty(example = "webstore.example.com", required = true)
   private String name;
 
@@ -32,6 +32,19 @@ public class CreateErrorlogRequest {
   @Size(max = 100)
   @ApiModelProperty(name = "Page url", example = "https://treecreate.dk/login", required = true)
   private String url;
+
+  @NotBlank
+  @Size(max = 7)
+  @ApiModelProperty(name = "Locale", example = "en-US", required = true)
+  private String locale;
+
+  @NotNull
+  @ApiModelProperty(name = "Is the browser mobile", example = "true", required = true)
+  private Boolean isMobile;
+
+  @NotNull
+  @ApiModelProperty(name = "Was the user logged in", example = "true", required = true)
+  private Boolean isLoggedIn;
 
   @NotNull
   @ApiModelProperty(
@@ -78,6 +91,30 @@ public class CreateErrorlogRequest {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public String getLocale() {
+    return locale;
+  }
+
+  public void setLocale(String locale) {
+    this.locale = locale;
+  }
+
+  public Boolean getIsMobile() {
+    return isMobile;
+  }
+
+  public void setIsMobile(Boolean isMobile) {
+    this.isMobile = isMobile;
+  }
+
+  public Boolean getIsLoggedIn() {
+    return isLoggedIn;
+  }
+
+  public void setIsLoggedIn(Boolean isLoggedIn) {
+    this.isLoggedIn = isLoggedIn;
   }
 
   public Boolean getProduction() {
