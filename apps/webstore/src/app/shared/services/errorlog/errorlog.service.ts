@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorlogPriorityEnum, IErrorlog } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
-import { LocalStorageVars } from '@models';
+import { LocaleType, LocalStorageVars } from '@models';
 import { environment as env } from '../../../../environments/environment';
 import { AuthService } from '../authentication/auth.service';
 
@@ -28,6 +28,8 @@ export class ErrorlogsService {
       const browserInfo = this.getBrowserVersion();
       const url = window.location.href;
       const production = env.production;
+      const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+      const isMobile = navigator.maxTouchPoints !== 0;
 
       // If logged in, use the actual UserId
       if (authUser != null && this.authService.isAccessTokenValid()) {
@@ -38,6 +40,9 @@ export class ErrorlogsService {
             browser: browserInfo,
             url,
             production,
+            locale,
+            isMobile,
+            isLoggedIn: true,
             error,
             priority,
           })
@@ -53,6 +58,9 @@ export class ErrorlogsService {
               browser: browserInfo,
               url,
               production,
+              locale,
+              isMobile,
+              isLoggedIn: false,
               error,
               priority,
             })
@@ -68,6 +76,9 @@ export class ErrorlogsService {
               browser: browserInfo,
               url,
               production,
+              locale,
+              isMobile,
+              isLoggedIn: false,
               error,
               priority,
             })
@@ -83,6 +94,9 @@ export class ErrorlogsService {
           browser: 'N/A',
           url: 'N/A',
           production: 'N/A',
+          locale: 'N/A',
+          isMobile: null,
+          isLoggedIn: null,
           error: error,
           priority: ErrorlogPriorityEnum.critical,
         })
@@ -112,7 +126,7 @@ export class ErrorlogsService {
   }
 
   /**
-   * Get human-readable berwoser name and version infromation.
+   * Get human-readable browser name and version infromation.
    * @returns browser name and version
    */
   private getBrowserVersion(): string {
