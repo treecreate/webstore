@@ -1,14 +1,16 @@
 package dk.treecreate.api.errorlog.dto;
 
-import dk.treecreate.api.errorlog.ErrorPriority;
-import dk.treecreate.api.utils.HashMapConverter;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.persistence.Convert;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import dk.treecreate.api.errorlog.ErrorPriority;
+import dk.treecreate.api.utils.HashMapConverter;
+import io.swagger.annotations.ApiModelProperty;
 
 public class CreateErrorlogRequest {
   @NotBlank
@@ -32,6 +34,19 @@ public class CreateErrorlogRequest {
   @Size(max = 100)
   @ApiModelProperty(name = "Page url", example = "https://treecreate.dk/login", required = true)
   private String url;
+
+  @NotBlank
+  @Size(max = 7)
+  @ApiModelProperty(name = "Locale", example = "en-US", required = true)
+  private String locale;
+
+  @NotNull
+  @ApiModelProperty(name = "Is the browser mobile", example = "true", required = true)
+  private Boolean isMobile;
+
+  @NotNull
+  @ApiModelProperty(name = "Was the user logged in", example = "true", required = true)
+  private Boolean isLoggedIn;
 
   @NotNull
   @ApiModelProperty(
@@ -78,6 +93,30 @@ public class CreateErrorlogRequest {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public String getLocale() {
+    return locale;
+  }
+
+  public void setLocale(String locale) {
+    this.locale = locale;
+  }
+
+  public Boolean getIsMobile() {
+    return isMobile;
+  }
+
+  public void setIsMobile(Boolean isMobile) {
+    this.isMobile = isMobile;
+  }
+
+  public Boolean getIsLoggedIn() {
+    return isLoggedIn;
+  }
+
+  public void setIsLoggedIn(Boolean isLoggedIn) {
+    this.isLoggedIn = isLoggedIn;
   }
 
   public Boolean getProduction() {
