@@ -55,10 +55,6 @@ export class PetSignComponent implements OnInit {
   displayFont = this.defaultFont;
   fontOptions = [];
   fontSize = 40;
-  fontSizeOptions = {
-    floor: 10,
-    ceil: 70,
-  };
   currentDesign = 1;
   design: IQoutable;
 
@@ -360,15 +356,6 @@ export class PetSignComponent implements OnInit {
       });
     }
     this.eventsService.create(`webstore.pet-sign.design-cleared`);
-  }
-
-  /**
-   * Recreates the design object so it gets detected by ngOnChanges in the design component
-   */
-  changeFontSize(): void {
-    this.design = {
-      ...this.design,
-    };
   }
 
   setDefaultDesign(): void {
