@@ -5,14 +5,24 @@ import dk.treecreate.api.contactinfo.ContactInfo;
 import dk.treecreate.api.discount.Discount;
 import dk.treecreate.api.order.Order;
 import dk.treecreate.api.transactionitem.TransactionItem;
-import dk.treecreate.api.utils.model.quickpay.*;
 import dk.treecreate.api.utils.model.quickpay.Currency;
+import dk.treecreate.api.utils.model.quickpay.Payment;
+import dk.treecreate.api.utils.model.quickpay.PaymentAddress;
+import dk.treecreate.api.utils.model.quickpay.PaymentShipping;
+import dk.treecreate.api.utils.model.quickpay.PaymentTransactionItemInfo;
+import dk.treecreate.api.utils.model.quickpay.PaymentVariables;
+import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkRequest;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
+import dk.treecreate.api.utils.model.quickpay.dto.GetPaymentLinkResponse;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.validation.constraints.NotNull;
@@ -62,7 +72,8 @@ public class QuickpayService {
     payment.order_id =
         createOrderId(order.getContactInfo().getEmail(), customProperties.getEnvironment());
 
-    // perform POST https://api.quickpay.net/payments to create a payment object in Quickpay
+    // perform POST https://api.quickpay.net/payments to create a payment object in
+    // Quickpay
     String quickpayApiUrl = "https://api.quickpay.net";
     String apiKey = customProperties.getQuickpayApiKey();
 
@@ -110,7 +121,8 @@ public class QuickpayService {
     String apiKey = customProperties.getQuickpayApiKey();
 
     var createPaymentLinkRequest = new CreatePaymentLinkRequest();
-    // quickpay requires the value as an integer. The remainder is preserved by multiplying by 100
+    // quickpay requires the value as an integer. The remainder is preserved by
+    // multiplying by 100
     createPaymentLinkRequest.amount = total.multiply(new BigDecimal(100)).intValue();
     // TODO - convert locale to use ISO-639-codes (danish is da not dk)
     if (locale.getLanguage().equals("da")) {
@@ -203,6 +215,39 @@ public class QuickpayService {
   }
 
   /**
+   * Perform GET https://api.quickpay.net/payments/:paymentId to get a payment object The payment
+   * object contains a payment link
+   *
+   * @param paymentId Quickpay payment ID
+   * @return url that the user can navigate to in order to give us money
+   */
+  public GetPaymentLinkResponse getPaymentLink(String paymentId) throws URISyntaxException {
+    String quickpayApiUrl = "https://api.quickpay.net";
+    String apiKey = customProperties.getQuickpayApiKey();
+
+    WebClient client = WebClient.create();
+    Payment response =
+        client
+            .get()
+            .uri(new URI(quickpayApiUrl + "/payments/" + paymentId))
+            .headers(headers -> headers.setBasicAuth("", apiKey))
+            .header("Accept-Version", "v10")
+            .retrieve()
+            .bodyToMono(Payment.class)
+            .block();
+
+    if (response == null || response.link == null) {
+      throw new ResponseStatusException(
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          "An error has occurred while creating a payment link. Try again later");
+    }
+
+    var getPaymentLinkResponse = new GetPaymentLinkResponse();
+    getPaymentLinkResponse.setUrl(response.link.url);
+    return getPaymentLinkResponse;
+  }
+
+  /**
    * Create a PaymentAddress object with the provided information
    *
    * @param info ContactInfo object containing the data
@@ -247,7 +292,8 @@ public class QuickpayService {
     String alphanumericChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     StringBuilder randomId = new StringBuilder();
     Random random = new Random();
-    // 20 chars max - 1 for env prefix, 4 for email, and a dash. Example: Dmail-1A2Bcd34EFg56H
+    // 20 chars max - 1 for env prefix, 4 for email, and a dash. Example:
+    // Dmail-1A2Bcd34EFg56H
     int idLength = 14;
     for (int i = 0; i < idLength; i++) {
       int index = random.nextInt(alphanumericChars.length());
