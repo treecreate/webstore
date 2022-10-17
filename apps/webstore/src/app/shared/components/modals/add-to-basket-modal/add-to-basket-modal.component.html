@@ -110,7 +110,11 @@
         </div>
 
         <div class="size-selection">
-            <div class="small-box" [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'SMALL' }">
+            <div
+                class="small-box"
+                [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'SMALL' }"
+                (click)="this.addToBasketForm.get('dimension').setValue('SMALL')"
+            >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
                         <span class="horizontal">20 cm</span>
@@ -122,7 +126,11 @@
                     </span>
                 </span>
             </div>
-            <div class="medium-box" [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'MEDIUM' }">
+            <div
+                class="medium-box"
+                [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'MEDIUM' }"
+                (click)="this.addToBasketForm.get('dimension').setValue('MEDIUM')"
+            >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
                         <span class="horizontal">25 cm</span>
@@ -134,7 +142,11 @@
                     </span>
                 </span>
             </div>
-            <div class="large-box" [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'LARGE' }">
+            <div
+                class="large-box"
+                [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'LARGE' }"
+                (click)="this.addToBasketForm.get('dimension').setValue('LARGE')"
+            >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
                         <span class="horizontal">30 cm</span>
