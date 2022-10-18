@@ -9,6 +9,7 @@
 .modal-body,
 .modal-content {
   border: none !important;
+  max-height: 100%;
 }
 
 .modal-content {
@@ -171,6 +172,68 @@
     width: 100%;
     height: 3px;
     margin-top: -2px;
+  }
+}
+
+.size-selection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 300px;
+
+  .active {
+    background-color: var(--light-second-action-color);
+    border: 2px solid var(--second-action-color);
+
+    span.horizontal,
+    span.vertical {
+      color: var(--second-action-color);
+    }
+  }
+
+  & div {
+    border: 2px solid rgba($color: #000000, $alpha: 0.3);
+    background-color: white;
+    position: absolute;
+
+    .horizontal,
+    .vertical {
+      position: absolute;
+      font-size: 12px;
+      font-weight: 400;
+      font-family: 'Abel';
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    .horizontal {
+      top: 0px;
+      right: 14px;
+    }
+
+    .vertical {
+      top: 23px;
+      right: -6px;
+      transform: rotate(90deg);
+    }
+  }
+
+  .small-box {
+    z-index: 2;
+    height: 150px;
+    width: 150px;
+  }
+
+  .medium-box {
+    z-index: 1;
+    height: 200px;
+    width: 200px;
+  }
+
+  .large-box {
+    z-index: 0;
+    height: 250px;
+    width: 250px;
   }
 }
 

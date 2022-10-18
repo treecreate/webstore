@@ -9,6 +9,9 @@ export interface IErrorlog extends IBase {
   production: boolean;
   resolved: boolean;
   url: string;
+  locale?: string;
+  isMobile?: boolean;
+  isLoggedIn?: boolean;
   priority: ErrorlogPriorityEnum;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;

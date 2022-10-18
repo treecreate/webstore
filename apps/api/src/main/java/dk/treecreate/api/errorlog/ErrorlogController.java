@@ -69,6 +69,9 @@ public class ErrorlogController {
     errorlog.setUserId(request.getUserId());
     errorlog.setBrowser(request.getBrowser());
     errorlog.setUrl(request.getUrl());
+    errorlog.setLocale(request.getLocale());
+    errorlog.setIsMobile(request.getIsMobile());
+    errorlog.setIsLoggedIn(request.getIsLoggedIn());
     errorlog.setProduction(request.getProduction());
     errorlog.setPriority(request.getPriority());
     if (request.getError() != null) {
