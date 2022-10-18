@@ -26,7 +26,11 @@
             </button>
 
             <!-- Logo, always shown -->
-            <a class="navbar-brand" (click)="scrollTop()" routerLink="/">
+            <a
+                class="navbar-brand"
+                (click)="scrollTop(); eventsService.create('webstore.navbar.clicked.logo')"
+                routerLink="/"
+            >
                 <img
                     data-cy="navbar-logo-img"
                     src="/assets/logos/tc-black-text-logo.svg"
@@ -52,10 +56,18 @@
                     aria-labelledby="dropdownBasic"
                     #languageChange
                 >
-                    <a ngbDropdownItem (click)="changeLocale('en')" data-cy="navbar-localization-en" i18n="@@english"
+                    <a
+                        ngbDropdownItem
+                        (click)="changeLocale('en'); eventsService.create('webstore.navbar.clicked.english-locale')"
+                        data-cy="navbar-localization-en"
+                        i18n="@@english"
                         >English</a
                     >
-                    <a ngbDropdownItem (click)="changeLocale('da')" data-cy="navbar-localization-dk" i18n="@@danish"
+                    <a
+                        ngbDropdownItem
+                        (click)="changeLocale('da'); eventsService.create('webstore.navbar.clicked.danish-locale')"
+                        data-cy="navbar-localization-dk"
+                        i18n="@@danish"
                         >Danish</a
                     >
                 </div>
@@ -66,7 +78,7 @@
         <div class="nav-section">
             <button
                 class="navbar-basket-icon tc-button-100 show-on-mobile"
-                (click)="autoCollapse()"
+                (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.basket-icon-mobile')"
                 routerLink="/basket"
             >
                 <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
@@ -78,10 +90,19 @@
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link waves-light" routerLink="/" (click)="autoCollapse()">Home</a>
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.home')"
+                        >Home</a
+                    >
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link waves-light" routerLink="/about-us" (click)="autoCollapse()" i18n="@@about-us"
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/about-us"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.about-us')"
+                        i18n="@@about-us"
                         >About Us</a
                     >
                 </li>
@@ -91,12 +112,16 @@
                         routerLink="/products"
                         i18n="@@product"
                         data-cy="navbar-product-page-button"
-                        (click)="autoCollapse()"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.products')"
                         >Products</a
                     >
                 </li>
                 <li class="nav-item" *ngIf="!isLoggedIn">
-                    <a class="nav-link waves-light" routerLink="/login" (click)="autoCollapse()" i18n="@@login"
+                    <a
+                        class="nav-link waves-light"
+                        routerLink="/login"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.log-in')"
+                        i18n="@@login"
                         >Log in</a
                     >
                 </li>
@@ -106,7 +131,7 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         routerLink="/collection"
-                        (click)="autoCollapse()"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.collection')"
                         i18n="@@collection"
                         >Collection</a
                     >
@@ -116,7 +141,7 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         routerLink="/profile"
-                        (click)="autoCollapse()"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.profile')"
                         i18n="@@profile"
                         >Profile</a
                     >
@@ -126,7 +151,7 @@
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
                         routerLink="/orders"
-                        (click)="autoCollapse()"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.orders')"
                         i18n="@@orders"
                         >Orders</a
                     >
@@ -136,7 +161,7 @@
                     <a
                         class="nav-link waves-light"
                         *ngIf="isLoggedIn"
-                        (click)="logout(); autoCollapse()"
+                        (click)="logout(); autoCollapse(); eventsService.create('webstore.navbar.clicked.log-out')"
                         i18n="@@logout"
                         data-cy="navbar-log-out-btn"
                         >Log out</a
@@ -160,12 +185,16 @@
                     >
                         <a
                             ngbDropdownItem
-                            (click)="changeLocale('en')"
+                            (click)="changeLocale('en'); eventsService.create('webstore.navbar.clicked.english-locale')"
                             data-cy="navbar-localization-en"
                             i18n="@@english"
                             >English</a
                         >
-                        <a ngbDropdownItem (click)="changeLocale('da')" data-cy="navbar-localization-dk" i18n="@@danish"
+                        <a
+                            ngbDropdownItem
+                            (click)="changeLocale('da'); eventsService.create('webstore.navbar.clicked.danish-locale')"
+                            data-cy="navbar-localization-dk"
+                            i18n="@@danish"
                             >Danish</a
                         >
                     </div>
@@ -188,14 +217,33 @@
                             aria-labelledby="dropdownBasic"
                             #profileMenu
                         >
-                            <a ngbDropdownItem routerLink="/profile" (click)="scrollTop()" i18n="@@account-info"
+                            <a
+                                ngbDropdownItem
+                                routerLink="/profile"
+                                (click)="scrollTop(); eventsService.create('webstore.navbar.clicked.account-info')"
+                                i18n="@@account-info"
                                 >Account info</a
                             >
-                            <a ngbDropdownItem routerLink="/collection" (click)="scrollTop()" i18n="@@collection"
+                            <a
+                                ngbDropdownItem
+                                routerLink="/collection"
+                                (click)="scrollTop(); eventsService.create('webstore.navbar.clicked.collection')"
+                                i18n="@@collection"
                                 >Collection</a
                             >
-                            <a ngbDropdownItem routerLink="/orders" (click)="scrollTop()" i18n="@@orders">Orders</a>
-                            <a ngbDropdownItem (click)="logout(); scrollTop()" i18n="@@logout">Log Out</a>
+                            <a
+                                ngbDropdownItem
+                                routerLink="/orders"
+                                (click)="scrollTop(); eventsService.create('webstore.navbar.clicked.orders')"
+                                i18n="@@orders"
+                                >Orders</a
+                            >
+                            <a
+                                ngbDropdownItem
+                                (click)="logout(); scrollTop(); eventsService.create('webstore.navbar.clicked.log-out')"
+                                i18n="@@logout"
+                                >Log Out</a
+                            >
                         </div>
                     </div>
                 </div>
@@ -205,7 +253,7 @@
                     <button
                         class="navbar-basket-icon tc-button-100"
                         data-cy="navbar-basket-link"
-                        (click)="autoCollapse()"
+                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.buy-now')"
                         routerLink="/basket"
                     >
                         <img src="/assets/icons/basket-white-icon.svg" class="nav-icon-mobile" alt="Basket icon" />
