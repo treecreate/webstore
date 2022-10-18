@@ -123,9 +123,9 @@ export class AppComponent {
   }
 
   initMetaPixel() {
-    let metaPixelId = '1050174159116278';
+    let metaPixelId = '4522081454495074';
     if (environment.production) {
-      metaPixelId = '1050174159116278';
+      metaPixelId = '4522081454495074';
     } else {
       metaPixelId = '2714892398657269';
     }
