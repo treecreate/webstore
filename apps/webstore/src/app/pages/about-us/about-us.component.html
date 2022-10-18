@@ -14,16 +14,32 @@
             <div class="button-section">
                 <h2 i18n="@@follow-our-journey">Follow our journey</h2>
                 <div class="so-me-buttons">
-                    <a href="https://www.facebook.com/TreeCreate.dk" target="_blank" rel="noopener"
+                    <a
+                        href="https://www.facebook.com/TreeCreate.dk"
+                        target="_blank"
+                        rel="noopener"
+                        (click)="eventsService.create('webstore.about-us.clicked.facebook')"
                         ><img class="so-me-icon" src="/assets/logos/soMe/facebook.svg" alt="Treecreate facebook side"
                     /></a>
-                    <a href="https://www.instagram.com/treecreate.dk/" target="_blank" rel="noopener"
+                    <a
+                        href="https://www.instagram.com/treecreate.dk/"
+                        target="_blank"
+                        rel="noopener"
+                        (click)="eventsService.create('webstore.about-us.clicked.instagram')"
                         ><img class="so-me-icon" src="/assets/logos/soMe/instagram.svg" alt="Treecreate instagram side"
                     /></a>
-                    <a href="https://www.tiktok.com/@treecreate.dk" target="_blank" rel="noopener"
+                    <a
+                        href="https://www.tiktok.com/@treecreate.dk"
+                        target="_blank"
+                        rel="noopener"
+                        (click)="eventsService.create('webstore.about-us.clicked.tiktok')"
                         ><img class="so-me-icon" src="/assets/logos/soMe/tiktok.svg" alt="Treecreate tiktok side"
                     /></a>
-                    <a href="https://www.pinterest.dk/Treecreatedk/" target="_blank" rel="noopener"
+                    <a
+                        href="https://www.pinterest.dk/Treecreatedk/"
+                        target="_blank"
+                        rel="noopener"
+                        (click)="eventsService.create('webstore.about-us.clicked.pinterest')"
                         ><img
                             class="so-me-icon"
                             src="/assets/logos/soMe/pinterest.svg"
@@ -49,7 +65,13 @@
                     For 2 years we have been working on giving you the best and most unique experience possible.
                 </p>
             </div>
-            <button id="buy-now-btn" class="tc-button-50 purchase-button" routerLink="/products" i18n="@@buy-now">
+            <button
+                id="buy-now-btn"
+                class="tc-button-50 purchase-button"
+                routerLink="/products"
+                i18n="@@buy-now"
+                (click)="eventsService.create('webstore.about-us.clicked.buy-now')"
+            >
                 Buy Now
             </button>
         </div>
@@ -121,6 +143,7 @@
                     class="tc-button-25 margin-top low-dropshadow"
                     type="submit"
                     data-cy="about-us-register-newsletter-button"
+                    (click)="eventsService.create('webstore.about-us.clicked.newsletter-sign-up')"
                 >
                     <span i18n="@@signup" *ngIf="!isLoading">Sign up</span>
                     <span
@@ -168,6 +191,7 @@
                 <span class="member-info">
                     <a
                         href="https://www.linkedin.com/in/teodor-jonasson-74066169/"
+                        (click)="eventsService.create('webstore.about-us.clicked.linkedin-teodor')"
                         target="_blank"
                         class="link"
                         rel="noopener"
@@ -184,6 +208,7 @@
                 <span class="member-info"
                     ><a
                         href="https://www.linkedin.com/in/christophertgroen/"
+                        (click)="eventsService.create('webstore.about-us.clicked.linkedin-christopher')"
                         target="_blank"
                         rel="noopener"
                         class="link"
@@ -198,6 +223,7 @@
                 <span class="member-info"
                     ><a
                         href="https://www.linkedin.com/in/jan-bogoryja-zakrzewski/"
+                        (click)="eventsService.create('webstore.about-us.clicked.linkedin-calli')"
                         target="_blank"
                         rel="noopener"
                         class="link"
