@@ -28,8 +28,10 @@ export class AppComponent {
     private errorlogsService: ErrorlogsService
   ) {
     // Setup localization language
-    this.router.events.subscribe(async () => {
-      this.updateLocale();
+    this.router.events.subscribe(async (val) => {
+      if (val instanceof NavigationEnd) {
+        this.updateLocale();
+      }
     });
     this.localStorageService.getItem(LocalStorageVars.locale).subscribe(async () => {
       this.updateLocale();
