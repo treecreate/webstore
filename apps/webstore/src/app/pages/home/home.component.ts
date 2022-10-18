@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
+import { EventsService } from '../../shared/services/events/events.service';
 import { reviewList } from './reviews.constant';
 
 @Component({
@@ -18,7 +19,12 @@ export class HomeComponent implements OnInit {
 
   title = 'homeComponent';
 
-  constructor(private localStorageService: LocalStorageService, private metaTitle: Title, private meta: Meta) {
+  constructor(
+    private localStorageService: LocalStorageService,
+    public eventsService: EventsService,
+    private metaTitle: Title,
+    private meta: Meta
+  ) {
     this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
   }
 
