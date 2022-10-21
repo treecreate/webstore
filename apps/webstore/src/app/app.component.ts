@@ -6,6 +6,7 @@ import { LocalStorageService } from '@local-storage';
 import { CookieStatus, LocaleType, LocalStorageVars } from '@models';
 import { environment } from '../environments/environment';
 import { ErrorlogsService } from './shared/services/errorlog/errorlog.service';
+import { EventsService } from './shared/services/events/events.service';
 
 // Google analytics-specific syntax
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -23,11 +24,14 @@ export class AppComponent {
   constructor(
     public router: Router,
     private localStorageService: LocalStorageService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Setup localization language
-    this.router.events.subscribe(async () => {
-      this.updateLocale();
+    this.router.events.subscribe(async (val) => {
+      if (val instanceof NavigationEnd) {
+        this.updateLocale();
+      }
     });
     this.localStorageService.getItem(LocalStorageVars.locale).subscribe(async () => {
       this.updateLocale();
@@ -41,6 +45,13 @@ export class AppComponent {
         this.initMetaPixel();
       } else {
         console.log('Not logging Google analytics nor Meta Pixel since cookies were not accepted');
+      }
+    });
+
+    // Log every page change
+    this.router.events.subscribe(async (val) => {
+      if (val instanceof NavigationEnd) {
+        this.eventsService.create('webstore.page-viewed');
       }
     });
 
