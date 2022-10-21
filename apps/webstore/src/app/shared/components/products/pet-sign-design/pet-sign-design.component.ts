@@ -1,4 +1,3 @@
-import { Options } from '@angular-slider/ngx-slider';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {
   AfterViewInit,
@@ -30,7 +29,6 @@ export class PetSignDesignComponent implements AfterViewInit, OnDestroy, OnInit,
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('autosizeTitle') autosizeTitle: CdkTextareaAutosize;
 
-  @ViewChild('textVerticalPlacement') textVerticalPlacement: ElementRef;
   @ViewChild('titleInput') titleInput: ElementRef;
   @ViewChild('textInput') textInput: ElementRef;
   @ViewChild('designWrapper') designWrapper: ElementRef;
@@ -49,15 +47,9 @@ export class PetSignDesignComponent implements AfterViewInit, OnDestroy, OnInit,
   public localeCode: LocaleType;
 
   fontSize = 10;
+  inputWidth = 60; // percentage of total design frame width that the text should occupy
   inputTextHeight = 10;
   inputTitleHeight = 10;
-
-  verticalPlacementOptions: Options = {
-    floor: 5,
-    ceil: 95,
-    vertical: true,
-    rightToLeft: true,
-  };
 
   autosaveInterval;
   // design autosave frequency, in seconds
@@ -83,7 +75,7 @@ export class PetSignDesignComponent implements AfterViewInit, OnDestroy, OnInit,
       }, 20);
     }
 
-    // Has to be seperate from the previous interval since it has to be done loading
+    // Has to be separate from the previous interval since it has to be done loading
     const loadHeight = setInterval(() => {
       if (this.inputWrapper !== undefined && this.inputWrapper.nativeElement !== undefined) {
         this.changeVerticalPlacement();
@@ -211,7 +203,7 @@ export class PetSignDesignComponent implements AfterViewInit, OnDestroy, OnInit,
     const x = canvasHeight - textHeight;
     const placement = this.design.verticalPlacement * (x / 100);
 
-    this.inputWrapper.nativeElement.style.top = placement + 'px';
+    this.inputWrapper.nativeElement.style.top = 0 + 'px';
   }
 
   /**
