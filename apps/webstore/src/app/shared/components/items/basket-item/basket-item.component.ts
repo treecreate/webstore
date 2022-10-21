@@ -93,6 +93,8 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
     switch (this.item.design.designType) {
       case DesignTypeEnum.familyTree:
         return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+      case DesignTypeEnum.petSign:
+        return this.isEnglish() ? 'Pet sign' : 'Kæledyr skilt';
       case DesignTypeEnum.quotable:
       default:
         switch ((this.item.design.designProperties as IQoutable).quotableType) {
@@ -123,6 +125,12 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
           });
           break;
         }
+        case DesignTypeEnum.petSign: {
+          this.router.navigate(['/products/pet-sign'], {
+            queryParams: { designId: this.item.design.designId },
+          });
+          break;
+        }
       }
     } else {
       // Go to design using index => will load from LS transactionItem list
@@ -135,6 +143,12 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
         }
         case DesignTypeEnum.quotable: {
           this.router.navigate(['/products/quotable'], {
+            queryParams: { designId: this.index },
+          });
+          break;
+        }
+        case DesignTypeEnum.petSign: {
+          this.router.navigate(['/products/pet-sign'], {
             queryParams: { designId: this.index },
           });
           break;
@@ -251,6 +265,17 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
         break;
       }
       case DesignTypeEnum.quotable: {
+        switch (dimension) {
+          case 'SMALL':
+            return '15x15cm';
+          case 'MEDIUM':
+            return '20x20cm';
+          case 'LARGE':
+            return '25x25cm';
+        }
+        break;
+      }
+      case DesignTypeEnum.petSign: {
         switch (dimension) {
           case 'SMALL':
             return '15x15cm';

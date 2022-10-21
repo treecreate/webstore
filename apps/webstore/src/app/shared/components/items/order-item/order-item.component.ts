@@ -105,6 +105,9 @@ export class OrderItemComponent implements OnInit {
       case DesignTypeEnum.quotable: {
         return '/products/quotable';
       }
+      case DesignTypeEnum.petSign: {
+        return '/products/pet-sign';
+      }
     }
   }
 

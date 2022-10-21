@@ -8,6 +8,7 @@ import {
   ErrorlogPriorityEnum,
   IAuthUser,
   IFamilyTree,
+  IPetSign,
   IQoutable,
   ITransactionItem,
   QuotableTypeEnum,
@@ -91,6 +92,9 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     switch (this.designType) {
       case DesignTypeEnum.familyTree:
         this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+        break;
+      case DesignTypeEnum.petSign:
+        this.design = this.localStorageService.getItem<IPetSign>(LocalStorageVars.designPetSign).value;
         break;
       case DesignTypeEnum.quotable:
       default:
@@ -208,6 +212,17 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         }
         break;
       }
+      case DesignTypeEnum.petSign: {
+        switch (dimension) {
+          case 'SMALL':
+            return '15x15cm';
+          case 'MEDIUM':
+            return '20x20cm';
+          case 'LARGE':
+            return '25x25cm';
+        }
+        break;
+      }
     }
   }
 
@@ -304,18 +319,30 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   saveToDataBase(): void {
     // Check if the design is loaded using a design ID (design comes from a user account ccollection)
     if (this.route.snapshot.queryParams.designId !== undefined) {
-      if (this.designType === DesignTypeEnum.familyTree) {
-        this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, <IFamilyTree>this.design);
-      } else if (this.designType === DesignTypeEnum.quotable) {
-        this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, <IQoutable>this.design);
-      } else {
-        console.warn('Aborting, tried to save a design with invalid design type: ', this.designType);
-        this.errorlogsService.create(
-          `webstore.add-to-basket-modal.save-design-is-invalid.${this.designType}`,
-          ErrorlogPriorityEnum.high,
-          null
-        );
-        return;
+      switch (this.designType) {
+        case DesignTypeEnum.familyTree: {
+          this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, <IFamilyTree>this.design);
+          break;
+        }
+
+        case DesignTypeEnum.quotable: {
+          this.localStorageService.setItem<IQoutable>(LocalStorageVars.designQuotable, <IQoutable>this.design);
+          break;
+        }
+
+        case DesignTypeEnum.petSign: {
+          this.localStorageService.setItem<IPetSign>(LocalStorageVars.designPetSign, <IPetSign>this.design);
+          break;
+        }
+        default: {
+          console.warn('Aborting, tried to save a design with invalid design type: ', this.designType);
+          this.errorlogsService.create(
+            `webstore.add-to-basket-modal.save-design-is-invalid.${this.designType}`,
+            ErrorlogPriorityEnum.high,
+            null
+          );
+          return;
+        }
       }
       //Update design title in collection
       this.designService
