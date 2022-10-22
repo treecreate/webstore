@@ -6,6 +6,7 @@
 }
 
 .products-page-container {
+  max-width: 1300px;
   width: 90vw;
 }
 
@@ -17,20 +18,8 @@
   align-items: center;
 }
 
-@media (max-width: 900px) {
-  .products-page-container {
-    width: 70vw;
-  }
-}
-
-@media (max-width: 720px) {
-  .products-page-container {
-    width: 80vw;
-  }
-}
-
 @media (max-width: 450px) {
   .products-page-container {
-    width: 93vw;
+    width: 95vw;
   }
 }
