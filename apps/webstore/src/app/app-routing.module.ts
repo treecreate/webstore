@@ -4,7 +4,6 @@ import { UserRoles } from '@models';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
-import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
@@ -43,12 +42,6 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [UserRoles.user] },
-  },
-  {
-    path: 'collection',
-    component: CollectionComponent,
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },

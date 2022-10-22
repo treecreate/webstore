@@ -985,14 +985,6 @@
           <context context-type="linenumber">648,652</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="your-collection" datatype="html">
-        <source>My collection</source>
-        <target>Min samling</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="continue-shopping" datatype="html">
         <source> Continue shopping </source>
         <target> Shop videre </target>
