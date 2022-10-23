@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
-import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
@@ -29,7 +28,6 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
 import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
-import { CollectionItemComponent } from './shared/components/items/collection-item/collection-item.component';
 import { CustomOrderDisplayComponent } from './shared/components/items/custom-order-display/custom-order-display.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
 import { ProductDisplayComponent } from './shared/components/items/product-display/product-display.component';
@@ -72,10 +70,8 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     FamilyTreeComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
-    CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
-    CollectionItemComponent,
     InfoPopoverComponent,
     PaymentSuccessComponent,
     AddToBasketModalComponent,

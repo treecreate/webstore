@@ -308,7 +308,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
    * Persist the design in the database (either update or create a new entry) and, if successful, create a transaction item for it (add to basket).
    */
   saveToDataBase(): void {
-    // Check if the design is loaded using a design ID (design comes from a user account ccollection)
+    // Check if the design is loaded using a design ID (design comes from a user account collection)
     if (this.route.snapshot.queryParams.designId !== undefined) {
       if (this.designType === DesignTypeEnum.familyTree) {
         this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, <IFamilyTree>this.design);
