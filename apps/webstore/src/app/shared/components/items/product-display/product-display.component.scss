@@ -49,18 +49,30 @@
   width: 100%;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 1250px) {
   .product-container {
     flex-direction: column;
     min-height: none;
   }
   .product-img {
     height: auto;
-    width: 100%;
+    width: 300px;
     margin-right: 0;
     margin-bottom: 0.375em;
   }
   .product-container {
-    width: 70vw;
+    width: 325px;
+  }
+  .text-field.first {
+    height: 105px;
+  }
+}
+
+@media (max-width: 550px) {
+  .product-img {
+    width: 100%;
+  }
+  .product-container {
+    width: 85vw;
   }
 }
