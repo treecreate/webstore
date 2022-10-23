@@ -44,6 +44,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   totalPrice = 0;
   public localeCode: LocaleType;
   design: IFamilyTree | IQoutable;
+  prodSizeList = ['SMALL', 'MEDIUM', 'LARGE'];
   isLoading = false;
   authUser$: BehaviorSubject<IAuthUser>;
   isLoggedIn = false;
@@ -278,6 +279,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
       // Save transactionItem to local storage
       this.saveToLocalStorage();
     }
+  }
+
+  setSize(size: string): void {
+    this.addToBasketForm.get('dimension').setValue(size);
+    this.updatePrice();
   }
 
   saveToLocalStorage(): void {
