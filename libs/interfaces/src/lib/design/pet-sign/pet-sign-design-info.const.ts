@@ -1,32 +1,25 @@
-import { QuotableDesignEnum, QuotableDesignNameDanishEnum, QuotableDesignNameEnglishEnum } from '@assets';
+import { PetSignDesignEnum, PetSignDesignNameDanishEnum, PetSignDesignNameEnglishEnum } from '@assets';
 import { IPetSignFrameInfo } from './pet-sign-design-info.interface';
 
-// TODO - add the actual frames
 export const petSignFrames: IPetSignFrameInfo[] = [
-  // Baby sign specific
   {
-    src: QuotableDesignEnum.frame19,
-    nameDk: QuotableDesignNameDanishEnum.frame19,
-    nameEn: QuotableDesignNameEnglishEnum.frame19,
+    src: PetSignDesignEnum.noFrame,
+    nameDk: PetSignDesignNameDanishEnum.noFrame,
+    nameEn: PetSignDesignNameEnglishEnum.noFrame,
   },
   {
-    src: QuotableDesignEnum.frame18,
-    nameDk: QuotableDesignNameDanishEnum.frame18,
-    nameEn: QuotableDesignNameEnglishEnum.frame18,
+    src: PetSignDesignEnum.frame1,
+    nameDk: PetSignDesignNameDanishEnum.frame1,
+    nameEn: PetSignDesignNameEnglishEnum.frame1,
   },
   {
-    src: QuotableDesignEnum.frame20,
-    nameDk: QuotableDesignNameDanishEnum.frame20,
-    nameEn: QuotableDesignNameEnglishEnum.frame20,
+    src: PetSignDesignEnum.frame2,
+    nameDk: PetSignDesignNameDanishEnum.frame2,
+    nameEn: PetSignDesignNameEnglishEnum.frame2,
   },
   {
-    src: QuotableDesignEnum.frame21,
-    nameDk: QuotableDesignNameDanishEnum.frame21,
-    nameEn: QuotableDesignNameEnglishEnum.frame21,
-  },
-  {
-    src: QuotableDesignEnum.frame22,
-    nameDk: QuotableDesignNameDanishEnum.frame22,
-    nameEn: QuotableDesignNameEnglishEnum.frame22,
+    src: PetSignDesignEnum.frame3,
+    nameDk: PetSignDesignNameDanishEnum.frame3,
+    nameEn: PetSignDesignNameEnglishEnum.frame3,
   },
 ];
