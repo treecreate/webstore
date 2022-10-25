@@ -711,19 +711,8 @@
           <context context-type="linenumber">641,645</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="your-collection" datatype="html">
-        <source>Your collection</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="continue-shopping" datatype="html">
         <source> Continue shopping </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">21,23</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">32,34</context>
@@ -731,10 +720,6 @@
       </trans-unit>
       <trans-unit id="profile" datatype="html">
         <source> Profile </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">30,32</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
           <context context-type="linenumber">21</context>
@@ -748,19 +733,8 @@
           <context context-type="linenumber">183</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="no-designs" datatype="html">
-        <source>You have no designs</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">37</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="no-designs-text" datatype="html">
         <source> Go to the product page to start creating your first design! </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/orders/orders.component.html</context>
           <context context-type="linenumber">17</context>
@@ -768,10 +742,6 @@
       </trans-unit>
       <trans-unit id="start-designing" datatype="html">
         <source> Start designing </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">45,47</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/orders/orders.component.html</context>
           <context context-type="linenumber">24,26</context>
@@ -1583,21 +1553,6 @@
           <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="collection" datatype="html">
-        <source>Collection</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">111</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">195</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="basket" datatype="html">
         <source>Basket</source>
         <context-group purpose="location">
@@ -1706,27 +1661,12 @@
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
           <context context-type="linenumber">126</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">42,44</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="add-to-basket" datatype="html">
         <source> Add to basket </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">21,23</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
           <context context-type="linenumber">116</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="edit" datatype="html">
-        <source> Edit </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="order-number" datatype="html">

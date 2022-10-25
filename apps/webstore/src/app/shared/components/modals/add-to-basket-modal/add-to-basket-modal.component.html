@@ -113,7 +113,7 @@
             <div
                 class="small-box"
                 [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'SMALL' }"
-                (click)="this.addToBasketForm.get('dimension').setValue('SMALL')"
+                (click)="setSize('SMALL')"
             >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
@@ -129,7 +129,7 @@
             <div
                 class="medium-box"
                 [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'MEDIUM' }"
-                (click)="this.addToBasketForm.get('dimension').setValue('MEDIUM')"
+                (click)="setSize('MEDIUM')"
             >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
@@ -145,7 +145,7 @@
             <div
                 class="large-box"
                 [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'LARGE' }"
-                (click)="this.addToBasketForm.get('dimension').setValue('LARGE')"
+                (click)="setSize('LARGE')"
             >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
