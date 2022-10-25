@@ -125,17 +125,6 @@
                         >Log in</a
                     >
                 </li>
-
-                <li class="nav-item show-on-mobile">
-                    <a
-                        class="nav-link waves-light"
-                        *ngIf="isLoggedIn"
-                        routerLink="/collection"
-                        (click)="autoCollapse(); eventsService.create('webstore.navbar.clicked.collection')"
-                        i18n="@@collection"
-                        >Collection</a
-                    >
-                </li>
                 <li class="nav-item show-on-mobile">
                     <a
                         class="nav-link waves-light"
@@ -223,13 +212,6 @@
                                 (click)="scrollTop(); eventsService.create('webstore.navbar.clicked.account-info')"
                                 i18n="@@account-info"
                                 >Account info</a
-                            >
-                            <a
-                                ngbDropdownItem
-                                routerLink="/collection"
-                                (click)="scrollTop(); eventsService.create('webstore.navbar.clicked.collection')"
-                                i18n="@@collection"
-                                >Collection</a
                             >
                             <a
                                 ngbDropdownItem

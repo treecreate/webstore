@@ -39,14 +39,6 @@
                                     >Profile</a
                                 >
                             </li>
-                            <li *ngIf="isLoggedIn">
-                                <a
-                                    (click)="scrollTop(); eventsService.create('webstore.footer.clicked.collection')"
-                                    routerLink="/collection"
-                                    i18n="@@collection"
-                                    >Collection</a
-                                >
-                            </li>
                             <li>
                                 <a
                                     (click)="scrollTop(); eventsService.create('webstore.footer.clicked.basket')"
