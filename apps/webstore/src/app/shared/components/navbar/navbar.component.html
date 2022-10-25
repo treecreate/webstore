@@ -100,17 +100,6 @@
                         >Log in</a
                     >
                 </li>
-
-                <li class="nav-item show-on-mobile">
-                    <a
-                        class="nav-link waves-light"
-                        *ngIf="isLoggedIn"
-                        routerLink="/collection"
-                        (click)="autoCollapse()"
-                        i18n="@@collection"
-                        >Collection</a
-                    >
-                </li>
                 <li class="nav-item show-on-mobile">
                     <a
                         class="nav-link waves-light"
@@ -190,9 +179,6 @@
                         >
                             <a ngbDropdownItem routerLink="/profile" (click)="scrollTop()" i18n="@@account-info"
                                 >Account info</a
-                            >
-                            <a ngbDropdownItem routerLink="/collection" (click)="scrollTop()" i18n="@@collection"
-                                >Collection</a
                             >
                             <a ngbDropdownItem routerLink="/orders" (click)="scrollTop()" i18n="@@orders">Orders</a>
                             <a ngbDropdownItem (click)="logout(); scrollTop()" i18n="@@logout">Log Out</a>

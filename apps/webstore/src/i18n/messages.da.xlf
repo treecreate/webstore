@@ -985,21 +985,9 @@
           <context context-type="linenumber">648,652</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="your-collection" datatype="html">
-        <source>My collection</source>
-        <target>Min samling</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="continue-shopping" datatype="html">
         <source> Continue shopping </source>
         <target> Shop videre </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">21,23</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
           <context context-type="linenumber">31,33</context>
@@ -1008,10 +996,6 @@
       <trans-unit id="profile" datatype="html">
         <source>Profile</source>
         <target>Profil</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">31,32</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/verification/verification.component.html</context>
           <context context-type="linenumber">61,62</context>
@@ -1029,21 +1013,9 @@
           <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="no-designs" datatype="html">
-        <source>You have no designs</source>
-        <target>Du har ingen designs</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">38,39</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="no-designs-text" datatype="html">
         <source>Go to the product page to start creating your first design!</source>
         <target>Gå til produktsiden og begynd dit første design!</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">48,49</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/orders/orders.component.html</context>
           <context context-type="linenumber">22,23</context>
@@ -1052,10 +1024,6 @@
       <trans-unit id="start-designing" datatype="html">
         <source>Start designing</source>
         <target>Start dit design</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/auth/collection/collection.component.html</context>
-          <context context-type="linenumber">57,58</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/orders/orders.component.html</context>
           <context context-type="linenumber">31,32</context>
@@ -2117,22 +2085,6 @@
           <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="collection" datatype="html">
-        <source>Collection</source>
-        <target>Samling</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/footer/footer.component.html</context>
-          <context context-type="linenumber">37</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">126</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/navbar/navbar.component.html</context>
-          <context context-type="linenumber">185</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="basket" datatype="html">
         <source>Basket</source>
         <target>Kurv</target> 
@@ -2189,10 +2141,6 @@
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
@@ -2203,10 +2151,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/checkout-item/checkout-item.component.html</context>
           <context context-type="linenumber">20</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/order-item/order-item.component.html</context>
@@ -2283,10 +2227,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/basket-item/basket-item.component.html</context>
           <context context-type="linenumber">126</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/collection-item/collection-item.component.html</context>
-          <context context-type="linenumber">43,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add-to-basket" datatype="html">
