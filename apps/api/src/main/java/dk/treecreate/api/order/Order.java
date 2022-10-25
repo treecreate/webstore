@@ -111,6 +111,10 @@ public class Order {
   @UpdateTimestamp
   private Date updatedAt;
 
+  @Column(name = "paymentReminderSent", columnDefinition = "boolean default false", nullable = true)
+  @ApiModelProperty(notes = "Has a payment reminder for this order been sent?", example = "false", required = false)
+  private boolean paymentReminderSent = true;
+
   public UUID getOrderId() {
     return orderId;
   }
@@ -231,6 +235,14 @@ public class Order {
     this.updatedAt = updatedAt;
   }
 
+  public boolean getPaymentReminderSent () {
+    return paymentReminderSent;
+  }
+
+  public void setPaymentReminderSent (boolean paymentReminderSent) {
+    this.paymentReminderSent = paymentReminderSent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -248,7 +260,8 @@ public class Order {
         && Objects.equals(contactInfo, order.contactInfo)
         && Objects.equals(billingInfo, order.billingInfo)
         && Objects.equals(transactionItems, order.transactionItems)
-        && Objects.equals(createdAt, order.createdAt);
+        && Objects.equals(createdAt, order.createdAt)
+        && Objects.equals(paymentReminderSent, order.paymentReminderSent);
   }
 
   @Override
@@ -266,6 +279,7 @@ public class Order {
         contactInfo,
         billingInfo,
         transactionItems,
-        createdAt);
+        createdAt,
+        paymentReminderSent);
   }
 }

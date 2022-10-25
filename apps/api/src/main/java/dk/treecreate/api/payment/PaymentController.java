@@ -8,6 +8,7 @@ import dk.treecreate.api.order.Order;
 import dk.treecreate.api.order.OrderRepository;
 import dk.treecreate.api.order.OrderService;
 import dk.treecreate.api.utils.OrderStatus;
+import dk.treecreate.api.order.OrderController;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.QuickpayOperationType;
 import dk.treecreate.api.utils.model.quickpay.QuickpayStatusCode;
@@ -35,6 +36,7 @@ public class PaymentController {
   @Autowired OrderService orderService;
   @Autowired QuickpayService quickpayService;
   @Autowired OrderRepository orderRepository;
+  @Autowired OrderController orderController;
 
   @ApiIgnore
   @PostMapping("/paymentCallback")

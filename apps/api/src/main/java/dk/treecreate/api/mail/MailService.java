@@ -3,6 +3,7 @@ package dk.treecreate.api.mail;
 import dk.treecreate.api.config.CustomPropertiesConfig;
 import dk.treecreate.api.order.Order;
 import dk.treecreate.api.order.OrderService;
+import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.order.dto.CreateCustomOrderRequest;
 import dk.treecreate.api.utils.LinkService;
 import io.sentry.Sentry;
@@ -46,6 +47,7 @@ public class MailService {
   @Autowired LinkService linkService;
   @Autowired OrderService orderService;
   @Autowired CustomPropertiesConfig customPropertiesConfig;
+  @Autowired QuickpayService quickpayService;
 
   public MailService(
       TemplateEngine templateEngine,
@@ -186,6 +188,18 @@ public class MailService {
         context,
         MailTemplate.CUSTOM_ORDER_REQUEST,
         orderInfo.getImages());
+  }
+
+  public void sendOrderPaymentReminderEmail(Order order, String recipient) throws Exception {
+    String subject = "Your Treecreate order is waiting for your payment!";
+    Context context = new Context(Locale.ENGLISH);
+    context.setVariable("payment-link", quickpayService.getPaymentLink(order.getPaymentId()));
+    sendMail(
+      order.getContactInfo().getEmail(),
+      MailDomain.INFO,
+      subject,
+      context,
+      MailTemplate.PAYMENT_REMINDER);
   }
 
   // No BCC email and no attachments

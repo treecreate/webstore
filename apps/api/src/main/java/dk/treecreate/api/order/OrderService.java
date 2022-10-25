@@ -287,6 +287,18 @@ public class OrderService {
     }
   }
 
+  // @Scheduled(fixedRate=1, timeUnit = TimeUnit.HOURS)
+  // public void sendScheduledPaymentLink() {
+  //   IOrder[] orders[] = this.orderRepository.findAll();
+  //   try {
+  //     forEach(Order order: orders){
+  //       if (order.createdAt) {
+
+  //       }
+  //     }
+  //   }
+  // }
+
   public Order setupOrderFromCreateRequest(CreateOrderRequest createOrderRequest) {
     Order order = new Order();
     order.setSubtotal(createOrderRequest.getSubtotal());
