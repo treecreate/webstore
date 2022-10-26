@@ -94,6 +94,19 @@ public class OrderController {
     return orderRepository.findByUserId(currentUser.getUserId());
   }
 
+  @GetMapping()
+  @Operation(summary = "Get all orders where status is initial or rejected")
+  @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+  public List<Order> getAllUnpaidOrders() {
+    List<Order> allOrders = orderRepository.findAll();
+    List<Order> initialOrders = new List<Order>;
+    for(Order order : allOrders){
+      if (order.status == OrderStatus.INITIAL || order.status == OrderStatus.REJECTED)}{
+        initialOrders.add(order);
+      }
+    }
+  }
+
   @GetMapping("me")
   @Operation(summary = "Get all orders of current user")
   @ApiResponses(
