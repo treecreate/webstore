@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsItem } from '../../../../pages/products/products-items.constant';
+import { EventsService } from '../../../services/events/events.service';
 
 @Component({
   selector: 'webstore-product-display',
@@ -14,7 +15,7 @@ export class ProductDisplayComponent {
   @Input()
   isEnglish!: boolean;
 
-  constructor(private router: Router) {}
+  constructor(public eventsService: EventsService, private router: Router) {}
 
   navigateToProduct() {
     if (this.product.productType) {
