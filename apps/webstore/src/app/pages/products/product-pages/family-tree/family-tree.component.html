@@ -2,7 +2,8 @@
     <div class="design-screen">
         <div class="back-container">
             <a
-                onclick="history.back(); eventsService.create('webstore.family-tree.clicked.back')"
+                (click)="eventsService.create('webstore.family-tree.clicked.back')"
+                onclick=" history.back()"
                 class="back add-transition"
                 data-cy="view-only-back-button"
             >
