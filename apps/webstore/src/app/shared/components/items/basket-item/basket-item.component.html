@@ -112,7 +112,7 @@
         <div class="option-actions">
             <button
                 class="tc-button-50 margin-top"
-                (click)="goToDesign()"
+                (click)="goToDesign(); eventsService.create('webstore.basket.clicked.view-item')"
                 i18n="@@view"
                 data-cy="basket-item-view-button"
             >
@@ -120,7 +120,7 @@
             </button>
             <button
                 class="tc-button-50 margin-top red"
-                (click)="deleteTransactionItem()"
+                (click)="deleteTransactionItem(); eventsService.create('webstore.basket.clicked.delete-item')"
                 data-cy="basket-item-delete-button"
             >
                 <span i18n="@@delete" *ngIf="!isLoading">Delete</span>
