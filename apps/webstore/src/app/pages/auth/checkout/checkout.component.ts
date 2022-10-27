@@ -482,15 +482,24 @@ export class CheckoutComponent implements OnInit {
           password: passwordGen,
         })
         .toPromise()
-        .catch((error) => {
+        .catch((error: HttpErrorResponse) => {
           console.warn(error);
           this.errorlogsService.create('webstore.checkout.register-on-order-failed', ErrorlogPriorityEnum.high, error);
-          this.toastService.showAlert(
-            'Failed to create order, please try again',
-            'Der skete en fejl ved ordren, prøv venligst igen',
-            'danger',
-            5000
-          );
+          if (error.error.message === 'Error: Email is already in use!') {
+            this.toastService.showAlert(
+              'The provided email is already in use. Please log in before creating a new order. Your existing basket will remain unchanged.',
+              'Din email er allerede oprettet som bruger. Log ind og prøv igen. Produkterne i din kurv bliver tilkoblet din konto når du logger ind så de ikke forsvinder.',
+              'danger',
+              20000
+            );
+          } else {
+            this.toastService.showAlert(
+              'Failed to create order, please try again',
+              'Der skete en fejl ved ordren, prøv venligst igen',
+              'danger',
+              10000
+            );
+          }
           this.isLoading = false;
         });
 
