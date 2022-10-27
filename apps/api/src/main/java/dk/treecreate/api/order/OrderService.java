@@ -309,7 +309,6 @@ public class OrderService {
     List<Order> orderList = this.getAllUnpaidOrders();
     try {
         for(Order order: orderList) {
-          if (order.getContactInfo().getEmail() == Validator)
           this.mailService.sendOrderPaymentReminderEmail(order);
           order.setPaymentReminderSent(true);
         }
