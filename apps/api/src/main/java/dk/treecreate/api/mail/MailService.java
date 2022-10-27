@@ -190,7 +190,7 @@ public class MailService {
         orderInfo.getImages());
   }
 
-  public void sendOrderPaymentReminderEmail(Order order, String recipient) throws Exception {
+  public void sendOrderPaymentReminderEmail(Order order) throws Exception {
     String subject = "Your Treecreate order is waiting for your payment!";
     Context context = new Context(Locale.ENGLISH);
     context.setVariable("payment-link", quickpayService.getPaymentLink(order.getPaymentId()));
