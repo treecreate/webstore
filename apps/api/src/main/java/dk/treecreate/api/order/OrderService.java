@@ -19,6 +19,7 @@ import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.OrderStatus;
+import dk.treecreate.api.order.OrderController;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @Service
 @Transactional
@@ -47,6 +49,7 @@ public class OrderService {
   @Autowired UserRepository userRepository;
   @Autowired AuthUserService authUserService;
   @Autowired OrderRepository orderRepository;
+  @Autowired OrderController orderController;
 
   @Autowired MailService mailService;
 
@@ -290,11 +293,13 @@ public class OrderService {
   }
 
 
-  @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
+  @Scheduled(cron = "* * 1 * *")
   public void sendScheduledPaymentLink() {
-    List<Order> orderList[] = this.OrderController.getAllUnpaidOrders();
+    List<Order> orderList = this.orderController.getAllUnpaidOrders();
     try {
-        
+        for(Order order: orderList) {
+          this.mailService.sendOrderPaymentReminderEmail(order);
+        }
     }
   }
 
