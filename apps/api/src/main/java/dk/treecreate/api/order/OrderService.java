@@ -19,8 +19,8 @@ import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.OrderStatus;
-import dk.treecreate.api.order.OrderController;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -49,7 +49,6 @@ public class OrderService {
   @Autowired UserRepository userRepository;
   @Autowired AuthUserService authUserService;
   @Autowired OrderRepository orderRepository;
-  @Autowired OrderController orderController;
 
   @Autowired MailService mailService;
 
@@ -292,14 +291,28 @@ public class OrderService {
     }
   }
 
+  public List<Order> getAllUnpaidOrders() {
+    List<Order> allOrders = orderRepository.findAll();
+    List<Order> initialOrders = new ArrayList<Order>();
+    for(Order order : allOrders){
+      if ((order.getStatus() == OrderStatus.INITIAL || order.getStatus() == OrderStatus.REJECTED) && order.getPaymentReminderSent() == false){
+        initialOrders.add(order);
+      }
+    }
+    return initialOrders;
+  }
 
-  @Scheduled(cron = "* * 1 * *")
+  @Scheduled(cron = "1 * * * * ?")
   public void sendScheduledPaymentLink() {
-    List<Order> orderList = this.orderController.getAllUnpaidOrders();
+    List<Order> orderList = this.getAllUnpaidOrders();
     try {
         for(Order order: orderList) {
+          if (order.getContactInfo().getEmail() == Validator)
           this.mailService.sendOrderPaymentReminderEmail(order);
+          order.setPaymentReminderSent(true);
         }
+    } catch (Exception e) {
+      LOGGER.error("Failed to process scheduled payment link", e);
     }
   }
 

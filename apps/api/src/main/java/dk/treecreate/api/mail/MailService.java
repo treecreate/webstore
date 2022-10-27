@@ -194,12 +194,14 @@ public class MailService {
     String subject = "Your Treecreate order is waiting for your payment!";
     Context context = new Context(Locale.ENGLISH);
     context.setVariable("payment-link", quickpayService.getPaymentLink(order.getPaymentId()));
-    sendMail(
-        order.getContactInfo().getEmail(),
-        MailDomain.INFO,
-        subject,
-        context,
-        MailTemplate.PAYMENT_REMINDER);
+    if (order.getPaymentReminderSent() == false){
+      sendMail(
+          order.getContactInfo().getEmail(),
+          MailDomain.INFO,
+          subject,
+          context,
+          MailTemplate.PAYMENT_REMINDER);
+      }
   }
 
   // No BCC email and no attachments

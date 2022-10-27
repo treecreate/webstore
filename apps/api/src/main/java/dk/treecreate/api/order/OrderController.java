@@ -96,20 +96,6 @@ public class OrderController {
     return orderRepository.findByUserId(currentUser.getUserId());
   }
 
-  @GetMapping()
-  @Operation(summary = "Get all orders where status is initial or rejected")
-  @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
-  public List<Order> getAllUnpaidOrders() {
-    List<Order> allOrders = orderRepository.findAll();
-    List<Order> initialOrders = new ArrayList<Order>();
-    for(Order order : allOrders){
-      if ((order.getStatus() == OrderStatus.INITIAL || order.getStatus() == OrderStatus.REJECTED) && order.getPaymentReminderSent() == false){
-        initialOrders.add(order);
-      }
-    }
-    return initialOrders;
-  }
-
   @GetMapping("me")
   @Operation(summary = "Get all orders of current user")
   @ApiResponses(
