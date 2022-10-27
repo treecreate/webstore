@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ErrorlogPriorityEnum, IOrder } from '@interfaces';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { OrderService } from '../../../shared/services/order/order.service';
 
 @Component({
@@ -13,7 +14,11 @@ export class OrdersComponent implements OnInit {
   isLoading = false;
   orderCollection: IOrder[] = [];
 
-  constructor(private orderService: OrderService, private errorlogsService: ErrorlogsService) {}
+  constructor(
+    private orderService: OrderService,
+    public eventsService: EventsService,
+    private errorlogsService: ErrorlogsService
+  ) {}
 
   getOrders(): void {
     this.isLoading = true;
