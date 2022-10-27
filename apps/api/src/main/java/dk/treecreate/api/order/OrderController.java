@@ -16,6 +16,7 @@ import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.LocaleService;
+import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.utils.QuickpayService;
 import dk.treecreate.api.utils.model.quickpay.dto.CreatePaymentLinkResponse;
 import dk.treecreate.api.utils.model.quickpay.dto.GetPaymentLinkResponse;
@@ -27,6 +28,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -99,12 +101,13 @@ public class OrderController {
   @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
   public List<Order> getAllUnpaidOrders() {
     List<Order> allOrders = orderRepository.findAll();
-    List<Order> initialOrders = new List<Order>;
+    List<Order> initialOrders = new ArrayList<Order>();
     for(Order order : allOrders){
-      if (order.status == OrderStatus.INITIAL || order.status == OrderStatus.REJECTED)}{
+      if ((order.getStatus() == OrderStatus.INITIAL || order.getStatus() == OrderStatus.REJECTED) && order.getPaymentReminderSent() == false){
         initialOrders.add(order);
       }
     }
+    return initialOrders;
   }
 
   @GetMapping("me")
