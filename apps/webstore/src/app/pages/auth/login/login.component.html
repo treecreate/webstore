@@ -1,5 +1,11 @@
 <main class="flex-container-login">
-    <form *ngIf="!isLoggedIn" (ngSubmit)="onSubmit()" name="loginForm" class="login-form" [formGroup]="loginForm">
+    <form
+        *ngIf="!isLoggedIn"
+        (ngSubmit)="onSubmit(); eventsService.create('webstore.login.clicked.login')"
+        name="loginForm"
+        class="login-form"
+        [formGroup]="loginForm"
+    >
         <h1 class="page-title" i18n="@@login">Login</h1>
         <div class="tc-input-group field">
             <input
@@ -48,7 +54,7 @@
         <div class="forgot-password-container">
             <a
                 data-cy="forgot-password-btn"
-                (click)="openForgotPasswordModal()"
+                (click)="openForgotPasswordModal(); eventsService.create('webstore.login.clicked.forgot-password')"
                 class="forgot-password-link"
                 i18n="@@forgot-password"
             >
@@ -66,7 +72,14 @@
                 aria-hidden="true"
             ></span>
         </button>
-        <button class="tc-button-100" data-cy="login-signup-btn" type="button" routerLink="/signup" i18n="@@signup">
+        <button
+            (click)="eventsService.create('webstore.login.clicked.sign-up')"
+            class="tc-button-100"
+            data-cy="login-signup-btn"
+            type="button"
+            routerLink="/signup"
+            i18n="@@signup"
+        >
             Sign up
         </button>
     </form>
