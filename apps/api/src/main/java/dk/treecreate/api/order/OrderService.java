@@ -33,9 +33,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Service
 @Transactional
+@EnableScheduling
 public class OrderService {
   private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
@@ -288,17 +290,13 @@ public class OrderService {
   }
 
 
-  // @Scheduled(fixedRate=1, timeUnit = TimeUnit.HOURS)
-  // public void sendScheduledPaymentLink() {
-  //   IOrder[] orders[] = this.orderRepository.findAll();
-  //   try {
-  //     forEach(Order order: orders){
-  //       if (order.createdAt) {
-
-  //       }
-  //     }
-  //   }
-  // }
+  @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
+  public void sendScheduledPaymentLink() {
+    List<Order> orderList[] = this.OrderController.getAllUnpaidOrders();
+    try {
+        
+    }
+  }
 
   public Order setupOrderFromCreateRequest(CreateOrderRequest createOrderRequest) {
     Order order = new Order();
