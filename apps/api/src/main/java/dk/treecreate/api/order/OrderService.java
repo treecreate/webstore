@@ -19,6 +19,7 @@ import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.OrderStatus;
+import dk.treecreate.api.order.OrderController;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 
 import java.math.BigDecimal;
@@ -49,6 +50,7 @@ public class OrderService {
   @Autowired UserRepository userRepository;
   @Autowired AuthUserService authUserService;
   @Autowired OrderRepository orderRepository;
+  @Autowired OrderController orderController;
 
   @Autowired MailService mailService;
 
