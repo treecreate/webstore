@@ -43,7 +43,11 @@ export class EventsService {
             isMobile: isMobile,
             isLoggedIn: true,
           })
-          .subscribe();
+          .subscribe({
+            error: (err) => {
+              this.handleFailedEventCreation(err);
+            },
+          });
       } else {
         // When not logged in, use a locally stored random UUID as the user Id
         const userId = this.localStorageService.getItem<string>(LocalStorageVars.eventLogUserId).value;
@@ -58,7 +62,11 @@ export class EventsService {
               isMobile: isMobile,
               isLoggedIn: false,
             })
-            .subscribe();
+            .subscribe({
+              error: (err) => {
+                this.handleFailedEventCreation(err);
+              },
+            });
         } else {
           // If userId was not present in the local storage before, create it and set it.
           const newUserId = this.createEventLogUserId();
@@ -73,17 +81,24 @@ export class EventsService {
               isMobile: isMobile,
               isLoggedIn: false,
             })
-            .subscribe();
+            .subscribe({
+              error: (err) => {
+                this.handleFailedEventCreation(err);
+              },
+            });
         }
       }
     } catch (err) {
-      console.error(err);
-      this.errorlogsService.create('webstore.event-logs.failed-to-log', ErrorlogPriorityEnum.high, {
-        name: 'webstore.error-logs.failed-to-log',
-        userId: '00000000-0000-0000-0000-000000000000',
-        error: err,
-      });
+      this.handleFailedEventCreation(err);
     }
+  }
+
+  handleFailedEventCreation(err): void {
+    this.errorlogsService.create('webstore.event-logs.failed-to-log', ErrorlogPriorityEnum.high, {
+      name: 'webstore.error-logs.failed-to-log',
+      userId: '00000000-0000-0000-0000-000000000000',
+      error: err,
+    });
   }
 
   /**

@@ -46,7 +46,11 @@ export class ErrorlogsService {
             error,
             priority,
           })
-          .subscribe();
+          .subscribe({
+            error: (err) => {
+              this.handleFailedEventCreation(err);
+            },
+          });
       } else {
         // When not logged in, use a locally stored random UUID as the user Id
         const userId = this.localStorageService.getItem<string>(LocalStorageVars.eventLogUserId).value;
@@ -64,7 +68,11 @@ export class ErrorlogsService {
               error,
               priority,
             })
-            .subscribe();
+            .subscribe({
+              error: (err) => {
+                this.handleFailedEventCreation(err);
+              },
+            });
         } else {
           // If userId was not present in the local storage before, create it and set it.
           const newUserId = this.createErrorlogLogUserId();
@@ -82,26 +90,31 @@ export class ErrorlogsService {
               error,
               priority,
             })
-            .subscribe();
+            .subscribe({
+              error: (err) => {
+                this.handleFailedEventCreation(err);
+              },
+            });
         }
       }
-    } catch (err) {
-      console.error(err);
-      this.http
-        .post<IErrorlog>(`${env.apiUrl}/errorlogs`, {
-          name: 'webstore.error-logs.failed-to-log',
-          userId: '00000000-0000-0000-0000-000000000000',
-          browser: 'N/A',
-          url: 'N/A',
-          production: 'N/A',
-          locale: 'N/A',
-          isMobile: null,
-          isLoggedIn: null,
-          error: error,
-          priority: ErrorlogPriorityEnum.critical,
-        })
-        .subscribe();
-    }
+    } catch (err) {}
+  }
+
+  handleFailedEventCreation(err): void {
+    this.http
+      .post<IErrorlog>(`${env.apiUrl}/errorlogs`, {
+        name: 'webstore.error-logs.failed-to-log',
+        userId: '00000000-0000-0000-0000-000000000000',
+        browser: 'N/A',
+        url: 'N/A',
+        production: 'N/A',
+        locale: 'N/A',
+        isMobile: null,
+        isLoggedIn: null,
+        error: err,
+        priority: ErrorlogPriorityEnum.critical,
+      })
+      .subscribe();
   }
 
   /**
