@@ -158,6 +158,6 @@ export class ErrorlogsService {
     }
     matchTest = matchTest[2] ? [matchTest[1], matchTest[2]] : [navigator.appName, navigator.appVersion, '-?'];
     if ((temp = userAgent.match(/version\/(\d+)/i)) != null) matchTest.splice(1, 1, temp[1]);
-    return matchTest.join(' ');
+    return matchTest.join(' ').slice(0, 25);
   }
 }
