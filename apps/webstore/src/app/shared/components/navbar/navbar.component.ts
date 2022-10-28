@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
     private toastService: ToastService,
     private transactionItemService: TransactionItemService,
     public router: Router,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to locale
@@ -113,7 +113,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.toastService.showAlert('You have now logged out!', 'Du er nu logget ud!', 'success', 2500);
     this.authService.logout();
-    this.eventsService.create('webstore.navbar.logout');
+    this.eventsService.create('webstore.navbar.clicked.logout');
   }
 
   autoCollapse() {

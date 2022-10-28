@@ -2,7 +2,9 @@
     <section class="success-content add-transition">
         <img src="/assets/logos/tc-black-text-logo.svg" alt="Treecreate logo" class="success-logo add-transition" />
         <div class="back-container">
-            <a routerLink="/" class="back"> < <span i18n="@@back-to-home">Back to home page </span> </a>
+            <a (click)="eventsService.create('webstore.payment-success.clicked.go-home')" routerLink="/" class="back">
+                < <span i18n="@@back-to-home">Back to home page </span>
+            </a>
         </div>
 
         <div class="heading success-thank-you add-transition">
@@ -17,7 +19,13 @@
             more trees, please visit:
         </div>
         <div class="teamtrees-link-container">
-            <a class="teamtrees-link add-transition" href="https://teamtrees.org/" target="_blank" rel="noopener">
+            <a
+                (click)="eventsService.create('webstore.payment-success.clicked.teamtrees')"
+                class="teamtrees-link add-transition"
+                href="https://teamtrees.org/"
+                target="_blank"
+                rel="noopener"
+            >
                 <img src="/assets/img/component-images/teamtrees-logo.png" alt="Teamtrees logo" />
             </a>
         </div>
