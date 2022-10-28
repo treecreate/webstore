@@ -42,6 +42,7 @@ export class AppComponent {
     this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).subscribe(() => {
       if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
         this.initGoogleAnalytics();
+        this.initGoogleTagManager();
         this.initMetaPixel();
       } else {
         console.log('Not logging Google analytics nor Meta Pixel since cookies were not accepted');
@@ -70,7 +71,7 @@ export class AppComponent {
    * Update the url locale information to match users preference (stored in local storage)
    * @returns
    */
-  updateLocale() {
+  updateLocale(): void {
     const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     // Don't apply url lang path param logic on localhost aka local development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -96,7 +97,7 @@ export class AppComponent {
     }
   }
 
-  initGoogleAnalytics() {
+  initGoogleAnalytics(): void {
     // Could use environment.gtag as well but am lazy so it is hardcoded
     let gtagId;
     if (environment.production) {
@@ -127,6 +128,27 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  initGoogleTagManager(): void {
+    // Could use environment.gtag as well but am lazy so it is hardcoded
+    let gtagId; // specific to google tag manager, not the google analytics one
+    if (environment.production) {
+      gtagId = 'N/A';
+    } else {
+      gtagId = 'GTM-WTTLPSL';
+    }
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      const f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s) as any,
+        dl = l !== 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WTTLPSL');
   }
 
   isProductsPage(): boolean {
