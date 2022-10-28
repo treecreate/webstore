@@ -134,7 +134,7 @@ export class AppComponent {
     // Could use environment.gtag as well but am lazy so it is hardcoded
     let gtagId; // specific to google tag manager, not the google analytics one
     if (environment.production) {
-      gtagId = 'N/A';
+      gtagId = 'GTM-MLR8QR2';
     } else {
       gtagId = 'GTM-WTTLPSL';
     }
