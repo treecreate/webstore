@@ -56,7 +56,7 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private router: Router,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status

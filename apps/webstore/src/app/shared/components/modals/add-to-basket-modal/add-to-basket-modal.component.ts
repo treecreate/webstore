@@ -65,7 +65,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     private designService: DesignService,
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();

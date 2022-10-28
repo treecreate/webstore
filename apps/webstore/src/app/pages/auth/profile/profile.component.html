@@ -3,7 +3,7 @@
         class="account-info-form"
         [formGroup]="accountInfoForm"
         name="accountInfoForm"
-        (ngSubmit)="updateUser()"
+        (ngSubmit)="updateUser(); eventsService.create('webstore.profile.clicked.update')"
         data-cy="account-info-form"
     >
         <div class="title">
@@ -218,7 +218,9 @@
                     </button>
                     <button
                         class="tc-button-50"
-                        (click)="openChangePasswordModal()"
+                        (click)="
+                            openChangePasswordModal(); eventsService.create('webstore.profile.clicked.change-password')
+                        "
                         i18n="@@change-password"
                         data-cy="account-change-password-button"
                         type="button"

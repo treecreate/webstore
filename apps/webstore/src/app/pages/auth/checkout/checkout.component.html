@@ -8,11 +8,20 @@
             />
         </div>
         <div class="back-to-basket-container">
-            <a routerLink="/basket" class="back add-transition">
+            <a
+                (click)="eventsService.create('webstore.checkout.clicked.back')"
+                routerLink="/basket"
+                class="back add-transition"
+            >
                 < <strong i18n="@@back-to-basket"> Back to basket </strong>
             </a>
         </div>
-        <form class="checkout-content" name="checkoutForm" [formGroup]="checkoutForm" (ngSubmit)="submitCheckout()">
+        <form
+            class="checkout-content"
+            name="checkoutForm"
+            [formGroup]="checkoutForm"
+            (ngSubmit)="submitCheckout(); eventsService.create('webstore.checkout.clicked.go-to-payment')"
+        >
             <div class="section-container">
                 <!-- delivery address -->
                 <div class="checkout-section no-strech">
