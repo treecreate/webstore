@@ -147,7 +147,12 @@
 
     <body class="clean-body" style="margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #ffffff">
         <div>
-            <p>Here's your payment link: </p>
+            <p>Here's your payment link: <a th:href="${paymentLink}" target="_blank"
+                style="
+                    text-decoration: underline;
+                    color: #000000;
+                "
+                rel="noopener">Complete Payment</a></p>
         </div>
     </body>
 </html>
