@@ -94,7 +94,7 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
       case DesignTypeEnum.familyTree:
         return this.isEnglish() ? 'Family tree' : 'Stamtræ';
       case DesignTypeEnum.petSign:
-        return this.isEnglish() ? 'Pet sign' : 'Kæledyr skilt';
+        return this.isEnglish() ? 'Pet sign' : 'Kæledyrs skilt';
       case DesignTypeEnum.quotable:
       default:
         switch ((this.item.design.designProperties as IQoutable).quotableType) {
