@@ -10,6 +10,7 @@ import {
   IFamilyTree,
   IQoutable,
   ITransactionItem,
+  QuotableTypeEnum,
 } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
 import { LocaleType, LocalStorageVars } from '@models';
@@ -33,14 +34,17 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   @Input()
   designType?: DesignTypeEnum;
 
+  @Input()
+  quotableType?: QuotableTypeEnum;
+
   addToBasketForm: UntypedFormGroup;
   price = 0;
   isMoreThan4 = false;
   itemsInBasket = 0;
   totalPrice = 0;
-  public locale$: BehaviorSubject<LocaleType>;
   public localeCode: LocaleType;
   design: IFamilyTree | IQoutable;
+  prodSizeList = ['SMALL', 'MEDIUM', 'LARGE'];
   isLoading = false;
   authUser$: BehaviorSubject<IAuthUser>;
   isLoggedIn = false;
@@ -63,13 +67,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
-    // Listen to changes to locale
-    this.locale$ = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale);
-    this.localeCode = this.locale$.getValue();
-    this.locale$.subscribe(() => {
-      console.log('Locale changed to: ' + this.locale$.getValue());
-    });
-
+    this.localeCode = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     // Listen to changes to login status
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
 
@@ -86,15 +84,32 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // default the designType to Fmaily tree if it's null
+    // default the designType to Family tree if it's null
     if (this.designType === undefined || this.designType === null) {
       this.designType = DesignTypeEnum.familyTree;
     }
 
-    if (this.designType === DesignTypeEnum.familyTree) {
-      this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
-    } else if (this.designType === DesignTypeEnum.quotable) {
-      this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+    switch (this.designType) {
+      case DesignTypeEnum.familyTree:
+        this.design = this.localStorageService.getItem<IFamilyTree>(LocalStorageVars.designFamilyTree).value;
+        break;
+      case DesignTypeEnum.quotable:
+      default:
+        if (this.quotableType) {
+          switch (this.quotableType) {
+            case QuotableTypeEnum.babySign:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designBabySign).value;
+              break;
+            case QuotableTypeEnum.loveLetter:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designLoveLetter).value;
+              break;
+            case QuotableTypeEnum.quotable:
+            default:
+              this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+          }
+        } else {
+          this.design = this.localStorageService.getItem<IQoutable>(LocalStorageVars.designQuotable).value;
+        }
     }
 
     this.addToBasketForm.setValue({
@@ -266,6 +281,11 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
     }
   }
 
+  setSize(size: string): void {
+    this.addToBasketForm.get('dimension').setValue(size);
+    this.updatePrice();
+  }
+
   saveToLocalStorage(): void {
     // design id should be null
     this.transactionItemService.saveToLocalStorage(
@@ -288,7 +308,7 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
    * Persist the design in the database (either update or create a new entry) and, if successful, create a transaction item for it (add to basket).
    */
   saveToDataBase(): void {
-    // Check if the design is loaded using a design ID (design comes from a user account ccollection)
+    // Check if the design is loaded using a design ID (design comes from a user account collection)
     if (this.route.snapshot.queryParams.designId !== undefined) {
       if (this.designType === DesignTypeEnum.familyTree) {
         this.localStorageService.setItem<IFamilyTree>(LocalStorageVars.designFamilyTree, <IFamilyTree>this.design);

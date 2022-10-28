@@ -29,7 +29,7 @@
   max-width: 100vw;
   display: flex;
   /* Background image properties */
-  background-image: url('apps/webstore/src/assets/img/main-img-02.jpg');
+  background-image: url('apps/webstore/src/assets/img/home/main-img-02.jpg');
   background-size: cover;
   background-position: bottom center;
 }
@@ -60,6 +60,10 @@
   display: flex;
   max-height: 850px;
   align-items: center;
+}
+
+.reversed {
+  flex-direction: row-reverse;
 }
 
 figure {
@@ -98,19 +102,27 @@ figure {
   position: absolute;
   height: 100%;
   overflow: hidden;
+  z-index: -1;
 }
 
-#background-image {
+#background-image,
+#background-image-family {
   height: 100%;
   -webkit-filter: blur(8px);
-  background-image: url('/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg');
   background-size: cover;
   background-position: center center;
   position: absolute;
   transform: scale(1.1);
   width: 100%;
-  z-index: -10;
   filter: brightness(70%) blur(8px);
+}
+
+#background-image {
+  background-image: url('/assets/img/family-tree/family-tree-display-img/family-tree-04.jpg');
+}
+
+#background-image-family {
+  background-image: url('/assets/img/home/family-tree-baby.jpg');
 }
 
 .hide .arrow-up-item,
@@ -183,10 +195,11 @@ figure {
 
 .reviews-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   height: 430px;
-  overflow: scroll;
+  width: fit-content;
+  max-width: 90vw;
+  overflow-x: scroll;
 }
 
 .review-wrapper {
@@ -216,14 +229,14 @@ figure {
   width: 300px;
 }
 
-.values-container,
-.team-container {
+.values-container {
   min-height: 55vh;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 3.5em 2em 2em 2em;
-  background-color: white;
+  padding: 3.5em 2em;
+  margin: 3em 0em 5em 0em;
+  background-color: #f9e9d8;
 }
 
 .values-container {
@@ -234,31 +247,6 @@ figure {
   text-align: center;
   margin: 1em 2em;
   width: 200px;
-}
-
-.member-wrapper {
-  margin: 1em;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.15));
-  padding: 1em;
-  background-color: white;
-  border-radius: 5px;
-}
-
-.member-wrapper h3 {
-  font-size: 1.5em;
-}
-
-.member-wrapper img {
-  margin-bottom: 1em;
-  object-fit: cover;
-  height: 268px;
-}
-
-.member-info a {
-  margin-right: 1em;
 }
 
 .value-wrapper h3 {
@@ -280,13 +268,6 @@ figure {
   width: 100%;
 }
 
-.members {
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
 .values h3 {
   margin-bottom: 0.7em;
 }
@@ -305,6 +286,7 @@ figure {
   margin: 1.25em 0 0 0;
   display: flex;
   align-items: center;
+  z-index: 10;
 }
 
 .trustpilot-rating {
@@ -327,23 +309,6 @@ figure {
   font-weight: 400;
 }
 
-.video-title {
-  margin-bottom: 1.25em;
-}
-
-.video-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 2em 0;
-}
-
-.i-frame-video {
-  width: 90vw;
-  height: 49vw;
-}
-
 .link {
   color: var(--second-action-color) !important;
   text-decoration: underline;
@@ -359,185 +324,57 @@ figure {
   text-align: center;
 }
 
-@media screen and (max-width: 1100px) {
-  .purchase-button {
-    width: 100%;
-  }
-  .button-section {
-    flex-direction: column-reverse;
-  }
-  .so-me-container {
-    margin-top: 1em;
-  }
+/* ========= UPDATED =========== */
+/* ========= OUR MISSION 1 =========== */
+
+#our-mission-values-2 {
+  background-color: white;
+  width: 100%;
+  padding: 8em 0em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  line-height: 2em;
 }
 
-@media screen and (max-width: 945px) {
-  .right-content {
-    padding: 7em 2em 2em 2em;
-    height: 100vh;
-  }
-
-  .descriptive-content-container {
-    flex-direction: column;
-  }
-
-  .left-content,
-  .right-content {
-    width: 100%;
-    display: flex;
-  }
-
-  .left-content {
-    height: 40%;
-    justify-content: center;
-  }
-  .right-content {
-    height: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .main-text {
-    filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
-  }
-
-  #image {
-    max-width: 300px;
-    min-width: 200px;
-    width: 80vw;
-    max-height: 300px;
-    min-height: 200px;
-    height: 80vw;
-    position: relative;
-    top: 100px;
-  }
-
-  #background-image {
-    background-position: top;
-    background-size: cover;
-  }
-
-  .background-image-container {
-    width: 100%;
-    min-width: 350px;
-  }
-
-  /* Old */
-  .main-text-container {
-    width: 70vw;
-  }
-
-  .descriptive-img {
-    width: 60vw;
-    height: 60vw;
-  }
+#our-mission-values-2 .text-section-wrapper {
+  padding: 3em 0em 3em 3em;
+  width: 80vw;
+  max-width: 500px;
 }
 
-@media screen and (max-width: 620px) {
-  .title {
-    font-size: 28px;
-    font-weight: 400;
-  }
-
-  .main-subtext {
-    font-size: 1.5em;
-  }
-
-  .main-text-container {
-    height: 65vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 85vw;
-    margin: 0;
-    text-align: center;
-  }
-
-  .main-section {
-    background-image: url('apps/webstore/src/assets/img/main-background-mobile.jpg');
-    background-position: bottom center;
-    justify-content: center;
-  }
-
-  .descriptive-img {
-    width: 80vw;
-    height: 80vw;
-  }
-
-  .text-container {
-    width: 80vw;
-  }
+#our-mission-values-2 img {
+  width: 500px;
+  max-width: 80vw;
+  height: 500px;
+  max-height: 80vw;
+  filter: drop-shadow(0px 5px 30px rgba(0, 0, 0, 0.2));
 }
 
-@media screen and (max-width: 540px) {
-  .remove {
-    display: none;
-  }
-
-  .main-text-container {
-    height: 35vh;
-    margin-top: 6em;
-  }
-
-  .trustpilot-section {
-    margin-top: 2em;
-    display: flex;
-    justify-content: center;
-  }
-
-  .trustpilot-rating {
-    margin-left: 0.5em;
-    height: 20px;
-  }
-
-  .trustpilot-rating-number {
-    margin-left: 0.25em;
-    font-size: 1em;
-  }
-
-  .trustpilot-rating-text {
-    font-size: 0.7em;
-  }
-
-  .trustpilot-reviews {
-    width: 240px;
-  }
-
-  .page-container {
-    display: inline;
-  }
+#our-mission-values-2 h2 {
+  padding-bottom: 0.5em;
 }
 
-@media screen and (max-width: 470px) {
-  .main-text-container {
-    margin-top: 6em;
-  }
+/* ========= MISSION STATEMENT =========== */
 
-  .left-content {
-    height: 30%;
-    justify-content: center;
-  }
-
-  .right-content {
-    padding: 10em 2em 2em 2em;
-    height: 100vh;
-  }
-
-  .descriptive-content-container {
-    height: 125vh;
-  }
-
-  .main-subtext {
-    font-size: 1em;
-    line-height: 20px;
-    margin: 0;
-  }
+#our-mission-statement {
+  width: 100%;
+  padding: 8em 3em;
+  display: flex;
+  justify-content: center;
+  line-height: 2em;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: white;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (-webkit-device-pixel-ratio: 2) {
-  .main-text-container {
-    margin-top: 90px;
-    letter-spacing: 2px;
-  }
+#our-mission-statement h1 {
+  font-size: 36px !important;
+}
+
+#our-mission-statement h2 {
+  max-width: 900px;
+  width: 90vw;
+  font-size: 1.5em;
 }

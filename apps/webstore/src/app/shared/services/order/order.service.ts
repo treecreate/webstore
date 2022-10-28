@@ -24,6 +24,10 @@ export class OrderService {
     return this.http.get<IOrder[]>(`${env.apiUrl}/orders/me`);
   }
 
+  public getPlantedTreesTotal(): Observable<{ plantedTrees: number }> {
+    return this.http.get<{ plantedTrees: number }>(`${env.apiUrl}/orders/planted-trees`);
+  }
+
   /**
    * Send custom order information to the backend for processing
    * @param params custom order information
@@ -38,5 +42,14 @@ export class OrderService {
       formData.append('images', file);
     });
     return this.http.post<void>(`${env.apiUrl}/orders/custom`, formData);
+  }
+
+  /**
+   * Get the payment link associated with the given order.
+   * @param orderId the id of the order.
+   * @returns the url.
+   */
+  public getPaymentLink(orderId: string): Observable<{ url: string }> {
+    return this.http.get<{ url: string }>(`${env.apiUrl}/orders/${orderId}/link`);
   }
 }

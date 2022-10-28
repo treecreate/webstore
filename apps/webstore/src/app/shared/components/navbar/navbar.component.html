@@ -52,20 +52,10 @@
                     aria-labelledby="dropdownBasic"
                     #languageChange
                 >
-                    <a
-                        ngbDropdownItem
-                        (click)="changeLocale('en')"
-                        href="/{{ localeCode }}/"
-                        data-cy="navbar-localization-en"
-                        i18n="@@english"
+                    <a ngbDropdownItem (click)="changeLocale('en')" data-cy="navbar-localization-en" i18n="@@english"
                         >English</a
                     >
-                    <a
-                        ngbDropdownItem
-                        (click)="changeLocale('da')"
-                        href="/"
-                        data-cy="navbar-localization-dk"
-                        i18n="@@danish"
+                    <a ngbDropdownItem (click)="changeLocale('da')" data-cy="navbar-localization-dk" i18n="@@danish"
                         >Danish</a
                     >
                 </div>
@@ -91,6 +81,11 @@
                     <a class="nav-link waves-light" routerLink="/" (click)="autoCollapse()">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link waves-light" routerLink="/about-us" (click)="autoCollapse()" i18n="@@about-us"
+                        >About Us</a
+                    >
+                </li>
+                <li class="nav-item">
                     <a
                         class="nav-link waves-light"
                         routerLink="/products"
@@ -103,17 +98,6 @@
                 <li class="nav-item" *ngIf="!isLoggedIn">
                     <a class="nav-link waves-light" routerLink="/login" (click)="autoCollapse()" i18n="@@login"
                         >Log in</a
-                    >
-                </li>
-
-                <li class="nav-item show-on-mobile">
-                    <a
-                        class="nav-link waves-light"
-                        *ngIf="isLoggedIn"
-                        routerLink="/collection"
-                        (click)="autoCollapse()"
-                        i18n="@@collection"
-                        >Collection</a
                     >
                 </li>
                 <li class="nav-item show-on-mobile">
@@ -166,17 +150,11 @@
                         <a
                             ngbDropdownItem
                             (click)="changeLocale('en')"
-                            href="/{{ localeCode }}/"
                             data-cy="navbar-localization-en"
                             i18n="@@english"
                             >English</a
                         >
-                        <a
-                            ngbDropdownItem
-                            (click)="changeLocale('da')"
-                            href="/"
-                            data-cy="navbar-localization-dk"
-                            i18n="@@danish"
+                        <a ngbDropdownItem (click)="changeLocale('da')" data-cy="navbar-localization-dk" i18n="@@danish"
                             >Danish</a
                         >
                     </div>
@@ -201,9 +179,6 @@
                         >
                             <a ngbDropdownItem routerLink="/profile" (click)="scrollTop()" i18n="@@account-info"
                                 >Account info</a
-                            >
-                            <a ngbDropdownItem routerLink="/collection" (click)="scrollTop()" i18n="@@collection"
-                                >Collection</a
                             >
                             <a ngbDropdownItem routerLink="/orders" (click)="scrollTop()" i18n="@@orders">Orders</a>
                             <a ngbDropdownItem (click)="logout(); scrollTop()" i18n="@@logout">Log Out</a>

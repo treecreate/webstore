@@ -1681,7 +1681,7 @@ const ancestors: ITemplateFamilyTree = {
     backgroundTreeDesign: TreeDesignEnum.tree2,
     boxSize: 17,
     banner: {
-      text: 'Stamtræet',
+      text: 'Familietræet',
       style: 'first',
     },
     boxes: [

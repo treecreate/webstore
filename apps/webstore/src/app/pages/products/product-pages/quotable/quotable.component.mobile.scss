@@ -6,18 +6,14 @@
 
 @media screen and (max-width: 640px) {
   .design-screen {
-    width: 100vw;
-    height: 100vw;
+    width: 95vw;
+    height: 95vw;
   }
   .product-section {
     min-height: 88vh;
     padding-top: 70px;
   }
-}
-
-@media screen and (max-width: 400px) {
-  .design-screen {
-    width: 100vw;
-    height: 100vw;
+  .back-container {
+    padding-left: 10px;
   }
 }

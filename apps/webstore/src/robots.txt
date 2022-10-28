@@ -2,7 +2,9 @@ User-agent: *
 Disallow: /login
 Disallow: /signup
 Disallow: /profile
+Disallow: /account
 Disallow: /collection
 Disallow: /orders
 Disallow: /basket
 Disallow: /checkout
+Disallow: /404

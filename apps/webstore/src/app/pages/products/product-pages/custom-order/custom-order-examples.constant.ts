@@ -6,13 +6,13 @@ export const customOrderExamples = [
     descriptionDk:
       'Et unik plade med Penneos logo på, kombineret med Nasdaq navnet. Lavet i en fejring af at blive en del af Nasdaq-indexet.',
     price: 700,
-    altText: 'Penneos og nasdaq logo mash til et firma event',
+    altText: "Penneo's og nasdaq logo mash til et firma event",
     imgSrc: '/assets/img/custom-order-example/custom-order-img-2.png',
   },
   {
     customer: 'We Do Agency',
     descriptionEn: '4 unique prices at a BMW event, where the prises gifted to the winners.',
-    descriptionDk: '4 personlige præmier til et BMW event, hvor prierne blev uddelt til vinderne. ',
+    descriptionDk: '4 personlige præmier unikt skåret til et BMW event, hvor prierne blev uddelt til vinderne. ',
     price: 1400,
     altText: 'En serie af præmier for BMW',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-3.png',
@@ -20,7 +20,7 @@ export const customOrderExamples = [
   {
     customer: 'Jakobsen',
     descriptionEn: "A beautiful display in the memory of the family's golden retriever named Bella.",
-    descriptionDk: 'En flot tavle i minde om familiens golden retriever ved navn Bella.',
+    descriptionDk: 'En flot tavle, efter deres helt eget design, i minde om familiens golden retriever, Bella.',
     price: 400,
     altText: 'En hundetavle med familiens og hundens navn',
     imgSrc: '/assets/img/custom-order-example/custom-order-img-1.png',
@@ -49,6 +49,6 @@ export const customOrderExamples = [
       'En charmerende, bæredygtig og smuk nøglering i træ i høj kvalitet. Helt perfekt til din virksomheds medarbejdere.',
     price: 400,
     altText: 'Bæredygtig nøglering ',
-    imgSrc: '/assets/img/description2.jpg',
+    imgSrc: '/assets/img/component-images/custom-image.jpg',
   },
 ];

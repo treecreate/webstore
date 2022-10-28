@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserRoles } from '@models';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
-import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
@@ -23,6 +23,7 @@ import { AuthGuard } from './shared/guards/auth/auth.guard';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', redirectTo: '' }, // Handle legacy /home route
+  { path: 'about-us', component: AboutUsComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'resetPassword/:token',
@@ -45,24 +46,20 @@ const routes: Routes = [
     data: { roles: [UserRoles.user] },
   },
   {
-    path: 'collection',
-    component: CollectionComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [UserRoles.user] },
-  },
-  {
     path: 'orders',
     component: OrdersComponent,
     canActivate: [AuthGuard],
     data: { roles: [UserRoles.user] },
   },
+  { path: 'products', pathMatch: 'full', component: ProductsComponent },
   {
     path: 'products',
-    component: ProductsComponent,
+    children: [
+      { path: 'family-tree', component: FamilyTreeComponent },
+      { path: 'custom-order', component: CustomOrderComponent },
+      { path: 'quotable', component: QuotableComponent },
+    ],
   },
-  { path: 'products/family-tree', component: FamilyTreeComponent },
-  { path: 'products/quotable', component: QuotableComponent },
-  { path: 'products/custom-order', component: CustomOrderComponent },
   {
     path: 'payment',
     children: [

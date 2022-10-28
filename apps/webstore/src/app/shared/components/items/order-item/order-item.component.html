@@ -40,6 +40,17 @@
             </div>
         </div>
     </div>
+    <div class="line" *ngIf="shouldShowPaymentLink">
+        <a *ngIf="!isPaymentLinkLoading" href="{{ paymentLink }}">
+            <button
+                class="tc-button-square button-placement"
+                data-cy="order-pay-now-button"
+                i18n="@@order-complete-payment"
+            >
+                Complete the payment
+            </button>
+        </a>
+    </div>
     <div class="title" i18n="@@items">Items</div>
     <hr />
     <div class="order-items-container">
@@ -49,16 +60,10 @@
                     <div class="section-row">
                         <div class="line" [ngSwitch]="item.design.designType">
                             <span class="sub-title" i18n="@@title">Title </span>
-                            <span
-                                *ngSwitchCase="designTypeEnum.familyTree"
-                                data-cy="order-item-design-item-title"
-                                i18n="@@design-type-family-tree"
+                            <span *ngSwitchCase="designTypeEnum.familyTree" data-cy="order-item-design-item-title"
                                 >Family Tree</span
                             >
-                            <span
-                                *ngSwitchCase="designTypeEnum.quotable"
-                                data-cy="order-item-design-item-title"
-                                i18n="@@design-type-quotable"
+                            <span *ngSwitchCase="designTypeEnum.quotable" data-cy="order-item-design-item-title"
                                 >Quotable</span
                             >
                         </div>

@@ -6,6 +6,7 @@ import { LocalStorageService } from '@local-storage';
 import { CookieStatus, LocaleType, LocalStorageVars } from '@models';
 import { environment } from '../environments/environment';
 import { ErrorlogsService } from './shared/services/errorlog/errorlog.service';
+import { EventsService } from './shared/services/events/events.service';
 
 // Google analytics-specific syntax
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -23,33 +24,17 @@ export class AppComponent {
   constructor(
     public router: Router,
     private localStorageService: LocalStorageService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Setup localization language
-    this.router.events.subscribe(async () => {
-      const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
-      // Don't apply url lang path param logic on localhost aka local development
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return;
+    this.router.events.subscribe(async (val) => {
+      if (val instanceof NavigationEnd) {
+        this.updateLocale();
       }
-      // if the website is deployed the url has locale in it and has to be adjusted to match local storage
-      if (window.location.href.includes('/en-US') && locale === LocaleType.da) {
-        // English locale while the user has selected Danish
-        console.warn('Redirecting you to your chosen locale: DA');
-        window.location.href = window.location.href.replace('/en-US', '');
-      } else if (!window.location.href.includes('/en-US') && locale === LocaleType.en) {
-        // Danish locale while the user has selected English
-        console.warn('Redirecting you to your chosen locale: en-US');
-        window.location.href = window.location.origin + '/en-US' + window.location.pathname + window.location.search;
-      } else if (window.location.href.includes('/da')) {
-        // Legacy URL
-        console.warn('Redirecting you to our updated locale');
-        window.location.href = window.location.href.replace('/da', '');
-      } else if (window.location.href.includes('/dk')) {
-        // Legacy URL
-        console.warn('Redirecting you to our updated locale');
-        window.location.href = window.location.href.replace('/dk', '');
-      }
+    });
+    this.localStorageService.getItem(LocalStorageVars.locale).subscribe(async () => {
+      this.updateLocale();
     });
 
     // Third party cookies and tracking
@@ -63,6 +48,13 @@ export class AppComponent {
       }
     });
 
+    // Log every page change
+    this.router.events.subscribe(async (val) => {
+      if (val instanceof NavigationEnd) {
+        this.eventsService.create('webstore.page-viewed');
+      }
+    });
+
     // Let prerender.io know the website has loaded and it can cached
     setTimeout(() => {
       window['prerenderReady'] = true;
@@ -72,6 +64,36 @@ export class AppComponent {
     setTimeout(() => {
       this.showCookiePrompt = true;
     }, 2000);
+  }
+
+  /**
+   * Update the url locale information to match users preference (stored in local storage)
+   * @returns
+   */
+  updateLocale() {
+    const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
+    // Don't apply url lang path param logic on localhost aka local development
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return;
+    }
+    // if the website is deployed the url has locale in it and has to be adjusted to match local storage
+    if (window.location.href.includes('/en-US') && locale === LocaleType.da) {
+      // English locale while the user has selected Danish
+      console.warn('Redirecting you to your chosen locale: DA');
+      window.location.href = window.location.href.replace('/en-US', '');
+    } else if (!window.location.href.includes('/en-US') && locale === LocaleType.en) {
+      // Danish locale while the user has selected English
+      console.warn('Redirecting you to your chosen locale: en-US');
+      window.location.href = window.location.origin + '/en-US' + window.location.pathname + window.location.search;
+    } else if (window.location.href.includes('/da')) {
+      // Legacy URL
+      console.warn('Redirecting you to our updated locale');
+      window.location.href = window.location.href.replace('/da', '');
+    } else if (window.location.href.includes('/dk')) {
+      // Legacy URL
+      console.warn('Redirecting you to our updated locale');
+      window.location.href = window.location.href.replace('/dk', '');
+    }
   }
 
   initGoogleAnalytics() {
@@ -107,10 +129,14 @@ export class AppComponent {
     });
   }
 
+  isProductsPage(): boolean {
+    return this.router.url.includes('/products/');
+  }
+
   initMetaPixel() {
-    let metaPixelId = '1050174159116278';
+    let metaPixelId = '4522081454495074';
     if (environment.production) {
-      metaPixelId = '1050174159116278';
+      metaPixelId = '4522081454495074';
     } else {
       metaPixelId = '2714892398657269';
     }

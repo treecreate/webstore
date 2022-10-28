@@ -1,13 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DiscountType, IDiscount } from '@interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Sort } from '@angular/material/sort';
+import { DiscountType, IDiscount, ItemInfo } from '@interfaces';
 import { ClipboardService } from 'ngx-clipboard';
 import { CreateDiscountDialogComponent } from '../../components/create-discount-dialog/create-discount-dialog.component';
 import { DiscountsService } from '../../services/discounts/discounts.service';
-import { Sort } from '@angular/material/sort';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 enum DiscountSortEnum {
   createdAt = 'createdAt',
@@ -47,8 +47,10 @@ export class DiscountsComponent implements OnInit {
   showActive = true;
   showAsc = true;
   showAmount = true;
+  showFuture = true;
   showPercent = true;
   sortSelectForm: UntypedFormGroup;
+  discountPageInfo: ItemInfo[] = [];
 
   constructor(
     private discountsService: DiscountsService,
@@ -99,6 +101,7 @@ export class DiscountsComponent implements OnInit {
         this.discounts = discounts;
         this.discountDisplayList = discounts;
         this.updateList();
+        this.countDiscounts();
       },
     });
   }
@@ -129,10 +132,17 @@ export class DiscountsComponent implements OnInit {
         this.discounts.filter((discount) => this.getDiscountState(discount) === DiscountState.active)
       );
     }
-    // Check to display default
+    // Check to display inactive
     if (this.showInactive) {
       this.discountDisplayList = this.discountDisplayList.concat(
         this.discounts.filter((discount) => this.getDiscountState(discount) !== DiscountState.active)
+      );
+    }
+
+    // Check to display future
+    if (this.showFuture) {
+      this.discountDisplayList = this.discountDisplayList.concat(
+        this.discounts.filter((discount) => this.getDiscountState(discount) === DiscountState.future)
       );
     }
 
@@ -223,14 +233,14 @@ export class DiscountsComponent implements OnInit {
    */
   getDiscountState(discount: IDiscount): string {
     if (discount.startsAt && discount.expiresAt) {
-      // Check if is active
-      if (!discount.isEnabled) return DiscountState.disabled;
-      // Check if is in the future
-      if (this.isInTheFuture(discount.startsAt)) return DiscountState.future;
-      // Check if it expired
-      if (this.hasExpired(discount.expiresAt)) return DiscountState.expired;
       // Check if it has uses left
       if (discount.remainingUses < 1) return DiscountState.runOut;
+      // Check if is active
+      if (!discount.isEnabled) return DiscountState.disabled;
+      // Check if it expired
+      if (this.hasExpired(discount.expiresAt)) return DiscountState.expired;
+      // Check if is in the future
+      if (this.isInTheFuture(discount.startsAt)) return DiscountState.future;
     }
     return DiscountState.active;
   }
@@ -265,5 +275,65 @@ export class DiscountsComponent implements OnInit {
           location.reload();
         },
       });
+  }
+
+  countDiscounts() {
+    const discountCount: { [key: string]: number } = {
+      future: 0,
+      expired: 0,
+      active: 0,
+      runOut: 0,
+      disabled: 0,
+    };
+
+    for (const discount of this.discounts) {
+      switch (this.getDiscountState(discount)) {
+        case 'Future':
+          discountCount.future++;
+          break;
+        case 'Expired':
+          discountCount.expired++;
+          break;
+        case 'Active':
+          discountCount.active++;
+          break;
+        case 'RunOut':
+          discountCount.runOut++;
+          break;
+        case 'Disabled':
+          discountCount.disabled++;
+          break;
+        default:
+          break;
+      }
+    }
+
+    this.discountPageInfo = [
+      {
+        amount: discountCount.active,
+        description: 'Active',
+        color: 'green',
+      },
+      {
+        amount: discountCount.future,
+        description: 'Future',
+        color: 'green',
+      },
+      {
+        amount: discountCount.runOut,
+        description: 'RunOut',
+        color: 'grey',
+      },
+      {
+        amount: discountCount.expired,
+        description: 'Expired',
+        color: 'grey',
+      },
+      {
+        amount: discountCount.disabled,
+        description: 'Disabled',
+        color: 'red',
+      },
+    ];
   }
 }

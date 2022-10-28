@@ -1,0 +1,263 @@
+.page-container {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  color: var(--second-action-color) !important;
+  text-decoration: none;
+  margin-right: 10px;
+  transition: 0.5s;
+  border-bottom: 1px solid transparent;
+}
+
+.link:hover {
+  border-bottom: 1px solid var(--second-action-color);
+}
+
+.section-container:first-of-type {
+  margin-top: 100px;
+}
+
+.section-container:last-of-type {
+  margin-bottom: 5em;
+}
+
+.section-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-width: 800px;
+  margin-top: 50px;
+  max-width: 1000px;
+  margin: 5em 2em;
+}
+
+.so-me-buttons {
+  margin-top: 1em;
+}
+
+.so-me-icon {
+  margin: 0 0.5em;
+  width: 35px !important;
+  height: 35px;
+  transition: 0.5s;
+}
+
+.so-me-icon:hover {
+  transform: scale(1.1);
+}
+
+h1 {
+  margin-bottom: 0.5em;
+}
+
+/* ======= OUR STORY ====== */
+
+#our-story {
+  background-color: #f9e9d8;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.125);
+}
+
+#our-story img,
+#modernizing-homes img,
+#own-design img {
+  width: 400px;
+}
+
+#our-story .section-content-wrapper {
+  padding: 2em;
+  line-height: 2em;
+}
+
+/* ====== MODERNIZING ========= */
+
+#modernizing-homes {
+  flex-direction: row-reverse;
+}
+
+#modernizing-homes img {
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.25);
+}
+
+#modernizing-homes .section-content-wrapper {
+  padding: 0em 4em 0em 0em;
+  line-height: 2em;
+}
+
+#modernizing-homes .main-text {
+  margin-bottom: 2em;
+}
+
+#moderning-homes-text-2-container {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+#moderning-homes-text-2-container img {
+  width: 150px;
+  margin-right: 2em;
+  box-shadow: none !important;
+}
+
+/* ========== YOUR DESIGN =========== */
+
+#own-design .section-content-wrapper {
+  padding: 0em 0em 0em 4em;
+  line-height: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+#own-design img {
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.25);
+}
+
+#background-svg {
+  position: absolute;
+  width: 100vw !important;
+  min-width: 1250px;
+  z-index: -1;
+  box-shadow: none !important;
+}
+
+#own-design-info-box-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.own-design-info-box {
+  background-color: white;
+  padding: 1.3em;
+  font-size: 0.75em;
+  margin: 0.5em;
+  width: 125px;
+  height: 125px;
+  text-align: center;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.075);
+}
+
+.own-design-info-box-header {
+  font-size: 3em;
+}
+
+@media screen and (max-width: 1000px) {
+  .own-design-info-box {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+/* ======= NEWSLETTER ========= */
+
+#newsletter-signup {
+  display: flex;
+  align-items: center;
+}
+
+#newsletter-signup h1 {
+  width: 500px;
+  text-align: center;
+  padding-bottom: 0.5em;
+}
+
+#newsletter-signup .section-content-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#newsletter-signup-input {
+  height: 40px;
+  border: none;
+  padding-left: 10px;
+  width: 500px;
+  border: 1px solid var(--second-action-color);
+  transition: 0.5s;
+  margin-bottom: 5px;
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.075);
+}
+
+#newsletter-signup-input:focus {
+  outline: none;
+}
+
+#newsletter-signup .tc-button-25 {
+  border-radius: 0;
+  height: 40px;
+  min-width: 150px;
+}
+
+#newsletter-signup-form {
+  display: flex;
+  justify-content: center;
+}
+
+/* ====== Team Section ====== */
+
+#team {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-height: none;
+}
+
+#team .section-container-wrapper {
+  padding: 1em;
+  line-height: 2em;
+}
+
+.team-slogans-container img {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.team-slogans-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 0 20px 0;
+}
+
+.members {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.member-wrapper {
+  margin: 1em;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.15));
+  padding: 1em;
+  background-color: white;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.member-wrapper h3 {
+  font-size: 1.5em;
+}
+
+.member-wrapper img {
+  margin-bottom: 1em;
+  object-fit: cover;
+  height: 268px;
+}
+
+.member-info a {
+  margin-right: 1em;
+}
