@@ -73,7 +73,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   ngOnInit(): void {
-    // For depricated designs that dont have a quotableType yet
+    // For deprecated designs that dont have a quotableType yet
     // If quotable type is not set, find the frame from the list of all quotable frames
     if (this.design.quotableType === undefined && this.quotableType === undefined) {
       const selectedFrame = quotableFrames.find((frame) => frame.src === this.getDesignSrc());
@@ -81,7 +81,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
       this.design.quotableType = this.quotableType = quotableFrames[frameIndex].productType[0];
     }
 
-    // For depricated designs that dont have a vertical placement
+    // For deprecated designs that dont have a vertical placement
     // If not set, set to center (50)
     if (this.design.verticalPlacement === undefined) {
       this.design.verticalPlacement = 50;
@@ -163,7 +163,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
     const isDeprecatedSrc =
       !this.design.designSrc.includes('frame0-no-design.svg') &&
       this.design.designSrc.includes('assets/quotable/frame-design/frame');
-    // for depricated src links
+    // for deprecated src links
     if (isDeprecatedSrc) {
       return this.design.designSrc.replace('assets/quotable/frame-design/', 'assets/quotable/frame-design/quotable/');
     } else {
@@ -285,7 +285,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   resizeText() {
-    // If undefined (depricated) set to true and resize input
+    // If undefined (deprecated) set to true and resize input
     if (this.design.showText === undefined) {
       this.design.showText = true;
       // If show text is false, dont resize
@@ -299,7 +299,7 @@ export class QuotableDesignComponent implements AfterViewInit, OnDestroy, OnInit
   }
 
   resizeTitle() {
-    // If undefined (depricated) set to false and dont resize input
+    // If undefined (deprecated) set to false and dont resize input
     if (this.design.showTitle === undefined) {
       this.design.showTitle = false;
       return;

@@ -35,6 +35,14 @@
   font-family: 'knile';
   src: local('knile'), url(./assets/fonts/knile-medium-webfont.ttf) format('truetype');
 }
+@font-face {
+  font-family: 'unna';
+  src: local('unna'), url(./assets/fonts/Unna-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'unna-bold';
+  src: local('unna-bold'), url(./assets/fonts/Unna-Bold.ttf) format('truetype');
+}
 
 :root {
   --green-color: #85a840;

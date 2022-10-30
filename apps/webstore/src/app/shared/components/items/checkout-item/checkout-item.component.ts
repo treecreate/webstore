@@ -45,6 +45,8 @@ export class CheckoutItemComponent implements OnInit, AfterContentInit {
     switch (this.item.design.designType) {
       case DesignTypeEnum.familyTree:
         return this.isEnglish() ? 'Family tree' : 'Stamtræ';
+      case DesignTypeEnum.petSign:
+        return this.isEnglish() ? 'Dog sign' : 'Hundeskilt';
       case DesignTypeEnum.quotable:
       default:
         switch ((this.item.design.designProperties as IQoutable).quotableType) {
@@ -78,7 +80,8 @@ export class CheckoutItemComponent implements OnInit, AfterContentInit {
         }
         break;
       }
-      case DesignTypeEnum.quotable: {
+      case DesignTypeEnum.quotable:
+      case DesignTypeEnum.petSign: {
         switch (dimension) {
           case 'SMALL':
             return '15x15cm';

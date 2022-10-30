@@ -314,7 +314,7 @@ export class QuotableComponent implements OnInit {
       this.eventsService.create(`webstore.quotable.design-updated.local-storage`);
       return;
     }
-    // Don't save the quotable to the collection/database. Used in combindation with the addToBasketModal
+    // Don't save the quotable to the collection/database. Used in combination with the addToBasketModal
     if (!persist) {
       return;
     }

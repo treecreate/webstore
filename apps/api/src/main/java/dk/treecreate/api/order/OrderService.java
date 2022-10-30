@@ -231,6 +231,19 @@ public class OrderService {
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "Provided design (" + designDimension + ") dimension data is not valid");
         }
+      case PET_SIGN:
+        switch (designDimension) {
+          case SMALL:
+            return new BigDecimal(299);
+          case MEDIUM:
+            return new BigDecimal(399);
+          case LARGE:
+            return new BigDecimal(499);
+          default:
+            throw new ResponseStatusException(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "Provided design (" + designDimension + ") dimension data is not valid");
+        }
       default:
         throw new ResponseStatusException(
             HttpStatus.INTERNAL_SERVER_ERROR,

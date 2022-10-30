@@ -990,7 +990,7 @@
         <target> Shop videre </target>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/go-to-basket-modal/go-to-basket-modal.component.html</context>
-          <context context-type="linenumber">31,33</context>
+          <context context-type="linenumber">32,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="profile" datatype="html">
@@ -1018,7 +1018,7 @@
         <target>Gå til produktsiden og begynd dit første design!</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/orders/orders.component.html</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="start-designing" datatype="html">
@@ -1026,7 +1026,7 @@
         <target>Start dit design</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/orders/orders.component.html</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login" datatype="html">
@@ -1602,23 +1602,27 @@
         <target>Tilbage</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/auth/basket/basket.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/issues/page-not-found/page-not-found.component.html</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">26,28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">9</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/pet-sign/pet-sign.component.html</context>
+          <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home" datatype="html">
@@ -1994,11 +1998,15 @@
         <target>Gem</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">167</context>
+          <context context-type="linenumber">179</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/pet-sign/pet-sign.component.html</context>
+          <context context-type="linenumber">122</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">156</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reset" datatype="html">
@@ -2006,11 +2014,15 @@
         <target>Nulstil</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
-          <context context-type="linenumber">171</context>
+          <context context-type="linenumber">186</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/pet-sign/pet-sign.component.html</context>
+          <context context-type="linenumber">126</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
       <trans-unit id="add-to-basket-tooltip" datatype="html">
@@ -2033,8 +2045,16 @@
         <source>Add</source>
         <target>Tilføj</target> 
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">263</context>
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/family-tree/family-tree.component.html</context>
+          <context context-type="linenumber">211</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/pet-sign/pet-sign.component.html</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/quotable/quotable.component.html</context>
+          <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
       <trans-unit id="suggestion-to-use-pc" datatype="html">
@@ -2051,14 +2071,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
           <context context-type="linenumber">369,372</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="reset" datatype="html">
-        <source>Reset</source>
-        <target>Nulstil</target> 
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/product/product.component.html</context>
-          <context context-type="linenumber">278</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cant-be-updated" datatype="html">
@@ -2233,12 +2245,8 @@
         <source>Add to basket</source>
         <target>Læg i kurven</target> 
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/shared/components/items/design-item/design-item.component.html</context>
-          <context context-type="linenumber">8,9</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">apps/webstore/src/app/shared/components/modals/add-to-basket-modal/add-to-basket-modal.component.html</context>
-          <context context-type="linenumber">120,121</context>
+          <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit" datatype="html">
