@@ -1,7 +1,9 @@
 <main class="cancelled-container">
     <div class="cancelled-content add-transition">
         <div class="back-container">
-            <a routerLink="/" class="back"> < <span i18n="@@back-to-home">Back to home page </span> </a>
+            <a (click)="eventsService.create('webstore.payment-cancelled.clicked.go-home')" routerLink="/" class="back">
+                < <span i18n="@@back-to-home">Back to home page </span>
+            </a>
         </div>
 
         <div class="heading cancelled-thank-you add-transition">
@@ -18,8 +20,19 @@
             <br />
             <a href="mailto:info@treecreate.dk"> <b>E-mail</b></a>
             -
-            <a href="http://facebook.com/treecreate.dk"> <b>Facebook </b></a> -
-            <a href="http://instagram.com/treecreate.dk"> <b>Instagram</b></a>
+            <a
+                (click)="eventsService.create('webstore.payment-cancelled.clicked.facebook')"
+                href="http://facebook.com/treecreate.dk"
+            >
+                <b>Facebook </b></a
+            >
+            -
+            <a
+                (click)="eventsService.create('webstore.payment-cancelled.clicked.instagram')"
+                href="http://instagram.com/treecreate.dk"
+            >
+                <b>Instagram</b></a
+            >
         </div>
     </div>
 </main>

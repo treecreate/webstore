@@ -33,7 +33,7 @@ export class FooterComponent implements OnInit {
     private authService: AuthService,
     private newsletterService: NewsletterService,
     private toastService: ToastService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Listen to changes to login status

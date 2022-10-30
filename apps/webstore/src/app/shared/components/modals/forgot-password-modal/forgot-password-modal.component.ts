@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum } from '@interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
@@ -25,10 +24,9 @@ export class ForgotPasswordModalComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private router: Router,
     private toastService: ToastService,
     private userService: UserService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 

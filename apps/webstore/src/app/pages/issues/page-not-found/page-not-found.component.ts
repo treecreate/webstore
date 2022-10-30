@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EventsService } from '../../../shared/services/events/events.service';
 
 @Component({
   selector: 'webstore-page-not-found',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss'],
 })
 export class PageNotFoundComponent {
-  constructor() {}
+  constructor(public eventsService: EventsService) {}
 }
