@@ -16,6 +16,7 @@ import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-can
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
 import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
+import { PetSignComponent } from './pages/products/product-pages/pet-sign/pet-sign.component';
 import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
@@ -58,6 +59,7 @@ const routes: Routes = [
       { path: 'family-tree', component: FamilyTreeComponent },
       { path: 'custom-order', component: CustomOrderComponent },
       { path: 'quotable', component: QuotableComponent },
+      { path: 'pet-sign', component: PetSignComponent },
     ],
   },
   {

@@ -1,0 +1,40 @@
+.product-section {
+  min-height: 96vh;
+  padding-top: 50px;
+  text-align: center;
+  margin: auto;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.hide {
+  display: none;
+}
+
+.design-screen {
+  height: 80vh;
+  width: 80vh;
+}
+
+.back-container {
+  padding-left: 0 !important;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.opacity-change {
+  opacity: 0;
+}
+
+.opacity-change-spinner {
+  display: block;
+  height: 0;
+  position: relative;
+  top: -51%;
+}
