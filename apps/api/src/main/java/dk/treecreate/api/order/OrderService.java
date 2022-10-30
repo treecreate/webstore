@@ -21,6 +21,7 @@ import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.OrderStatus;
 import dk.treecreate.api.order.OrderController;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
+import io.sentry.Sentry;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -306,20 +307,23 @@ public class OrderService {
     return initialOrders;
   }
 
-  @Scheduled(cron = "* 1 * * * ?")
+  @Scheduled(cron = "1 * * * * ?")
   public void sendScheduledPaymentLink() {
     List<Order> orderList = this.getAllUnpaidOrders();
     Date now = new Date(System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(5));
-    try {
-        for(Order order: orderList) {
-          if(order.getCreatedAt().after(now)){
+      for(Order order: orderList) {   
+        try {
+          if (now.after(order.getCreatedAt())){
             this.mailService.sendOrderPaymentReminderEmail(order);
             order.setPaymentReminderSent(true);
+            orderRepository.save(order);
+            LOGGER.info("Payment reminder email has been sent to " + order.getOrderId());
           }
+        } catch (Exception e) {
+          LOGGER.error("Failed to process scheduled payment link to " + order.getContactInfo().getEmail(), e);
+          Sentry.captureException(e);
         }
-    } catch (Exception e) {
-      LOGGER.error("Failed to process scheduled payment link", e);
-    }
+    } 
   }
 
   public Order setupOrderFromCreateRequest(CreateOrderRequest createOrderRequest) {
