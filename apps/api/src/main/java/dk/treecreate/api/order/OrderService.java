@@ -307,7 +307,7 @@ public class OrderService {
     return initialOrders;
   }
 
-  @Scheduled(cron = "1 * * * * ?")
+  @Scheduled(cron = "* 1 * * * ?")
   public void sendScheduledPaymentLink() {
     List<Order> orderList = this.getAllUnpaidOrders();
     Date now = new Date(System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(5));
