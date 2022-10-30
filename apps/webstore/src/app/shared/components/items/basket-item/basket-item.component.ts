@@ -94,7 +94,7 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
       case DesignTypeEnum.familyTree:
         return this.isEnglish() ? 'Family tree' : 'Stamtræ';
       case DesignTypeEnum.petSign:
-        return this.isEnglish() ? 'Pet sign' : 'Kæledyrs skilt';
+        return this.isEnglish() ? 'Dog sign' : 'Hundeskilt';
       case DesignTypeEnum.quotable:
       default:
         switch ((this.item.design.designProperties as IQoutable).quotableType) {
@@ -264,17 +264,7 @@ export class BasketItemComponent implements OnInit, AfterContentInit {
         }
         break;
       }
-      case DesignTypeEnum.quotable: {
-        switch (dimension) {
-          case 'SMALL':
-            return '15x15cm';
-          case 'MEDIUM':
-            return '20x20cm';
-          case 'LARGE':
-            return '25x25cm';
-        }
-        break;
-      }
+      case DesignTypeEnum.quotable:
       case DesignTypeEnum.petSign: {
         switch (dimension) {
           case 'SMALL':

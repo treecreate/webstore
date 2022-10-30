@@ -202,18 +202,8 @@ export class AddToBasketModalComponent implements OnInit, OnChanges {
         }
         break;
       }
+      case DesignTypeEnum.petSign:
       case DesignTypeEnum.quotable: {
-        switch (dimension) {
-          case 'SMALL':
-            return '15x15cm';
-          case 'MEDIUM':
-            return '20x20cm';
-          case 'LARGE':
-            return '25x25cm';
-        }
-        break;
-      }
-      case DesignTypeEnum.petSign: {
         switch (dimension) {
           case 'SMALL':
             return '15x15cm';

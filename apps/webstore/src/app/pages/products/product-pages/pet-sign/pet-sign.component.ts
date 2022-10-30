@@ -109,7 +109,8 @@ export class PetSignComponent implements OnInit {
     this.metaTitle.setTitle('Hunde elskeren - Den perfekte gave');
     this.meta.updateTag({
       name: 'description',
-      content: 'Den perfekte gave til hunde elskeren. Et smult hunde skilt til at forevige minderne med menneskets bedste ven.',
+      content:
+        'Den perfekte gave til hunde elskeren. Et smult hunde skilt til at forevige minderne med menneskets bedste ven.',
     });
     this.meta.updateTag({
       name: 'keywords',
