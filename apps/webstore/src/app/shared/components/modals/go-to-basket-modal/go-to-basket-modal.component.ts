@@ -8,6 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
+import { EventsService } from '../../../services/events/events.service';
 import { TransactionItemService } from '../../../services/transaction-item/transaction-item.service';
 
 @Component({
@@ -29,7 +30,8 @@ export class GoToBasketModalComponent implements OnInit {
     private transactionItemService: TransactionItemService,
     private calculatePriceService: CalculatePriceService,
     private localStorageService: LocalStorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    public eventsService: EventsService
   ) {
     this.authUser$ = this.localStorageService.getItem<IAuthUser>(LocalStorageVars.authUser);
     this.authUser$.subscribe(() => {

@@ -1,5 +1,10 @@
 <main class="flex-container-signup">
-    <form (ngSubmit)="onSubmit()" name="signupForm" class="signup-form" [formGroup]="signupForm">
+    <form
+        (ngSubmit)="onSubmit(); eventsService.create('webstore.signup.clicked.signup')"
+        name="signupForm"
+        class="signup-form"
+        [formGroup]="signupForm"
+    >
         <h1 class="page-title" i18n="@@signup">Sign up</h1>
         <div class="tc-input-group field">
             <input
@@ -117,7 +122,12 @@
             </label>
             <div class="terms-and-conditions">
                 <span i18n="@@i-accept-terms">I accept terms and conditions</span
-                ><a class="TnC" (click)="showTermsOfUse()" i18n="@@read-here">Read here</a>
+                ><a
+                    class="TnC"
+                    (click)="showTermsOfUse(); eventsService.create('webstore.signup.clicked.read-tos')"
+                    i18n="@@read-here"
+                    >Read here</a
+                >
             </div>
         </div>
 
@@ -143,6 +153,7 @@
         </button>
 
         <button
+            (click)="eventsService.create('webstore.signup.clicked.login')"
             class="tc-button-100"
             type="button"
             routerLink="/login"

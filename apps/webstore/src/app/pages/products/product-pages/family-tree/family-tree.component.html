@@ -1,7 +1,12 @@
 <main class="product-section" [ngClass]="!isMutable ? 'flex-direction-column' : ''">
     <div class="design-screen">
         <div class="back-container">
-            <a onclick="history.back()" class="back add-transition" data-cy="view-only-back-button">
+            <a
+                (click)="eventsService.create('webstore.family-tree.clicked.back')"
+                onclick=" history.back()"
+                class="back add-transition"
+                data-cy="view-only-back-button"
+            >
                 < <span i18n="@@back">Back</span>
             </a>
         </div>
@@ -30,7 +35,11 @@
         *ngIf="isMutable"
         data-cy="product-options"
     >
-        <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
+        <div
+            class="blocker"
+            *ngIf="isMobileOptionOpen"
+            (click)="showOptions(); eventsService.create('webstore.family-tree.clicked.show-options.mobile-background')"
+        ></div>
         <menu [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
             <div class="option option-font-select">
                 <div class="option-title">
@@ -161,21 +170,30 @@
             <div class="option option-actions">
                 <button
                     class="btn-save-design tc-button-50"
-                    (click)="saveDesign({ persists: true })"
+                    (click)="
+                        saveDesign({ persists: true }); eventsService.create('webstore.family-tree.clicked.save-design')
+                    "
                     [disabled]="!isDesignValid"
                     data-cy="save-family-tree-button"
                 >
                     <span i18n="@@save">Save</span>
                     <img src="/assets/icons/save-icon.svg" class="option-icon" alt="Save icon" />
                 </button>
-                <button class="tc-button-50" (click)="clearDesignCanvas()">
+                <button
+                    class="tc-button-50"
+                    (click)="clearDesignCanvas(); eventsService.create('webstore.family-tree.clicked.reset')"
+                >
                     <span i18n="@@reset">Reset</span>
                     <img src="/assets/icons/reset-icon.svg" class="option-icon" alt="Reset icon" />
                 </button>
             </div>
 
             <div class="option">
-                <button class="tc-button-100" (click)="openTemplateModal()" data-cy="family-tree-template-button">
+                <button
+                    class="tc-button-100"
+                    (click)="openTemplateModal(); eventsService.create('webstore.family-tree.clicked.select-template')"
+                    data-cy="family-tree-template-button"
+                >
                     <span i18n="@@select-a-template">Select a template</span>
                     <img src="/assets/icons/template-icon.svg" class="option-icon" alt="Template" />
                 </button>
@@ -183,7 +201,10 @@
             <div class="option">
                 <button
                     class="tc-button-100 green"
-                    (click)="openAddToBasketModal()"
+                    (click)="
+                        openAddToBasketModal();
+                        eventsService.create('webstore.family-tree.clicked.add-to-basket.desktop')
+                    "
                     data-cy="add-family-tree-to-basket-button"
                     [disabled]="!isDesignValid"
                 >
@@ -197,21 +218,24 @@
 
 <div class="mobile-option-buttons-container" *ngIf="isMutable">
     <div class="mobile-options">
-        <button class="option-toggler tc-button-square green add-to-basket-specific" (click)="openAddToBasketModal()">
+        <button
+            class="option-toggler tc-button-square green add-to-basket-specific"
+            (click)="openAddToBasketModal(); eventsService.create('webstore.family-tree.clicked.add-to-basket.mobile')"
+        >
             <img src="/assets/icons/add-to-basket-icon.svg" alt="basket icon" />
         </button>
         <button
             class="option-toggler tc-button-square edit"
             data-cy="mobile-options-toggler"
             type="button"
-            (click)="showOptions()"
+            (click)="showOptions(); eventsService.create('webstore.family-tree.clicked.show-options.mobile')"
         >
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
         </button>
         <button
             class="toggle-box-options tc-button-square view"
             type="button"
-            (click)="toggleBoxOptions()"
+            (click)="toggleBoxOptions(); eventsService.create('webstore.family-tree.clicked.toggle-showing-options')"
             title="Hide/Show box options"
         >
             <img
@@ -224,7 +248,7 @@
         <button
             class="intro-modal-option tc-button-square"
             type="button"
-            (click)="openIntroModal()"
+            (click)="openIntroModal(); eventsService.create('webstore.family-tree.clicked.open-intro-modal')"
             title="Hide/Show box options"
             data-cy="family-tree-intro-modal-option-button"
         >

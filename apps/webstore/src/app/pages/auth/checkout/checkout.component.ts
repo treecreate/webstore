@@ -88,7 +88,7 @@ export class CheckoutComponent implements OnInit {
     private transactionItemService: TransactionItemService,
     private authService: AuthService,
     private orderService: OrderService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService,
     private toastService: ToastService
   ) {

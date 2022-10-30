@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Title, Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ErrorlogPriorityEnum, INewsletter } from '@interfaces';
 import { ToastService } from '../../shared/components/toast/toast-service';
 import { ErrorlogsService } from '../../shared/services/errorlog/errorlog.service';
@@ -23,7 +23,7 @@ export class AboutUsComponent implements OnInit {
     private newsletterService: NewsletterService,
     private ordersService: OrderService,
     private toastService: ToastService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService,
     private metaTitle: Title,
     private meta: Meta
