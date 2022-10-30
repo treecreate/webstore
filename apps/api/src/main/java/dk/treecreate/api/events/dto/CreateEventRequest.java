@@ -20,7 +20,7 @@ public class CreateEventRequest {
   private UUID userId;
 
   @NotBlank
-  @Size(max = 100)
+  @Size(max = 10000)
   @ApiModelProperty(
       name = "The URL event happened on",
       example = "https://treecreate.dk/products",

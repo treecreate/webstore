@@ -1,0 +1,43 @@
+<div class="design-wrapper" #designWrapper [ngStyle]="{ 'font-family': this.design.font }">
+    <div class="above-canvas" *ngIf="!isLoading">
+        <div #inputWrapper id="input-wrapper" [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }">
+            <textarea
+                matInput
+                id="title-input"
+                cdkTextareaAutosize
+                #titleInput
+                #autosizeTitle="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="25"
+                spellcheck="false"
+                [ngStyle]="{ 'font-size': fontSize * 2 + 'px' }"
+                [maxlength]="150"
+                autocomplete="off"
+                [ngModel]="design.title ?? ''"
+                (ngModelChange)="updateTitleText($event)"
+                [disabled]="!isMutable"
+                data-cy="title-input-field"
+                [placeholder]="getTitlePlaceholder()"
+            ></textarea>
+            <textarea
+                matInput
+                id="text-input"
+                cdkTextareaAutosize
+                #textInput
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="25"
+                spellcheck="false"
+                [ngStyle]="{ 'font-size': fontSize + 'px' }"
+                [maxlength]="200"
+                autocomplete="off"
+                [ngModel]="design.text"
+                (ngModelChange)="updateText($event)"
+                [disabled]="!isMutable"
+                data-cy="text-input-field"
+                [placeholder]="getTextPlaceholder()"
+            ></textarea>
+        </div>
+    </div>
+    <img [src]="getDesignSrc()" alt="Design frame image" id="background-image" *ngIf="!isLoading" />
+</div>
