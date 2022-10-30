@@ -29,7 +29,7 @@ public class CreateErrorlogRequest {
   private String browser;
 
   @NotBlank
-  @Size(max = 100)
+  @Size(max = 10000)
   @ApiModelProperty(name = "Page url", example = "https://treecreate.dk/login", required = true)
   private String url;
 

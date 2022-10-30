@@ -58,7 +58,7 @@ public class Event {
       name = "The URL event happened on",
       example = "https://treecreate.dk/products",
       required = true)
-  @Column(columnDefinition = "varchar(100) default 'N/A'")
+  @Column(columnDefinition = "TEXT")
   private String url;
 
   @Size(max = 30)
