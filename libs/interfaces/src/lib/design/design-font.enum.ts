@@ -12,4 +12,6 @@ export enum DesignFontEnum {
   archaMedium = 'archia-medium',
   calendas = 'calendas',
   knile = 'knile',
+  unna = 'unna',
+  unnaBold = 'unna-bold',
 }
