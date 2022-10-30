@@ -19,10 +19,8 @@ import dk.treecreate.api.transactionitem.TransactionItemRepository;
 import dk.treecreate.api.user.User;
 import dk.treecreate.api.user.UserRepository;
 import dk.treecreate.api.utils.OrderStatus;
-import dk.treecreate.api.order.OrderController;
 import dk.treecreate.api.utils.model.quickpay.ShippingMethod;
 import io.sentry.Sentry;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -30,16 +28,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 @Service
 @Transactional
@@ -299,8 +296,9 @@ public class OrderService {
   public List<Order> getAllUnpaidOrders() {
     List<Order> allOrders = orderRepository.findAll();
     List<Order> initialOrders = new ArrayList<Order>();
-    for(Order order : allOrders){
-      if ((order.getStatus() == OrderStatus.INITIAL || order.getStatus() == OrderStatus.REJECTED) && order.getPaymentReminderSent() == false){
+    for (Order order : allOrders) {
+      if ((order.getStatus() == OrderStatus.INITIAL || order.getStatus() == OrderStatus.REJECTED)
+          && order.getPaymentReminderSent() == false) {
         initialOrders.add(order);
       }
     }
@@ -311,19 +309,20 @@ public class OrderService {
   public void sendScheduledPaymentLink() {
     List<Order> orderList = this.getAllUnpaidOrders();
     Date now = new Date(System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(5));
-      for(Order order: orderList) {   
-        try {
-          if (now.after(order.getCreatedAt())){
-            this.mailService.sendOrderPaymentReminderEmail(order);
-            order.setPaymentReminderSent(true);
-            orderRepository.save(order);
-            LOGGER.info("Payment reminder email has been sent to " + order.getOrderId());
-          }
-        } catch (Exception e) {
-          LOGGER.error("Failed to process scheduled payment link to " + order.getContactInfo().getEmail(), e);
-          Sentry.captureException(e);
+    for (Order order : orderList) {
+      try {
+        if (now.after(order.getCreatedAt())) {
+          this.mailService.sendOrderPaymentReminderEmail(order);
+          order.setPaymentReminderSent(true);
+          orderRepository.save(order);
+          LOGGER.info("Payment reminder email has been sent to " + order.getOrderId());
         }
-    } 
+      } catch (Exception e) {
+        LOGGER.error(
+            "Failed to process scheduled payment link to " + order.getContactInfo().getEmail(), e);
+        Sentry.captureException(e);
+      }
+    }
   }
 
   public Order setupOrderFromCreateRequest(CreateOrderRequest createOrderRequest) {
