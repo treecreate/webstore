@@ -17,7 +17,7 @@ describe('Signup Page', () => {
     });
 
     it('should properly create a new user with correct credentials', () => {
-      cy.intercept('POST', `/auth/signup?lang=da`, {
+      cy.intercept('POST', `/auth/signup*`, {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
       }).as('signupRequest');
@@ -36,7 +36,7 @@ describe('Signup Page', () => {
     });
 
     it('should refuse signup for user with incorrect credentials', () => {
-      cy.intercept('POST', `/auth/signup`, {
+      cy.intercept('POST', `/auth/signup*`, {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
       }).as('signupRequest');

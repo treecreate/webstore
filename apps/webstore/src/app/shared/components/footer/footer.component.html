@@ -9,22 +9,43 @@
                     <div class="col">
                         <ul class="list-unstyled">
                             <li>
-                                <a (click)="scrollTop()" routerLink="/">Home</a>
+                                <a
+                                    (click)="scrollTop(); eventsService.create('webstore.footer.clicked.home')"
+                                    routerLink="/"
+                                    >Home</a
+                                >
                             </li>
                             <li>
-                                <a (click)="scrollTop()" routerLink="/products" i18n="@@product">Products</a>
+                                <a
+                                    (click)="scrollTop(); eventsService.create('webstore.footer.clicked.products')"
+                                    routerLink="/products"
+                                    i18n="@@product"
+                                    >Products</a
+                                >
                             </li>
                             <li *ngIf="!isLoggedIn">
-                                <a (click)="scrollTop()" routerLink="/login" i18n="@@login">Log in</a>
+                                <a
+                                    (click)="scrollTop(); eventsService.create('webstore.footer.clicked.log-in')"
+                                    routerLink="/login"
+                                    i18n="@@login"
+                                    >Log in</a
+                                >
                             </li>
                             <li *ngIf="isLoggedIn">
-                                <a (click)="scrollTop()" routerLink="/profile" i18n="@@profile">Profile</a>
-                            </li>
-                            <li *ngIf="isLoggedIn">
-                                <a (click)="scrollTop()" routerLink="/collection" i18n="@@collection">Collection</a>
+                                <a
+                                    (click)="scrollTop(); eventsService.create('webstore.footer.clicked.profile')"
+                                    routerLink="/profile"
+                                    i18n="@@profile"
+                                    >Profile</a
+                                >
                             </li>
                             <li>
-                                <a (click)="scrollTop()" routerLink="/basket" i18n="@@basket">Basket</a>
+                                <a
+                                    (click)="scrollTop(); eventsService.create('webstore.footer.clicked.basket')"
+                                    routerLink="/basket"
+                                    i18n="@@basket"
+                                    >Basket</a
+                                >
                             </li>
                         </ul>
                     </div>
@@ -41,15 +62,29 @@
                     <div class="col">
                         <ul class="list-unstyled">
                             <li>
-                                <a id="mailto" href="mailto:info@treecreate.dk" target="_blank">E-mail</a>
+                                <a
+                                    id="mailto"
+                                    href="mailto:info@treecreate.dk"
+                                    target="_blank"
+                                    (click)="eventsService.create('webstore.footer.clicked.email')"
+                                    >E-mail</a
+                                >
                             </li>
                             <li>
-                                <a href="https://www.facebook.com/TreeCreate.dk" target="_blank" rel="noopener"
+                                <a
+                                    href="https://www.facebook.com/TreeCreate.dk"
+                                    target="_blank"
+                                    rel="noopener"
+                                    (click)="eventsService.create('webstore.footer.clicked.facebook')"
                                     >Facebook</a
                                 >
                             </li>
                             <li>
-                                <a href="https://www.instagram.com/treecreate.dk/" target="_blank" rel="noopener"
+                                <a
+                                    href="https://www.instagram.com/treecreate.dk/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    (click)="eventsService.create('webstore.footer.clicked.instagram')"
                                     >Instagram</a
                                 >
                             </li>
@@ -79,7 +114,11 @@
                     <label for="email" class="tc-input-label">E-mail</label>
                 </div>
                 <div class="signup-button">
-                    <button type="submit" class="tc-button-50">
+                    <button
+                        type="submit"
+                        class="tc-button-50"
+                        (click)="eventsService.create('webstore.footer.clicked.newsletter-signup-up')"
+                    >
                         <span i18n="@@signup" *ngIf="!isLoading">Sign up</span>
                         <span
                             *ngIf="isLoading"
@@ -103,7 +142,7 @@
                 <div class="col">
                     <a
                         data-cy="footer-terms-of-use-modal-link"
-                        (click)="showTermsOfUse()"
+                        (click)="showTermsOfUse(); eventsService.create('webstore.footer.clicked.terms-of-use')"
                         class="terms TnC"
                         i18n="@@terms"
                         >Terms</a
@@ -111,7 +150,7 @@
                     -
                     <a
                         data-cy="footer-terms-of-sale-modal-link"
-                        (click)="showTermsOfSale()"
+                        (click)="showTermsOfSale(); eventsService.create('webstore.footer.clicked.terms-of-sale')"
                         class="terms TnC"
                         i18n="@@sale"
                         >Sale</a
@@ -119,7 +158,7 @@
                     -
                     <a
                         data-cy="footer-privacy-notice-modal-link"
-                        (click)="showPrivacyNotice()"
+                        (click)="showPrivacyNotice(); eventsService.create('webstore.footer.clicked.privacy-notice')"
                         class="terms TnC"
                         i18n="@@privacy"
                         >Privacy</a

@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { BasketComponent } from './pages/auth/basket/basket.component';
 import { CheckoutComponent } from './pages/auth/checkout/checkout.component';
-import { CollectionComponent } from './pages/auth/collection/collection.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { OrdersComponent } from './pages/auth/orders/orders.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
@@ -23,13 +22,13 @@ import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-can
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { CustomOrderComponent } from './pages/products/product-pages/custom-order/custom-order.component';
 import { FamilyTreeComponent } from './pages/products/product-pages/family-tree/family-tree.component';
+import { PetSignComponent } from './pages/products/product-pages/pet-sign/pet-sign.component';
 import { QuotableComponent } from './pages/products/product-pages/quotable/quotable.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { InfoPopoverComponent } from './shared/components/info-popover/info-popover.component';
 import { BasketItemComponent } from './shared/components/items/basket-item/basket-item.component';
 import { CheckoutItemComponent } from './shared/components/items/checkout-item/checkout-item.component';
-import { CollectionItemComponent } from './shared/components/items/collection-item/collection-item.component';
 import { CustomOrderDisplayComponent } from './shared/components/items/custom-order-display/custom-order-display.component';
 import { OrderItemComponent } from './shared/components/items/order-item/order-item.component';
 import { ProductDisplayComponent } from './shared/components/items/product-display/product-display.component';
@@ -49,6 +48,7 @@ import { TermsOfUseModalComponent } from './shared/components/modals/terms-of-us
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { DraggableBoxComponent } from './shared/components/products/family-tree/draggable-box/draggable-box.component';
 import { FamilyTreeDesignComponent } from './shared/components/products/family-tree/family-tree-design/family-tree-design.component';
+import { PetSignDesignComponent } from './shared/components/products/pet-sign-design/pet-sign-design.component';
 import { QuotableDesignComponent } from './shared/components/products/quotable-design/quotable-design.component';
 import { StickyNewsletterButtonComponent } from './shared/components/sticky-newsletter-button/sticky-newsletter-button.component';
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
@@ -72,10 +72,8 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     FamilyTreeComponent,
     ForgotPasswordModalComponent,
     ResetPasswordComponent,
-    CollectionComponent,
     ProfileComponent,
     ToastsContainerComponent,
-    CollectionItemComponent,
     InfoPopoverComponent,
     PaymentSuccessComponent,
     AddToBasketModalComponent,
@@ -97,7 +95,9 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     StoretItemComponent,
     ProductsComponent,
     QuotableComponent,
+    PetSignComponent,
     QuotableDesignComponent,
+    PetSignDesignComponent,
     ProductDisplayComponent,
     QuotableTemplateModalComponent,
     CustomOrderComponent,

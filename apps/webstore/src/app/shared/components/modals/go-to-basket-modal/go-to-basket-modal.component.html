@@ -17,7 +17,7 @@
         type="button"
         class="tc-button-50 green"
         routerLink="/basket"
-        (click)="activeModal.close()"
+        (click)="activeModal.close(); eventsService.create('webstore.go-to-basket-modal.clicked.go-to-baseket')"
         i18n="@@go-to-basket"
         data-cy="go-to-basket-go-to-basket-button"
     >
@@ -26,7 +26,7 @@
     <button
         type="button"
         class="tc-button-50"
-        (click)="createNew()"
+        (click)="createNew(); eventsService.create('webstore.go-to-basket-modal.clicked.continue-shopping')"
         i18n="@@continue-shopping"
         data-cy="go-to-basket-create-new-button"
     >

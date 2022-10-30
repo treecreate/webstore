@@ -1,10 +1,10 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Clipboard } from '@angular/cdk/clipboard';
 import {
   CreateUpdateOrderRequest,
   DesignDimensionEnum,
@@ -264,6 +264,17 @@ export class OrderDetailsComponent implements OnInit {
           default:
             return 99999999;
         }
+      case DesignTypeEnum.petSign:
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return quantity * 299;
+          case DesignDimensionEnum.medium:
+            return quantity * 399;
+          case DesignDimensionEnum.large:
+            return quantity * 499;
+          default:
+            return 99999999;
+        }
       case DesignTypeEnum.quotable:
       default:
         switch (dimension) {
@@ -291,6 +302,8 @@ export class OrderDetailsComponent implements OnInit {
     switch (designItem?.design.designType) {
       case DesignTypeEnum.familyTree:
         return `${env.webstoreUrl}/products/family-tree?designId=${id}`;
+      case DesignTypeEnum.petSign:
+        return `${env.webstoreUrl}/products/pet-sign?designId=${id}`;
       case DesignTypeEnum.quotable:
       default:
         return `${env.webstoreUrl}/products/quotable?designId=${id}`;

@@ -11,6 +11,7 @@ import {
 } from '@interfaces';
 import { CalculatePriceService } from '../../../services/calculate-price/calculate-price.service';
 import { ErrorlogsService } from '../../../services/errorlog/errorlog.service';
+import { EventsService } from '../../../services/events/events.service';
 import { OrderService } from '../../../services/order/order.service';
 
 @Component({
@@ -29,6 +30,7 @@ export class OrderItemComponent implements OnInit {
   constructor(
     private ordersService: OrderService,
     private calculatePriceService: CalculatePriceService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -104,6 +106,9 @@ export class OrderItemComponent implements OnInit {
       }
       case DesignTypeEnum.quotable: {
         return '/products/quotable';
+      }
+      case DesignTypeEnum.petSign: {
+        return '/products/pet-sign';
       }
     }
   }

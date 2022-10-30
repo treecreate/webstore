@@ -80,7 +80,7 @@ export class FamilyTreeComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
     private authService: AuthService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService,
     private metaTitle: Title,
     private meta: Meta
@@ -279,7 +279,7 @@ export class FamilyTreeComponent implements OnInit {
       this.eventsService.create('webstore.family-tree.save-design.local-storage');
       return;
     }
-    // Don't save the tree to the collection/database. Used in combindation with the addToBasketModal
+    // Don't save the tree to the collection/database. Used in combination with the addToBasketModal
     if (!persist) {
       return;
     }

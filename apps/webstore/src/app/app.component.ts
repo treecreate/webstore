@@ -6,6 +6,7 @@ import { LocalStorageService } from '@local-storage';
 import { CookieStatus, LocaleType, LocalStorageVars } from '@models';
 import { environment } from '../environments/environment';
 import { ErrorlogsService } from './shared/services/errorlog/errorlog.service';
+import { EventsService } from './shared/services/events/events.service';
 
 // Google analytics-specific syntax
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -23,11 +24,28 @@ export class AppComponent {
   constructor(
     public router: Router,
     private localStorageService: LocalStorageService,
+    private eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {
     // Setup localization language
-    this.router.events.subscribe(async () => {
-      this.updateLocale();
+    this.router.events.subscribe(async (val) => {
+      if (val instanceof NavigationEnd) {
+        this.updateLocale();
+        // log as event if the redirect happened from a website other than Treecreate
+        const referrer = document.referrer;
+        if (
+          !referrer.includes('https://treecreate') &&
+          !referrer.includes('https://testing.treecreate') &&
+          !referrer.includes('http://localhost')
+        ) {
+          // clean up the string and shorten it if needed
+          let host = referrer.replace('https://', '').replace('http://', '');
+          if (host.length > 50) {
+            host = host.slice(0, 50);
+          }
+          this.eventsService.create(`webstore.visited-from.${host}`);
+        }
+      }
     });
     this.localStorageService.getItem(LocalStorageVars.locale).subscribe(async () => {
       this.updateLocale();
@@ -38,9 +56,17 @@ export class AppComponent {
     this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).subscribe(() => {
       if (this.localStorageService.getItem(LocalStorageVars.cookiesAccepted).getValue() === CookieStatus.accepted) {
         this.initGoogleAnalytics();
+        this.initGoogleTagManager();
         this.initMetaPixel();
       } else {
         console.log('Not logging Google analytics nor Meta Pixel since cookies were not accepted');
+      }
+    });
+
+    // Log every page change
+    this.router.events.subscribe(async (val) => {
+      if (val instanceof NavigationEnd) {
+        this.eventsService.create('webstore.page-viewed');
       }
     });
 
@@ -59,7 +85,7 @@ export class AppComponent {
    * Update the url locale information to match users preference (stored in local storage)
    * @returns
    */
-  updateLocale() {
+  updateLocale(): void {
     const locale = this.localStorageService.getItem<LocaleType>(LocalStorageVars.locale).getValue();
     // Don't apply url lang path param logic on localhost aka local development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -85,7 +111,7 @@ export class AppComponent {
     }
   }
 
-  initGoogleAnalytics() {
+  initGoogleAnalytics(): void {
     // Could use environment.gtag as well but am lazy so it is hardcoded
     let gtagId;
     if (environment.production) {
@@ -116,6 +142,27 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  initGoogleTagManager(): void {
+    // Could use environment.gtag as well but am lazy so it is hardcoded
+    let gtagId; // specific to google tag manager, not the google analytics one
+    if (environment.production) {
+      gtagId = 'GTM-MLR8QR2';
+    } else {
+      gtagId = 'GTM-WTTLPSL';
+    }
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      const f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s) as any,
+        dl = l !== 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', gtagId);
   }
 
   isProductsPage(): boolean {

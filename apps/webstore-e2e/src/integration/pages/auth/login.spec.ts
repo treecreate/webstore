@@ -17,7 +17,7 @@ describe('Login Page', () => {
     });
 
     it('should properly authenticate user with correct credentials', () => {
-      cy.intercept('POST', `/auth/signin`, {
+      cy.intercept('POST', `/auth/signin*`, {
         body: authMockService.getMockUser(AuthUserEnum.authUser),
         statusCode: 200,
       }).as('signinRequest');
@@ -33,7 +33,7 @@ describe('Login Page', () => {
     });
 
     it('should refuse signin for user with incorrect credentials', () => {
-      cy.intercept('POST', `/auth/signin`, {
+      cy.intercept('POST', `/auth/signin*`, {
         body: 'Unauthorized',
         statusCode: 401,
       }).as('signinRequest');

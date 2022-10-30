@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private modalService: NgbModal,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 

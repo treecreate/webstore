@@ -717,6 +717,10 @@
                                                                         th:case="'QUOTABLE'"
                                                                         th:text="#{order.title.quotable}"
                                                                     ></span>
+                                                                    <span
+                                                                        th:case="'PET_SIGN'"
+                                                                        th:text="#{order.title.pet-sign}"
+                                                                    ></span>
                                                                 </th:block>
                                                             </strong>
                                                             <br />
@@ -753,6 +757,26 @@
                                                                 </th:block>
                                                                 <th:block
                                                                     th:case="'QUOTABLE'"
+                                                                >
+                                                                    <th:block
+                                                                        th:switch="${#strings.toString(transactionItem.dimension)}"
+                                                                    >
+                                                                        <span
+                                                                            th:case="'SMALL'"
+                                                                            th:text="${transactionItem.quantity} * 299"
+                                                                        ></span>
+                                                                        <span
+                                                                            th:case="'MEDIUM'"
+                                                                            th:text="${transactionItem.quantity} * 399"
+                                                                        ></span>
+                                                                        <span
+                                                                            th:case="'LARGE'"
+                                                                            th:text="${transactionItem.quantity} * 499"
+                                                                        ></span>
+                                                                    </th:block>
+                                                                </th:block>
+                                                                <th:block
+                                                                    th:case="'PET_SIGN'"
                                                                 >
                                                                     <th:block
                                                                         th:switch="${#strings.toString(transactionItem.dimension)}"
