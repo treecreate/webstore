@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -304,13 +306,16 @@ public class OrderService {
     return initialOrders;
   }
 
-  @Scheduled(cron = "1 * * * * ?")
+  @Scheduled(cron = "* 1 * * * ?")
   public void sendScheduledPaymentLink() {
     List<Order> orderList = this.getAllUnpaidOrders();
+    Date now = new Date(System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(5));
     try {
         for(Order order: orderList) {
-          this.mailService.sendOrderPaymentReminderEmail(order);
-          order.setPaymentReminderSent(true);
+          if(order.getCreatedAt().after(now)){
+            this.mailService.sendOrderPaymentReminderEmail(order);
+            order.setPaymentReminderSent(true);
+          }
         }
     } catch (Exception e) {
       LOGGER.error("Failed to process scheduled payment link", e);
