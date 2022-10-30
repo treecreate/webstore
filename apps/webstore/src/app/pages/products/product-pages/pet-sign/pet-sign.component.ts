@@ -11,7 +11,6 @@ import {
   IDesign,
   IPetSign,
   IPetSignFrameInfo,
-  IQoutable,
   ITransactionItem,
   petSignFrames,
 } from '@interfaces';
@@ -71,7 +70,7 @@ export class PetSignComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
     private authService: AuthService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogService: ErrorlogsService,
     private metaTitle: Title,
     private meta: Meta

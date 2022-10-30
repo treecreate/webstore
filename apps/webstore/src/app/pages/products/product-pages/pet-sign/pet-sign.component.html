@@ -2,7 +2,12 @@
     <!-- Design -->
     <section class="design-screen">
         <div class="back-container">
-            <a onclick="history.back()" class="back add-transition" data-cy="view-only-back-button">
+            <a
+                (click)="eventsService.create('webstore.pet-sign.clicked.back')"
+                onclick="history.back()"
+                class="back add-transition"
+                data-cy="view-only-back-button"
+            >
                 < <span i18n="@@back">Back</span>
             </a>
         </div>
@@ -41,7 +46,11 @@
 
     <!-- Options -->
     <aside [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'" *ngIf="isMutable">
-        <div class="blocker" *ngIf="isMobileOptionOpen" (click)="showOptions()"></div>
+        <div
+            class="blocker"
+            *ngIf="isMobileOptionOpen"
+            (click)="showOptions(); eventsService.create('webstore.pet-sign.clicked.show-options.mobile-background')"
+        ></div>
         <div [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : ''">
             <menu [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
                 <!-- ====== Font selection ====== -->
@@ -115,14 +124,21 @@
                 <div class="option option-actions">
                     <button
                         class="btn-save-design tc-button-50"
-                        (click)="saveDesign({ persists: true })"
+                        (click)="
+                            saveDesign({ persists: true });
+                            eventsService.create('webstore.pet-sign.clicked.save-design')
+                        "
                         [disabled]="!isDesignValid"
                         data-cy="save-button"
                     >
                         <span i18n="@@save">Save</span>
                         <img src="/assets/icons/save-icon.svg" class="option-icon" alt="Save icon" />
                     </button>
-                    <button class="tc-button-50" (click)="clearDesign()" data-cy="reset-button">
+                    <button
+                        class="tc-button-50"
+                        (click)="clearDesign(); eventsService.create('webstore.pet-sign.clicked.reset')"
+                        data-cy="reset-button"
+                    >
                         <span i18n="@@reset">Reset</span>
                         <img src="/assets/icons/reset-icon.svg" class="option-icon" alt="Reset icon" />
                     </button>
@@ -132,7 +148,10 @@
                 <div class="option">
                     <button
                         class="tc-button-100 green remove-on-mobile"
-                        (click)="openAddToBasketModal()"
+                        (click)="
+                            openAddToBasketModal();
+                            eventsService.create('webstore.pet-sign.clicked.add-to-basket.desktop')
+                        "
                         [disabled]="!isDesignValid"
                         data-cy="add-pet-sign-to-basket-button"
                     >
@@ -147,16 +166,23 @@
 <!-- Floating icons -->
 <div class="mobile-option-buttons-container" *ngIf="isMutable">
     <div class="mobile-options">
-        <button class="option-toggler tc-button-square green add-to-basket-specific" (click)="openAddToBasketModal()">
+        <button
+            class="option-toggler tc-button-square green add-to-basket-specific"
+            (click)="openAddToBasketModal(); eventsService.create('webstore.pet-sign.clicked.add-to-basket.mobile')"
+        >
             <img src="/assets/icons/add-to-basket-icon.svg" alt="basket icon" />
         </button>
-        <button class="option-toggler tc-button-square edit" type="button" (click)="showOptions()">
+        <button
+            class="option-toggler tc-button-square edit"
+            type="button"
+            (click)="showOptions(); eventsService.create('webstore.pet-sign.clicked.show-options.mobile')"
+        >
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
         </button>
         <button
             class="toggle-box-options tc-button-square view"
             type="button"
-            (click)="toggleUserOptions()"
+            (click)="toggleUserOptions(); eventsService.create('webstore.pet-sign.clicked.toggle-showing-options')"
             title="Hide/Show box options"
             data-cy="hide-pet-sign-options"
         >
