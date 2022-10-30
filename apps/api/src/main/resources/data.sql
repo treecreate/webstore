@@ -537,6 +537,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291586595'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -546,7 +547,6 @@ FROM ((
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82cc11180004' AS billing_info_contact_info_id
              , 'c0a80121-7e81-1c3e-817e-82cc11180005' AS contact_info_contact_info_id
-             , false                                  AS payment_reminder_sent
              , null                                   AS discount_discount_id)
       UNION ALL
       (
@@ -554,6 +554,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291586768'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 0                                      AS shipping_method
              , 0                                      AS status
@@ -563,7 +564,6 @@ FROM ((
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82cd4a340009' AS billing_info_contact_info_id
              , 'c0a80121-7e81-1c3e-817e-82cd4a34000a' AS contact_info_contact_info_id
-             , false                                  AS payment_reminder_sent
              , null                                   AS discount_discount_id)
       UNION ALL
       (
@@ -571,6 +571,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291586909'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -580,7 +581,6 @@ FROM ((
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82ce4595000e' AS billing_info_contact_info_id
              , 'c0a80121-7e81-1c3e-817e-82ce4595000f' AS contact_info_contact_info_id
-             , false                                  AS payment_reminder_sent
              , '2f61a7a1-499d-45bb-8229-53f70a4475c4' AS discount_discount_id)
       UNION ALL
       (
@@ -588,6 +588,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291587163'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -597,7 +598,6 @@ FROM ((
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82cff3ca0013' AS billing_info_contact_info_id
              , 'c0a80121-7e81-1c3e-817e-82cff3ca0014' AS contact_info_contact_info_id
-             , false                                  AS payment_reminder_sent
              , '35c90960-1da4-4ff0-93df-622fb5718e55' AS discount_discount_id)
       UNION ALL
       (
@@ -605,6 +605,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291587312'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -614,7 +615,6 @@ FROM ((
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82d0c0d20018' AS billing_info_contact_info_id
              , 'c0a80121-7e81-1c3e-817e-82d0c0d20019' AS contact_info_contact_info_id
-             , false                                  AS payment_reminder_sent
              , null                                   AS discount_discount_id)
       UNION ALL
       (
@@ -622,6 +622,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291589918'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 3                                      AS planted_trees
              , 0                                      AS shipping_method
              , 0                                      AS status
@@ -631,7 +632,6 @@ FROM ((
              , 'ac86995f-60ae-4520-a434-c8abc98980b9' AS user_id
              , 'c0a80121-7e81-1c3e-817e-82e1aefc001d' AS billing_info_contact_info_id
              , 'c0a80121-7e81-1c3e-817e-82e1aefc001e' AS contact_info_contact_info_id
-             , false                                  AS payment_reminder_sent
              , null                                   AS discount_discount_id)
      ) orders
 WHERE NOT EXISTS(
