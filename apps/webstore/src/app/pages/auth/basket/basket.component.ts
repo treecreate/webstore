@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Title, Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {
   DiscountType,
@@ -20,6 +20,7 @@ import { AuthService } from '../../../shared/services/authentication/auth.servic
 import { CalculatePriceService } from '../../../shared/services/calculate-price/calculate-price.service';
 import { DiscountService } from '../../../shared/services/discount/discount.service';
 import { ErrorlogsService } from '../../../shared/services/errorlog/errorlog.service';
+import { EventsService } from '../../../shared/services/events/events.service';
 import { TransactionItemService } from '../../../shared/services/transaction-item/transaction-item.service';
 
 @Component({
@@ -55,6 +56,7 @@ export class BasketComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private errorlogsService: ErrorlogsService,
+    public eventsService: EventsService,
     private metaTitle: Title,
     private meta: Meta
   ) {

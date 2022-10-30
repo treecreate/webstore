@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { Title, Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ErrorlogPriorityEnum, ILoginResponse, ITransactionItem } from '@interfaces';
 import { LocalStorageService } from '@local-storage';
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     private toastService: ToastService,
     private localStorageService: LocalStorageService,
     private transactionItemService: TransactionItemService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogService: ErrorlogsService,
     private metaTitle: Title,
     private meta: Meta
