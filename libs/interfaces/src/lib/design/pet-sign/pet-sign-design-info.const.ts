@@ -13,13 +13,13 @@ export const petSignFrames: IPetSignFrameInfo[] = [
     nameEn: PetSignDesignNameEnglishEnum.frame1,
   },
   {
-    src: PetSignDesignEnum.frame3,
-    nameDk: PetSignDesignNameDanishEnum.frame3,
-    nameEn: PetSignDesignNameEnglishEnum.frame3,
-  },
-  {
     src: PetSignDesignEnum.frame2,
     nameDk: PetSignDesignNameDanishEnum.frame2,
     nameEn: PetSignDesignNameEnglishEnum.frame2,
+  },
+  {
+    src: PetSignDesignEnum.frame3,
+    nameDk: PetSignDesignNameDanishEnum.frame3,
+    nameEn: PetSignDesignNameEnglishEnum.frame3,
   },
 ];
