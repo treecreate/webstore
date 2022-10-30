@@ -3,7 +3,12 @@
         <div class="basket-content">
             <section class="wrapper">
                 <div class="back-container">
-                    <a routerLink="/products" class="back" data-cy="view-only-back-button">
+                    <a
+                        (click)="eventsService.create('webstore.basket.clicked.back')"
+                        routerLink="/products"
+                        class="back"
+                        data-cy="view-only-back-button"
+                    >
                         < <span i18n="@@back">Back</span>
                     </a>
                 </div>
@@ -100,7 +105,11 @@
                     </div>
                 </div>
                 <!-- Discount code -->
-                <form [formGroup]="discountForm" (ngSubmit)="applyDiscount()" class="basket-options-item">
+                <form
+                    [formGroup]="discountForm"
+                    (ngSubmit)="applyDiscount(); eventsService.create('webstore.basket.clicked.apply-discount')"
+                    class="basket-options-item"
+                >
                     <input
                         formControlName="discountCode"
                         type="text"
@@ -169,7 +178,7 @@
 
                     <button
                         class="tc-button-100 green low-dropshadow"
-                        (click)="goToCheckout()"
+                        (click)="goToCheckout(); eventsService.create('webstore.basket.clicked.go-to-checkout')"
                         i18n="@@go-to-checkout"
                         [disabled]="itemList.length <= 0"
                         data-cy="basket-checkout-button"

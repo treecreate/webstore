@@ -54,7 +54,14 @@
                 </div>
             </div>
             <div class="actions">
-                <button data-cy="unsubscribe-home-btn" routerLink="/" class="tc-button-25 home-button">Home</button>
+                <button
+                    (click)="eventsService.create('webstore.unsubscribe.clicked.go-home')"
+                    data-cy="unsubscribe-home-btn"
+                    routerLink="/"
+                    class="tc-button-25 home-button"
+                >
+                    Home
+                </button>
             </div>
         </div>
     </section>

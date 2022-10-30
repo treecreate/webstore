@@ -43,6 +43,7 @@
     <div class="line" *ngIf="shouldShowPaymentLink">
         <a *ngIf="!isPaymentLinkLoading" href="{{ paymentLink }}">
             <button
+                (click)="eventsService.create('webstore.orders.clicked.complete-payment')"
                 class="tc-button-square button-placement"
                 data-cy="order-pay-now-button"
                 i18n="@@order-complete-payment"
@@ -94,7 +95,7 @@
                 <div class="special-row">
                     <button
                         class="tc-button-square button-placement"
-                        (click)="scrollTop()"
+                        (click)="scrollTop(); eventsService.create('webstore.orders.clicked.view-item')"
                         routerLink="{{ getEditLink(item.design.designType) }}"
                         [queryParams]="{ designId: item.design.designId }"
                         data-cy="order-item-view-button"

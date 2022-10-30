@@ -1,5 +1,9 @@
 <div class="modal-container add-transition" data-cy="add-to-basket-modal">
-    <form [formGroup]="addToBasketForm" (ngSubmit)="addDesignToBasket()" class="modal-content">
+    <form
+        [formGroup]="addToBasketForm"
+        (ngSubmit)="addDesignToBasket(); eventsService.create('webstore.add-to-basket-modal.clicked.add-to-basket')"
+        class="modal-content"
+    >
         <!-- quantity -->
         <div class="option-quantity add-transition">
             <div class="text">
@@ -58,7 +62,9 @@
                 <button
                     type="button"
                     class="box-dimension-plus tc-button-sm-square low-dropshadow"
-                    (click)="decreaseDimension()"
+                    (click)="
+                        decreaseDimension(); eventsService.create('webstore.add-to-basket-modal.clicked.decrease-size')
+                    "
                     id="decrease-dimension-btn"
                     data-cy="add-to-basket-decrease-dimension-button"
                     [disabled]="this.addToBasketForm.get('dimension').value === 'SMALL'"
@@ -73,7 +79,9 @@
                 <button
                     type="button"
                     class="box-dimension-plus tc-button-sm-square low-dropshadow"
-                    (click)="increaseDimension()"
+                    (click)="
+                        increaseDimension(); eventsService.create('webstore.add-to-basket-modal.clicked.increase-size')
+                    "
                     id="increase-dimension-btn"
                     data-cy="add-to-basket-increase-dimension-button"
                     [disabled]="this.addToBasketForm.get('dimension').value === 'LARGE'"
@@ -113,7 +121,9 @@
             <div
                 class="small-box"
                 [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'SMALL' }"
-                (click)="setSize('SMALL')"
+                (click)="
+                    setSize('SMALL'); eventsService.create('webstore.add-to-basket-modal.clicked.size-visual-small')
+                "
             >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
@@ -129,7 +139,9 @@
             <div
                 class="medium-box"
                 [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'MEDIUM' }"
-                (click)="setSize('MEDIUM')"
+                (click)="
+                    setSize('MEDIUM'); eventsService.create('webstore.add-to-basket-modal.clicked.size-visual-medium')
+                "
             >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
@@ -145,7 +157,9 @@
             <div
                 class="large-box"
                 [ngClass]="{ active: this.addToBasketForm.get('dimension').value === 'LARGE' }"
-                (click)="setSize('LARGE')"
+                (click)="
+                    setSize('LARGE'); eventsService.create('webstore.add-to-basket-modal.clicked.size-visual-large')
+                "
             >
                 <span [ngSwitch]="designType">
                     <span *ngSwitchCase="'FAMILY_TREE'">
@@ -173,7 +187,13 @@
                         aria-hidden="true"
                     ></span>
                 </button>
-                <button type="button" class="tc-button-100" type="button" (click)="activeModal.close()" i18n="@@cancel">
+                <button
+                    type="button"
+                    class="tc-button-100"
+                    type="button"
+                    (click)="activeModal.close(); eventsService.create('webstore.add-to-basket-modal.clicked.cancel')"
+                    i18n="@@cancel"
+                >
                     Cancel
                 </button>
             </div>

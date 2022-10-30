@@ -22,7 +22,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
