@@ -1,11 +1,6 @@
 <div class="design-wrapper" #designWrapper [ngStyle]="{ 'font-family': this.design.font }">
     <div class="above-canvas" *ngIf="!isLoading">
-        <div
-            #inputWrapper
-            id="input-wrapper"
-            [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }"
-            [ngStyle]="{ width: inputWidth + '%' }"
-        >
+        <div #inputWrapper id="input-wrapper" [ngClass]="{ 'show-dashed-line': showInputFieldOptions && isMutable }">
             <textarea
                 matInput
                 id="title-input"

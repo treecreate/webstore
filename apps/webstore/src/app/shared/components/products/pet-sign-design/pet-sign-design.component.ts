@@ -47,7 +47,6 @@ export class PetSignDesignComponent implements AfterViewInit, OnDestroy, OnInit,
   public localeCode: LocaleType;
 
   fontSize = 10;
-  inputWidth = 60; // percentage of total design frame width that the text should occupy
   inputTextHeight = 10;
   inputTitleHeight = 10;
 

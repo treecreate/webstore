@@ -30,7 +30,7 @@
   width: 100%;
   position: relative;
   transition: 0.5s;
-  margin: 10px 10px;
+  margin: 2em 2.2em;
 }
 
 #text-input,
@@ -44,6 +44,7 @@
   overflow: hidden;
   white-space: pre-wrap;
   border: none;
+  padding: 0 0 5px 8px;
 
   &:focus {
     outline: none;
@@ -63,7 +64,7 @@
 .show-dashed-line #text-input,
 .show-dashed-line #title-input {
   // Show interaction space
-  outline: 2px solid rgba($color: #000000, $alpha: 0.3);
+  outline: 2px dashed rgba(0, 0, 0, 0.3);
   outline-offset: -3px;
 
   &:focus {
@@ -72,7 +73,7 @@
 }
 
 #text-input {
-  padding: 5px 0 8px 0;
+  width: 60%;
 }
 
 #background-image {
