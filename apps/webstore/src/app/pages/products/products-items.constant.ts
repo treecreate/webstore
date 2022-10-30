@@ -88,15 +88,15 @@ const loveLetter: ProductsItem = {
 };
 
 // PET SIGN
-// TODO - add proper description and alt text. Add proper img source.
 const petSign: ProductsItem = {
-  titleEn: 'Pet Sign',
-  titleDk: '',
-  descriptionEn: `With Pet Sign, you can honor your beloved dead bird or something. Put them on wood and place your new decoration above where your pet used to sleep. Let it serve as a permanent reminder of what you've lost.`,
-  descriptionDk: '',
+  titleEn: 'Dog Sign',
+  titleDk: 'Hundeskilt',
+  descriptionEn: `The perfect gift to honor your beloved family dog. Put them on wood and place your new decoration above where your pet sleeps.`,
+  descriptionDk:
+    'Det perfekte skilt til at ære din hund. Har du en smuk golden retriever, en sød pug hund eller anden rase, så er det her den perfekte gave til dig.',
   prices: [299, 399, 499],
-  imgSrc: '/assets/img/products-images/love-letter.jpg',
-  altText: '',
+  imgSrc: '/assets/img/products-images/dog-sign-01.png',
+  altText: 'En flot tavle med en billede af en hund og familiens navn over.',
   specialOffer: '',
   routerLink: 'pet-sign',
 };
