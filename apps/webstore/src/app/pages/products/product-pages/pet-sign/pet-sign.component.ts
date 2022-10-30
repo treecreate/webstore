@@ -56,7 +56,7 @@ export class PetSignComponent implements OnInit {
   fontOptions = [];
   fontSize = 40;
   currentDesign = 1;
-  design: IQoutable;
+  design: IPetSign;
 
   public isLoggedIn: boolean;
   private authUser$: BehaviorSubject<IAuthUser>;
@@ -106,15 +106,14 @@ export class PetSignComponent implements OnInit {
   }
 
   setMetaData(): void {
-    // TODO - set danish metadata
-    this.metaTitle.setTitle('');
+    this.metaTitle.setTitle('Hunde elskeren - Den perfekte gave');
     this.meta.updateTag({
       name: 'description',
-      content: '',
+      content: 'Den perfekte gave til hunde elskeren. Et smult hunde skilt til at forevige minderne med menneskets bedste ven.',
     });
     this.meta.updateTag({
       name: 'keywords',
-      content: '',
+      content: 'hund, hundeelsker, hundeejer, kæledyr, golden retriever, gave, kæledyr, bedste ven',
     });
   }
 
