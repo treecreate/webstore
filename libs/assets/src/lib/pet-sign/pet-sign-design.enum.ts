@@ -7,14 +7,14 @@ export enum PetSignDesignEnum {
 
 export enum PetSignDesignNameDanishEnum {
   noFrame = 'Ingen Ramme',
-  frame1 = 'Frame Uno',
-  frame2 = 'Frame Duo',
-  frame3 = 'Frame Trio',
+  frame1 = 'Golden Retriever',
+  frame2 = 'Sød hund',
+  frame3 = 'Pug',
 }
 
 export enum PetSignDesignNameEnglishEnum {
   noFrame = 'No Frame',
-  frame1 = 'Frame Uno',
-  frame2 = 'Frame Duo',
-  frame3 = 'Frame Trio',
+  frame1 = 'Golden Retriever',
+  frame2 = 'Sweet dog',
+  frame3 = 'Pug',
 }
