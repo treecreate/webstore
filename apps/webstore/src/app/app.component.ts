@@ -31,6 +31,20 @@ export class AppComponent {
     this.router.events.subscribe(async (val) => {
       if (val instanceof NavigationEnd) {
         this.updateLocale();
+        // log as event if the redirect happened from a website other than Treecreate
+        const referrer = document.referrer;
+        if (
+          !referrer.includes('https://treecreate') &&
+          !referrer.includes('https://testing.treecreate') &&
+          !referrer.includes('http://localhost')
+        ) {
+          // clean up the string and shorten it if needed
+          let host = referrer.replace('https://', '').replace('http://', '');
+          if (host.length > 50) {
+            host = host.slice(0, 50);
+          }
+          this.eventsService.create(`webstore.visited-from.${host}`);
+        }
       }
     });
     this.localStorageService.getItem(LocalStorageVars.locale).subscribe(async () => {
