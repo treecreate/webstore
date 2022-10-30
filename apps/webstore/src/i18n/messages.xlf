@@ -1419,13 +1419,6 @@
           <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="send" datatype="html">
-        <source>Send</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/webstore/src/app/pages/products/product-pages/custom-order/custom-order.component.html</context>
-          <context context-type="linenumber">197</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="form-is-not-valid" datatype="html">
         <source>Form is not completed:</source>
         <context-group purpose="location">
