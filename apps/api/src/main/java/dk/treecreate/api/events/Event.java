@@ -53,7 +53,6 @@ public class Event {
       example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
   private UUID userId;
 
-  @Size(max = 100)
   @ApiModelProperty(
       name = "The URL event happened on",
       example = "https://treecreate.dk/products",
