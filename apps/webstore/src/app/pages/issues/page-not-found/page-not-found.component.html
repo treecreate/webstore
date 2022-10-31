@@ -17,10 +17,22 @@
                 info@treecreate.dk
             </a>
             <div class="wrapper">
-                <button data-cy="page-not-found-back-btn" onclick="history.back()" class="tc-button-25" i18n="@@back">
+                <button
+                    (click)="eventsService.create('webstore.page-not-found.clicked.back')"
+                    data-cy="page-not-found-back-btn"
+                    onclick="history.back()"
+                    class="tc-button-25"
+                    i18n="@@back"
+                >
                     Back
                 </button>
-                <button data-cy="page-not-found-home-btn" routerLink="/" class="tc-button-25" i18n="@@home">
+                <button
+                    (click)="eventsService.create('webstore.page-not-found.clicked.home')"
+                    data-cy="page-not-found-home-btn"
+                    routerLink="/"
+                    class="tc-button-25"
+                    i18n="@@home"
+                >
                     Home
                 </button>
             </div>

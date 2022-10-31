@@ -87,6 +87,20 @@ const loveLetter: ProductsItem = {
   productType: QuotableTypeEnum.loveLetter,
 };
 
+// PET SIGN
+const petSign: ProductsItem = {
+  titleEn: 'Dog Sign',
+  titleDk: 'Hundeskilt',
+  descriptionEn: `The perfect gift to honor your beloved family dog. Put them on wood and place your new decoration above where your pet sleeps.`,
+  descriptionDk:
+    'Det perfekte skilt til at ære din hund. Har du en smuk golden retriever, en sød pug hund eller anden rase, så er det her den perfekte gave til dig.',
+  prices: [299, 399, 499],
+  imgSrc: '/assets/img/products-images/dog-sign-01.png',
+  altText: 'En flot tavle med en billede af en hund og familiens navn over.',
+  specialOffer: '',
+  routerLink: 'pet-sign',
+};
+
 // const anniversary: ProductsItem = {
 //   titleEn: 'Wedding anniversary',
 //   titleDk: 'Bryllupsdag',
@@ -102,6 +116,6 @@ const loveLetter: ProductsItem = {
 //   productType: QuotableTypeEnum.anniversary,
 // };
 
-const productsList: ProductsItem[] = [familyTree, babySign, quotable, loveLetter, unique];
+const productsList: ProductsItem[] = [familyTree, babySign, quotable, loveLetter, petSign, unique];
 
 export default productsList;

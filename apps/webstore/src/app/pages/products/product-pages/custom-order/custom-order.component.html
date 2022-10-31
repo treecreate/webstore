@@ -1,13 +1,20 @@
 <main class="custom-order-container">
     <div class="back-container">
-        <a onclick="history.back()" class="back" data-cy="view-only-back-button"> < <span i18n="@@back">Back</span> </a>
+        <a
+            (click)="eventsService.create('webstore.custom-order.clicked.back')"
+            onclick="history.back()"
+            class="back"
+            data-cy="view-only-back-button"
+        >
+            < <span i18n="@@back">Back</span>
+        </a>
     </div>
     <div class="custom-order-content-container">
         <form
             class="custom-order-content"
             name="customOrderForm"
             [formGroup]="customOrderForm"
-            (ngSubmit)="submitCustomOrder()"
+            (ngSubmit)="submitCustomOrder(); eventsService.create('webstore.custom-order.clicked.send')"
         >
             <!-- Contact Info and order description -->
             <div class="custom-order-section no-strech">
@@ -127,7 +134,7 @@
                 />
                 <button
                     class="tc-button-50 brown margin-top"
-                    (click)="fileUpload.click()"
+                    (click)="fileUpload.click(); eventsService.create('webstore.custom-order.clicked.upload-images')"
                     type="button"
                     accept="image/png, image/jpeg, image/svg"
                     data-cy="custom-order-upload-image-button"
@@ -187,7 +194,7 @@
                     </div>
                 </div>
                 <button class="tc-button-50 brown margin-top" type="submit" data-cy="custom-order-send-button">
-                    <span i18n="@@send" *ngIf="!isLoading">Send</span>
+                    <span *ngIf="!isLoading">Send</span>
                     <span
                         *ngIf="isLoading"
                         class="spinner-border spinner-border-sm text-light"

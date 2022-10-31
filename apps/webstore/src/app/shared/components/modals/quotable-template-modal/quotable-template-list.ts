@@ -18,6 +18,20 @@ export const quotableTemplateList: IQuotableTemplate[] = [
     },
   },
   {
+    name: 'Familie',
+    type: QuotableTypeEnum.quotable,
+    designProps: {
+      showText: true,
+      showTitle: true,
+      title: 'Familie',
+      text: 'Når det hele går ad helvede til,\ner det de mennesker,\nder står ved dig uden at blinke.',
+      fontSize: 40,
+      verticalPlacement: 50,
+      designSrc: QuotableDesignEnum.frame1,
+      font: DesignFontEnum.argestadisplay,
+    },
+  },
+  {
     name: 'Til Mor/Far',
     type: QuotableTypeEnum.quotable,
     designProps: {

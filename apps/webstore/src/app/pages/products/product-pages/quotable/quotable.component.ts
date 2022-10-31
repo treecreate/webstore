@@ -77,7 +77,7 @@ export class QuotableComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastService: ToastService,
     private authService: AuthService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogService: ErrorlogsService,
     private metaTitle: Title,
     private meta: Meta
@@ -314,7 +314,7 @@ export class QuotableComponent implements OnInit {
       this.eventsService.create(`webstore.quotable.design-updated.local-storage`);
       return;
     }
-    // Don't save the quotable to the collection/database. Used in combindation with the addToBasketModal
+    // Don't save the quotable to the collection/database. Used in combination with the addToBasketModal
     if (!persist) {
       return;
     }

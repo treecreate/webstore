@@ -215,6 +215,23 @@ export class CalculatePriceService {
             return 88888888;
         }
       }
+      case DesignTypeEnum.petSign: {
+        switch (dimension) {
+          case DesignDimensionEnum.small:
+            return 299;
+          case DesignDimensionEnum.medium:
+            return 399;
+          case DesignDimensionEnum.large:
+            return 499;
+          default:
+            this.errorlogsService.create(
+              'webstore.calculate-price-service.calculate-item-unit-price-default-value',
+              ErrorlogPriorityEnum.high,
+              { message: 'Price set to 88888888', dimension, designType }
+            );
+            return 88888888;
+        }
+      }
     }
   }
 }

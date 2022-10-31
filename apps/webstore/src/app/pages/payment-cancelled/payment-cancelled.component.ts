@@ -7,7 +7,7 @@ import { EventsService } from '../../shared/services/events/events.service';
   styleUrls: ['./payment-cancelled.component.css'],
 })
 export class PaymentCancelledComponent implements OnInit {
-  constructor(private eventsService: EventsService) {}
+  constructor(public eventsService: EventsService) {}
 
   ngOnInit(): void {
     this.eventsService.create('webstore.payment-cancelled');

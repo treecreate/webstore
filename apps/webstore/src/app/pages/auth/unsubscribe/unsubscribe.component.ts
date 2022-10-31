@@ -19,7 +19,7 @@ export class UnsubscribeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private newsletterService: NewsletterService,
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private errorlogsService: ErrorlogsService
   ) {}
 
@@ -29,13 +29,13 @@ export class UnsubscribeComponent implements OnInit {
   }
 
   unsubscribeUser(newsletterId: string) {
-    this.newsletterService.unsubscribe(newsletterId).subscribe(
-      () => {
+    this.newsletterService.unsubscribe(newsletterId).subscribe({
+      next: () => {
         this.isUnsubscribeSuccessful = true;
         this.isLoading = false;
         this.eventsService.create('webstore.unsubscribe.newsletter-unsubscribe');
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         console.error(error);
         this.errorlogsService.create(
           'webstore.unsubscribe.newsletter-unsubscribe-failed',
@@ -53,7 +53,7 @@ export class UnsubscribeComponent implements OnInit {
         } else {
           this.errorMessage = error.error.message;
         }
-      }
-    );
+      },
+    });
   }
 }
