@@ -7,7 +7,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = {"Events"})
 public class EventController {
   @Autowired EventRepository eventRepository;
+  @Autowired EventService eventsService;
 
   @GetMapping()
   @Operation(summary = "Get all events")
@@ -53,6 +56,26 @@ public class EventController {
     } else {
       return eventRepository.findAllByOrderByCreatedAtDesc();
     }
+  }
+
+  @GetMapping("recent-users")
+  @Operation(summary = "Get recent users count")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            code = 200,
+            message = "A list of currently active users",
+            response = GetEventsResponse.class)
+      })
+  @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+  public Map<LocalDateTime, Integer> getRecentUsers(
+      @Parameter(
+              name = "duration",
+              description = "How long of users activity should be returned",
+              example = "10")
+          @RequestParam(required = false)
+          Integer duration) {
+    return eventsService.getRecentUsers(duration);
   }
 
   @PostMapping()
