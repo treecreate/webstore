@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -89,8 +90,7 @@ public class MailService {
     // Add the marketing pdf to the email
     List<MultipartFile> attachmentsList = new ArrayList<>();
     try {
-      File pdf =
-          new File(getClass().getResource("/assets/pdf/Top_10_julegaveideer_2022.pdf").getFile());
+      File pdf = new ClassPathResource("/assets/pdf/Top_10_julegaveideer_2022.pdf").getFile();
       FileItem fileItem =
           new DiskFileItem(
               "mainFile",
