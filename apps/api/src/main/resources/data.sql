@@ -537,6 +537,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291586595'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -553,6 +554,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291586768'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 0                                      AS shipping_method
              , 0                                      AS status
@@ -569,6 +571,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291586909'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -585,6 +588,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291587163'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -601,6 +605,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291587312'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 1                                      AS planted_trees
              , 1                                      AS shipping_method
              , 0                                      AS status
@@ -617,6 +622,7 @@ FROM ((
              , now()                                  AS created_at
              , 0                                      AS currency
              , '291589918'                            AS payment_id
+             , 0                                  AS payment_reminder_sent
              , 3                                      AS planted_trees
              , 0                                      AS shipping_method
              , 0                                      AS status

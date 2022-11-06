@@ -12,7 +12,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -98,6 +108,16 @@ public class Order {
   @OneToMany()
   @ApiModelProperty(notes = "Transaction items of the given order")
   private List<TransactionItem> transactionItems;
+
+  @Column(
+      name = "payment_reminder_sent",
+      columnDefinition = "boolean default false",
+      nullable = false)
+  @ApiModelProperty(
+      notes = "Has a payment reminder for this order been sent?",
+      example = "false",
+      required = false)
+  private boolean paymentReminderSent = false;
 
   @ApiModelProperty(
       name = "Date the entity was created at",
@@ -229,6 +249,14 @@ public class Order {
 
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public boolean getPaymentReminderSent() {
+    return paymentReminderSent;
+  }
+
+  public void setPaymentReminderSent(boolean paymentReminderSent) {
+    this.paymentReminderSent = paymentReminderSent;
   }
 
   @Override
