@@ -214,7 +214,8 @@ hr {
 
 .view-button {
   position: absolute;
-  right: -5px;
+  right: 5px;
+  top: 5px;
 }
 
 .view-button-container {
