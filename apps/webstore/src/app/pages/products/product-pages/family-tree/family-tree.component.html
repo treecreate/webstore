@@ -30,17 +30,13 @@
     </div>
     <!-- END CY TESTS -->
 
-    <aside
-        [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'"
-        *ngIf="isMutable"
-        data-cy="product-options"
-    >
+    <aside [ngClass]="{ 'desktop-options-container': !isMobileOptionOpen }" *ngIf="isMutable" data-cy="product-options">
         <div
             class="blocker"
             *ngIf="isMobileOptionOpen"
             (click)="showOptions(); eventsService.create('webstore.family-tree.clicked.show-options.mobile-background')"
         ></div>
-        <menu [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
+        <menu [ngClass]="{ 'mobile-options-items': isMobileOptionOpen }">
             <div class="option option-font-select">
                 <div class="option-title">
                     Font

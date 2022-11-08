@@ -45,122 +45,116 @@
     </section>
 
     <!-- Options -->
-    <aside [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'" *ngIf="isMutable">
+    <aside [ngClass]="{ 'desktop-options-container': !isMobileOptionOpen }" *ngIf="isMutable">
         <div
             class="blocker"
             *ngIf="isMobileOptionOpen"
             (click)="showOptions(); eventsService.create('webstore.pet-sign.clicked.show-options.mobile-background')"
         ></div>
-        <div [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : ''">
-            <menu [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
-                <!-- ====== Font selection ====== -->
-                <div class="option option-font-select">
-                    <div class="option-title">
-                        Font
-                        <webstore-info-popover
-                            title="Font"
-                            text="{{
-                                isEnglish()
-                                    ? 'Choose the font that best suits you.'
-                                    : 'Vælg hvilken font der passer dig bedst. '
-                            }}"
-                        ></webstore-info-popover>
-                    </div>
-                    <div class="option-frame-design-btn">
-                        <div ngbDropdown class="font-dropdown-container" data-cy="font-select-option">
-                            <button class="btn" ngbDropdownToggle [ngStyle]="{ 'font-family': displayFont }">
-                                {{ displayFont }}
+        <menu [ngClass]="{ 'mobile-options-items': isMobileOptionOpen }">
+            <!-- ====== Font selection ====== -->
+            <div class="option option-font-select">
+                <div class="option-title">
+                    Font
+                    <webstore-info-popover
+                        title="Font"
+                        text="{{
+                            isEnglish()
+                                ? 'Choose the font that best suits you.'
+                                : 'Vælg hvilken font der passer dig bedst. '
+                        }}"
+                    ></webstore-info-popover>
+                </div>
+                <div class="option-frame-design-btn">
+                    <div ngbDropdown class="font-dropdown-container" data-cy="font-select-option">
+                        <button class="btn" ngbDropdownToggle [ngStyle]="{ 'font-family': displayFont }">
+                            {{ displayFont }}
+                        </button>
+                        <div ngbDropdownMenu>
+                            <button
+                                (click)="changeFont(font)"
+                                ngbDropdownItem
+                                *ngFor="let font of fontOptions"
+                                [ngStyle]="{ 'font-family': font.value }"
+                            >
+                                {{ font.key }}
                             </button>
-                            <div ngbDropdownMenu>
-                                <button
-                                    (click)="changeFont(font)"
-                                    ngbDropdownItem
-                                    *ngFor="let font of fontOptions"
-                                    [ngStyle]="{ 'font-family': font.value }"
-                                >
-                                    {{ font.key }}
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- ====== Design selection option ====== -->
-                <div class="option option-frame-design">
-                    <div class="option-title">
-                        Design
-                        <webstore-info-popover
-                            title="Design"
-                            text="{{
-                                isEnglish()
-                                    ? 'Choose the frame you like the most.'
-                                    : 'Vælg den ramme der passer dig bedst.'
-                            }}"
-                        ></webstore-info-popover>
+            <!-- ====== Design selection option ====== -->
+            <div class="option option-frame-design">
+                <div class="option-title">
+                    Design
+                    <webstore-info-popover
+                        title="Design"
+                        text="{{
+                            isEnglish() ? 'Choose the frame you like the most.' : 'Vælg den ramme der passer dig bedst.'
+                        }}"
+                    ></webstore-info-popover>
+                </div>
+                <div class="option-frame-design-btn">
+                    <button
+                        class="design-arrow-left tc-button-sm-square"
+                        (click)="changeDesign('prev')"
+                        data-cy="prev-design-button"
+                    >
+                        <span class="arrow-left"></span>
+                    </button>
+                    <div class="display display-design">
+                        {{ getDesignName() }}
                     </div>
-                    <div class="option-frame-design-btn">
-                        <button
-                            class="design-arrow-left tc-button-sm-square"
-                            (click)="changeDesign('prev')"
-                            data-cy="prev-design-button"
-                        >
-                            <span class="arrow-left"></span>
-                        </button>
-                        <div class="display display-design">
-                            {{ getDesignName() }}
-                        </div>
-                        <button
-                            class="design-arrow-right tc-button-sm-square"
-                            (click)="changeDesign('next')"
-                            [disabled]="!isMutable"
-                            data-cy="next-design-button"
-                        >
-                            <span class="arrow-right"></span>
-                        </button>
-                    </div>
+                    <button
+                        class="design-arrow-right tc-button-sm-square"
+                        (click)="changeDesign('next')"
+                        [disabled]="!isMutable"
+                        data-cy="next-design-button"
+                    >
+                        <span class="arrow-right"></span>
+                    </button>
                 </div>
+            </div>
 
-                <!-- ====== Save and reset buttons ====== -->
-                <div class="option option-actions">
-                    <button
-                        class="btn-save-design tc-button-50"
-                        (click)="
-                            saveDesign({ persists: true });
-                            eventsService.create('webstore.pet-sign.clicked.save-design')
-                        "
-                        [disabled]="!isDesignValid"
-                        data-cy="save-button"
-                    >
-                        <span i18n="@@save">Save</span>
-                        <img src="/assets/icons/save-icon.svg" class="option-icon" alt="Save icon" />
-                    </button>
-                    <button
-                        class="tc-button-50"
-                        (click)="clearDesign(); eventsService.create('webstore.pet-sign.clicked.reset')"
-                        data-cy="reset-button"
-                    >
-                        <span i18n="@@reset">Reset</span>
-                        <img src="/assets/icons/reset-icon.svg" class="option-icon" alt="Reset icon" />
-                    </button>
-                </div>
+            <!-- ====== Save and reset buttons ====== -->
+            <div class="option option-actions">
+                <button
+                    class="btn-save-design tc-button-50"
+                    (click)="
+                        saveDesign({ persists: true }); eventsService.create('webstore.pet-sign.clicked.save-design')
+                    "
+                    [disabled]="!isDesignValid"
+                    data-cy="save-button"
+                >
+                    <span i18n="@@save">Save</span>
+                    <img src="/assets/icons/save-icon.svg" class="option-icon" alt="Save icon" />
+                </button>
+                <button
+                    class="tc-button-50"
+                    (click)="clearDesign(); eventsService.create('webstore.pet-sign.clicked.reset')"
+                    data-cy="reset-button"
+                >
+                    <span i18n="@@reset">Reset</span>
+                    <img src="/assets/icons/reset-icon.svg" class="option-icon" alt="Reset icon" />
+                </button>
+            </div>
 
-                <!-- ====== Add to Basket button ====== -->
-                <div class="option">
-                    <button
-                        class="tc-button-100 green remove-on-mobile"
-                        (click)="
-                            openAddToBasketModal();
-                            eventsService.create('webstore.pet-sign.clicked.add-to-basket.desktop')
-                        "
-                        [disabled]="!isDesignValid"
-                        data-cy="add-pet-sign-to-basket-button"
-                    >
-                        <span i18n="@@add">Add</span>
-                        <img src="/assets/icons/basket-white-icon.svg" class="option-icon" alt="Basket icon" />
-                    </button>
-                </div>
-            </menu>
-        </div>
+            <!-- ====== Add to Basket button ====== -->
+            <div class="option">
+                <button
+                    class="tc-button-100 green remove-on-mobile"
+                    (click)="
+                        openAddToBasketModal(); eventsService.create('webstore.pet-sign.clicked.add-to-basket.desktop')
+                    "
+                    [disabled]="!isDesignValid"
+                    data-cy="add-pet-sign-to-basket-button"
+                >
+                    <span i18n="@@add">Add</span>
+                    <img src="/assets/icons/basket-white-icon.svg" class="option-icon" alt="Basket icon" />
+                </button>
+            </div>
+        </menu>
     </aside>
 </main>
 <!-- Floating icons -->
