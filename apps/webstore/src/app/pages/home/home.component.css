@@ -125,56 +125,8 @@ figure {
   background-image: url('/assets/img/home/family-tree-baby.jpg');
 }
 
-.hide .arrow-up-item,
-.hide {
-  transition: 0.4s;
-  opacity: 0 !important;
-  bottom: 30px;
-}
-
 .remove {
   bottom: 100px;
-}
-
-.show {
-  transition: 0.4s;
-  opacity: 1;
-}
-/* Arrow button */
-.arrow-up-container {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  z-index: 1000;
-}
-.arrow-up-item {
-  transition: 1s;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-.up-arrow {
-  margin: 4vh 2vh 2vh 2vh;
-  padding-right: 2px;
-  outline: none;
-  background-color: transparent;
-  border: none;
-}
-.up-bar1,
-.up-bar2 {
-  width: 25px;
-  height: 3px;
-  background-color: var(--second-action-color);
-  margin: 5px 0;
-  transition: 0.4s;
-}
-.up-bar2 {
-  -webkit-transform: rotate(-45deg) translate(-2px, -11px);
-  transform: rotate(-45deg) translate(-2px, -11px);
-}
-.up-bar1 {
-  -webkit-transform: rotate(45deg) translate(6px, -4px);
-  transform: rotate(45deg) translate(6px, -4px);
 }
 
 .review-section {
