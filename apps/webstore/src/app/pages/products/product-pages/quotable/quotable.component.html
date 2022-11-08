@@ -10,6 +10,24 @@
             >
                 < <span i18n="@@back">Back</span>
             </a>
+            <div class="view-button-container">
+                <button
+                    class="toggle-box-options tc-button-square view view-button"
+                    type="button"
+                    (click)="
+                        toggleUserOptions(); eventsService.create('webstore.quotable.clicked.toggle-showing-options')
+                    "
+                    title="Hide/Show box options"
+                    data-cy="hide-quotable-options"
+                >
+                    <img
+                        class="toggle-box-options-icon"
+                        [ngClass]="!isMobileOptionOpen ? '' : 'active'"
+                        alt="Toggle box options"
+                        [src]="toggleUserOptionsIcon"
+                    />
+                </button>
+            </div>
         </div>
         <webstore-quotable-design
             #quotableDesign
@@ -206,20 +224,6 @@
             (click)="showOptions(); eventsService.create('webstore.quotable.clicked.show-options.mobile')"
         >
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
-        </button>
-        <button
-            class="toggle-box-options tc-button-square view"
-            type="button"
-            (click)="toggleUserOptions(); eventsService.create('webstore.quotable.clicked.toggle-showing-options')"
-            title="Hide/Show box options"
-            data-cy="hide-quotable-options"
-        >
-            <img
-                class="toggle-box-options-icon"
-                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
-                alt="Toggle box options"
-                [src]="toggleUserOptionsIcon"
-            />
         </button>
     </div>
 </div>
