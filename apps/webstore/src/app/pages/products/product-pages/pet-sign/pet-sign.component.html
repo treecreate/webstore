@@ -10,6 +10,23 @@
             >
                 < <span i18n="@@back">Back</span>
             </a>
+
+            <div class="view-button-container">
+                <button
+                    class="toggle-box-options tc-button-square view view-button"
+                    type="button"
+                    (click)="toggleUserOptions(); eventsService.create('webstore.pet-sign.clicked.toggle-showing-options')"
+                    title="Hide/Show box options"
+                    data-cy="hide-pet-sign-options"
+                >
+                    <img
+                        class="toggle-box-options-icon"
+                        [ngClass]="{'active' : !isMobileOptionOpen}"
+                        alt="Toggle box options"
+                        [src]="toggleUserOptionsIcon"
+                    />
+                </button>
+            </div>
         </div>
         <webstore-pet-sign-design
             #petSignDesign
@@ -172,20 +189,6 @@
             (click)="showOptions(); eventsService.create('webstore.pet-sign.clicked.show-options.mobile')"
         >
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
-        </button>
-        <button
-            class="toggle-box-options tc-button-square view"
-            type="button"
-            (click)="toggleUserOptions(); eventsService.create('webstore.pet-sign.clicked.toggle-showing-options')"
-            title="Hide/Show box options"
-            data-cy="hide-pet-sign-options"
-        >
-            <img
-                class="toggle-box-options-icon"
-                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
-                alt="Toggle box options"
-                [src]="toggleUserOptionsIcon"
-            />
         </button>
     </div>
 </div>
