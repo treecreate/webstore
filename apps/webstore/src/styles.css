@@ -208,6 +208,19 @@ hr {
   text-align: left;
   width: 100%;
   padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.view-button-container {
+  position: relative;
+  bottom: 20px;
 }
 
 @media screen and (max-width: 600px) {

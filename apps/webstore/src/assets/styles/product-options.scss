@@ -149,6 +149,7 @@
 .mobile-options {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: center;
   margin-right: 10px;
 }
 
@@ -182,6 +183,8 @@
   background: white;
   padding: 10px 25px 20px 25px;
   z-index: 1000;
+  align-items: center;
+  justify-content: center;
 }
 
 .remove {
@@ -255,7 +258,8 @@
   }
 
   .mobile-option-buttons-container {
-    right: 1em;
+    display: flex;
+    justify-content: center;
   }
 
   .mobile-options {

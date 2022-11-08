@@ -9,6 +9,38 @@
             >
                 < <span i18n="@@back">Back</span>
             </a>
+
+            <div class="view-button-container">
+                <div class="view-button view-section">
+                    <button
+                        class="toggle-box-options tc-button-square view"
+                        type="button"
+                        (click)="
+                            toggleBoxOptions();
+                            eventsService.create('webstore.family-tree.clicked.toggle-showing-options')
+                        "
+                        title="Hide/Show box options"
+                    >
+                        <img
+                            class="toggle-box-options-icon"
+                            [ngClass]="{ active: !isMobileOptionOpen }"
+                            alt="Toggle box options"
+                            [src]="toggleBoxOptionsIcon"
+                        />
+                    </button>
+                    <button
+                        class="intro-modal-option tc-button-square"
+                        type="button"
+                        (click)="
+                            openIntroModal(); eventsService.create('webstore.family-tree.clicked.open-intro-modal')
+                        "
+                        title="Hide/Show box options"
+                        data-cy="family-tree-intro-modal-option-button"
+                    >
+                        ?
+                    </button>
+                </div>
+            </div>
         </div>
         <webstore-family-tree-design
             #familyTreeDesignCanvas
@@ -30,17 +62,13 @@
     </div>
     <!-- END CY TESTS -->
 
-    <aside
-        [ngClass]="isMobileOptionOpen ? 'mobile-options-container' : 'desktop-options-container'"
-        *ngIf="isMutable"
-        data-cy="product-options"
-    >
+    <aside [ngClass]="{ 'desktop-options-container': !isMobileOptionOpen }" *ngIf="isMutable" data-cy="product-options">
         <div
             class="blocker"
             *ngIf="isMobileOptionOpen"
             (click)="showOptions(); eventsService.create('webstore.family-tree.clicked.show-options.mobile-background')"
         ></div>
-        <menu [ngClass]="isMobileOptionOpen ? 'mobile-options-items' : ''">
+        <menu [ngClass]="{ 'mobile-options-items': isMobileOptionOpen }">
             <div class="option option-font-select">
                 <div class="option-title">
                     Font
@@ -231,28 +259,6 @@
             (click)="showOptions(); eventsService.create('webstore.family-tree.clicked.show-options.mobile')"
         >
             <img class="toggle-box-options-icon" alt="Option icon" src="/assets/icons/pen-icon.svg" />
-        </button>
-        <button
-            class="toggle-box-options tc-button-square view"
-            type="button"
-            (click)="toggleBoxOptions(); eventsService.create('webstore.family-tree.clicked.toggle-showing-options')"
-            title="Hide/Show box options"
-        >
-            <img
-                class="toggle-box-options-icon"
-                [ngClass]="!isMobileOptionOpen ? '' : 'active'"
-                alt="Toggle box options"
-                [src]="toggleBoxOptionsIcon"
-            />
-        </button>
-        <button
-            class="intro-modal-option tc-button-square"
-            type="button"
-            (click)="openIntroModal(); eventsService.create('webstore.family-tree.clicked.open-intro-modal')"
-            title="Hide/Show box options"
-            data-cy="family-tree-intro-modal-option-button"
-        >
-            ?
         </button>
     </div>
 </div>

@@ -53,6 +53,38 @@
             gtag('config', 'G-X852EK18T4'); // testing.treecreate.dk gtagId
         </script>
         <!-- End google analytics -->
+        <!-- Messenger Chat Plugin Code -->
+        <div id="fb-root"></div>
+
+        <!-- Meta Chat Plugin code -->
+        <div id="fb-customer-chat" class="fb-customerchat"></div>
+
+        <script>
+            var chatbox = document.getElementById('fb-customer-chat');
+            chatbox.setAttribute('page_id', '111729197337915');
+            chatbox.setAttribute('attribution', 'biz_inbox');
+        </script>
+
+        <!-- Your SDK code -->
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    xfbml: true,
+                    version: 'v15.0',
+                });
+            };
+
+            (function (d, s, id) {
+                var js,
+                    fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = 'https://connect.facebook.net/da_DK/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            })(document, 'script', 'facebook-jssdk');
+        </script>
+        <!-- End Meta Chat Plugin code -->
 
         <!-- load fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech" />
