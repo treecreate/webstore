@@ -8,6 +8,8 @@ import dk.treecreate.api.utils.LinkService;
 import io.sentry.Sentry;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -26,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -89,8 +92,12 @@ public class MailService {
     // Add the marketing pdf to the email
     List<MultipartFile> attachmentsList = new ArrayList<>();
     try {
-      File pdf =
-          new File(getClass().getResource("/assets/pdf/Top_10_julegaveideer_2022.pdf").getFile());
+      File pdf = new File("Top_10_julegaveideer_2022.pdf");
+      OutputStream outputStream = new FileOutputStream(pdf);
+      IOUtils.copy(
+          new ClassPathResource("/assets/pdf/Top_10_julegaveideer_2022.pdf").getInputStream(),
+          outputStream);
+
       FileItem fileItem =
           new DiskFileItem(
               "mainFile",
