@@ -15,13 +15,15 @@
                 <button
                     class="toggle-box-options tc-button-square view view-button"
                     type="button"
-                    (click)="toggleUserOptions(); eventsService.create('webstore.pet-sign.clicked.toggle-showing-options')"
+                    (click)="
+                        toggleUserOptions(); eventsService.create('webstore.pet-sign.clicked.toggle-showing-options')
+                    "
                     title="Hide/Show box options"
                     data-cy="hide-pet-sign-options"
                 >
                     <img
                         class="toggle-box-options-icon"
-                        [ngClass]="{'active' : !isMobileOptionOpen}"
+                        [ngClass]="{ active: !isMobileOptionOpen }"
                         alt="Toggle box options"
                         [src]="toggleUserOptionsIcon"
                     />
