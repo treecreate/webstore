@@ -1,48 +1,52 @@
 <div id="charts-container">
-    <h2>Users in last {{ recentUsersDuration }} minutes:</h2>
-    <ngx-charts-line-chart
-        *ngIf="!isLoadingRecentUsageFirstTime; else loading"
-        [view]="viewRecentUsage"
-        [scheme]="colorSchemeRecentUsage"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [xAxis]="true"
-        [yAxis]="true"
-        [timeline]="false"
-        [curve]="curveRecentUsage"
-        xAxisLabel="Time"
-        yAxisLabel="Active Users"
-        [results]="recentUsersResults"
-    >
-    </ngx-charts-line-chart>
-    <h2>Breakdown of Pages viewed in the last {{ pagesViewedDurationEnd }} days</h2>
-    <mat-form-field appearance="fill">
-        <mat-select [(value)]="pagesViewedDurationEnd" (selectionChange)="fetchPagesViewed()">
-            <mat-option [value]="days" *ngFor="let days of pagesViewedDurationOptions">
-                {{ days }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-slide-toggle [(ngModel)]="hidePagesWithLowViews" (change)="fetchPagesViewed()"
-        >Hide pages with less than 5 views</mat-slide-toggle
-    >
+    <section>
+        <h2>Users in last {{ recentUsersDuration }} minutes:</h2>
+        <ngx-charts-line-chart
+            *ngIf="!isLoadingRecentUsageFirstTime; else loading"
+            [view]="viewRecentUsage"
+            [scheme]="colorSchemeRecentUsage"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [timeline]="false"
+            [curve]="curveRecentUsage"
+            xAxisLabel="Time"
+            yAxisLabel="Active Users"
+            [results]="recentUsersResults"
+        >
+        </ngx-charts-line-chart>
+    </section>
+    <section>
+        <h2>Breakdown of Pages viewed in the last {{ pagesViewedDurationEnd }} days</h2>
+        <mat-form-field appearance="fill">
+            <mat-select [(value)]="pagesViewedDurationEnd" (selectionChange)="fetchPagesViewed()">
+                <mat-option [value]="days" *ngFor="let days of pagesViewedDurationOptions">
+                    {{ days }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle [(ngModel)]="hidePagesWithLowViews" (change)="fetchPagesViewed()"
+            >Hide pages with less than 5 views</mat-slide-toggle
+        >
 
-    <ngx-charts-bar-horizontal
-        *ngIf="!isLoadingPagesViewedFirstTime; else loading"
-        [view]="viewPagesViewed"
-        [scheme]="colorSchemePagesViewed"
-        [results]="pagesViewedResults"
-        [gradient]="false"
-        [xAxis]="true"
-        [yAxis]="true"
-        [legend]="false"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [maxYAxisTickLength]="35"
-        xAxisLabel="Views"
-        yAxisLabel="URL"
-    >
-    </ngx-charts-bar-horizontal>
+        <ngx-charts-bar-horizontal
+            *ngIf="!isLoadingPagesViewedFirstTime; else loading"
+            [view]="viewPagesViewed"
+            [scheme]="colorSchemePagesViewed"
+            [results]="pagesViewedResults"
+            [gradient]="false"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="false"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [maxYAxisTickLength]="35"
+            xAxisLabel="Views"
+            yAxisLabel="URL"
+        >
+        </ngx-charts-bar-horizontal>
+    </section>
 </div>
 <webstore-item-card title="Events" [content]="content" [isLoading]="isLoading" data-cy="events-card">
     <ng-template #content>
