@@ -17,12 +17,27 @@ export class EventsComponent implements OnInit, OnDestroy {
   events!: IEvent[];
 
   // Chart stuff
-  isLoadingRecentUsageFirstTime = true;
-  view: [number, number] = [1000, 300];
-  recentUsersResults?: [{ name: string; series: { name: string; value: number }[] }] = undefined;
-  curve = shape.curveStep;
+  // Pages Viewed
+  pagesViewedResults?: { name: string; value: number }[] = undefined;
+  pagesViewedDurationStart = 0; // in days
+  pagesViewedDurationEnd = 90; // in days
+  viewPagesViewed: [number, number] = [1000, 600];
+  isLoadingPagesViewedFirstTime = true;
 
-  colorScheme: Color = {
+  colorSchemeRecentUsage: Color = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
+    name: '',
+    selectable: false,
+    group: ScaleType.Time,
+  };
+
+  // Recent Usage
+  recentUsersResults?: [{ name: string; series: { name: string; value: number }[] }] = undefined;
+  isLoadingRecentUsageFirstTime = true;
+  curveRecentUsage = shape.curveStep;
+  viewRecentUsage: [number, number] = [1000, 300];
+
+  colorSchemePagesViewed: Color = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
     name: '',
     selectable: false,
@@ -41,12 +56,12 @@ export class EventsComponent implements OnInit, OnDestroy {
    * Fetches the events.
    */
   ngOnInit(): void {
-    this.fetchEvents();
-
     this.recentUsageRefreshInterval = setInterval(() => {
       this.fetchRecentUsers();
     }, 1000 * this.recentUsersRefreshFrequency);
     this.fetchRecentUsers();
+    this.fetchPagesViewed();
+    this.fetchEvents();
   }
 
   ngOnDestroy(): void {
@@ -112,8 +127,46 @@ export class EventsComponent implements OnInit, OnDestroy {
         // Wait for a bit so the chart has time to process the new data
         // The actual timeout duration doesn't match the actual execution time, probably due to how javascript task scheduling works. Still, the chart doesn't appear in the broken state os it's okay
         setTimeout(() => {
-          console.log('done');
           this.isLoadingRecentUsageFirstTime = false;
+        }, 1000);
+      },
+    });
+  }
+
+  /**
+   * Get and process the data about what pages are being visited.
+   */
+  fetchPagesViewed(): void {
+    this.eventsService.getPagesViewed(this.pagesViewedDurationStart, this.pagesViewedDurationEnd).subscribe({
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+      },
+      next: (views) => {
+        // eslint-disable-next-line no-useless-escape
+        const hostnameRegex = /.*\/\/[a-z:\d\.]*\//gm;
+        const designIdRegex = /\?designId.*/gm;
+        let renamedData: { name: string; value: number }[] = [];
+        views.forEach((view) => {
+          let trimmedName = view.url.replace(hostnameRegex, '');
+          // eslint-disable-next-line no-useless-escape
+          trimmedName = trimmedName.replace(designIdRegex, '');
+          if (trimmedName.includes('resetPassword')) {
+            trimmedName = 'resetPassword';
+          }
+          if (trimmedName.includes('unsubscribe')) {
+            trimmedName = 'newsletter/unsubscribe';
+          }
+          // Rename index page to home page
+          if (trimmedName === '') {
+            trimmedName = 'home';
+          }
+          renamedData.push({ name: trimmedName, value: view.count });
+        });
+        // Sort the data
+        renamedData = renamedData.sort((a, b) => b.value - a.value);
+        this.pagesViewedResults = renamedData;
+        setTimeout(() => {
+          this.isLoadingPagesViewedFirstTime = false;
         }, 1000);
       },
     });

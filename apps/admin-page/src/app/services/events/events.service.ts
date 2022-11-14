@@ -39,4 +39,16 @@ export class EventsService {
       `${env.apiUrl}/events/recent-users?duration=${duration}&interval=${interval}`
     );
   }
+
+  /**
+   * Get a breakdown of page viewes.
+   * @param daysOffsetA Offset of how many days from current date should it show data from. 0 means include newest records.
+   * @param daysOffsetB Offset of how many days from current date should it show data from. 30 means records from 30 days ago.
+   * @returns a list of page views.
+   */
+  public getPagesViewed(daysOffsetA: number, daysOffsetB: number): Observable<[{ url: string; count: number }]> {
+    return this.http.get<[{ url: string; count: number }]>(
+      `${env.apiUrl}/events/pages-viewed?daysOffsetA=${daysOffsetA}&daysOffsetB=${daysOffsetB}`
+    );
+  }
 }
