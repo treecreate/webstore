@@ -15,7 +15,18 @@
         [results]="recentUsersResults"
     >
     </ngx-charts-line-chart>
-    <h2>Breakdown of Pages viewed in last {{ pagesViewedDurationEnd }} days</h2>
+    <h2>Breakdown of Pages viewed in the last {{ pagesViewedDurationEnd }} days</h2>
+    <mat-form-field appearance="fill">
+        <mat-select [(value)]="pagesViewedDurationEnd" (selectionChange)="fetchPagesViewed()">
+            <mat-option [value]="days" *ngFor="let days of pagesViewedDurationOptions">
+                {{ days }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-slide-toggle [(ngModel)]="hidePagesWithLowViews" (change)="fetchPagesViewed()"
+        >Hide pages with less than 10 views</mat-slide-toggle
+    >
+
     <ngx-charts-bar-horizontal
         *ngIf="!isLoadingPagesViewedFirstTime; else loading"
         [view]="viewPagesViewed"

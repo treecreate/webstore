@@ -19,13 +19,15 @@ export class EventsComponent implements OnInit, OnDestroy {
   // Chart stuff
   // Pages Viewed
   pagesViewedResults?: { name: string; value: number }[] = undefined;
+  pagesViewedDurationOptions = [1, 7, 14, 30, 60, 90, 365];
   pagesViewedDurationStart = 0; // in days
-  pagesViewedDurationEnd = 90; // in days
+  pagesViewedDurationEnd = this.pagesViewedDurationOptions[3]; // in days
   viewPagesViewed: [number, number] = [1000, 600];
   isLoadingPagesViewedFirstTime = true;
+  hidePagesWithLowViews = true;
 
   colorSchemeRecentUsage: Color = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
+    domain: ['#6554a4'],
     name: '',
     selectable: false,
     group: ScaleType.Time,
@@ -38,7 +40,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   viewRecentUsage: [number, number] = [1000, 300];
 
   colorSchemePagesViewed: Color = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
+    domain: ['#6554a4', '#5460a4', '#5490a4', '#54a47d', '#71a454', '#a3a454', '#a45c54'],
     name: '',
     selectable: false,
     group: ScaleType.Time,
@@ -147,6 +149,11 @@ export class EventsComponent implements OnInit, OnDestroy {
         const designIdRegex = /\?designId.*/gm;
         let renamedData: { name: string; value: number }[] = [];
         views.forEach((view) => {
+          if (this.hidePagesWithLowViews) {
+            if (view.count <= 5) {
+              return;
+            }
+          }
           let trimmedName = view.url.replace(hostnameRegex, '');
           // eslint-disable-next-line no-useless-escape
           trimmedName = trimmedName.replace(designIdRegex, '');
