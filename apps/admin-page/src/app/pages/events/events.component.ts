@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -144,9 +145,12 @@ export class EventsComponent implements OnInit, OnDestroy {
         console.error(error);
       },
       next: (views) => {
-        // eslint-disable-next-line no-useless-escape
-        const hostnameRegex = /.*\/\/[a-z:\d\.]*\//gm;
-        const designIdRegex = /\?designId.*/gm;
+        const hostnameRegex = /.*\/\/[a-z:\d\.]*\/(en-US\/)?/gm;
+        const designIdRegex = /[\?&]designId.*/gm;
+        const fbclipRegex = /[\?&]fbclid=.*/gm;
+        const gclidRegex = /[\?&]gclid=.*/gm;
+        const utmSourceRegex = /[\?&]utm_source=.*/gm;
+        const srcRegex = /[\?&]src=.*/gm;
         let renamedData: { name: string; value: number }[] = [];
         views.forEach((view) => {
           if (this.hidePagesWithLowViews) {
@@ -157,6 +161,10 @@ export class EventsComponent implements OnInit, OnDestroy {
           let trimmedName = view.url.replace(hostnameRegex, '');
           // eslint-disable-next-line no-useless-escape
           trimmedName = trimmedName.replace(designIdRegex, '');
+          trimmedName = trimmedName.replace(fbclipRegex, '');
+          trimmedName = trimmedName.replace(gclidRegex, '');
+          trimmedName = trimmedName.replace(utmSourceRegex, '');
+          trimmedName = trimmedName.replace(srcRegex, '');
           if (trimmedName.includes('resetPassword')) {
             trimmedName = 'resetPassword';
           }
