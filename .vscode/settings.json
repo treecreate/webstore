@@ -1,4 +1,5 @@
 {
   "angular.enable-strict-mode-prompt": false,
-  "cSpell.words": ["Errorlogs", "Skriv", "tekst", "webstore"]
+  "cSpell.words": ["Errorlogs", "Skriv", "tekst", "webstore"],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
