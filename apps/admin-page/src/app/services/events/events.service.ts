@@ -27,4 +27,16 @@ export class EventsService {
       return this.http.get<IEvent[]>(`${env.apiUrl}/events`);
     }
   }
+
+  /**
+   * Get a breakdown of recent usage of the website, based on the events.
+   * @param duration param to specify how many minutes of history you want. Integer. Suggested: 10
+   * @param intevral param to specify in what second intervals should the data be grouped and reported. Integer. Sugested: 10
+   * @returns a list of recent usage data.
+   */
+  public getRecentUsers(duration: number, interval: number): Observable<[{ createdAt: string; count: number }]> {
+    return this.http.get<[{ createdAt: string; count: number }]>(
+      `${env.apiUrl}/events/recent-users?duration=${duration}&interval=${interval}`
+    );
+  }
 }

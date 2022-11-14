@@ -1,10 +1,16 @@
 package dk.treecreate.api.events;
 
+import dk.treecreate.api.events.EventRepository.RecentUsers;
+import dk.treecreate.api.events.dto.CreateEventRequest;
+import dk.treecreate.api.events.dto.GetEventsResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import java.util.List;
 import java.util.UUID;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,34 +21,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dk.treecreate.api.events.EventRepository.RecentUsers;
-import dk.treecreate.api.events.dto.CreateEventRequest;
-import dk.treecreate.api.events.dto.GetEventsResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("events")
-@Api(tags = { "Events" })
+@Api(tags = {"Events"})
 public class EventController {
-  @Autowired
-  EventRepository eventRepository;
-  @Autowired
-  EventService eventsService;
+  @Autowired EventRepository eventRepository;
+  @Autowired EventService eventsService;
 
   @GetMapping()
   @Operation(summary = "Get all events")
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "A list of events", response = GetEventsResponse.class)
-  })
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "A list of events", response = GetEventsResponse.class)
+      })
   @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
   public List<Event> getEvents(
-      @Parameter(name = "name", description = "Event name", example = "webstore.cookies-accepted") @RequestParam(required = false) String name,
-      @Parameter(name = "userId", description = "Event userId", example = "c0a80121-7ac0-190b-817a-c08ab0a12345") @RequestParam(required = false) UUID userId) {
+      @Parameter(name = "name", description = "Event name", example = "webstore.cookies-accepted")
+          @RequestParam(required = false)
+          String name,
+      @Parameter(
+              name = "userId",
+              description = "Event userId",
+              example = "c0a80121-7ac0-190b-817a-c08ab0a12345")
+          @RequestParam(required = false)
+          UUID userId) {
     if (name != null && userId != null) {
       return eventRepository.findByNameAndUserIdOrderByCreatedAtDesc(name, userId);
     } else if (name != null && userId == null) {
@@ -56,21 +59,40 @@ public class EventController {
 
   @GetMapping("recent-users")
   @Operation(summary = "Get recent users count")
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "A list of currently active users", response = GetEventsResponse.class)
-  })
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            code = 200,
+            message = "A list of currently active users",
+            response = GetEventsResponse.class)
+      })
   @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
   public List<RecentUsers> getRecentUsers(
-      @Parameter(name = "duration", description = "How long of users activity should be returned", example = "10") @RequestParam(required = false) Integer duration) {
+      @Parameter(
+              name = "duration",
+              description = "How long of users activity should be returned",
+              example = "10")
+          @RequestParam(required = false)
+          Integer duration,
+      @Parameter(
+              name = "interval",
+              description = "In what second intervals should the data be grouped and reported",
+              example = "10")
+          @RequestParam(required = false)
+          Integer interval) {
     if (duration == null) {
       duration = 10;
     }
-    return eventsService.getRecentUsers(duration);
+    if (interval == null) {
+      interval = 10;
+    }
+    return eventsService.getRecentUsers(duration, interval);
   }
 
   @PostMapping()
   @Operation(summary = "Create a new event")
-  @ApiResponses(value = { @ApiResponse(code = 200, message = "Event information", response = Event.class) })
+  @ApiResponses(
+      value = {@ApiResponse(code = 200, message = "Event information", response = Event.class)})
   public Event createEvent(@RequestBody @Valid CreateEventRequest request) {
     Event event = new Event();
     event.setName(request.getName());

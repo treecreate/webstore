@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ClipboardModule } from 'ngx-clipboard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,8 +19,8 @@ import { AccountComponent } from './pages/account/account.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DiscountsComponent } from './pages/discounts/discounts.component';
 import { EditDiscountComponent } from './pages/edit-discount/edit-discount.component';
-import { EventsComponent } from './pages/events/events.component';
 import { ErrorlogsComponent } from './pages/errorlogs/errorlogs.component';
+import { EventsComponent } from './pages/events/events.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NewslettersComponent } from './pages/newsletters/newsletters.component';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
@@ -58,6 +59,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     materialModules,
     ClipboardModule,
+    NgxChartsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

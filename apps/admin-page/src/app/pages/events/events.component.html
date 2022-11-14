@@ -1,3 +1,23 @@
+<div id="charts-container">
+    <div id="realtime-users-wrapper">
+        <h2>Users in last {{ recentUsersDuration }} minutes:</h2>
+    </div>
+    <ngx-charts-line-chart
+        *ngIf="!isLoadingRecentUsageFirstTime; else loading"
+        [view]="view"
+        [scheme]="colorScheme"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [timeline]="false"
+        [curve]="curve"
+        xAxisLabel="Time"
+        yAxisLabel="Active Users"
+        [results]="recentUsersResults"
+    >
+    </ngx-charts-line-chart>
+</div>
 <webstore-item-card title="Events" [content]="content" [isLoading]="isLoading" data-cy="events-card">
     <ng-template #content>
         <table mat-table [dataSource]="events" class="mat-elevation-z8 table" data-cy="events-table">
@@ -24,3 +44,8 @@
         </table>
     </ng-template>
 </webstore-item-card>
+<ng-template #loading>
+    <div class="loading-container">
+        <mat-spinner [diameter]="40"></mat-spinner>
+    </div>
+</ng-template>
