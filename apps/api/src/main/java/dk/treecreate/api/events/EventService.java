@@ -1,5 +1,6 @@
 package dk.treecreate.api.events;
 
+import dk.treecreate.api.events.EventRepository.PagesViewed;
 import dk.treecreate.api.events.EventRepository.RecentUsers;
 import java.util.List;
 import java.util.UUID;
@@ -22,5 +23,9 @@ public class EventService {
 
   public List<RecentUsers> getRecentUsers(Integer duration, Integer interval) {
     return this.eventRepository.getRecentUsers(duration, interval);
+  }
+
+  public List<PagesViewed> getPagesViewed(int daysOffsetA, int daysOffsetB) {
+    return this.eventRepository.getPagesViewed(daysOffsetA, daysOffsetB);
   }
 }

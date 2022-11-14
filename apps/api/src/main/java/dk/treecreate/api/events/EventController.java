@@ -1,5 +1,6 @@
 package dk.treecreate.api.events;
 
+import dk.treecreate.api.events.EventRepository.PagesViewed;
 import dk.treecreate.api.events.EventRepository.RecentUsers;
 import dk.treecreate.api.events.dto.CreateEventRequest;
 import dk.treecreate.api.events.dto.GetEventsResponse;
@@ -87,6 +88,41 @@ public class EventController {
       interval = 10;
     }
     return eventsService.getRecentUsers(duration, interval);
+  }
+
+  @GetMapping("pages-viewed")
+  @Operation(summary = "Get pages viewed breakdown")
+  @ApiResponses(
+      value = {
+        @ApiResponse(
+            code = 200,
+            message = "A list of pages viewed and their count",
+            response = GetEventsResponse.class)
+      })
+  @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
+  public List<PagesViewed> getPagesViewed(
+      @Parameter(
+              name = "daysOffsetA",
+              description =
+                  "Offset of how many days from current date should it show data from. 0 means include newest records",
+              example = "0")
+          @RequestParam(required = false)
+          Integer daysOffsetA,
+      @Parameter(
+              name = "daysOffsetB",
+              description =
+                  "Offset of how many days from current date should it show data from. 30 means records from 30 days ago",
+              example = "30")
+          @RequestParam(required = false)
+          Integer daysOffsetB) {
+    // Default to 30 days of history
+    if (daysOffsetA == null) {
+      daysOffsetA = 0;
+    }
+    if (daysOffsetB == null) {
+      daysOffsetB = 30;
+    }
+    return eventsService.getPagesViewed(daysOffsetA, daysOffsetB);
   }
 
   @PostMapping()
