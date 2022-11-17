@@ -59,7 +59,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "14.1.1",
+    "@angular-devkit/build-angular": "15.0.0",
     "@angular-slider/ngx-slider": "^2.0.4",
     "@angular/animations": "14.1.1",
     "@angular/cdk": "14.1.1",
@@ -94,7 +94,7 @@
     "@angular-eslint/template-parser": "14.0.2",
     "@angular/language-service": "14.1.1",
     "@digitalroute/cz-conventional-changelog-for-jira": "^6.7.0",
-    "@nrwl/angular": "14.5.4",
+    "@nrwl/angular": "14.8.6",
     "@nrwl/cypress": "14.5.4",
     "@nrwl/eslint-plugin-nx": "14.5.4",
     "@nrwl/jest": "14.5.4",
