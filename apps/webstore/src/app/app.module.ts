@@ -54,6 +54,7 @@ import { StickyNewsletterButtonComponent } from './shared/components/sticky-news
 import { ToastsContainerComponent } from './shared/components/toast/toast-container.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
 import { GoogleAnalyticsService } from './shared/services/google-analytics/google-analytics.service';
+import { BlogListComponent } from './pages/blog-list/blog-list.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { GoogleAnalyticsService } from './shared/services/google-analytics/googl
     CustomOrderComponent,
     CustomOrderDisplayComponent,
     StickyNewsletterButtonComponent,
+    BlogListComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { UnsubscribeComponent } from './pages/auth/unsubscribe/unsubscribe.component';
+import { BlogListComponent } from './pages/blog-list/blog-list.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/issues/page-not-found/page-not-found.component';
 import { PaymentCancelledComponent } from './pages/payment-cancelled/payment-cancelled.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'home', redirectTo: '' }, // Handle legacy /home route
   { path: 'about-us', component: AboutUsComponent },
+  { path: 'blog-page', component: BlogListComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'resetPassword/:token',
